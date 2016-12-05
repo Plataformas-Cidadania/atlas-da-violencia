@@ -12,10 +12,10 @@ class HomeController extends Controller
 {
     public function index(){
         $tags = DB::table('links')->select('tags')->groupBy('tags')->orderBy('tags')->get();
-        $links = DB::table('links')->take(3)->get();
+        $links = DB::table('links')->take(8)->get();
         $bemvindo = DB::table('quemsomos')->where('tipo', 0)->first();
         $webdoors = DB::table('webdoors')->orderBy('id', 'desc')->take(4)->get();
-        $noticias = DB::table('noticias')->orderBy('id', 'desc')->take(3)->get();
+        $noticias = DB::table('noticias')->orderBy('id', 'desc')->take(2)->get();
         $menu = \App\Menu::where('menu_id', 0)->get();
 
         return view('home', ['bemvindo' => $bemvindo, 'noticias' => $noticias, 'links' => $links, 'tags' => $tags, 'webdoors' => $webdoors, 'menu' => $menu]);

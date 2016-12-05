@@ -11,7 +11,7 @@
   padding-top: 17px;
 }
 .btn-circle:hover {
-  background-color: #004F88;
+  background-color: #3498DB;
 }
 .btn-rectangle {
   margin: 20px;
@@ -24,7 +24,7 @@
   cursor: pointer;
 }
 .btn-rectangle:hover {
-  background-color: #004F88;
+  background-color: #3498DB;
   color: #FFFFFF;
 }
 .btn-pri {
@@ -57,7 +57,7 @@
 }
 .btn-sec:hover {
   color: #FFFFFF;
-  background-color: #004F88;
+  background-color: #3498DB;
 }
 .btn-sec a {
   color: #666666;
@@ -122,7 +122,7 @@ body {
   width: 100% !important;
 }*/
 .bg-pri {
-  background-color: #004F88 !important;
+  background-color: #3498DB !important;
 }
 .bg-sec {
   background-color: #006BB7;
@@ -140,7 +140,7 @@ body {
   background-color: #FFFFFF;
 }
 .ft-pri {
-  color: #004F88 !important;
+  color: #3498DB !important;
 }
 .ft-sec {
   color: #006BB7;
@@ -266,7 +266,7 @@ footer {
   text-align: center;
 }
 .box-itens:hover .btn-rectangle {
-  background-color: #004F88;
+  background-color: #3498DB;
   color: #FFFFFF;
 }
 .box-itens p {
@@ -279,11 +279,15 @@ footer {
   margin: auto;
   margin-bottom: 20px;
 }
+.box-itens img:hover {
+  /* IE 9 */
+  /* Safari */
+  transform: scale(1.2, 1.2);
+}
 .titulo-itens {
   font-size: 22px;
-  color: #FFFFFF;
+  color: #333333;
   text-align: center;
-  padding-top: 10px;
 }
 #piechart {
   height: 400px;
@@ -318,7 +322,7 @@ footer {
 }
 .h3-m {
   font-size: 20px !important;
-  color: #004F88;
+  color: #3498DB;
 }
 .line-success {
   background-color: #E9F4E3;
@@ -539,7 +543,7 @@ footer {
 .menu-global-box {
   background-color: #FFFFFF;
   border: solid 1px #CCCCCC;
-  border-top: solid 5px #004F88;
+  border-top: solid 5px #3498DB;
   padding: 10px 40px 10px 10px !important;
   position: absolute;
   min-height: 300px;
@@ -559,7 +563,7 @@ footer {
 }
 .menu-global-box li a:hover {
   color: #FFFFFF !important;
-  background-color: #004F88 !important;
+  background-color: #3498DB !important;
 }
 .menu-global-box-list {
   -moz-column-count: 4;
