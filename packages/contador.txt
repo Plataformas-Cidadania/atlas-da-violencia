@@ -1,0 +1,14 @@
+composer require kryptonit3/counter:5.2.*
+
+config\app.php Service Providers
+
+Kryptonit3\Counter\CounterServiceProvider::class,
+
+config\app.php Aliases
+
+'Counter' => Kryptonit3\Counter\Facades\CounterFacade::class,
+
+
+php artisan vendor:publish --provider="Kryptonit3\Counter\CounterServiceProvider" --tag="migrations"
+
+php artisan migrate

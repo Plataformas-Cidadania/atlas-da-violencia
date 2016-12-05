@@ -1,0 +1,142 @@
+/*///////////////MENU LOCAL///////////////*/
+.menu-local h2{
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+}
+.menu-local ul{
+  padding: 0;
+  margin: 0;
+}
+.menu-local ul li{
+  list-style-type: none;
+}
+.menu-local ul li a{
+  line-height: 30px;
+  padding: 0 5px;
+  display: block;
+}
+.menu-local ul li a:hover {
+  background-color: @color-qui;
+}
+//SUB
+.dropdown-content {
+  display: none;
+
+}
+.menu-local ul li:hover .dropdown-content {
+  display: block;
+  margin-top: -30px;
+  position: absolute;
+}
+.dropdown-content-sub1{
+  display: none;
+  margin-left: 95% !important;
+}
+.dropdown-content li:hover .dropdown-content-sub1{
+  display: block;
+  margin-top: -30px;
+  position: absolute;
+}
+.dropdown-content-sub2{
+  display: none;
+  margin-left: 95% !important;
+}
+
+.dropdown-content-sub1 li:hover .dropdown-content-sub2{
+  display: block;
+  margin-top: -30px;
+  position: absolute;
+}
+
+.menu-local ul li ul{
+  position: absolute;
+  z-index: 99999999999999999999999999;
+  margin-left: 85%;
+  background-color: #FFFFFF;
+  border: solid 1px #EEEEEE;
+}
+.menu-local ul li ul li{
+  display: block;
+  min-width: 200px;
+  padding: 5px;
+  border-bottom: solid 1px #EEEEEE;
+}
+.menu-local ul li ul li h2{
+  margin: 0;
+}
+.menu-local ul li ul li i{
+  float: right;
+  margin: -30px 5px 0 0;
+  font-size: 24px;
+}
+.menu-local ul li ul li:hover{
+  background-color: #EEEEEE;
+}
+/*///////////////GLOBAL///////////////*/
+
+.menu-global ul{
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+.menu-global ul li{
+  padding: 0;
+  margin: 0;
+  display: inline;
+  list-style-type: none;
+}
+.menu-global ul li a{
+  padding: 17px;
+}
+.menu-global ul li a:hover{
+  background-color: #CCCCCC;
+}
+
+.menu-global-box{
+  background-color: #FFFFFF;
+  border: solid 1px #CCCCCC;
+  border-top: solid 5px @color-pri;
+  padding: 10px 40px 10px 10px !important;
+  position: absolute;
+  min-height: 300px;
+  width: 100%;
+  display: none;
+
+}
+
+.menu-global li:hover .menu-global-box{
+  display: block;
+}
+
+.menu-global-box li{
+  display: block !important;
+}
+.menu-global-box li a{
+  padding: 10px !important;
+  line-height: 16px;
+  display: block;
+}
+.menu-global-box li a:hover{
+  color: #FFFFFF !important;
+  background-color: @color-pri!important;
+}
+.menu-global-box-list{
+  -moz-column-count: 4;
+  -moz-column-gap: 15px;
+  -webkit-column-count: 4;
+  -webkit-column-gap: 15px;
+  font-size: 13px!important;
+  line-height: 0px!important;
+  padding: 0px !important;
+  /*display: none;*/
+}
+.menu-global-box-list ul li a:hover {
+  text-decoration: underline;
+  background-color: inherit!important;
+  color: inherit !important;
+}
+
+/*
+.menu-global-box li:hover .menu-global-box-list{
+  display: block!important;
+}*/

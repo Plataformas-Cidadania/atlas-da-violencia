@@ -1,0 +1,41 @@
+<div>
+    <ul class="dropdown-content">
+        <li style=" border: solid 1px #EEEEEE; display: block; padding: 5px;" >
+            <h2 ng-bind="itemsTitle"></h2>
+            <div ng-show="items.length > options.minItens">
+                <input type="text" class="form-control" ng-model="search" style="padding-right: 30px;">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+        </li>
+        <!--<li ng-repeat="item in items | filter:search"><% item %>
+
+        </li>-->
+        <!--<li ng-repeat="item in items | filter:search track by $index">
+            <% indice(item) %>
+            <ul ng-if="item[indice(item)].length>0" class="dropdown-content-sub1">
+                <li style=" border: solid 1px #EEEEEE; display: block; padding: 5px;" >
+                    <h2 ng-bind="indice(item)"></h2>
+                    <div ng-show="item[indice(item)].length > options.minItens">
+                        <input type="text" class="form-control" ng-model="search" style="padding-right: 30px;">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>
+                </li>
+                <li ng-repeat="sub1 in item[indice(item)] | filter:search track by $index">
+                    <% indice(sub1) %>
+                    <ul ng-if="sub1[indice(sub1)].length>0" class="dropdown-content-sub2">
+                        <li ng-repeat="sub2 in sub1[indice(sub1)] | filter:search track by $index">
+                            <% sub2 %>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>-->
+    </ul>
+
+        <!--{'a1a':['1aa', '1bb', '1cc', '1dd', '1ee']},-->
+        <!--{'a2a':['2aa', '2bb', '2cc']},-->
+        <!--{'a3a':['1aa']},-->
+        <!--'a4a',-->
+        <!--{'a5a':['5aa', '5bb', '5cc', '5dd', '5ee']},-->
+
+</div>

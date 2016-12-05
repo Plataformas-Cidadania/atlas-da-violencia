@@ -1,0 +1,90 @@
+.btn-circle{
+  margin: 20px auto 20px auto;
+  width: 65px;
+  height: 65px;
+  text-align: center;
+  font-size: 3.2em;
+  font-weight: bold;
+  color: @font-sec;
+  background-color: @color-ter;
+  cursor: pointer;
+  padding-top: 17px;
+
+  &:hover {
+    background-color: @color-pri;
+  }
+}
+
+.btn-rectangle{
+  margin: 20px;
+  padding: 7px;
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: @font-pri;
+  background-color: @color-ter;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @color-pri;
+    color: @font-sec;
+  }
+}
+
+.btn-pri {
+  cursor: pointer;
+  width: 200px;
+  margin: 20px auto 20px auto;
+  font-size: 16px;
+  font-weight: bold;
+  color: @font-sec;
+  background-color: #7BB618;
+  text-align: center;
+
+  &:hover {
+    background-color: #6DA215;
+  }
+}
+
+.btn-pri a{
+  color: @font-sec !important;
+  display: block;
+  padding: 15px 15px;
+}
+
+.btn-sec {
+  cursor: pointer;
+  width: 200px;
+  margin: 20px auto 20px auto;
+  font-size: 11px;
+  color: @font-pri;
+  background-color: @color-ter;
+  text-align: center;
+  border: solid 1px #CCCCCC;
+
+  &:hover {
+    color: @font-sec;
+    background-color: @color-pri;
+  }
+}
+.btn-sec a{
+  color: @font-pri;
+  padding: 12px;
+  display: block;
+
+  &:hover {
+    color: @font-sec !important;
+  }
+}
+.btn-base{
+  line-height: 30px;
+}
+.btn-base:hover{
+  line-height: 30px;
+  color: #FFFFFF !important;
+}
+
+.btn-none{
+  background-color: inherit;
+  float: right;
+}
