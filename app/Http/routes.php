@@ -25,6 +25,7 @@
     Route::get('contato/', 'ContatoController@listar');
 
     Route::get('renda/', 'RendaController@detalhar');
+    Route::get('pagina/', 'PaginaController@detalhar');
 
     Route::get('noticias/', 'NoticiaController@listar');
     Route::get('noticias/{titulo}', 'NoticiaController@listar');

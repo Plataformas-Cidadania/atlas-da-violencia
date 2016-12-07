@@ -50,14 +50,14 @@
   width: 200px;
   margin: 20px auto 20px auto;
   font-size: 11px;
-  color: #666666;
-  background-color: #34A853;
+  color: #FFFFFF;
+  background-color: #3498DB;
   text-align: center;
   border: solid 1px #CCCCCC;
 }
 .btn-sec:hover {
   color: #FFFFFF;
-  background-color: #3498DB;
+  background-color: #34A853;
 }
 .btn-sec a {
   color: #666666;
@@ -379,6 +379,17 @@ footer {
 }
 .item-hidden:hover {
   color: #761c19;
+}
+.box-hoje {
+  color: #FFFFFF!important;
+  text-align: center;
+  padding: 20px 0;
+}
+.box-hoje h2 {
+  font-size: 45px;
+}
+.box-hoje p {
+  color: #FFFFFF!important;
 }
 @media only screen and (max-width: 980px) {
   .box_data_mes {

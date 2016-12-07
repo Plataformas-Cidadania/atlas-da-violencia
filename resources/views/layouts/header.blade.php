@@ -29,7 +29,7 @@
 </style>
 
 
-<header class="row" id="iniciodoconteudo" class="row bg-pri hidden-print" role="banner">
+<header  id="iniciodoconteudo" class="  hidden-print" role="banner">
 
     <div class="container  hidden-print">
         <div id="acessibilidade">
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="container-fluid row bg-qui  hidden-print">
+    <div class=" bg-qui  hidden-print">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -73,6 +73,60 @@
     <div class="visible-print-block"><h2>&nbsp;&nbsp; {{$setting->titulo}}</h2></div>
     <div class="line_title bg-pri"></div>
     <br>
+
+    @if($rota=='/')
+        <div class="container">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <?php $cont_itens_wd=0;?>
+                    @foreach($webdoors as $webdoor)
+                        <li data-target="#carousel-example-generic" data-slide-to="<?php echo $cont_itens_wd;?>" @if($cont_itens_wd==0) class="active" @endif></li>
+                        <?php $cont_itens_wd++;?>
+                    @endforeach
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <?php $cont=0;?>
+                    @foreach($webdoors as $webdoor)
+
+                        <a @if($webdoor->link!="")
+                           href="{{$webdoor->link}}"
+                           @elseif($webdoor->descricao!="")
+                           href="/webdoor/{{$webdoor->id}}"
+                           @endif
+                           class="item @if($cont==0) active @endif">
+                            <picture>
+                                <source srcset="/imagens/webdoors/sm-{{$webdoor->imagem}}" media="(max-width: 468px)">
+                                <source srcset="/imagens/webdoors/md-{{$webdoor->imagem}}" media="(max-width: 768px)">
+                                <source srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" class="img-responsive">
+                                <img srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" >
+                                @if(!empty($webdoor->resumida))
+                                    <div class="carousel-caption">
+                                        <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->titulo}}</h3>
+                                        <p ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->resumida}}</p>
+                                    </div>
+                                @endif
+                            </picture>
+                        </a>
+                        <?php $cont++;?>
+                    @endforeach
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control hidden-xs" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control hidden-xs" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="marking bg-qua"></div>
+        </div>
+    @endif
 </header>
 
 
