@@ -42,4 +42,8 @@
     Route::get('filtro/{titulo}', 'SerieController@filtro');
 
     Route::post('enviar-contato', 'ContatoController@email');
+
+
+    Route::get('map/', 'MapController@index');
+    Route::get('get-data/', 'MapController@getData');
 //});

@@ -2,7 +2,18 @@
 @section('title', 'Bem Vindo')
 @section('content')
 
-
+    <style>
+        .filtros {
+            width: 20%;
+            float: left;
+            height: 200px;
+        }
+        @media (max-width: 768px) {
+            .filtros {
+                width: 100%;
+            }
+        }
+    </style>
 
     <article>
         <br><br>
@@ -11,7 +22,7 @@
             <div class="row">
                 <?php $cont = 0;?>
                 @foreach($links as $link)
-                    <div class="col-md-3 col-sm-12 box-itens " ng-class="{'alto-contraste': altoContrasteAtivo}" >
+                    <div class="filtros box-itens " ng-class="{'alto-contraste': altoContrasteAtivo}" >
                         <div>
                             <a href="{{$link->link}}" target="_blank">
                                 <picture>
