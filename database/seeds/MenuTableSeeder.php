@@ -12,25 +12,32 @@ class MenuTableSeeder extends Seeder
     public function run()
     {
         DB::table('menu')->insert([
-            'title' => 'O que é'
+            'title' => 'O que é',
+            'menu_id' => 0
         ]);
         DB::table('menu')->insert([
-            'title' => 'Equipe Reponsável'
+            'title' => 'Equipe Reponsável',
+            'menu_id' => 0
         ]);
         DB::table('menu')->insert([
-            'title' => 'Metadados'
+            'title' => 'Metadados',
+            'menu_id' => 0
         ]);
         DB::table('menu')->insert([
-            'title' => 'Direito de Uso'
+            'title' => 'Direito de Uso',
+            'menu_id' => 0
         ]);
         DB::table('menu')->insert([
-            'title' => 'Dicas'
+            'title' => 'Dicas',
+            'menu_id' => 0
         ]);
         DB::table('menu')->insert([
-            'title' => 'Links'
+            'title' => 'Links',
+            'menu_id' => 0
         ]);
         DB::table('menu')->insert([
-            'title' => 'Fale Conosco'
+            'title' => 'Fale Conosco',
+            'menu_id' => 0
         ]);
 
 
