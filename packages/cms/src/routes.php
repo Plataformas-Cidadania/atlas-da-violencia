@@ -35,6 +35,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/noticia/{id}', 'Cms\Controllers\NoticiaController@detalhar');
         Route::post('/cms/alterar-noticia/{id}', 'Cms\Controllers\NoticiaController@alterar');
         Route::get('/cms/excluir-noticia/{id}', 'Cms\Controllers\NoticiaController@excluir');
+        
+        //VIDEOS
+        Route::get('/cms/videos', 'Cms\Controllers\VideoController@index');
+        Route::get('/cms/listar-videos', 'Cms\Controllers\VideoController@listar');
+        Route::post('/cms/inserir-video', 'Cms\Controllers\VideoController@inserir');
+        Route::get('/cms/video/{id}', 'Cms\Controllers\VideoController@detalhar');
+        Route::post('/cms/alterar-video/{id}', 'Cms\Controllers\VideoController@alterar');
+        Route::get('/cms/excluir-video/{id}', 'Cms\Controllers\VideoController@excluir');
 
         //LINKS
         Route::get('/cms/links', 'Cms\Controllers\LinkController@index');
