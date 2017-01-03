@@ -30,7 +30,11 @@ if ( ! function_exists('dataEn2Br') ){
 if ( ! function_exists('nomeMes') ){
     function nomeMes($valor, $tipo){
         
-        \Illuminate\Support\Facades\Log::info($valor);
+        //\Illuminate\Support\Facades\Log::info($valor);
+
+        if($valor <= 0){
+            $valor = 12+$valor;
+        }
 
         $meses_extenso = [
             1 => "Janeiro", 2 => "Fevereiro", 3 => "Março", 4 => "Abril",

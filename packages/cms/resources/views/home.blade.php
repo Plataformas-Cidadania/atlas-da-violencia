@@ -8,6 +8,7 @@
     $mes2 = \Cms\Models\Contador::comparaMes(date('m')-2);
     $mes3 = \Cms\Models\Contador::comparaMes(date('m')-3);
 
+
     $nomeMes1 = nomeMes(date('m')-1, 'mes_extenso');
     $nomeMes2 = nomeMes(date('m')-2, 'mes_extenso');
     $nomeMes3 = nomeMes(date('m')-3, 'mes_extenso');

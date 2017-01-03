@@ -76,6 +76,18 @@
 
     @if($rota=='/')
         <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_RmZpsfnM3w" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 25px; background-color: #ececec; height: 315px;">
+                    <h2 style="margin-top: 0;">{{$ultimaNoticia->titulo}}</h2>
+                    <div style="height: 100px; overflow: hidden;">{{$ultimaNoticia->descricao}}</div>
+                    <br>
+                    <button type="button" class="btn btn-info">Mais Detalhes</button>
+                </div>
+            </div>
+            <?php /*?>
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -124,6 +136,7 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
+            <?php */?>
             <div class="marking bg-qua"></div>
         </div>
     @endif
