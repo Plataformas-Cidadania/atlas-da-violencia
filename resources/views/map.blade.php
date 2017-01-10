@@ -5,7 +5,7 @@
         #mapid { height: 600px; }
     </style>
 
-    <div id="map"></div>
+    <div id="mapid"></div>
     <button onclick="getData()">Carregar</button>
 
 @endsection
