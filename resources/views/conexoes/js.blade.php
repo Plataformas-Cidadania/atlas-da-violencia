@@ -263,6 +263,11 @@ print_r($periodo_limite);*/
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
     <script>
+        $( document ).ready( function() {
+            getData()
+        });
+
+
         var mymap = L.map('mapid').setView([-10, -52], 4);
 
         var tileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJwYXNzb3MiLCJhIjoiY2l4N3l0bXF0MDFiczJ6cnNwODN3cHJidiJ9.qnfh8Jfn_be6gpo774j_nQ', {
@@ -284,7 +289,7 @@ print_r($periodo_limite);*/
                 L.geoJson(regiao[i], {style: style(data.areas[i].valor)}).addTo(mymap);
             }
 
-            for(var i=0; i<data.circles.length; i++){
+            /*for(var i=0; i<data.circles.length; i++){
 
                 var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
                     color: 'red',
@@ -292,7 +297,7 @@ print_r($periodo_limite);*/
                     fillOpacity: 0.5,
                     radius: data.circles[i].valor*10
                 }).addTo(mymap);
-            }
+            }*/
 
             var legend = L.control({position: 'bottomright'});
 

@@ -10,8 +10,8 @@
         }
 
         .legend i {
-            width: 18px;
-            height: 18px;
+            width: 15px;
+            height: 15px;
             float: left;
             margin-right: 8px;
             opacity: 0.7;
@@ -24,6 +24,7 @@
             background: rgba(255,255,255,0.8);
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
+            width: 150px;
         }
         .info h4 {
             margin: 0 0 5px;
@@ -32,6 +33,6 @@
     </style>
 
     <div id="mapid"></div>
-    <button onclick="getData()">Carregar</button>
+    {{--<button onclick="getData()">Carregar</button>--}}
 
 @endsection
