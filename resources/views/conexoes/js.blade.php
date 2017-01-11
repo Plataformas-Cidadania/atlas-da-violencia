@@ -274,15 +274,45 @@ print_r($periodo_limite);*/
         }).addTo(mymap);
 
         function mapData(data){
-            console.log(data);
 
             var regiao = [];
 
-            for(var i=0; i<data.length; i++){
-                regiao[i] = JSON.parse(data[i].st_asgeojson);
+            for(var i=0; i<data.areas.length; i++){
+                regiao[i] = JSON.parse(data.areas[i].st_asgeojson);
+                //console.log(regiao[i]);
                 //L.geoJson(regiao[i]).addTo(mymap);
-                L.geoJson(regiao[i], {style: style(data[i].valor)}).addTo(mymap);
+                L.geoJson(regiao[i], {style: style(data.areas[i].valor)}).addTo(mymap);
             }
+
+            for(var i=0; i<data.circles.length; i++){
+
+                var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5,
+                    radius: data.circles[i].valor*10
+                }).addTo(mymap);
+            }
+
+            var legend = L.control({position: 'bottomright'});
+
+            legend.onAdd = function (mymap) {
+
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = [0, 100, 300, 600, 1000, 1500, 3000, 5000, 7000, 9000],
+                    labels = [];
+
+                // loop through our density intervals and generate a label with a colored square for each interval
+                for (var i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                }
+
+                return div;
+            };
+
+            legend.addTo(mymap);
 
             /*for(var i in data){
                 var circle = L.circle([data[i].st_y, data[i].st_x], {
@@ -301,13 +331,15 @@ print_r($periodo_limite);*/
         }
 
         function getColor(d) {
-            return  d > 1000 ? '#800026' :
-                    d > 500  ? '#BD0026' :
-                    d > 200  ? '#E31A1C' :
-                    d > 100  ? '#FC4E2A' :
-                    d > 50   ? '#FD8D3C' :
-                    d > 20   ? '#FEB24C' :
-                    d > 10   ? '#FED976' :
+            return  d > 9000 ? '#5f0022' :
+                    d > 7000  ? '#800026' :
+                    d > 5000  ? '#9b0024' :
+                    d > 3000  ? '#BD0026' :
+                    d > 1500  ? '#E31A1C' :
+                    d > 1000  ? '#FC4E2A' :
+                    d > 600   ? '#FD8D3C' :
+                    d > 300   ? '#FEB24C' :
+                    d > 100   ? '#FED976' :
                     '#FFEDA0';
         }
 
@@ -328,7 +360,7 @@ print_r($periodo_limite);*/
 
                 },
                 success: function(data){
-                    //console.log(data);
+                    console.log(data);
                     mapData(data);
                 },
                 error: function(data){
