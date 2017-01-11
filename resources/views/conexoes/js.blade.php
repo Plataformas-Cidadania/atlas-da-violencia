@@ -281,7 +281,7 @@ print_r($periodo_limite);*/
             for(var i=0; i<data.length; i++){
                 regiao[i] = JSON.parse(data[i].st_asgeojson);
                 //L.geoJson(regiao[i]).addTo(mymap);
-                L.geoJson(regiao[i], {style: style(10*i)}).addTo(mymap);
+                L.geoJson(regiao[i], {style: style(data[i].valor)}).addTo(mymap);
             }
 
             /*for(var i in data){

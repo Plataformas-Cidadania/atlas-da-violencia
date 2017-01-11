@@ -19,7 +19,11 @@ class MapController extends Controller
         //$data = DB::table('ed_territorios_uf')->select(DB::raw("ST_X(edterritorios_centroide), ST_Y(edterritorios_centroide)"))->get();
         //$data = DB::table('ed_territorios_uf')->select(DB::raw("ST_AsText(edterritorios_geometry)"))->get();
         //$data = DB::table('ed_territorios_uf')->select(DB::raw("ST_AsGeoJSON(ST_Transform(edterritorios_geometry,4326))"))->get();
-        $data = DB::table('ed_territorios_uf')->select(DB::raw("ST_AsGeoJSON(edterritorios_geometry)"))->get();
+        //$data = DB::table('ed_territorios_uf')->select(DB::raw("ST_AsGeoJSON(edterritorios_geometry)"))->get();
+        $data = DB::table('valores_series')
+            ->select(DB::raw("ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry), valores_series.valor"))
+            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->get();
 
         return $data;
     }
