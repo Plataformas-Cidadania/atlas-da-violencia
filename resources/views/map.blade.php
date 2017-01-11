@@ -2,7 +2,7 @@
 @section('title', 'Mapa')
 @section('content')
     <style>
-        #mapid { height: 600px; }
+        #mapid { width: 60%; height: 600px; }
 
         .legend {
             line-height: 18px;
@@ -32,7 +32,15 @@
         }
     </style>
 
+    <div class="hidden-print">
+        <h4><i class="fa fa-calendar" aria-hidden="true"></i> Periodicidade</h4>
+        <input type="text" id="range" value=""  name="range" ng-model="range" />
+    </div>
+    <br><br>
     <div id="mapid"></div>
+    <br><br>
+    {{--<div id="myChart"></div>--}}
+    <canvas id="myChart" width="400" height="200"></canvas>
     {{--<button onclick="getData()">Carregar</button>--}}
 
 @endsection

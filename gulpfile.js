@@ -87,10 +87,7 @@ elixir(function(mix) {
         'lib/bootstrap/js/bootstrap.min.js',
         'lib/angular/angular.min.js',
         'lib/angular/angular-locale_pt-br.js',
-        'lib/chart/d3.v3.min.js',
-        'lib/chart/c3.js',
         'app.js',
-        'lib/chart/cd3.js',
         'lib/range/ion.rangeSlider.js'
     ]);
 
@@ -98,7 +95,6 @@ elixir(function(mix) {
         'lib/bootstrap/bootstrap.min.css',
         'lib/bootstrap/bootstrap-theme.min.css',
         'lib/font-awesome/font-awesome.min.css',
-        'lib/chart/c3.min.css',
         'lib/range/ion.rangeSlider.css',
         'lib/range/ion.rangeSlider.skinFlat.css'
     ]);
