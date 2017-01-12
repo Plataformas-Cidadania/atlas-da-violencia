@@ -70,6 +70,7 @@ class MapController extends Controller
                 ['valores_series.periodo', '<=', $max]
             ])
             ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_geometry')
+            ->orderBy('total')
             ->get();
 
         return $valores;

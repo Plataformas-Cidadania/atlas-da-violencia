@@ -159,6 +159,10 @@ print_r($periodo_limite);*/
         var lastIndexLegend = 0;
         var legend = [];
         function loadMap(data){
+
+            var valores = [];
+
+
             //remove existing map layers
             mymap.eachLayer(function(layer){
                 //if not the tile layer
@@ -170,9 +174,12 @@ print_r($periodo_limite);*/
             var regiao = [];
 
             for(var i=0; i<data.length; i++){
+                valores[i] = data[i].total;
                 regiao[i] = JSON.parse(data[i].st_asgeojson);
                 L.geoJson(regiao[i], {style: style(data[i].total)}).addTo(mymap);
             }
+
+            console.log(valores);
 
             /*for(var i=0; i<data.circles.length; i++){
                 var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
