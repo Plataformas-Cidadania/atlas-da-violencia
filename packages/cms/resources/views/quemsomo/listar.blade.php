@@ -91,11 +91,11 @@
                         <tbody>
                         <tr ng-repeat="quemsomo in quemsomos">
                             <td><% quemsomo.id %></td>
-                            <td><img ng-show="quemsomo.imagem" ng-src="/imagens/quemsomos/xs-<% quemsomo.imagem %>" width="60"></td>
-                            <td><a href="/cms/quemsomo/<% quemsomo.id %>"><% quemsomo.titulo %></a></td>
+                            <td><img ng-show="quemsomo.imagem" ng-src="imagens/quemsomos/xs-<% quemsomo.imagem %>" width="60"></td>
+                            <td><a href="cms/quemsomo/<% quemsomo.id %>"><% quemsomo.titulo %></a></td>
                             <td class="text-right">
                                 <div>
-                                    <a href="/cms/quemsomo/<% quemsomo.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/quemsomo/<% quemsomo.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(quemsomo.id, quemsomo.titulo, quemsomo.imagem)"></i></a>
                                 </div>
                             </td>
@@ -140,7 +140,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <img  ng-src="/imagens/quemsomos/xs-<% imagemExcluir %>" width="100">
+                                <img  ng-src="imagens/quemsomos/xs-<% imagemExcluir %>" width="100">
                             </div>
                             <div class="col-md-9">
                                 <p><% tituloExcluir %></p>
