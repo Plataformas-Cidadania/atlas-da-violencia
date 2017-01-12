@@ -95,7 +95,7 @@ cmsApp.controller('cmsuserCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
             $scope.processandoInserir = true;
 
             //console.log($scope.cmsuser);
-            $http.post("/cms/inserir-cmsuser", {cmsuser: $scope.cmsuser}).success(function (data){
+            $http.post("cms/inserir-cmsuser", {cmsuser: $scope.cmsuser}).success(function (data){
                  listarCmsusers();
                  delete $scope.cmsuser;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -106,7 +106,7 @@ cmsApp.controller('cmsuserCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
              });
         }else{
             file.upload = Upload.upload({
-                url: '/cms/inserir-cmsuser',
+                url: 'cms/inserir-cmsuser',
                 data: {cmsuser: $scope.cmsuser, file: file},
             });
 
@@ -157,7 +157,7 @@ cmsApp.controller('cmsuserCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: '/cms/excluir-cmsuser/'+id,
+            url: 'cms/excluir-cmsuser/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);

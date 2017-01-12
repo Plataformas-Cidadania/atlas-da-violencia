@@ -18,7 +18,7 @@ cmsApp.controller('alterarVideoCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
             $scope.processandoSalvar = true;
             //console.log($scope.video);
-            $http.post("/cms/alterar-video/"+$scope.id, {'video': $scope.video, 'removerImagem': $scope.removerImagem}).success(function (data){
+            $http.post("cms/alterar-video/"+$scope.id, {'video': $scope.video, 'removerImagem': $scope.removerImagem}).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = data;
@@ -32,7 +32,7 @@ cmsApp.controller('alterarVideoCtrl', ['$scope', '$http', 'Upload', '$timeout', 
         }else{
 
             file.upload = Upload.upload({
-                url: '/cms/alterar-video/'+$scope.id,
+                url: 'cms/alterar-video/'+$scope.id,
                 data: {video: $scope.video, file: file},
             });
 
@@ -67,7 +67,7 @@ cmsApp.controller('alterarVideoCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
     $scope.carregaImagem  = function(img) {
         if(img!=''){
-            $scope.imagemBD = '/imagens/videos/xs-'+img;
+            $scope.imagemBD = 'imagens/videos/xs-'+img;
             //console.log($scope.imagemBD);
         }
     };

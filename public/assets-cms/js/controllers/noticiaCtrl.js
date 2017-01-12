@@ -35,7 +35,7 @@ cmsApp.controller('noticiaCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
     var listarNoticias = function(){
         $scope.processandoListagem = true;
         $http({
-            url: '/cms/listar-noticias/',
+            url: 'cms/listar-noticias/',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
@@ -119,7 +119,7 @@ cmsApp.controller('noticiaCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
             $scope.processandoInserir = true;
 
             //console.log($scope.noticia);
-            $http.post("/cms/inserir-noticia", {noticia: $scope.noticia}).success(function (data){
+            $http.post("cms/inserir-noticia", {noticia: $scope.noticia}).success(function (data){
                  listarNoticias();
                  delete $scope.noticia;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -130,7 +130,7 @@ cmsApp.controller('noticiaCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
              });
         }else{
             file.upload = Upload.upload({
-                url: '/cms/inserir-noticia',
+                url: 'cms/inserir-noticia',
                 data: {noticia: $scope.noticia, file: file},
             });
 
@@ -181,7 +181,7 @@ cmsApp.controller('noticiaCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: '/cms/excluir-noticia/'+id,
+            url: 'cms/excluir-noticia/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);
