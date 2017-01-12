@@ -8,10 +8,10 @@
         <div>
             @if(!empty($noticia->imagem))
                 <picture>
-                    <source srcset="/imagens/noticias/sm-{{$noticia->imagem}}" media="(max-width: 468px)">
-                    <source srcset="/imagens/noticias/md-{{$noticia->imagem}}" media="(max-width: 768px)">
-                    <source srcset="/imagens/noticias/md-{{$noticia->imagem}}" class="img-responsive">
-                    <img srcset="/imagens/noticias/md-{{$noticia->imagem}}" alt="{{$noticia->titulo}}" title="{{$noticia->titulo}}" class="align-img" >
+                    <source srcset="imagens/noticias/sm-{{$noticia->imagem}}" media="(max-width: 468px)">
+                    <source srcset="imagens/noticias/md-{{$noticia->imagem}}" media="(max-width: 768px)">
+                    <source srcset="imagens/noticias/md-{{$noticia->imagem}}" class="img-responsive">
+                    <img srcset="imagens/noticias/md-{{$noticia->imagem}}" alt="{{$noticia->titulo}}" title="{{$noticia->titulo}}" class="align-img" >
                 </picture>
             @endif
             <h5 class="text-right">{{Carbon\Carbon::parse($noticia->created_at)->format('d/m/Y - H:i:s')}}</h5>
