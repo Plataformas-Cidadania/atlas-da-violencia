@@ -35,7 +35,7 @@ cmsApp.controller('noticiaCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
     var listarNoticias = function(){
         $scope.processandoListagem = true;
         $http({
-            url: 'cms/listar-noticias/',
+            url: 'cms/listar-noticias',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
