@@ -18,9 +18,19 @@ class HomeController extends Controller
         $ultimaNoticia = DB::table('noticias')->orderBy('id', 'desc')->take(1)->first();
         $noticias = DB::table('noticias')->orderBy('id', 'desc')->skip(1)->take(2)->get();
         $menu = \App\Menu::where('menu_id', 0)->get();
+        $video = \App\Video::orderBy('id', 'desc')->first();
 
 
-        return view('home', ['bemvindo' => $bemvindo, 'ultimaNoticia' => $ultimaNoticia, 'noticias' => $noticias, 'links' => $links, 'tags' => $tags, 'webdoors' => $webdoors, 'menu' => $menu]);
+        return view('home', [
+            'bemvindo' => $bemvindo,
+            'ultimaNoticia' => $ultimaNoticia,
+            'noticias' => $noticias,
+            'links' => $links,
+            'tags' => $tags,
+            'webdoors' => $webdoors,
+            'menu' => $menu,
+            'video' => $video
+        ]);
     }
 }
 
