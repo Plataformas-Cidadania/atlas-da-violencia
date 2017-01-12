@@ -11,15 +11,15 @@
 @endif
 @if($rota=='/')
     <script src="/js/controllers/linkCtrl.js"></script>
+    <script>$('.block').smoove({offset:'10%'});</script>
 @endif
 @if($rota=='renda')
-<script>
-    $(window).resize(function () {
-    drawChartPi();
-        drawChart();
-    });
-</script>
-
+    <script>
+        $(window).resize(function () {
+        drawChartPi();
+            drawChart();
+        });
+    </script>
 @endif
 <script src="/js/directives/searchMenu.js"></script>
 <script src="/js/controllers/serieCtrl.js"></script>

@@ -22,7 +22,17 @@
             <div class="row">
                 <?php $cont = 0;?>
                 @foreach($links as $link)
-                    <div class="filtros box-itens " ng-class="{'alto-contraste': altoContrasteAtivo}" >
+                        <?php $cont ++;
+
+                        switch ($cont) {
+                            case 1:
+                                $valor_anime = "-300px";
+                                break;
+                            case 2:
+                                $valor_anime = "300px";
+                                break;
+                        }?>
+                    <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" >
                         <div>
                             <a href="{{$link->link}}" target="_blank">
                                 <picture>
