@@ -85,9 +85,8 @@ class MapController extends Controller
                 ['valores_series.periodo', '<=', $max]
             ])
             ->groupBy('valores_series.periodo')
+            ->orderBy('valores_series.periodo')
             ->get();
-
-        dd($valores);
 
         return $valores;
     }
