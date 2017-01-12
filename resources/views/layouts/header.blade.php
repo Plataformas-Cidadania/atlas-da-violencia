@@ -40,11 +40,11 @@
                 <li><a href="#iniciodorodape" ng-class="{'alto-contraste': altoContrasteAtivo}" accesskey="4">Ir para o rodapé <span class="bg-sec btn-acessibilidade">4</span></a></li>
             </ul>
             <ul id="botoes" class="col-md-6 col-sm-12 text-right">
-                <li><a href="/acessibilidade" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-universal-access" aria-hidden="true"></i> Acessibilidade </a></li>
+                <li><a href="acessibilidade" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-universal-access" aria-hidden="true"></i> Acessibilidade </a></li>
                 <li><a href="#" id="bt_contraste" ng-click="setAltoContraste()" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-adjust" aria-hidden="true"></i> Alto contraste</a></li>
                 {{--<li><a href="mapa.html" ng-class="{'alto-contraste': altoContrasteAtivo}"> Mapa do site </a></li>--}}
-                <li><img src="/img/portugues.jpg" alt=""></li>
-                <li><img src="/img/ingles.jpg" alt=""></li>
+                <li><img src="img/portugues.jpg" alt=""></li>
+                <li><img src="img/ingles.jpg" alt=""></li>
             </ul>
 
         </div>
@@ -56,9 +56,9 @@
                 <div class="col-md-3">
                     <a href="/" class="logo">
                         <picture>
-                            <source srcset="/imagens/settings/sm-{{$setting->imagem}}" media="(max-width: 468px)">
-                            <source srcset="/imagens/settings/{{$setting->imagem}}" class="img-responsive">
-                            <img srcset="/imagens/settings/{{$setting->imagem}}" alt="{{$setting->titulo}}" title="{{$setting->titulo}}">
+                            <source srcset="imagens/settings/sm-{{$setting->imagem}}" media="(max-width: 468px)">
+                            <source srcset="imagens/settings/{{$setting->imagem}}" class="img-responsive">
+                            <img srcset="imagens/settings/{{$setting->imagem}}" alt="{{$setting->titulo}}" title="{{$setting->titulo}}">
                         </picture>
                     </a>
                 </div>

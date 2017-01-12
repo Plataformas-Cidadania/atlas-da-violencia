@@ -36,10 +36,10 @@
                         <div>
                             <a href="{{$link->link}}" target="_blank">
                                 <picture>
-                                    <source srcset="/imagens/links/{{$link->imagem}}" media="(max-width: 468px)">
-                                    <source srcset="/imagens/links/{{$link->imagem}}" media="(max-width: 768px)">
-                                    <source srcset="/imagens/links/{{$link->imagem}}" class="img-responsive">
-                                    <img srcset="/imagens/links/{{$link->imagem}}" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}">
+                                    <source srcset="imagens/links/{{$link->imagem}}" media="(max-width: 468px)">
+                                    <source srcset="imagens/links/{{$link->imagem}}" media="(max-width: 768px)">
+                                    <source srcset="imagens/links/{{$link->imagem}}" class="img-responsive">
+                                    <img srcset="imagens/links/{{$link->imagem}}" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}">
                                 </picture>
                                 <div class="bg-sex">
                                     <h2 class="titulo-itens" ng-class="{'alto-contraste': altoContrasteAtivo}" href="{{$link->link}}">{{$link->titulo}}</h2>
@@ -93,7 +93,7 @@
                 @endforeach
                 <div class="row text-center">
                     <div class="col-md-12 space-top">
-                        <a href="/noticias/veja-todas-as-noticias" role="button">
+                        <a href="noticias/veja-todas-as-noticias" role="button">
                             <button class="btn btn-sec btn-padding btn-base">VER MAIS NOTÍCIAS</button>
                         </a>
                     </div>
@@ -105,7 +105,7 @@
         <br><br>
         <div class="bg-qui">
             <div class="container">
-                <a href="/quem/conheca-o-ipea" >
+                <a href="quem/conheca-o-ipea" >
                     <br><br>
                     <p>{{strip_tags($bemvindo->descricao)}}</p>
                     <br><br>
