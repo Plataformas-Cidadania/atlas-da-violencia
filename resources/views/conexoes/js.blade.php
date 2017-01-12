@@ -87,7 +87,7 @@ print_r($periodo_limite);*/
             $.ajax("/periodos", {
                 data: {},
                 success: function(data){
-                    console.log(data);
+                    //console.log(data);
                     periodos = data;
                     loadRange();
                 },
@@ -115,6 +115,7 @@ print_r($periodo_limite);*/
                 onStart: function (data) {
                     dataToMap(data.from_value, data.to_value);
                     dataToChart(data.from_value, data.to_value);
+                    dataToChartRadar(data.from_value, data.to_value);
                 },
                 onChange: function (data) {
                     //console.log('onChange');
@@ -122,6 +123,7 @@ print_r($periodo_limite);*/
                 onFinish: function (data) {
                     dataToMap(data.from_value, data.to_value);
                     dataToChart(data.from_value, data.to_value);
+                    dataToChartRadar(data.from_value, data.to_value);
                 },
                 onUpdate: function (data) {
                     //console.log('onUpdate');
@@ -134,7 +136,7 @@ print_r($periodo_limite);*/
             $.ajax("/regiao/"+min+"/"+max, {
                 data: {},
                 success: function(data){
-                    console.log(data);
+                    //console.log(data);
                     loadMap(data);
                 },
                 error: function(data){
@@ -179,7 +181,7 @@ print_r($periodo_limite);*/
                 L.geoJson(regiao[i], {style: style(data[i].total)}).addTo(mymap);
             }
 
-            console.log(valores);
+            //console.log(valores);
 
             /*for(var i=0; i<data.circles.length; i++){
                 var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
@@ -257,7 +259,7 @@ print_r($periodo_limite);*/
             $.ajax("/periodo/"+min+"/"+max, {
                 data: {},
                 success: function(data){
-                    console.log(data);
+                    //console.log(data);
                     loadChart(data);
                 },
                 error: function(data){
@@ -265,6 +267,7 @@ print_r($periodo_limite);*/
                 }
             })
         }
+
 
         function loadChart(data){
             var labels = [];
@@ -311,9 +314,67 @@ print_r($periodo_limite);*/
                 options:option
             });
 
+
         }
 
+        function dataToChartRadar(min, max){
+            $.ajax("/regiao/"+min+"/"+max, {
+                data: {},
+                success: function(data){
+                    //console.log(data);
+                    loadChartRadar(data);
+                },
+                error: function(data){
+                    console.log('erro');
+                }
+            })
+        }
 
+        function loadChartRadar(data){
+            console.log(data);
+            var labels = [];
+            var values = [];
+            for(var i in data){
+                labels[i] = data[i].uf;
+                values[i] = data[i].total;
+            }
+
+            console.log(values);
+
+            var canvas2 = document.getElementById('myChartRadar');
+            var dataChart = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Homicidios no Brasil",
+                        backgroundColor: "rgba(179,181,198,0.2)",
+                        borderColor: "rgba(179,181,198,1)",
+                        pointBackgroundColor: "rgba(179,181,198,1)",
+                        pointBorderColor: "#fff",
+                        pointHoverBackgroundColor: "#fff",
+                        pointHoverBorderColor: "rgba(179,181,198,1)",
+                        data: values
+                    }
+                ]
+            };
+
+            var options2 = {
+                scale: {
+                    reverse: false,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }
+            };
+
+
+            var myRadarChart = new Chart(canvas2, {
+                type: 'radar',
+                data: dataChart,
+                options: options2
+            });
+
+        }
 
 
     </script>
