@@ -413,7 +413,7 @@ print_r($periodo_limite);*/
         });
 
         function getIndices(){
-            $.ajax("indices/", {
+            $.ajax("indices", {
                 data: {},
                 success: function(data){
                     //console.log(data);
