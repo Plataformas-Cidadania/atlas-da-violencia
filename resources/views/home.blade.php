@@ -1,6 +1,52 @@
 @extends('layout')
 @section('title', 'Bem Vindo')
 @section('content')
+    <script>
+        $( document ).ready(function() {
+            contadorIndices(0, '#contadorIndice1', 19854);
+            nomeIndices('#nomeIndice1', 'Furto');
+
+            contadorIndices(0, '#contadorIndice2', 9521);
+            contadorIndices(0, '#contadorIndice3', 2265);
+            contadorIndices(0, '#contadorIndice4', 300);
+        });
+
+
+        function contadorIndices(i, id, total) {
+            setTimeout(function () {
+                i+=Math.ceil(total/455);
+                if (i <= total) {
+                    contadorIndices(i, id, total);
+                }
+                if(i>total){
+                    i=total;
+                }
+                $(id).html(i);
+            }, 5)
+        }
+
+        function nomeIndices(id, text) {
+            $(id).html(text);
+        }
+
+
+        var i = 0;
+
+        function myLoop () {
+            setTimeout(function () {
+                i+=32;
+                if (i <= totalCount) {
+                    myLoop();
+                }
+                if(i>totalCount){
+                    i=totalCount;
+                }
+                $('#contador').html(i);
+            }, 5)
+        }
+        //myLoop();
+    </script>
+
 
     <style>
         .filtros {
@@ -18,19 +64,17 @@
     <article>
         <br><br>
 
-        <div class="container">
+        <div class="container block" data-move-x="500px">
             <div class="row">
-                <?php $cont = 0;?>
+                <?php $cont_animecao = 0;?>
                 @foreach($links as $link)
-                        <?php $cont ++;
-
-                        switch ($cont) {
-                            case 1:
+                        <?php
+                        switch ($cont_animecao%2) {
+                            case 0:
                                 $valor_anime = "-300px";
                                 break;
-                            case 2:
+                            default:
                                 $valor_anime = "300px";
-                                break;
                         }?>
                     <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" >
                         <div>
@@ -49,7 +93,7 @@
                             </a>
                         </div>
                     </div>
-                    <?php $cont ++;?>
+                    <?php $cont_animecao ++;?>
                 @endforeach
             </div>
         </div>
@@ -60,19 +104,19 @@
                 <div class="row box-hoje">
                     <h3>Índices de hoje</h3>
                     <div class="col-md-3">
-                        <h2>00000</h2>
+                        <h2 id="contadorIndice1"></h2>
+                        <p id="nomeIndice1"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <h2 id="contadorIndice2">00000</h2>
                         <p>Furtos</p>
                     </div>
                     <div class="col-md-3">
-                        <h2>00000</h2>
+                        <h2 id="contadorIndice3">00000</h2>
                         <p>Furtos</p>
                     </div>
                     <div class="col-md-3">
-                        <h2>00000</h2>
-                        <p>Furtos</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h2>00000</h2>
+                        <h2 id="contadorIndice4">00000</h2>
                         <p>Furtos</p>
                     </div>
                 </div>
