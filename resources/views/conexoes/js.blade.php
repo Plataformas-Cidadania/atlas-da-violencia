@@ -84,7 +84,7 @@ print_r($periodo_limite);*/
         });
 
         function dataToRange(){
-            $.ajax("/periodos", {
+            $.ajax("periodos", {
                 data: {},
                 success: function(data){
                     //console.log(data);
@@ -134,7 +134,7 @@ print_r($periodo_limite);*/
         }
 
         function dataToMap(min, max){
-            $.ajax("/regiao/"+min+"/"+max, {
+            $.ajax("regiao/"+min+"/"+max, {
                 data: {},
                 success: function(data){
                     //console.log(data);
@@ -274,7 +274,7 @@ print_r($periodo_limite);*/
         }
 
         function dataToChart(min, max){
-            $.ajax("/periodo/"+min+"/"+max, {
+            $.ajax("periodo/"+min+"/"+max, {
                 data: {},
                 success: function(data){
                     //console.log(data);
@@ -336,7 +336,7 @@ print_r($periodo_limite);*/
         }
 
         function dataToChartRadar(min, max){
-            $.ajax("/regiao/"+min+"/"+max, {
+            $.ajax("regiao/"+min+"/"+max, {
                 data: {},
                 success: function(data){
                     //console.log(data);
@@ -413,7 +413,7 @@ print_r($periodo_limite);*/
         });
 
         function getIndices(){
-            $.ajax("/indices/", {
+            $.ajax("indices/", {
                 data: {},
                 success: function(data){
                     //console.log(data);
