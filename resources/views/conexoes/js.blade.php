@@ -11,7 +11,7 @@
 @endif
 @if($rota=='/')
     <script src="/js/controllers/linkCtrl.js"></script>
-    <script>$('.block').smoove({offset:'10%'});</script>
+    {{--<script>$('.block').smoove({offset:'10%'});</script>--}}
 @endif
 @if($rota=='renda')
     <script>

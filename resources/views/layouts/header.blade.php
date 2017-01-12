@@ -84,7 +84,7 @@
                     <h2 style="margin-top: 0;">{{$ultimaNoticia->titulo}}</h2>
                     <div style="height: 100px; overflow: hidden;">{{$ultimaNoticia->descricao}}</div>
                     <br>
-                    <button type="button" class="btn btn-info">Mais Detalhes</button>
+                    <a href="noticia/{{$ultimaNoticia->id}}/{{clean($ultimaNoticia->titulo)}}" class="btn btn-info" >Mais Detalhes</a>
                 </div>
             </div>
             <?php /*?>
