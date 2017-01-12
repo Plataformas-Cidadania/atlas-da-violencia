@@ -91,11 +91,11 @@
                         <tbody>
                         <tr ng-repeat="noticia in noticias">
                             <td><% noticia.id %></td>
-                            <td><img ng-show="noticia.imagem" ng-src="/imagens/noticias/xs-<% noticia.imagem %>" width="60"></td>
-                            <td><a href="/cms/noticia/<% noticia.id %>"><% noticia.titulo %></a></td>
+                            <td><img ng-show="noticia.imagem" ng-src="imagens/noticias/xs-<% noticia.imagem %>" width="60"></td>
+                            <td><a href="cms/noticia/<% noticia.id %>"><% noticia.titulo %></a></td>
                             <td class="text-right">
                                 <div>
-                                    <a href="/cms/noticia/<% noticia.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/noticia/<% noticia.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(noticia.id, noticia.titulo, noticia.imagem)"></i></a>
                                 </div>
                             </td>
@@ -140,7 +140,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <img  ng-src="/imagens/noticias/xs-<% imagemExcluir %>" width="100">
+                                <img  ng-src="imagens/noticias/xs-<% imagemExcluir %>" width="100">
                             </div>
                             <div class="col-md-9">
                                 <p><% tituloExcluir %></p>
