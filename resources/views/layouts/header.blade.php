@@ -54,7 +54,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <a href="/" class="logo">
+                    <a href="" class="logo">
                         <picture>
                             <source srcset="imagens/settings/sm-{{$setting->imagem}}" media="(max-width: 468px)">
                             <source srcset="imagens/settings/{{$setting->imagem}}" class="img-responsive">
