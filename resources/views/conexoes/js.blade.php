@@ -2,15 +2,15 @@
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="/lib/angular/angular.min.js"></script>
 <script src="/js/app.js"></script>--}}
-<script src="/js/all.js"></script>
+<script src="js/all.js"></script>
 @if($rota=='contato')
-    <script src="/js/controllers/contatoCtrl.js"></script>
-    <script src="/lib/jquery/jquery.mask.min.js"></script>
-    <script src="/js/directives/maskPhoneDir.js"></script>
-    <script src="/lib/angular/angular-messages.min.js"></script>
+    <script src="js/controllers/contatoCtrl.js"></script>
+    <script src="lib/jquery/jquery.mask.min.js"></script>
+    <script src="js/directives/maskPhoneDir.js"></script>
+    <script src="lib/angular/angular-messages.min.js"></script>
 @endif
 @if($rota=='/')
-    <script src="/js/controllers/linkCtrl.js"></script>
+    <script src="js/controllers/linkCtrl.js"></script>
     {{--<script>$('.block').smoove({offset:'10%'});</script>--}}
 @endif
 @if($rota=='renda')
@@ -21,8 +21,8 @@
         });
     </script>
 @endif
-<script src="/js/directives/searchMenu.js"></script>
-<script src="/js/controllers/serieCtrl.js"></script>
+<script src="js/directives/searchMenu.js"></script>
+<script src="js/controllers/serieCtrl.js"></script>
 <?php
 
 /*// Datas de início e fim
