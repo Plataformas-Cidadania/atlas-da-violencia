@@ -35,7 +35,7 @@ cmsApp.controller('linkCtrl', ['$scope', '$http', 'Upload', '$timeout', function
     var listarLinks = function(){
         $scope.processandoListagem = true;
         $http({
-            url: 'cms/listar-links/',
+            url: 'cms/listar-links',
             method: 'GET',
             params: {
                 page: $scope.currentPage,

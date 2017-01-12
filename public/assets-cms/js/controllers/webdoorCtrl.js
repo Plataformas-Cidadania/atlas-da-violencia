@@ -35,7 +35,7 @@ cmsApp.controller('webdoorCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
     var listarWebdoors = function(){
         $scope.processandoListagem = true;
         $http({
-            url: 'cms/listar-webdoors/',
+            url: 'cms/listar-webdoors',
             method: 'GET',
             params: {
                 page: $scope.currentPage,

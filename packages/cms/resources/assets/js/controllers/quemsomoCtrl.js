@@ -35,7 +35,7 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
     var listarQuemsomos = function(){
         $scope.processandoListagem = true;
         $http({
-            url: 'cms/listar-quemsomos/',
+            url: 'cms/listar-quemsomos',
             method: 'GET',
             params: {
                 page: $scope.currentPage,

@@ -35,7 +35,7 @@ cmsApp.controller('videoCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     var listarVideos = function(){
         $scope.processandoListagem = true;
         $http({
-            url: 'cms/listar-videos/',
+            url: 'cms/listar-videos',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
