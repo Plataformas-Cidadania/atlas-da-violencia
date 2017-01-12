@@ -34,7 +34,7 @@
                         }?>
                     <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" >
                         <div>
-                            <a href="{{$link->link}}" target="_blank">
+                            <a href="{{$link->link}}">
                                 <picture>
                                     <source srcset="imagens/links/{{$link->imagem}}" media="(max-width: 468px)">
                                     <source srcset="imagens/links/{{$link->imagem}}" media="(max-width: 768px)">

@@ -1,22 +1,22 @@
 <!-- jQuery -->
-{!! Html::script('/assets-cms/lib/jquery/jquery.min.js') !!}
+{!! Html::script('assets-cms/lib/jquery/jquery.min.js') !!}
 <!-- Angular -->
-{!! Html::script('/assets-cms/lib/angular/angular.min.js') !!}
+{!! Html::script('assets-cms/lib/angular/angular.min.js') !!}
 {{--{!! Html::script('/cms/angular/animate.min.js') !!}--}}
 {{--{!! Html::script('/cms/angular/messages.min.js') !!}--}}
-{!! Html::script('/assets-cms/lib/angular/pagination.js') !!}
-{!! Html::script('/assets-cms/lib/angular/ui-bootstrap-tpls-1.1.2.min.js') !!}
-{!! Html::script('/assets-cms/lib/angular/ng-file-upload.min.js') !!}
-{!! Html::script('/assets-cms/lib/angular/ng-file-upload-shim.min.js') !!}
+{!! Html::script('assets-cms/lib/angular/pagination.js') !!}
+{!! Html::script('assets-cms/lib/angular/ui-bootstrap-tpls-1.1.2.min.js') !!}
+{!! Html::script('assets-cms/lib/angular/ng-file-upload.min.js') !!}
+{!! Html::script('assets-cms/lib/angular/ng-file-upload-shim.min.js') !!}
 
 <!-- CMS -->
-{!! Html::script('/assets-cms/js/cms.js') !!}
-{!! Html::script('/assets-cms/js/directives/initModel.js') !!}
+{!! Html::script('assets-cms/js/cms.js') !!}
+{!! Html::script('assets-cms/js/directives/initModel.js') !!}
 
 {{-- {!! Html::script('assets-cms/tinymce/js/tinymce/tinymce.min.js') !!}--}}
-{!! Html::script('/assets-cms/lib/angular/tinymce.min.js') !!}
-{!! Html::script('/assets-cms/js/tiny.js') !!}
-{!! Html::script('/assets-cms/lib/angular/ui-tinymce.min.js') !!}
+{!! Html::script('assets-cms/lib/angular/tinymce.min.js') !!}
+{!! Html::script('assets-cms/js/tiny.js') !!}
+{!! Html::script('assets-cms/lib/angular/ui-tinymce.min.js') !!}
 
 
 

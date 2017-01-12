@@ -14,8 +14,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <title>{{$setting->titulo}} - @yield('title')</title>
-        @include('conexoes.css')
         <base href="http://{{$base_href}}">
+        @include('conexoes.css')
     </head>
     <body ng-app="ipeaApp"  ng-controller="appCtrl" ng-class="{'alto-contraste': altoContrasteAtivo}">
         @include('layouts.layout1')
