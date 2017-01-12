@@ -2,6 +2,11 @@
 <?php
     use Illuminate\Support\Facades\DB;
     $setting = DB::table('settings')->orderBy('id', 'desc')->first();
+
+    $base_href = $_SERVER['HTTP_HOST'];
+    if(substr($base_href, 0,9)=='evbsb1052'){
+        $base_href .= '/atlasviolencia/';
+    }
 ?>
 <!doctype html>
 <html lang="pt-bt">
@@ -10,7 +15,7 @@
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <title>{{$setting->titulo}} - @yield('title')</title>
         @include('conexoes.css')
-
+        <base href="'http://'{{$base_href}}">
     </head>
     <body ng-app="ipeaApp"  ng-controller="appCtrl" ng-class="{'alto-contraste': altoContrasteAtivo}">
         @include('layouts.layout1')

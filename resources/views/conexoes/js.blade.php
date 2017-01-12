@@ -423,7 +423,7 @@ print_r($periodo_limite);*/
                     contadorIndices(0, '#contadorIndice4', data[3]);
 
                     nomeIndices('#nomeIndice1', 'Furtos');
-                    nomeIndices('#nomeIndice2', 'Crimes Políticos');
+                    nomeIndices('#nomeIndice2', 'Juventude Perdida');
                     nomeIndices('#nomeIndice3', 'Homicídios');
                     nomeIndices('#nomeIndice4', 'Violência de Gênero');
                 },
@@ -436,7 +436,7 @@ print_r($periodo_limite);*/
 
         function contadorIndices(i, id, total) {
             setTimeout(function () {
-                i+=Math.ceil(total/455);
+                i+=Math.ceil(total/300);
                 if (i <= total) {
                     contadorIndices(i, id, total);
                 }
