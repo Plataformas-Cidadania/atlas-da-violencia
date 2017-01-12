@@ -35,7 +35,7 @@ cmsApp.controller('webdoorCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
     var listarWebdoors = function(){
         $scope.processandoListagem = true;
         $http({
-            url: '/cms/listar-webdoors/',
+            url: 'cms/listar-webdoors/',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
@@ -119,7 +119,7 @@ cmsApp.controller('webdoorCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
             $scope.processandoInserir = true;
 
             //console.log($scope.webdoor);
-            $http.post("/cms/inserir-webdoor", {webdoor: $scope.webdoor}).success(function (data){
+            $http.post("cms/inserir-webdoor", {webdoor: $scope.webdoor}).success(function (data){
                  listarWebdoors();
                  delete $scope.webdoor;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -130,7 +130,7 @@ cmsApp.controller('webdoorCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
              });
         }else{
             file.upload = Upload.upload({
-                url: '/cms/inserir-webdoor',
+                url: 'cms/inserir-webdoor',
                 data: {webdoor: $scope.webdoor, file: file},
             });
 
@@ -181,7 +181,7 @@ cmsApp.controller('webdoorCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: '/cms/excluir-webdoor/'+id,
+            url: 'cms/excluir-webdoor/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);

@@ -17,7 +17,7 @@ cmsApp.controller('alterarQuemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout
 
             $scope.processandoSalvar = true;
             //console.log($scope.quemsomo);
-            $http.post("/cms/alterar-quemsomo/"+$scope.id, {'quemsomo': $scope.quemsomo, 'removerImagem': $scope.removerImagem}).success(function (data){
+            $http.post("cms/alterar-quemsomo/"+$scope.id, {'quemsomo': $scope.quemsomo, 'removerImagem': $scope.removerImagem}).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = data;
@@ -31,7 +31,7 @@ cmsApp.controller('alterarQuemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout
         }else{
 
             file.upload = Upload.upload({
-                url: '/cms/alterar-quemsomo/'+$scope.id,
+                url: 'cms/alterar-quemsomo/'+$scope.id,
                 data: {quemsomo: $scope.quemsomo, file: file},
             });
 
@@ -42,7 +42,7 @@ cmsApp.controller('alterarQuemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout
                 $scope.picFile = null;//limpa o form
                 $scope.mensagemSalvar =  "Gravado com sucesso!";
                 $scope.removerImagem = false;
-                $scope.imagemBD = '/imagens/quemsomos/'+response.data;
+                $scope.imagemBD = 'imagens/quemsomos/'+response.data;
                 console.log($scope.imagemDB);
             }, function (response) {
                 if (response.status > 0){
@@ -66,7 +66,7 @@ cmsApp.controller('alterarQuemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout
 
     $scope.carregaImagem  = function(img) {
         if(img!=''){
-            $scope.imagemBD = '/imagens/quemsomos/xs-'+img;
+            $scope.imagemBD = 'imagens/quemsomos/xs-'+img;
             //console.log($scope.imagemBD);
         }
     };

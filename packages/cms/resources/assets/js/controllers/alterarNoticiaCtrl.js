@@ -18,7 +18,7 @@ cmsApp.controller('alterarNoticiaCtrl', ['$scope', '$http', 'Upload', '$timeout'
 
             $scope.processandoSalvar = true;
             //console.log($scope.noticia);
-            $http.post("/cms/alterar-noticia/"+$scope.id, {'noticia': $scope.noticia, 'removerImagem': $scope.removerImagem}).success(function (data){
+            $http.post("cms/alterar-noticia/"+$scope.id, {'noticia': $scope.noticia, 'removerImagem': $scope.removerImagem}).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = data;
@@ -32,7 +32,7 @@ cmsApp.controller('alterarNoticiaCtrl', ['$scope', '$http', 'Upload', '$timeout'
         }else{
 
             file.upload = Upload.upload({
-                url: '/cms/alterar-noticia/'+$scope.id,
+                url: 'cms/alterar-noticia/'+$scope.id,
                 data: {noticia: $scope.noticia, file: file},
             });
 
@@ -43,7 +43,7 @@ cmsApp.controller('alterarNoticiaCtrl', ['$scope', '$http', 'Upload', '$timeout'
                 $scope.picFile = null;//limpa o form
                 $scope.mensagemSalvar =  "Gravado com sucesso!";
                 $scope.removerImagem = false;
-                $scope.imagemBD = '/imagens/noticias/'+response.data;
+                $scope.imagemBD = 'imagens/noticias/'+response.data;
                 console.log($scope.imagemDB);
             }, function (response) {
                 if (response.status > 0){
@@ -67,7 +67,7 @@ cmsApp.controller('alterarNoticiaCtrl', ['$scope', '$http', 'Upload', '$timeout'
 
     $scope.carregaImagem  = function(img) {
         if(img!=''){
-            $scope.imagemBD = '/imagens/noticias/xs-'+img;
+            $scope.imagemBD = 'imagens/noticias/xs-'+img;
             //console.log($scope.imagemBD);
         }
     };
