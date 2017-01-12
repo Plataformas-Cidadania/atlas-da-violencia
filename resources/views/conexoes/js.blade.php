@@ -122,6 +122,7 @@ print_r($periodo_limite);*/
                 },
                 onFinish: function (data) {
                     dataToMap(data.from_value, data.to_value);
+                    clearCharts();
                     dataToChart(data.from_value, data.to_value);
                     dataToChartRadar(data.from_value, data.to_value);
                 },
@@ -175,13 +176,30 @@ print_r($periodo_limite);*/
 
             var regiao = [];
 
-            for(var i=0; i<data.length; i++){
+            //for(var i=0; i<data.length; i++){
+            for(var i in data){
                 valores[i] = data[i].total;
                 regiao[i] = JSON.parse(data[i].st_asgeojson);
                 L.geoJson(regiao[i], {style: style(data[i].total)}).addTo(mymap);
             }
 
-            //console.log(valores);
+            console.log(valores);
+
+            var min = valores[0];
+            var max = valores[valores.length-1];
+
+            console.log(min, max);
+
+            var intervalos = [];
+            var qtdIntervalos = 10;
+            intervalos[0] = 0;
+            intervalos[9] = max;
+
+            console.log(min%10);
+
+            for(var i=1;i<qtdIntervalos;i++){
+
+            }
 
             /*for(var i=0; i<data.circles.length; i++){
                 var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
@@ -309,7 +327,7 @@ print_r($periodo_limite);*/
             var option = {
                 showLines: true
             };
-            var myLineChart = Chart.Line(canvas,{
+            myLineChart = Chart.Line(canvas,{
                 data:dataChart,
                 options:option
             });
@@ -331,7 +349,7 @@ print_r($periodo_limite);*/
         }
 
         function loadChartRadar(data){
-            console.log(data);
+            //console.log(data);
             var labels = [];
             var values = [];
             for(var i in data){
@@ -339,7 +357,7 @@ print_r($periodo_limite);*/
                 values[i] = data[i].total;
             }
 
-            console.log(values);
+            //console.log(values);
 
             var canvas2 = document.getElementById('myChartRadar');
             var dataChart = {
@@ -368,7 +386,7 @@ print_r($periodo_limite);*/
             };
 
 
-            var myRadarChart = new Chart(canvas2, {
+            myRadarChart = new Chart(canvas2, {
                 type: 'radar',
                 data: dataChart,
                 options: options2
@@ -376,11 +394,78 @@ print_r($periodo_limite);*/
 
         }
 
+        function clearCharts(){
+            myLineChart.destroy();
+            myRadarChart.destroy();
+        }
+
 
     </script>
 
 
+@endif
 
 
+@if($rota=="/")
+    <script>
+        $( document ).ready(function() {
+            getIndices();
+        });
 
+        function getIndices(){
+            $.ajax("/indices/", {
+                data: {},
+                success: function(data){
+                    //console.log(data);
+                    contadorIndices(0, '#contadorIndice1', data[0]);
+                    contadorIndices(0, '#contadorIndice2', data[1]);
+                    contadorIndices(0, '#contadorIndice3', data[2]);
+                    contadorIndices(0, '#contadorIndice4', data[3]);
+
+                    nomeIndices('#nomeIndice1', 'Furtos');
+                    nomeIndices('#nomeIndice2', 'Crimes Políticos');
+                    nomeIndices('#nomeIndice3', 'Homicídios');
+                    nomeIndices('#nomeIndice4', 'Violência de Gênero');
+                },
+                error: function(data){
+                    console.log('erro');
+                }
+            })
+        }
+
+
+        function contadorIndices(i, id, total) {
+            setTimeout(function () {
+                i+=Math.ceil(total/455);
+                if (i <= total) {
+                    contadorIndices(i, id, total);
+                }
+                if(i>total){
+                    i=total;
+                }
+                $(id).html(i);
+            }, 5)
+        }
+
+        function nomeIndices(id, text) {
+            $(id).html(text);
+        }
+
+
+        var i = 0;
+
+        function myLoop () {
+            setTimeout(function () {
+                i+=32;
+                if (i <= totalCount) {
+                    myLoop();
+                }
+                if(i>totalCount){
+                    i=totalCount;
+                }
+                $('#contador').html(i);
+            }, 5)
+        }
+        //myLoop();
+    </script>
 @endif

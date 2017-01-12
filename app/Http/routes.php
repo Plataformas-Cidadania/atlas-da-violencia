@@ -50,4 +50,9 @@
     Route::get('periodos/', 'MapController@periodos');
     Route::get('regiao/{min}/{max}', 'MapController@valoresRegiaoPorPeriodo');
     Route::get('periodo/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
+
+    Route::get('indices', function(){
+        $indices = [19854, 95210000, 2265, 300];
+        return $indices;
+    });
 //});
