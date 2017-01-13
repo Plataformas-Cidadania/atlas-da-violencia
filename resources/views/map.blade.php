@@ -30,7 +30,16 @@
             margin: 0 0 5px;
             color: #777;
         }
+
     </style>
+    {{--@if(substr($base_href, 0,9)=='evbsb1052')--}}
+        <style>
+            .irs-slider {
+                background: url(http://evbsb1052.ipea.gov.br/atlasviolencia/img/sprite-skin-flat.png) repeat-x;
+            }
+        </style>
+    {{--@endif--}}
+
     <div class="container">
         <div class="hidden-print">
             <h4><i class="fa fa-calendar" aria-hidden="true"></i> Periodicidade</h4>
