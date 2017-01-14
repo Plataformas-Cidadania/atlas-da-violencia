@@ -22,7 +22,10 @@
     </script>
 @endif
 <script src="js/directives/searchMenu.js"></script>
-<script src="js/controllers/serieCtrl.js"></script>
+{{--<script src="js/controllers/serieCtrl.js"></script>--}}
+<script src="/lib/react/react.js"></script>
+<script src="/lib/react/react-dom.js"></script>
+<script src="/lib/numeral.js"></script>
 <?php
 
 /*// Datas de início e fim
@@ -74,6 +77,7 @@ print_r($periodo_limite);*/
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+
     <script>
 
         var periodos = [];
@@ -82,6 +86,7 @@ print_r($periodo_limite);*/
             dataToRange()
 
         });
+
 
         function dataToRange(){
             $.ajax("periodos", {
@@ -97,6 +102,8 @@ print_r($periodo_limite);*/
             })
         }
 
+        var min = 0;
+        var max = 0;
         function loadRange(){
             $("#range").ionRangeSlider({
                 values: periodos,
@@ -113,6 +120,8 @@ print_r($periodo_limite);*/
                 grid: true,
                 prettify_enabled: false,
                 onStart: function (data) {
+                    min = data.from_value;
+                    max = data.to_value;
                     dataToMap(data.from_value, data.to_value);
                     dataToChart(data.from_value, data.to_value);
                     dataToChartRadar(data.from_value, data.to_value);
@@ -121,6 +130,8 @@ print_r($periodo_limite);*/
                     //console.log('onChange');
                 },
                 onFinish: function (data) {
+                    min = data.from_value;
+                    max = data.to_value;
                     dataToMap(data.from_value, data.to_value);
                     clearCharts();
                     dataToChart(data.from_value, data.to_value);
@@ -401,6 +412,7 @@ print_r($periodo_limite);*/
 
 
     </script>
+    <script src="/js/components/listValoresSeries.js"></script>
 
 
 @endif

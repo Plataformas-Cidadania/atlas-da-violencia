@@ -76,6 +76,22 @@ class MapController extends Controller
         return $valores;
     }
 
+    function valoresSeriesRegiaoPorPeriodo($min, $max){
+        $valores = DB::table('valores_series')
+            ->select(DB::raw("sum(valores_series.valor) as total, valores_series.uf"))
+            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->where([
+                ['valores_series.serie_id', 1],
+                ['valores_series.periodo', '>=', $min],
+                ['valores_series.periodo', '<=', $max]
+            ])
+            ->groupBy('valores_series.uf')
+            ->orderBy('total')
+            ->get();
+
+        return $valores;
+    }
+
     function valoresPeriodoPorRegiao($min, $max){
         $valores = DB::table('valores_series')
         ->select(DB::raw("sum(valores_series.valor) as total, valores_series.periodo"))

@@ -49,6 +49,7 @@
         <div id="mapid"></div>
         <br><br>
         {{--<div id="myChart"></div>--}}
+        <div id="listValoresSeries"></div>
         <canvas id="myChart" width="400" height="200"></canvas>
         <canvas id="myChartRadar" width="400" height="200"></canvas>
         {{--<button onclick="getData()">Carregar</button>--}}
