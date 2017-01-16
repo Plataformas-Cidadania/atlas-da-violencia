@@ -16,7 +16,7 @@ class ListValoresSeries extends React.Component {
             url: "valores-series/" + this.props.min + "/" + this.props.max,
             cache: false,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 this.setState({ valores: data });
                 loadMap(data);
             }.bind(this),

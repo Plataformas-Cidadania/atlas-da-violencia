@@ -48,7 +48,8 @@
     Route::get('get-data/', 'MapController@getData');
 
     Route::get('periodos/', 'MapController@periodos');
-    Route::get('regiao/{min}/{max}', 'MapController@valoresRegiaoPorPeriodo');
+    Route::get('regiao/{min}/{max}', 'MapController@valoresRegiaoPorPeriodoGeometry');
+    Route::get('valores-regiao/{min}/{max}', 'MapController@valoresRegiaoPorPeriodo');
     Route::get('valores-series/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');
     Route::get('periodo/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
 

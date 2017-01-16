@@ -168,13 +168,70 @@ print_r($periodo_limite);*/
         }).addTo(mymap);
         ///////////////////////////////////////////////////////////////////////////////
 
+        /////////////////////MOUSE OVER LEGEND///////////////////////////
+        function highlightFeature(e) {
+            var layer = e.target;
+            layer.setStyle({
+                weight: 5,
+                color: '#333',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
+
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+
+            info.update(layer.feature.properties);
+        }
+        function resetHighlight(e) {
+            geojson.resetStyle(e.target);
+            info.update();
+        }
+        function zoomToFeature(e) {
+            mymap.fitBounds(e.target.getBounds());
+        }
+
+        var geojson;
+        // ... our listeners
+        function onEachFeature(feature, layer) {
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeature
+            });
+        }
+
+        /*geojson = L.geoJson(statesData, {
+            style: style,
+            onEachFeature: onEachFeature
+        }).addTo(map);*/
+
+        var info = L.control();
+
+        info.onAdd = function (mymap) {
+            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this.update();
+            return this._div;
+        };
+
+        // method that we will use to update the control based on feature properties passed
+        info.update = function (props) {
+            this._div.innerHTML =
+                '<h4>Ocorrências</h4>' +  (props ? '<b>' + props.uf + '</b><br />' + props.total
+                    : 'Passe o mouse na região');
+        };
+
+        info.addTo(mymap);
+
+        /////////////////////////////////////////////////////////////////
+
 
         var indexLegend = 1;
         var lastIndexLegend = 0;
         var legend = [];
         function loadMap(data){
 
-            var valores = [];
 
 
             //remove existing map layers
@@ -185,29 +242,24 @@ print_r($periodo_limite);*/
                 }
             });
 
-            var regiao = [];
 
-            //for(var i=0; i<data.length; i++){
+
+            geojson = L.geoJson(data, {
+                style: style,
+                onEachFeature: onEachFeature //listeners
+            }).addTo(mymap);
+
+            var valores = [];
             for(var i in data){
                 valores[i] = data[i].total;
-                regiao[i] = JSON.parse(data[i].st_asgeojson);
-                L.geoJson(regiao[i], {style: style(data[i].total)}).addTo(mymap);
             }
-
-            console.log(valores);
-
             var min = valores[0];
             var max = valores[valores.length-1];
-
-            console.log(min, max);
 
             var intervalos = [];
             var qtdIntervalos = 10;
             intervalos[0] = 0;
             intervalos[9] = max;
-
-            console.log(min%10);
-
             for(var i=1;i<qtdIntervalos;i++){
 
             }
@@ -258,6 +310,9 @@ print_r($periodo_limite);*/
                 [51.503, -0.06],
                 [51.51, -0.047]
             ]).addTo(mymap);
+
+
+
         }
 
         function getColor(d) {
@@ -275,12 +330,12 @@ print_r($periodo_limite);*/
 
         function style(feature) {
             return {
-                fillColor: getColor(feature),
+                fillColor: getColor(feature.properties.total),
                 weight: 2,
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
-                fillOpacity: 0.7
+                fillOpacity: 0.5
             };
         }
 
@@ -347,7 +402,7 @@ print_r($periodo_limite);*/
         }
 
         function dataToChartRadar(min, max){
-            $.ajax("regiao/"+min+"/"+max, {
+            $.ajax("valores-regiao/"+min+"/"+max, {
                 data: {},
                 success: function(data){
                     //console.log(data);

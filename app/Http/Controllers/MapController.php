@@ -60,9 +60,9 @@ class MapController extends Controller
         return $retorno;
     }
 
-    function valoresRegiaoPorPeriodo($min, $max){
+    function valoresRegiaoPorPeriodoGeometry($min, $max){
         $valores = DB::table('valores_series')
-            ->select(DB::raw("ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry), sum(valores_series.valor) as total, valores_series.uf"))
+            ->select(DB::raw("ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry) as geometry, sum(valores_series.valor) as total, valores_series.uf"))
             ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
             ->where([
                 ['valores_series.serie_id', 1],
@@ -72,6 +72,34 @@ class MapController extends Controller
             ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_geometry')
             ->orderBy('total')
             ->get();
+
+        $areas = [];
+        $areas['type'] = 'FeatureCollection';
+        $areas['features'] = [];
+        foreach($valores as $index => $valor){
+            $areas['features'][$index]['type'] = 'Feature';
+            $areas['features'][$index]['id'] = $index;
+            $areas['features'][$index]['properties']['uf'] = $valor->uf;
+            $areas['features'][$index]['properties']['total'] = $valor->total;
+            $areas['features'][$index]['geometry'] = json_decode($valor->geometry);
+        }
+
+        return $areas;
+    }
+
+    function valoresRegiaoPorPeriodo($min, $max){
+        $valores = DB::table('valores_series')
+            ->select(DB::raw("sum(valores_series.valor) as total, valores_series.uf"))
+            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->where([
+                ['valores_series.serie_id', 1],
+                ['valores_series.periodo', '>=', $min],
+                ['valores_series.periodo', '<=', $max]
+            ])
+            ->groupBy('valores_series.uf')
+            ->orderBy('total')
+            ->get();
+
 
         return $valores;
     }
