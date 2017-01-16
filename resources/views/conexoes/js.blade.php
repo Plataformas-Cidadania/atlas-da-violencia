@@ -87,73 +87,14 @@ print_r($periodo_limite);*/
 
         var periodos = [];
 
-        $( document ).ready( function() {
-            //dataToRange()
-
-        });
-
-
-        function dataToRange(){
-            $.ajax("periodos", {
-                data: {},
-                success: function(data){
-                    //console.log(data);
-                    periodos = data;
-                    loadRange();
-                },
-                error: function(data){
-                    console.log('erro');
-                }
-            })
-        }
-
-        /*var min = 0;
-        var max = 0;
-        function loadRange(){
-            $("#range").ionRangeSlider({
-                values: periodos,
-                hide_min_max: true,
-                keyboard: true,
-                /!*min: 0,
-                 max: 5000,
-                 from: 1000,
-                 to: 4000,*!/
-                type: 'double',
-                step: 1,
-                prefix: "",
-                //postfix: " million pounds",
-                grid: true,
-                prettify_enabled: false,
-                onStart: function (data) {
-                    min = data.from_value;
-                    max = data.to_value;
-                    dataToMap(data.from_value, data.to_value);
-                    dataToChart(data.from_value, data.to_value);
-                    dataToChartRadar(data.from_value, data.to_value);
-                },
-                onChange: function (data) {
-                    //console.log('onChange');
-                },
-                onFinish: function (data) {
-                    min = data.from_value;
-                    max = data.to_value;
-                    dataToMap(data.from_value, data.to_value);
-                    clearCharts();
-                    dataToChart(data.from_value, data.to_value);
-                    dataToChartRadar(data.from_value, data.to_value);
-                },
-                onUpdate: function (data) {
-                    //console.log('onUpdate');
-                }
-
-            });
-        }*/
 
         function dataToMap(min, max){
+
             $.ajax("regiao/"+min+"/"+max, {
                 data: {},
                 success: function(data){
-                    //console.log(data);
+                    console.log(data);
+                    console.log(':::::::::::::::::::::::::::::::');
                     loadMap(data);
                 },
                 error: function(data){
@@ -161,6 +102,102 @@ print_r($periodo_limite);*/
                 }
             })
         }
+
+        var indexLegend = 1;
+        var lastIndexLegend = 0;
+        var legend = [];
+        var cont = 0;
+        var intervalos = [];
+        function loadMap(data){
+
+            //remove existing map layers
+            mymap.eachLayer(function(layer){
+                //if not the tile layer
+                if (typeof layer._url === "undefined"){
+                    mymap.removeLayer(layer);
+                }
+            });
+
+            let valores = [];
+            for(let i in data.features){
+                valores[i] = data.features[i].properties.total;
+            }
+            console.log(valores);
+
+            let max = parseInt(valores[valores.length-1]);
+            let maxUtil = parseInt(max - max * 10 / 100);
+            let qtdIntervalos = 10;
+            let intervalo = parseInt(maxUtil / qtdIntervalos);
+            console.log(intervalo);
+            console.log('resto', intervalo % 100);
+            var arredondador =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
+            intervalo = Math.ceil(intervalo/arredondador) * arredondador;
+            console.log(intervalo);
+            intervalos[0] = 0;
+            intervalos[9] = maxUtil;
+            for(let i=1;i<qtdIntervalos;i++){
+                intervalos[i] = intervalos[i-1] + intervalo;
+            }
+            //console.log(intervalos);
+
+            geojson = L.geoJson(data, {
+                style: style,
+                onEachFeature: onEachFeature //listeners
+            }).addTo(mymap);
+
+            /*for(var i=0; i<data.circles.length; i++){
+             var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
+             color: 'red',
+             fillColor: '#f03',
+             fillOpacity: 0.5,
+             radius: data.circles[i].valor*10
+             }).addTo(mymap);
+             }*/
+
+            legend[indexLegend] = L.control({position: 'bottomright'});
+
+
+            legend[indexLegend].onAdd = function (mymap) {
+                let div = L.DomUtil.create('div', 'info legend'),
+                    //grades = [0, 100, 300, 600, 1000, 1500, 3000, 5000, 7000, 9000],
+                    grades = intervalos,
+                    labels = [];
+                // loop through our density intervals and generate a label with a colored square for each interval
+                for (let i = 0; i < grades.length; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                }
+                return div;
+            };
+
+            if(lastIndexLegend!=0){
+                mymap.removeControl(legend[lastIndexLegend]);
+            }
+            legend[indexLegend].addTo(mymap);
+            lastIndexLegend = indexLegend;
+            indexLegend++;
+
+            /*for(var i in data){
+             var circle = L.circle([data[i].st_y, data[i].st_x], {
+             color: 'red',
+             fillColor: '#f03',
+             fillOpacity: 0.5,
+             radius: 50000
+             }).addTo(mymap);
+             }*/
+
+            let polygon2 = L.polygon([
+                [51.509, -0.08],
+                [51.503, -0.06],
+                [51.51, -0.047]
+            ]).addTo(mymap);
+
+
+
+        }
+
+
 
         ///////////////////////////////////////////////////////////////////////////////
         var mymap = L.map('mapid').setView([-10, -52], 4);
@@ -232,96 +269,18 @@ print_r($periodo_limite);*/
         /////////////////////////////////////////////////////////////////
 
 
-        var indexLegend = 1;
-        var lastIndexLegend = 0;
-        var legend = [];
-        function loadMap(data){
-
-
-
-            //remove existing map layers
-            mymap.eachLayer(function(layer){
-                //if not the tile layer
-                if (typeof layer._url === "undefined"){
-                    mymap.removeLayer(layer);
-                }
-            });
-
-
-
-            geojson = L.geoJson(data, {
-                style: style,
-                onEachFeature: onEachFeature //listeners
-            }).addTo(mymap);
-
-            var valores = [];
-            for(var i in data){
-                valores[i] = data[i].total;
-            }
-            var min = valores[0];
-            var max = valores[valores.length-1];
-
-            var intervalos = [];
-            var qtdIntervalos = 10;
-            intervalos[0] = 0;
-            intervalos[9] = max;
-            for(var i=1;i<qtdIntervalos;i++){
-
-            }
-
-            /*for(var i=0; i<data.circles.length; i++){
-                var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.5,
-                    radius: data.circles[i].valor*10
-                }).addTo(mymap);
-            }*/
-
-            legend[indexLegend] = L.control({position: 'bottomright'});
-
-
-            legend[indexLegend].onAdd = function (mymap) {
-                var div = L.DomUtil.create('div', 'info legend'),
-                    grades = [0, 100, 300, 600, 1000, 1500, 3000, 5000, 7000, 9000],
-                    labels = [];
-                // loop through our density intervals and generate a label with a colored square for each interval
-                for (var i = 0; i < grades.length; i++) {
-                    div.innerHTML +=
-                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-                }
-                return div;
-            };
-
-            if(lastIndexLegend!=0){
-                mymap.removeControl(legend[lastIndexLegend]);
-            }
-            legend[indexLegend].addTo(mymap);
-            lastIndexLegend = indexLegend;
-            indexLegend++;
-
-            /*for(var i in data){
-                var circle = L.circle([data[i].st_y, data[i].st_x], {
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.5,
-                    radius: 50000
-                }).addTo(mymap);
-            }*/
-
-            var polygon2 = L.polygon([
-                [51.509, -0.08],
-                [51.503, -0.06],
-                [51.51, -0.047]
-            ]).addTo(mymap);
-
-
-
-        }
+        var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C',  '#BD0026',  '#9b0024',  '#800026',   '#5f0022'];
 
         function getColor(d) {
-            return  d > 9000 ? '#5f0022' :
+
+            var qtdIntervalos = intervalos.length;
+            for(var i=qtdIntervalos-1; i>=0; i--){
+                if(d > intervalos[i]){
+                    return colors[i];
+                }
+            }
+
+            /*return  d > 9000 ? '#5f0022' :
                     d > 7000  ? '#800026' :
                     d > 5000  ? '#9b0024' :
                     d > 3000  ? '#BD0026' :
@@ -330,7 +289,7 @@ print_r($periodo_limite);*/
                     d > 600   ? '#FD8D3C' :
                     d > 300   ? '#FEB24C' :
                     d > 100   ? '#FED976' :
-                    '#FFEDA0';
+                    '#FFEDA0';*/
         }
 
         function style(feature) {

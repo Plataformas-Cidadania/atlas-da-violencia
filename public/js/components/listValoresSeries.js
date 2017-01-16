@@ -21,7 +21,7 @@ class ListValoresSeries extends React.Component {
             success: function (data) {
                 //console.log(data);
                 this.setState({ valores: data });
-                loadMap(data);
+                //loadMap(data);
             }.bind(this),
             error: function (xhr, status, err) {
                 console.log('erro');

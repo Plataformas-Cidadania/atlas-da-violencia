@@ -21,7 +21,6 @@ class PgSerie extends React.Component {
             React.createElement("div", { id: "mapid" }),
             React.createElement("br", null),
             React.createElement("br", null),
-            React.createElement(ListValoresSeries, { min: this.state.min, max: this.state.max }),
             React.createElement(
                 "canvas",
                 { id: "myChart", width: "400", height: "200" },
@@ -31,7 +30,8 @@ class PgSerie extends React.Component {
                 "canvas",
                 { id: "myChartRadar", width: "400", height: "200" },
                 " "
-            )
+            ),
+            React.createElement(ListValoresSeries, { min: this.state.min, max: this.state.max })
         );
     }
 }

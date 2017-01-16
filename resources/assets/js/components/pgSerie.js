@@ -19,9 +19,9 @@ class PgSerie extends React.Component{
                 <br/>
                 <div id="mapid"></div>
                 <br/><br/>
-                <ListValoresSeries min={this.state.min} max={this.state.max}/>
                 <canvas id="myChart" width="400" height="200"> </canvas>
                 <canvas id="myChartRadar" width="400" height="200"> </canvas>
+                <ListValoresSeries min={this.state.min} max={this.state.max}/>
             </div>
         );
     }
