@@ -23,9 +23,9 @@
 @endif
 <script src="js/directives/searchMenu.js"></script>
 {{--<script src="js/controllers/serieCtrl.js"></script>--}}
-<script src="/lib/react/react.js"></script>
-<script src="/lib/react/react-dom.js"></script>
-<script src="/lib/numeral.js"></script>
+<script src="lib/react/react.js"></script>
+<script src="lib/react/react-dom.js"></script>
+<script src="lib/numeral.js"></script>
 <?php
 
 /*// Datas de início e fim
@@ -71,19 +71,24 @@ print_r($periodo_limite);*/
 
 ?>
 
-
-
 @if($rota=='map')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+
+
+
+    <script src="js/components/listValoresSeries.js"></script>
+    <script src="js/components/rangePeriodos.js"></script>
+    <script src="js/components/pgSerie.js"></script>
+
 
     <script>
 
         var periodos = [];
 
         $( document ).ready( function() {
-            dataToRange()
+            //dataToRange()
 
         });
 
@@ -102,17 +107,17 @@ print_r($periodo_limite);*/
             })
         }
 
-        var min = 0;
+        /*var min = 0;
         var max = 0;
         function loadRange(){
             $("#range").ionRangeSlider({
                 values: periodos,
                 hide_min_max: true,
                 keyboard: true,
-                /*min: 0,
+                /!*min: 0,
                  max: 5000,
                  from: 1000,
-                 to: 4000,*/
+                 to: 4000,*!/
                 type: 'double',
                 step: 1,
                 prefix: "",
@@ -142,7 +147,7 @@ print_r($periodo_limite);*/
                 }
 
             });
-        }
+        }*/
 
         function dataToMap(min, max){
             $.ajax("regiao/"+min+"/"+max, {
@@ -465,9 +470,7 @@ print_r($periodo_limite);*/
             myRadarChart.destroy();
         }
 
-
     </script>
-    <script src="/js/components/listValoresSeries.js"></script>
 
 
 @endif

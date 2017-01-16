@@ -41,16 +41,20 @@
     {{--@endif--}}
 
     <div class="container">
-        <div class="hidden-print">
+
+        <div id="pgSerie"></div>
+
+
+
+        {{--<div class="hidden-print">
             <h4><i class="fa fa-calendar" aria-hidden="true"></i> Periodicidade</h4>
             <input type="text" id="range" value=""  name="range" ng-model="range" />
-        </div>
-        <br><br>
+        </div>--}}
+        {{--<br><br>
         <div id="mapid"></div>
         <br><br>
-        {{--<div id="myChart"></div>--}}
         <div id="listValoresSeries"></div>
-        <canvas id="myChart" width="400" height="200"></canvas>
+        <canvas id="myChart" width="400" height="200"></canvas>--}}
         <canvas id="myChartRadar" width="400" height="200"></canvas>
         {{--<button onclick="getData()">Carregar</button>--}}
     </div>

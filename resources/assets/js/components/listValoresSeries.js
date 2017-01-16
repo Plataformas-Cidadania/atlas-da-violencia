@@ -2,15 +2,18 @@ class ListValoresSeries extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            valores: []
-        }
+            valores: [],
+        };
+        this.loadDataToList = this.loadDataToList.bind(this);
     }
 
-    componentDidMount(){
-        this.loadValues();
+    componentWillReceiveProps(props){
+        this.setState({min: props.min, max: props.max}, function(){
+            this.loadDataToList();
+        });
     }
 
-    loadValues(){
+    loadDataToList(){
         $.ajax({
             method:'GET',
             url: "valores-series/"+this.props.min+"/"+this.props.max,
@@ -27,7 +30,6 @@ class ListValoresSeries extends React.Component{
     }
 
     render(){
-        //let _this = this;
         let valores = this.state.valores.map(function (item, index) {
             return (
                 <tr key={index}>
@@ -42,7 +44,7 @@ class ListValoresSeries extends React.Component{
                 <thead>
                     <tr>
                         <th>Uf</th>
-                        <th>Valor</th>
+                        <th>Ocorrências</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,7 +55,3 @@ class ListValoresSeries extends React.Component{
     }
 }
 
-ReactDOM.render(
-    <ListValoresSeries min="2004" max="2006" valores=""/>,
-    document.getElementById('listValoresSeries')
-);
