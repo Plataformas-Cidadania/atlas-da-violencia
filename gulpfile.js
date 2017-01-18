@@ -94,7 +94,7 @@ elixir(function(mix) {
 
     mix.styles([
         'lib/bootstrap/bootstrap.min.css',
-        'lib/bootstrap/bootstrap-theme.min.css',
+        /*'lib/bootstrap/bootstrap-theme.min.css',*/
         'lib/font-awesome/font-awesome.min.css',
         'lib/range/ion.rangeSlider.css',
         'lib/range/ion.rangeSlider.skinFlat.css'

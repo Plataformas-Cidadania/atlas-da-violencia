@@ -53,7 +53,7 @@
     <div class=" bg-qui  hidden-print">
         <div class="container">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-5">
                     <a href="" class="logo">
                         <picture>
                             <source srcset="imagens/settings/sm-{{$setting->imagem}}" media="(max-width: 468px)">
@@ -62,8 +62,12 @@
                         </picture>
                     </a>
                 </div>
-                <div class="col-md-6"></div>
-                <div class="col-md-3"></div>
+                <div class="col-md-3 col-sm-4 hidden-xs text-right col-md-offset-4 box-logo">
+                    <a href="http://www.ipea.gov.br/" target="_blank"><img srcset="img/ipea.png" alt="ipea" title="ipea"></a>
+                </div>
+                <div class="col-md-2 col-sm-3 hidden-xs text-right box-logo">
+                    <a href="http://www.forumseguranca.org.br/" target="_blank"><img srcset="img/fbsp.png" alt="Fórum Brasileiro de Segurança Pública" title="Fórum Brasileiro de Segurança Pública"></a>
+                </div>
             </div>
         </div>
     </div>
@@ -78,7 +82,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 25px; background-color: #ececec; height: 315px;">
                     <h2 style="margin-top: 0;">{{$ultimaNoticia->titulo}}</h2>

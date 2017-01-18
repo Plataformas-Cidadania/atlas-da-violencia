@@ -116,6 +116,7 @@ body {
   position: relative;
   z-index: 0;
   margin: 20px 0;
+  max-width: 190px;
 }
 /*.logo img .img-responsive{
   max-width: 100%;
@@ -390,6 +391,9 @@ footer {
 }
 .box-hoje p {
   color: #FFFFFF!important;
+}
+.box-logo {
+  padding-top: 30px;
 }
 @media only screen and (max-width: 980px) {
   .box_data_mes {
