@@ -30,14 +30,16 @@ class ListValoresSeries extends React.Component{
     }
 
     render(){
+        console.log('========================================================');
         let valores = this.state.valores.map(function (item, index) {
             return (
                 <tr key={index}>
-                    <th>{item.uf}</th>
+                    <th><i className="fa fa-square" style={{color: getColor(item.total)}}> </i> {item.uf}</th>
                     <td>{item.total}</td>
                 </tr>
             );
         });
+        console.log('========================================================');
 
         return (
             <table className="table table-striped table-bordered">

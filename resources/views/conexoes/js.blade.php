@@ -80,6 +80,8 @@ print_r($periodo_limite);*/
 
     <script src="js/components/listValoresSeries.js"></script>
     <script src="js/components/rangePeriodos.js"></script>
+    <script src="js/components/chartLine.js"></script>
+    <script src="js/components/chartRadar.js"></script>
     <script src="js/components/pgSerie.js"></script>
 
 
@@ -124,20 +126,7 @@ print_r($periodo_limite);*/
             }
             console.log(valores);
 
-            let max = parseInt(valores[valores.length-1]);
-            let maxUtil = parseInt(max - max * 10 / 100);
-            let qtdIntervalos = 10;
-            let intervalo = parseInt(maxUtil / qtdIntervalos);
-            console.log(intervalo);
-            console.log('resto', intervalo % 100);
-            var arredondador =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
-            intervalo = Math.ceil(intervalo/arredondador) * arredondador;
-            console.log(intervalo);
-            intervalos[0] = 0;
-            intervalos[9] = maxUtil;
-            for(let i=1;i<qtdIntervalos;i++){
-                intervalos[i] = intervalos[i-1] + intervalo;
-            }
+            intervalos = gerarIntervalos(valores);
             //console.log(intervalos);
 
             geojson = L.geoJson(data, {
@@ -268,28 +257,35 @@ print_r($periodo_limite);*/
 
         /////////////////////////////////////////////////////////////////
 
+        function gerarIntervalos(valores){
+            let intervalos = [];
+            let max = parseInt(valores[valores.length-1]);
+            let maxUtil = parseInt(max - max * 10 / 100);
+            let qtdIntervalos = 10;
+            let intervalo = parseInt(maxUtil / qtdIntervalos);
+            console.log(intervalo);
+            console.log('resto', intervalo % 100);
+            var arredondador =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
+            intervalo = Math.ceil(intervalo/arredondador) * arredondador;
+            console.log(intervalo);
+            intervalos[0] = 0;
+            intervalos[9] = maxUtil;
+            for(let i=1;i<qtdIntervalos;i++){
+                intervalos[i] = intervalos[i-1] + intervalo;
+            }
+            return intervalos;
+        }
 
         var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C',  '#BD0026',  '#9b0024',  '#800026',   '#5f0022'];
 
         function getColor(d) {
-
             var qtdIntervalos = intervalos.length;
             for(var i=qtdIntervalos-1; i>=0; i--){
                 if(d > intervalos[i]){
+                    console.log(colors[i]);
                     return colors[i];
                 }
             }
-
-            /*return  d > 9000 ? '#5f0022' :
-                    d > 7000  ? '#800026' :
-                    d > 5000  ? '#9b0024' :
-                    d > 3000  ? '#BD0026' :
-                    d > 1500  ? '#E31A1C' :
-                    d > 1000  ? '#FC4E2A' :
-                    d > 600   ? '#FD8D3C' :
-                    d > 300   ? '#FEB24C' :
-                    d > 100   ? '#FED976' :
-                    '#FFEDA0';*/
         }
 
         function style(feature) {
@@ -303,7 +299,7 @@ print_r($periodo_limite);*/
             };
         }
 
-        function dataToChart(min, max){
+        /*function dataToChart(min, max){
             $.ajax("periodo/"+min+"/"+max, {
                 data: {},
                 success: function(data){
@@ -314,10 +310,10 @@ print_r($periodo_limite);*/
                     console.log('erro');
                 }
             })
-        }
+        }*/
 
 
-        function loadChart(data){
+        /*function loadChart(data){
             var labels = [];
             var values = [];
             for(var i in data){
@@ -363,9 +359,9 @@ print_r($periodo_limite);*/
             });
 
 
-        }
+        }*/
 
-        function dataToChartRadar(min, max){
+        /*function dataToChartRadar(min, max){
             $.ajax("valores-regiao/"+min+"/"+max, {
                 data: {},
                 success: function(data){
@@ -376,9 +372,9 @@ print_r($periodo_limite);*/
                     console.log('erro');
                 }
             })
-        }
+        }*/
 
-        function loadChartRadar(data){
+        /*function loadChartRadar(data){
             //console.log(data);
             var labels = [];
             var values = [];
@@ -422,11 +418,11 @@ print_r($periodo_limite);*/
                 options: options2
             });
 
-        }
+        }*/
 
         function clearCharts(){
             myLineChart.destroy();
-            myRadarChart.destroy();
+            //myRadarChart.destroy();
         }
 
     </script>

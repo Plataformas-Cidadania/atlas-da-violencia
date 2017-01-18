@@ -1,6 +1,9 @@
 class RangePeriodo extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            periodo: []
+        };
     }
 
     componentDidMount() {
@@ -13,8 +16,11 @@ class RangePeriodo extends React.Component {
             data: {},
             success: function (data) {
                 //console.log(data);
-                periodos = data;
-                _this.loadRange();
+                _this.setState({ periodos: data }, function () {
+                    _this.loadRange();
+                    _this.props.setPeriodos(data);
+                });
+                //periodos = data;
             },
             error: function (data) {
                 console.log('erro');
@@ -25,7 +31,7 @@ class RangePeriodo extends React.Component {
     loadRange() {
         let _this = this;
         $("#range").ionRangeSlider({
-            values: periodos,
+            values: _this.state.periodos,
             hide_min_max: true,
             keyboard: true,
             /*min: 0,
@@ -44,21 +50,21 @@ class RangePeriodo extends React.Component {
                 //min = data.from_value;
                 //max = data.to_value;
                 dataToMap(data.from_value, data.to_value);
-                dataToChart(data.from_value, data.to_value);
-                dataToChartRadar(data.from_value, data.to_value);
+                //dataToChart(data.from_value, data.to_value);
+                //dataToChartRadar(data.from_value, data.to_value);
             },
             onChange: function (data) {
                 //console.log('onChange');
             },
             onFinish: function (data) {
-                console.log('range onFinish', data);
+                //console.log('range onFinish', data);
                 _this.props.changePeriodo(data.from_value, data.to_value);
                 //min = data.from_value;
                 //max = data.to_value;
                 dataToMap(data.from_value, data.to_value);
-                clearCharts();
-                dataToChart(data.from_value, data.to_value);
-                dataToChartRadar(data.from_value, data.to_value);
+                //clearCharts();
+                //dataToChart(data.from_value, data.to_value);
+                //dataToChartRadar(data.from_value, data.to_value);
             },
             onUpdate: function (data) {
                 //console.log('onUpdate');

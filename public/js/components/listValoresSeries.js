@@ -30,6 +30,7 @@ class ListValoresSeries extends React.Component {
     }
 
     render() {
+        console.log('========================================================');
         let valores = this.state.valores.map(function (item, index) {
             return React.createElement(
                 "tr",
@@ -37,6 +38,12 @@ class ListValoresSeries extends React.Component {
                 React.createElement(
                     "th",
                     null,
+                    React.createElement(
+                        "i",
+                        { className: "fa fa-square", style: { color: getColor(item.total) } },
+                        " "
+                    ),
+                    " ",
                     item.uf
                 ),
                 React.createElement(
@@ -46,6 +53,7 @@ class ListValoresSeries extends React.Component {
                 )
             );
         });
+        console.log('========================================================');
 
         return React.createElement(
             "table",
