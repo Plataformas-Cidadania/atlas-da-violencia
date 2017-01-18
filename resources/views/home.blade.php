@@ -1,51 +1,7 @@
 @extends('layout')
 @section('title', 'Bem Vindo')
 @section('content')
-    <script>
-        $( document ).ready(function() {
-            contadorIndices(0, '#contadorIndice1', 19854);
-            nomeIndices('#nomeIndice1', 'Furto');
 
-            contadorIndices(0, '#contadorIndice2', 9521);
-            contadorIndices(0, '#contadorIndice3', 2265);
-            contadorIndices(0, '#contadorIndice4', 300);
-        });
-
-
-        function contadorIndices(i, id, total) {
-            setTimeout(function () {
-                i+=Math.ceil(total/455);
-                if (i <= total) {
-                    contadorIndices(i, id, total);
-                }
-                if(i>total){
-                    i=total;
-                }
-                $(id).html(i);
-            }, 5)
-        }
-
-        function nomeIndices(id, text) {
-            $(id).html(text);
-        }
-
-
-        var i = 0;
-
-        function myLoop () {
-            setTimeout(function () {
-                i+=32;
-                if (i <= totalCount) {
-                    myLoop();
-                }
-                if(i>totalCount){
-                    i=totalCount;
-                }
-                $('#contador').html(i);
-            }, 5)
-        }
-        //myLoop();
-    </script>
 
 
     <style>
@@ -78,12 +34,12 @@
                         }?>
                     <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" >
                         <div>
-                            <a href="{{$link->link}}" target="_blank">
+                            <a href="{{$link->link}}">
                                 <picture>
-                                    <source srcset="/imagens/links/{{$link->imagem}}" media="(max-width: 468px)">
-                                    <source srcset="/imagens/links/{{$link->imagem}}" media="(max-width: 768px)">
-                                    <source srcset="/imagens/links/{{$link->imagem}}" class="img-responsive">
-                                    <img srcset="/imagens/links/{{$link->imagem}}" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}">
+                                    <source srcset="imagens/links/{{$link->imagem}}" media="(max-width: 468px)">
+                                    <source srcset="imagens/links/{{$link->imagem}}" media="(max-width: 768px)">
+                                    <source srcset="imagens/links/{{$link->imagem}}" class="img-responsive">
+                                    <img srcset="imagens/links/{{$link->imagem}}" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}">
                                 </picture>
                                 <div class="bg-sex">
                                     <h2 class="titulo-itens" ng-class="{'alto-contraste': altoContrasteAtivo}" href="{{$link->link}}">{{$link->titulo}}</h2>
@@ -109,15 +65,15 @@
                     </div>
                     <div class="col-md-3">
                         <h2 id="contadorIndice2">00000</h2>
-                        <p>Furtos</p>
+                        <p id="nomeIndice2"></p>
                     </div>
                     <div class="col-md-3">
                         <h2 id="contadorIndice3">00000</h2>
-                        <p>Furtos</p>
+                        <p id="nomeIndice3"></p>
                     </div>
                     <div class="col-md-3">
                         <h2 id="contadorIndice4">00000</h2>
-                        <p>Furtos</p>
+                        <p id="nomeIndice4"></p>
                     </div>
                 </div>
             </div>
@@ -137,7 +93,7 @@
                 @endforeach
                 <div class="row text-center">
                     <div class="col-md-12 space-top">
-                        <a href="/noticias/veja-todas-as-noticias" role="button">
+                        <a href="noticias/veja-todas-as-noticias" role="button">
                             <button class="btn btn-sec btn-padding btn-base">VER MAIS NOTÍCIAS</button>
                         </a>
                     </div>
@@ -149,7 +105,7 @@
         <br><br>
         <div class="bg-qui">
             <div class="container">
-                <a href="/quem/conheca-o-ipea" >
+                <a href="quem/conheca-o-ipea" >
                     <br><br>
                     <p>{{strip_tags($bemvindo->descricao)}}</p>
                     <br><br>

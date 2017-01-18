@@ -40,11 +40,11 @@
                 <li><a href="#iniciodorodape" ng-class="{'alto-contraste': altoContrasteAtivo}" accesskey="4">Ir para o rodapé <span class="bg-sec btn-acessibilidade">4</span></a></li>
             </ul>
             <ul id="botoes" class="col-md-6 col-sm-12 text-right">
-                <li><a href="/acessibilidade" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-universal-access" aria-hidden="true"></i> Acessibilidade </a></li>
+                <li><a href="acessibilidade" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-universal-access" aria-hidden="true"></i> Acessibilidade </a></li>
                 <li><a href="#" id="bt_contraste" ng-click="setAltoContraste()" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-adjust" aria-hidden="true"></i> Alto contraste</a></li>
                 {{--<li><a href="mapa.html" ng-class="{'alto-contraste': altoContrasteAtivo}"> Mapa do site </a></li>--}}
-                <li><img src="/img/portugues.jpg" alt=""></li>
-                <li><img src="/img/ingles.jpg" alt=""></li>
+                <li><img src="img/portugues.jpg" alt=""></li>
+                <li><img src="img/ingles.jpg" alt=""></li>
             </ul>
 
         </div>
@@ -54,11 +54,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <a href="/" class="logo">
+                    <a href="" class="logo">
                         <picture>
-                            <source srcset="/imagens/settings/sm-{{$setting->imagem}}" media="(max-width: 468px)">
-                            <source srcset="/imagens/settings/{{$setting->imagem}}" class="img-responsive">
-                            <img srcset="/imagens/settings/{{$setting->imagem}}" alt="{{$setting->titulo}}" title="{{$setting->titulo}}">
+                            <source srcset="imagens/settings/sm-{{$setting->imagem}}" media="(max-width: 468px)">
+                            <source srcset="imagens/settings/{{$setting->imagem}}" class="img-responsive">
+                            <img srcset="imagens/settings/{{$setting->imagem}}" alt="{{$setting->titulo}}" title="{{$setting->titulo}}">
                         </picture>
                     </a>
                 </div>
@@ -78,13 +78,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_RmZpsfnM3w" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 25px; background-color: #ececec; height: 315px;">
                     <h2 style="margin-top: 0;">{{$ultimaNoticia->titulo}}</h2>
-                    <div style="height: 100px; overflow: hidden;">{{$ultimaNoticia->descricao}}</div>
+                    <div style="height: 100px; overflow: hidden;">{!! $ultimaNoticia->descricao !!}</div>
                     <br>
-                    <button type="button" class="btn btn-info">Mais Detalhes</button>
+                    <a href="noticia/{{$ultimaNoticia->id}}/{{clean($ultimaNoticia->titulo)}}" class="btn btn-info" >Mais Detalhes</a>
                 </div>
             </div>
             <?php /*?>

@@ -17,7 +17,7 @@ cmsApp.controller('alterarLinkCtrl', ['$scope', '$http', 'Upload', '$timeout', f
 
             $scope.processandoSalvar = true;
             //console.log($scope.link);
-            $http.post("/cms/alterar-link/"+$scope.id, {'link': $scope.link, 'removerImagem': $scope.removerImagem}).success(function (data){
+            $http.post("cms/alterar-link/"+$scope.id, {'link': $scope.link, 'removerImagem': $scope.removerImagem}).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = data;
@@ -31,7 +31,7 @@ cmsApp.controller('alterarLinkCtrl', ['$scope', '$http', 'Upload', '$timeout', f
         }else{
 
             file.upload = Upload.upload({
-                url: '/cms/alterar-link/'+$scope.id,
+                url: 'cms/alterar-link/'+$scope.id,
                 data: {link: $scope.link, file: file},
             });
 
@@ -66,7 +66,7 @@ cmsApp.controller('alterarLinkCtrl', ['$scope', '$http', 'Upload', '$timeout', f
 
     $scope.carregaImagem  = function(img) {
         if(img!=''){
-            $scope.imagemBD = '/imagens/links/xs-'+img;
+            $scope.imagemBD = 'imagens/links/xs-'+img;
             //console.log($scope.imagemBD);
         }
     };

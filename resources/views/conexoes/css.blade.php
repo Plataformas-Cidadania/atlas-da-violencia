@@ -18,3 +18,9 @@
 
 ?>
 </style>
+
+<style>
+    .irs-slider {
+        background: url(http://evbsb1052.ipea.gov.br/atlasviolencia/img/sprite-skin-flat.png) repeat-x;
+    }
+</style>

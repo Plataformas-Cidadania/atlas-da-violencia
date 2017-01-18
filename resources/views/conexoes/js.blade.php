@@ -2,16 +2,16 @@
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="/lib/angular/angular.min.js"></script>
 <script src="/js/app.js"></script>--}}
-<script src="/js/all.js"></script>
+<script src="js/all.js"></script>
 @if($rota=='contato')
-    <script src="/js/controllers/contatoCtrl.js"></script>
-    <script src="/lib/jquery/jquery.mask.min.js"></script>
-    <script src="/js/directives/maskPhoneDir.js"></script>
-    <script src="/lib/angular/angular-messages.min.js"></script>
+    <script src="js/controllers/contatoCtrl.js"></script>
+    <script src="lib/jquery/jquery.mask.min.js"></script>
+    <script src="js/directives/maskPhoneDir.js"></script>
+    <script src="lib/angular/angular-messages.min.js"></script>
 @endif
 @if($rota=='/')
-    <script src="/js/controllers/linkCtrl.js"></script>
-    <script>$('.block').smoove({offset:'10%'});</script>
+    <script src="js/controllers/linkCtrl.js"></script>
+    {{--<script>$('.block').smoove({offset:'10%'});</script>--}}
 @endif
 @if($rota=='renda')
     <script>
@@ -21,8 +21,11 @@
         });
     </script>
 @endif
-<script src="/js/directives/searchMenu.js"></script>
-<script src="/js/controllers/serieCtrl.js"></script>
+<script src="js/directives/searchMenu.js"></script>
+{{--<script src="js/controllers/serieCtrl.js"></script>--}}
+<script src="lib/react/react.js"></script>
+<script src="lib/react/react-dom.js"></script>
+<script src="lib/numeral.js"></script>
 <?php
 
 /*// Datas de início e fim
@@ -68,75 +71,30 @@ print_r($periodo_limite);*/
 
 ?>
 
-
-
 @if($rota=='map')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+
+
+
+    <script src="js/components/listValoresSeries.js"></script>
+    <script src="js/components/rangePeriodos.js"></script>
+    <script src="js/components/pgSerie.js"></script>
+
+
     <script>
 
         var periodos = [];
 
-        $( document ).ready( function() {
-            dataToRange()
-
-        });
-
-        function dataToRange(){
-            $.ajax("/periodos", {
-                data: {},
-                success: function(data){
-                    //console.log(data);
-                    periodos = data;
-                    loadRange();
-                },
-                error: function(data){
-                    console.log('erro');
-                }
-            })
-        }
-
-        function loadRange(){
-            $("#range").ionRangeSlider({
-                values: periodos,
-                hide_min_max: true,
-                keyboard: true,
-                /*min: 0,
-                 max: 5000,
-                 from: 1000,
-                 to: 4000,*/
-                type: 'double',
-                step: 1,
-                prefix: "",
-                //postfix: " million pounds",
-                grid: true,
-                prettify_enabled: false,
-                onStart: function (data) {
-                    dataToMap(data.from_value, data.to_value);
-                    dataToChart(data.from_value, data.to_value);
-                    dataToChartRadar(data.from_value, data.to_value);
-                },
-                onChange: function (data) {
-                    //console.log('onChange');
-                },
-                onFinish: function (data) {
-                    dataToMap(data.from_value, data.to_value);
-                    dataToChart(data.from_value, data.to_value);
-                    dataToChartRadar(data.from_value, data.to_value);
-                },
-                onUpdate: function (data) {
-                    //console.log('onUpdate');
-                }
-
-            });
-        }
 
         function dataToMap(min, max){
-            $.ajax("/regiao/"+min+"/"+max, {
+
+            $.ajax("regiao/"+min+"/"+max, {
                 data: {},
                 success: function(data){
-                    //console.log(data);
+                    console.log(data);
+                    console.log(':::::::::::::::::::::::::::::::');
                     loadMap(data);
                 },
                 error: function(data){
@@ -145,25 +103,12 @@ print_r($periodo_limite);*/
             })
         }
 
-        ///////////////////////////////////////////////////////////////////////////////
-        var mymap = L.map('mapid').setView([-10, -52], 4);
-        var tileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJwYXNzb3MiLCJhIjoiY2l4N3l0bXF0MDFiczJ6cnNwODN3cHJidiJ9.qnfh8Jfn_be6gpo774j_nQ', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-            id: 'mapbox.streets'
-        }).addTo(mymap);
-        ///////////////////////////////////////////////////////////////////////////////
-
-
         var indexLegend = 1;
         var lastIndexLegend = 0;
         var legend = [];
+        var cont = 0;
+        var intervalos = [];
         function loadMap(data){
-
-            var valores = [];
-
 
             //remove existing map layers
             mymap.eachLayer(function(layer){
@@ -173,34 +118,52 @@ print_r($periodo_limite);*/
                 }
             });
 
-            var regiao = [];
-
-            for(var i=0; i<data.length; i++){
-                valores[i] = data[i].total;
-                regiao[i] = JSON.parse(data[i].st_asgeojson);
-                L.geoJson(regiao[i], {style: style(data[i].total)}).addTo(mymap);
+            let valores = [];
+            for(let i in data.features){
+                valores[i] = data.features[i].properties.total;
             }
+            console.log(valores);
 
-            //console.log(valores);
+            let max = parseInt(valores[valores.length-1]);
+            let maxUtil = parseInt(max - max * 10 / 100);
+            let qtdIntervalos = 10;
+            let intervalo = parseInt(maxUtil / qtdIntervalos);
+            console.log(intervalo);
+            console.log('resto', intervalo % 100);
+            var arredondador =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
+            intervalo = Math.ceil(intervalo/arredondador) * arredondador;
+            console.log(intervalo);
+            intervalos[0] = 0;
+            intervalos[9] = maxUtil;
+            for(let i=1;i<qtdIntervalos;i++){
+                intervalos[i] = intervalos[i-1] + intervalo;
+            }
+            //console.log(intervalos);
+
+            geojson = L.geoJson(data, {
+                style: style,
+                onEachFeature: onEachFeature //listeners
+            }).addTo(mymap);
 
             /*for(var i=0; i<data.circles.length; i++){
-                var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.5,
-                    radius: data.circles[i].valor*10
-                }).addTo(mymap);
-            }*/
+             var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
+             color: 'red',
+             fillColor: '#f03',
+             fillOpacity: 0.5,
+             radius: data.circles[i].valor*10
+             }).addTo(mymap);
+             }*/
 
             legend[indexLegend] = L.control({position: 'bottomright'});
 
 
             legend[indexLegend].onAdd = function (mymap) {
-                var div = L.DomUtil.create('div', 'info legend'),
-                    grades = [0, 100, 300, 600, 1000, 1500, 3000, 5000, 7000, 9000],
+                let div = L.DomUtil.create('div', 'info legend'),
+                    //grades = [0, 100, 300, 600, 1000, 1500, 3000, 5000, 7000, 9000],
+                    grades = intervalos,
                     labels = [];
                 // loop through our density intervals and generate a label with a colored square for each interval
-                for (var i = 0; i < grades.length; i++) {
+                for (let i = 0; i < grades.length; i++) {
                     div.innerHTML +=
                         '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
                         grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
@@ -216,23 +179,108 @@ print_r($periodo_limite);*/
             indexLegend++;
 
             /*for(var i in data){
-                var circle = L.circle([data[i].st_y, data[i].st_x], {
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.5,
-                    radius: 50000
-                }).addTo(mymap);
-            }*/
+             var circle = L.circle([data[i].st_y, data[i].st_x], {
+             color: 'red',
+             fillColor: '#f03',
+             fillOpacity: 0.5,
+             radius: 50000
+             }).addTo(mymap);
+             }*/
 
-            var polygon2 = L.polygon([
+            let polygon2 = L.polygon([
                 [51.509, -0.08],
                 [51.503, -0.06],
                 [51.51, -0.047]
             ]).addTo(mymap);
+
+
+
         }
 
+
+
+        ///////////////////////////////////////////////////////////////////////////////
+        var mymap = L.map('mapid').setView([-10, -52], 4);
+        var tileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJwYXNzb3MiLCJhIjoiY2l4N3l0bXF0MDFiczJ6cnNwODN3cHJidiJ9.qnfh8Jfn_be6gpo774j_nQ', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            id: 'mapbox.streets'
+        }).addTo(mymap);
+        ///////////////////////////////////////////////////////////////////////////////
+
+        /////////////////////MOUSE OVER LEGEND///////////////////////////
+        function highlightFeature(e) {
+            var layer = e.target;
+            layer.setStyle({
+                weight: 5,
+                color: '#333',
+                dashArray: '',
+                fillOpacity: 0.7
+            });
+
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+
+            info.update(layer.feature.properties);
+        }
+        function resetHighlight(e) {
+            geojson.resetStyle(e.target);
+            info.update();
+        }
+        function zoomToFeature(e) {
+            mymap.fitBounds(e.target.getBounds());
+        }
+
+        var geojson;
+        // ... our listeners
+        function onEachFeature(feature, layer) {
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeature
+            });
+        }
+
+        /*geojson = L.geoJson(statesData, {
+            style: style,
+            onEachFeature: onEachFeature
+        }).addTo(map);*/
+
+        var info = L.control();
+
+        info.onAdd = function (mymap) {
+            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this.update();
+            return this._div;
+        };
+
+        // method that we will use to update the control based on feature properties passed
+        info.update = function (props) {
+            this._div.innerHTML =
+                '<h4>Ocorrências</h4>' +  (props ? '<b>' + props.uf + '</b><br />' + props.total
+                    : 'Passe o mouse na região');
+        };
+
+        info.addTo(mymap);
+
+        /////////////////////////////////////////////////////////////////
+
+
+        var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C',  '#BD0026',  '#9b0024',  '#800026',   '#5f0022'];
+
         function getColor(d) {
-            return  d > 9000 ? '#5f0022' :
+
+            var qtdIntervalos = intervalos.length;
+            for(var i=qtdIntervalos-1; i>=0; i--){
+                if(d > intervalos[i]){
+                    return colors[i];
+                }
+            }
+
+            /*return  d > 9000 ? '#5f0022' :
                     d > 7000  ? '#800026' :
                     d > 5000  ? '#9b0024' :
                     d > 3000  ? '#BD0026' :
@@ -241,22 +289,22 @@ print_r($periodo_limite);*/
                     d > 600   ? '#FD8D3C' :
                     d > 300   ? '#FEB24C' :
                     d > 100   ? '#FED976' :
-                    '#FFEDA0';
+                    '#FFEDA0';*/
         }
 
         function style(feature) {
             return {
-                fillColor: getColor(feature),
+                fillColor: getColor(feature.properties.total),
                 weight: 2,
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
-                fillOpacity: 0.7
+                fillOpacity: 0.5
             };
         }
 
         function dataToChart(min, max){
-            $.ajax("/periodo/"+min+"/"+max, {
+            $.ajax("periodo/"+min+"/"+max, {
                 data: {},
                 success: function(data){
                     //console.log(data);
@@ -309,7 +357,7 @@ print_r($periodo_limite);*/
             var option = {
                 showLines: true
             };
-            var myLineChart = Chart.Line(canvas,{
+            myLineChart = Chart.Line(canvas,{
                 data:dataChart,
                 options:option
             });
@@ -318,7 +366,7 @@ print_r($periodo_limite);*/
         }
 
         function dataToChartRadar(min, max){
-            $.ajax("/regiao/"+min+"/"+max, {
+            $.ajax("valores-regiao/"+min+"/"+max, {
                 data: {},
                 success: function(data){
                     //console.log(data);
@@ -331,7 +379,7 @@ print_r($periodo_limite);*/
         }
 
         function loadChartRadar(data){
-            console.log(data);
+            //console.log(data);
             var labels = [];
             var values = [];
             for(var i in data){
@@ -339,7 +387,7 @@ print_r($periodo_limite);*/
                 values[i] = data[i].total;
             }
 
-            console.log(values);
+            //console.log(values);
 
             var canvas2 = document.getElementById('myChartRadar');
             var dataChart = {
@@ -368,7 +416,7 @@ print_r($periodo_limite);*/
             };
 
 
-            var myRadarChart = new Chart(canvas2, {
+            myRadarChart = new Chart(canvas2, {
                 type: 'radar',
                 data: dataChart,
                 options: options2
@@ -376,11 +424,77 @@ print_r($periodo_limite);*/
 
         }
 
+        function clearCharts(){
+            myLineChart.destroy();
+            myRadarChart.destroy();
+        }
 
     </script>
 
 
+@endif
 
 
+@if($rota=="/")
+    <script>
+        $( document ).ready(function() {
+            getIndices();
+        });
 
+        function getIndices(){
+            $.ajax("indices", {
+                data: {},
+                success: function(data){
+                    //console.log(data);
+                    contadorIndices(0, '#contadorIndice1', data[0]);
+                    contadorIndices(0, '#contadorIndice2', data[1]);
+                    contadorIndices(0, '#contadorIndice3', data[2]);
+                    contadorIndices(0, '#contadorIndice4', data[3]);
+
+                    nomeIndices('#nomeIndice1', 'Furtos');
+                    nomeIndices('#nomeIndice2', 'Juventude Perdida');
+                    nomeIndices('#nomeIndice3', 'Homicídios');
+                    nomeIndices('#nomeIndice4', 'Violência de Gênero');
+                },
+                error: function(data){
+                    console.log('erro');
+                }
+            })
+        }
+
+
+        function contadorIndices(i, id, total) {
+            setTimeout(function () {
+                i+=Math.ceil(total/300);
+                if (i <= total) {
+                    contadorIndices(i, id, total);
+                }
+                if(i>total){
+                    i=total;
+                }
+                $(id).html(i);
+            }, 5)
+        }
+
+        function nomeIndices(id, text) {
+            $(id).html(text);
+        }
+
+
+        var i = 0;
+
+        function myLoop () {
+            setTimeout(function () {
+                i+=32;
+                if (i <= totalCount) {
+                    myLoop();
+                }
+                if(i>totalCount){
+                    i=totalCount;
+                }
+                $('#contador').html(i);
+            }, 5)
+        }
+        //myLoop();
+    </script>
 @endif

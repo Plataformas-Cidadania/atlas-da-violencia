@@ -6,7 +6,7 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <img src="/assets-cms/img/logo.png" alt="" width="300"><br><br>
+                    <img src="assets-cms/img/logo.png" alt="" width="300"><br><br>
                 </div>
             </div>
             <div class="panel panel-default">

@@ -96,10 +96,10 @@
                         <tr ng-repeat="webdoor in webdoors">
                             <td><% webdoor.id %></td>
                             <td><img ng-show="webdoor.imagem" ng-src="/imagens/webdoors/xs-<% webdoor.imagem %>" width="60"></td>
-                            <td><a href="/cms/webdoor/<% webdoor.id %>"><% webdoor.titulo %></a></td>
+                            <td><a href="cms/webdoor/<% webdoor.id %>"><% webdoor.titulo %></a></td>
                             <td class="text-right">
                                 <div>
-                                    <a href="/cms/webdoor/<% webdoor.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/webdoor/<% webdoor.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(webdoor.id, webdoor.titulo, webdoor.imagem)"></i></a>
                                 </div>
                             </td>

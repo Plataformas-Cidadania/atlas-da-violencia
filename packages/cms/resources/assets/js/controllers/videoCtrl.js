@@ -35,7 +35,7 @@ cmsApp.controller('videoCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     var listarVideos = function(){
         $scope.processandoListagem = true;
         $http({
-            url: '/cms/listar-videos/',
+            url: 'cms/listar-videos',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
@@ -119,7 +119,7 @@ cmsApp.controller('videoCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
             $scope.processandoInserir = true;
 
             //console.log($scope.video);
-            $http.post("/cms/inserir-video", {video: $scope.video}).success(function (data){
+            $http.post("cms/inserir-video", {video: $scope.video}).success(function (data){
                  listarVideos();
                  delete $scope.video;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -130,7 +130,7 @@ cmsApp.controller('videoCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
              });
         }else{
             file.upload = Upload.upload({
-                url: '/cms/inserir-video',
+                url: 'cms/inserir-video',
                 data: {video: $scope.video, file: file},
             });
 
@@ -181,7 +181,7 @@ cmsApp.controller('videoCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: '/cms/excluir-video/'+id,
+            url: 'cms/excluir-video/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);

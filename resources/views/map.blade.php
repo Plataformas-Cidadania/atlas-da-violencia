@@ -2,7 +2,7 @@
 @section('title', 'Mapa')
 @section('content')
     <style>
-        #mapid { width: 60%; height: 600px; }
+        #mapid { width: 100%; height: 600px; }
 
         .legend {
             line-height: 18px;
@@ -30,18 +30,34 @@
             margin: 0 0 5px;
             color: #777;
         }
-    </style>
 
-    <div class="hidden-print">
-        <h4><i class="fa fa-calendar" aria-hidden="true"></i> Periodicidade</h4>
-        <input type="text" id="range" value=""  name="range" ng-model="range" />
+    </style>
+    {{--@if(substr($base_href, 0,9)=='evbsb1052')--}}
+        <style>
+            .irs-slider {
+                background: url(http://evbsb1052.ipea.gov.br/atlasviolencia/img/sprite-skin-flat.png) repeat-x;
+            }
+        </style>
+    {{--@endif--}}
+
+    <div class="container">
+
+        <div id="pgSerie"></div>
+
+
+
+        {{--<div class="hidden-print">
+            <h4><i class="fa fa-calendar" aria-hidden="true"></i> Periodicidade</h4>
+            <input type="text" id="range" value=""  name="range" ng-model="range" />
+        </div>--}}
+        {{--<br><br>
+        <div id="mapid"></div>
+        <br><br>
+        <div id="listValoresSeries"></div>
+        <canvas id="myChart" width="400" height="200"></canvas>--}}
+        {{--<canvas id="myChartRadar" width="400" height="200"></canvas>--}}
+        {{--<button onclick="getData()">Carregar</button>--}}
     </div>
-    <br><br>
-    <div id="mapid"></div>
-    <br><br>
-    {{--<div id="myChart"></div>--}}
-    <canvas id="myChart" width="400" height="200"></canvas>
-    <canvas id="myChartRadar" width="400" height="200"></canvas>
-    {{--<button onclick="getData()">Carregar</button>--}}
+
 
 @endsection

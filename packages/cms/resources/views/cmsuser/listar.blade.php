@@ -84,11 +84,11 @@
                         <tbody>
                         <tr ng-repeat="cmsuser in cmsusers">
                             <td><% cmsuser.id %></td>
-                            <td><a href="/cms/usuario/<% cmsuser.id %>"><% cmsuser.name %></a></td>
+                            <td><a href="cms/usuario/<% cmsuser.id %>"><% cmsuser.name %></a></td>
                             <td><% cmsuser.email %></td>
                             <td class="text-right">
                                 <div>
-                                    <a href="/cms/usuario/<% cmsuser.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/usuario/<% cmsuser.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(cmsuser.id, cmsuser.name, cmsuser.imagem)"></i></a>
                                 </div>
                             </td>
@@ -133,7 +133,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <img  ng-src="/imagens/cmsusers/<% imagemExcluir %>" width="100">
+                                <img  ng-src="imagens/cmsusers/<% imagemExcluir %>" width="100">
                             </div>
                             <div class="col-md-9">
                                 <p><% tituloExcluir %></p>

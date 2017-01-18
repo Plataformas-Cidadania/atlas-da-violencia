@@ -35,7 +35,7 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
     var listarQuemsomos = function(){
         $scope.processandoListagem = true;
         $http({
-            url: '/cms/listar-quemsomos/',
+            url: 'cms/listar-quemsomos',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
@@ -119,7 +119,7 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
             $scope.processandoInserir = true;
 
             //console.log($scope.quemsomo);
-            $http.post("/cms/inserir-quemsomo", {quemsomo: $scope.quemsomo}).success(function (data){
+            $http.post("cms/inserir-quemsomo", {quemsomo: $scope.quemsomo}).success(function (data){
                  listarQuemsomos();
                  delete $scope.quemsomo;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -130,7 +130,7 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
              });
         }else{
             file.upload = Upload.upload({
-                url: '/cms/inserir-quemsomo',
+                url: 'cms/inserir-quemsomo',
                 data: {quemsomo: $scope.quemsomo, file: file},
             });
 
@@ -181,7 +181,7 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: '/cms/excluir-quemsomo/'+id,
+            url: 'cms/excluir-quemsomo/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);

@@ -35,7 +35,7 @@ cmsApp.controller('linkCtrl', ['$scope', '$http', 'Upload', '$timeout', function
     var listarLinks = function(){
         $scope.processandoListagem = true;
         $http({
-            url: '/cms/listar-links/',
+            url: 'cms/listar-links',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
@@ -119,7 +119,7 @@ cmsApp.controller('linkCtrl', ['$scope', '$http', 'Upload', '$timeout', function
             $scope.processandoInserir = true;
 
             //console.log($scope.link);
-            $http.post("/cms/inserir-link", {link: $scope.link}).success(function (data){
+            $http.post("cms/inserir-link", {link: $scope.link}).success(function (data){
                  listarLinks();
                  delete $scope.link;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -130,7 +130,7 @@ cmsApp.controller('linkCtrl', ['$scope', '$http', 'Upload', '$timeout', function
              });
         }else{
             file.upload = Upload.upload({
-                url: '/cms/inserir-link',
+                url: 'cms/inserir-link',
                 data: {link: $scope.link, file: file},
             });
 
@@ -181,7 +181,7 @@ cmsApp.controller('linkCtrl', ['$scope', '$http', 'Upload', '$timeout', function
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: '/cms/excluir-link/'+id,
+            url: 'cms/excluir-link/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);

@@ -81,3 +81,20 @@ if ( ! function_exists('clean') ) {
     }
 }
 
+if ( ! function_exists('codigoYoutube') ) {
+    function codigoYoutube($link) {
+        $partes_link = explode('/', $link);
+        if(count($partes_link)<4){
+            return '';
+        }
+        $codigo_youtube = $partes_link[3];
+        if(substr($codigo_youtube, 0,5)=="watch"){
+            $partes_codigo = explode('=', $codigo_youtube);
+            $codigo_youtube = $partes_codigo[1];
+        }
+
+
+        return $codigo_youtube;
+    }
+}
+

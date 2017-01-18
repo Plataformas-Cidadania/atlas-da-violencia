@@ -1,3 +1,9 @@
+<?php
+    $base_href = $_SERVER['HTTP_HOST'];
+    if(substr($base_href, 0,9)=='evbsb1052'){
+        $base_href .= '/atlasviolencia/';
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -10,16 +16,17 @@
     <meta name="author" content="">
 
     <title>CMS - Nome do site</title>
+    <base href="http://{{$base_href}}">
 
     <!-- Bootstrap Core CSS -->
-    <link href="/assets-cms/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets-cms/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/assets-cms/css/sb-admin.css" rel="stylesheet">
-    <link href="/assets-cms/css/cms.css" rel="stylesheet">
+    <link href="assets-cms/css/sb-admin.css" rel="stylesheet">
+    <link href="assets-cms/css/cms.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="/assets-cms/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="assets-cms/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     @include('cms::conexoes.css')
     @include('cms::conexoes.js')
@@ -39,8 +46,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/cms">
-                <img src="/assets-cms/img/logo-b-p.png" width="95" alt="">
+            <a class="navbar-brand" href="cms">
+                <img src="assets-cms/img/logo-b-p.png" width="95" alt="">
             </a>
         </div>
         <!-- Top Menu Items -->
@@ -133,7 +140,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>  {{auth()->guard('cms')->user()->name}} <b class="caret"></b></a>
                 <ul class="dropdown-menu" style="min-width: 200px;">
                     <li>
-                        <a href="/cms/perfil"><i class="fa fa-fw fa-user"></i> Perfil</a>
+                        <a href="cms/perfil"><i class="fa fa-fw fa-user"></i> Perfil</a>
                     </li>
                     <li class="divider"></li>
                     {{--<li>
@@ -144,7 +151,7 @@
                     </li>
                     <li class="divider"></li>--}}
                     <li>
-                        <a href="/cms/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        <a href="cms/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                     </li>
                 </ul>
             </li>
@@ -155,25 +162,25 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li class="active">
-                    <a href="/cms"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    <a href="cms"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="/cms/quemsomos"><i class="fa fa-fw fa-building"></i> Institucional</a>
+                    <a href="cms/quemsomos"><i class="fa fa-fw fa-building"></i> Institucional</a>
                 </li>
                 <li>
-                    <a href="/cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoor</a>
+                    <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoor</a>
                 </li>
                 <li>
-                    <a href="/cms/videos"><i class="fa fa-fw fa-newspaper-o"></i> Vídeos</a>
+                    <a href="cms/videos"><i class="fa fa-fw fa-newspaper-o"></i> Vídeos</a>
                 </li>
                 <li>
-                    <a href="/cms/noticias"><i class="fa fa-fw fa-newspaper-o"></i> Notícias</a>
+                    <a href="cms/noticias"><i class="fa fa-fw fa-newspaper-o"></i> Notícias</a>
                 </li>
                 <li>
-                    <a href="/cms/links"><i class="fa fa-fw fa-link"></i> Links</a>
+                    <a href="cms/links"><i class="fa fa-fw fa-link"></i> Links</a>
                 </li>
                 <li>
-                    <a href="/cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
+                    <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
                 </li>
                 <!--<li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
@@ -190,7 +197,7 @@
                     <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
                 </li>-->
                 <li>
-                    <a href="/cms/usuarios"><i class="fa fa-fw fa-users"></i> Usuários</a>
+                    <a href="cms/usuarios"><i class="fa fa-fw fa-users"></i> Usuários</a>
                 </li>
             </ul>
         </div>

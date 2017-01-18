@@ -17,7 +17,7 @@ cmsApp.controller('alterarCmsUserCtrl', ['$scope', '$http', function($scope, $ht
 
             $scope.processandoSalvar = true;
             //console.log($scope.cmsuser);
-            $http.post("/cms/alterar-cmsuser/"+$scope.id, {cmsuser: $scope.cmsuser}).success(function (data){
+            $http.post("cms/alterar-cmsuser/"+$scope.id, {cmsuser: $scope.cmsuser}).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = data;
@@ -77,7 +77,7 @@ cmsApp.controller('alterarCmsUserCtrl', ['$scope', '$http', function($scope, $ht
 
         $scope.processandoSalvar = true;
 
-        $http.post("/cms/alterar-perfil", {cmsuser: $scope.cmsuser}).success(function (data){
+        $http.post("cms/alterar-perfil", {cmsuser: $scope.cmsuser}).success(function (data){
             //console.log(data);
             $scope.processandoSalvar = false;
             $scope.mensagemSalvar = data;
