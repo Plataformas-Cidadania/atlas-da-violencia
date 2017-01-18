@@ -32,6 +32,9 @@
     Route::get('noticia/{id}', 'NoticiaController@detalhar');
     Route::get('noticia/{id}/{titulo}', 'NoticiaController@detalhar');
 
+    Route::get('videos/', 'VideoController@listar');
+    Route::get('videos/{titulo}', 'VideoController@listar');
+
     Route::get('series/', 'SerieController@listar');
     Route::get('listar-series/', 'SerieController@listarSeries');
     Route::get('series/{titulo}', 'SerieController@listar');

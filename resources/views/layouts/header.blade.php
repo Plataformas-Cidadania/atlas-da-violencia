@@ -89,17 +89,16 @@
             </div>
             <nav class="menu-position collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation" >
                 <ul id="iniciodomenu" class="nav nav-pills nav-justified">
-                    <li role="presentation"><a href="/" accesskey="h">Início</a></li>
-                    <li role="presentation"><a href="/quem" accesskey="q">Sobre</a></li>
-                    <li role="presentation"><a href="/noticias" accesskey="n">Notícias</a></li>
-                    <li role="presentation"><a href="/quem" accesskey="q">Vídeos</a></li>
-                    <li role="presentation"><a href="/contato" accesskey="c">Contato</a></li>
+                    <li role="presentation"><a href="/" accesskey="h" @if($rota=='/') class="corrente" @endif>Início</a></li>
+                    <li role="presentation"><a href="/quem" accesskey="q" @if($rota=='quem') class="corrente" @endif>Sobre</a></li>
+                    <li role="presentation"><a href="/noticias" accesskey="n" @if($rota=='noticias') class="corrente" @endif>Notícias</a></li>
+                    <li role="presentation"><a href="/videos" accesskey="q" @if($rota=='videos') class="corrente" @endif>Vídeos</a></li>
+                    <li role="presentation"><a href="/contato" accesskey="c" @if($rota=='contato') class="corrente" @endif>Contato</a></li>
                 </ul>
             </nav>
         </nav>
     </div>
     <br>
-
     @if($rota=='/')
         <div class="container">
             <div class="row">

@@ -249,7 +249,7 @@ footer {
 }
 .line_title {
   height: 3px;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 .list {
   clear: both;
@@ -603,10 +603,15 @@ footer {
   font-size: 18px !important;
   color: #777777;
   min-width: 100px;
+  border-radius: 0 0 5px 5px;
 }
 .nav > li a:hover {
   color: #FFFFFF;
-  background-color: #89C71C;
+  background-color: #3498DB;
+}
+.nav > li a.corrente {
+  color: #FFFFFF;
+  background-color: #3498DB;
 }
 .navbar {
   border: 0px solid transparent;
@@ -650,6 +655,9 @@ footer {
 }
 .bs-callout p span {
   font-size: 12px!important;
+}
+.menu-position {
+  margin: 0 0 0 0;
 }
 @media only screen and (max-width: 768px) {
   .navbar {
