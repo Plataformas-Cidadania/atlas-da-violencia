@@ -76,6 +76,28 @@
 
     <div class="visible-print-block"><h2>&nbsp;&nbsp; {{$setting->titulo}}</h2></div>
     <div class="line_title bg-pri"></div>
+
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <nav class="menu-position collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation" >
+                <ul id="iniciodomenu" class="nav nav-pills nav-justified">
+                    <li role="presentation"><a href="/" accesskey="h">Início</a></li>
+                    <li role="presentation"><a href="/quem" accesskey="q">Sobre</a></li>
+                    <li role="presentation"><a href="/noticias" accesskey="n">Notícias</a></li>
+                    <li role="presentation"><a href="/quem" accesskey="q">Vídeos</a></li>
+                    <li role="presentation"><a href="/contato" accesskey="c">Contato</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </div>
     <br>
 
     @if($rota=='/')
