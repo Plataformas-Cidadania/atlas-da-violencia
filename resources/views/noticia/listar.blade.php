@@ -28,7 +28,7 @@
                     </div>
                 </a>
             </div>
-            <div class="list"></div>
+            <hr>
         @endforeach
 
         <div>{{ $noticias->links() }}</div>

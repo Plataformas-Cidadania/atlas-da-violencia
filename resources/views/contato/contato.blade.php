@@ -1,6 +1,9 @@
 @extends('layout')
 @section('title', $setting->descricao_contato)
 @section('content')
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
     {{--{{ Counter::count('contato') }}--}}
     <style>
         /*input.ng-invalid {
@@ -32,7 +35,42 @@
                 <p><a href="mailto:{{$setting->email}}">{{$setting->email}}</a></p>
             </address>
             <div class="col-md-8">
-                {{--<h3>{{$setting->titulo_contato}}</h3>--}}
+                    <br>
+                <div id="mapid" style="width: 100%; height: 400px;"></div>
+                <script>
+
+                    var mymap = L.map('mapid').setView([-22.9105075,-43.1719758], 16);
+
+                    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+                        maxZoom: 18,
+                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                        id: 'mapbox.streets'
+                    }).addTo(mymap);
+
+
+
+                    var popup = L.popup();
+
+                    var atlasIcon = L.icon({
+                        iconUrl: 'img/marker.png',
+
+                        iconSize:     [40, 43], // size of the icon
+                        iconAnchor:   [20, 42], // point of the icon which will correspond to marker's location
+                        popupAnchor:  [0, -40] // point from which the popup should open relative to the iconAnchor
+                    });
+
+                    L.marker([-22.9105075,-43.1719758], {icon: atlasIcon}).addTo(mymap)
+                        .bindPopup("<b><img src='img/ipea-p.png' alt=''></b><br />").openPopup();
+
+                </script>
+
+            </div>
+
+
+            {{--<div class="col-md-8">
+                --}}{{--<h3>{{$setting->titulo_contato}}</h3>--}}{{--
                 <br>
                 <p>{{$setting->descricao_contato}}</p>
                 <br>
@@ -69,7 +107,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div>--}}
 
         </div>
     </div>
