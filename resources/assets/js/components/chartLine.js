@@ -1,16 +1,24 @@
+myChartLine = undefined;
+
 class ChartLine extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            min: 0,
+            max: 0
+        };
         this.loadData = this.loadData.bind(this);
     }
 
     componentWillReceiveProps(props){
-        this.setState({min: props.min, max: props.max}, function(){
-            if(this.myLineChart!=undefined){
-                this.chartDestroy();
-            }
-            this.loadData();
-        });
+        if(this.state.min != props.min || this.state.max != props.max){
+            this.setState({min: props.min, max: props.max}, function(){
+                if(myChartBar){
+                    this.chartDestroy();
+                }
+                this.loadData();
+            });
+        }
     }
 
     loadData(){
@@ -67,17 +75,16 @@ class ChartLine extends React.Component{
         let option = {
             showLines: true
         };
-        let myLineChart = Chart.Line(canvas,{
+
+        myChartLine = Chart.Line(canvas,{
             data:dataChart,
             options:option
         });
 
-        this.setState({myLineChart: myLineChart});
-
     }
 
     chartDestroy(){
-        this.state.myLineChart.destroy();
+        myChartLine.destroy();
     }
 
     render(){

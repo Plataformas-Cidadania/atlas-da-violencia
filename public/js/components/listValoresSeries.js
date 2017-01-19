@@ -30,7 +30,7 @@ class ListValoresSeries extends React.Component {
     }
 
     render() {
-        console.log('========================================================');
+        //console.log('========================================================');
         let valores = this.state.valores.map(function (item, index) {
             return React.createElement(
                 "tr",
@@ -53,7 +53,7 @@ class ListValoresSeries extends React.Component {
                 )
             );
         });
-        console.log('========================================================');
+        //console.log('========================================================');
 
         return React.createElement(
             "table",

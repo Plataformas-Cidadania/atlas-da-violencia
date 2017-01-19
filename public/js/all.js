@@ -471,6 +471,22 @@ ipeaApp.controller('appCtrl', ['$scope', 'altoContraste', function($scope, altoC
     }
 
 }]);
+function hexToRgb(h)
+{
+    var r = parseInt((cutHex(h)).substring(0,2),16), g = ((cutHex(h)).substring(2,4),16), b = parseInt((cutHex(h)).substring(4,6),16)
+    return r+','+b+','+b;
+}
+function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
+
+function convertHex(hex,opacity){
+    hex = hex.replace('#','');
+    r = parseInt(hex.substring(0,2), 16);
+    g = parseInt(hex.substring(2,4), 16);
+    b = parseInt(hex.substring(4,6), 16);
+
+    result = 'rgba('+r+','+g+','+b+','+opacity/100+')';
+    return result;
+}
 // Ion.RangeSlider
 // version 2.1.4 Build: 355
 // © Denis Ineshin, 2016

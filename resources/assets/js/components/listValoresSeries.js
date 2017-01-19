@@ -30,7 +30,7 @@ class ListValoresSeries extends React.Component{
     }
 
     render(){
-        console.log('========================================================');
+        //console.log('========================================================');
         let valores = this.state.valores.map(function (item, index) {
             return (
                 <tr key={index}>
@@ -39,7 +39,7 @@ class ListValoresSeries extends React.Component{
                 </tr>
             );
         });
-        console.log('========================================================');
+        //console.log('========================================================');
 
         return (
             <table className="table table-striped table-bordered">

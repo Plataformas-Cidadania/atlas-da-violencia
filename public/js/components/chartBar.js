@@ -1,6 +1,6 @@
-myChartRadar = undefined;
+myChartBar = undefined;
 
-class ChartRadar extends React.Component {
+class ChartBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,7 +27,7 @@ class ChartRadar extends React.Component {
             data: {},
             success: function (data) {
                 //console.log(data);
-                _this.loadChartRadar(data);
+                _this.loadChartBar(data);
             },
             error: function (data) {
                 console.log('erro');
@@ -35,7 +35,7 @@ class ChartRadar extends React.Component {
         });
     }
 
-    loadChartRadar(data) {
+    loadChartBar(data) {
         //console.log(data);
         let labels = [];
         let values = [];
@@ -46,12 +46,13 @@ class ChartRadar extends React.Component {
 
         //console.log(values);
 
-        let canvas2 = document.getElementById('myChartRadar');
+        let canvas2 = document.getElementById('myChartBar');
+        let colors = this.getColors(values);
         let dataChart = {
             labels: labels,
             datasets: [{
                 label: "Homicidios no Brasil",
-                backgroundColor: "rgba(179,181,198,0.2)",
+                backgroundColor: colors,
                 borderColor: "rgba(179,181,198,1)",
                 pointBackgroundColor: "rgba(179,181,198,1)",
                 pointBorderColor: "#fff",
@@ -70,24 +71,32 @@ class ChartRadar extends React.Component {
             }
         };
 
-        myChartRadar = new Chart(canvas2, {
-            type: 'radar',
+        myChartBar = new Chart(canvas2, {
+            type: 'bar',
             data: dataChart,
             options: options2
         });
     }
 
     chartDestroy() {
-        console.log(this.state.myRadarChart);
-        //this.state.myRadarChart.destroy();
-        myChartRadar.destroy();
-        //destroyChartRadar();
+        console.log(this.state.myBarChart);
+        //this.state.myBarChart.destroy();
+        myChartBar.destroy();
+        //destroyChartBar();
+    }
+
+    getColors(values) {
+        let colors = [];
+        for (let i in values) {
+            colors.push(convertHex(getColor(values[i]), 100));
+        }
+        return colors;
     }
 
     render() {
         return React.createElement(
             "canvas",
-            { id: "myChartRadar", width: "400", height: "200" },
+            { id: "myChartBar", width: "400", height: "200" },
             " "
         );
     }

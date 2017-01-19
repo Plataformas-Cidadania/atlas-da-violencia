@@ -72,6 +72,7 @@ print_r($periodo_limite);*/
 ?>
 
 @if($rota=='map')
+    {{--http://www.chartjs.org/docs/--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
@@ -81,6 +82,7 @@ print_r($periodo_limite);*/
     <script src="js/components/listValoresSeries.js"></script>
     <script src="js/components/rangePeriodos.js"></script>
     <script src="js/components/chartLine.js"></script>
+    <script src="js/components/chartBar.js"></script>
     <script src="js/components/chartRadar.js"></script>
     <script src="js/components/pgSerie.js"></script>
 
@@ -95,8 +97,8 @@ print_r($periodo_limite);*/
             $.ajax("regiao/"+min+"/"+max, {
                 data: {},
                 success: function(data){
-                    console.log(data);
-                    console.log(':::::::::::::::::::::::::::::::');
+                    //console.log(data);
+                    //console.log(':::::::::::::::::::::::::::::::');
                     loadMap(data);
                 },
                 error: function(data){
@@ -263,11 +265,11 @@ print_r($periodo_limite);*/
             let maxUtil = parseInt(max - max * 10 / 100);
             let qtdIntervalos = 10;
             let intervalo = parseInt(maxUtil / qtdIntervalos);
-            console.log(intervalo);
-            console.log('resto', intervalo % 100);
+            //console.log(intervalo);
+            //console.log('resto', intervalo % 100);
             var arredondador =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
             intervalo = Math.ceil(intervalo/arredondador) * arredondador;
-            console.log(intervalo);
+            //console.log(intervalo);
             intervalos[0] = 0;
             intervalos[9] = maxUtil;
             for(let i=1;i<qtdIntervalos;i++){
@@ -282,7 +284,7 @@ print_r($periodo_limite);*/
             var qtdIntervalos = intervalos.length;
             for(var i=qtdIntervalos-1; i>=0; i--){
                 if(d > intervalos[i]){
-                    console.log(colors[i]);
+                    //console.log(colors[i]);
                     return colors[i];
                 }
             }

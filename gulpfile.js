@@ -89,6 +89,7 @@ elixir(function(mix) {
         'lib/angular/angular-locale_pt-br.js',
         'lib/jquery/jquery.smoove.min.js',
         'app.js',
+        'utils.js',
         'lib/range/ion.rangeSlider.js'
     ]);
 
