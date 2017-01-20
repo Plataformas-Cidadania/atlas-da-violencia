@@ -49,7 +49,7 @@ class RangePeriodo extends React.Component{
                 _this.props.changePeriodo(data.from_value, data.to_value);
                 //min = data.from_value;
                 //max = data.to_value;
-                dataToMap(data.from_value, data.to_value);
+                //dataToMap(data.from_value, data.to_value);
                 //dataToChart(data.from_value, data.to_value);
                 //dataToChartRadar(data.from_value, data.to_value);
             },
@@ -61,7 +61,7 @@ class RangePeriodo extends React.Component{
                 _this.props.changePeriodo(data.from_value, data.to_value);
                 //min = data.from_value;
                 //max = data.to_value;
-                dataToMap(data.from_value, data.to_value);
+                //dataToMap(data.from_value, data.to_value);
                 //clearCharts();
                 //dataToChart(data.from_value, data.to_value);
                 //dataToChartRadar(data.from_value, data.to_value);
@@ -76,7 +76,6 @@ class RangePeriodo extends React.Component{
     render(){
         return(
             <div className="hidden-print">
-                <h4><i className="fa fa-calendar" aria-hidden="true"> </i> Periodicidade</h4>
                 <input type="text" id="range" value=""  name="range" />
             </div>
         );

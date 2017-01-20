@@ -78,7 +78,14 @@ print_r($periodo_limite);*/
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 
 
-
+    <script>
+        indexLegend = 1;
+        lastIndexLegend = 0;
+        legend = [];
+        cont = 0;
+        intervalos = [];
+    </script>
+    <script src="js/components/map.js"></script>
     <script src="js/components/listValoresSeries.js"></script>
     <script src="js/components/rangePeriodos.js"></script>
     <script src="js/components/chartLine.js"></script>
@@ -89,11 +96,10 @@ print_r($periodo_limite);*/
 
     <script>
 
-        var periodos = [];
+        //var periodos = [];
 
 
-        function dataToMap(min, max){
-
+        /*function dataToMap(min, max){
             $.ajax("regiao/"+min+"/"+max, {
                 data: {},
                 success: function(data){
@@ -105,15 +111,10 @@ print_r($periodo_limite);*/
                     console.log('erro');
                 }
             })
-        }
+        }*/
 
-        var indexLegend = 1;
-        var lastIndexLegend = 0;
-        var legend = [];
-        var cont = 0;
-        var intervalos = [];
-        function loadMap(data){
 
+        /*function loadMap(data){
             //remove existing map layers
             mymap.eachLayer(function(layer){
                 //if not the tile layer
@@ -136,14 +137,14 @@ print_r($periodo_limite);*/
                 onEachFeature: onEachFeature //listeners
             }).addTo(mymap);
 
-            /*for(var i=0; i<data.circles.length; i++){
+            /!*for(var i=0; i<data.circles.length; i++){
              var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
              color: 'red',
              fillColor: '#f03',
              fillOpacity: 0.5,
              radius: data.circles[i].valor*10
              }).addTo(mymap);
-             }*/
+             }*!/
 
             legend[indexLegend] = L.control({position: 'bottomright'});
 
@@ -169,14 +170,14 @@ print_r($periodo_limite);*/
             lastIndexLegend = indexLegend;
             indexLegend++;
 
-            /*for(var i in data){
+            /!*for(var i in data){
              var circle = L.circle([data[i].st_y, data[i].st_x], {
              color: 'red',
              fillColor: '#f03',
              fillOpacity: 0.5,
              radius: 50000
              }).addTo(mymap);
-             }*/
+             }*!/
 
             let polygon2 = L.polygon([
                 [51.509, -0.08],
@@ -186,11 +187,11 @@ print_r($periodo_limite);*/
 
 
 
-        }
+        }*/
 
 
 
-        ///////////////////////////////////////////////////////////////////////////////
+        /*///////////////////////////////////////////////////////////////////////////////
         var mymap = L.map('mapid').setView([-10, -52], 4);
         var tileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJwYXNzb3MiLCJhIjoiY2l4N3l0bXF0MDFiczJ6cnNwODN3cHJidiJ9.qnfh8Jfn_be6gpo774j_nQ', {
             maxZoom: 18,
@@ -199,10 +200,10 @@ print_r($periodo_limite);*/
             'Imagery © <a href="http://mapbox.com">Mapbox</a>',
             id: 'mapbox.streets'
         }).addTo(mymap);
-        ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////*/
 
         /////////////////////MOUSE OVER LEGEND///////////////////////////
-        function highlightFeature(e) {
+        /*function highlightFeature(e) {
             var layer = e.target;
             layer.setStyle({
                 weight: 5,
@@ -233,14 +234,14 @@ print_r($periodo_limite);*/
                 mouseout: resetHighlight,
                 click: zoomToFeature
             });
-        }
+        }*/
 
         /*geojson = L.geoJson(statesData, {
             style: style,
             onEachFeature: onEachFeature
         }).addTo(map);*/
 
-        var info = L.control();
+        /*var info = L.control();
 
         info.onAdd = function (mymap) {
             this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -255,7 +256,7 @@ print_r($periodo_limite);*/
                     : 'Passe o mouse na região');
         };
 
-        info.addTo(mymap);
+        info.addTo(mymap);*/
 
         /////////////////////////////////////////////////////////////////
 
@@ -267,13 +268,14 @@ print_r($periodo_limite);*/
             let intervalo = parseInt(maxUtil / qtdIntervalos);
             //console.log(intervalo);
             //console.log('resto', intervalo % 100);
-            var arredondador =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
-            intervalo = Math.ceil(intervalo/arredondador) * arredondador;
+            let rounder =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
+            intervalo = Math.ceil(intervalo/rounder) * rounder;
             //console.log(intervalo);
             intervalos[0] = 0;
             intervalos[9] = maxUtil;
             for(let i=1;i<qtdIntervalos;i++){
-                intervalos[i] = intervalos[i-1] + intervalo;
+                //intervalos[i] = intervalos[i-1] + intervalo;
+                intervalos[i] = intervalos[i-1] + intervalo/qtdIntervalos*i;//intervalo/qtdIntervalos*i irá gerar um intervalo gradativo
             }
             return intervalos;
         }
@@ -422,10 +424,10 @@ print_r($periodo_limite);*/
 
         }*/
 
-        function clearCharts(){
-            myLineChart.destroy();
+        //function clearCharts(){
+            //myLineChart.destroy();
             //myRadarChart.destroy();
-        }
+        //}
 
     </script>
 

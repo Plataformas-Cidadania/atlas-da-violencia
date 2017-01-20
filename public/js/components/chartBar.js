@@ -79,7 +79,7 @@ class ChartBar extends React.Component {
     }
 
     chartDestroy() {
-        console.log(this.state.myBarChart);
+        //console.log(this.state.myBarChart);
         //this.state.myBarChart.destroy();
         myChartBar.destroy();
         //destroyChartBar();

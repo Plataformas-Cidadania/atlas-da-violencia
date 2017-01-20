@@ -81,7 +81,7 @@ class ChartRadar extends React.Component{
     }
 
     chartDestroy(){
-        console.log(this.state.myRadarChart);
+        //console.log(this.state.myRadarChart);
         //this.state.myRadarChart.destroy();
         myChartRadar.destroy();
         //destroyChartRadar();

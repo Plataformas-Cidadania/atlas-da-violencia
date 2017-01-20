@@ -31,6 +31,50 @@
             color: #777;
         }
 
+        .icons-groups{
+            float:right;
+            background-image: url(img/icons/png/icons-groups.png);
+            width: 52px;
+            height: 52px;
+            cursor: pointer;
+        }
+        .icon-group-map{
+            background-position: 0 0;
+        }
+        .icon-group-map-disable{
+            background-position: 0 -52px;
+        }
+        .icon-group-chart{
+            background-position: -52px 0;
+        }
+        .icon-group-chart-disable{
+            background-position: -52px -52px;
+        }
+        .icon-group-table{
+            background-position: -104px 0;
+        }
+        .icon-group-table-disable{
+            background-position: -104px -52px;
+        }
+        .icon-group-rate{
+            background-position: -156px 0;
+        }
+        .icon-group-rate-disable{
+            background-position: -156px -52px;
+        }
+        .icon-group-calc{
+            background-position: -208px 0;
+        }
+        .icon-group-calc-disable{
+            background-position: -208px -52px;
+        }
+        .icon-group-print{
+            background-position: -260px -52px;
+        }
+        .icon-group-print:hover{
+            background-position: -260px 0;
+        }
+
     </style>
     {{--@if(substr($base_href, 0,9)=='evbsb1052')--}}
         <style>
