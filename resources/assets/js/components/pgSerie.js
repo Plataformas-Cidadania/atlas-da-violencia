@@ -2,6 +2,7 @@ class PgSerie extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            totaisRegioesPorPeriodo: {min: 0, max: 0, values: {}},
             min: 0,
             max: 0,
             periodos: [],
@@ -18,14 +19,37 @@ class PgSerie extends React.Component{
         this.changePeriodo = this.changePeriodo.bind(this);
         this.setPeriodos = this.setPeriodos.bind(this);
         this.showHide = this.showHide.bind(this);
+        this.loadData = this.loadData.bind(this);
     }
 
     changePeriodo(min, max){
-        this.setState({min: min, max: max});
+        this.setState({min: min, max: max}, function(){
+            this.loadData();
+        });
     }
 
     setPeriodos(periodos){
         this.setState({periodos: periodos});
+    }
+
+    loadData(){
+        $.ajax({
+            method:'GET',
+            url: "valores-regiao/"+this.state.min+"/"+this.state.max,
+            cache: false,
+            success: function(data) {
+                let totais = {
+                    min: this.state.min,
+                    max: this.state.max,
+                    values: data
+                };
+                this.setState({totaisRegioesPorPeriodo: totais});
+                //loadMap(data);
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
     }
 
     changeChart(chart) {
@@ -99,25 +123,25 @@ class PgSerie extends React.Component{
                             <ChartLine min={this.state.min} max={this.state.max} periodos={this.state.periodos} />
                         </div>
                         <div style={{display: this.state.chartBar ? 'block' : 'none'}}>
-                            <ChartBar min={this.state.min} max={this.state.max} />
+                            <ChartBar data={this.state.totaisRegioesPorPeriodo} />
                         </div>
                         <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
-                            <ChartRadar min={this.state.min} max={this.state.max} />
+                            <ChartRadar data={this.state.totaisRegioesPorPeriodo} />
                         </div>
                         <div style={{display: this.state.chartPie ? 'block' : 'none'}}>
-                            <ChartPie min={this.state.min} max={this.state.max} />
+                            <ChartPie data={this.state.totaisRegioesPorPeriodo} />
                         </div>
                     </div>
                     <br/><hr/><br/>
                 </div>
 
                 <div style={{display: this.state.showRates ? 'block' : 'none'}}>
-                    Taxas
+                    <Rates/>
                     <br/><hr/><br/>
                 </div>
 
                 <div style={{display: this.state.showTable ? 'block' : 'none'}}>
-                    <ListValoresSeries min={this.state.min} max={this.state.max} />
+                    <ListValoresSeries min={this.state.min} max={this.state.max} data={this.state.totaisRegioesPorPeriodo} />
                     <br/><hr/><br/>
                 </div>
 
@@ -135,3 +159,6 @@ ReactDOM.render(
     <PgSerie/>,
     document.getElementById('pgSerie')
 );
+
+
+

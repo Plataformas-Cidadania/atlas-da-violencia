@@ -104,7 +104,7 @@ class MapController extends Controller
         return $valores;
     }
 
-    function valoresSeriesRegiaoPorPeriodo($min, $max){
+    /*function valoresSeriesRegiaoPorPeriodo($min, $max){
         $valores = DB::table('valores_series')
             ->select(DB::raw("sum(valores_series.valor) as total, valores_series.uf"))
             ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
@@ -118,7 +118,7 @@ class MapController extends Controller
             ->get();
 
         return $valores;
-    }
+    }*/
 
     function valoresPeriodoPorRegiao($min, $max){
         $valores = DB::table('valores_series')

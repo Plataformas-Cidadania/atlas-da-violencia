@@ -1,42 +1,53 @@
-myChartPie = undefined;
+iPie = 0;
+
+myChartPie = undefined; //irá receber o objeto chart e com isso poderá ser utilizado para destruilo.
+
 
 class ChartPie extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: {},
             min: 0,
             max: 0
         };
-        this.loadData = this.loadData.bind(this);
+        //this.loadData = this.loadData.bind(this);
+        this.loadChart = this.loadChart.bind(this);
     }
 
     componentWillReceiveProps(props) {
-        if (this.state.min != props.min || this.state.max != props.max) {
-            this.setState({ min: props.min, max: props.max }, function () {
-                if (myChartPie) {
+        if (this.state.min != props.data.min || this.state.max != props.data.max) {
+            /*this.setState({min: props.min, max: props.max}, function(){
+                if(myChartPie){
                     this.chartDestroy();
                 }
                 this.loadData();
+            });*/
+            this.setState({ min: props.data.min, max: props.data.max, data: props.data.values }, function () {
+                if (myChartPie) {
+                    this.chartDestroy();
+                }
+                this.loadChart(this.state.data);
             });
         }
     }
 
-    loadData() {
+    /*loadData(){
         let _this = this;
-        $.ajax("valores-regiao/" + this.state.min + "/" + this.state.max, {
+        $.ajax("valores-regiao/"+this.state.min+"/"+this.state.max, {
             data: {},
-            success: function (data) {
+            success: function(data){
                 //console.log(data);
                 _this.loadChartPie(data);
             },
-            error: function (data) {
+            error: function(data){
                 console.log('erro');
             }
-        });
-    }
+        })
+    }*/
 
-    loadChartPie(data) {
-        //console.log(data);
+    loadChart(data) {
+
         let labels = [];
         let values = [];
         for (let i in data) {
@@ -79,10 +90,7 @@ class ChartPie extends React.Component {
     }
 
     chartDestroy() {
-        //console.log(this.state.myPieChart);
-        //this.state.myPieChart.destroy();
         myChartPie.destroy();
-        //destroyChartPie();
     }
 
     getColors(values) {

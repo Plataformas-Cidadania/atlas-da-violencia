@@ -4,32 +4,41 @@ class ListValoresSeries extends React.Component {
         this.state = {
             valores: []
         };
-        this.loadDataToList = this.loadDataToList.bind(this);
+        //this.loadData = this.loadData.bind(this);
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ min: props.min, max: props.max }, function () {
-            this.loadDataToList();
-        });
+        /*this.setState({min: props.min, max: props.max}, function(){
+            this.loadData();
+        });*/
+
+        this.setState({ valores: props.data.values });
     }
 
-    loadDataToList() {
+    /*loadData(){
         $.ajax({
-            method: 'GET',
-            url: "valores-series/" + this.props.min + "/" + this.props.max,
+            method:'GET',
+            url: "valores-series/"+this.props.min+"/"+this.props.max,
             cache: false,
-            success: function (data) {
+            success: function(data) {
                 //console.log(data);
-                this.setState({ valores: data });
+                this.setState({valores: data});
                 //loadMap(data);
             }.bind(this),
-            error: function (xhr, status, err) {
+            error: function(xhr, status, err) {
                 console.log('erro');
             }.bind(this)
         });
-    }
+    }*/
 
     render() {
+        if (!this.state.valores.length) {
+            return React.createElement(
+                "h3",
+                null,
+                "Sem Resultados"
+            );
+        }
         //console.log('========================================================');
         let valores = this.state.valores.map(function (item, index) {
             return React.createElement(

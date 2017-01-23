@@ -7,35 +7,42 @@ class ChartRadar extends React.Component {
             min: 0,
             max: 0
         };
-        this.loadData = this.loadData.bind(this);
+        //this.loadData = this.loadData.bind(this);
+        this.loadChart = this.loadChart.bind(this);
     }
 
     componentWillReceiveProps(props) {
-        if (this.state.min != props.min || this.state.max != props.max) {
-            this.setState({ min: props.min, max: props.max }, function () {
-                if (myChartBar) {
+        if (this.state.min != props.data.min || this.state.max != props.data.max) {
+            /*this.setState({min: props.min, max: props.max}, function(){
+                if(myChartRadar){
                     this.chartDestroy();
                 }
                 this.loadData();
+            });*/
+            this.setState({ min: props.data.min, max: props.data.max, data: props.data.values }, function () {
+                if (myChartRadar) {
+                    this.chartDestroy();
+                }
+                this.loadChart(this.state.data);
             });
         }
     }
 
-    loadData() {
+    /*loadData(){
         let _this = this;
-        $.ajax("valores-regiao/" + this.state.min + "/" + this.state.max, {
+        $.ajax("valores-regiao/"+this.state.min+"/"+this.state.max, {
             data: {},
-            success: function (data) {
+            success: function(data){
                 //console.log(data);
                 _this.loadChartRadar(data);
             },
-            error: function (data) {
+            error: function(data){
                 console.log('erro');
             }
-        });
-    }
+        })
+    }*/
 
-    loadChartRadar(data) {
+    loadChart(data) {
         //console.log(data);
         let labels = [];
         let values = [];
@@ -78,10 +85,7 @@ class ChartRadar extends React.Component {
     }
 
     chartDestroy() {
-        //console.log(this.state.myRadarChart);
-        //this.state.myRadarChart.destroy();
         myChartRadar.destroy();
-        //destroyChartRadar();
     }
 
     render() {
