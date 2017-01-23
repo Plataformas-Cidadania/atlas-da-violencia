@@ -75,6 +75,40 @@
             background-position: -260px 0;
         }
 
+
+        .icons-charts{
+            float:right;
+            background-image: url(img/icons/png/icons-chart.png);
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+        }
+
+        .icon-chart-bar{
+            background-position: 0 0;
+        }
+        .icon-chart-bar-disable{
+            background-position: 0 -48px;
+        }
+        .icon-chart-line{
+            background-position: -48px 0;
+        }
+        .icon-chart-line-disable{
+            background-position: -48px -48px;
+        }
+        .icon-chart-radar{
+            background-position: -96px 0;
+        }
+        .icon-chart-radar-disable{
+            background-position: -96px -48px;
+        }
+        .icon-chart-pie{
+            background-position: -144px 0;
+        }
+        .icon-chart-pie-disable{
+            background-position: -144px -48px;
+        }
+
     </style>
     {{--@if(substr($base_href, 0,9)=='evbsb1052')--}}
         <style>

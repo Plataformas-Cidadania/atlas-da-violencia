@@ -12,7 +12,8 @@ class PgSerie extends React.Component {
             showCalcs: true,
             chartLine: true,
             chartRadar: false,
-            chartBar: false
+            chartBar: false,
+            chartPie: false
         };
         this.changePeriodo = this.changePeriodo.bind(this);
         this.setPeriodos = this.setPeriodos.bind(this);
@@ -28,10 +29,10 @@ class PgSerie extends React.Component {
     }
 
     changeChart(chart) {
-        this.setState({ chartLine: false, chartRadar: false, chartBar: false }, function () {
-            let chartLine = {};
-            chartLine[chart] = true;
-            this.setState(chartLine);
+        this.setState({ chartLine: false, chartRadar: false, chartBar: false, chartPie: false }, function () {
+            let chartChosen = {};
+            chartChosen[chart] = true;
+            this.setState(chartChosen);
         });
     }
 
@@ -58,11 +59,16 @@ class PgSerie extends React.Component {
                     'div',
                     { className: 'col-md-6 text-right' },
                     React.createElement('div', { className: 'icons-groups icon-group-print', style: { marginLeft: '5px' }, title: '' }),
-                    React.createElement('div', { className: "icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable"), style: { marginLeft: '5px' }, onClick: () => this.showHide('Calcs'), title: '' }),
-                    React.createElement('div', { className: "icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable"), style: { marginLeft: '5px' }, onClick: () => this.showHide('Table'), title: '' }),
-                    React.createElement('div', { className: "icons-groups" + (this.state.showRates ? " icon-group-rate" : " icon-group-rate-disable"), style: { marginLeft: '5px' }, onClick: () => this.showHide('Rates'), title: '' }),
-                    React.createElement('div', { className: "icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable"), style: { marginLeft: '5px' }, onClick: () => this.showHide('Charts'), title: '' }),
-                    React.createElement('div', { className: "icons-groups" + (this.state.showMap ? " icon-group-map" : " icon-group-map-disable"), style: { marginLeft: '5px' }, onClick: () => this.showHide('Map'), title: '' })
+                    React.createElement('div', { className: "icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable"),
+                        style: { marginLeft: '5px' }, onClick: () => this.showHide('Calcs'), title: '' }),
+                    React.createElement('div', { className: "icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable"),
+                        style: { marginLeft: '5px' }, onClick: () => this.showHide('Table'), title: '' }),
+                    React.createElement('div', { className: "icons-groups" + (this.state.showRates ? " icon-group-rate" : " icon-group-rate-disable"),
+                        style: { marginLeft: '5px' }, onClick: () => this.showHide('Rates'), title: '' }),
+                    React.createElement('div', { className: "icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable"),
+                        style: { marginLeft: '5px' }, onClick: () => this.showHide('Charts'), title: '' }),
+                    React.createElement('div', { className: "icons-groups" + (this.state.showMap ? " icon-group-map" : " icon-group-map-disable"),
+                        style: { marginLeft: '5px' }, onClick: () => this.showHide('Map'), title: '' })
                 )
             ),
             React.createElement('br', null),
@@ -90,27 +96,14 @@ class PgSerie extends React.Component {
                     React.createElement(
                         'div',
                         { style: { textAlign: 'right' } },
-                        React.createElement(
-                            'i',
-                            { className: 'fa fa-3x fa-line-chart', onClick: () => this.changeChart('chartLine'),
-                                style: { color: this.state.chartLine ? '#337ab7' : '', cursor: 'pointer' } },
-                            ' '
-                        ),
-                        '\xA0\xA0\xA0\xA0\xA0',
-                        React.createElement(
-                            'i',
-                            { className: 'fa fa-3x fa-bar-chart', onClick: () => this.changeChart('chartBar'),
-                                style: { color: this.state.chartBar ? '#337ab7' : '', cursor: 'pointer' } },
-                            ' '
-                        ),
-                        '\xA0\xA0\xA0\xA0\xA0',
-                        React.createElement(
-                            'i',
-                            { className: 'fa fa-3x fa-star', onClick: () => this.changeChart('chartRadar'),
-                                style: { color: this.state.chartRadar ? '#337ab7' : '', cursor: 'pointer' } },
-                            ' '
-                        ),
-                        '\xA0'
+                        React.createElement('div', { className: "icons-charts" + (this.state.chartLine ? " icon-chart-line" : " icon-chart-line-disable"),
+                            style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartLine'), title: '' }),
+                        React.createElement('div', { className: "icons-charts" + (this.state.chartBar ? " icon-chart-bar" : " icon-chart-bar-disable"),
+                            style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartBar'), title: '' }),
+                        React.createElement('div', { className: "icons-charts" + (this.state.chartRadar ? " icon-chart-radar" : " icon-chart-radar-disable"),
+                            style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartRadar'), title: '' }),
+                        React.createElement('div', { className: "icons-charts" + (this.state.chartPie ? " icon-chart-pie" : " icon-chart-pie-disable"),
+                            style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartPie'), title: '' })
                     ),
                     React.createElement(
                         'div',
@@ -126,6 +119,11 @@ class PgSerie extends React.Component {
                         'div',
                         { style: { display: this.state.chartRadar ? 'block' : 'none' } },
                         React.createElement(ChartRadar, { min: this.state.min, max: this.state.max })
+                    ),
+                    React.createElement(
+                        'div',
+                        { style: { display: this.state.chartPie ? 'block' : 'none' } },
+                        React.createElement(ChartPie, { min: this.state.min, max: this.state.max })
                     )
                 ),
                 React.createElement('br', null),

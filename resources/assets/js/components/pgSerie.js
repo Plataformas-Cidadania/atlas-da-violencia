@@ -12,7 +12,8 @@ class PgSerie extends React.Component{
             showCalcs: true,
             chartLine: true,
             chartRadar: false,
-            chartBar:false
+            chartBar:false,
+            chartPie:false
         };
         this.changePeriodo = this.changePeriodo.bind(this);
         this.setPeriodos = this.setPeriodos.bind(this);
@@ -28,10 +29,10 @@ class PgSerie extends React.Component{
     }
 
     changeChart(chart) {
-        this.setState({chartLine:false, chartRadar:false, chartBar:false}, function(){
-            let chartLine = {};
-            chartLine[chart] = true;
-            this.setState(chartLine);
+        this.setState({chartLine:false, chartRadar:false, chartBar:false, chartPie:false}, function(){
+            let chartChosen = {};
+            chartChosen[chart] = true;
+            this.setState(chartChosen);
         });
     }
 
@@ -52,11 +53,16 @@ class PgSerie extends React.Component{
                     </div>
                     <div className="col-md-6 text-right">
                         <div className="icons-groups icon-group-print" style={{marginLeft: '5px'}} title=""></div>
-                        <div className={"icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable")} style={{marginLeft: '5px'}} onClick={() => this.showHide('Calcs')} title=""></div>
-                        <div className={"icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable")} style={{marginLeft: '5px'}} onClick={() => this.showHide('Table')} title=""></div>
-                        <div className={"icons-groups" + (this.state.showRates ? " icon-group-rate" : " icon-group-rate-disable")} style={{marginLeft: '5px'}} onClick={() => this.showHide('Rates')} title=""></div>
-                        <div className={"icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable")} style={{marginLeft: '5px'}} onClick={() => this.showHide('Charts')} title=""></div>
-                        <div className={"icons-groups" + (this.state.showMap ? " icon-group-map" : " icon-group-map-disable")} style={{marginLeft: '5px'}} onClick={() => this.showHide('Map')} title=""></div>
+                        <div className={"icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable")}
+                             style={{marginLeft: '5px'}} onClick={() => this.showHide('Calcs')} title=""></div>
+                        <div className={"icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable")}
+                             style={{marginLeft: '5px'}} onClick={() => this.showHide('Table')} title=""></div>
+                        <div className={"icons-groups" + (this.state.showRates ? " icon-group-rate" : " icon-group-rate-disable")}
+                             style={{marginLeft: '5px'}} onClick={() => this.showHide('Rates')} title=""></div>
+                        <div className={"icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable")}
+                             style={{marginLeft: '5px'}} onClick={() => this.showHide('Charts')} title=""></div>
+                        <div className={"icons-groups" + (this.state.showMap ? " icon-group-map" : " icon-group-map-disable")}
+                             style={{marginLeft: '5px'}} onClick={() => this.showHide('Map')} title=""></div>
                     </div>
                 </div>
                 <br/>
@@ -77,12 +83,17 @@ class PgSerie extends React.Component{
                 <div style={{display: this.state.showCharts ? 'block' : 'none'}}>
                     <div>
                         <div style={{textAlign: 'right'}}>
-                            <i className="fa fa-3x fa-line-chart" onClick={() => this.changeChart('chartLine')}
-                               style={{color: this.state.chartLine ? '#337ab7' : '', cursor:'pointer'}}> </i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i className="fa fa-3x fa-bar-chart" onClick={() => this.changeChart('chartBar')}
-                               style={{color: this.state.chartBar ? '#337ab7' : '', cursor:'pointer'}}> </i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i className="fa fa-3x fa-star" onClick={() => this.changeChart('chartRadar')}
-                               style={{color: this.state.chartRadar ? '#337ab7' : '', cursor:'pointer'}}> </i>&nbsp;
+                            <div className={"icons-charts" + (this.state.chartLine ? " icon-chart-line" : " icon-chart-line-disable")}
+                                 style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartLine')} title=""></div>
+
+                            <div className={"icons-charts" + (this.state.chartBar ? " icon-chart-bar" : " icon-chart-bar-disable")}
+                                 style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartBar')} title=""></div>
+
+                            <div className={"icons-charts" + (this.state.chartRadar ? " icon-chart-radar" : " icon-chart-radar-disable")}
+                                 style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartRadar')} title=""></div>
+
+                            <div className={"icons-charts" + (this.state.chartPie ? " icon-chart-pie" : " icon-chart-pie-disable")}
+                                 style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartPie')} title=""></div>
                         </div>
                         <div style={{display: this.state.chartLine ? 'block' : 'none'}}>
                             <ChartLine min={this.state.min} max={this.state.max} periodos={this.state.periodos} />
@@ -92,6 +103,9 @@ class PgSerie extends React.Component{
                         </div>
                         <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
                             <ChartRadar min={this.state.min} max={this.state.max} />
+                        </div>
+                        <div style={{display: this.state.chartPie ? 'block' : 'none'}}>
+                            <ChartPie min={this.state.min} max={this.state.max} />
                         </div>
                     </div>
                     <br/><hr/><br/>

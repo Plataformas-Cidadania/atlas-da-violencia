@@ -91,6 +91,7 @@ print_r($periodo_limite);*/
     <script src="js/components/chartLine.js"></script>
     <script src="js/components/chartBar.js"></script>
     <script src="js/components/chartRadar.js"></script>
+    <script src="js/components/chartPie.js"></script>
     <script src="js/components/pgSerie.js"></script>
 
 
