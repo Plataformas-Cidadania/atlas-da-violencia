@@ -89,17 +89,34 @@ class MapController extends Controller
 
     function valoresRegiaoPorPeriodo($min, $max){
         $valores = DB::table('valores_series')
-            ->select(DB::raw("sum(valores_series.valor) as total, valores_series.uf"))
+            ->select(DB::raw("sum(valores_series.valor) as total, valores_series.uf, ed_territorios_uf.edterritorios_nome as nome"))
             ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
             ->where([
                 ['valores_series.serie_id', 1],
                 ['valores_series.periodo', '>=', $min],
                 ['valores_series.periodo', '<=', $max]
             ])
-            ->groupBy('valores_series.uf')
+            ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_nome')
             ->orderBy('valores_series.uf')
             ->get();
 
+
+        return $valores;
+    }
+
+    function valores($min, $max){
+        $valores = DB::table('valores_series')
+            ->select(DB::raw("valores_series.valor, valores_series.periodo, valores_series.uf, ed_territorios_uf.edterritorios_nome as nome"))
+            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->where('valores_series.serie_id', 1)
+            ->where(function ($query) use ($min, $max) {
+                $query->where('valores_series.periodo', $min)
+                    ->orWhere('valores_series.periodo', $max);
+            })
+            ->orderBy('valores_series.uf')
+            ->get();
+
+        dd($valores);
 
         return $valores;
     }

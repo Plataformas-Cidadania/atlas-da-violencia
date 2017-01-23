@@ -56,6 +56,8 @@
     Route::get('valores-series/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');
     Route::get('periodo/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
 
+    Route::get('valores/{min}/{max}', 'MapController@valores');
+
     Route::get('indices', function(){
         //teste
         $indices = [8750, 1240, 2265, 348];

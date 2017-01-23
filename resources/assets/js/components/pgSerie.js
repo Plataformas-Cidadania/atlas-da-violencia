@@ -8,7 +8,7 @@ class PgSerie extends React.Component{
             periodos: [],
             showMap: true,
             showCharts: true,
-            showRates: true,
+            showRegions: true,
             showTable: true,
             showCalcs: true,
             chartLine: true,
@@ -69,7 +69,6 @@ class PgSerie extends React.Component{
     render(){
         return(
             <div>
-                
                 <div className="row">
                     <div className="col-md-6 h3" style={{margin:0}}>
                         <img style={{marginLeft: '5px'}} src="imagens/links/8516-01.png" width="52" alt="" title=""/>
@@ -82,7 +81,7 @@ class PgSerie extends React.Component{
                         <div className={"icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable")}
                              style={{marginLeft: '5px'}} onClick={() => this.showHide('Table')} title=""></div>
                         <div className={"icons-groups" + (this.state.showRates ? " icon-group-rate" : " icon-group-rate-disable")}
-                             style={{marginLeft: '5px'}} onClick={() => this.showHide('Rates')} title=""></div>
+                             style={{marginLeft: '5px'}} onClick={() => this.showHide('Regions')} title=""></div>
                         <div className={"icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable")}
                              style={{marginLeft: '5px'}} onClick={() => this.showHide('Charts')} title=""></div>
                         <div className={"icons-groups" + (this.state.showMap ? " icon-group-map" : " icon-group-map-disable")}
@@ -135,8 +134,8 @@ class PgSerie extends React.Component{
                     <br/><hr/><br/>
                 </div>
 
-                <div style={{display: this.state.showRates ? 'block' : 'none'}}>
-                    <Rates/>
+                <div style={{display: this.state.showRegions ? 'block' : 'none'}}>
+                    <Regions  data={this.state.totaisRegioesPorPeriodo}/>
                     <br/><hr/><br/>
                 </div>
 

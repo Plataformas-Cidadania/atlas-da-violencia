@@ -8,7 +8,7 @@ class PgSerie extends React.Component {
             periodos: [],
             showMap: true,
             showCharts: true,
-            showRates: true,
+            showRegions: true,
             showTable: true,
             showCalcs: true,
             chartLine: true,
@@ -88,7 +88,7 @@ class PgSerie extends React.Component {
                     React.createElement("div", { className: "icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable"),
                         style: { marginLeft: '5px' }, onClick: () => this.showHide('Table'), title: "" }),
                     React.createElement("div", { className: "icons-groups" + (this.state.showRates ? " icon-group-rate" : " icon-group-rate-disable"),
-                        style: { marginLeft: '5px' }, onClick: () => this.showHide('Rates'), title: "" }),
+                        style: { marginLeft: '5px' }, onClick: () => this.showHide('Regions'), title: "" }),
                     React.createElement("div", { className: "icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable"),
                         style: { marginLeft: '5px' }, onClick: () => this.showHide('Charts'), title: "" }),
                     React.createElement("div", { className: "icons-groups" + (this.state.showMap ? " icon-group-map" : " icon-group-map-disable"),
@@ -156,8 +156,8 @@ class PgSerie extends React.Component {
             ),
             React.createElement(
                 "div",
-                { style: { display: this.state.showRates ? 'block' : 'none' } },
-                React.createElement(Rates, null),
+                { style: { display: this.state.showRegions ? 'block' : 'none' } },
+                React.createElement(Regions, { data: this.state.totaisRegioesPorPeriodo }),
                 React.createElement("br", null),
                 React.createElement("hr", null),
                 React.createElement("br", null)
