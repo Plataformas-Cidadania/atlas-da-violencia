@@ -82,12 +82,12 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { className: "col-md-6 text-right" },
-                    React.createElement("div", { className: "icons-groups icon-group-print", style: { marginLeft: '5px' }, title: "" }),
+                    React.createElement("div", { className: "icons-groups icon-group-print", style: { display: 'non', marginLeft: '5px' }, title: "" }),
                     React.createElement("div", { className: "icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable"),
                         style: { marginLeft: '5px' }, onClick: () => this.showHide('Calcs'), title: "" }),
                     React.createElement("div", { className: "icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable"),
                         style: { marginLeft: '5px' }, onClick: () => this.showHide('Table'), title: "" }),
-                    React.createElement("div", { className: "icons-groups" + (this.state.showRates ? " icon-group-rate" : " icon-group-rate-disable"),
+                    React.createElement("div", { className: "icons-groups" + (this.state.showRegions ? " icon-group-rate" : " icon-group-rate-disable"),
                         style: { marginLeft: '5px' }, onClick: () => this.showHide('Regions'), title: "" }),
                     React.createElement("div", { className: "icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable"),
                         style: { marginLeft: '5px' }, onClick: () => this.showHide('Charts'), title: "" }),
@@ -173,7 +173,7 @@ class PgSerie extends React.Component {
             React.createElement(
                 "div",
                 { style: { display: this.state.showCalcs ? 'block' : 'none' } },
-                "C\xE1lculos"
+                React.createElement(Calcs, { data: this.state.totaisRegioesPorPeriodo })
             )
         );
     }

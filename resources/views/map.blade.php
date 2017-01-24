@@ -130,6 +130,29 @@
             background-position: -144px 0;
         }
 
+        .icons-list-items{
+            float:right;
+            background-image: url(img/icons/png/icons-list-itens.png);
+            width: 40px;
+            height: 44px;
+            cursor: pointer;
+        }
+
+        .icon-list-item-1{
+            background-position: 0 0;
+        }
+
+        .icons-list-140-150{
+            background-image: url(img/icons/png/icons-list-140x150.png);
+            width: 140px;
+            height: 150px;
+            margin: auto;
+        }
+
+        .icon-list-140-150-1{
+            background-position: 0 0;
+        }
+
     </style>
     {{--@if(substr($base_href, 0,9)=='evbsb1052')--}}
         <style>

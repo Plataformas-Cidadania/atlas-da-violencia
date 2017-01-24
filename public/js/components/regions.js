@@ -42,7 +42,7 @@ class Regions extends React.Component {
     }
 
     minMaxValue(data) {
-        console.log(data);
+        //console.log(data);
         let sort = data.sort(function (a, b) {
             if (parseFloat(a.total) < parseFloat(b.total)) {
                 return -1;

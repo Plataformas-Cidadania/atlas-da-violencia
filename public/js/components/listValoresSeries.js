@@ -56,7 +56,9 @@ class ListValoresSeries extends React.Component {
                 React.createElement(
                     "th",
                     null,
-                    item.uf
+                    item.uf,
+                    " - ",
+                    item.nome
                 ),
                 React.createElement(
                     "td",

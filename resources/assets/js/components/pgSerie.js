@@ -75,12 +75,12 @@ class PgSerie extends React.Component{
                         &nbsp;Homicídios no Brasil
                     </div>
                     <div className="col-md-6 text-right">
-                        <div className="icons-groups icon-group-print" style={{marginLeft: '5px'}} title=""></div>
+                        <div className="icons-groups icon-group-print" style={{display: 'non', marginLeft: '5px'}} title=""></div>
                         <div className={"icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable")}
                              style={{marginLeft: '5px'}} onClick={() => this.showHide('Calcs')} title=""></div>
                         <div className={"icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable")}
                              style={{marginLeft: '5px'}} onClick={() => this.showHide('Table')} title=""></div>
-                        <div className={"icons-groups" + (this.state.showRates ? " icon-group-rate" : " icon-group-rate-disable")}
+                        <div className={"icons-groups" + (this.state.showRegions ? " icon-group-rate" : " icon-group-rate-disable")}
                              style={{marginLeft: '5px'}} onClick={() => this.showHide('Regions')} title=""></div>
                         <div className={"icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable")}
                              style={{marginLeft: '5px'}} onClick={() => this.showHide('Charts')} title=""></div>
@@ -135,7 +135,7 @@ class PgSerie extends React.Component{
                 </div>
 
                 <div style={{display: this.state.showRegions ? 'block' : 'none'}}>
-                    <Regions  data={this.state.totaisRegioesPorPeriodo}/>
+                    <Regions data={this.state.totaisRegioesPorPeriodo}/>
                     <br/><hr/><br/>
                 </div>
 
@@ -145,7 +145,7 @@ class PgSerie extends React.Component{
                 </div>
 
                 <div style={{display: this.state.showCalcs ? 'block' : 'none'}}>
-                    Cálculos
+                    <Calcs data={this.state.totaisRegioesPorPeriodo}/>
                 </div>
 
 
