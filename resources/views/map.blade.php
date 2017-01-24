@@ -109,6 +109,27 @@
             background-position: -144px -48px;
         }
 
+        .icons-arrows{
+            float:right;
+            background-image: url(img/icons/png/icons-arrow.png);
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+        }
+
+        .icon-green-down{
+            background-position: 0 0;
+        }
+        .icon-green-up{
+            background-position: -48px 0;
+        }
+        .icon-red-down{
+            background-position: -96px 0;
+        }
+        .icon-red-up{
+            background-position: -144px 0;
+        }
+
     </style>
     {{--@if(substr($base_href, 0,9)=='evbsb1052')--}}
         <style>

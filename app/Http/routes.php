@@ -56,7 +56,7 @@
     Route::get('valores-series/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');
     Route::get('periodo/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
 
-    Route::get('valores/{min}/{max}', 'MapController@valores');
+    Route::get('valores-inicial-final-regiao/{min}/{max}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
 
     Route::get('indices', function(){
         //teste

@@ -46,18 +46,21 @@ class ListValoresSeries extends React.Component {
                 { key: index },
                 React.createElement(
                     "th",
-                    null,
+                    { width: "10px" },
                     React.createElement(
                         "i",
                         { className: "fa fa-square", style: { color: getColor(item.total) } },
                         " "
-                    ),
-                    " ",
+                    )
+                ),
+                React.createElement(
+                    "th",
+                    null,
                     item.uf
                 ),
                 React.createElement(
                     "td",
-                    null,
+                    { className: "text-right" },
                     item.total
                 )
             );
@@ -76,11 +79,16 @@ class ListValoresSeries extends React.Component {
                     React.createElement(
                         "th",
                         null,
-                        "Uf"
+                        "\xA0"
                     ),
                     React.createElement(
                         "th",
                         null,
+                        "Uf"
+                    ),
+                    React.createElement(
+                        "th",
+                        { className: "text-right" },
                         "Ocorr\xEAncias"
                     )
                 )

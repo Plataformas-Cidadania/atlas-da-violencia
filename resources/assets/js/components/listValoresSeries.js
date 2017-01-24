@@ -39,8 +39,9 @@ class ListValoresSeries extends React.Component{
         let valores = this.state.valores.map(function (item, index) {
             return (
                 <tr key={index}>
-                    <th><i className="fa fa-square" style={{color: getColor(item.total)}}> </i> {item.uf}</th>
-                    <td>{item.total}</td>
+                    <th width="10px"><i className="fa fa-square" style={{color: getColor(item.total)}}> </i></th>
+                    <th>{item.uf}</th>
+                    <td className="text-right">{item.total}</td>
                 </tr>
             );
         });
@@ -50,8 +51,9 @@ class ListValoresSeries extends React.Component{
             <table className="table table-striped table-bordered">
                 <thead>
                     <tr>
+                        <th>&nbsp;</th>
                         <th>Uf</th>
-                        <th>Ocorrências</th>
+                        <th className="text-right">Ocorrências</th>
                     </tr>
                 </thead>
                 <tbody>

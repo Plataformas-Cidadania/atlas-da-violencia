@@ -104,7 +104,7 @@ class MapController extends Controller
         return $valores;
     }
 
-    function valores($min, $max){
+    function valoresInicialFinalRegiaoPorPeriodo($min, $max){
         $valores = DB::table('valores_series')
             ->select(DB::raw("valores_series.valor, valores_series.periodo, valores_series.uf, ed_territorios_uf.edterritorios_nome as nome"))
             ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
@@ -113,10 +113,10 @@ class MapController extends Controller
                 $query->where('valores_series.periodo', $min)
                     ->orWhere('valores_series.periodo', $max);
             })
-            ->orderBy('valores_series.uf')
+            ->orderBy(DB::raw('valores_series.uf, valores_series.periodo'))
             ->get();
 
-        dd($valores);
+        //dd($valores);
 
         return $valores;
     }
