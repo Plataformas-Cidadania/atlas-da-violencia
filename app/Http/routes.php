@@ -48,6 +48,7 @@
 
 
     Route::get('map/', 'MapController@index');
+    Route::get('map/{id}/{titulo}', 'MapController@index');
     Route::get('get-data/', 'MapController@getData');
 
     Route::get('periodos/', 'MapController@periodos');
