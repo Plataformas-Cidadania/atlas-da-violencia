@@ -19,6 +19,7 @@ class HomeController extends Controller
         $noticias = DB::table('noticias')->orderBy('id', 'desc')->skip(1)->take(2)->get();
         $menu = \App\Menu::where('menu_id', 0)->get();
         $video = \App\Video::orderBy('id', 'desc')->first();
+        $indices = \App\Indice::orderBy('posicao')->where('status', 1)->take(4)->get();
 
 
         return view('home', [
@@ -29,7 +30,8 @@ class HomeController extends Controller
             'tags' => $tags,
             'webdoors' => $webdoors,
             'menu' => $menu,
-            'video' => $video
+            'video' => $video,
+            'indices' => $indices
         ]);
     }
 }

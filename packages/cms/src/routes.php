@@ -51,6 +51,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/link/{id}', 'Cms\Controllers\LinkController@detalhar');
         Route::post('/cms/alterar-link/{id}', 'Cms\Controllers\LinkController@alterar');
         Route::get('/cms/excluir-link/{id}', 'Cms\Controllers\LinkController@excluir');
+        
+        //INDICES
+        Route::get('/cms/indices', 'Cms\Controllers\IndiceController@index');
+        Route::get('/cms/listar-indices', 'Cms\Controllers\IndiceController@listar');
+        Route::post('/cms/inserir-indice', 'Cms\Controllers\IndiceController@inserir');
+        Route::get('/cms/indice/{id}', 'Cms\Controllers\IndiceController@detalhar');
+        Route::post('/cms/alterar-indice/{id}', 'Cms\Controllers\IndiceController@alterar');
+        Route::get('/cms/excluir-indice/{id}', 'Cms\Controllers\IndiceController@excluir');
 
 
         //Setting

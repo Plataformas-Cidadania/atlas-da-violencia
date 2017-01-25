@@ -180,6 +180,9 @@
                     <a href="cms/links"><i class="fa fa-fw fa-link"></i> Links</a>
                 </li>
                 <li>
+                    <a href="cms/indices"><i class="fa fa-fw fa-link"></i> Ídices</a>
+                </li>
+                <li>
                     <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
                 </li>
                 <!--<li>

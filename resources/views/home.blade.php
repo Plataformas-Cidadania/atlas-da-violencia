@@ -22,6 +22,7 @@
 
         <div class="container block" data-move-x="500px">
             <div class="row">
+                <br><br>
                 <?php $cont_animecao = 0;?>
                 @foreach($links as $link)
                         <?php
@@ -59,23 +60,16 @@
             <div class="container">
                 <div class="row box-hoje">
                     <h3>Índices de hoje</h3>
+                    <?php $cont_indice = 1;?>
+                    @foreach($indices as $indice)
                     <div class="col-md-3">
-                        <h2 id="contadorIndice1"></h2>
-                        <p id="nomeIndice1"></p>
+                        <h2 id="contadorIndice<?php echo $cont_indice;?>"></h2>
+                        <p id="nomeIndice<?php echo $cont_indice;?>"></p>
                     </div>
-                    <div class="col-md-3">
-                        <h2 id="contadorIndice2">00000</h2>
-                        <p id="nomeIndice2"></p>
-                    </div>
-                    <div class="col-md-3">
-                        <h2 id="contadorIndice3">00000</h2>
-                        <p id="nomeIndice3"></p>
-                    </div>
-                    <div class="col-md-3">
-                        <h2 id="contadorIndice4">00000</h2>
-                        <p id="nomeIndice4"></p>
-                    </div>
+                    <?php $cont_indice ++;?>
+                    @endforeach
                 </div>
+                <br>
             </div>
         </div>
         <br><br>

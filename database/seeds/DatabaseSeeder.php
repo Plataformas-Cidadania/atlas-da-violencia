@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
          $this->call(SettingsTableSeeder::class);
          $this->call(WebdoorsTableSeeder::class);
          $this->call(MenuTableSeeder::class);
+         $this->call(IndicesTableSeeder::class);
     }
 }
