@@ -56,7 +56,7 @@
         </div>
 
         <br><br>
-        <div class="bg-pri">
+        <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
                 <div class="row box-hoje">
                     <h3>Índices de hoje</h3>
@@ -97,7 +97,7 @@
 
 
         <br><br>
-        <div class="bg-qui">
+        <div class="bg-qui" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
                 <a href="quem/conheca-o-ipea" >
                     <br><br>
