@@ -452,15 +452,15 @@ print_r($periodo_limite);*/
                 data: {},
                 success: function(data){
                     //console.log(data);
-                    contadorIndices(0, '#contadorIndice1', data[0]);
-                    contadorIndices(0, '#contadorIndice2', data[1]);
-                    contadorIndices(0, '#contadorIndice3', data[2]);
-                    contadorIndices(0, '#contadorIndice4', data[3]);
+                    contadorIndices(0, '#contadorIndice1', data[0].valor);
+                    contadorIndices(0, '#contadorIndice2', data[1].valor);
+                    contadorIndices(0, '#contadorIndice3', data[2].valor);
+                    contadorIndices(0, '#contadorIndice4', data[3].valor);
 
-                    nomeIndices('#nomeIndice1', 'Furtos');
-                    nomeIndices('#nomeIndice2', 'Juventude Perdida');
-                    nomeIndices('#nomeIndice3', 'Homicídios');
-                    nomeIndices('#nomeIndice4', 'Violência de Gênero');
+                    nomeIndices('#nomeIndice1', data[0].titulo);
+                    nomeIndices('#nomeIndice2', data[1].titulo);
+                    nomeIndices('#nomeIndice3', data[2].titulo);
+                    nomeIndices('#nomeIndice4', data[3].titulo);
                 },
                 error: function(data){
                     console.log('erro');

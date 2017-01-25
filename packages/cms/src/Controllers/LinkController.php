@@ -36,8 +36,9 @@ class LinkController extends Controller
     {
 
         $links = \App\Link::all();
+        $series = \App\Serie::lists('serie', 'id')->all();
 
-        return view('cms::link.listar', ['links' => $links]);
+        return view('cms::link.listar', ['links' => $links, 'series' => $series]);
     }
 
     public function listar(Request $request)
@@ -97,7 +98,9 @@ class LinkController extends Controller
         $link = $this->link->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        return view('cms::link.detalhar', ['link' => $link]);
+        $series = \App\Serie::lists('serie', 'id')->all();
+
+        return view('cms::link.detalhar', ['link' => $link, 'series' => $series]);
     }
 
     public function alterar(Request $request, $id)
