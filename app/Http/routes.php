@@ -58,9 +58,5 @@
 
     Route::get('valores-inicial-final-regiao/{min}/{max}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
 
-    Route::get('indices', function(){
-        //teste
-        $indices = [8750, 1240, 2265, 348];
-        return $indices;
-    });
+    Route::get('indices', 'IndiceController@indice');
 //});
