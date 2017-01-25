@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class=" bg-qui  hidden-print">
+    <div class=" bg-qui  hidden-print"  ng-class="{'alto-contraste': altoContrasteAtivo}">
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-5">
@@ -105,7 +105,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 25px; background-color: #ececec; height: 315px;">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 25px; background-color: #ececec; height: 315px;"  ng-class="{'alto-contraste': altoContrasteAtivo}">
                     <h2 style="margin-top: 0;">{{$ultimaNoticia->titulo}}</h2>
                     <div style="height: 100px; overflow: hidden;">{!! $ultimaNoticia->descricao !!}</div>
                     <br>
