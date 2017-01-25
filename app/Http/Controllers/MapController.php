@@ -152,4 +152,5 @@ class MapController extends Controller
 
         return $valores;
     }
+
 }

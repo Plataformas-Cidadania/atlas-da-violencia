@@ -2,7 +2,7 @@ class RangePeriodo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            periodo: []
+            periodos: []
         };
     }
 
@@ -10,16 +10,22 @@ class RangePeriodo extends React.Component {
         this.loadData();
     }
 
+    loading(status) {
+        this.props.loading(status);
+    }
+
     loadData() {
+        this.loading(true);
         let _this = this;
         $.ajax("periodos", {
             data: {},
             success: function (data) {
-                //console.log(data);
+                console.log(data);
                 _this.setState({ periodos: data }, function () {
                     _this.loadRange();
                     _this.props.setPeriodos(data);
                 });
+                _this.loading(false);
                 //periodos = data;
             },
             error: function (data) {

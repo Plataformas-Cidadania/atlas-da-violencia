@@ -2,6 +2,7 @@ class Regions extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            loading: false,
             data: {},
             min: 0,
             max: 0,
@@ -25,13 +26,14 @@ class Regions extends React.Component{
     }
 
     loadData(){
+        this.setState({loading: true});
         $.ajax({
             method:'GET',
             url: "valores-inicial-final-regiao/"+this.state.min+"/"+this.state.max,
             cache: false,
             success: function(data) {
                 //console.log('region.js, loaddata', data);
-                this.setState({data: data}, function(){
+                this.setState({data: data, loading:false}, function(){
                     this.calcMaxUpDown();
                 });
             }.bind(this),
@@ -148,7 +150,13 @@ class Regions extends React.Component{
                     <br/>
                     <p style={this.state.styleNumber}>{this.state.maxValue.total}</p>
                 </div>
-                <div className="col-md-3 col-lg-3 text-center">
+
+                <div className="col-md-6 col-lg-6 text-center text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
+                    <br/><br/>
+                    <i className="fa fa-5x fa-spinner fa-spin"> </i>
+                </div>
+
+                <div className="col-md-3 col-lg-3 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
                     <h4>{this.state.maxDown.uf} - {this.state.maxDown.nome}</h4>
                     <div className="line_title bg-pri"></div>
                     <br/>
@@ -158,7 +166,7 @@ class Regions extends React.Component{
                     <br/>
                     <p style={this.state.styleNumber}>{numeral(this.state.maxDown.variacao*multiplicadorDown).format('0,0.00')}%</p>
                 </div>
-                <div className="col-md-3 col-lg-3 text-center">
+                <div className="col-md-3 col-lg-3 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
                     <h4>{this.state.maxUp.uf} - {this.state.maxUp.nome}</h4>
                     <div className="line_title bg-pri"></div>
                     <br/>

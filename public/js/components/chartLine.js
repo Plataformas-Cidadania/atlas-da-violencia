@@ -4,6 +4,7 @@ class ChartLine extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: false,
             min: 0,
             max: 0
         };
@@ -22,12 +23,15 @@ class ChartLine extends React.Component {
     }
 
     loadData() {
+        this.setState({ loading: true });
         let _this = this;
         $.ajax("periodo/" + this.state.min + "/" + this.state.max, {
             data: {},
             success: function (data) {
                 //console.log(data);
-                _this.loadChartLine(data);
+                _this.setState({ loading: false }, function () {
+                    _this.loadChartLine(data);
+                });
             },
             error: function (data) {
                 console.log('erro');
@@ -86,9 +90,22 @@ class ChartLine extends React.Component {
 
     render() {
         return React.createElement(
-            "canvas",
-            { id: "myChartLine", width: "400", height: "200" },
-            " "
+            "div",
+            null,
+            React.createElement(
+                "div",
+                { className: "text-center", style: { display: this.state.loading ? 'block' : 'none' } },
+                React.createElement(
+                    "i",
+                    { className: "fa fa-5x fa-spinner fa-spin" },
+                    " "
+                )
+            ),
+            React.createElement(
+                "canvas",
+                { style: { display: this.state.loading ? 'none' : 'block' }, id: "myChartLine", width: "400", height: "200" },
+                " "
+            )
         );
     }
 }

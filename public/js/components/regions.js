@@ -2,6 +2,7 @@ class Regions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: false,
             data: {},
             min: 0,
             max: 0,
@@ -25,13 +26,14 @@ class Regions extends React.Component {
     }
 
     loadData() {
+        this.setState({ loading: true });
         $.ajax({
             method: 'GET',
             url: "valores-inicial-final-regiao/" + this.state.min + "/" + this.state.max,
             cache: false,
             success: function (data) {
                 //console.log('region.js, loaddata', data);
-                this.setState({ data: data }, function () {
+                this.setState({ data: data, loading: false }, function () {
                     this.calcMaxUpDown();
                 });
             }.bind(this),
@@ -197,7 +199,18 @@ class Regions extends React.Component {
             ),
             React.createElement(
                 'div',
-                { className: 'col-md-3 col-lg-3 text-center' },
+                { className: 'col-md-6 col-lg-6 text-center text-center', style: { display: this.state.loading ? 'block' : 'none' } },
+                React.createElement('br', null),
+                React.createElement('br', null),
+                React.createElement(
+                    'i',
+                    { className: 'fa fa-5x fa-spinner fa-spin' },
+                    ' '
+                )
+            ),
+            React.createElement(
+                'div',
+                { className: 'col-md-3 col-lg-3 text-center', style: { display: this.state.loading ? 'none' : 'block' } },
                 React.createElement(
                     'h4',
                     null,
@@ -222,7 +235,7 @@ class Regions extends React.Component {
             ),
             React.createElement(
                 'div',
-                { className: 'col-md-3 col-lg-3 text-center' },
+                { className: 'col-md-3 col-lg-3 text-center', style: { display: this.state.loading ? 'none' : 'block' } },
                 React.createElement(
                     'h4',
                     null,
