@@ -177,10 +177,13 @@
                     <a href="cms/noticias"><i class="fa fa-fw fa-newspaper-o"></i> Notícias</a>
                 </li>
                 <li>
+                    <a href="cms/series"><i class="fa fa-fw fa-link"></i> Séries</a>
+                </li>
+                <li>
                     <a href="cms/links"><i class="fa fa-fw fa-link"></i> Links</a>
                 </li>
                 <li>
-                    <a href="cms/indices"><i class="fa fa-fw fa-link"></i> Ídices</a>
+                    <a href="cms/indices"><i class="fa fa-fw fa-link"></i> Índices</a>
                 </li>
                 <li>
                     <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>

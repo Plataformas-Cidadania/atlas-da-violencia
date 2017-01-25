@@ -71,7 +71,7 @@ print_r($periodo_limite);*/
 
 ?>
 
-@if($rota=='map')
+@if($rota=='map/{id}/{titulo}')
     {{--http://www.chartjs.org/docs/--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
