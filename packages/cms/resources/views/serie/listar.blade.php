@@ -16,22 +16,24 @@
             <div ng-show="mostrarForm">
                 <span class="texto-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>
                 {!! Form::open(['name' =>'form']) !!}
-                <div class="container-thumb">
-                    <div class="box-thumb" name="fileDrop" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
-                         ng-show="!picFile" accept="image/*" ngf-max-size="2MB">Solte uma imagem aqui!</div>
-                    <img  ngf-thumbnail="picFile" class="thumb">
-                </div>
-                <br>
-                <span class="btn btn-primary btn-file" ng-show="!picFile">
+                <div style="display:none;">
+                    <div class="container-thumb">
+                        <div class="box-thumb" name="fileDrop" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
+                             ng-show="!picFile" accept="image/*" ngf-max-size="2MB">Solte uma imagem aqui!</div>
+                        <img  ngf-thumbnail="picFile" class="thumb">
+                    </div>
+                    <br>
+                    <span class="btn btn-primary btn-file" ng-show="!picFile">
                     Escolher imagem <input  type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
                 </span>
-                <button class="btn btn-danger" ng-click="picFile = null" ng-show="picFile" type="button">Remover Imagem</button>
-                <i ng-show="form.file.$error.maxSize || form.fileDrop.$error.maxSize" style="margin-left: 10px;">
-                    Arquivo muito grande <% errorFile.size / 1000000|number:1 %>MB: máximo 2MB
-                    <div class="btn btn-danger" ng-click="limparImagem()">Cancelar</div>
-                </i>
+                    <button class="btn btn-danger" ng-click="picFile = null" ng-show="picFile" type="button">Remover Imagem</button>
+                    <i ng-show="form.file.$error.maxSize || form.fileDrop.$error.maxSize" style="margin-left: 10px;">
+                        Arquivo muito grande <% errorFile.size / 1000000|number:1 %>MB: máximo 2MB
+                        <div class="btn btn-danger" ng-click="limparImagem()">Cancelar</div>
+                    </i>
 
-                <br><br>
+                    <br><br>
+                </div>
                 @include('cms::serie._form')
                 <div class="row">
                     <div class="col-md-1 col-lg-1 col-xs-3">
@@ -79,7 +81,7 @@
                                 <i ng-if="ordem=='id' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='id' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
-                            <th>Imagem</th>
+                            <th style="display:none;">Imagem</th>
                             <th ng-click="ordernarPor('serie')" style="serier:pointer;">
                                 Serie
                                 <i ng-if="ordem=='serie' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
@@ -91,7 +93,7 @@
                         <tbody>
                         <tr ng-repeat="serie in series">
                             <td><% serie.id %></td>
-                            <td><img ng-show="serie.imagem" ng-src="imagens/series/xs-<% serie.imagem %>" width="60"></td>
+                            <td style="display:none;"><img ng-show="serie.imagem" ng-src="imagens/series/xs-<% serie.imagem %>" width="60"></td>
                             <td><a href="cms/serie/<% serie.id %>"><% serie.titulo %></a></td>
                             <td class="text-right">
                                 <div>

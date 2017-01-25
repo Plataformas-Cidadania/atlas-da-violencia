@@ -15,7 +15,7 @@ class CreateSeries extends Migration
         Schema::create('series', function (Blueprint $table) {
             $table->increments('id');
             $table->string('imagem');
-            $table->string('serie');
+            $table->string('titulo');
             $table->string('periodicidade');
             $table->text('descricao');
             $table->integer('serie_id')->default(0);//utiliza para criar relações entre séries

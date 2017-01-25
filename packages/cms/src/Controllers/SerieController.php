@@ -36,8 +36,12 @@ class SerieController extends Controller
     {
 
         $series = \App\Serie::all();
+        //$temas = \App\Tema::lists('titulo', 'id')->all();
+        $fontes = \App\Fonte::lists('titulo', 'id')->all();
+        $series_relacionado = \App\Serie::lists('titulo', 'id')->all();
 
-        return view('cms::serie.listar', ['series' => $series]);
+
+        return view('cms::serie.listar', ['series' => $series, 'series_relacionado' => $series_relacionado, 'fontes' => $fontes]);
     }
 
     public function listar(Request $request)
@@ -97,7 +101,12 @@ class SerieController extends Controller
         $serie = $this->serie->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        return view('cms::serie.detalhar', ['serie' => $serie]);
+
+
+        $fontes = \App\Fonte::lists('titulo', 'id')->all();
+        $series_relacionado = \App\Serie::lists('titulo', 'id')->all();
+
+        return view('cms::serie.detalhar', ['serie' => $serie, 'series_relacionado' => $series_relacionado, 'fontes' => $fontes]);
     }
 
     public function alterar(Request $request, $id)
