@@ -54,7 +54,11 @@ class SeriesList extends React.Component {
                 React.createElement(
                     'td',
                     null,
-                    item.titulo
+                    React.createElement(
+                        'a',
+                        { href: "map/" + item.id + "/" + item.titulo },
+                        item.titulo
+                    )
                 ),
                 React.createElement(
                     'td',

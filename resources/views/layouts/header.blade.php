@@ -91,6 +91,7 @@
                 <ul id="iniciodomenu" class="nav nav-pills nav-justified">
                     <li role="presentation"><a href="/" accesskey="h" @if($rota=='/') class="corrente" @endif>Início</a></li>
                     <li role="presentation"><a href="/quem" accesskey="q" @if($rota=='quem') class="corrente" @endif>Sobre</a></li>
+                    <li role="presentation"><a href="/series" accesskey="q" @if($rota=='series') class="corrente" @endif>Pesquisas</a></li>
                     <li role="presentation"><a href="/noticias" accesskey="n" @if($rota=='noticias') class="corrente" @endif>Notícias</a></li>
                     <li role="presentation"><a href="/videos" accesskey="q" @if($rota=='videos') class="corrente" @endif>Vídeos</a></li>
                     <li role="presentation"><a href="/contato" accesskey="c" @if($rota=='contato') class="corrente" @endif>Contato</a></li>

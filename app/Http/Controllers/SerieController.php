@@ -33,7 +33,7 @@ class SerieController extends Controller
         $series = DB::table('series')
             ->select(DB::raw('series.*, min(valores_series.periodo) as min, max(valores_series.periodo) as max'))
             ->join('valores_series', 'valores_series.serie_id', '=', 'series.id')
-            ->where(DB::raw("LOWER(series.titulo), like LOWER(%$request->search%)"))
+            ->where('series.titulo', 'ilike', "%$request->search%")
             ->groupBy('series.id')
             ->get();
 

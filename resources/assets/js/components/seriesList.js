@@ -50,7 +50,7 @@ class SeriesList extends React.Component{
         let series = this.state.data.map(function(item){
             return (
                 <tr key="item.id">
-                    <td>{item.titulo}</td>
+                    <td><a href={"map/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>
                     {/*<td>&nbsp;</td>*/}
                     <td>{item.periodicidade}</td>
                     <td>{item.min} - {item.max}</td>
