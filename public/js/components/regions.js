@@ -2,6 +2,7 @@ class Regions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.id,
             loading: false,
             data: {},
             min: 0,
@@ -29,7 +30,7 @@ class Regions extends React.Component {
         this.setState({ loading: true });
         $.ajax({
             method: 'GET',
-            url: "valores-inicial-final-regiao/" + this.state.min + "/" + this.state.max,
+            url: "valores-inicial-final-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max,
             cache: false,
             success: function (data) {
                 //console.log('region.js, loaddata', data);

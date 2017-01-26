@@ -3,6 +3,16 @@
 <script src="/lib/angular/angular.min.js"></script>
 <script src="/js/app.js"></script>--}}
 <script src="js/all.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+
 @if($rota=='contato')
     <script src="js/controllers/contatoCtrl.js"></script>
     <script src="lib/jquery/jquery.mask.min.js"></script>
@@ -71,11 +81,13 @@ print_r($periodo_limite);*/
 
 ?>
 
+@if($rota=='series')
+    <script src="js/components/seriesList.js"></script>
+@endif
+
 @if($rota=='map/{id}/{titulo}')
     {{--http://www.chartjs.org/docs/--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 
 
     <script>
@@ -98,170 +110,6 @@ print_r($periodo_limite);*/
 
 
     <script>
-
-        //var periodos = [];
-
-
-        /*function dataToMap(min, max){
-            $.ajax("regiao/"+min+"/"+max, {
-                data: {},
-                success: function(data){
-                    //console.log(data);
-                    //console.log(':::::::::::::::::::::::::::::::');
-                    loadMap(data);
-                },
-                error: function(data){
-                    console.log('erro');
-                }
-            })
-        }*/
-
-
-        /*function loadMap(data){
-            //remove existing map layers
-            mymap.eachLayer(function(layer){
-                //if not the tile layer
-                if (typeof layer._url === "undefined"){
-                    mymap.removeLayer(layer);
-                }
-            });
-
-            let valores = [];
-            for(let i in data.features){
-                valores[i] = data.features[i].properties.total;
-            }
-            console.log(valores);
-
-            intervalos = gerarIntervalos(valores);
-            //console.log(intervalos);
-
-            geojson = L.geoJson(data, {
-                style: style,
-                onEachFeature: onEachFeature //listeners
-            }).addTo(mymap);
-
-            /!*for(var i=0; i<data.circles.length; i++){
-             var circle = L.circle([data.circles[i].st_y, data.circles[i].st_x], {
-             color: 'red',
-             fillColor: '#f03',
-             fillOpacity: 0.5,
-             radius: data.circles[i].valor*10
-             }).addTo(mymap);
-             }*!/
-
-            legend[indexLegend] = L.control({position: 'bottomright'});
-
-
-            legend[indexLegend].onAdd = function (mymap) {
-                let div = L.DomUtil.create('div', 'info legend'),
-                    //grades = [0, 100, 300, 600, 1000, 1500, 3000, 5000, 7000, 9000],
-                    grades = intervalos,
-                    labels = [];
-                // loop through our density intervals and generate a label with a colored square for each interval
-                for (let i = 0; i < grades.length; i++) {
-                    div.innerHTML +=
-                        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-                }
-                return div;
-            };
-
-            if(lastIndexLegend!=0){
-                mymap.removeControl(legend[lastIndexLegend]);
-            }
-            legend[indexLegend].addTo(mymap);
-            lastIndexLegend = indexLegend;
-            indexLegend++;
-
-            /!*for(var i in data){
-             var circle = L.circle([data[i].st_y, data[i].st_x], {
-             color: 'red',
-             fillColor: '#f03',
-             fillOpacity: 0.5,
-             radius: 50000
-             }).addTo(mymap);
-             }*!/
-
-            let polygon2 = L.polygon([
-                [51.509, -0.08],
-                [51.503, -0.06],
-                [51.51, -0.047]
-            ]).addTo(mymap);
-
-
-
-        }*/
-
-
-
-        /*///////////////////////////////////////////////////////////////////////////////
-        var mymap = L.map('mapid').setView([-10, -52], 4);
-        var tileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJwYXNzb3MiLCJhIjoiY2l4N3l0bXF0MDFiczJ6cnNwODN3cHJidiJ9.qnfh8Jfn_be6gpo774j_nQ', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-            id: 'mapbox.streets'
-        }).addTo(mymap);
-        ///////////////////////////////////////////////////////////////////////////////*/
-
-        /////////////////////MOUSE OVER LEGEND///////////////////////////
-        /*function highlightFeature(e) {
-            var layer = e.target;
-            layer.setStyle({
-                weight: 5,
-                color: '#333',
-                dashArray: '',
-                fillOpacity: 0.7
-            });
-
-            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                layer.bringToFront();
-            }
-
-            info.update(layer.feature.properties);
-        }
-        function resetHighlight(e) {
-            geojson.resetStyle(e.target);
-            info.update();
-        }
-        function zoomToFeature(e) {
-            mymap.fitBounds(e.target.getBounds());
-        }
-
-        var geojson;
-        // ... our listeners
-        function onEachFeature(feature, layer) {
-            layer.on({
-                mouseover: highlightFeature,
-                mouseout: resetHighlight,
-                click: zoomToFeature
-            });
-        }*/
-
-        /*geojson = L.geoJson(statesData, {
-            style: style,
-            onEachFeature: onEachFeature
-        }).addTo(map);*/
-
-        /*var info = L.control();
-
-        info.onAdd = function (mymap) {
-            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-            this.update();
-            return this._div;
-        };
-
-        // method that we will use to update the control based on feature properties passed
-        info.update = function (props) {
-            this._div.innerHTML =
-                '<h4>Ocorrências</h4>' +  (props ? '<b>' + props.uf + '</b><br />' + props.total
-                    : 'Passe o mouse na região');
-        };
-
-        info.addTo(mymap);*/
-
-        /////////////////////////////////////////////////////////////////
 
         function gerarIntervalos(valores){
             let intervalos = [];
@@ -305,133 +153,6 @@ print_r($periodo_limite);*/
                 fillOpacity: 0.5
             };
         }
-
-        /*function dataToChart(min, max){
-            $.ajax("periodo/"+min+"/"+max, {
-                data: {},
-                success: function(data){
-                    //console.log(data);
-                    loadChart(data);
-                },
-                error: function(data){
-                    console.log('erro');
-                }
-            })
-        }*/
-
-
-        /*function loadChart(data){
-            var labels = [];
-            var values = [];
-            for(var i in data){
-                labels[i] = data[i].periodo;
-                values[i] = data[i].total;
-            }
-
-            var canvas = document.getElementById('myChart');
-            var dataChart = {
-                //labels: ["January", "February", "March", "April", "May", "June", "July"],
-                labels: labels,
-                datasets: [
-                    {
-                        label: "",
-                        fill: false,
-                        lineTension: 0.1,
-                        backgroundColor: "rgba(75,192,192,0.4)",
-                        borderColor: "rgba(75,192,192,1)",
-                        borderCapStyle: 'butt',
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        borderJoinStyle: 'miter',
-                        pointBorderColor: "rgba(75,192,192,1)",
-                        pointBackgroundColor: "#fff",
-                        pointBorderWidth: 1,
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 5,
-                        pointHitRadius: 10,
-                        data: values,
-                    }
-                ]
-            };
-
-            var option = {
-                showLines: true
-            };
-            myLineChart = Chart.Line(canvas,{
-                data:dataChart,
-                options:option
-            });
-
-
-        }*/
-
-        /*function dataToChartRadar(min, max){
-            $.ajax("valores-regiao/"+min+"/"+max, {
-                data: {},
-                success: function(data){
-                    //console.log(data);
-                    loadChartRadar(data);
-                },
-                error: function(data){
-                    console.log('erro');
-                }
-            })
-        }*/
-
-        /*function loadChartRadar(data){
-            //console.log(data);
-            var labels = [];
-            var values = [];
-            for(var i in data){
-                labels[i] = data[i].uf;
-                values[i] = data[i].total;
-            }
-
-            //console.log(values);
-
-            var canvas2 = document.getElementById('myChartRadar');
-            var dataChart = {
-                labels: labels,
-                datasets: [
-                    {
-                        label: "Homicidios no Brasil",
-                        backgroundColor: "rgba(179,181,198,0.2)",
-                        borderColor: "rgba(179,181,198,1)",
-                        pointBackgroundColor: "rgba(179,181,198,1)",
-                        pointBorderColor: "#fff",
-                        pointHoverBackgroundColor: "#fff",
-                        pointHoverBorderColor: "rgba(179,181,198,1)",
-                        data: values
-                    }
-                ]
-            };
-
-            var options2 = {
-                scale: {
-                    reverse: false,
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }
-            };
-
-
-            myRadarChart = new Chart(canvas2, {
-                type: 'radar',
-                data: dataChart,
-                options: options2
-            });
-
-        }*/
-
-        //function clearCharts(){
-            //myLineChart.destroy();
-            //myRadarChart.destroy();
-        //}
-
 
     </script>
 

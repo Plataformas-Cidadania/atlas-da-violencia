@@ -36,7 +36,7 @@
     Route::get('videos/{titulo}', 'VideoController@listar');
 
     Route::get('series/', 'SerieController@listar');
-    Route::get('listar-series/', 'SerieController@listarSeries');
+    Route::post('listar-series/', 'SerieController@listarSeries');
     Route::get('series/{titulo}', 'SerieController@listar');
     Route::get('serie/', 'SerieController@detalhar');
     Route::get('serie/{id}', 'SerieController@detalhar');
@@ -49,15 +49,15 @@
 
     Route::get('map/', 'MapController@index');
     Route::get('map/{id}/{titulo}', 'MapController@index');
-    Route::get('get-data/', 'MapController@getData');
+    //Route::get('get-data/', 'MapController@getData');
 
-    Route::get('periodos/', 'MapController@periodos');
-    Route::get('regiao/{min}/{max}', 'MapController@valoresRegiaoPorPeriodoGeometry');
-    Route::get('valores-regiao/{min}/{max}', 'MapController@valoresRegiaoPorPeriodo');
-    Route::get('valores-series/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');
-    Route::get('periodo/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
+    Route::get('periodos/{id}', 'MapController@periodos');
+    Route::get('regiao/{id}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodoGeometry');
+    Route::get('valores-regiao/{id}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodo');
+    Route::get('valores-series/{id}/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');
+    Route::get('periodo/{id}/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
 
-    Route::get('valores-inicial-final-regiao/{min}/{max}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
+    Route::get('valores-inicial-final-regiao/{id}/{min}/{max}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
 
     Route::get('indices', 'IndiceController@indice');
 //});

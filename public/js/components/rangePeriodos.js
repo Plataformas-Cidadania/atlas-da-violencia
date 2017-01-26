@@ -2,6 +2,7 @@ class RangePeriodo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.id,
             periodos: []
         };
     }
@@ -17,7 +18,7 @@ class RangePeriodo extends React.Component {
     loadData() {
         this.loading(true);
         let _this = this;
-        $.ajax("periodos", {
+        $.ajax("periodos/" + this.state.id, {
             data: {},
             success: function (data) {
                 console.log(data);

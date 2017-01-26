@@ -2,6 +2,7 @@ class PgSerie extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.id,
             loading: false,
             totaisRegioesPorPeriodo: { min: 0, max: 0, values: {} },
             min: 0,
@@ -41,7 +42,7 @@ class PgSerie extends React.Component {
     loadData() {
         $.ajax({
             method: 'GET',
-            url: "valores-regiao/" + this.state.min + "/" + this.state.max,
+            url: "valores-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max,
             cache: false,
             success: function (data) {
                 let totais = {
@@ -119,7 +120,7 @@ class PgSerie extends React.Component {
                 React.createElement("br", null),
                 React.createElement("div", { className: "line_title bg-pri" }),
                 React.createElement("br", null),
-                React.createElement(RangePeriodo, { changePeriodo: this.changePeriodo, setPeriodos: this.setPeriodos, loading: this.loading }),
+                React.createElement(RangePeriodo, { id: this.state.id, changePeriodo: this.changePeriodo, setPeriodos: this.setPeriodos, loading: this.loading }),
                 React.createElement("br", null),
                 React.createElement("br", null),
                 React.createElement("hr", null),
@@ -127,7 +128,7 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { display: this.state.showMap ? 'block' : 'none' } },
-                    React.createElement(Map, { min: this.state.min, max: this.state.max }),
+                    React.createElement(Map, { id: this.state.id, min: this.state.min, max: this.state.max }),
                     React.createElement("br", null),
                     React.createElement("hr", null),
                     React.createElement("br", null)
@@ -153,7 +154,7 @@ class PgSerie extends React.Component {
                         React.createElement(
                             "div",
                             { style: { display: this.state.chartLine ? 'block' : 'none' } },
-                            React.createElement(ChartLine, { min: this.state.min, max: this.state.max, periodos: this.state.periodos })
+                            React.createElement(ChartLine, { id: this.state.id, min: this.state.min, max: this.state.max, periodos: this.state.periodos })
                         ),
                         React.createElement(
                             "div",
@@ -178,7 +179,7 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { display: this.state.showRegions ? 'block' : 'none' } },
-                    React.createElement(Regions, { data: this.state.totaisRegioesPorPeriodo }),
+                    React.createElement(Regions, { id: this.state.id, data: this.state.totaisRegioesPorPeriodo }),
                     React.createElement("br", null),
                     React.createElement("hr", null),
                     React.createElement("br", null)
@@ -201,4 +202,4 @@ class PgSerie extends React.Component {
     }
 }
 
-ReactDOM.render(React.createElement(PgSerie, null), document.getElementById('pgSerie'));
+ReactDOM.render(React.createElement(PgSerie, { id: serie_id }), document.getElementById('pgSerie'));

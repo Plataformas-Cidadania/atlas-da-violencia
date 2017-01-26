@@ -164,6 +164,7 @@
 
     <div class="container">
 
+        <script>serie_id={{$id}}</script>
         <div id="pgSerie"></div>
 
 

@@ -15,6 +15,7 @@
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <title>{{$setting->titulo}} - @yield('title')</title>
         <base href="http://{{$base_href}}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         @include('conexoes.css')
     </head>
     <body ng-app="ipeaApp"  ng-controller="appCtrl" ng-class="{'alto-contraste': altoContrasteAtivo}">

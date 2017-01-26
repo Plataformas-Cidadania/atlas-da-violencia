@@ -2,6 +2,7 @@ class Map extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.id,
             min: 0,
             max: 0
         };
@@ -52,7 +53,7 @@ class Map extends React.Component {
 
     loadData() {
         let _this = this;
-        $.ajax("regiao/" + _this.state.min + "/" + _this.state.max, {
+        $.ajax("regiao/" + _this.state.id + "/" + _this.state.min + "/" + _this.state.max, {
             data: {},
             success: function (data) {
                 //console.log(data);

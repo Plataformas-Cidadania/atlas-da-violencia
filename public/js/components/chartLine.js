@@ -4,6 +4,7 @@ class ChartLine extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.id,
             loading: false,
             min: 0,
             max: 0
@@ -25,7 +26,7 @@ class ChartLine extends React.Component {
     loadData() {
         this.setState({ loading: true });
         let _this = this;
-        $.ajax("periodo/" + this.state.min + "/" + this.state.max, {
+        $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max, {
             data: {},
             success: function (data) {
                 //console.log(data);

@@ -2,6 +2,7 @@ class PgSerie extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            id: this.props.id,
             loading: false,
             totaisRegioesPorPeriodo: {min: 0, max: 0, values: {}},
             min: 0,
@@ -41,7 +42,7 @@ class PgSerie extends React.Component{
     loadData(){
         $.ajax({
             method:'GET',
-            url: "valores-regiao/"+this.state.min+"/"+this.state.max,
+            url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max,
             cache: false,
             success: function(data) {
                 let totais = {
@@ -105,13 +106,13 @@ class PgSerie extends React.Component{
 
                     <br/>
 
-                    <RangePeriodo changePeriodo={this.changePeriodo} setPeriodos={this.setPeriodos} loading={this.loading}/>
+                    <RangePeriodo id={this.state.id} changePeriodo={this.changePeriodo} setPeriodos={this.setPeriodos} loading={this.loading}/>
                     <br/>
 
                     <br/><hr/><br/>
 
                     <div style={{display: this.state.showMap ? 'block' : 'none'}}>
-                        <Map min={this.state.min} max={this.state.max} />
+                        <Map id={this.state.id} min={this.state.min} max={this.state.max} />
                         <br/><hr/><br/>
                     </div>
 
@@ -131,7 +132,7 @@ class PgSerie extends React.Component{
                                      style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartPie')} title=""></div>
                             </div>
                             <div style={{display: this.state.chartLine ? 'block' : 'none'}}>
-                                <ChartLine min={this.state.min} max={this.state.max} periodos={this.state.periodos} />
+                                <ChartLine id={this.state.id} min={this.state.min} max={this.state.max} periodos={this.state.periodos} />
                             </div>
                             <div style={{display: this.state.chartBar ? 'block' : 'none'}}>
                                 <ChartBar data={this.state.totaisRegioesPorPeriodo} />
@@ -147,7 +148,7 @@ class PgSerie extends React.Component{
                     </div>
 
                     <div style={{display: this.state.showRegions ? 'block' : 'none'}}>
-                        <Regions data={this.state.totaisRegioesPorPeriodo}/>
+                        <Regions id={this.state.id}  data={this.state.totaisRegioesPorPeriodo}/>
                         <br/><hr/><br/>
                     </div>
 
@@ -168,7 +169,7 @@ class PgSerie extends React.Component{
 }
 
 ReactDOM.render(
-    <PgSerie/>,
+    <PgSerie id={serie_id}/>,
     document.getElementById('pgSerie')
 );
 
