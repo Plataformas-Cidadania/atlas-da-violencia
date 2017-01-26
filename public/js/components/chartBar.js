@@ -6,7 +6,8 @@ class ChartBar extends React.Component {
         this.state = {
             data: {},
             min: 0,
-            max: 0
+            max: 0,
+            intervalos: this.props.intervalos
         };
         //this.loadData = this.loadData.bind(this);
         this.loadChart = this.loadChart.bind(this);
@@ -20,7 +21,7 @@ class ChartBar extends React.Component {
                 }
                 this.loadData();
             });*/
-            this.setState({ min: props.data.min, max: props.data.max, data: props.data.values }, function () {
+            this.setState({ min: props.data.min, max: props.data.max, data: props.data.values, intervalos: props.intervalos }, function () {
                 if (myChartBar) {
                     this.chartDestroy();
                 }
@@ -91,11 +92,14 @@ class ChartBar extends React.Component {
     }
 
     getColors(values) {
-        let colors = [];
-        for (let i in values) {
-            colors.push(convertHex(getColor(values[i]), 100));
+        //console.log(this.state.intervalos.length);
+        if (this.state.intervalos.length > 0) {
+            let colors = [];
+            for (let i in values) {
+                colors.push(convertHex(getColor(values[i]), 100));
+            }
+            return colors;
         }
-        return colors;
     }
 
     render() {

@@ -96,20 +96,11 @@ print_r($periodo_limite);*/
         legend = [];
         cont = 0;
         intervalos = [];
-    </script>
-    <script src="js/components/map.js"></script>
-    <script src="js/components/listValoresSeries.js"></script>
-    <script src="js/components/rangePeriodos.js"></script>
-    <script src="js/components/chartLine.js"></script>
-    <script src="js/components/chartBar.js"></script>
-    <script src="js/components/chartRadar.js"></script>
-    <script src="js/components/chartPie.js"></script>
-    <script src="js/components/regions.js"></script>
-    <script src="js/components/calcs.js"></script>
-    <script src="js/components/pgSerie.js"></script>
 
 
-    <script>
+
+
+
 
         function gerarIntervalos(valores){
             let intervalos = [];
@@ -155,6 +146,17 @@ print_r($periodo_limite);*/
         }
 
     </script>
+
+    <script src="js/components/map.js"></script>
+    <script src="js/components/listValoresSeries.js"></script>
+    <script src="js/components/rangePeriodos.js"></script>
+    <script src="js/components/chartLine.js"></script>
+    <script src="js/components/chartBar.js"></script>
+    <script src="js/components/chartRadar.js"></script>
+    <script src="js/components/chartPie.js"></script>
+    <script src="js/components/regions.js"></script>
+    <script src="js/components/calcs.js"></script>
+    <script src="js/components/pgSerie.js"></script>
 
 
 @endif

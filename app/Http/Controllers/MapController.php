@@ -84,6 +84,7 @@ class MapController extends Controller
             $areas['features'][$index]['geometry'] = json_decode($valor->geometry);
         }
 
+
         return $areas;
     }
 

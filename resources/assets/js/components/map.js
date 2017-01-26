@@ -89,6 +89,7 @@ class Map extends React.Component{
 
         intervalos = gerarIntervalos(valores);
         //console.log(intervalos);
+        this.props.setIntervalos(intervalos);
 
         this.setState({geojson: L.geoJson(data, {
             style: style,

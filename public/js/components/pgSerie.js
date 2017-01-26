@@ -4,6 +4,7 @@ class PgSerie extends React.Component {
         this.state = {
             id: this.props.id,
             loading: false,
+            intervalos: [],
             totaisRegioesPorPeriodo: { min: 0, max: 0, values: {} },
             min: 0,
             max: 0,
@@ -23,6 +24,7 @@ class PgSerie extends React.Component {
         this.setPeriodos = this.setPeriodos.bind(this);
         this.showHide = this.showHide.bind(this);
         this.loadData = this.loadData.bind(this);
+        this.setIntervalos = this.setIntervalos.bind(this);
     }
 
     loading(status) {
@@ -71,6 +73,10 @@ class PgSerie extends React.Component {
         let value = this.state['show' + target];
         let inverseValue = !value;
         this.setState({ ['show' + target]: inverseValue });
+    }
+
+    setIntervalos(intervalos) {
+        this.setState({ intervalos: intervalos });
     }
 
     render() {
@@ -128,7 +134,7 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { display: this.state.showMap ? 'block' : 'none' } },
-                    React.createElement(Map, { id: this.state.id, min: this.state.min, max: this.state.max }),
+                    React.createElement(Map, { id: this.state.id, min: this.state.min, max: this.state.max, setIntervalos: this.setIntervalos }),
                     React.createElement("br", null),
                     React.createElement("hr", null),
                     React.createElement("br", null)
@@ -159,7 +165,7 @@ class PgSerie extends React.Component {
                         React.createElement(
                             "div",
                             { style: { display: this.state.chartBar ? 'block' : 'none' } },
-                            React.createElement(ChartBar, { data: this.state.totaisRegioesPorPeriodo })
+                            React.createElement(ChartBar, { intervalos: this.state.intervalos, data: this.state.totaisRegioesPorPeriodo })
                         ),
                         React.createElement(
                             "div",
@@ -169,7 +175,7 @@ class PgSerie extends React.Component {
                         React.createElement(
                             "div",
                             { style: { display: this.state.chartPie ? 'block' : 'none' } },
-                            React.createElement(ChartPie, { data: this.state.totaisRegioesPorPeriodo })
+                            React.createElement(ChartPie, { intervalos: this.state.intervalos, data: this.state.totaisRegioesPorPeriodo })
                         )
                     ),
                     React.createElement("br", null),

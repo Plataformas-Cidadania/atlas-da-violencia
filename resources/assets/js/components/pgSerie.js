@@ -4,6 +4,7 @@ class PgSerie extends React.Component{
         this.state = {
             id: this.props.id,
             loading: false,
+            intervalos: [],
             totaisRegioesPorPeriodo: {min: 0, max: 0, values: {}},
             min: 0,
             max: 0,
@@ -23,6 +24,7 @@ class PgSerie extends React.Component{
         this.setPeriodos = this.setPeriodos.bind(this);
         this.showHide = this.showHide.bind(this);
         this.loadData = this.loadData.bind(this);
+        this.setIntervalos = this.setIntervalos.bind(this);
     }
 
     loading(status){
@@ -73,6 +75,10 @@ class PgSerie extends React.Component{
         this.setState({['show'+target]:inverseValue});
     }
 
+    setIntervalos(intervalos){
+        this.setState({intervalos: intervalos});
+    }
+
     render(){
 
         return(
@@ -112,7 +118,7 @@ class PgSerie extends React.Component{
                     <br/><hr/><br/>
 
                     <div style={{display: this.state.showMap ? 'block' : 'none'}}>
-                        <Map id={this.state.id} min={this.state.min} max={this.state.max} />
+                        <Map id={this.state.id} min={this.state.min} max={this.state.max} setIntervalos={this.setIntervalos} />
                         <br/><hr/><br/>
                     </div>
 
@@ -135,13 +141,13 @@ class PgSerie extends React.Component{
                                 <ChartLine id={this.state.id} min={this.state.min} max={this.state.max} periodos={this.state.periodos} />
                             </div>
                             <div style={{display: this.state.chartBar ? 'block' : 'none'}}>
-                                <ChartBar data={this.state.totaisRegioesPorPeriodo} />
+                                <ChartBar intervalos={this.state.intervalos} data={this.state.totaisRegioesPorPeriodo} />
                             </div>
                             <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
                                 <ChartRadar data={this.state.totaisRegioesPorPeriodo} />
                             </div>
                             <div style={{display: this.state.chartPie ? 'block' : 'none'}}>
-                                <ChartPie data={this.state.totaisRegioesPorPeriodo} />
+                                <ChartPie intervalos={this.state.intervalos} data={this.state.totaisRegioesPorPeriodo} />
                             </div>
                         </div>
                         <br/><hr/><br/>
