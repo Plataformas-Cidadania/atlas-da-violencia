@@ -150,6 +150,7 @@ return [
         'Collective\Html\HtmlServiceProvider',//adicionar esta linha para funcionar o formulário do laravel, mas antes deve adicionar "laravelcollective/html": "~5.0" composer.json no require e rodar o comando composer update
         Intervention\Image\ImageServiceProvider::class,
         'GrahamCampbell\HTMLMin\HTMLMinServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
 
         /*
          * Application Service Providers...
@@ -213,6 +214,7 @@ return [
         'Html' => 'Collective\Html\HtmlFacade',//adicionar esta linha para funcionar o formulário do laravel
         'Image' => Intervention\Image\Facades\Image::class,
         'HTMLMin' => 'GrahamCampbell\HTMLMin\Facades\HTMLMin',
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 
     ],
 

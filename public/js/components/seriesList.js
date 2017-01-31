@@ -50,7 +50,7 @@ class SeriesList extends React.Component {
         let series = this.state.data.map(function (item) {
             return React.createElement(
                 'tr',
-                { key: 'item.id' },
+                { key: item.id },
                 React.createElement(
                     'td',
                     null,

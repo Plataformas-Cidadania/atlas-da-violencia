@@ -165,6 +165,7 @@
     <div class="container">
 
         <script>serie_id={{$id}}</script>
+        <script>serie="{!! $series->titulo !!}";</script>
         <div id="pgSerie"></div>
 
 

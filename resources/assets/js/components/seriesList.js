@@ -49,7 +49,7 @@ class SeriesList extends React.Component{
     render(){
         let series = this.state.data.map(function(item){
             return (
-                <tr key="item.id">
+                <tr key={item.id}>
                     <td><a href={"map/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>
                     {/*<td>&nbsp;</td>*/}
                     <td>{item.periodicidade}</td>

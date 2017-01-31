@@ -60,4 +60,7 @@
     Route::get('valores-inicial-final-regiao/{id}/{min}/{max}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
 
     Route::get('indices', 'IndiceController@indice');
+
+
+
 //});

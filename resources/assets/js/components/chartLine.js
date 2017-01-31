@@ -5,6 +5,7 @@ class ChartLine extends React.Component{
         super(props);
         this.state = {
             id: this.props.id,
+            serie: this.props.serie,
             loading: false,
             min: 0,
             max: 0
@@ -54,7 +55,7 @@ class ChartLine extends React.Component{
             labels: labels,
             datasets: [
                 {
-                    label: "Homicidios no Brasil",
+                    label: this.state.serie,
                     fill: false,
                     lineTension: 0.1,
                     backgroundColor: "rgba(75,192,192,0.4)",

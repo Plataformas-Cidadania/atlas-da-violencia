@@ -3,6 +3,7 @@ class PgSerie extends React.Component{
         super(props);
         this.state = {
             id: this.props.id,
+            serie: this.props.serie,
             loading: false,
             intervalos: [],
             totaisRegioesPorPeriodo: {min: 0, max: 0, values: {}},
@@ -91,7 +92,7 @@ class PgSerie extends React.Component{
                     <div className="row">
                         <div className="col-md-6 h3" style={{margin:0}}>
                             <img style={{marginLeft: '5px'}} src="imagens/links/8516-01.png" width="52" alt="" title=""/>
-                            &nbsp;Homicídios no Brasil
+                            &nbsp;{this.state.serie}
                         </div>
                         <div className="col-md-6 text-right">
                             <div className="icons-groups icon-group-print" style={{display: 'non', marginLeft: '5px'}} title=""></div>
@@ -138,13 +139,13 @@ class PgSerie extends React.Component{
                                      style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartPie')} title=""></div>
                             </div>
                             <div style={{display: this.state.chartLine ? 'block' : 'none'}}>
-                                <ChartLine id={this.state.id} min={this.state.min} max={this.state.max} periodos={this.state.periodos} />
+                                <ChartLine id={this.state.id} serie={this.state.serie} min={this.state.min} max={this.state.max} periodos={this.state.periodos} />
                             </div>
                             <div style={{display: this.state.chartBar ? 'block' : 'none'}}>
-                                <ChartBar intervalos={this.state.intervalos} data={this.state.totaisRegioesPorPeriodo} />
+                                <ChartBar serie={this.state.serie} intervalos={this.state.intervalos} data={this.state.totaisRegioesPorPeriodo} />
                             </div>
                             <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
-                                <ChartRadar data={this.state.totaisRegioesPorPeriodo} />
+                                <ChartRadar serie={this.state.serie} data={this.state.totaisRegioesPorPeriodo} />
                             </div>
                             <div style={{display: this.state.chartPie ? 'block' : 'none'}}>
                                 <ChartPie intervalos={this.state.intervalos} data={this.state.totaisRegioesPorPeriodo} />
@@ -164,7 +165,7 @@ class PgSerie extends React.Component{
                     </div>
 
                     <div style={{display: this.state.showCalcs ? 'block' : 'none'}}>
-                        <Calcs data={this.state.totaisRegioesPorPeriodo}/>
+                        <Calcs id={this.state.id}  serie={this.state.serie} data={this.state.totaisRegioesPorPeriodo}/>
                     </div>
 
 
@@ -175,7 +176,7 @@ class PgSerie extends React.Component{
 }
 
 ReactDOM.render(
-    <PgSerie id={serie_id}/>,
+    <PgSerie id={serie_id} serie={serie}/>,
     document.getElementById('pgSerie')
 );
 

@@ -24,7 +24,7 @@ null, ['class'=>"form-control width-medio <% validar(serie.fonte_id) %>", 'ng-mo
 {!! Form::label('serie_id', 'Séries *') !!}<br>
 {!! Form::select('serie_id',
         $series_relacionado,
-null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-model'=>'serie.serie_id', 'ng-required'=>'true', 'init-model'=>'serie.serie_id', 'placeholder' => 'Principal']) !!}<br>
+null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-model'=>'serie.serie_id', 'init-model'=>'serie.serie_id', 'placeholder' => 'Principal']) !!}<br>
 
 
 

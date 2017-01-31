@@ -4,6 +4,7 @@ class ChartRadar extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            serie: this.props.serie,
             min: 0,
             max: 0
         };
@@ -58,7 +59,7 @@ class ChartRadar extends React.Component{
             labels: labels,
             datasets: [
                 {
-                    label: "Homicidios no Brasil",
+                    label: this.state.serie,
                     backgroundColor: "rgba(179,181,198,0.2)",
                     borderColor: "rgba(179,181,198,1)",
                     pointBackgroundColor: "rgba(179,181,198,1)",

@@ -2,6 +2,8 @@ class Calcs extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.id,
+            serie: this.props.serie,
             data: {},
             min: 0,
             max: 0,
@@ -11,7 +13,7 @@ class Calcs extends React.Component {
             mediaPonderada: [],
             moda: [],
             mediana: [],
-            styleCalcs: { paddingTop: '55px' }
+            styleCalcs: { paddingTop: '60px' }
         };
 
         this.calcMinMax = this.calcMinMax.bind(this);
@@ -21,10 +23,10 @@ class Calcs extends React.Component {
         if (this.state.min != props.data.min || this.state.max != props.data.max) {
             this.setState({ min: props.data.min, max: props.data.max, data: props.data.values }, function () {
                 this.calcMinMax(this.state.data);
-                this.calcMedia(1, this.state.data);
-                this.calcMediaPonderada(1, this.state.data);
-                this.calcModa(1, this.state.data);
-                this.calcMediana(1, this.state.data);
+                this.calcMedia(this.state.id, this.state.data);
+                this.calcMediaPonderada(this.state.id, this.state.data);
+                this.calcModa(this.state.id, this.state.data);
+                this.calcMediana(this.state.id, this.state.data);
             });
         }
     }
@@ -154,7 +156,8 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         null,
-                        '\xA0\xA0Hom\xEDcidios Brasil'
+                        '\xA0\xA0',
+                        this.state.serie
                     )
                 )
             ),
@@ -169,13 +172,13 @@ class Calcs extends React.Component {
                         'div',
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
-                            'h3',
+                            'h4',
                             { className: '', style: this.state.styleCalcs },
                             this.state.minValue.total
                         )
                     ),
                     React.createElement(
-                        'h3',
+                        'h4',
                         null,
                         'M\xEDnima'
                     )
@@ -187,13 +190,13 @@ class Calcs extends React.Component {
                         'div',
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
-                            'h3',
+                            'h4',
                             { className: '', style: this.state.styleCalcs },
                             this.state.maxValue.total
                         )
                     ),
                     React.createElement(
-                        'h3',
+                        'h4',
                         null,
                         'M\xE1xima'
                     )
@@ -205,13 +208,13 @@ class Calcs extends React.Component {
                         'div',
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
-                            'h3',
+                            'h4',
                             { className: '', style: this.state.styleCalcs },
-                            numeral(this.state.media[1]).format('0.00')
+                            numeral(this.state.media[this.state.id]).format('0.00')
                         )
                     ),
                     React.createElement(
-                        'h3',
+                        'h4',
                         null,
                         'M\xE9dia'
                     )
@@ -223,13 +226,13 @@ class Calcs extends React.Component {
                         'div',
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
-                            'h3',
+                            'h4',
                             { className: '', style: this.state.styleCalcs },
-                            numeral(this.state.mediaPonderada[1]).format('0.00')
+                            numeral(this.state.mediaPonderada[this.state.id]).format('0.00')
                         )
                     ),
                     React.createElement(
-                        'h3',
+                        'h4',
                         null,
                         'M\xE9dia Ponderada'
                     )
@@ -241,33 +244,33 @@ class Calcs extends React.Component {
                         'div',
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
-                            'h3',
+                            'h4',
                             { className: '', style: this.state.styleCalcs },
-                            numeral(this.state.moda[1]).format('0.00')
+                            numeral(this.state.mediana[this.state.id]).format('0.00')
                         )
                     ),
                     React.createElement(
-                        'h3',
+                        'h4',
                         null,
-                        'Moda'
+                        'Mediana'
                     )
                 ),
                 React.createElement(
                     'div',
-                    { className: 'col-md-2' },
+                    { className: 'col-md-2', style: { opacity: this.state.moda[this.state.id] > 0 ? 1 : 0.5 } },
                     React.createElement(
                         'div',
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
-                            'h3',
+                            'h4',
                             { className: '', style: this.state.styleCalcs },
-                            numeral(this.state.mediana[1]).format('0.00')
+                            numeral(this.state.moda[this.state.id]).format('0.00')
                         )
                     ),
                     React.createElement(
-                        'h3',
+                        'h4',
                         null,
-                        'Mediana'
+                        'Moda'
                     )
                 )
             )

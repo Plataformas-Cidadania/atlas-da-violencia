@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\DB;
 class MapController extends Controller
 {
     public function index($id){
-        return view('map', ['id' => $id]);
+
+        $serie = \App\Serie::find($id);
+
+        return view('map', ['id' => $id, 'series' => $serie]);
     }
 
     /*public function getData(){

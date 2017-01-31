@@ -4,6 +4,7 @@ class ChartBar extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            serie: this.props.serie,
             data: {},
             min: 0,
             max: 0,
@@ -61,7 +62,7 @@ class ChartBar extends React.Component{
             labels: labels,
             datasets: [
                 {
-                    label: "Homicidios no Brasil",
+                    label: this.state.serie,
                     backgroundColor: colors,
                     borderColor: "rgba(179,181,198,1)",
                     pointBackgroundColor: "rgba(179,181,198,1)",

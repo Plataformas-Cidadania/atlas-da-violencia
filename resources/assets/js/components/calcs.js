@@ -2,6 +2,8 @@ class Calcs extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            id: this.props.id,
+            serie: this.props.serie,
             data: {},
             min: 0,
             max: 0,
@@ -11,7 +13,7 @@ class Calcs extends React.Component{
             mediaPonderada: [],
             moda: [],
             mediana: [],
-            styleCalcs: {paddingTop: '55px'}
+            styleCalcs: {paddingTop: '60px'}
         };
 
         this.calcMinMax = this.calcMinMax.bind(this);
@@ -21,10 +23,10 @@ class Calcs extends React.Component{
         if (this.state.min != props.data.min || this.state.max != props.data.max) {
             this.setState({min: props.data.min, max: props.data.max, data: props.data.values}, function(){
                 this.calcMinMax(this.state.data);
-                this.calcMedia(1, this.state.data);
-                this.calcMediaPonderada(1, this.state.data);
-                this.calcModa(1, this.state.data);
-                this.calcMediana(1, this.state.data);
+                this.calcMedia(this.state.id, this.state.data);
+                this.calcMediaPonderada(this.state.id, this.state.data);
+                this.calcModa(this.state.id, this.state.data);
+                this.calcMediana(this.state.id, this.state.data);
             });
         }
     }
@@ -143,46 +145,46 @@ class Calcs extends React.Component{
                 <div className="row">
                     <div className="col-md-12">
                         <div className="icons-list-items icon-list-item-1" style={{float: 'left'}}></div>
-                        <h4>&nbsp;&nbsp;Homícidios Brasil</h4>
+                        <h4>&nbsp;&nbsp;{this.state.serie}</h4>
                     </div>
                 </div>
                 <br/>
                 <div className="row text-center">
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h3 className="" style={this.state.styleCalcs}>{this.state.minValue.total}</h3>
+                            <h4 className="" style={this.state.styleCalcs}>{this.state.minValue.total}</h4>
                         </div>
-                        <h3>Mínima</h3>
+                        <h4>Mínima</h4>
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h3 className="" style={this.state.styleCalcs}>{this.state.maxValue.total}</h3>
+                            <h4 className="" style={this.state.styleCalcs}>{this.state.maxValue.total}</h4>
                         </div>
-                        <h3>Máxima</h3>
+                        <h4>Máxima</h4>
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h3 className="" style={this.state.styleCalcs}>{numeral(this.state.media[1]).format('0.00')}</h3>
+                            <h4 className="" style={this.state.styleCalcs}>{numeral(this.state.media[this.state.id]).format('0.00')}</h4>
                         </div>
-                        <h3>Média</h3>
+                        <h4>Média</h4>
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h3 className="" style={this.state.styleCalcs}>{numeral(this.state.mediaPonderada[1]).format('0.00')}</h3>
+                            <h4 className="" style={this.state.styleCalcs}>{numeral(this.state.mediaPonderada[this.state.id]).format('0.00')}</h4>
                         </div>
-                        <h3>Média Ponderada</h3>
+                        <h4>Média Ponderada</h4>
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h3 className="" style={this.state.styleCalcs}>{numeral(this.state.moda[1]).format('0.00')}</h3>
+                            <h4 className="" style={this.state.styleCalcs}>{numeral(this.state.mediana[this.state.id]).format('0.00')}</h4>
                         </div>
-                        <h3>Moda</h3>
+                        <h4>Mediana</h4>
                     </div>
-                    <div className="col-md-2">
+                    <div className="col-md-2" style={{opacity: this.state.moda[this.state.id] > 0 ? 1 : 0.5}}>
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h3 className="" style={this.state.styleCalcs}>{numeral(this.state.mediana[1]).format('0.00')}</h3>
+                            <h4 className="" style={this.state.styleCalcs}>{numeral(this.state.moda[this.state.id]).format('0.00')}</h4>
                         </div>
-                        <h3>Mediana</h3>
+                        <h4>Moda</h4>
                     </div>
                 </div>
             </div>

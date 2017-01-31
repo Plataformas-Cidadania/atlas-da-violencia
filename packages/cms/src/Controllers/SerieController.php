@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SerieController extends Controller
 {
@@ -69,6 +70,10 @@ class SerieController extends Controller
         $data = $request->all();
 
         $data['serie'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+
+        if(empty($data['serie']['serie_id'])){
+            $data['serie']['serie_id'] = 0;
+        }
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
@@ -171,6 +176,64 @@ class SerieController extends Controller
 
         $serie->delete();
 
+    }
+
+    public function testeExcel(){
+        $data = Excel::load(public_path().'/excel/populacao.UF.FAIXA.ETARIA.15.29.MULHER.xlsx', function($reader) {
+
+        })->get();
+
+        //return $data;
+
+        //dd($data);
+
+        $registros = [];
+        $valor = 0;
+        $periodo = '';
+        $uf = '';
+        $municipio = '';
+        $bairro = '';
+        $serie_id = 12;
+        $cms_user_id = 1;
+
+
+        foreach($data as $row){
+            foreach($row as $index => $cel){
+                if(!empty($index)){
+                    if($index=='uf'){
+                        $uf = $cel;
+                    }else{
+                        array_push($registros, ['uf' => $uf, 'ano' => $index, 'value' => $cel]);
+                        $valor = $cel;
+                        $periodo = $index;
+                        $reg =[
+                            'valor' => $valor,
+                            'periodo' => $periodo,
+                            'uf' => $uf,
+                            'municipio' => $municipio,
+                            'bairro' => $bairro,
+                            'serie_id' => $serie_id,
+                            'cmsuser_id' => $cms_user_id
+                        ];
+                        $registro = \App\ValorSerie::create($reg);
+                    }
+                }
+            }
+        }
+
+        /*foreach($data['RowCollection']->items as $row){
+            foreach($row['RowCollection']->items as $index => $cel){
+                if($index != ''){
+                    if($index=='uf'){
+                        $uf = $cel;
+                    }else{
+                        array_push($registros, ['uf' => $uf, 'ano' => $index, 'value' => $cel]);
+                    }
+                }
+            }
+        }*/
+
+        dd($registros);
     }
 
     
