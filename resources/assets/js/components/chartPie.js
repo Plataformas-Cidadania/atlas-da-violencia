@@ -77,11 +77,9 @@ class ChartPie extends React.Component{
         };
 
         let options2 = {
-            scale: {
-                reverse: false,
-                ticks: {
-                    beginAtZero: true
-                }
+            legend: {
+                display: true,
+                position: 'bottom'
             }
         };
 

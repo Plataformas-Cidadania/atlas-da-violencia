@@ -112,7 +112,7 @@ class PgSerie extends React.Component {
                     React.createElement(
                         "div",
                         { className: "col-md-6 text-right" },
-                        React.createElement("div", { className: "icons-groups icon-group-print", style: { display: 'non', marginLeft: '5px' }, title: "" }),
+                        React.createElement("div", { className: "icons-groups icon-group-print", style: { display: 'none', marginLeft: '5px' }, title: "" }),
                         React.createElement("div", { className: "icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable"),
                             style: { marginLeft: '5px' }, onClick: () => this.showHide('Calcs'), title: "" }),
                         React.createElement("div", { className: "icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable"),
