@@ -157,4 +157,33 @@ class MapController extends Controller
         return $valores;
     }
 
+
+    function valoresGeometryUf($id, $min, $max){
+
+        $valores = DB::table('valores_series')
+            ->select(DB::raw("ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry) as geometry, valores_series.valor, valores_series.uf"))
+            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->join('series', 'series.id', '=', 'valores_series.serie_id')
+            ->where([
+                ['valores_series.serie_id', $id],
+                ['valores_series.periodo', '>=', $min],
+                ['valores_series.periodo', '<=', $max]
+            ])
+            ->get();
+
+        $areas = [];
+        $areas['type'] = 'FeatureCollection';
+        $areas['features'] = [];
+        foreach($valores as $index => $valor){
+            $areas['features'][$index]['type'] = 'Feature';
+            $areas['features'][$index]['id'] = $index;
+            $areas['features'][$index]['properties']['uf'] = $valor->uf;
+            $areas['features'][$index]['properties']['valor'] = $valor->total;
+            $areas['features'][$index]['geometry'] = json_decode($valor->geometry);
+        }
+
+
+        return $areas;
+    }
+
 }

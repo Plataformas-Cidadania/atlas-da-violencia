@@ -62,5 +62,5 @@
     Route::get('indices', 'IndiceController@indice');
 
 
-
+    Route::get('valores', 'MapController@valores');
 //});
