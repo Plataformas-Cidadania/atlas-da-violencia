@@ -163,10 +163,14 @@
     {{--@endif--}}
 
     <div class="container">
+        @if(!empty($series))
+            <script>serie_id={{$id}}</script>
+            <script>serie="{!! $series->titulo !!}";</script>
+            <div id="pgSerie"></div>
+        @else
+            <h1 class="text-center">Pesquisa não encontrada!</h1>
+        @endif
 
-        <script>serie_id={{$id}}</script>
-        <script>serie="{!! $series->titulo !!}";</script>
-        <div id="pgSerie"></div>
 
 
 
