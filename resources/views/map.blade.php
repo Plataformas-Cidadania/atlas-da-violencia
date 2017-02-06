@@ -166,6 +166,7 @@
         @if(!empty($series))
             <script>serie_id={{$id}}</script>
             <script>serie="{!! $series->titulo !!}";</script>
+            <script>tipoValores="{!! $series->tipo_valores !!}";</script>
             <div id="pgSerie"></div>
         @else
             <h1 class="text-center">Pesquisa não encontrada!</h1>

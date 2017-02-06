@@ -59,7 +59,7 @@ class Map extends React.Component{
 
     loadData(){
         let _this = this;
-        $.ajax("regiao/"+_this.state.id+"/"+_this.state.min+"/"+_this.state.max, {
+        $.ajax("regiao/"+_this.state.id+"/"+_this.props.tipoValores+"/"+_this.state.min+"/"+_this.state.max, {
             data: {},
             success: function(data){
                 //console.log(data);

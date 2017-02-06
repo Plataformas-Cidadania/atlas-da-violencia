@@ -39,11 +39,11 @@ class SeriesList extends React.Component {
     handleChange(e) {
         e.preventDefault();
         let value = e.target.value;
-        if (value.length > 2) {
-            this.setState({ search: value }, function () {
-                this.loadData();
-            });
-        }
+        //if(value.length > 2){
+        this.setState({ search: value }, function () {
+            this.loadData();
+        });
+        //}
     }
 
     render() {

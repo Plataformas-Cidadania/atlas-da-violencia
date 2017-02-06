@@ -63,18 +63,36 @@ class MapController extends Controller
         return $retorno;
     }
 
-    function valoresRegiaoPorPeriodoGeometry($id, $min, $max){
-        $valores = DB::table('valores_series')
-            ->select(DB::raw("ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry) as geometry, sum(valores_series.valor) as total, valores_series.uf"))
-            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
-            ->where([
-                ['valores_series.serie_id', $id],
-                ['valores_series.periodo', '>=', $min],
-                ['valores_series.periodo', '<=', $max]
-            ])
-            ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_geometry')
-            ->orderBy('total')
-            ->get();
+    function valoresRegiaoPorPeriodoGeometry($id, $tipoValores, $min, $max){
+
+        //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
+        if($tipoValores==2){
+            $valores = DB::table('valores_series')
+                ->select(DB::raw("ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry) as geometry, sum(valores_series.valor) as total, valores_series.uf"))
+                ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+                ->where([
+                    ['valores_series.serie_id', $id],
+                    ['valores_series.periodo', $max]
+                ])
+                ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_geometry')
+                ->orderBy('total')
+                ->get();
+
+        }else{
+            $valores = DB::table('valores_series')
+                ->select(DB::raw("ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry) as geometry, sum(valores_series.valor) as total, valores_series.uf"))
+                ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+                ->where([
+                    ['valores_series.serie_id', $id],
+                    ['valores_series.periodo', '>=', $min],
+                    ['valores_series.periodo', '<=', $max]
+                ])
+                ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_geometry')
+                ->orderBy('total')
+                ->get();
+        }
+
+
 
         $areas = [];
         $areas['type'] = 'FeatureCollection';
@@ -91,7 +109,25 @@ class MapController extends Controller
         return $areas;
     }
 
-    function valoresRegiaoPorPeriodo($id, $min, $max){
+    function valoresRegiaoPorPeriodo($id, $tipoValores, $min, $max){
+
+        //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
+        if($tipoValores==2){
+            $valores = DB::table('valores_series')
+                ->select(DB::raw("valores_series.valor as total, valores_series.uf, ed_territorios_uf.edterritorios_nome as nome"))
+                ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+                ->where([
+                    ['valores_series.serie_id', $id],
+                    ['valores_series.periodo', $max]
+                ])
+                ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_nome', 'valores_series.valor')
+                ->orderBy('valores_series.uf')
+                ->get();
+
+
+            return $valores;
+        }
+
         $valores = DB::table('valores_series')
             ->select(DB::raw("sum(valores_series.valor) as total, valores_series.uf, ed_territorios_uf.edterritorios_nome as nome"))
             ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
@@ -182,6 +218,7 @@ class MapController extends Controller
             $areas['features'][$index]['geometry'] = json_decode($valor->geometry);
         }
 
+        dd($areas);
 
         return $areas;
     }

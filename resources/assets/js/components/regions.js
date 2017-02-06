@@ -33,7 +33,7 @@ class Regions extends React.Component{
             url: "valores-inicial-final-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max,
             cache: false,
             success: function(data) {
-                //console.log('region.js, loaddata', data);
+                console.log('region.js, loaddata', data);
                 this.setState({data: data, loading:false}, function(){
                     this.calcMaxUpDown();
                 });
@@ -111,19 +111,22 @@ class Regions extends React.Component{
         let iconRedUp = <div className="icons-arrows icon-red-up"></div>;
         let iconRedDown = <div className="icons-arrows icon-red-down"></div>;
 
+        console.log(this.state.maxDown);
+
         let down = <p>Maior queda</p>;
         let multiplicadorDown = -1;
         let iconDown = iconRedDown;
-        if(this.state.maxDown >= 0){
+        if(this.state.maxDown.variacao >= 0){
             down = <p>Menor crescimento</p>;
             multiplicadorDown = 1;
             iconDown = iconGreenUp;
         }
 
+
         let up = <p>Maior crescimento</p>;
         let multiplicadorUp = 1;
         let iconUp = iconGreenUp;
-        if(this.state.maxDown < 0){
+        if(this.state.maxUp.variacao < 0){
             up = <p>Menor queda</p>;
             multiplicadorUp = 1;
             iconUp = iconRedDown;

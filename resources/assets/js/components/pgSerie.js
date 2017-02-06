@@ -45,9 +45,10 @@ class PgSerie extends React.Component{
     loadData(){
         $.ajax({
             method:'GET',
-            url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max,
+            url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
             cache: false,
             success: function(data) {
+                console.log(data, this.props.tipoValores);
                 let totais = {
                     min: this.state.min,
                     max: this.state.max,
@@ -119,7 +120,7 @@ class PgSerie extends React.Component{
                     <br/><hr/><br/>
 
                     <div style={{display: this.state.showMap ? 'block' : 'none'}}>
-                        <Map id={this.state.id} min={this.state.min} max={this.state.max} setIntervalos={this.setIntervalos} />
+                        <Map id={this.state.id} tipoValores={this.props.tipoValores} min={this.state.min} max={this.state.max} setIntervalos={this.setIntervalos} />
                         <br/><hr/><br/>
                     </div>
 
@@ -176,7 +177,7 @@ class PgSerie extends React.Component{
 }
 
 ReactDOM.render(
-    <PgSerie id={serie_id} serie={serie}/>,
+    <PgSerie id={serie_id} serie={serie} tipoValores={tipoValores}/>,
     document.getElementById('pgSerie')
 );
 

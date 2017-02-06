@@ -33,7 +33,7 @@ class Regions extends React.Component {
             url: "valores-inicial-final-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max,
             cache: false,
             success: function (data) {
-                //console.log('region.js, loaddata', data);
+                console.log('region.js, loaddata', data);
                 this.setState({ data: data, loading: false }, function () {
                     this.calcMaxUpDown();
                 });
@@ -109,6 +109,8 @@ class Regions extends React.Component {
         let iconRedUp = React.createElement('div', { className: 'icons-arrows icon-red-up' });
         let iconRedDown = React.createElement('div', { className: 'icons-arrows icon-red-down' });
 
+        console.log(this.state.maxDown);
+
         let down = React.createElement(
             'p',
             null,
@@ -116,7 +118,7 @@ class Regions extends React.Component {
         );
         let multiplicadorDown = -1;
         let iconDown = iconRedDown;
-        if (this.state.maxDown >= 0) {
+        if (this.state.maxDown.variacao >= 0) {
             down = React.createElement(
                 'p',
                 null,
@@ -133,7 +135,7 @@ class Regions extends React.Component {
         );
         let multiplicadorUp = 1;
         let iconUp = iconGreenUp;
-        if (this.state.maxDown < 0) {
+        if (this.state.maxUp.variacao < 0) {
             up = React.createElement(
                 'p',
                 null,

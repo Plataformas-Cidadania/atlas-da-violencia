@@ -18,7 +18,7 @@ class CreateSeries extends Migration
             $table->string('titulo');
             $table->string('periodicidade');
             $table->text('descricao');
-            $table->integer('tipo_valores');//1 - Numérico Incremental / 2 - Numérico Total / 3 - Taxa
+            $table->integer('tipo_valores');//1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
             $table->integer('serie_id')->default(0);//utiliza para criar relações entre séries
             $table->integer('tema_id')->unsigned();
             $table->foreign('tema_id')->references('id')->on('temas')->onDelete('restrict');

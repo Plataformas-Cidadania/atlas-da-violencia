@@ -52,8 +52,8 @@
     //Route::get('get-data/', 'MapController@getData');
 
     Route::get('periodos/{id}', 'MapController@periodos');
-    Route::get('regiao/{id}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodoGeometry');
-    Route::get('valores-regiao/{id}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodo');
+    Route::get('regiao/{id}/{tipoValores}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodoGeometry');
+    Route::get('valores-regiao/{id}/{tipoValores}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodo');
     Route::get('valores-series/{id}/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');
     Route::get('periodo/{id}/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
 
@@ -62,5 +62,5 @@
     Route::get('indices', 'IndiceController@indice');
 
 
-    Route::get('valores', 'MapController@valores');
+    Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
 //});
