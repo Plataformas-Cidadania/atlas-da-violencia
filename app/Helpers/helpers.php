@@ -73,7 +73,7 @@ if ( ! function_exists('clean') ) {
         $string = preg_replace("/[íì]/", "i", $string);
         $string = preg_replace("/[óòôõö]/", "o", $string);
         $string = preg_replace("/[úùü]/", "u", $string);
-        $string = preg_replace("/ç/", "c", $string);
+        $string = preg_replace("/[ç]/", "c", $string);
         
         $string = preg_replace('/[^A-Za-z0-9\-.]/', '', $string); // remove caracteres especiais.
 
