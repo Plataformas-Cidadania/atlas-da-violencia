@@ -72,6 +72,7 @@ class Map extends React.Component{
     }
 
     loadMap(data){
+        console.log('map', data);
         let _this = this;
         //remove existing map layers
         this.state.mymap.eachLayer(function(layer){
@@ -82,8 +83,24 @@ class Map extends React.Component{
         });
 
         let valores = [];
+        let marcadores = [];
         for(let i in data.features){
             valores[i] = data.features[i].properties.total;
+
+
+            marcadores[i] = {};
+            marcadores[i].x = data.features[i].properties.x;
+            marcadores[i].y = data.features[i].properties.y;
+            marcadores[i].uf = data.features[i].properties.uf;
+            marcadores[i].total = data.features[i].properties.total;
+            var circle = L.marker([marcadores[i].y, marcadores[i].x], {
+                icon: new L.DivIcon({
+                    className: 'label-valor',
+                    html: '<div>'+marcadores[i].total+'</div>'
+                })
+            }).addTo(_this.state.mymap);
+
+
         }
         //console.log(valores);
 

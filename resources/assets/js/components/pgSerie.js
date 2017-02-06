@@ -48,7 +48,7 @@ class PgSerie extends React.Component{
             url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
             cache: false,
             success: function(data) {
-                console.log(data, this.props.tipoValores);
+                //console.log(data, this.props.tipoValores);
                 let totais = {
                     min: this.state.min,
                     max: this.state.max,

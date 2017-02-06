@@ -153,6 +153,14 @@
             background-position: 0 0;
         }
 
+        .label-valor{
+            color: #fff;
+            size: 48px;
+            font-weight: bold;
+            text-shadow: 2px 2px 2px #5d5d5d;
+        }
+
+
     </style>
     {{--@if(substr($base_href, 0,9)=='evbsb1052')--}}
         <style>

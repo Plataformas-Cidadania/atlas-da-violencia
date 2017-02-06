@@ -109,7 +109,7 @@ class Regions extends React.Component {
         let iconRedUp = React.createElement('div', { className: 'icons-arrows icon-red-up' });
         let iconRedDown = React.createElement('div', { className: 'icons-arrows icon-red-down' });
 
-        console.log(this.state.maxDown);
+        //console.log(this.state.maxDown);
 
         let down = React.createElement(
             'p',

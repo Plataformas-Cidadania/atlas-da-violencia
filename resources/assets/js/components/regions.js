@@ -111,7 +111,7 @@ class Regions extends React.Component{
         let iconRedUp = <div className="icons-arrows icon-red-up"></div>;
         let iconRedDown = <div className="icons-arrows icon-red-down"></div>;
 
-        console.log(this.state.maxDown);
+        //console.log(this.state.maxDown);
 
         let down = <p>Maior queda</p>;
         let multiplicadorDown = -1;
