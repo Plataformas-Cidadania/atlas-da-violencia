@@ -88,7 +88,7 @@ class Map extends React.Component{
             valores[i] = data.features[i].properties.total;
 
 
-            marcadores[i] = {};
+            /*marcadores[i] = {};
             marcadores[i].x = data.features[i].properties.x;
             marcadores[i].y = data.features[i].properties.y;
             marcadores[i].uf = data.features[i].properties.uf;
@@ -98,7 +98,7 @@ class Map extends React.Component{
                     className: 'label-valor',
                     html: '<div>'+marcadores[i].total+'</div>'
                 })
-            }).addTo(_this.state.mymap);
+            }).addTo(_this.state.mymap);*/
 
 
         }
