@@ -54,7 +54,6 @@ class RangePeriodo extends React.Component {
             onStart: function (data) {
                 //console.log('range onStart', data);
                 _this.props.changePeriodo(data.from_value, data.to_value);
-                _this.props.changePeriodo(data.from_value, data.to_value);
                 //min = data.from_value;
                 //max = data.to_value;
                 //dataToMap(data.from_value, data.to_value);
