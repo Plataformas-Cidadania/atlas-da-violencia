@@ -2,7 +2,7 @@
 @section('title', 'Mapa')
 @section('content')
     <style>
-        #mapid { width: 100%; height: 600px; }
+        #mapid { width: 100%; height: 900px; }
 
         .legend {
             line-height: 18px;

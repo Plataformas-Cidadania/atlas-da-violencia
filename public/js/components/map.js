@@ -15,7 +15,7 @@ class Map extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ mymap: L.map('mapid').setView([-10, -52], 4) }, function () {
+        this.setState({ mymap: L.map('mapid').setView([-14, -52], 5) }, function () {
             let tileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJwYXNzb3MiLCJhIjoiY2l4N3l0bXF0MDFiczJ6cnNwODN3cHJidiJ9.qnfh8Jfn_be6gpo774j_nQ', {
                 maxZoom: 18,
                 attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -81,7 +81,7 @@ class Map extends React.Component {
         for (let i in data.features) {
             valores[i] = data.features[i].properties.total;
 
-            marcadores[i] = {};
+            /*marcadores[i] = {};
             marcadores[i].x = data.features[i].properties.x;
             marcadores[i].y = data.features[i].properties.y;
             marcadores[i].uf = data.features[i].properties.uf;
@@ -89,9 +89,9 @@ class Map extends React.Component {
             var circle = L.marker([marcadores[i].y, marcadores[i].x], {
                 icon: new L.DivIcon({
                     className: 'label-valor',
-                    html: '<div>' + marcadores[i].total + '</div>'
+                    html: '<div>'+marcadores[i].total+'</div>'
                 })
-            }).addTo(_this.state.mymap);
+            }).addTo(_this.state.mymap);*/
         }
         //console.log(valores);
 
