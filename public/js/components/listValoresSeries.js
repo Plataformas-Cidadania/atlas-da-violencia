@@ -49,7 +49,7 @@ class ListValoresSeries extends React.Component {
                     { width: "10px" },
                     React.createElement(
                         "i",
-                        { className: "fa fa-square", style: { color: getColor(item.total) } },
+                        { className: "fa fa-square", style: { color: getColor(item.total, intervalos) } },
                         " "
                     )
                 ),

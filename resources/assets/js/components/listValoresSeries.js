@@ -39,7 +39,7 @@ class ListValoresSeries extends React.Component{
         let valores = this.state.valores.map(function (item, index) {
             return (
                 <tr key={index}>
-                    <th width="10px"><i className="fa fa-square" style={{color: getColor(item.total)}}> </i></th>
+                    <th width="10px"><i className="fa fa-square" style={{color: getColor(item.total, intervalos)}}> </i></th>
                     <th>{item.uf} - {item.nome}</th>
                     <td className="text-right">{item.total}</td>
                 </tr>

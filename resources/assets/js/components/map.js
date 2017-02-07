@@ -138,7 +138,7 @@ class Map extends React.Component{
             // loop through our density intervals and generate a label with a colored square for each interval
             for (let i = 0; i < grades.length; i++) {
                 div.innerHTML +=
-                    '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                    '<i style="background:' + getColor(grades[i] + 1, intervalos) + '"></i> ' +
                     grades[i] + (grades[i + 1] ? '&nbsp;&ndash;&nbsp;' + grades[i + 1] + '<br>' : '+');
             }
             return div;

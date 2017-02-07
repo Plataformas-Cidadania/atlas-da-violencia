@@ -124,7 +124,7 @@ print_r($periodo_limite);*/
 
         var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C',  '#BD0026',  '#9b0024',  '#800026',   '#5f0022'];
 
-        function getColor(d) {
+        function getColor(d, intervalos) {
             var qtdIntervalos = intervalos.length;
             for(var i=qtdIntervalos-1; i>=0; i--){
                 if(d > intervalos[i]){
@@ -136,7 +136,7 @@ print_r($periodo_limite);*/
 
         function style(feature) {
             return {
-                fillColor: getColor(feature.properties.total),
+                fillColor: getColor(feature.properties.total, intervalos),
                 weight: 2,
                 opacity: 1,
                 color: 'white',
