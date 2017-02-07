@@ -106,6 +106,7 @@ class ChartPie extends React.Component{
     }
 
     render(){
+        console.log('chartPie', intervalos);
         return (<canvas id="myChartPie" width="400" height="200"> </canvas>);
     }
 }
