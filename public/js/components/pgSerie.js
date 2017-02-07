@@ -69,6 +69,7 @@ class PgSerie extends React.Component {
                 console.log('pgSerie', valoresOrdenados);
 
                 intervalos = gerarIntervalos(valoresOrdenados);
+                this.setIntervalos(intervalos);
                 console.log('pgSerie', intervalos);
                 ///////////////////////////////////////////////////////////
                 ///////////////////////////////////////////////////////////
