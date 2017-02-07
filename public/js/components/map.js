@@ -37,7 +37,7 @@ class Map extends React.Component {
             // method that we will use to update the control based on feature properties passed
             this.state.info.update = function (props) {
                 //console.log('info', props);
-                this._div.innerHTML = '<h4>Ocorrências</h4>' + (props ? '<b>' + props.uf + '</b><br />' + props.total : 'Passe o mouse na região');
+                this._div.innerHTML = '<h4>Ocorrências</h4>' + (props ? '<b>' + props.uf + ' - ' + props.nome + '</b><br />' + props.total : 'Passe o mouse na região');
             };
             this.state.info.addTo(this.state.mymap);
         });
