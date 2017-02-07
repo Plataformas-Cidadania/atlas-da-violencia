@@ -48,13 +48,32 @@ class PgSerie extends React.Component{
             url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
             cache: false,
             success: function(data) {
-                //console.log(data, this.props.tipoValores);
+                console.log(data);
                 let totais = {
                     min: this.state.min,
                     max: this.state.max,
                     values: data
                 };
                 this.setState({totaisRegioesPorPeriodo: totais});
+
+
+                ///////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////
+                let valores = [];
+                let marcadores = [];
+                for(let i in data.features){
+                    valores[i] = data[i].total;
+                }
+                let valoresOrdenados = valores.sort(function(a, b){
+                    return a - b;
+                });
+
+                intervalos = gerarIntervalos(valoresOrdenados);
+                ///////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////
+
+
+
                 //loadMap(data);
             }.bind(this),
             error: function(xhr, status, err) {
