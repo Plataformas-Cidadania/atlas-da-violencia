@@ -48,7 +48,7 @@ class PgSerie extends React.Component {
             url: "valores-regiao/" + this.state.id + "/" + this.props.tipoValores + "/" + this.state.min + "/" + this.state.max,
             cache: false,
             success: function (data) {
-                console.log(data);
+                console.log('pgSerie', data);
                 let totais = {
                     min: this.state.min,
                     max: this.state.max,
@@ -59,15 +59,17 @@ class PgSerie extends React.Component {
                 ///////////////////////////////////////////////////////////
                 ///////////////////////////////////////////////////////////
                 let valores = [];
-                let marcadores = [];
-                for (let i in data.features) {
+                for (let i in data) {
                     valores[i] = data[i].total;
                 }
+                console.log('pgSerie', valores);
                 let valoresOrdenados = valores.sort(function (a, b) {
                     return a - b;
                 });
+                console.log('pgSerie', valoresOrdenados);
 
                 intervalos = gerarIntervalos(valoresOrdenados);
+                console.log('pgSerie', intervalos);
                 ///////////////////////////////////////////////////////////
                 ///////////////////////////////////////////////////////////
 
