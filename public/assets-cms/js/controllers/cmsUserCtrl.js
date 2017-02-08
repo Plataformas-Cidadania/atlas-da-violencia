@@ -35,7 +35,7 @@ cmsApp.controller('cmsuserCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
     var listarCmsusers = function(){
         $scope.processandoListagem = true;
         $http({
-            url: '/cms/listar-cmsusers',
+            url: 'cms/listar-cmsusers',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
