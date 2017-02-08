@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarIndiceCtrl.js') !!}
     <div ng-controller="alterarIndiceCtrl">
         <div class="box-padrao">
-            <h1><a href="../indices"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Indices</h1>
+            <h1><a href="cms/indices"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Indices</h1>
             <?php //print_r($indice);?>
             <div ng-init="carregaImagem('{{$indice->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>

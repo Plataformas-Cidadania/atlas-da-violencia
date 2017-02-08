@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarNoticiaCtrl.js') !!}
     <div ng-controller="alterarNoticiaCtrl">
         <div class="box-padrao">
-            <h1><a href="../noticias"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Noticias</h1>
+            <h1><a href="cms/noticias"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Noticias</h1>
             <?php //print_r($noticia);?>
             <div ng-init="carregaImagem('{{$noticia->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>

@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarVideoCtrl.js') !!}
     <div ng-controller="alterarVideoCtrl">
         <div class="box-padrao">
-            <h1><a href="../videos"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Videos</h1>
+            <h1><a href="cms/videos"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Videos</h1>
             <?php //print_r($video);?>
             <div ng-init="carregaImagem('{{$video->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>

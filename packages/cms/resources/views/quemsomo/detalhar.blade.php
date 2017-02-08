@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarQuemsomoCtrl.js') !!}
     <div ng-controller="alterarQuemsomoCtrl">
         <div class="box-padrao">
-            <h1><a href="../quemsomos"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Quem somos</h1>
+            <h1><a href="cms/quemsomos"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Quem somos</h1>
             <?php //print_r($quemsomo);?>
             <div ng-init="carregaImagem('{{$quemsomo->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>

@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarSerieCtrl.js') !!}
     <div ng-controller="alterarSerieCtrl">
         <div class="box-padrao">
-            <h1><a href="../series"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Series</h1>
+            <h1><a href="cms/series"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Series</h1>
             <?php //print_r($serie);?>
             <div ng-init="carregaImagem('{{$serie->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>

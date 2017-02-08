@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarWebdoorCtrl.js') !!}
     <div ng-controller="alterarWebdoorCtrl">
         <div class="box-padrao">
-            <h1><a href="../webdoors"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Webdoors</h1>
+            <h1><a href="cms/webdoors"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Webdoors</h1>
             <?php //print_r($webdoor);?>
             <div ng-init="carregaImagem('{{$webdoor->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>
