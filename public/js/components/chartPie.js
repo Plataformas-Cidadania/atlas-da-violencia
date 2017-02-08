@@ -65,10 +65,10 @@ class ChartPie extends React.Component {
             datasets: [{
                 label: "Homicidios no Brasil",
                 backgroundColor: colors,
-                borderColor: "rgba(179,181,198,1)",
+                /*borderColor: "rgba(179,181,198,1)",*/
                 pointBackgroundColor: "rgba(179,181,198,1)",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#fff",
+                pointBorderColor: "#000",
+                pointHoverBackgroundColor: "#f00",
                 pointHoverBorderColor: "rgba(179,181,198,1)",
                 data: values
             }]

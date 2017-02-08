@@ -14,7 +14,7 @@
             height: 15px;
             float: left;
             margin-right: 8px;
-            opacity: 0.7;
+            opacity: 1;
         }
 
         .info {

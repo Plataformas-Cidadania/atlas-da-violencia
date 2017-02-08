@@ -172,10 +172,10 @@ class Map extends React.Component{
         //console.log(e);
         var layer = e.target;
         layer.setStyle({
-            weight: 5,
+            weight: 2,
             color: '#333',
             dashArray: '',
-            fillOpacity: 0.7
+            fillOpacity: 1
         });
 
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {

@@ -122,7 +122,8 @@ print_r($periodo_limite);*/
             return intervalos;
         }
 
-        var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C',  '#BD0026',  '#9b0024',  '#800026',   '#5f0022'];
+        var colors = ['#F6D473', '#F3C46D', '#F1B567', '#EFA561', '#ED965B', '#EB8856',  '#E87850',  '#E66B4B',  '#E45A45',  '#E0433C'];
+
 
         function getColor(d, intervalos) {
             var qtdIntervalos = intervalos.length;
@@ -141,7 +142,7 @@ print_r($periodo_limite);*/
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
-                fillOpacity: 0.5
+                fillOpacity: 0.9
             };
         }
 
