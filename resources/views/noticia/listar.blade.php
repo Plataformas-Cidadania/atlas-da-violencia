@@ -8,15 +8,15 @@
 
         @foreach($noticias as $noticia)
             <div class="row">
-                <a href="/noticia/{{$noticia->id}}/{{clean($noticia->titulo)}}">
+                <a href="noticia/{{$noticia->id}}/{{clean($noticia->titulo)}}">
                     @if(!empty($noticia->imagem))
                     <div class="col-md-3 col-sm-3">
                         {{--<img src="/imagens/noticias/sm-{{$noticia->imagem}}" alt="{{$noticia->titulo}}" title="{{$noticia->titulo}}" width="100%">--}}
                         <picture>
-                            <source srcset="/imagens/noticias/sm-{{$noticia->imagem}}" media="(max-width: 468px)">
-                            <source srcset="/imagens/noticias/md-{{$noticia->imagem}}" media="(max-width: 768px)">
-                            <source srcset="/imagens/noticias/sm-{{$noticia->imagem}}" class="img-responsive">
-                            <img srcset="/imagens/noticias/sm-{{$noticia->imagem}}" alt="Imagem sobre {{$noticia->titulo}}," title="Imagem sobre {{$noticia->titulo}}," class="align-img" width="100%">
+                            <source srcset="imagens/noticias/sm-{{$noticia->imagem}}" media="(max-width: 468px)">
+                            <source srcset="imagens/noticias/md-{{$noticia->imagem}}" media="(max-width: 768px)">
+                            <source srcset="imagens/noticias/sm-{{$noticia->imagem}}" class="img-responsive">
+                            <img srcset="imagens/noticias/sm-{{$noticia->imagem}}" alt="Imagem sobre {{$noticia->titulo}}," title="Imagem sobre {{$noticia->titulo}}," class="align-img" width="100%">
                         </picture>
                     </div>
                     @endif
