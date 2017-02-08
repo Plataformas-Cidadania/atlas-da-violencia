@@ -74,7 +74,7 @@
                     </form>
                 </div>
             </div>
-            <div class="form-group text-right">
+            <div class="form-group text-right" style="display:none;">
                 <a class="btn btn-link" href="{{ url('/password/reset') }}">Esqueci minha senha</a>
             </div>
         </div>
