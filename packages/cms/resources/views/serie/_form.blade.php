@@ -9,7 +9,7 @@
 {!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(serie.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'serie.descricao', 'init-model'=>'serie.descricao']) !!}<br>
 
 <?php
-    $periodicidades = ['Anual', 'Mensal', 'Trimestral'];
+    $periodicidades = ['Anual' => 'Anual', 'Mensal' => 'Mensal', 'Trimestral' => 'Trimestral'];
 ?>
 {!! Form::label('periodicidade', 'Periodicidade *') !!}<br>
 {!! Form::select('periodicidade',
@@ -21,11 +21,13 @@ null, ['class'=>"form-control width-medio <% validar(serie.periodicidade) %>", '
         $fontes,
 null, ['class'=>"form-control width-medio <% validar(serie.fonte_id) %>", 'ng-model'=>'serie.fonte_id', 'ng-required'=>'true', 'init-model'=>'serie.fonte_id', 'placeholder' => 'Selecione']) !!}<br>
 
-<div style="display: none;">
-    {!! Form::label('serie_id', 'Séries *') !!}<br>
-    {!! Form::select('serie_id',
-            $series_relacionado,
-    null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-model'=>'serie.serie_id', 'init-model'=>'serie.serie_id', 'placeholder' => 'Principal']) !!}<br>
-</div>
+
+<input type="hidden" name="serie_id" ng-model="serie.serie_id" ng-init="serie.serie_id=0"/>
+{{--
+{!! Form::label('serie_id', 'Séries *') !!}<br>
+{!! Form::select('serie_id',
+        $series_relacionado,
+null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-model'=>'serie.serie_id', 'init-model'=>'serie.serie_id', 'placeholder' => 'Principal']) !!}<br>
+--}}
 
 
