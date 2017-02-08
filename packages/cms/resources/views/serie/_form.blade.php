@@ -21,10 +21,11 @@ null, ['class'=>"form-control width-medio <% validar(serie.periodicidade) %>", '
         $fontes,
 null, ['class'=>"form-control width-medio <% validar(serie.fonte_id) %>", 'ng-model'=>'serie.fonte_id', 'ng-required'=>'true', 'init-model'=>'serie.fonte_id', 'placeholder' => 'Selecione']) !!}<br>
 
-{!! Form::label('serie_id', 'Séries *') !!}<br>
-{!! Form::select('serie_id',
-        $series_relacionado,
-null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-model'=>'serie.serie_id', 'init-model'=>'serie.serie_id', 'placeholder' => 'Principal']) !!}<br>
-
+<div style="display: none;">
+    {!! Form::label('serie_id', 'Séries *') !!}<br>
+    {!! Form::select('serie_id',
+            $series_relacionado,
+    null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-model'=>'serie.serie_id', 'init-model'=>'serie.serie_id', 'placeholder' => 'Principal']) !!}<br>
+</div>
 
 
