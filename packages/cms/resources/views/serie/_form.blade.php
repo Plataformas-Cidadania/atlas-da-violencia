@@ -22,12 +22,12 @@ null, ['class'=>"form-control width-medio <% validar(serie.periodicidade) %>", '
 null, ['class'=>"form-control width-medio <% validar(serie.fonte_id) %>", 'ng-model'=>'serie.fonte_id', 'ng-required'=>'true', 'init-model'=>'serie.fonte_id', 'placeholder' => 'Selecione']) !!}<br>
 
 
-<input type="hidden" name="serie_id" ng-model="serie.serie_id" ng-init="serie.serie_id=0"/>
-{{--
+{{--<input type="hidden" name="serie_id" ng-model="serie.serie_id" ng-init="serie.serie_id=0"/>--}}
+
 {!! Form::label('serie_id', 'Séries *') !!}<br>
 {!! Form::select('serie_id',
         $series_relacionado,
 null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-model'=>'serie.serie_id', 'init-model'=>'serie.serie_id', 'placeholder' => 'Principal']) !!}<br>
---}}
+
 
 
