@@ -83,6 +83,12 @@ print_r($periodo_limite);*/
 
 @if($rota=='series')
     <script src="js/components/seriesList.js"></script>
+    <script src="js/renders/renderSeries.js"></script>
+@endif
+
+@if($rota=='filtros/{id}/{titulo}')
+    <script src="js/components/seriesList.js"></script>
+    <script src="js/components/pgFiltros.js"></script>
 @endif
 
 @if($rota=='map/{id}/{titulo}')
@@ -96,10 +102,6 @@ print_r($periodo_limite);*/
         legend = [];
         cont = 0;
         intervalos = [];
-
-
-
-
 
 
         function gerarIntervalos(valores){

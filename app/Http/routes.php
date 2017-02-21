@@ -37,11 +37,14 @@
 
     Route::get('series/', 'SerieController@listar');
     Route::post('listar-series/', 'SerieController@listarSeries');
+    Route::post('listar-series-relacionadas/', 'SerieController@listarSeriesRelacionadas');
     Route::get('series/{titulo}', 'SerieController@listar');
     Route::get('serie/', 'SerieController@detalhar');
     Route::get('serie/{id}', 'SerieController@detalhar');
     Route::get('serie/{id}/{titulo}', 'SerieController@detalhar');
+    Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
     Route::get('filtro/', 'SerieController@filtro');
+    //Route::get('filtros/', 'SerieController@filtros');
     Route::get('filtro/{titulo}', 'SerieController@filtro');
 
     Route::post('enviar-contato', 'ContatoController@email');

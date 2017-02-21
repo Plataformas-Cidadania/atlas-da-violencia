@@ -19,9 +19,10 @@ class SeriesList extends React.Component{
         this.setState({loading: true});
         $.ajax({
             method: 'POST',
-            url: "listar-series",
+            url: this.props.url,
             data: {
-                search: this.state.search
+                search: this.state.search,
+                parameters: this.props.parameters
             },
             cache: false,
             success: function(data){
@@ -46,17 +47,31 @@ class SeriesList extends React.Component{
         //}
     }
 
+    marked(id){
+        console.log(id);
+    }
+
     render(){
+        let select = null;
         let series = this.state.data.map(function(item){
+            if(this.props.select == 'link'){
+                select = <td><a href={"map/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>;
+            }
+            if(this.props.select == 'mark-one'){
+                select = <td onClick={() => this.marked(item.id)} style={{cursor:'pointer'}}><a>{item.titulo}</a></td>;
+            }
+            /*if(this.props.select == 'mark-several'){
+
+            }*/
             return (
                 <tr key={item.id}>
-                    <td><a href={"map/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>
+                    {select}
                     {/*<td>&nbsp;</td>*/}
                     <td>{item.periodicidade}</td>
                     <td>{item.min} - {item.max}</td>
                 </tr>
             );
-        });
+        }.bind(this));
 
         return(
             <div>
@@ -86,7 +101,3 @@ class SeriesList extends React.Component{
     }
 }
 
-ReactDOM.render(
-    <SeriesList/>,
-    document.getElementById('series')
-);

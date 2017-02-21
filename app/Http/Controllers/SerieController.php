@@ -24,8 +24,16 @@ class SerieController extends Controller
         return view('serie.detalhar');
 
     }
+
     public function filtro(){
         return view('serie.filtro');
+    }
+
+    public function filtros($id, $titulo){
+
+        $serie = \App\Serie::find($id);
+
+        return view('serie.filtros', ['serie' => $serie, 'id' => $id, 'titulo' => $titulo]);
     }
 
     public function listarSeries(Request $request){
@@ -39,4 +47,21 @@ class SerieController extends Controller
 
         return $series;
     }
+
+    public function listarSeriesRelacionadas(Request $request){
+
+        $parameters = $request->parameters;
+
+        $series = DB::table('series')
+            ->select(DB::raw('series.*, min(valores_series.periodo) as min, max(valores_series.periodo) as max'))
+            ->join('valores_series', 'valores_series.serie_id', '=', 'series.id')
+            ->where('series.id', $parameters['id'])
+            ->orWhere('series.serie_id', $parameters['id'])
+            ->groupBy('series.id')
+            ->get();
+
+        return $series;
+    }
+
+
 }

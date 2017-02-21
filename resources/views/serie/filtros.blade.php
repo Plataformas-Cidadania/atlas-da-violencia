@@ -38,6 +38,10 @@
     </style>
 
     <div class="container">
-        <div id="series"><div>
+        <script>
+            serie_id = "{{$id}}";
+            titulo = "{{$serie->titulo}}";
+        </script>
+        <div id="filtros"></div>
     </div>
 @endsection

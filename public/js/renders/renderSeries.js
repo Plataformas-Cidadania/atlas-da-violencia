@@ -1,0 +1,1 @@
+ReactDOM.render(React.createElement(SeriesList, { url: "listar-series", select: "link" }), document.getElementById('series'));

@@ -38,6 +38,6 @@
     </style>
 
     <div class="container">
-        <div id="series"><div>
+        <div id="series"></div>
     </div>
 @endsection

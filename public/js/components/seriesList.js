@@ -19,9 +19,10 @@ class SeriesList extends React.Component {
         this.setState({ loading: true });
         $.ajax({
             method: 'POST',
-            url: "listar-series",
+            url: this.props.url,
             data: {
-                search: this.state.search
+                search: this.state.search,
+                parameters: this.props.parameters
             },
             cache: false,
             success: function (data) {
@@ -46,12 +47,15 @@ class SeriesList extends React.Component {
         //}
     }
 
+    marked(id) {
+        console.log(id);
+    }
+
     render() {
+        let select = null;
         let series = this.state.data.map(function (item) {
-            return React.createElement(
-                'tr',
-                { key: item.id },
-                React.createElement(
+            if (this.props.select == 'link') {
+                select = React.createElement(
                     'td',
                     null,
                     React.createElement(
@@ -59,7 +63,25 @@ class SeriesList extends React.Component {
                         { href: "map/" + item.id + "/" + item.titulo },
                         item.titulo
                     )
-                ),
+                );
+            }
+            if (this.props.select == 'mark-one') {
+                select = React.createElement(
+                    'td',
+                    { onClick: () => this.marked(item.id), style: { cursor: 'pointer' } },
+                    React.createElement(
+                        'a',
+                        null,
+                        item.titulo
+                    )
+                );
+            }
+            /*if(this.props.select == 'mark-several'){
+             }*/
+            return React.createElement(
+                'tr',
+                { key: item.id },
+                select,
                 React.createElement(
                     'td',
                     null,
@@ -73,7 +95,7 @@ class SeriesList extends React.Component {
                     item.max
                 )
             );
-        });
+        }.bind(this));
 
         return React.createElement(
             'div',
@@ -128,5 +150,3 @@ class SeriesList extends React.Component {
         );
     }
 }
-
-ReactDOM.render(React.createElement(SeriesList, null), document.getElementById('series'));
