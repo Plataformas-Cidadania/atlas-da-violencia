@@ -4,11 +4,21 @@ class SeriesList extends React.Component{
         this.state = {
             loading: false,
             data: [],
-            search: ''
+            search: '',
+            style: {
+                marked:{
+                    backgroundColor: '#E9F4E3'
+                },
+                unmarked:{
+                    backgroundColor: '#fff'
+                }
+            },
+            markedId: ''
         };
 
         this.loadData = this.loadData.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.marked = this.marked.bind(this);
     }
 
     componentDidMount(){
@@ -48,7 +58,9 @@ class SeriesList extends React.Component{
     }
 
     marked(id){
-        console.log(id);
+        this.setState({markedId: id}, function(){
+            this.props.serieMarked(this.state.markedId);
+        });
     }
 
     render(){
@@ -64,7 +76,7 @@ class SeriesList extends React.Component{
 
             }*/
             return (
-                <tr key={item.id}>
+                <tr key={item.id} style={item.id==this.state.markedId ? this.state.style.marked : this.state.style.unmarked}>
                     {select}
                     {/*<td>&nbsp;</td>*/}
                     <td>{item.periodicidade}</td>
@@ -77,6 +89,7 @@ class SeriesList extends React.Component{
             <div>
                 <input type="text" className="form-control" placeholder="Pesquisa" onChange={this.handleChange}/>
                 <br/>
+                <h4>Selecione abaixo a série que deseja visualizar</h4>
                 <div className="text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
                     <i className="fa fa-4x fa-spinner fa-spin"> </i>
                 </div>

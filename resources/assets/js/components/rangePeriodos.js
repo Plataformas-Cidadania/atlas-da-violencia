@@ -11,6 +11,14 @@ class RangePeriodo extends React.Component{
         this.loadData();
     }
 
+    componentWillReceiveProps(props){
+        if(this.state.id!=props.id){
+            this.setState({id: props.id}, function(){
+                this.loadData();
+            });
+        }
+    }
+
     loading(status){
         this.props.loading(status);
     }
@@ -37,6 +45,7 @@ class RangePeriodo extends React.Component{
 
     loadRange(){
         let _this = this;
+        console.log(_this.state.periodos);
         $("#range").ionRangeSlider({
             values: _this.state.periodos,
             hide_min_max: true,

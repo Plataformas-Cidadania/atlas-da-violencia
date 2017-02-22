@@ -4,11 +4,21 @@ class SeriesList extends React.Component {
         this.state = {
             loading: false,
             data: [],
-            search: ''
+            search: '',
+            style: {
+                marked: {
+                    backgroundColor: '#E9F4E3'
+                },
+                unmarked: {
+                    backgroundColor: '#fff'
+                }
+            },
+            markedId: ''
         };
 
         this.loadData = this.loadData.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.marked = this.marked.bind(this);
     }
 
     componentDidMount() {
@@ -48,7 +58,9 @@ class SeriesList extends React.Component {
     }
 
     marked(id) {
-        console.log(id);
+        this.setState({ markedId: id }, function () {
+            this.props.serieMarked(this.state.markedId);
+        });
     }
 
     render() {
@@ -80,7 +92,7 @@ class SeriesList extends React.Component {
              }*/
             return React.createElement(
                 'tr',
-                { key: item.id },
+                { key: item.id, style: item.id == this.state.markedId ? this.state.style.marked : this.state.style.unmarked },
                 select,
                 React.createElement(
                     'td',
@@ -102,6 +114,11 @@ class SeriesList extends React.Component {
             null,
             React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Pesquisa', onChange: this.handleChange }),
             React.createElement('br', null),
+            React.createElement(
+                'h4',
+                null,
+                'Selecione abaixo a s\xE9rie que deseja visualizar'
+            ),
             React.createElement(
                 'div',
                 { className: 'text-center', style: { display: this.state.loading ? 'block' : 'none' } },
