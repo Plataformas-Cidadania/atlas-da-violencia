@@ -3,12 +3,20 @@ class RangePeriodo extends React.Component {
         super(props);
         this.state = {
             id: this.props.id,
+            firstLoad: true,
+            slider: {},
             periodos: []
         };
+
+        this.loadData = this.loadData.bind(this);
+        this.updateRange = this.updateRange.bind(this);
+        this.loadRange = this.loadRange.bind(this);
     }
 
     componentDidMount() {
-        this.loadData();
+        if (this.state.id > 0) {
+            this.loadData();
+        }
     }
 
     componentWillReceiveProps(props) {
@@ -25,21 +33,32 @@ class RangePeriodo extends React.Component {
 
     loadData() {
         this.loading(true);
-        let _this = this;
         $.ajax("periodos/" + this.state.id, {
             data: {},
             success: function (data) {
-                console.log(data);
-                _this.setState({ periodos: data }, function () {
-                    _this.loadRange();
-                    _this.props.setPeriodos(data);
+                console.log('range', data);
+                this.setState({ periodos: data }, function () {
+                    this.loadRange();
+                    if (!this.state.firstLoad) {
+                        this.updateRange();
+                    }
+                    this.setState({ firstLoad: false });
+                    this.props.setPeriodos(data);
                 });
-                _this.loading(false);
+                this.loading(false);
                 //periodos = data;
-            },
+            }.bind(this),
             error: function (data) {
                 console.log('erro');
-            }
+            }.bind(this)
+        });
+    }
+
+    updateRange() {
+        this.state.slider.update({
+            values: this.state.periodos,
+            from: this.state.periodos[0],
+            to: this.state.periodos.length - 1
         });
     }
 
@@ -87,13 +106,22 @@ class RangePeriodo extends React.Component {
             }
 
         });
+
+        let slider = $("#range").data("ionRangeSlider");
+
+        this.setState({ slider: slider });
     }
 
     render() {
         return React.createElement(
-            "div",
-            { className: "hidden-print" },
-            React.createElement("input", { type: "text", id: "range", value: "", name: "range" })
+            'div',
+            { className: 'hidden-print', style: { display: this.state.periodos.length > 0 ? 'block' : 'none' } },
+            React.createElement(
+                'h4',
+                null,
+                'Selecione o per\xEDodo desejado'
+            ),
+            React.createElement('input', { type: 'text', id: 'range', value: '', name: 'range' })
         );
     }
 }

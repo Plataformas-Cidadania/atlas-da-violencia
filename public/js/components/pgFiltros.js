@@ -46,6 +46,7 @@ class PgFiltros extends React.Component {
                 parameters: { id: this.props.serie_id },
                 serieMarked: this.serieMarked
             }),
+            React.createElement("br", null),
             React.createElement(RangePeriodo, {
                 id: this.state.serieMarked,
                 changePeriodo: this.changePeriodo,
@@ -53,6 +54,11 @@ class PgFiltros extends React.Component {
                 loading: this.loading,
 
                 style: { display: this.state.serieMarked > 0 ? 'block' : 'none' }
+            }),
+            React.createElement("br", null),
+            React.createElement(FiltroRegioes, {
+                id: this.state.serieMarked,
+                loading: this.loading
             })
         );
     }

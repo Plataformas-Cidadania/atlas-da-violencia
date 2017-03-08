@@ -36,7 +36,7 @@ class SeriesList extends React.Component{
             },
             cache: false,
             success: function(data){
-                console.log('load', data);
+                console.log('seriesList', data);
                 this.setState({data: data}, function(){
                     this.setState({loading: false});
                 });

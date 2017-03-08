@@ -35,6 +35,7 @@
             transition: all linear 0.5s;
             transition-duration: 1s;
         }
+
     </style>
 
     <div class="container">

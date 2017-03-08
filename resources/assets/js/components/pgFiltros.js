@@ -40,6 +40,7 @@ class PgFiltros extends React.Component{
                     parameters={{id: this.props.serie_id}}
                     serieMarked={this.serieMarked}
                 />
+                <br/>
                 <RangePeriodo
                     id={this.state.serieMarked}
                     changePeriodo={this.changePeriodo}
@@ -47,6 +48,11 @@ class PgFiltros extends React.Component{
                     loading={this.loading}
 
                     style={{display: this.state.serieMarked > 0 ? 'block' : 'none'}}
+                />
+                <br/>
+                <FiltroRegioes
+                    id={this.state.serieMarked}
+                    loading={this.loading}
                 />
             </div>
 

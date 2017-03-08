@@ -234,4 +234,15 @@ class MapController extends Controller
         return $areas;
     }
 
+    function regioes($id){
+        $regioes = DB::table('valores_series')
+            ->select('uf')
+            ->where('serie_id', $id)
+            ->distinct()
+            ->orderBy('uf')
+            ->get();
+
+        return $regioes;
+    }
+
 }
