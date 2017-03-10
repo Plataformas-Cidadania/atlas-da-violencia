@@ -18,7 +18,7 @@ cmsApp.controller('alterarDownloadCtrl', ['$scope', '$http', 'Upload', '$timeout
         if(file==null && arquivo==null){
 
             //console.log($scope.download);
-            $http.post("/cms/alterar-download/"+$scope.id, {
+            $http.post("cms/alterar-download/"+$scope.id, {
                 'download': $scope.download,
                 'removerImagem': $scope.removerImagem,
                 'removerArquivo': $scope.removerArquivo
@@ -49,7 +49,7 @@ cmsApp.controller('alterarDownloadCtrl', ['$scope', '$http', 'Upload', '$timeout
             }
 
             Upload.upload({
-                url: '/cms/alterar-download/'+$scope.id,
+                url: 'cms/alterar-download/'+$scope.id,
                 data: data1
             }).then(function (response) {
                 $timeout(function () {
@@ -91,7 +91,7 @@ cmsApp.controller('alterarDownloadCtrl', ['$scope', '$http', 'Upload', '$timeout
 
     $scope.carregaImagem  = function(img, arquivo) {
         if(img!=''){
-            $scope.imagemBD = '/imagens/downloads/xs-'+img;
+            $scope.imagemBD = 'imagens/downloads/xs-'+img;
             //console.log($scope.imagemBD);
         }
         if(arquivo!=''){

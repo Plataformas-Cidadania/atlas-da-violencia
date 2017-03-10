@@ -34,7 +34,7 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
     var listarDownloads = function(){
         $scope.processandoListagem = true;
         $http({
-            url: '/cms/listar-downloads/',
+            url: 'cms/listar-downloads/',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
@@ -117,7 +117,7 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
             $scope.processandoInserir = true;
 
             //console.log($scope.download);
-            $http.post("/cms/inserir-download", {download: $scope.download}).success(function (data){
+            $http.post("cms/inserir-download", {download: $scope.download}).success(function (data){
                  listarDownloads();
                  delete $scope.download;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -153,7 +153,7 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
 
 
             Upload.upload({
-                url: '/cms/inserir-download',
+                url: 'cms/inserir-download',
                 data: {download: $scope.download, file: file, arquivo: arquivo},
             }).then(function (response) {
                 $timeout(function () {
@@ -205,7 +205,7 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: '/cms/excluir-download/'+id,
+            url: 'cms/excluir-download/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);
