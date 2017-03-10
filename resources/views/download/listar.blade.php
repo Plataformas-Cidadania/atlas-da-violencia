@@ -37,3 +37,4 @@
         <div>{{--{{ $downloads->links() }}--}}</div>
     </div>
 @endsection
+
