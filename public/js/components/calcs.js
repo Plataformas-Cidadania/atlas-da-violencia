@@ -181,7 +181,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        numeral(this.state.minValue.total).format('0,0.00')
+                        this.state.minValue.total
                     )
                 ),
                 React.createElement(
@@ -200,7 +200,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        numeral(this.state.maxValue.total).format('0,0.00')
+                        this.state.maxValue.total
                     )
                 ),
                 React.createElement(
@@ -219,7 +219,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        numeral(this.state.media[this.state.id]).format('0,0.00')
+                        this.state.media[this.state.id]
                     )
                 ),
                 React.createElement(
@@ -238,7 +238,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        numeral(this.state.mediaPonderada[this.state.id]).format('0,0.00')
+                        this.state.mediaPonderada[this.state.id]
                     )
                 ),
                 React.createElement(
@@ -257,7 +257,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        numeral(this.state.mediana[this.state.id]).format('0,0.00')
+                        this.state.mediana[this.state.id]
                     )
                 ),
                 React.createElement(
@@ -276,7 +276,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        numeral(this.state.moda[this.state.id]).format('0,0.00')
+                        this.state.moda[this.state.id]
                     )
                 )
             )

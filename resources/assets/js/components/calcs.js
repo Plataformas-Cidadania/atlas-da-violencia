@@ -155,7 +155,7 @@ class Calcs extends React.Component{
                             <h4 style={this.state.styleCalcs}>Mínima</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{numeral(this.state.minValue.total).format('0,0.00')}</h4>
+                        <h4 className="" >{this.state.minValue.total}</h4>
 
                     </div>
                     <div className="col-md-2">
@@ -163,7 +163,7 @@ class Calcs extends React.Component{
                             <h4 style={this.state.styleCalcs}>Máxima</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{numeral(this.state.maxValue.total).format('0,0.00')}</h4>
+                        <h4 className="" >{this.state.maxValue.total}</h4>
 
                     </div>
                     <div className="col-md-2">
@@ -171,7 +171,7 @@ class Calcs extends React.Component{
                             <h4 style={this.state.styleCalcs}>Média</h4>
                         </div>
                         <br/>
-                        <h4 className="">{numeral(this.state.media[this.state.id]).format('0,0.00')}</h4>
+                        <h4 className="">{this.state.media[this.state.id]}</h4>
 
                     </div>
                     <div className="col-md-2">
@@ -179,7 +179,7 @@ class Calcs extends React.Component{
                             <h4 style={{paddingTop: '45px'}}>Média Ponderada</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{numeral(this.state.mediaPonderada[this.state.id]).format('0,0.00')}</h4>
+                        <h4 className="" >{this.state.mediaPonderada[this.state.id]}</h4>
 
                     </div>
                     <div className="col-md-2">
@@ -187,7 +187,7 @@ class Calcs extends React.Component{
                             <h4 style={this.state.styleCalcs}>Mediana</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{numeral(this.state.mediana[this.state.id]).format('0,0.00')}</h4>
+                        <h4 className="" >{this.state.mediana[this.state.id]}</h4>
 
                     </div>
                     <div className="col-md-2" style={{opacity: this.state.moda[this.state.id] > 0 ? 1 : 0.5}}>
@@ -195,7 +195,7 @@ class Calcs extends React.Component{
                             <h4 style={this.state.styleCalcs}>Moda</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{numeral(this.state.moda[this.state.id]).format('0,0.00')}</h4>
+                        <h4 className="" >{this.state.moda[this.state.id]}</h4>
                     </div>
                 </div>
             </div>

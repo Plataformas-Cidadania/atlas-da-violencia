@@ -42,7 +42,7 @@ class Map extends React.Component{
             this.state.info.update = function (props) {
                 //console.log('info', props);
                 this._div.innerHTML =
-                    '<h4>Ocorrências</h4>' +  (props ? '<b>' + props.uf + ' - ' + props.nome + '</b><br />' + numeral(props.total).format('0,0')
+                    '<h4>Ocorrências</h4>' +  (props ? '<b>' + props.uf + ' - ' + props.nome + '</b><br />' + props.total
                         : 'Passe o mouse na região');
             };
             this.state.info.addTo(this.state.mymap);
