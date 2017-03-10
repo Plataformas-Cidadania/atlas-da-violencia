@@ -58,6 +58,7 @@ class SerieController extends Controller
             ->where('series.id', $parameters['id'])
             ->orWhere('series.serie_id', $parameters['id'])
             ->groupBy('series.id')
+            ->orderBy('series.titulo')
             ->get();
 
         return $series;
