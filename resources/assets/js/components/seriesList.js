@@ -67,7 +67,7 @@ class SeriesList extends React.Component{
         let select = null;
         let series = this.state.data.map(function(item){
             if(this.props.select == 'link'){
-                select = <td><a href={"map/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>;
+                select = <td><a href={"filtros/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>;
             }
             if(this.props.select == 'mark-one'){
                 select = <td onClick={() => this.marked(item.id)} style={{cursor:'pointer'}}><a>{item.titulo}</a></td>;
