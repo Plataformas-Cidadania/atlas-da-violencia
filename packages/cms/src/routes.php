@@ -28,6 +28,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-webdoor/{id}', 'Cms\Controllers\WebdoorController@alterar');
         Route::get('/cms/excluir-webdoor/{id}', 'Cms\Controllers\WebdoorController@excluir');
 
+        //DOWNLOADS
+        Route::get('/cms/downloads', 'Cms\Controllers\DownloadController@index');
+        Route::get('/cms/listar-downloads', 'Cms\Controllers\DownloadController@listar');
+        Route::post('/cms/inserir-download', 'Cms\Controllers\DownloadController@inserir');
+        Route::get('/cms/download/{id}', 'Cms\Controllers\DownloadController@detalhar');
+        Route::post('/cms/alterar-download/{id}', 'Cms\Controllers\DownloadController@alterar');
+        Route::get('/cms/excluir-download/{id}', 'Cms\Controllers\DownloadController@excluir');
+
         //NOTICIAS
         Route::get('/cms/noticias', 'Cms\Controllers\NoticiaController@index');
         Route::get('/cms/listar-noticias', 'Cms\Controllers\NoticiaController@listar');
