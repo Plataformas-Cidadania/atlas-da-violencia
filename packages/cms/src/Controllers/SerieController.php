@@ -178,8 +178,9 @@ class SerieController extends Controller
 
     }
 
-    public function testeExcel(){
-        $data = Excel::load(public_path().'/excel/populacao.UF.FAIXA.ETARIA.15.29.MULHER.xlsx', function($reader) {
+    public function testeExcel($serie_id, $arquivo){
+        //$data = Excel::load(public_path().'/excel/taxa.homicidio.ANO.REGIAO.xlsx', function($reader) {
+        $data = Excel::load(public_path()."/excel/$arquivo", function($reader) {
 
         })->get();
 
@@ -193,7 +194,7 @@ class SerieController extends Controller
         $uf = '';
         $municipio = '';
         $bairro = '';
-        $serie_id = 12;
+        //$serie_id = 14;
         $cms_user_id = 1;
 
 
