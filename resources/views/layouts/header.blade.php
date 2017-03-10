@@ -92,7 +92,7 @@
                     <li role="presentation"><a href="http://{{$base_href}}" accesskey="h" @if($rota=='/') class="corrente" @endif>Início</a></li>
                     <li role="presentation"><a href="quem/3/sobre" accesskey="q" @if($rota=='quem') class="corrente" @endif>Sobre</a></li>
                     <li role="presentation"><a href="series" accesskey="q" @if($rota=='series') class="corrente" @endif>Pesquisas</a></li>
-                    <li role="presentation"><a href="artigos/0/" accesskey="n" @if($rota=='artigos') class="corrente" @endif>Artigos</a></li>
+                    <li role="presentation"><a href="artigos/0/todos" accesskey="n" @if($rota=='artigos') class="corrente" @endif>Artigos</a></li>
                     <li role="presentation"><a href="videos" accesskey="q" @if($rota=='videos') class="corrente" @endif>Vídeos</a></li>
                     <li role="presentation"><a href="downloads" accesskey="q" @if($rota=='downloads') class="corrente" @endif>Downloads</a></li>
                     <li role="presentation"><a href="contato" accesskey="c" @if($rota=='contato') class="corrente" @endif>Contato</a></li>
