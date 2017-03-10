@@ -45,7 +45,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/excluir-serie/{id}', 'Cms\Controllers\SerieController@excluir');
 
         Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
-        
+
         //VIDEOS
         Route::get('/cms/videos', 'Cms\Controllers\VideoController@index');
         Route::get('/cms/listar-videos', 'Cms\Controllers\VideoController@listar');
