@@ -145,46 +145,57 @@ class Calcs extends React.Component{
                 <div className="row">
                     <div className="col-md-12">
                         <div className="icons-list-items icon-list-item-1" style={{float: 'left'}}></div>
-                        <h4>&nbsp;&nbsp;{this.state.serie}</h4>
+                        <h5>&nbsp;&nbsp;{this.state.serie}</h5>
                     </div>
                 </div>
                 <br/>
                 <div className="row text-center">
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h4 className="" style={this.state.styleCalcs}>{this.state.minValue.total}</h4>
+                            <h4 style={this.state.styleCalcs}>Mínima</h4>
                         </div>
-                        <h4>Mínima</h4>
+                        <br/>
+                        <h4 className="" >{numeral(this.state.minValue.total).format('0,0.00')}</h4>
+
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h4 className="" style={this.state.styleCalcs}>{this.state.maxValue.total}</h4>
+                            <h4 style={this.state.styleCalcs}>Máxima</h4>
                         </div>
-                        <h4>Máxima</h4>
+                        <br/>
+                        <h4 className="" >{numeral(this.state.maxValue.total).format('0,0.00')}</h4>
+
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h4 className="" style={this.state.styleCalcs}>{numeral(this.state.media[this.state.id]).format('0.00')}</h4>
+                            <h4 style={this.state.styleCalcs}>Média</h4>
                         </div>
-                        <h4>Média</h4>
+                        <br/>
+                        <h4 className="">{numeral(this.state.media[this.state.id]).format('0,0.00')}</h4>
+
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h4 className="" style={this.state.styleCalcs}>{numeral(this.state.mediaPonderada[this.state.id]).format('0.00')}</h4>
+                            <h4 style={{paddingTop: '45px'}}>Média Ponderada</h4>
                         </div>
-                        <h4>Média Ponderada</h4>
+                        <br/>
+                        <h4 className="" >{numeral(this.state.mediaPonderada[this.state.id]).format('0,0.00')}</h4>
+
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h4 className="" style={this.state.styleCalcs}>{numeral(this.state.mediana[this.state.id]).format('0.00')}</h4>
+                            <h4 style={this.state.styleCalcs}>Mediana</h4>
                         </div>
-                        <h4>Mediana</h4>
+                        <br/>
+                        <h4 className="" >{numeral(this.state.mediana[this.state.id]).format('0,0.00')}</h4>
+
                     </div>
                     <div className="col-md-2" style={{opacity: this.state.moda[this.state.id] > 0 ? 1 : 0.5}}>
                         <div className="icons-list-140-150 icon-list-140-150-1">
-                            <h4 className="" style={this.state.styleCalcs}>{numeral(this.state.moda[this.state.id]).format('0.00')}</h4>
+                            <h4 style={this.state.styleCalcs}>Moda</h4>
                         </div>
-                        <h4>Moda</h4>
+                        <br/>
+                        <h4 className="" >{numeral(this.state.moda[this.state.id]).format('0,0.00')}</h4>
                     </div>
                 </div>
             </div>

@@ -37,7 +37,7 @@ class Map extends React.Component {
             // method that we will use to update the control based on feature properties passed
             this.state.info.update = function (props) {
                 //console.log('info', props);
-                this._div.innerHTML = '<h4>Ocorrências</h4>' + (props ? '<b>' + props.uf + ' - ' + props.nome + '</b><br />' + props.total : 'Passe o mouse na região');
+                this._div.innerHTML = '<h4>Ocorrências</h4>' + (props ? '<b>' + props.uf + ' - ' + props.nome + '</b><br />' + numeral(props.total).format('0,0') : 'Passe o mouse na região');
             };
             this.state.info.addTo(this.state.mymap);
         });
@@ -53,20 +53,21 @@ class Map extends React.Component {
 
     loadData() {
         let _this = this;
-        $.ajax("regiao/" + _this.state.id + "/" + _this.props.tipoValores + "/" + _this.state.min + "/" + _this.state.max, {
+        //$.ajax("regiao/"+_this.state.id+"/"+_this.props.tipoValores+"/"+_this.state.min+"/"+_this.state.max, {
+        $.ajax("regiao/" + _this.state.id + "/" + _this.state.max, {
             data: {},
             success: function (data) {
-                //console.log(data);
+                //console.log('map',data);
                 _this.loadMap(data);
             },
             error: function (data) {
-                console.log('erro');
+                console.log('map', 'erro');
             }
         });
     }
 
     loadMap(data) {
-        console.log('map', data);
+        //console.log('map', data);
         let _this = this;
         //remove existing map layers
         this.state.mymap.eachLayer(function (layer) {
@@ -96,7 +97,7 @@ class Map extends React.Component {
         //console.log(valores);
 
         intervalos = gerarIntervalos(valores);
-        console.log('map', intervalos);
+        //console.log('map', intervalos);
         this.props.setIntervalos(intervalos);
 
         this.setState({ geojson: L.geoJson(data, {
@@ -128,7 +129,7 @@ class Map extends React.Component {
                 labels = [];
             // loop through our density intervals and generate a label with a colored square for each interval
             for (let i = 0; i < grades.length; i++) {
-                div.innerHTML += '<i style="background:' + getColor(grades[i] + 1, intervalos) + '"></i> ' + grades[i] + (grades[i + 1] ? '&nbsp;&ndash;&nbsp;' + grades[i + 1] + '<br>' : '+');
+                div.innerHTML += '<i style="background:' + getColor(grades[i] + 1, intervalos) + '"></i> ' + numeral(grades[i]).format('0,0') + (numeral(grades[i + 1]).format('0,0') ? '&nbsp;&ndash;&nbsp;' + numeral(grades[i + 1]).format('0,0') + '<br>' : '+');
             }
             return div;
         };

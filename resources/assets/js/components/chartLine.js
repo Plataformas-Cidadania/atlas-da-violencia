@@ -8,14 +8,19 @@ class ChartLine extends React.Component{
             serie: this.props.serie,
             loading: false,
             min: 0,
-            max: 0
+            max: 0,
+            intervalos: this.props.intervalos
         };
         this.loadData = this.loadData.bind(this);
+        this.loadChartLine = this.loadChartLine.bind(this);
+        this.singleChart = this.singleChart.bind(this);
+        this.multipleChart = this.multipleChart.bind(this);
+        this.getColors = this.getColors.bind(this);
     }
 
     componentWillReceiveProps(props){
-        if(this.state.min != props.min || this.state.max != props.max){
-            this.setState({min: props.min, max: props.max}, function(){
+        if(this.state.min != props.min || this.state.max != props.max || this.state.intervalos != props.intervalos){
+            this.setState({min: props.min, max: props.max, intervalos: props.intervalos}, function(){
                 if(myChartBar){
                     this.chartDestroy();
                 }
@@ -27,10 +32,11 @@ class ChartLine extends React.Component{
     loadData(){
         this.setState({loading: true});
         let _this = this;
-        $.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
+        //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
+        $.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions, {
             data: {},
             success: function(data){
-                //console.log(data);
+                console.log('charline', data);
                 _this.setState({loading: false}, function(){
                     _this.loadChartLine(data);
                 });
@@ -42,6 +48,16 @@ class ChartLine extends React.Component{
     }
 
     loadChartLine(data){
+        if(this.props.regions==''){
+            this.singleChart(data);
+            return;
+        }
+
+        this.multipleChart(data);
+
+    }
+
+    singleChart(data){
         let labels = [];
         let values = [];
         for(let i in data){
@@ -50,8 +66,8 @@ class ChartLine extends React.Component{
         }
 
         let canvas = document.getElementById('myChartLine');
+
         let dataChart = {
-            //labels: ["January", "February", "March", "April", "May", "June", "July"],
             labels: labels,
             datasets: [
                 {
@@ -86,11 +102,90 @@ class ChartLine extends React.Component{
             data:dataChart,
             options:option
         });
+    }
 
+    multipleChart(data){
+        let labels = [];
+        let datasets = [];
+
+        let canvas = document.getElementById('myChartLine');
+
+        let cont = 0;
+        let contLabel = 0;
+        for(let region in data){
+
+            let values = [];
+
+            for(let periodo in data[region]){
+                values.push(data[region][periodo]);
+                if(cont==0){
+                    labels[contLabel] = periodo;
+                    contLabel++;
+                }
+            }
+
+            //console.log('values', values);
+
+            let colors = this.getColors(values);
+
+            console.log('colors', colors);
+
+            datasets[cont++] = {
+                label: region,
+                fill: false,
+                lineTension: 0.1,
+                backgroundColor: colors,
+                borderColor: colors,
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: colors,
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: colors,
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 5,
+                pointHitRadius: 10,
+                data: values,
+            }
+
+        }
+
+        console.log(labels);
+
+
+        var dataChart = {
+            labels: labels,
+            datasets: datasets
+        }
+
+        let option = {
+            showLines: true
+        };
+
+        myChartLine = Chart.Line(canvas,{
+            data:dataChart,
+            options:option
+        });
     }
 
     chartDestroy(){
         myChartLine.destroy();
+    }
+
+    getColors(values){
+        console.log('chartline - getcolors - intervalos', this.state.intervalos.length);
+        //console.log('chartline - getcolors - values', values);
+        if(this.state.intervalos.length > 0){
+            let colors = [];
+            for(let i in values){
+                colors.push(convertHex(getColor(values[i], intervalos), 100));
+            }
+            return colors;
+        }
     }
 
     render(){

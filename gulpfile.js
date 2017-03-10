@@ -1,3 +1,4 @@
+process.env.DISABLE_NOTIFIER = true;
 var elixir = require('laravel-elixir');
 elixir.config.sourcemaps = false;
 
@@ -98,7 +99,8 @@ elixir(function(mix) {
         'lib/jquery/jquery.smoove.min.js',
         'app.js',
         'utils.js',
-        'lib/range/ion.rangeSlider.js'
+        'lib/range/ion.rangeSlider.js',
+        'lib/numeral.js'
     ]);
 
     mix.styles([

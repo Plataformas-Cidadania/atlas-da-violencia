@@ -15,7 +15,7 @@ class ChartBar extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(this.state.min != props.data.min || this.state.max != props.data.max){
+        if(this.state.min != props.data.min || this.state.max != props.data.max || this.state.intervalos != props.intervalos){
             /*this.setState({min: props.min, max: props.max}, function(){
                 if(myChartBar){
                     this.chartDestroy();
@@ -96,7 +96,7 @@ class ChartBar extends React.Component{
     }
 
     getColors(values){
-        //console.log(this.state.intervalos.length);
+        console.log('chartbar - getcolors - intervalos', this.state.intervalos.length);
         if(this.state.intervalos.length > 0){
             let colors = [];
             for(let i in values){

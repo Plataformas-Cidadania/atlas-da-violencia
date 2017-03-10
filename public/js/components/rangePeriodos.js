@@ -36,7 +36,7 @@ class RangePeriodo extends React.Component {
         $.ajax("periodos/" + this.state.id, {
             data: {},
             success: function (data) {
-                console.log('range', data);
+                //console.log('range', data);
                 this.setState({ periodos: data }, function () {
                     this.loadRange();
                     if (!this.state.firstLoad) {
@@ -65,14 +65,16 @@ class RangePeriodo extends React.Component {
     loadRange() {
         let _this = this;
         console.log(_this.state.periodos);
+        console.log(_this.props.from);
+        console.log(_this.props.to);
         $("#range").ionRangeSlider({
             values: _this.state.periodos,
             hide_min_max: true,
             keyboard: true,
-            /*min: 0,
-             max: 5000,
-             from: 1000,
-             to: 4000,*/
+            //min: 0,
+            //max: 5000,
+            //from:0,
+            //to: 5000,
             type: 'double',
             step: 1,
             prefix: "",
@@ -81,6 +83,7 @@ class RangePeriodo extends React.Component {
             prettify_enabled: false,
             onStart: function (data) {
                 //console.log('range onStart', data);
+                console.log(data.from_value, data.to_value);
                 _this.props.changePeriodo(data.from_value, data.to_value);
                 //min = data.from_value;
                 //max = data.to_value;
@@ -93,6 +96,7 @@ class RangePeriodo extends React.Component {
             },
             onFinish: function (data) {
                 //console.log('range onFinish', data);
+                console.log(data.from_value, data.to_value);
                 _this.props.changePeriodo(data.from_value, data.to_value);
                 //min = data.from_value;
                 //max = data.to_value;
@@ -102,6 +106,7 @@ class RangePeriodo extends React.Component {
                 //dataToChartRadar(data.from_value, data.to_value);
             },
             onUpdate: function (data) {
+                _this.props.changePeriodo(data.from_value, data.to_value);
                 //console.log('onUpdate');
             }
 
@@ -114,14 +119,14 @@ class RangePeriodo extends React.Component {
 
     render() {
         return React.createElement(
-            'div',
-            { className: 'hidden-print', style: { display: this.state.periodos.length > 0 ? 'block' : 'none' } },
+            "div",
+            { className: "hidden-print", style: { display: this.state.periodos.length > 0 ? 'block' : 'none' } },
             React.createElement(
-                'h4',
+                "h4",
                 null,
-                'Selecione o per\xEDodo desejado'
+                "Selecione o per\xEDodo desejado"
             ),
-            React.createElement('input', { type: 'text', id: 'range', value: '', name: 'range' })
+            React.createElement("input", { type: "text", id: "range", value: this.props.from + ';' + this.props.to, name: "range" })
         );
     }
 }

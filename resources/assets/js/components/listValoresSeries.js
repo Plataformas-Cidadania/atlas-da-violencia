@@ -41,7 +41,7 @@ class ListValoresSeries extends React.Component{
                 <tr key={index}>
                     <th width="10px"><i className="fa fa-square" style={{color: getColor(item.total, intervalos)}}> </i></th>
                     <th>{item.uf} - {item.nome}</th>
-                    <td className="text-right">{item.total}</td>
+                    <td className="text-right">{numeral(item.total).format('0,0')}</td>
                 </tr>
             );
         });

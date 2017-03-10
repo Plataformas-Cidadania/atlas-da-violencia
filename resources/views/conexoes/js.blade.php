@@ -36,6 +36,30 @@
 <script src="lib/react/react.js"></script>
 <script src="lib/react/react-dom.js"></script>
 <script src="lib/numeral.js"></script>
+<script>
+    // load a locale
+    numeral.register('locale', 'br', {
+        delimiters: {
+            thousands: '.',
+            decimal: ','
+        },
+        abbreviations: {
+            thousand: 'k',
+            million: 'm',
+            billion: 'b',
+            trillion: 't'
+        },
+        ordinal : function (number) {
+            return number === 1 ? 'er' : 'ème';
+        },
+        currency: {
+            symbol: '$R'
+        }
+    });
+
+    // switch between locales
+    numeral.locale('br');
+</script>
 <?php
 
 /*// Datas de início e fim
@@ -93,7 +117,8 @@ print_r($periodo_limite);*/
     <script src="js/components/pgFiltros.js"></script>
 @endif
 
-@if($rota=='map/{id}/{titulo}')
+{{--@if($rota=='map/{id}/{titulo}')--}}
+@if($rota=='dados-series')
     {{--http://www.chartjs.org/docs/--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
 

@@ -63,7 +63,7 @@ class ListValoresSeries extends React.Component {
                 React.createElement(
                     "td",
                     { className: "text-right" },
-                    item.total
+                    numeral(item.total).format('0,0')
                 )
             );
         });

@@ -63,5 +63,77 @@ class SerieController extends Controller
         return $series;
     }
 
+    public function dataSeries(Request $request){
+        $serie = \App\Serie::find($request->id);
+
+        //$regions = explode(',', $request->regions);
+
+        return view('data-series', [
+            'id' => $request->id,
+            'series' => $serie,
+            'from' => $request->from,
+            'to' => $request->to,
+            'regions' => $request->regions
+        ]);
+    }
+
+    function valoresRegiaoUltimoPeriodo($id, $max){
+
+        $valores = DB::table('valores_series')
+            ->select(DB::raw("valores_series.valor as total, valores_series.uf, ed_territorios_uf.edterritorios_nome as nome"))
+            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->where([
+                ['valores_series.serie_id', $id],
+                ['valores_series.periodo', $max]
+            ])
+            ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_nome', 'valores_series.valor')
+            ->orderBy('valores_series.uf')
+            ->get();
+
+
+        return $valores;
+    }
+
+    function valoresPeriodoPorRegiao($id, $min, $max){
+        $valores = DB::table('valores_series')
+            ->select(DB::raw("sum(valores_series.valor) as total, valores_series.periodo"))
+            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->where([
+                ['valores_series.serie_id', $id],
+                ['valores_series.periodo', '>=', $min],
+                ['valores_series.periodo', '<=', $max]
+            ])
+            ->groupBy('valores_series.periodo')
+            ->orderBy('valores_series.periodo')
+            ->get();
+
+        return $valores;
+    }
+
+    function valoresPeriodoRegioesSelecionadas($id, $min, $max, $regions){
+
+        $regions = explode(',', $regions);
+
+        $rows = DB::table('valores_series')
+            ->select(DB::raw("valores_series.uf, valores_series.valor, valores_series.periodo"))
+            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->where([
+                ['valores_series.serie_id', $id],
+                ['valores_series.periodo', '>=', $min],
+                ['valores_series.periodo', '<=', $max]
+            ])
+            ->whereIn('valores_series.uf', $regions)
+            ->orderBy('valores_series.periodo')
+            ->get();
+
+        $data = [];
+
+        foreach($rows as $row){
+            $data[$row->uf][$row->periodo] = $row->valor;
+        }
+
+        return $data;
+    }
+
 
 }

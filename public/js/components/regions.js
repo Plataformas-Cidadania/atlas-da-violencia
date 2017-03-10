@@ -11,7 +11,7 @@ class Regions extends React.Component {
             maxValue: 0,
             maxUp: 0,
             maxDown: 0,
-            styleNumber: { fontSize: '50px', fontWeight: 'bold' }
+            styleNumber: { fontSize: '35px', fontWeight: 'bold' }
         };
 
         this.minMaxValue = this.minMaxValue.bind(this);
@@ -33,7 +33,7 @@ class Regions extends React.Component {
             url: "valores-inicial-final-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max,
             cache: false,
             success: function (data) {
-                console.log('region.js, loaddata', data);
+                //console.log('region.js, loaddata', data);
                 this.setState({ data: data, loading: false }, function () {
                     this.calcMaxUpDown();
                 });
@@ -150,7 +150,7 @@ class Regions extends React.Component {
             { className: 'row' },
             React.createElement(
                 'div',
-                { className: 'col-md-3 col-lg-3 text-center' },
+                { className: 'col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center' },
                 React.createElement(
                     'h4',
                     null,
@@ -171,12 +171,12 @@ class Regions extends React.Component {
                 React.createElement(
                     'p',
                     { style: this.state.styleNumber },
-                    this.state.minValue.total
+                    numeral(this.state.minValue.total).format('0,0')
                 )
             ),
             React.createElement(
                 'div',
-                { className: 'col-md-3 col-lg-3 text-center' },
+                { className: 'col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center' },
                 React.createElement(
                     'h4',
                     null,
@@ -197,7 +197,7 @@ class Regions extends React.Component {
                 React.createElement(
                     'p',
                     { style: this.state.styleNumber },
-                    this.state.maxValue.total
+                    numeral(this.state.maxValue.total).format('0,0')
                 )
             ),
             React.createElement(
@@ -213,7 +213,7 @@ class Regions extends React.Component {
             ),
             React.createElement(
                 'div',
-                { className: 'col-md-3 col-lg-3 text-center', style: { display: this.state.loading ? 'none' : 'block' } },
+                { className: 'col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center', style: { display: this.state.loading ? 'none' : 'block' } },
                 React.createElement(
                     'h4',
                     null,
@@ -238,7 +238,7 @@ class Regions extends React.Component {
             ),
             React.createElement(
                 'div',
-                { className: 'col-md-3 col-lg-3 text-center', style: { display: this.state.loading ? 'none' : 'block' } },
+                { className: 'col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center', style: { display: this.state.loading ? 'none' : 'block' } },
                 React.createElement(
                     'h4',
                     null,

@@ -120,6 +120,54 @@ class MapController extends Controller
         return $areas;
     }
 
+    function valoresRegiaoUltimoPeriodoGeometry($id, $max){
+
+        //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
+
+        //ST_X(edterritorios_centroide), ST_Y(edterritorios_centroide)
+
+
+        $where = [
+            ['valores_series.serie_id', $id],
+            ['valores_series.periodo', $max]
+        ];
+
+        $valores = DB::table('valores_series')
+            ->select(
+                DB::raw(
+                    "
+                    ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry) as geometry, 
+                    sum(valores_series.valor) as total, 
+                    valores_series.uf, 
+                    ed_territorios_uf.edterritorios_nome as nome, 
+                    ST_X(ed_territorios_uf.edterritorios_centroide) as x, 
+                    ST_Y(ed_territorios_uf.edterritorios_centroide) as y
+                    "
+                ))
+            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->where($where)
+            ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_geometry', 'ed_territorios_uf.edterritorios_centroide', 'ed_territorios_uf.edterritorios_nome')
+            ->orderBy('total')
+            ->get();
+
+        $areas = [];
+        $areas['type'] = 'FeatureCollection';
+        $areas['features'] = [];
+        foreach($valores as $index => $valor){
+            $areas['features'][$index]['type'] = 'Feature';
+            $areas['features'][$index]['id'] = $index;
+            $areas['features'][$index]['properties']['uf'] = $valor->uf;
+            $areas['features'][$index]['properties']['nome'] = $valor->nome;
+            $areas['features'][$index]['properties']['total'] = $valor->total;
+            $areas['features'][$index]['properties']['x'] = $valor->x;
+            $areas['features'][$index]['properties']['y'] = $valor->y;
+            $areas['features'][$index]['geometry'] = json_decode($valor->geometry);
+        }
+
+
+        return $areas;
+    }
+
     function valoresRegiaoPorPeriodo($id, $tipoValores, $min, $max){
 
         //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
@@ -154,6 +202,8 @@ class MapController extends Controller
 
         return $valores;
     }
+
+
 
     function valoresInicialFinalRegiaoPorPeriodo($id, $min, $max){
         $valores = DB::table('valores_series')

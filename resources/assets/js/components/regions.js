@@ -11,7 +11,7 @@ class Regions extends React.Component{
             maxValue: 0,
             maxUp: 0,
             maxDown: 0,
-            styleNumber: {fontSize: '50px', fontWeight: 'bold'}
+            styleNumber: {fontSize: '35px', fontWeight: 'bold'}
         };
 
         this.minMaxValue = this.minMaxValue.bind(this);
@@ -33,7 +33,7 @@ class Regions extends React.Component{
             url: "valores-inicial-final-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max,
             cache: false,
             success: function(data) {
-                console.log('region.js, loaddata', data);
+                //console.log('region.js, loaddata', data);
                 this.setState({data: data, loading:false}, function(){
                     this.calcMaxUpDown();
                 });
@@ -134,7 +134,7 @@ class Regions extends React.Component{
 
         return(
             <div className="row">
-                <div className="col-md-3 col-lg-3 text-center">
+                <div className="col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center">
                     <h4>{this.state.minValue.uf} - {this.state.minValue.nome}</h4>
                     <div className="line_title bg-pri"></div>
                     <br/>
@@ -142,9 +142,9 @@ class Regions extends React.Component{
                     <br/>
                     <p>É a região com menor índice</p>
                     <br/>
-                    <p style={this.state.styleNumber}>{this.state.minValue.total}</p>
+                    <p style={this.state.styleNumber}>{numeral(this.state.minValue.total).format('0,0')}</p>
                 </div>
-                <div className="col-md-3 col-lg-3 text-center">
+                <div className="col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center">
                     <h4>{this.state.maxValue.uf} - {this.state.maxValue.nome}</h4>
                     <div className="line_title bg-pri"></div>
                     <br/>
@@ -152,7 +152,7 @@ class Regions extends React.Component{
                     <br/>
                     <p>É a região com maior índice</p>
                     <br/>
-                    <p style={this.state.styleNumber}>{this.state.maxValue.total}</p>
+                    <p style={this.state.styleNumber}>{numeral(this.state.maxValue.total).format('0,0')}</p>
                 </div>
 
                 <div className="col-md-6 col-lg-6 text-center text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
@@ -160,7 +160,8 @@ class Regions extends React.Component{
                     <i className="fa fa-5x fa-spinner fa-spin"> </i>
                 </div>
 
-                <div className="col-md-3 col-lg-3 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
+
+                <div className="col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
                     <h4>{this.state.maxDown.uf} - {this.state.maxDown.nome}</h4>
                     <div className="line_title bg-pri"></div>
                     <br/>
@@ -170,7 +171,7 @@ class Regions extends React.Component{
                     <br/>
                     <p style={this.state.styleNumber}>{numeral(this.state.maxDown.variacao*multiplicadorDown).format('0,0.00')}%</p>
                 </div>
-                <div className="col-md-3 col-lg-3 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
+                <div className="col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
                     <h4>{this.state.maxUp.uf} - {this.state.maxUp.nome}</h4>
                     <div className="line_title bg-pri"></div>
                     <br/>

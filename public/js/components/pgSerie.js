@@ -7,8 +7,8 @@ class PgSerie extends React.Component {
             loading: false,
             intervalos: [],
             totaisRegioesPorPeriodo: { min: 0, max: 0, values: {} },
-            min: 0,
-            max: 0,
+            min: this.props.from,
+            max: this.props.to,
             periodos: [],
             showMap: true,
             showCharts: true,
@@ -45,10 +45,11 @@ class PgSerie extends React.Component {
     loadData() {
         $.ajax({
             method: 'GET',
-            url: "valores-regiao/" + this.state.id + "/" + this.props.tipoValores + "/" + this.state.min + "/" + this.state.max,
+            //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
+            url: "valores-regiao/" + this.state.id + "/" + this.state.max,
             cache: false,
             success: function (data) {
-                console.log('pgSerie', data);
+                //console.log('pgSerie', data);
                 let totais = {
                     min: this.state.min,
                     max: this.state.max,
@@ -62,15 +63,15 @@ class PgSerie extends React.Component {
                 for (let i in data) {
                     valores[i] = data[i].total;
                 }
-                console.log('pgSerie', valores);
+                //console.log('pgSerie', valores);
                 let valoresOrdenados = valores.sort(function (a, b) {
                     return a - b;
                 });
-                console.log('pgSerie', valoresOrdenados);
+                //console.log('pgSerie', valoresOrdenados);
 
                 intervalos = gerarIntervalos(valoresOrdenados);
                 this.setIntervalos(intervalos);
-                console.log('pgSerie', intervalos);
+                //console.log('pgSerie', intervalos);
                 ///////////////////////////////////////////////////////////
                 ///////////////////////////////////////////////////////////
 
@@ -132,8 +133,9 @@ class PgSerie extends React.Component {
                     ),
                     React.createElement(
                         "div",
-                        { className: "col-md-6 text-right" },
-                        React.createElement("div", { className: "icons-groups icon-group-print", style: { display: 'none', marginLeft: '5px' }, title: "" }),
+                        { className: "col-md-6 text-right hidden-print" },
+                        React.createElement("div", { className: "icons-groups icon-group-print", onClick: () => window.print(),
+                            style: { display: 'block', marginLeft: '5px' }, title: "" }),
                         React.createElement("div", { className: "icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable"),
                             style: { marginLeft: '5px' }, onClick: () => this.showHide('Calcs'), title: "" }),
                         React.createElement("div", { className: "icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable"),
@@ -148,12 +150,28 @@ class PgSerie extends React.Component {
                 ),
                 React.createElement("br", null),
                 React.createElement("div", { className: "line_title bg-pri" }),
-                React.createElement("br", null),
-                React.createElement(RangePeriodo, { id: this.state.id, changePeriodo: this.changePeriodo, setPeriodos: this.setPeriodos, loading: this.loading }),
-                React.createElement("br", null),
-                React.createElement("br", null),
-                React.createElement("hr", null),
-                React.createElement("br", null),
+                React.createElement(
+                    "div",
+                    { className: "hidden-print" },
+                    React.createElement("br", null),
+                    React.createElement(RangePeriodo, {
+                        id: this.state.id,
+                        changePeriodo: this.changePeriodo,
+                        setPeriodos: this.setPeriodos,
+                        loading: this.loading,
+                        from: this.props.from,
+                        to: this.props.to
+                    }),
+                    React.createElement("br", null),
+                    React.createElement("br", null),
+                    React.createElement("hr", null),
+                    React.createElement("br", null)
+                ),
+                React.createElement(
+                    "h2",
+                    { style: { textAlign: 'center' } },
+                    this.state.max
+                ),
                 React.createElement(
                     "div",
                     { style: { display: this.state.showMap ? 'block' : 'none' } },
@@ -183,7 +201,13 @@ class PgSerie extends React.Component {
                         React.createElement(
                             "div",
                             { style: { display: this.state.chartLine ? 'block' : 'none' } },
-                            React.createElement(ChartLine, { id: this.state.id, serie: this.state.serie, min: this.state.min, max: this.state.max, periodos: this.state.periodos })
+                            React.createElement(ChartLine, { id: this.state.id,
+                                serie: this.state.serie,
+                                min: this.state.min,
+                                max: this.state.max,
+                                periodos: this.state.periodos,
+                                regions: this.props.regions,
+                                intervalos: this.state.intervalos })
                         ),
                         React.createElement(
                             "div",
@@ -214,6 +238,11 @@ class PgSerie extends React.Component {
                     React.createElement("br", null)
                 ),
                 React.createElement(
+                    "h2",
+                    { style: { textAlign: 'center' } },
+                    this.state.max
+                ),
+                React.createElement(
                     "div",
                     { style: { display: this.state.showTable ? 'block' : 'none' } },
                     React.createElement(ListValoresSeries, { min: this.state.min, max: this.state.max, data: this.state.totaisRegioesPorPeriodo }),
@@ -223,7 +252,7 @@ class PgSerie extends React.Component {
                 ),
                 React.createElement(
                     "div",
-                    { style: { display: this.state.showCalcs ? 'block' : 'none' } },
+                    { className: "hidden-print", style: { display: this.state.showCalcs ? 'block' : 'none' } },
                     React.createElement(Calcs, { id: this.state.id, serie: this.state.serie, data: this.state.totaisRegioesPorPeriodo })
                 )
             )
@@ -231,4 +260,4 @@ class PgSerie extends React.Component {
     }
 }
 
-ReactDOM.render(React.createElement(PgSerie, { id: serie_id, serie: serie, tipoValores: tipoValores }), document.getElementById('pgSerie'));
+ReactDOM.render(React.createElement(PgSerie, { id: serie_id, serie: serie, tipoValores: tipoValores, from: from, to: to, regions: regions }), document.getElementById('pgSerie'));

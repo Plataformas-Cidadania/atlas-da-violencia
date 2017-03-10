@@ -154,7 +154,7 @@ class Calcs extends React.Component {
                     { className: 'col-md-12' },
                     React.createElement('div', { className: 'icons-list-items icon-list-item-1', style: { float: 'left' } }),
                     React.createElement(
-                        'h4',
+                        'h5',
                         null,
                         '\xA0\xA0',
                         this.state.serie
@@ -173,14 +173,15 @@ class Calcs extends React.Component {
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
                             'h4',
-                            { className: '', style: this.state.styleCalcs },
-                            this.state.minValue.total
+                            { style: this.state.styleCalcs },
+                            'M\xEDnima'
                         )
                     ),
+                    React.createElement('br', null),
                     React.createElement(
                         'h4',
-                        null,
-                        'M\xEDnima'
+                        { className: '' },
+                        numeral(this.state.minValue.total).format('0,0.00')
                     )
                 ),
                 React.createElement(
@@ -191,14 +192,15 @@ class Calcs extends React.Component {
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
                             'h4',
-                            { className: '', style: this.state.styleCalcs },
-                            this.state.maxValue.total
+                            { style: this.state.styleCalcs },
+                            'M\xE1xima'
                         )
                     ),
+                    React.createElement('br', null),
                     React.createElement(
                         'h4',
-                        null,
-                        'M\xE1xima'
+                        { className: '' },
+                        numeral(this.state.maxValue.total).format('0,0.00')
                     )
                 ),
                 React.createElement(
@@ -209,14 +211,15 @@ class Calcs extends React.Component {
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
                             'h4',
-                            { className: '', style: this.state.styleCalcs },
-                            numeral(this.state.media[this.state.id]).format('0.00')
+                            { style: this.state.styleCalcs },
+                            'M\xE9dia'
                         )
                     ),
+                    React.createElement('br', null),
                     React.createElement(
                         'h4',
-                        null,
-                        'M\xE9dia'
+                        { className: '' },
+                        numeral(this.state.media[this.state.id]).format('0,0.00')
                     )
                 ),
                 React.createElement(
@@ -227,14 +230,15 @@ class Calcs extends React.Component {
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
                             'h4',
-                            { className: '', style: this.state.styleCalcs },
-                            numeral(this.state.mediaPonderada[this.state.id]).format('0.00')
+                            { style: { paddingTop: '45px' } },
+                            'M\xE9dia Ponderada'
                         )
                     ),
+                    React.createElement('br', null),
                     React.createElement(
                         'h4',
-                        null,
-                        'M\xE9dia Ponderada'
+                        { className: '' },
+                        numeral(this.state.mediaPonderada[this.state.id]).format('0,0.00')
                     )
                 ),
                 React.createElement(
@@ -245,14 +249,15 @@ class Calcs extends React.Component {
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
                             'h4',
-                            { className: '', style: this.state.styleCalcs },
-                            numeral(this.state.mediana[this.state.id]).format('0.00')
+                            { style: this.state.styleCalcs },
+                            'Mediana'
                         )
                     ),
+                    React.createElement('br', null),
                     React.createElement(
                         'h4',
-                        null,
-                        'Mediana'
+                        { className: '' },
+                        numeral(this.state.mediana[this.state.id]).format('0,0.00')
                     )
                 ),
                 React.createElement(
@@ -263,14 +268,15 @@ class Calcs extends React.Component {
                         { className: 'icons-list-140-150 icon-list-140-150-1' },
                         React.createElement(
                             'h4',
-                            { className: '', style: this.state.styleCalcs },
-                            numeral(this.state.moda[this.state.id]).format('0.00')
+                            { style: this.state.styleCalcs },
+                            'Moda'
                         )
                     ),
+                    React.createElement('br', null),
                     React.createElement(
                         'h4',
-                        null,
-                        'Moda'
+                        { className: '' },
+                        numeral(this.state.moda[this.state.id]).format('0,0.00')
                     )
                 )
             )

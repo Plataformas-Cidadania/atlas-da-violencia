@@ -1,10 +1,10 @@
-class FiltroRegioes extends React.Component {
+class FiltroRegions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             id: this.props.id,
-            regioes: [],
-            classRegioes: [],
+            regions: [],
+            classRegions: [],
             selecteds: []
         };
 
@@ -14,6 +14,7 @@ class FiltroRegioes extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.selectAll = this.selectAll.bind(this);
         this.selectNone = this.selectNone.bind(this);
+        this.updateRegions = this.updateRegions.bind(this);
     }
 
     componentDidMount() {
@@ -35,48 +36,52 @@ class FiltroRegioes extends React.Component {
     }
 
     classDefault() {
-        let regioes = [];
-        for (let i in this.state.regioes) {
-            regioes[i] = this.state.regioes[i];
-            regioes[i].selected = false;
+        let regions = [];
+        for (let i in this.state.regions) {
+            regions[i] = this.state.regions[i];
+            regions[i].selected = false;
         }
-        this.setState({ regioes: regioes });
+        this.setState({ regions: regions });
     }
 
     handleClick(e) {
         e.preventDefault();
         //console.log(e.target.id);
-        let regioes = this.state.regioes;
+        let regions = this.state.regions;
 
-        regioes.filter(function (obj) {
+        regions.filter(function (obj) {
             if (obj.uf == e.target.id) obj.selected = !obj.selected;
         });
 
-        this.setState({ regioes: regioes });
+        this.updateRegions(regions);
     }
 
     selectAll(e) {
         e.preventDefault();
-        let regioes = this.state.regioes;
+        let regions = this.state.regions;
 
-        regioes.filter(function (obj) {
+        regions.filter(function (obj) {
             obj.selected = true;
         });
 
-        this.setState({ regioes: regioes });
-        console.log(this.state.regioes);
+        this.updateRegions(regions);
     }
 
     selectNone(e) {
         e.preventDefault();
-        let regioes = this.state.regioes;
+        let regions = this.state.regions;
 
-        regioes.filter(function (obj) {
+        regions.filter(function (obj) {
             obj.selected = false;
         });
 
-        this.setState({ regioes: regioes });
-        //console.log(this.state.regioes);
+        this.updateRegions(regions);
+    }
+
+    updateRegions(regions) {
+        this.setState({ regions: regions }, function () {
+            this.props.setRegions(this.state.regions);
+        });
     }
 
     loadData() {
@@ -84,8 +89,8 @@ class FiltroRegioes extends React.Component {
         $.ajax("regioes/" + this.state.id, {
             data: {},
             success: function (data) {
-                //console.log('regioes', data);
-                this.setState({ regioes: data }, function () {
+                //console.log('regions', data);
+                this.setState({ regions: data }, function () {
                     this.classDefault();
                 });
                 this.loading(false);
@@ -99,7 +104,7 @@ class FiltroRegioes extends React.Component {
 
     render() {
 
-        let regioes = this.state.regioes.map(function (item) {
+        let regions = this.state.regions.map(function (item) {
             return React.createElement(
                 "button",
                 { type: "button",
@@ -114,7 +119,7 @@ class FiltroRegioes extends React.Component {
 
         return React.createElement(
             "div",
-            { style: { display: this.state.regioes.length > 0 ? 'block' : 'none' } },
+            { style: { display: this.state.regions.length > 0 ? 'block' : 'none' } },
             React.createElement(
                 "h4",
                 null,
@@ -131,7 +136,7 @@ class FiltroRegioes extends React.Component {
                 "Desmarcar Todos"
             ),
             React.createElement("br", null),
-            regioes
+            regions
         );
     }
 }

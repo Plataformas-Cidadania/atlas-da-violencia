@@ -17,7 +17,7 @@ class ChartPie extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(this.state.min != props.data.min || this.state.max != props.data.max){
+        if(this.state.min != props.data.min || this.state.max != props.data.max || this.state.intervalos != props.intervalos){
             /*this.setState({min: props.min, max: props.max}, function(){
                 if(myChartPie){
                     this.chartDestroy();
@@ -101,13 +101,13 @@ class ChartPie extends React.Component{
             for(let i in values){
                 colors.push(convertHex(getColor(values[i], intervalos), 100));
             }
-            console.log('chartPie', colors);
+            //console.log('chartPie', colors);
             return colors;
         }
     }
 
     render(){
-        console.log('chartPie', intervalos);
+        //console.log('chartPie', intervalos);
         return (<canvas id="myChartPie" width="400" height="200"> </canvas>);
     }
 }
