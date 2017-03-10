@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\Storage;
 
 class DownloadController extends Controller
 {
     public function listar(){
-        //$downloads = DB::table('downloads')->paginate(10);
-       
-        //return view('download.listar', ['downloads' => $downloads]);
-        return view('download.listar');
+        $download = new \App\Download;
+        $downloads = $download->orderBy('id', 'desc')->get();
+
+        return view('download.listar', ['downloads' => $downloads]);
     }
 }
