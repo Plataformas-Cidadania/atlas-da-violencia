@@ -13,7 +13,7 @@ class AlterQuemsomosTable extends Migration
     public function up()
     {
         Schema::table('quemsomos', function (Blueprint $table) {
-            $table->integer('origem_id');
+            $table->integer('origem_id')->default(0);
         });
     }
 
