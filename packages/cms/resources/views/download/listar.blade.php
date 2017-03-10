@@ -1,7 +1,7 @@
 @extends('cms::layouts.app')
 
 @section('content')
-    {!! Html::script('/assets-cms/js/controllers/downloadCtrl.js') !!}
+    {!! Html::script('assets-cms/js/controllers/downloadCtrl.js') !!}
 <script>
     $(function () {
         $('[data-toggle="popover"]').popover()
@@ -100,10 +100,10 @@
                         <tr ng-repeat="download in downloads">
                             <td><% download.id %></td>
                             <td><img ng-show="download.imagem" ng-src="/imagens/downloads/xs-<% download.imagem %>" width="60"></td>
-                            <td><a href="/cms/download/<% download.id %>"><% download.titulo %></a></td>
+                            <td><a href="cms/download/<% download.id %>"><% download.titulo %></a></td>
                             <td class="text-right">
                                 <div>
-                                    <a href="/cms/download/<% download.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/download/<% download.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(download.id, download.titulo, download.imagem)"></i></a>
                                 </div>
                             </td>
@@ -148,7 +148,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <img  ng-src="/imagens/downloads/xs-<% imagemExcluir %>" width="100">
+                                <img  ng-src="imagens/downloads/xs-<% imagemExcluir %>" width="100">
                             </div>
                             <div class="col-md-9">
                                 <p><% tituloExcluir %></p>
