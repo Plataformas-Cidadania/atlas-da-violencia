@@ -11,18 +11,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 
-class QuemsomoController extends Controller
+class ArtigoController extends Controller
 {
     
     
 
     public function __construct()
     {
-        $this->quemsomo = new \App\Quemsomo;
+        $this->artigo = new \App\Artigo;
         $this->campos = [
-            'imagem', 'origem_id', 'titulo', 'descricao', 'tipo', 'cmsuser_id',
+            'imagem', 'origem_id', 'titulo', 'descricao', 'autor', 'fonte', 'url', 'legenda', 'cmsuser_id',
         ];
-        $this->pathImagem = public_path().'/imagens/quemsomos';
+        $this->pathImagem = public_path().'/imagens/artigos';
         $this->sizesImagem = [
             'xs' => ['width' => 140, 'height' => 79],
             'sm' => ['width' => 480, 'height' => 270],
@@ -35,9 +35,10 @@ class QuemsomoController extends Controller
     function index()
     {
 
-        $quemsomos = \App\Quemsomo::all();
+        $artigos = \App\Artigo::all();
+        $series = \App\Serie::lists('titulo', 'id')->all();
 
-        return view('cms::quemsomo.listar', ['quemsomos' => $quemsomos]);
+        return view('cms::artigo.listar', ['artigos' => $artigos, 'series' => $series]);
     }
 
     public function listar(Request $request)
@@ -49,14 +50,14 @@ class QuemsomoController extends Controller
 
         $campos = explode(", ", $request->campos);
 
-        $quemsomos = DB::table('quemsomos')
+        $artigos = DB::table('artigos')
             ->select($campos)
             ->where([
                 [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
             ])
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
-        return $quemsomos;
+        return $artigos;
     }
 
     public function inserir(Request $request)
@@ -64,12 +65,12 @@ class QuemsomoController extends Controller
 
         $data = $request->all();
 
-        $data['quemsomo'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['artigo'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
-                $data['quemsomo'] += [$campo => ''];
+                $data['artigo'] += [$campo => ''];
             }
         }
 
@@ -81,39 +82,41 @@ class QuemsomoController extends Controller
             $success = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
             
             if($success){
-                $data['quemsomo']['imagem'] = $filename;
-                return $this->quemsomo->create($data['quemsomo']);
+                $data['artigo']['imagem'] = $filename;
+                return $this->artigo->create($data['artigo']);
             }else{
                 return "erro";
             }
         }
 
-        return $this->quemsomo->create($data['quemsomo']);
+        return $this->artigo->create($data['artigo']);
 
     }
 
     public function detalhar($id)
     {
-        $quemsomo = $this->quemsomo->where([
+        $artigo = $this->artigo->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        return view('cms::quemsomo.detalhar', ['quemsomo' => $quemsomo]);
+        $series = \App\Serie::lists('titulo', 'id')->all();
+
+        return view('cms::artigo.detalhar', ['artigo' => $artigo, 'series' => $series]);
     }
 
     public function alterar(Request $request, $id)
     {
         $data = $request->all();
-        $data['quemsomo'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['artigo'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
                 if($campo!='imagem'){
-                    $data['quemsomo'] += [$campo => ''];
+                    $data['artigo'] += [$campo => ''];
                 }
             }
         }
-        $quemsomo = $this->quemsomo->where([
+        $artigo = $this->artigo->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
@@ -122,11 +125,11 @@ class QuemsomoController extends Controller
         if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
-            $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $quemsomo);
+            $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $artigo);
             if($success){
-                $data['quemsomo']['imagem'] = $filename;
-                $quemsomo->update($data['quemsomo']);
-                return $quemsomo->imagem;
+                $data['artigo']['imagem'] = $filename;
+                $artigo->update($data['artigo']);
+                return $artigo->imagem;
             }else{
                 return "erro";
             }
@@ -134,13 +137,13 @@ class QuemsomoController extends Controller
 
         //remover imagem
         if($data['removerImagem']){
-            $data['quemsomo']['imagem'] = '';
-            if(file_exists($this->pathImagem."/".$quemsomo->imagem)) {
-                unlink($this->pathImagem . "/" . $quemsomo->imagem);
+            $data['artigo']['imagem'] = '';
+            if(file_exists($this->pathImagem."/".$artigo->imagem)) {
+                unlink($this->pathImagem . "/" . $artigo->imagem);
             }
         }
 
-        $quemsomo->update($data['quemsomo']);
+        $artigo->update($data['artigo']);
         return "Gravado com sucesso";
     }
 
@@ -148,19 +151,19 @@ class QuemsomoController extends Controller
     {
         //Auth::loginUsingId(2);
 
-        $quemsomo = $this->quemsomo->where([
+        $artigo = $this->artigo->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
         //remover imagens        
-        if(!empty($quemsomo->imagem)){
+        if(!empty($artigo->imagem)){
             //remover imagens
             $imagemCms = new ImagemCms();
-            $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $quemsomo);
+            $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $artigo);
         }
                 
 
-        $quemsomo->delete();
+        $artigo->delete();
 
     }
 

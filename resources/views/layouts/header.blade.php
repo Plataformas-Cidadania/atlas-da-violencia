@@ -90,10 +90,11 @@
             <nav class="menu-position collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation" >
                 <ul id="iniciodomenu" class="nav nav-pills nav-justified">
                     <li role="presentation"><a href="http://{{$base_href}}" accesskey="h" @if($rota=='/') class="corrente" @endif>Início</a></li>
-                    <li role="presentation"><a href="quem" accesskey="q" @if($rota=='quem') class="corrente" @endif>Sobre</a></li>
+                    <li role="presentation"><a href="quem/3/sobre" accesskey="q" @if($rota=='quem') class="corrente" @endif>Sobre</a></li>
                     <li role="presentation"><a href="series" accesskey="q" @if($rota=='series') class="corrente" @endif>Pesquisas</a></li>
-                    <li role="presentation"><a href="noticias" accesskey="n" @if($rota=='noticias') class="corrente" @endif>Notícias</a></li>
+                    <li role="presentation"><a href="artigos/0/" accesskey="n" @if($rota=='artigos') class="corrente" @endif>Artigos</a></li>
                     <li role="presentation"><a href="videos" accesskey="q" @if($rota=='videos') class="corrente" @endif>Vídeos</a></li>
+                    <li role="presentation"><a href="downloads" accesskey="q" @if($rota=='downloads') class="corrente" @endif>Downloads</a></li>
                     <li role="presentation"><a href="contato" accesskey="c" @if($rota=='contato') class="corrente" @endif>Contato</a></li>
                 </ul>
             </nav>

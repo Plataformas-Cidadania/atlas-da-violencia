@@ -17,6 +17,7 @@
 
     Route::get('quem/', 'QuemController@detalhar');
     Route::get('quem/{titulo}', 'QuemController@detalhar');
+    Route::get('quem/{origem_id}/{titulo}', 'QuemController@detalhar');
 
     Route::get('acessibilidade/', 'AcessibilidadeController@detalhar');
 
@@ -31,6 +32,16 @@
     Route::get('noticias/{titulo}', 'NoticiaController@listar');
     Route::get('noticia/{id}', 'NoticiaController@detalhar');
     Route::get('noticia/{id}/{titulo}', 'NoticiaController@detalhar');
+
+    Route::get('artigos/{origem_id}', 'ArtigoController@listar');
+    Route::get('artigos/{origem_id}/{titulo}', 'ArtigoController@listar');
+    Route::get('artigos/', 'ArtigoController@listar');
+    Route::get('artigos/{titulo}', 'ArtigoController@listar');
+    Route::get('artigo/{id}', 'ArtigoController@detalhar');
+    Route::get('artigo/{id}/{titulo}', 'ArtigoController@detalhar');
+
+    Route::get('downloads/', 'DownloadController@listar');
+    Route::get('downloads/{titulo}', 'DownloadController@listar');
 
     Route::get('videos/', 'VideoController@listar');
     Route::get('videos/{titulo}', 'VideoController@listar');

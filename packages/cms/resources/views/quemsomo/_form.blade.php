@@ -9,6 +9,14 @@
         ),
 null, ['class'=>"form-control width-medio <% validar(quemsomo.tipo) %>", 'ng-model'=>'quemsomo.tipo', 'ng-required'=>'true', 'init-model'=>'quemsomo.tipo', 'placeholder' => '']) !!}<br>
 
+{!! Form::label('origem_id', 'Origem *') !!}<br>
+{!! Form::select('origem_id',
+        array(
+            '0' => 'Principal',
+            '1' => 'Quem somos'
+        ),
+null, ['class'=>"form-control width-medio <% validar(quemsomo.origem_id) %>", 'ng-model'=>'quemsomo.origem_id', 'ng-required'=>'true', 'init-model'=>'quemsomo.origem_id', 'placeholder' => '']) !!}<br>
+
 
 {!! Form::label('titulo', 'Título *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(quemsomo.titulo) %>", 'ng-model'=>'quemsomo.titulo', 'ng-required'=>'true', 'init-model'=>'quemsomo.titulo', 'placeholder' => '']) !!}<br>
