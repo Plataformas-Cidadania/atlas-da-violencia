@@ -599,6 +599,26 @@ footer {
 .menu-global-box li:hover .menu-global-box-list{
   display: block!important;
 }*/
+.menu-vertical {
+  margin: 0;
+  padding: 0;
+}
+.menu-vertical li {
+  list-style: none;
+}
+.menu-vertical li a {
+  padding: 0 10px;
+  border: solid 1px #CCCCCC;
+  line-height: 40px;
+  display: block;
+  margin: 3px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.menu-vertical li a:hover {
+  background-color: #3498DB;
+  color: #FFFFFF!important;
+}
 .nav > li a {
   font-size: 18px !important;
   color: #777777;

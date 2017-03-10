@@ -35,6 +35,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/noticia/{id}', 'Cms\Controllers\NoticiaController@detalhar');
         Route::post('/cms/alterar-noticia/{id}', 'Cms\Controllers\NoticiaController@alterar');
         Route::get('/cms/excluir-noticia/{id}', 'Cms\Controllers\NoticiaController@excluir');
+
+        //ARTIGOS
+        Route::get('/cms/artigos', 'Cms\Controllers\ArtigoController@index');
+        Route::get('/cms/listar-artigos', 'Cms\Controllers\ArtigoController@listar');
+        Route::post('/cms/inserir-artigo', 'Cms\Controllers\ArtigoController@inserir');
+        Route::get('/cms/artigo/{id}', 'Cms\Controllers\ArtigoController@detalhar');
+        Route::post('/cms/alterar-artigo/{id}', 'Cms\Controllers\ArtigoController@alterar');
+        Route::get('/cms/excluir-artigo/{id}', 'Cms\Controllers\ArtigoController@excluir');
         
         //SERIES
         Route::get('/cms/series', 'Cms\Controllers\SerieController@index');

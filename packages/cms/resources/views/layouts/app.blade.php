@@ -84,8 +84,11 @@
                     <a href="cms/videos"><i class="fa fa-fw fa-newspaper-o"></i> Vídeos</a>
                 </li>
                 <li>
-                    <a href="cms/noticias"><i class="fa fa-fw fa-newspaper-o"></i> Notícias</a>
+                    <a href="cms/artigos"><i class="fa fa-fw fa-newspaper-o"></i> Artigos</a>
                 </li>
+                {{--<li>
+                    <a href="cms/noticias"><i class="fa fa-fw fa-newspaper-o"></i> Notícias</a>
+                </li>--}}
                 <li>
                     <a href="cms/series"><i class="fa fa-fw fa-link"></i> Séries</a>
                 </li>

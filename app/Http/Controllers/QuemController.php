@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Log;
 
 class QuemController extends Controller
 {
-    public function detalhar(){
+    public function detalhar($origem_id){
 
-        $quem = DB::table('quemsomos')->where('tipo', 1)->first();
-        //$settings = DB::table('settings')->orderBy('id', 'desc')->get();
+        $quem = DB::table('quemsomos')->where('id', $origem_id)->first();
+        $menus = DB::table('quemsomos')->where('origem_id', 1)->get();
 
-        return view('quem.detalhar', ['quem' => $quem]);
-        //return view('quem.detalhar', ['quem' => $quem, 'settings' => $settings]);
+        return view('quem.detalhar', ['quem' => $quem, 'menus' => $menus]);
 
     }
 }
