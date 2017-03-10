@@ -31,7 +31,7 @@ class DownloadController extends Controller
         ];
         $this->widthOriginal = true;
 
-        $this->pathArquivo = public_path().'/arquivos/downloads';
+        $this->pathArquivo = public_path().'arquivos/downloads';
     }
 
     function index()
