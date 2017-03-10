@@ -99,7 +99,7 @@
                     <a href="cms/indices"><i class="fa fa-fw fa-link"></i> Índices</a>
                 </li>
                 <li>
-                    <a href="/cms/downloads"><i class="fa fa-download" aria-hidden="true"></i> Downloads</a>
+                    <a href="cms/downloads"><i class="fa fa-download" aria-hidden="true"></i> Downloads</a>
                 </li>
                 <li>
                     <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
