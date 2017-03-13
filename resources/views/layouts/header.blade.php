@@ -108,10 +108,10 @@
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 25px; background-color: #ececec; height: 315px;"  ng-class="{'alto-contraste': altoContrasteAtivo}">
-                    <h2 style="margin-top: 0;">{{$ultimaNoticia->titulo}}</h2>
-                    <div style="height: 100px; overflow: hidden;">{!! $ultimaNoticia->descricao !!}</div>
+                    <h2 style="margin-top: 0;">{{$ultimaArtigo->titulo}}</h2>
+                    <div style="height: 100px; overflow: hidden;">{!! $ultimaArtigo->descricao !!}</div>
                     <br>
-                    <a href="noticia/{{$ultimaNoticia->id}}/{{clean($ultimaNoticia->titulo)}}" class="btn btn-info" >Mais Detalhes</a>
+                    <a href="noticia/{{$ultimaArtigo->id}}/{{clean($ultimaArtigo->titulo)}}" class="btn btn-info" >Mais Detalhes</a>
                 </div>
             </div>
             <?php /*?>

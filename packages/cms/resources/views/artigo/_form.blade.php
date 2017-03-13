@@ -2,7 +2,7 @@
 
 {!! Form::label('origem_id', 'Origem_id *') !!}<br>
 {!! Form::select('origem_id',
-        $series,
+        $links,
 null, ['class'=>"form-control width-medio <% validar(artigo.origem_id) %>", 'ng-model'=>'artigo.origem_id', 'ng-required'=>'true', 'init-model'=>'artigo.origem_id', 'placeholder' => 'Selecione']) !!}<br>
 
 

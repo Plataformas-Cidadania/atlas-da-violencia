@@ -1,5 +1,14 @@
 {{--É NECESSÁRIO RODAR O COMANDO composer require illuminate/html E ALTERAR ACRESCENTAR LINHA NO ARQUIVO config/app.php--}}
 
+{!! Form::label('tipo', 'Origem *') !!}<br>
+{!! Form::select('tipo',
+        array(
+            '0' => 'Interno',
+            '1' => 'Externo'
+        ),
+null, ['class'=>"form-control width-medio <% validar(link.tipo) %>", 'ng-model'=>'link.tipo', 'ng-required'=>'true', 'init-model'=>'link.tipo', 'placeholder' => '']) !!}<br>
+
+
 {!! Form::label('posicao', 'Posição *') !!}<br>
 {!! Form::number('posicao', null, ['class'=>"form-control width-pequeno <% validar(link.posicao) %>", 'ng-model'=>'link.posicao', 'ng-required'=>'true', 'init-model'=>'link.posicao', 'placeholder' => '']) !!}<br>
 

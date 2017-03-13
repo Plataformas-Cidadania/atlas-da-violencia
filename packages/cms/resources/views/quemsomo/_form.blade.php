@@ -5,7 +5,8 @@
         array(
             '0' => 'Bem vindo',
             '1' => 'Quem somos',
-            '2' => 'Acessibilidade'
+            '2' => 'Acessibilidade',
+            '3' => 'Redirecionamento'
         ),
 null, ['class'=>"form-control width-medio <% validar(quemsomo.tipo) %>", 'ng-model'=>'quemsomo.tipo', 'ng-required'=>'true', 'init-model'=>'quemsomo.tipo', 'placeholder' => '']) !!}<br>
 

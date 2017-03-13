@@ -35,7 +35,12 @@
                         }?>
                     <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" >
                         <div>
-                            <a href="filtros/{{$link->link}}/{{clean($link->titulo)}}">
+                            {{$link->tipo}}
+                            @if($link->tipo==0)
+                                <a href="filtros/{{$link->link}}/{{clean($link->titulo)}}">
+                            @else
+                                <a href="redirecionamento/{{$link->id}}/{{clean($link->titulo)}}">
+                            @endif
                                 <picture>
                                     <source srcset="imagens/links/{{$link->imagem}}" media="(max-width: 468px)">
                                     <source srcset="imagens/links/{{$link->imagem}}" media="(max-width: 768px)">

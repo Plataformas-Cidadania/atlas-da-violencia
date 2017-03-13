@@ -15,7 +15,7 @@ class HomeController extends Controller
         $links = DB::table('links')->orderBy('posicao')->take(10)->get();
         $bemvindo = DB::table('quemsomos')->where('tipo', 0)->first();
         $webdoors = DB::table('webdoors')->orderBy('id', 'desc')->take(4)->get();
-        $ultimaNoticia = DB::table('noticias')->orderBy('id', 'desc')->take(1)->first();
+        $ultimaArtigo = DB::table('artigos')->orderBy('id', 'desc')->take(1)->first();
         $noticias = DB::table('noticias')->orderBy('id', 'desc')->skip(1)->take(2)->get();
         $menu = \App\Menu::where('menu_id', 0)->get();
         $video = \App\Video::orderBy('id', 'desc')->first();
@@ -24,7 +24,7 @@ class HomeController extends Controller
 
         return view('home', [
             'bemvindo' => $bemvindo,
-            'ultimaNoticia' => $ultimaNoticia,
+            'ultimaArtigo' => $ultimaArtigo,
             'noticias' => $noticias,
             'links' => $links,
             'tags' => $tags,

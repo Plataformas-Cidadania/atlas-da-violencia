@@ -16,7 +16,7 @@ class ArtigoController extends Controller
             $artigos = DB::table('artigos')->where('origem_id', '=', $origem_id )->paginate(10);
         }
 
-        $menus = DB::table('series')->get();
+        $menus = DB::table('links')->get();
 
         return view('artigo.listar', ['artigos' => $artigos, 'menus' => $menus]);
     }

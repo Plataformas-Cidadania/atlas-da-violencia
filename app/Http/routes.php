@@ -28,6 +28,9 @@
     Route::get('renda/', 'RendaController@detalhar');
     Route::get('pagina/', 'PaginaController@detalhar');
 
+    Route::get('redirecionamento/{id}/{titulo}', 'LinkController@redirection');
+    Route::get('link/{id}/{titulo}', 'LinkController@detalhar');
+
     Route::get('noticias/', 'NoticiaController@listar');
     Route::get('noticias/{titulo}', 'NoticiaController@listar');
     Route::get('noticia/{id}', 'NoticiaController@detalhar');
@@ -43,6 +46,7 @@
     Route::get('downloads/', 'DownloadController@listar');
     Route::get('downloads/{titulo}', 'DownloadController@listar');
 
+    Route::post('busca-videos/', 'VideoController@buscar');
     Route::get('videos/', 'VideoController@listar');
     Route::get('videos/{titulo}', 'VideoController@listar');
 

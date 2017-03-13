@@ -36,9 +36,9 @@ class ArtigoController extends Controller
     {
 
         $artigos = \App\Artigo::all();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+        $links = \App\Link::lists('titulo', 'id')->all();
 
-        return view('cms::artigo.listar', ['artigos' => $artigos, 'series' => $series]);
+        return view('cms::artigo.listar', ['artigos' => $artigos, 'links' => $links]);
     }
 
     public function listar(Request $request)
@@ -98,9 +98,9 @@ class ArtigoController extends Controller
         $artigo = $this->artigo->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+        $links = \App\Link::lists('titulo', 'id')->all();
 
-        return view('cms::artigo.detalhar', ['artigo' => $artigo, 'series' => $series]);
+        return view('cms::artigo.detalhar', ['artigo' => $artigo, 'links' => $links]);
     }
 
     public function alterar(Request $request, $id)

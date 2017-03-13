@@ -20,7 +20,7 @@ class LinkController extends Controller
     {
         $this->link = new \App\Link;
         $this->campos = [
-            'imagem', 'posicao', 'titulo', 'descricao', 'link', 'tags', 'cmsuser_id',
+            'imagem', 'tipo', 'posicao', 'titulo', 'descricao', 'link', 'tags', 'cmsuser_id',
         ];
         $this->pathImagem = public_path().'/imagens/links';
         $this->sizesImagem = [
