@@ -43,8 +43,8 @@
                 <li><a href="acessibilidade" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-universal-access" aria-hidden="true"></i> Acessibilidade </a></li>
                 <li><a href="#" id="bt_contraste" ng-click="setAltoContraste()" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-adjust" aria-hidden="true"></i> Alto contraste</a></li>
                 {{--<li><a href="mapa.html" ng-class="{'alto-contraste': altoContrasteAtivo}"> Mapa do site </a></li>--}}
-                <li><img src="img/portugues.jpg" alt=""></li>
-                <li><img src="img/ingles.jpg" alt=""></li>
+                {{--<li><img src="img/portugues.jpg" alt=""></li>
+                <li><img src="img/ingles.jpg" alt=""></li>--}}
             </ul>
 
         </div>

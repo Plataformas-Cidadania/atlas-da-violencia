@@ -11,18 +11,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 
-class ArtigoController extends Controller
+class AuthorController extends Controller
 {
     
     
 
     public function __construct()
     {
-        $this->artigo = new \App\Artigo;
+        $this->author = new \App\Author;
         $this->campos = [
-            'imagem', 'origem_id', 'titulo', 'descricao', 'autor', 'fonte', 'url', 'legenda', 'cmsuser_id',
+            'imagem', 'titulo', 'cmsuser_id',
         ];
-        $this->pathImagem = public_path().'/imagens/artigos';
+        $this->pathImagem = public_path().'/imagens/authors';
         $this->sizesImagem = [
             'xs' => ['width' => 140, 'height' => 79],
             'sm' => ['width' => 480, 'height' => 270],
@@ -35,11 +35,10 @@ class ArtigoController extends Controller
     function index()
     {
 
-        $artigos = \App\Artigo::all();
-        $links = \App\Link::lists('titulo', 'id')->all();
-        $authors = \App\Author::lists('titulo', 'id')->all();
+        $authors = \App\Author::all();
+        $series = \App\Serie::lists('titulo', 'id')->all();
 
-        return view('cms::artigo.listar', ['artigos' => $artigos, 'links' => $links, 'authors' => $authors]);
+        return view('cms::author.listar', ['authors' => $authors, 'series' => $series]);
     }
 
     public function listar(Request $request)
@@ -51,14 +50,14 @@ class ArtigoController extends Controller
 
         $campos = explode(", ", $request->campos);
 
-        $artigos = DB::table('artigos')
+        $authors = DB::table('authors')
             ->select($campos)
             ->where([
                 [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
             ])
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
-        return $artigos;
+        return $authors;
     }
 
     public function inserir(Request $request)
@@ -66,12 +65,12 @@ class ArtigoController extends Controller
 
         $data = $request->all();
 
-        $data['artigo'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['author'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
-                $data['artigo'] += [$campo => ''];
+                $data['author'] += [$campo => ''];
             }
         }
 
@@ -83,42 +82,41 @@ class ArtigoController extends Controller
             $success = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
             
             if($success){
-                $data['artigo']['imagem'] = $filename;
-                return $this->artigo->create($data['artigo']);
+                $data['author']['imagem'] = $filename;
+                return $this->author->create($data['author']);
             }else{
                 return "erro";
             }
         }
 
-        return $this->artigo->create($data['artigo']);
+        return $this->author->create($data['author']);
 
     }
 
     public function detalhar($id)
     {
-        $artigo = $this->artigo->where([
+        $author = $this->author->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $links = \App\Link::lists('titulo', 'id')->all();
-        $authors = \App\Author::lists('titulo', 'id')->all();
+        $series = \App\Serie::lists('titulo', 'id')->all();
 
-        return view('cms::artigo.detalhar', ['artigo' => $artigo, 'links' => $links, 'authors' => $authors]);
+        return view('cms::author.detalhar', ['author' => $author, 'series' => $series]);
     }
 
     public function alterar(Request $request, $id)
     {
         $data = $request->all();
-        $data['artigo'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['author'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
                 if($campo!='imagem'){
-                    $data['artigo'] += [$campo => ''];
+                    $data['author'] += [$campo => ''];
                 }
             }
         }
-        $artigo = $this->artigo->where([
+        $author = $this->author->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
@@ -127,11 +125,11 @@ class ArtigoController extends Controller
         if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
-            $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $artigo);
+            $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $author);
             if($success){
-                $data['artigo']['imagem'] = $filename;
-                $artigo->update($data['artigo']);
-                return $artigo->imagem;
+                $data['author']['imagem'] = $filename;
+                $author->update($data['author']);
+                return $author->imagem;
             }else{
                 return "erro";
             }
@@ -139,13 +137,13 @@ class ArtigoController extends Controller
 
         //remover imagem
         if($data['removerImagem']){
-            $data['artigo']['imagem'] = '';
-            if(file_exists($this->pathImagem."/".$artigo->imagem)) {
-                unlink($this->pathImagem . "/" . $artigo->imagem);
+            $data['author']['imagem'] = '';
+            if(file_exists($this->pathImagem."/".$author->imagem)) {
+                unauthor($this->pathImagem . "/" . $author->imagem);
             }
         }
 
-        $artigo->update($data['artigo']);
+        $author->update($data['author']);
         return "Gravado com sucesso";
     }
 
@@ -153,19 +151,18 @@ class ArtigoController extends Controller
     {
         //Auth::loginUsingId(2);
 
-        $artigo = $this->artigo->where([
+        $author = $this->author->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
         //remover imagens        
-        if(!empty($artigo->imagem)){
+        if(!empty($author->imagem)){
             //remover imagens
             $imagemCms = new ImagemCms();
-            $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $artigo);
+            $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $author);
         }
-                
 
-        $artigo->delete();
+        $author->delete();
 
     }
 

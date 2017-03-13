@@ -1,6 +1,6 @@
 {{--É NECESSÁRIO RODAR O COMANDO composer require illuminate/html E ALTERAR ACRESCENTAR LINHA NO ARQUIVO config/app.php--}}
 
-{!! Form::label('origem_id', 'Origem_id *') !!}<br>
+{!! Form::label('origem_id', 'Origem *') !!}<br>
 {!! Form::select('origem_id',
         $links,
 null, ['class'=>"form-control width-medio <% validar(artigo.origem_id) %>", 'ng-model'=>'artigo.origem_id', 'ng-required'=>'true', 'init-model'=>'artigo.origem_id', 'placeholder' => 'Selecione']) !!}<br>
@@ -12,8 +12,10 @@ null, ['class'=>"form-control width-medio <% validar(artigo.origem_id) %>", 'ng-
 {!! Form::label('descricao', 'Descrição *') !!}<br>
 {!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(artigo.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'artigo.descricao', 'init-model'=>'artigo.descricao']) !!}<br>
 
-{!! Form::label('autor', 'Autor') !!}<br>
-{!! Form::text('autor', null, ['class'=>"form-control width-grande <% validar(artigo.autor) %>", 'ng-model'=>'artigo.autor', 'init-model'=>'artigo.autor', 'placeholder' => '']) !!}<br>
+{!! Form::label('autor', 'Autor *') !!}<br>
+{!! Form::select('autor',
+        $authors,
+null, ['class'=>"form-control width-medio <% validar(artigo.autor) %>", 'ng-model'=>'artigo.autor', 'ng-required'=>'true', 'init-model'=>'artigo.autor', 'placeholder' => 'Selecione']) !!}<br>
 
 <div class="row">
     <div class="col-md-6">

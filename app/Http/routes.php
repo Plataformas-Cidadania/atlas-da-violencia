@@ -38,10 +38,13 @@
 
     Route::get('artigos/{origem_id}', 'ArtigoController@listar');
     Route::get('artigos/{origem_id}/{titulo}', 'ArtigoController@listar');
+    Route::get('artigos/{origem_id}/{titulo}/{autor_id}/{autor}', 'ArtigoController@listar');
     Route::get('artigos/', 'ArtigoController@listar');
     Route::get('artigos/{titulo}', 'ArtigoController@listar');
     Route::get('artigo/{id}', 'ArtigoController@detalhar');
     Route::get('artigo/{id}/{titulo}', 'ArtigoController@detalhar');
+    Route::post('busca-artigos/{origem_id}/{titulo}', 'ArtigoController@buscar');
+
 
     Route::get('downloads/', 'DownloadController@listar');
     Route::get('downloads/{titulo}', 'DownloadController@listar');

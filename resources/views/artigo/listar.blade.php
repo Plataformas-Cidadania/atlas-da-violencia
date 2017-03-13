@@ -1,11 +1,43 @@
 @extends('.layout')
-@section('title', 'Notícias')
+@section('title', 'Artigos')
 @section('content')
+    <script>
+        function MM_jumpMenu(targ,selObj,restore){ //v3.0
+            eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+            if (restore) selObj.selectedIndex=0;
+        }
+    </script>
+
     {{--{{ Counter::count('artigo') }}--}}
     <div class="container">
         <h2>Artigos</h2>
         <div class="line_title bg-pri"></div>
+        <div class="row">
+            <br>
 
+            <div class="col-md-offset-6 col-md-3 text-right">
+                <select class="form-control" onchange="MM_jumpMenu('parent',this,0)">
+                    <option value="">Todos</option>
+                    @foreach($authors as $author)
+                        <option value="artigos/{{$origem_id}}/{{$origem_titulo}}/{{$author->id}}/{{clean($author->titulo)}}">{{$author->titulo}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-3 text-right">
+                <form class="form-inline" action="/busca-artigos/{{$origem_id}}/lista" method="post">
+                    {!! csrf_field() !!}
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputAmount">Busca</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="busca" name="busca" placeholder="Busca">
+                            <div class="input-group-addon">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3 col-sm-3">
                 <br>

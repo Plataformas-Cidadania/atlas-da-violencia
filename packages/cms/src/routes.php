@@ -78,6 +78,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/link/{id}', 'Cms\Controllers\LinkController@detalhar');
         Route::post('/cms/alterar-link/{id}', 'Cms\Controllers\LinkController@alterar');
         Route::get('/cms/excluir-link/{id}', 'Cms\Controllers\LinkController@excluir');
+
+        //AUTHORS
+        Route::get('/cms/authors', 'Cms\Controllers\AuthorController@index');
+        Route::get('/cms/listar-authors', 'Cms\Controllers\AuthorController@listar');
+        Route::post('/cms/inserir-author', 'Cms\Controllers\AuthorController@inserir');
+        Route::get('/cms/author/{id}', 'Cms\Controllers\AuthorController@detalhar');
+        Route::post('/cms/alterar-author/{id}', 'Cms\Controllers\AuthorController@alterar');
+        Route::get('/cms/excluir-author/{id}', 'Cms\Controllers\AuthorController@excluir');
         
         //INDICES
         Route::get('/cms/indices', 'Cms\Controllers\IndiceController@index');

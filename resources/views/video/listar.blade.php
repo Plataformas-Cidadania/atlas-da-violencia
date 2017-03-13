@@ -7,7 +7,7 @@
         <div class="line_title bg-pri"></div>
         <div class="row">
             <br>
-            <div class="col-md-6">
+            <div class="col-md-12 text-right">
                 <form class="form-inline" action="/busca-videos" method="post">
                     {!! csrf_field() !!}
                     <div class="form-group">

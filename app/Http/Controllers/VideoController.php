@@ -28,7 +28,5 @@ class VideoController extends Controller
 
         return view('video.listar', ['videos' => $videos, 'tipos' => $busca]);
 
-
-
     }
 }
