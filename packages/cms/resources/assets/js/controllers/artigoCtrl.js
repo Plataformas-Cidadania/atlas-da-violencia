@@ -94,7 +94,7 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
             $scope.processandoInserir = true;
 
             //console.log($scope.artigo);
-            $http.post("cms/inserir-artigo", {artigo: $scope.artigo}).success(function (data){
+            $http.post("cms/inserir-artigo", {artigo: $scope.artigo, author_artigo: $scope.author_artigo}).success(function (data){
                 listarArtigos();
                 delete $scope.artigo;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -108,7 +108,7 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
 
             Upload.upload({
                 url: 'cms/inserir-artigo',
-                data: {artigo: $scope.artigo, file: file, arquivo: arquivo},
+                data: {artigo: $scope.artigo, file: file, arquivo: arquivo, author_artigo: $scope.author_artigo},
             }).then(function (response) {
                 $timeout(function () {
                     $scope.result = response.data;

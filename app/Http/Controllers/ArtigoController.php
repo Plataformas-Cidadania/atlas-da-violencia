@@ -14,17 +14,26 @@ class ArtigoController extends Controller
         $where = [];
 
         if($origem_id!=0) {
-            array_push($where, ['origem_id', '=', $origem_id]) ;
+            array_push($where, ['artigos.origem_id', '=', $origem_id]) ;
         }
         if(!empty($autor_id)) {
-            array_push($where, ['autor', '=', $autor_id]);
+            array_push($where, ['author_artigo.author_id', '=', $autor_id]);
         }
 
         if(count($where)==0){
-            $artigos = DB::table('artigos')->paginate(10);
+            $artigos = DB::table('artigos')->orderBy('titulo')->paginate(10);
         }else{
-            $artigos = DB::table('artigos')->where($where)->paginate(10);
+            //$artigos = DB::table('artigos')->where($where)->orderBy('titulo')->paginate(10);
+
+            $artigos = DB::table('artigos')
+                ->join('author_artigo', 'artigos.id', '=', 'author_artigo.artigo_id')
+                ->where($where)
+                ->select('artigos.*')
+                ->orderBy('artigos.titulo')
+                ->paginate(10);
         }
+
+
 
 
         $menus = DB::table('links')->get();
@@ -37,7 +46,20 @@ class ArtigoController extends Controller
         $artigo = new \App\Artigo;
         $artigo = $artigo->find($id);
 
-        return view('artigo.detalhar', ['artigo' => $artigo]);
+        /*$autores = DB::table('artigos')
+            ->join('author_artigo', 'artigos.id', '=', 'author_artigo.artigo_id')
+            ->where('author_artigo.artigo_id', $id)
+            ->select('artigos.*')
+            ->get();*/
+
+        $autores = DB::table('authors')
+            ->join('author_artigo', 'authors.id', '=', 'author_artigo.author_id')
+            ->where('author_artigo.artigo_id', $id)
+            ->select('authors.*')
+            ->get();
+
+
+        return view('artigo.detalhar', ['artigo' => $artigo, 'autores' => $autores]);
         
     }
     public function buscar(Request $request, $origem_id){
@@ -54,12 +76,14 @@ class ArtigoController extends Controller
 
         if($origem_id==0){
             $artigos = DB::table('artigos')
+                ->orderBy('titulo')
                 ->where([
                 ['titulo', 'like', "%$busca->titulo%"]
             ])
                 ->paginate(15);
         }else{
             $artigos = DB::table('artigos')
+                ->orderBy('titulo')
                 ->where([
                 ['titulo', 'like', "%$busca->titulo%"]
             ])

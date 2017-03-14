@@ -15,15 +15,15 @@
         <div class="row">
             <br>
 
-            <div class="col-md-offset-6 col-md-3 text-right">
+            {{--<div class="col-md-offset-6 col-md-3 text-right">
                 <select class="form-control" onchange="MM_jumpMenu('parent',this,0)">
                     <option value="">Todos</option>
                     @foreach($authors as $author)
                         <option value="artigos/{{$origem_id}}/{{$origem_titulo}}/{{$author->id}}/{{clean($author->titulo)}}">{{$author->titulo}}</option>
                     @endforeach
                 </select>
-            </div>
-            <div class="col-md-3 text-right">
+            </div>--}}
+            <div class="col-md-offset-9 col-md-3 text-right">
                 <form class="form-inline" action="/busca-artigos/{{$origem_id}}/lista" method="post">
                     {!! csrf_field() !!}
                     <div class="form-group">
@@ -46,6 +46,16 @@
                         <li role="presentation"><a href="artigos/{{$menu->id}}/{{clean($menu->titulo)}}" accesskey="q" {{--@if($rota=='quem/'.$menu->id.'/'.clean($menu->titulo)) class="corrente" @endif--}} style="clear: both;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{$menu->titulo}}</a></li>
                     @endforeach
                 </ul>
+
+                <br>
+                <h3><i class="fa fa-users" aria-hidden="true"></i> Autores</h3>
+                <hr>
+                <ul class="menu-vertical">
+                    @foreach($authors as $author)
+                        <li><a href="artigos/{{$origem_id}}/{{$origem_titulo}}/{{$author->id}}/{{clean($author->titulo)}}"><i class="fa fa-pencil-square" aria-hidden="true"></i> {{$author->titulo}}</a></li>
+                    @endforeach
+                </ul>
+
             </div>
             <div class="col-md-9 col-sm-9">
         @foreach($artigos as $artigo)
@@ -65,7 +75,7 @@
                         @if(!empty($artigo->imagem))<div class="col-md-9 col-sm-9">@else<div class="col-md-12 col-sm-12">@endif
                                 <h2>{{$artigo->titulo}}</h2>
                                 <p>{{str_limit(strip_tags($artigo->descricao), 180)}}</p>
-                                <button class="btn btn-none">Continue lendo a notícia</button>
+                                <button class="btn btn-none">Continue lendo o artigo</button>
                             </div>
                     </a>
             </div>

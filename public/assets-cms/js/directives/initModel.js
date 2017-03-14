@@ -13,6 +13,8 @@ cmsApp.directive('initModel', ['$compile', function($compile) {
                 if(element.context.checked==true){
                     element.attr('ng-init', attrs.ngModel+"='"+element[0].value+"'");
                 }
+            }else if(element.context.type=='checkbox'){
+                element.attr('ng-init', attrs.ngModel+"="+element.context.checked);
             }else if(element.context.type=='number'){
                 element.attr('ng-init', attrs.ngModel+"="+element[0].value);
             }else{

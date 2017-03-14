@@ -16,10 +16,20 @@ null, ['class'=>"form-control width-medio <% validar(artigo.origem_id) %>", 'ng-
 {!! Form::label('descricao', 'Descrição *') !!}<br>
 {!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(artigo.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'artigo.descricao', 'init-model'=>'artigo.descricao']) !!}<br>
 
+{{--
 {!! Form::label('autor', 'Autor *') !!}<br>
 {!! Form::select('autor',
         $authors,
 null, ['class'=>"form-control width-medio <% validar(artigo.autor) %>", 'ng-model'=>'artigo.autor', 'ng-required'=>'true', 'init-model'=>'artigo.autor', 'placeholder' => 'Selecione']) !!}<br>
+--}}
+<p><strong>Autores</strong></p>
+@foreach($authors as $id => $autor)
+    <div class="checkbox-inline">
+        {!! Form::checkbox('autor'.$id, true, null, ['class'=>"checkbox-inline width-grande <% validar(author_artigo.autor_$id) %>", 'ng-model'=>"author_artigo.autor_$id", 'init-model'=>"author_artigo.autor_$id", 'style'=>"width: 30px; height: 30px;"]) !!}
+        {!! Form::label('autor'.$id, $autor, ['style'=>"padding: 8px 20px 0 20px;"]) !!}
+    </div>
+@endforeach
+<br><br>
 
 <div class="row">
     <div class="col-md-6">

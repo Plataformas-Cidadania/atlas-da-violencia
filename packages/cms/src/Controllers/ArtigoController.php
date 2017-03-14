@@ -39,7 +39,8 @@ class ArtigoController extends Controller
 
         $artigos = \App\Artigo::all();
         $links = \App\Link::lists('titulo', 'id')->all();
-        $authors = \App\Author::lists('titulo', 'id')->all();
+        //$authors = \App\Author::lists('titulo', 'id')->all();
+        $authors = \App\Author::pluck('titulo', 'id')->all();
 
         return view('cms::artigo.listar', ['artigos' => $artigos, 'links' => $links, 'authors' => $authors]);
     }
@@ -99,15 +100,32 @@ class ArtigoController extends Controller
             }
         }
 
-
         if($successFile && $successArquivo){
-            return $this->artigo->create($data['artigo']);
+
+            $insert = $this->artigo->create($data['artigo']);
+
+            $authorArtigo = new \App\AuthorArtigo;
+            $dadosAuthorArtigo = Array();
+            $dadosAuthorArtigo['artigo_id'] = $insert->id;
+
+            foreach($data["author_artigo"] as $autor => $marcado){
+                if($marcado){
+                    $array_autor = explode('_', $autor);
+                    $dadosAuthorArtigo['author_id'] = $array_autor[1];
+                    $authorArtigo->create($dadosAuthorArtigo);
+                }
+            }
+
+            return $insert;
+
         }else{
             return "erro";
         }
 
 
-        return $this->artigo->create($data['artigo']);
+
+
+        //return $this->artigo->create($data['artigo']);
 
     }
 
@@ -117,8 +135,16 @@ class ArtigoController extends Controller
             ['id', '=', $id],
         ])->firstOrFail();
         $links = \App\Link::lists('titulo', 'id')->all();
-        $authors = \App\Author::lists('titulo', 'id')->all();
+        //$authors = \App\Author::lists('titulo', 'id')->all();
+        $authors = \App\Author::pluck('titulo', 'id')->all();
 
+        $autors_artigo = \App\AuthorArtigo::where('artigo_id', $id)->get();
+
+        //transforma os dados da tabela autors artigo em atributos de artigo com o nome do checkbox no form
+        foreach($autors_artigo as $row){
+            $artigo->{"autor".$row->author_id} = true; //Ex.: $artigo->autor1
+        }
+        
         return view('cms::artigo.detalhar', ['artigo' => $artigo, 'links' => $links, 'authors' => $authors]);
     }
 
@@ -159,6 +185,7 @@ class ArtigoController extends Controller
         }
 
 
+
         $successFile = true;
         if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
@@ -181,6 +208,20 @@ class ArtigoController extends Controller
         if($successFile && $successArquivo){
 
             $artigo->update($data['artigo']);
+
+            $authorArtigo = new \App\AuthorArtigo;
+            DB::table('author_artigo')->where('artigo_id', $id)->delete();
+            $dadosAuthorArtigo = Array();
+            $dadosAuthorArtigo['artigo_id'] = $id;
+            foreach($data["author_artigo"] as $autor => $marcado){
+                if($marcado){
+                    $array_autor = explode('_', $autor);
+                    $dadosAuthorArtigo['author_id'] = $array_autor[1];
+                    $authorArtigo->create($dadosAuthorArtigo);
+                }
+            }
+
+
             return $artigo->imagem;
         }else{
             return "erro";
