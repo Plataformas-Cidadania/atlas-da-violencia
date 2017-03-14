@@ -31,7 +31,7 @@ class ArtigoController extends Controller
         ];
         $this->widthOriginal = true;
 
-        $this->pathArquivo = public_path().'arquivos/artigos';
+        $this->pathArquivo = public_path().'/arquivos/artigos';
     }
 
     function index()
