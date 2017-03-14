@@ -49,7 +49,6 @@
                                 </picture>
                                 <div class="bg-sex">
                                     <h2 class="titulo-itens" ng-class="{'alto-contraste': altoContrasteAtivo}" href="{{$link->link}}">{{$link->titulo}}</h2>
-                                    {{--<p ng-class="{'alto-contraste': altoContrasteAtivo}" href="{{$link->link}}">{{$link->descricao}}</p>--}}
                                 </div>
                                 <div class="box-itens-filete"></div>
                             </a>
