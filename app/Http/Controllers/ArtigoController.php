@@ -30,6 +30,7 @@ class ArtigoController extends Controller
                 ->where($where)
                 ->select('artigos.*')
                 ->orderBy('artigos.titulo')
+                ->distinct()
                 ->paginate(10);
         }
 
