@@ -1,6 +1,5 @@
 cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
     
-
     $scope.artigos = [];
     $scope.currentPage = 1;
     $scope.lastPage = 0;
@@ -60,29 +59,7 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
             $scope.processandoListagem = false;
         });
     };
-
-    /*$scope.loadMore = function() {
-     $scope.currentPage +=1;
-     $http({
-     url: '/api/artigos/'+$scope.itensPerPage,
-     method: 'GET',
-     params: {page:  $scope.currentPage}
-     }).success(function (data, status, headers, config) {
-     $scope.lastPage = data.last_page;
-     $scope.totalItens = data.total;
-
-     console.log("total: "+$scope.totalItens);
-     console.log("lastpage: "+$scope.lastPage);
-     console.log("currentpage: "+$scope.currentPage);
-
-     $scope.artigos = data.data;
-
-     //$scope.artigos = $scope.artigos.concat(data.data);
-
-     });
-     };*/
-
-
+    
 
     $scope.ordernarPor = function(ordem){
         $scope.ordem = ordem;
@@ -106,50 +83,51 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
     //INSERIR/////////////////////////////
 
     $scope.tinymceOptions = tinymceOptions;    
-
     $scope.mostrarForm = false;
-
     $scope.processandoInserir = false;
 
-    $scope.inserir = function (file){
+    $scope.inserir = function (file, arquivo){
 
         $scope.mensagemInserir = "";
 
-        if(file==null){
+        if(file==null && arquivo==null){
             $scope.processandoInserir = true;
 
             //console.log($scope.artigo);
             $http.post("cms/inserir-artigo", {artigo: $scope.artigo}).success(function (data){
-                 listarArtigos();
-                 delete $scope.artigo;//limpa o form
+                listarArtigos();
+                delete $scope.artigo;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
                 $scope.processandoInserir = false;
-             }).error(function(data){
+            }).error(function(data){
                 $scope.mensagemInserir = "Ocorreu um erro!";
                 $scope.processandoInserir = false;
-             });
-        }else{
-            file.upload = Upload.upload({
-                url: 'cms/inserir-artigo',
-                data: {artigo: $scope.artigo, file: file},
             });
+        }else{
 
-            file.upload.then(function (response) {
+
+            Upload.upload({
+                url: 'cms/inserir-artigo',
+                data: {artigo: $scope.artigo, file: file, arquivo: arquivo},
+            }).then(function (response) {
                 $timeout(function () {
-                    file.result = response.data;
+                    $scope.result = response.data;
                 });
+                console.log(response.data);
                 delete $scope.artigo;//limpa o form
                 $scope.picFile = null;//limpa o file
+                $scope.fileArquivo = null;//limpa o file
                 listarArtigos();
                 $scope.mensagemInserir =  "Gravado com sucesso!";
             }, function (response) {
+                console.log(response.data);
                 if (response.status > 0){
                     $scope.errorMsg = response.status + ': ' + response.data;
                 }
             }, function (evt) {
                 //console.log(evt);
                 // Math.min is to fix IE which reports 200% sometimes
-                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             });
         }
 

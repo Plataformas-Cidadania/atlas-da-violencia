@@ -77,7 +77,7 @@ cmsApp.controller('alterarDownloadCtrl', ['$scope', '$http', 'Upload', '$timeout
 
     };
 
-       $scope.limparImagem = function(){
+    $scope.limparImagem = function(){
         $scope.picFile = null;
         $scope.imagemBD = null;
         $scope.removerImagem = 1;

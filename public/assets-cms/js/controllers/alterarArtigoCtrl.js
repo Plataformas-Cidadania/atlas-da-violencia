@@ -9,19 +9,27 @@ cmsApp.controller('alterarArtigoCtrl', ['$scope', '$http', 'Upload', '$timeout',
     $scope.tinymceOptions = tinymceOptions;
 
     $scope.mostrarForm = false;
+    
 
-    $scope.removerImagem = false;
+    $scope.removerImagem = 0;
+    $scope.removerArquivo = 0;
 
-    $scope.alterar = function (file){
+    $scope.alterar = function (file, arquivo){
 
-        if(file==null){
+        $scope.processandoSalvar = true;
+        $scope.mensagemSalvar = "";
 
-            $scope.processandoSalvar = true;
+        if(file==null && arquivo==null){
+
             //console.log($scope.artigo);
-            $http.post("cms/alterar-artigo/"+$scope.id, {'artigo': $scope.artigo, 'removerImagem': $scope.removerImagem}).success(function (data){
+            $http.post("cms/alterar-artigo/"+$scope.id, {
+                'artigo': $scope.artigo,
+                'removerImagem': $scope.removerImagem,
+                'removerArquivo': $scope.removerArquivo
+            }).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
-                $scope.mensagemSalvar = data;
+                $scope.mensagemSalvar = "Gravado com Sucesso";
                 $scope.removerImagem = false;
             }).error(function(data){
                 //console.log(data);
@@ -31,28 +39,42 @@ cmsApp.controller('alterarArtigoCtrl', ['$scope', '$http', 'Upload', '$timeout',
 
         }else{
 
-            file.upload = Upload.upload({
-                url: 'cms/alterar-artigo/'+$scope.id,
-                data: {artigo: $scope.artigo, file: file},
-            });
+            var data1 = {
+                artigo: $scope.artigo,
+                'removerImagem': $scope.removerImagem,
+                'removerArquivo': $scope.removerArquivo
+            };
 
-            file.upload.then(function (response) {
+            if(file!=null){
+                data1.file = file;
+            }
+            if(arquivo!=null){
+                data1.arquivo = arquivo;
+            }
+
+            Upload.upload({
+                url: 'cms/alterar-artigo/'+$scope.id,
+                data: data1
+            }).then(function (response) {
                 $timeout(function () {
-                    file.result = response.data;
+                    $scope.result = response.data;
                 });
-                $scope.picFile = null;//limpa o form
+                $scope.picFile = null;//limpa o file
+                //$scope.fileArquivo = null;//limpa o file
                 $scope.mensagemSalvar =  "Gravado com sucesso!";
                 $scope.removerImagem = false;
-                $scope.imagemBD = 'imagens/artigos/'+response.data;
-                console.log($scope.imagemDB);
+                $scope.imagemBD = '/imagens/artigos/'+response.data;
+                $scope.processandoSalvar = false;
+
             }, function (response) {
                 if (response.status > 0){
                     $scope.errorMsg = response.status + ': ' + response.data;
+                    $scope.processandoSalvar = false;
                 }
             }, function (evt) {
                 //console.log(evt);
                 // Math.min is to fix IE which reports 200% sometimes
-                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             });
 
         }
@@ -62,13 +84,23 @@ cmsApp.controller('alterarArtigoCtrl', ['$scope', '$http', 'Upload', '$timeout',
     $scope.limparImagem = function(){
         $scope.picFile = null;
         $scope.imagemBD = null;
-        $scope.removerImagem = true;
+        $scope.removerImagem = 1;
     };
 
-    $scope.carregaImagem  = function(img) {
+    $scope.limparArquivo= function(){
+        $scope.fileArquivo = null;
+        $scope.arquivoBD = null;
+        $scope.removerArquivo = 1;
+    };
+
+    $scope.carregaImagem  = function(img, arquivo) {
         if(img!=''){
             $scope.imagemBD = 'imagens/artigos/xs-'+img;
             //console.log($scope.imagemBD);
+        }
+        if(arquivo!=''){
+            $scope.arquivoBD = arquivo;
+            //console.log($scope.baseBD);
         }
     };
 
@@ -82,6 +114,5 @@ cmsApp.controller('alterarArtigoCtrl', ['$scope', '$http', 'Upload', '$timeout',
     
     
 
-    
 
 }]);

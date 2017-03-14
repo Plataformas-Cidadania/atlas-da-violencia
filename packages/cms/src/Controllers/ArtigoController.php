@@ -20,7 +20,7 @@ class ArtigoController extends Controller
     {
         $this->artigo = new \App\Artigo;
         $this->campos = [
-            'imagem', 'origem_id', 'titulo', 'descricao', 'autor', 'fonte', 'url', 'legenda', 'cmsuser_id',
+            'imagem', 'origem_id', 'titulo', 'descricao', 'autor', 'fonte', 'url', 'link', 'arquivo', 'legenda', 'cmsuser_id',
         ];
         $this->pathImagem = public_path().'/imagens/artigos';
         $this->sizesImagem = [
@@ -30,6 +30,8 @@ class ArtigoController extends Controller
             'lg' => ['width' => 1170, 'height' => 658]
         ];
         $this->widthOriginal = true;
+
+        $this->pathArquivo = public_path().'arquivos/artigos';
     }
 
     function index()
@@ -76,19 +78,34 @@ class ArtigoController extends Controller
         }
 
         $file = $request->file('file');
+        $arquivo = $request->file('arquivo');
 
+        $successFile = true;
         if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
-            $success = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
-            
-            if($success){
+            $successFile = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
+            if($successFile){
                 $data['artigo']['imagem'] = $filename;
-                return $this->artigo->create($data['artigo']);
-            }else{
-                return "erro";
             }
         }
+
+        $successArquivo = true;
+        if($arquivo!=null){
+            $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
+            $successArquivo = $arquivo->move($this->pathArquivo, $filenameArquivo);
+            if($successArquivo){
+                $data['artigo']['arquivo'] = $filenameArquivo;
+            }
+        }
+
+
+        if($successFile && $successArquivo){
+            return $this->artigo->create($data['artigo']);
+        }else{
+            return "erro";
+        }
+
 
         return $this->artigo->create($data['artigo']);
 
@@ -113,7 +130,7 @@ class ArtigoController extends Controller
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
-                if($campo!='imagem'){
+                if($campo!='imagem' && $campo!='arquivo'){
                     $data['artigo'] += [$campo => ''];
                 }
             }
@@ -123,19 +140,7 @@ class ArtigoController extends Controller
         ])->firstOrFail();
 
         $file = $request->file('file');
-
-        if($file!=null){
-            $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
-            $imagemCms = new ImagemCms();
-            $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $artigo);
-            if($success){
-                $data['artigo']['imagem'] = $filename;
-                $artigo->update($data['artigo']);
-                return $artigo->imagem;
-            }else{
-                return "erro";
-            }
-        }
+        $arquivo = $request->file('arquivo');
 
         //remover imagem
         if($data['removerImagem']){
@@ -145,8 +150,41 @@ class ArtigoController extends Controller
             }
         }
 
-        $artigo->update($data['artigo']);
-        return "Gravado com sucesso";
+
+        if($data['removerArquivo']){
+            $data['artigo']['arquivo'] = '';
+            if(file_exists($this->pathArquivo."/".$artigo->arquivo)) {
+                unlink($this->pathArquivo . "/" . $artigo->arquivo);
+            }
+        }
+
+
+        $successFile = true;
+        if($file!=null){
+            $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
+            $imagemCms = new ImagemCms();
+            $successFile = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $artigo);
+            if($successFile){
+                $data['artigo']['imagem'] = $filename;
+            }
+        }
+
+        $successArquivo = true;
+        if($arquivo!=null){
+            $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
+            $successArquivo = $arquivo->move($this->pathArquivo, $filenameArquivo);
+            if($successArquivo){
+                $data['artigo']['arquivo'] = $filenameArquivo;
+            }
+        }
+
+        if($successFile && $successArquivo){
+
+            $artigo->update($data['artigo']);
+            return $artigo->imagem;
+        }else{
+            return "erro";
+        }
     }
 
     public function excluir($id)
@@ -162,6 +200,13 @@ class ArtigoController extends Controller
             //remover imagens
             $imagemCms = new ImagemCms();
             $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $artigo);
+        }
+
+
+        if(!empty($artigo->arquivo)) {
+            if (file_exists($this->pathArquivo . "/" . $artigo->arquivo)) {
+                unlink($this->pathArquivo . "/" . $artigo->arquivo);
+            }
         }
                 
 

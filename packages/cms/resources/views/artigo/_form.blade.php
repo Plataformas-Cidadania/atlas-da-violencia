@@ -1,5 +1,9 @@
 {{--É NECESSÁRIO RODAR O COMANDO composer require illuminate/html E ALTERAR ACRESCENTAR LINHA NO ARQUIVO config/app.php--}}
 
+{!! Form::label('link', 'Link artigo') !!}<br>
+{!! Form::text('link', null, ['class'=>"form-control width-grande <% validar(artigo.link) %>", 'ng-model'=>'artigo.link',  'init-model'=>'artigo.link', 'placeholder' => '']) !!}<br>
+
+
 {!! Form::label('origem_id', 'Origem *') !!}<br>
 {!! Form::select('origem_id',
         $links,

@@ -20,7 +20,7 @@ class DownloadController extends Controller
     {
         $this->download = new \App\Download;
         $this->campos = [
-            'imagem', 'titulo', 'descricao', 'arquivo', 'cmsuser_id',
+            'imagem', 'origem_id', 'titulo', 'descricao', 'arquivo', 'cmsuser_id',
         ];
         $this->pathImagem = public_path().'/imagens/downloads';
         $this->sizesImagem = [
@@ -38,8 +38,9 @@ class DownloadController extends Controller
     {
 
         $downloads = \App\Download::all();
+        $series = \App\Serie::lists('titulo', 'id')->all();
 
-        return view('cms::download.listar', ['downloads' => $downloads]);
+        return view('cms::download.listar', ['downloads' => $downloads, 'series' => $series]);
     }
 
     public function listar(Request $request)
@@ -148,7 +149,9 @@ class DownloadController extends Controller
         $download = $this->download->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        return view('cms::download.detalhar', ['download' => $download]);
+        $series = \App\Serie::lists('titulo', 'id')->all();
+
+        return view('cms::download.detalhar', ['download' => $download, 'series' => $series]);
     }
 
     /*public function alterar(Request $request, $id)

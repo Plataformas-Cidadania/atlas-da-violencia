@@ -60,26 +60,6 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
         });
     };
 
-    /*$scope.loadMore = function() {
-     $scope.currentPage +=1;
-     $http({
-     url: '/api/downloads/'+$scope.itensPerPage,
-     method: 'GET',
-     params: {page:  $scope.currentPage}
-     }).success(function (data, status, headers, config) {
-     $scope.lastPage = data.last_page;
-     $scope.totalItens = data.total;
-
-     console.log("total: "+$scope.totalItens);
-     console.log("lastpage: "+$scope.lastPage);
-     console.log("currentpage: "+$scope.currentPage);
-
-     $scope.downloads = data.data;
-
-     //$scope.downloads = $scope.downloads.concat(data.data);
-
-     });
-     };*/
 
 
     $scope.ordernarPor = function(ordem){
@@ -103,10 +83,8 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
 
     //INSERIR/////////////////////////////
 
-    $scope.tinymceOptions = tinymceOptions;    
-
+    $scope.tinymceOptions = tinymceOptions;
     $scope.mostrarForm = false;
-
     $scope.processandoInserir = false;
 
     $scope.inserir = function (file, arquivo){
@@ -127,29 +105,6 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
                 $scope.processandoInserir = false;
              });
         }else{
-            /*file.upload = Upload.upload({
-                url: '/cms/inserir-download',
-                data: {download: $scope.download, file: file, arquivo: arquivo},
-            });
-
-            file.upload.then(function (response) {
-                $timeout(function () {
-                    file.result = response.data;
-                });
-                delete $scope.download;//limpa o form
-                $scope.picFile = null;//limpa o file
-                $scope.fileArquivo = null;//limpa o file
-                listarDownloads();
-                $scope.mensagemInserir =  "Gravado com sucesso!";
-            }, function (response) {
-                if (response.status > 0){
-                    $scope.errorMsg = response.status + ': ' + response.data;
-                }
-            }, function (evt) {
-                //console.log(evt);
-                // Math.min is to fix IE which reports 200% sometimes
-                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-            });*/
 
 
             Upload.upload({
