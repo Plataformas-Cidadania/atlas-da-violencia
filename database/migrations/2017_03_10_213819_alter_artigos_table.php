@@ -13,8 +13,8 @@ class AlterArtigosTable extends Migration
     public function up()
     {
         Schema::table('artigos', function (Blueprint $table) {
-            $table->string('link');
-            $table->string('arquivo');
+            $table->string('link')->default('');
+            $table->string('arquivo')->default('');
         });
     }
 
