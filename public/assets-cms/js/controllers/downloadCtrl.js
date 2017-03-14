@@ -34,7 +34,7 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
     var listarDownloads = function(){
         $scope.processandoListagem = true;
         $http({
-            url: 'cms/listar-downloads/',
+            url: 'cms/listar-downloads',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
