@@ -21,7 +21,6 @@ null, ['class'=>"form-control width-medio <% validar(link.tipo) %>", 'ng-model'=
 <span>Caracteres restantes <% 250 - link.descricao.length %></span>
 <br><br>--}}
 
-
 <div ng-if="link.tipo==0">
     {!! Form::label('link', 'Series *') !!}<br>
     {!! Form::select('link',
