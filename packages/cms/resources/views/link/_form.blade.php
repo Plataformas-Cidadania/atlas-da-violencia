@@ -15,15 +15,23 @@ null, ['class'=>"form-control width-medio <% validar(link.tipo) %>", 'ng-model'=
 {!! Form::label('titulo', 'Título *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(link.titulo) %>", 'ng-model'=>'link.titulo', 'ng-required'=>'true', 'init-model'=>'link.titulo', 'placeholder' => '']) !!}<br>
 
+
 {{--{!! Form::label('descricao', 'Descrição *') !!}<br>
 {!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(link.descricao) %>", 'ng-model'=>'link.descricao', 'ng-trim'=>'false', 'maxlength'=>'250', 'init-model'=>'link.descricao']) !!}
 <span>Caracteres restantes <% 250 - link.descricao.length %></span>
 <br><br>--}}
 
-{!! Form::label('link', 'Series *') !!}<br>
-{!! Form::select('link',
+
+<div ng-if="link.tipo==0">
+    {!! Form::label('link', 'Series *') !!}<br>
+    {!! Form::select('link',
         $series,
 null, ['class'=>"form-control width-medio <% validar(link.link) %>", 'ng-model'=>'link.link', 'ng-required'=>'true', 'init-model'=>'link.link', 'placeholder' => 'Selecione']) !!}<br>
+</div>
+<div ng-if="link.tipo==1">
+    {!! Form::label('link', 'Link *') !!}<br>
+    {!! Form::text('link', null, ['class'=>"form-control width-grande <% validar(link.link) %>", 'ng-model'=>'link.link', 'ng-required'=>'true', 'init-model'=>'link.link', 'placeholder' => '']) !!}<br>
+</div>
 
 {!! Form::label('tags', 'Metas Tags *') !!}<br>
 {!! Form::textarea('tags', null, ['class'=>"form-control width-grande <% validar(link.tags) %>", 'ng-model'=>'link.tags',  'init-model'=>'link.tags']) !!}
