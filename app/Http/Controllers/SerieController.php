@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SerieController extends Controller
 {
@@ -139,6 +140,83 @@ class SerieController extends Controller
     public function teste(){
 
         return view('serie.teste');
+
+    }
+
+    public function regioes($id){
+        $tipo_regiao = \App\ValorSerie::select('tipo_regiao')->where('serie_id', $id)->first();
+
+
+        if($tipo_regiao->tipo_regiao==2){
+            return $this->porUf($id);
+        }
+
+
+        /*$regioes = DB::table('valores_series')
+            ->select('uf')
+            ->where('serie_id', $id)
+            ->distinct()
+            ->orderBy('uf')
+            ->get();
+
+        return $regioes;*/
+    }
+
+    private function porRegiao(){
+
+    }
+
+    private function porUf($id){
+        DB::connection()->enableQueryLog();
+
+        $regions = DB::table('public.valores_series')
+            ->select(
+                'spat.ed_territorios_regioes.edterritorios_nome as nome_regiao',
+                'spat.ed_territorios_regioes.edterritorios_sigla as sigla_regiao',
+                'spat.ed_territorios_uf.edterritorios_nome as nome_uf',
+                'spat.ed_territorios_uf.edterritorios_sigla as sigla_uf'
+            )
+            ->join('spat.ed_territorios_uf', 'spat.ed_territorios_uf.edterritorios_codigo', '=', 'public.valores_series.regiao_id')
+            ->join('spat.ed_uf', 'spat.ed_uf.eduf_cd_uf', '=', 'spat.ed_territorios_uf.edterritorios_codigo')
+            ->join('spat.territorio', 'spat.territorio.terregiao', '=', 'spat.ed_uf.edre_cd_regiao')
+            ->join('spat.ed_territorios_regioes', 'spat.ed_territorios_regioes.edterritorios_terid', '=', 'spat.territorio.terid')
+            ->where('public.valores_series.serie_id', $id)
+            ->distinct()
+            ->get();
+
+        $regioes = [];
+        foreach ($regions as $region) {
+
+            if(!array_key_exists($region->nome_regiao, $regioes)){
+                $regioes[$region->nome_regiao] = [
+                    'ufs' => [],
+                    'sigla' => $region->sigla_regiao
+                ];
+            }
+
+            array_push($regioes[$region->nome_regiao]['ufs'],[
+                'uf' => $region->nome_uf,
+                'sigla' => $region->sigla_uf
+            ]);
+
+
+
+
+        }
+
+
+        return $regioes;
+    }
+
+    private function porMunicipio(){
+
+    }
+
+    private function porMicroRegiao(){
+
+    }
+
+    private function porMesoRegiao(){
 
     }
 }

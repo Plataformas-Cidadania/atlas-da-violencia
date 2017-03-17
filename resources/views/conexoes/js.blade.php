@@ -113,7 +113,7 @@ print_r($periodo_limite);*/
 @if($rota=='filtros/{id}/{titulo}')
     <script src="js/components/seriesList.js"></script>
     <script src="js/components/rangePeriodos.js"></script>
-    <script src="js/components/filtroRegioes.js"></script>
+    <script src="js/components/filtroRegioes2.js"></script>
     <script src="js/components/pgFiltros.js"></script>
 @endif
 

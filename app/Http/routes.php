@@ -64,6 +64,7 @@
     Route::get('filtro/', 'SerieController@filtro');
     //Route::get('filtros/', 'SerieController@filtros');
     Route::get('filtro/{titulo}', 'SerieController@filtro');
+    Route::get('regioes/{id}', 'SerieController@regioes');//usado no component filtroRegioes na página de filtros
 
 
     Route::get('teste/', 'SerieController@teste');
@@ -85,7 +86,7 @@
     Route::get('regiao/{id}/{max}', 'MapController@valoresRegiaoUltimoPeriodoGeometry');
     Route::get('valores-series/{id}/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');
     //Route::get('periodo/{id}/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
-    Route::get('regioes/{id}', 'MapController@regioes');//usado no component filtroRegioes na página de filtros
+    //Route::get('regioes/{id}', 'MapController@regioes');//usado no component filtroRegioes na página de filtros
 
 
 
