@@ -620,6 +620,131 @@ footer {
   background-color: #3498DB;
   color: #FFFFFF!important;
 }
+.col-md-r {
+  width: 18%;
+  float: left;
+  margin: 1%;
+}
+.menu-box {
+  background-color: #EEEEEE;
+}
+.menu-box-btn {
+  background-color: #008DCB;
+  border: 0;
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+}
+.menu-box-btn:hover {
+  background-color: #0073AC;
+}
+.menu-box-btn-square {
+  float: right;
+  border-left: solid 1px #0073AC;
+  padding-left: 10px;
+}
+.menu-box-btn-square:hover {
+  border-left: solid 1px #008DCB;
+}
+.menu-box-btn-square i {
+  font-size: 20px;
+  margin-top: 3px;
+}
+.menu-box-btn-square i:hover menu-box-btn-square {
+  border-left: solid 1px #008DCB;
+}
+/*End Sub*/
+.menu-box ul {
+  margin: 0;
+  padding: 0;
+}
+.menu-box ul li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.menu-box ul li a {
+  padding: 10px;
+  line-height: 18px;
+  font-size: 16px;
+  border-bottom: solid 1px #DDDDDD;
+  display: block;
+}
+.menu-box ul li a:hover {
+  background-color: #DDDDDD;
+}
+.menu-box ul li a:focus {
+  background-color: #008DCB;
+  color: #FFFFFF;
+}
+.menu-box-btn-square-li {
+  float: right;
+  font-size: 20px;
+  margin: 0 2px 0 0;
+}
+/*the end Sub*/
+.menu-box select {
+  width: 96%;
+  margin: 0 2%;
+  height: 500px;
+}
+.menu-box input {
+  width: 96%;
+  margin: 2%;
+  padding-right: 22px;
+}
+.menu-box-search {
+  float: right;
+  margin-top: -31px;
+  margin-right: 10px;
+  font-size: 18px;
+}
+.txt-info {
+  text-align: center;
+}
+/*////////////////////*/
+/* Largura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Fundo da barra de rolagem */
+::-webkit-scrollbar-track-piece {
+  background-color: #EEE;
+  border-left: 1px solid #CCC;
+}
+/* Cor do indicador de rolagem */
+::-webkit-scrollbar-thumb:vertical,
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: #BAC0C4;
+}
+/* Cor do indicador de rolagem - ao passar o mouse */
+::-webkit-scrollbar-thumb:vertical:hover,
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background-color: #3065A7;
+}
+/*////////////////////*/
+@media only screen and (max-width: 1200px) {
+  .menu-box-btn {
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .col-md-r {
+    width: 48%;
+    float: left;
+    margin: 1%;
+  }
+  .menu-box-btn {
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .col-md-r {
+    width: 98%;
+    float: none;
+    margin: 1%;
+  }
+}
 .nav > li a {
   font-size: 18px !important;
   color: #777777;

@@ -136,5 +136,9 @@ class SerieController extends Controller
         return $data;
     }
 
+    public function teste(){
 
+        return view('serie.teste');
+
+    }
 }

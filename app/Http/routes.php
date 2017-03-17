@@ -65,6 +65,9 @@
     //Route::get('filtros/', 'SerieController@filtros');
     Route::get('filtro/{titulo}', 'SerieController@filtro');
 
+
+    Route::get('teste/', 'SerieController@teste');
+
     Route::post('enviar-contato', 'ContatoController@email');
 
 
