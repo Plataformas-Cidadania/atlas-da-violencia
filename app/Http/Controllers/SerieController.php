@@ -173,6 +173,7 @@ class SerieController extends Controller
             ->select(
                 'spat.ed_territorios_regioes.edterritorios_nome as nome_regiao',
                 'spat.ed_territorios_regioes.edterritorios_sigla as sigla_regiao',
+                'spat.ed_territorios_uf.edterritorios_nome as codigo_uf',
                 'spat.ed_territorios_uf.edterritorios_nome as nome_uf',
                 'spat.ed_territorios_uf.edterritorios_sigla as sigla_uf'
             )
@@ -184,10 +185,36 @@ class SerieController extends Controller
             ->distinct()
             ->get();
 
+        //return $regions;
+
         $regioes = [];
         foreach ($regions as $region) {
 
-            if(!array_key_exists($region->nome_regiao, $regioes)){
+            $key = array_search($region->nome_regiao, array_column($regioes, 'region'));
+
+            if($key===false){
+                array_push($regioes, [
+                    'region' => $region->nome_regiao,
+                    'sigla' => $region->sigla_regiao,
+                    'open' => false,
+                    'allUfsSelected' => false,
+                    'ufs' => []
+                ]);
+                $key = array_search([
+                    'region' => $region->nome_regiao,
+                    'sigla' => $region->sigla_regiao,
+                    'ufs' => []
+                ], $regioes);
+            }
+
+            array_push($regioes[$key]['ufs'],[
+                'codigo' => $region->codigo_uf,
+                'uf' => $region->nome_uf,
+                'sigla' => $region->sigla_uf
+            ]);
+
+
+            /*if(!array_key_exists($region->nome_regiao, $regioes)){
                 $regioes[$region->nome_regiao] = [
                     'ufs' => [],
                     'sigla' => $region->sigla_regiao
@@ -197,10 +224,7 @@ class SerieController extends Controller
             array_push($regioes[$region->nome_regiao]['ufs'],[
                 'uf' => $region->nome_uf,
                 'sigla' => $region->sigla_uf
-            ]);
-
-
-
+            ]);*/
 
         }
 
