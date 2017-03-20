@@ -74,61 +74,51 @@ class FiltroRegions extends React.Component {
         this.setState({ regions: regions });
     }
 
-    selectUf(codigo, uf, all) {
-        let ufsSelected = this.state.ufsSelected;
+    selectUf(uf) {
+        let regions = this.state.regions;
 
-        let remove = false;
-        let index = null;
-        ufsSelected.find(function (item, i) {
-            if (item.uf == uf) {
-                index = i;
-                remove = true;
+        regions.find(function (region) {
+            region.allUfsSelected = false;
+            let qtdSelected = 0;
+            region.ufs.find(function (item) {
+                if (item.uf == uf) {
+                    item.selected = !item.selected;
+                }
+                if (item.selected) {
+                    qtdSelected++;
+                }
+            });
+            if (qtdSelected == region.ufs.length) {
+                region.allUfsSelected = true;
             }
         });
 
-        if (remove) {
-            ufsSelected.splice(index, 1);
-        } else {
-            ufsSelected.push({ codigo: codigo, uf: uf });
-        }
-
-        this.setState({ ufsSelected: ufsSelected });
+        this.setState({ regions: regions });
     }
 
-    selectAll(indexRegion) {
-        let ufsSelected = this.state.ufsSelected;
+    selectAll(region) {
         let regions = this.state.regions;
 
-        regions[indexRegion].ufs.find(function (item, index) {
-            let existe = false;
-            for (let i in ufsSelected) {
-                if (ufsSelected[i].uf == item.uf) {
-                    existe = true;
-                }
+        regions.find(function (item) {
+            if (item.region == region) {
+                let all = !item.allUfsSelected;
+                item.ufs.find(function (uf) {
+                    item.allUfsSelected = all;
+                    uf.selected = all;
+                });
             }
-            if (!existe) {
-                ufsSelected.push({ codigo: item.codigo, uf: item.uf });
-            }
-        }.bind(this));
+        });
 
-        regions[indexRegion].allUfsSelected = true;
         this.setState({ regions: regions });
     }
 
     render() {
 
-        console.log(this.state.ufsSelected);
+        //console.log(this.state.ufsSelected);
 
-        let regions = this.state.regions.map(function (item, indexRegion) {
+        let regions = this.state.regions.map(function (region, indexRegion) {
 
-            let ufs = item.ufs.map(function (item) {
-
-                let marcado = false;
-                this.state.ufsSelected.find(function (i) {
-                    if (i.uf == item.uf) {
-                        marcado = true;
-                    }
-                });
+            let ufs = region.ufs.map(function (item) {
 
                 return React.createElement(
                     'li',
@@ -141,8 +131,8 @@ class FiltroRegions extends React.Component {
                         item.uf,
                         React.createElement(
                             'div',
-                            { className: 'menu-box-btn-square-li', onClick: () => this.selectUf(item.codigo, item.uf, false) },
-                            React.createElement('i', { className: "fa " + (marcado ? "fa-check-square-o" : "fa-square-o"), 'aria-hidden': 'true' })
+                            { className: 'menu-box-btn-square-li', onClick: () => this.selectUf(item.uf) },
+                            React.createElement('i', { className: "fa " + (item.selected ? "fa-check-square-o" : "fa-square-o"), 'aria-hidden': 'true' })
                         )
                     )
                 );
@@ -150,16 +140,16 @@ class FiltroRegions extends React.Component {
 
             return React.createElement(
                 'div',
-                { key: item.sigla, className: 'col-md-r' },
+                { key: region.sigla, className: 'col-md-r' },
                 React.createElement(
                     'div',
                     { className: 'menu-box' },
                     React.createElement(
                         'div',
                         { className: 'btn btn-primary menu-box-btn', onClick: () => this.openRegion(indexRegion) },
-                        React.createElement('i', { className: "fa " + (item.open ? "fa-minus-square-o" : "fa-plus-square-o"), 'aria-hidden': 'true' }),
+                        React.createElement('i', { className: "fa " + (region.open ? "fa-minus-square-o" : "fa-plus-square-o"), 'aria-hidden': 'true' }),
                         '\xA0',
-                        item.region,
+                        region.region,
                         React.createElement(
                             'div',
                             { className: 'menu-box-btn-square' },
@@ -168,10 +158,10 @@ class FiltroRegions extends React.Component {
                     ),
                     React.createElement(
                         'ul',
-                        { style: { display: item.open ? 'block' : 'none' } },
+                        { style: { display: region.open ? 'block' : 'none' } },
                         React.createElement(
                             'li',
-                            { onClick: () => this.selectAll(indexRegion) },
+                            { onClick: () => this.selectAll(region.region) },
                             React.createElement(
                                 'a',
                                 null,
@@ -185,7 +175,7 @@ class FiltroRegions extends React.Component {
                                 React.createElement(
                                     'div',
                                     { className: 'menu-box-btn-square-li' },
-                                    React.createElement('i', { className: "fa " + (item.allUfsSelected ? "fa-check-square-o" : "fa-square-o"), 'aria-hidden': 'true' })
+                                    React.createElement('i', { className: "fa " + (region.allUfsSelected ? "fa-check-square-o" : "fa-square-o"), 'aria-hidden': 'true' })
                                 )
                             )
                         ),

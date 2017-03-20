@@ -198,7 +198,8 @@ class SerieController extends Controller
                     'sigla' => $region->sigla_regiao,
                     'open' => false,
                     'allUfsSelected' => false,
-                    'ufs' => []
+                    'ufs' => [],
+                    'selected' => false
                 ]);
                 $key = array_search([
                     'region' => $region->nome_regiao,
@@ -210,7 +211,8 @@ class SerieController extends Controller
             array_push($regioes[$key]['ufs'],[
                 'codigo' => $region->codigo_uf,
                 'uf' => $region->nome_uf,
-                'sigla' => $region->sigla_uf
+                'sigla' => $region->sigla_uf,
+                'selected' => false
             ]);
 
 
