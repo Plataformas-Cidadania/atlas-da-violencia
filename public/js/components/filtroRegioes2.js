@@ -1,19 +1,4 @@
-class FiltroUfs extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            regions: []
-        };
-    }
 
-    render() {
-        return React.createElement(
-            'div',
-            null,
-            '...'
-        );
-    }
-}
 
 class FiltroRegions extends React.Component {
     constructor(props) {
@@ -22,14 +7,22 @@ class FiltroRegions extends React.Component {
             id: this.props.id,
             regions: [],
             ufsSelected: [],
-            regionsSelected: []
+            regionsSelected: [],
+            typeSelected: '',
+            itemSelected: ''
         };
 
         this.loadData = this.loadData.bind(this);
         this.loading = this.loading.bind(this);
         this.openRegion = this.openRegion.bind(this);
         this.selectUf = this.selectUf.bind(this);
-        this.selectAll = this.selectAll.bind(this);
+        this.selectAllUf = this.selectAllUf.bind(this);
+        this.selectRegion = this.selectRegion.bind(this);
+        this.verifyTypeSelected = this.verifyTypeSelected.bind(this);
+        this.callSelected = this.callSelected.bind(this);
+        this.clearRegionsSelected = this.clearRegionsSelected.bind(this);
+        this.clearUfsSelected = this.clearUfsSelected.bind(this);
+        this.verifyExistTypeSelected = this.verifyExistTypeSelected.bind(this);
     }
 
     componentDidMount() {
@@ -74,7 +67,25 @@ class FiltroRegions extends React.Component {
         this.setState({ regions: regions });
     }
 
+    selectRegion(region) {
+
+        let regions = this.state.regions;
+
+        regions.find(function (item) {
+            if (item.region == region) {
+                console.log(item);
+                item.selected = !item.selected;
+            }
+        });
+        this.clearUfsSelected();
+
+        this.setState({ regions: regions, typeSelected: 'region' }, function () {
+            this.verifyExistTypeSelected();
+        });
+    }
+
     selectUf(uf) {
+
         let regions = this.state.regions;
 
         regions.find(function (region) {
@@ -92,14 +103,17 @@ class FiltroRegions extends React.Component {
                 region.allUfsSelected = true;
             }
         });
-
-        this.setState({ regions: regions });
+        this.clearRegionsSelected();
+        this.setState({ regions: regions, typeSelected: 'uf' }, function () {
+            this.verifyExistTypeSelected();
+        });
     }
 
-    selectAll(region) {
+    selectAllUf(region) {
         let regions = this.state.regions;
 
         regions.find(function (item) {
+            item.selected = false; //para desmarcar as regiões selecionadas que são to tipo region e não uf
             if (item.region == region) {
                 let all = !item.allUfsSelected;
                 item.ufs.find(function (uf) {
@@ -109,7 +123,76 @@ class FiltroRegions extends React.Component {
             }
         });
 
+        this.setState({ regions: regions, typeSelected: 'uf' });
+    }
+
+    verifyTypeSelected(type, item) {
+        //console.log(type,item);
+        if (this.state.typeSelected != type && this.state.typeSelected != '') {
+            //itemSelected será usado no "Continuar" do modal
+            this.setState({ typeSelected: type, itemSelected: item }, function () {
+                $('#modalInfo').modal('show');
+            });
+        } else {
+            this.setState({ typeSelected: type, itemSelected: item }, function () {
+                this.callSelected(type, item);
+            });
+        }
+    }
+
+    callSelected(type, item) {
+        //console.log(type, item);
+        if (type == 'region') {
+            this.selectRegion(item);
+            return;
+        }
+        if (type == 'uf') {
+            this.selectUf(item);
+        }
+    }
+
+    clearRegionsSelected() {
+        let regions = this.state.regions;
+
+        regions.find(function (region) {
+            region.selected = false;
+        });
+
         this.setState({ regions: regions });
+    }
+
+    clearUfsSelected() {
+        let regions = this.state.regions;
+
+        regions.find(function (region) {
+            region.allUfsSelected = false;
+            region.ufs.find(function (uf) {
+                uf.selected = false;
+            });
+        });
+
+        this.setState({ regions: regions });
+    }
+
+    //verifica se existe algum item marcado para resetar o type selected
+    verifyExistTypeSelected() {
+        let qtd = 0;
+        this.state.regions.find(function (region) {
+            if (region.selected) {
+                qtd++;
+                return;
+            }
+            region.ufs.find(function (uf) {
+                if (uf.selected) {
+                    qtd++;
+                    return;
+                }
+            });
+        });
+
+        if (qtd == 0) {
+            this.setState({ typeSelected: '' });
+        }
     }
 
     render() {
@@ -131,7 +214,7 @@ class FiltroRegions extends React.Component {
                         item.uf,
                         React.createElement(
                             'div',
-                            { className: 'menu-box-btn-square-li', onClick: () => this.selectUf(item.uf) },
+                            { className: 'menu-box-btn-square-li', onClick: () => this.verifyTypeSelected('uf', item.uf) },
                             React.createElement('i', { className: "fa " + (item.selected ? "fa-check-square-o" : "fa-square-o"), 'aria-hidden': 'true' })
                         )
                     )
@@ -146,14 +229,19 @@ class FiltroRegions extends React.Component {
                     { className: 'menu-box' },
                     React.createElement(
                         'div',
-                        { className: 'btn btn-primary menu-box-btn', onClick: () => this.openRegion(indexRegion) },
-                        React.createElement('i', { className: "fa " + (region.open ? "fa-minus-square-o" : "fa-plus-square-o"), 'aria-hidden': 'true' }),
-                        '\xA0',
-                        region.region,
+                        { className: 'btn btn-primary menu-box-btn' },
                         React.createElement(
                             'div',
-                            { className: 'menu-box-btn-square' },
-                            React.createElement('i', { className: 'fa fa-square-o', 'aria-hidden': 'true' })
+                            { style: { float: 'left', width: '80%' }, onClick: () => this.openRegion(indexRegion) },
+                            React.createElement('i', { className: "fa " + (region.open ? "fa-minus-square-o" : "fa-plus-square-o"), 'aria-hidden': 'true' }),
+                            '\xA0',
+                            region.region
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'menu-box-btn-square', style: { width: '20%' } },
+                            React.createElement('i', { onClick: () => this.verifyTypeSelected('region', region.region),
+                                className: "fa " + (region.selected ? "fa-check-square-o" : "fa-square-o"), 'aria-hidden': 'true' })
                         )
                     ),
                     React.createElement(
@@ -161,7 +249,7 @@ class FiltroRegions extends React.Component {
                         { style: { display: region.open ? 'block' : 'none' } },
                         React.createElement(
                             'li',
-                            { onClick: () => this.selectAll(region.region) },
+                            { onClick: () => this.selectAllUf(region.region) },
                             React.createElement(
                                 'a',
                                 null,
@@ -188,7 +276,53 @@ class FiltroRegions extends React.Component {
         return React.createElement(
             'div',
             { className: 'row' },
-            regions
+            regions,
+            React.createElement(
+                'div',
+                { className: 'modal fade', id: 'modalInfo', role: 'dialog', style: { zIndex: '99999999999999999999' } },
+                React.createElement(
+                    'div',
+                    { className: 'modal-dialog' },
+                    React.createElement(
+                        'div',
+                        { className: 'modal-content' },
+                        React.createElement(
+                            'div',
+                            { className: 'modal-header' },
+                            React.createElement(
+                                'button',
+                                { type: 'button', className: 'close', 'data-dismiss': 'modal' },
+                                '\xD7'
+                            ),
+                            React.createElement(
+                                'h4',
+                                { className: 'modal-title' },
+                                React.createElement('i', { className: 'fa fa-exclamation-triangle', style: { color: '#860000' } }),
+                                ' Aviso'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'modal-body' },
+                            'N\xE3o \xE9 permitido marca\xE7\xF5es de tipos diferentes. Se continuar ir\xE1 desmarcar todos os tipos anteriores.'
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'modal-footer' },
+                            React.createElement(
+                                'button',
+                                { className: 'btn btn-default', 'data-dismiss': 'modal' },
+                                'Cancelar'
+                            ),
+                            React.createElement(
+                                'button',
+                                { className: 'btn btn-default', 'data-dismiss': 'modal', onClick: () => this.callSelected(this.state.typeSelected, this.state.itemSelected) },
+                                'Continuar'
+                            )
+                        )
+                    )
+                )
+            )
         );
     }
 }
