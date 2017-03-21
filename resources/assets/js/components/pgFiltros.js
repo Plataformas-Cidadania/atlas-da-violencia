@@ -7,7 +7,8 @@ class PgFiltros extends React.Component{
             periodos: [],
             from: 0,
             to: 0,
-            regions: []
+            regions: [],
+            typeRegion: ''
         };
 
         this.serieMarked = this.serieMarked.bind(this);
@@ -32,18 +33,22 @@ class PgFiltros extends React.Component{
         //console.log('setPeriodos', periodos);
     }
 
-    setRegions(regions){
+    setRegions(regions, typeRegion){
+
+        this.setState({regions: regions, typeRegion: typeRegion});
+
+
         /*let regionsSelected = regions.map(function(item){
            if(item.selected){
                return item.uf;
            }
         });*/
-        let regionsSelected = [];
+        /*let regionsSelected = [];
         for(let i in regions){
             if(regions[i].selected)
                 regionsSelected.push(regions[i].uf)
         }
-        this.setState({regions: regionsSelected});
+        this.setState({regions: regionsSelected});*/
         //console.log('setRegions', regions);
     }
 
@@ -56,6 +61,10 @@ class PgFiltros extends React.Component{
     }
 
     render(){
+
+        console.log(this.state.typeRegion, this.state.regions);
+
+
         return(
             <div>
                 <h1>Filtros - {this.props.titulo}</h1>
@@ -94,6 +103,7 @@ class PgFiltros extends React.Component{
                     <input type="hidden" name="to" value={this.state.to}/>
                     <input type="hidden" name="periodos" value={this.state.periodos}/>
                     <input type="hidden" name="regions" value={this.state.regions}/>
+                    <input type="hidden" name="regions" value={this.state.typeRegion}/>
                 </form>
             </div>
 

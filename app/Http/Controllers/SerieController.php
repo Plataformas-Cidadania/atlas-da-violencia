@@ -171,9 +171,10 @@ class SerieController extends Controller
 
         $regions = DB::table('public.valores_series')
             ->select(
+                'spat.ed_territorios_regioes.edterritorios_codigo as codigo_regiao',
                 'spat.ed_territorios_regioes.edterritorios_nome as nome_regiao',
                 'spat.ed_territorios_regioes.edterritorios_sigla as sigla_regiao',
-                'spat.ed_territorios_uf.edterritorios_nome as codigo_uf',
+                'spat.ed_territorios_uf.edterritorios_codigo as codigo_uf',
                 'spat.ed_territorios_uf.edterritorios_nome as nome_uf',
                 'spat.ed_territorios_uf.edterritorios_sigla as sigla_uf'
             )
@@ -195,15 +196,20 @@ class SerieController extends Controller
             if($key===false){
                 array_push($regioes, [
                     'region' => $region->nome_regiao,
+                    'codigo' => $region->codigo_regiao,
                     'sigla' => $region->sigla_regiao,
                     'open' => false,
                     'allUfsSelected' => false,
-                    'ufs' => [],
-                    'selected' => false
+                    'selected' => false,
+                    'ufs' => []
                 ]);
                 $key = array_search([
                     'region' => $region->nome_regiao,
+                    'codigo' => $region->codigo_regiao,
                     'sigla' => $region->sigla_regiao,
+                    'open' => false,
+                    'allUfsSelected' => false,
+                    'selected' => false,
                     'ufs' => []
                 ], $regioes);
             }

@@ -7,7 +7,8 @@ class PgFiltros extends React.Component {
             periodos: [],
             from: 0,
             to: 0,
-            regions: []
+            regions: [],
+            typeRegion: ''
         };
 
         this.serieMarked = this.serieMarked.bind(this);
@@ -32,17 +33,21 @@ class PgFiltros extends React.Component {
         //console.log('setPeriodos', periodos);
     }
 
-    setRegions(regions) {
+    setRegions(regions, typeRegion) {
+
+        this.setState({ regions: regions, typeRegion: typeRegion });
+
         /*let regionsSelected = regions.map(function(item){
            if(item.selected){
                return item.uf;
            }
         });*/
-        let regionsSelected = [];
-        for (let i in regions) {
-            if (regions[i].selected) regionsSelected.push(regions[i].uf);
+        /*let regionsSelected = [];
+        for(let i in regions){
+            if(regions[i].selected)
+                regionsSelected.push(regions[i].uf)
         }
-        this.setState({ regions: regionsSelected });
+        this.setState({regions: regionsSelected});*/
         //console.log('setRegions', regions);
     }
 
@@ -55,22 +60,25 @@ class PgFiltros extends React.Component {
     }
 
     render() {
+
+        console.log(this.state.typeRegion, this.state.regions);
+
         return React.createElement(
-            "div",
+            'div',
             null,
             React.createElement(
-                "h1",
+                'h1',
                 null,
-                "Filtros - ",
+                'Filtros - ',
                 this.props.titulo
             ),
             React.createElement(SeriesList, {
-                url: "listar-series-relacionadas",
-                select: "mark-one",
+                url: 'listar-series-relacionadas',
+                select: 'mark-one',
                 parameters: { id: this.props.serie_id },
                 serieMarked: this.serieMarked
             }),
-            React.createElement("br", null),
+            React.createElement('br', null),
             React.createElement(RangePeriodo, {
                 id: this.state.serieMarked,
                 changePeriodo: this.changePeriodo,
@@ -79,32 +87,33 @@ class PgFiltros extends React.Component {
 
                 style: { display: this.state.serieMarked > 0 ? 'block' : 'none' }
             }),
-            React.createElement("br", null),
-            React.createElement("br", null),
+            React.createElement('br', null),
+            React.createElement('br', null),
             React.createElement(FiltroRegions, {
                 id: this.state.serieMarked,
                 setRegions: this.setRegions,
                 loading: this.loading
             }),
-            React.createElement("br", null),
-            React.createElement("br", null),
+            React.createElement('br', null),
+            React.createElement('br', null),
             React.createElement(
-                "button",
+                'button',
                 {
-                    className: "btn btn-success btn-lg",
+                    className: 'btn btn-success btn-lg',
                     style: { display: this.state.serieMarked > 0 ? 'block' : 'none', margin: 'auto', minWidth: '350px' },
                     onClick: this.submit },
-                "Continuar"
+                'Continuar'
             ),
             React.createElement(
-                "form",
-                { id: "formFiltros", style: { display: 'none' }, action: "dados-series", method: "POST" },
-                React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
-                React.createElement("input", { type: "hidden", name: "id", value: this.state.serieMarked }),
-                React.createElement("input", { type: "hidden", name: "from", value: this.state.from }),
-                React.createElement("input", { type: "hidden", name: "to", value: this.state.to }),
-                React.createElement("input", { type: "hidden", name: "periodos", value: this.state.periodos }),
-                React.createElement("input", { type: "hidden", name: "regions", value: this.state.regions })
+                'form',
+                { id: 'formFiltros', style: { display: 'none' }, action: 'dados-series', method: 'POST' },
+                React.createElement('input', { type: 'hidden', name: '_token', value: $('meta[name="csrf-token"]').attr('content') }),
+                React.createElement('input', { type: 'hidden', name: 'id', value: this.state.serieMarked }),
+                React.createElement('input', { type: 'hidden', name: 'from', value: this.state.from }),
+                React.createElement('input', { type: 'hidden', name: 'to', value: this.state.to }),
+                React.createElement('input', { type: 'hidden', name: 'periodos', value: this.state.periodos }),
+                React.createElement('input', { type: 'hidden', name: 'regions', value: this.state.regions }),
+                React.createElement('input', { type: 'hidden', name: 'regions', value: this.state.typeRegion })
             )
         );
     }

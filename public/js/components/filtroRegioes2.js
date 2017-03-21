@@ -23,6 +23,7 @@ class FiltroRegions extends React.Component {
         this.clearRegionsSelected = this.clearRegionsSelected.bind(this);
         this.clearUfsSelected = this.clearUfsSelected.bind(this);
         this.verifyExistTypeSelected = this.verifyExistTypeSelected.bind(this);
+        this.selectRegions = this.selectRegions.bind(this);
     }
 
     componentDidMount() {
@@ -73,15 +74,21 @@ class FiltroRegions extends React.Component {
 
         regions.find(function (item) {
             if (item.region == region) {
-                console.log(item);
+                //console.log(item);
                 item.selected = !item.selected;
             }
         });
-        this.clearUfsSelected();
+        regions = this.clearUfsSelected(regions);
 
-        this.setState({ regions: regions, typeSelected: 'region' }, function () {
-            this.verifyExistTypeSelected();
-        });
+        let typeSelected = 'region';
+        let regionsSelected = this.selectRegions(regions, typeSelected);
+
+        if (this.verifyExistTypeSelected(regions)) {
+            typeSelected = '';
+        }
+
+        this.props.setRegions(regionsSelected, typeSelected);
+        this.setState({ regions: regions, typeSelected: typeSelected, regionsSelected: regionsSelected });
     }
 
     selectUf(uf) {
@@ -103,10 +110,17 @@ class FiltroRegions extends React.Component {
                 region.allUfsSelected = true;
             }
         });
-        this.clearRegionsSelected();
-        this.setState({ regions: regions, typeSelected: 'uf' }, function () {
-            this.verifyExistTypeSelected();
-        });
+        regions = this.clearRegionsSelected(regions);
+
+        let typeSelected = 'uf';
+        let regionsSelected = this.selectRegions(regions, typeSelected);
+
+        if (this.verifyExistTypeSelected(regions)) {
+            typeSelected = '';
+        }
+
+        this.props.setRegions(regionsSelected, typeSelected);
+        this.setState({ regions: regions, typeSelected: typeSelected, regionsSelected: regionsSelected });
     }
 
     selectAllUf(region) {
@@ -123,7 +137,17 @@ class FiltroRegions extends React.Component {
             }
         });
 
-        this.setState({ regions: regions, typeSelected: 'uf' });
+        regions = this.clearRegionsSelected(regions);
+
+        let typeSelected = 'uf';
+        let regionsSelected = this.selectRegions(regions, typeSelected);
+
+        if (this.verifyExistTypeSelected(regions)) {
+            typeSelected = '';
+        }
+
+        this.props.setRegions(regionsSelected, typeSelected);
+        this.setState({ regions: regions, typeSelected: typeSelected, regionsSelected: regionsSelected });
     }
 
     verifyTypeSelected(type, item) {
@@ -134,9 +158,9 @@ class FiltroRegions extends React.Component {
                 $('#modalInfo').modal('show');
             });
         } else {
-            this.setState({ typeSelected: type, itemSelected: item }, function () {
-                this.callSelected(type, item);
-            });
+            //this.setState({typeSelected: type, itemSelected: item}, function(){
+            this.callSelected(type, item);
+            //});
         }
     }
 
@@ -151,18 +175,20 @@ class FiltroRegions extends React.Component {
         }
     }
 
-    clearRegionsSelected() {
-        let regions = this.state.regions;
+    clearRegionsSelected(regions) {
+        //let regions = this.state.regions;
 
         regions.find(function (region) {
             region.selected = false;
         });
 
-        this.setState({ regions: regions });
+        return regions;
+
+        //this.setState({regions: regions});
     }
 
-    clearUfsSelected() {
-        let regions = this.state.regions;
+    clearUfsSelected(regions) {
+        //let regions = this.state.regions;
 
         regions.find(function (region) {
             region.allUfsSelected = false;
@@ -171,13 +197,15 @@ class FiltroRegions extends React.Component {
             });
         });
 
-        this.setState({ regions: regions });
+        return regions;
+
+        //this.setState({regions: regions});
     }
 
     //verifica se existe algum item marcado para resetar o type selected
-    verifyExistTypeSelected() {
+    verifyExistTypeSelected(regions) {
         let qtd = 0;
-        this.state.regions.find(function (region) {
+        regions.find(function (region) {
             if (region.selected) {
                 qtd++;
                 return;
@@ -190,14 +218,35 @@ class FiltroRegions extends React.Component {
             });
         });
 
-        if (qtd == 0) {
-            this.setState({ typeSelected: '' });
-        }
+        return qtd == 0;
+    }
+
+    selectRegions(regions, typeSelected) {
+        let regionsSelected = [];
+
+        regions.find(function (region) {
+            if (typeSelected == "uf") {
+                region.ufs.find(function (uf) {
+                    if (uf.selected) {
+                        regionsSelected.push(uf.codigo);
+                    }
+                });
+            }
+            if (typeSelected == "region") {
+                if (region.selected) {
+                    regionsSelected.push(region.codigo);
+                }
+            }
+        });
+
+        return regionsSelected;
     }
 
     render() {
 
-        //console.log(this.state.ufsSelected);
+        //console.log(this.state.typeSelected);
+        console.log(this.state.regionsSelected);
+        //console.log(this.state.regions);
 
         let regions = this.state.regions.map(function (region, indexRegion) {
 
