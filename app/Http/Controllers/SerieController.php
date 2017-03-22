@@ -81,23 +81,26 @@ class SerieController extends Controller
         ]);
     }
 
-    function valoresRegiaoUltimoPeriodo($id, $max, $typeRegion, $typeRegionSerie){
+    function valoresRegiaoUltimoPeriodo($id, $max, $regions, $typeRegion, $typeRegionSerie){
         //$typeRegionSerie: 1(regiao), 2(uf) 3(municipio)
 
+        $regions = explode(',', $regions);
+
+
         if($typeRegion=='region'){
-            return $this->porRegiao($id, $max, $typeRegionSerie);
+            return $this->valoresRegiaoUltimoPeriodoPorRegiao($id, $max, $regions, $typeRegionSerie);
         }
 
         if($typeRegion=='uf'){
-            return $this->porUf($id, $max,$typeRegionSerie);
+            return $this->valoresRegiaoUltimoPeriodoPorUf($id, $max, $regions,$typeRegionSerie);
         }
 
         if($typeRegion=='municipio'){
-            return $this->porMunicipio($id, $max, $typeRegionSerie);
+            return $this->valoresRegiaoUltimoPeriodoPorMunicipio($id, $max, $regions, $typeRegionSerie);
         }
 
 
-        $valores = DB::table('valores_series')
+        /*$valores = DB::table('valores_series')
             ->select(DB::raw("valores_series.valor as total, valores_series.uf, ed_territorios_uf.edterritorios_nome as nome"))
             ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
             ->where([
@@ -109,34 +112,62 @@ class SerieController extends Controller
             ->get();
 
 
-        return $valores;
+        return $valores;*/
     }
 
-    private function valoresRegiaoUltimoPeriodoPorRegiao($id, $max, $typeRegionSerie){
+    private function valoresRegiaoUltimoPeriodoPorRegiao($id, $max, $regions, $typeRegionSerie){
+        DB::connection()->enableQueryLog();
         if($typeRegionSerie==1){
+
 
         }
         if($typeRegionSerie==2){
+            $valores = DB::table('regions_by_uf')
+                ->select(DB::raw(
+                    "sum(valor) as total, sigla, nome"
+                ))
+                ->where([
+                    ['serie_id', $id],
+                    ['periodo', $max]
+                ])
+                ->whereIn('codigo', $regions)
+                ->groupBy("sigla", "nome")
+                ->get();
 
+            Log::info(DB::getQueryLog());
+
+            return $valores;
         }
         if($typeRegionSerie==3){
 
         }
     }
 
-    private function valoresRegiaoUltimoPeriodoPorUf($id, $max, $typeRegionSerie){
+    private function valoresRegiaoUltimoPeriodoPorUf($id, $max, $regions, $typeRegionSerie){
         if($typeRegionSerie==1){
 
         }
         if($typeRegionSerie==2){
+            $valores = DB::table('valores_series')
+                ->select(DB::raw("valores_series.valor as total, valores_series.uf as sigla, ed_territorios_uf.edterritorios_nome as nome"))
+                ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+                ->where([
+                    ['valores_series.serie_id', $id],
+                    ['valores_series.periodo', $max]
+                ])
+                ->whereIn('valores_series.regiao_id', $regions)
+                ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_nome', 'valores_series.valor')
+                ->orderBy('valores_series.uf')
+                ->get();
 
+            return $valores;
         }
         if($typeRegionSerie==3){
 
         }
     }
 
-    private function valoresRegiaoUltimoPeriodoPorUf($id, $max, $typeRegionSerie){
+    private function valoresRegiaoUltimoPeriodoPorMunicipio($id, $max, $regions, $typeRegionSerie){
         if($typeRegionSerie==1){
 
         }
@@ -165,9 +196,21 @@ class SerieController extends Controller
         return $valores;
     }
 
-    function valoresPeriodoRegioesSelecionadas($id, $min, $max, $regions){
+    function valoresPeriodoRegioesSelecionadas($id, $min, $max, $regions, $typeRegion, $typeRegionSerie){
 
         $regions = explode(',', $regions);
+
+        if($typeRegion=='region'){
+            return $this->valoresPeriodoRegioesSelecionadasPorRegiao($id, $max, $regions, $typeRegionSerie);
+        }
+
+        if($typeRegion=='uf'){
+            return $this->valoresPeriodoRegioesSelecionadasPorUf($id, $max, $regions,$typeRegionSerie);
+        }
+
+        if($typeRegion=='municipio'){
+            return $this->valoresPeriodoRegioesSelecionadasPorMunicipio($id, $max, $regions, $typeRegionSerie);
+        }
 
         $rows = DB::table('valores_series')
             ->select(DB::raw("valores_series.uf, valores_series.valor, valores_series.periodo"))
@@ -189,6 +232,84 @@ class SerieController extends Controller
 
         return $data;
     }
+
+    private function valoresPeriodoRegioesSelecionadasPorRegiao($id, $max, $regions, $typeRegionSerie){
+        DB::connection()->enableQueryLog();
+        if($typeRegionSerie==1){
+
+
+        }
+        if($typeRegionSerie==2){
+            $rows = DB::table('regions_by_uf')
+                ->select(DB::raw(
+                    "sum(valor) as total, sigla, nome"
+                ))
+                ->where([
+                    ['serie_id', $id],
+                    ['periodo', $max]
+                ])
+                ->whereIn('codigo', $regions)
+                ->groupBy("sigla", "nome")
+                ->get();
+
+            Log::info(DB::getQueryLog());
+
+            $data = [];
+
+            foreach($rows as $row){
+                $data[$row->sigla][$row->periodo] = $row->valor;
+            }
+
+            return $data;
+        }
+        if($typeRegionSerie==3){
+
+        }
+    }
+
+    private function valoresPeriodoRegioesSelecionadasPorUf($id, $max, $regions, $typeRegionSerie){
+        if($typeRegionSerie==1){
+
+        }
+        if($typeRegionSerie==2){
+            $rows = DB::table('valores_series')
+                ->select(DB::raw("valores_series.valor as total, valores_series.uf as sigla, ed_territorios_uf.edterritorios_nome as nome"))
+                ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+                ->where([
+                    ['valores_series.serie_id', $id],
+                    ['valores_series.periodo', $max]
+                ])
+                ->whereIn('valores_series.regiao_id', $regions)
+                ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_nome', 'valores_series.valor')
+                ->orderBy('valores_series.uf')
+                ->get();
+
+            $data = [];
+
+            foreach($rows as $row){
+                $data[$row->sigla][$row->periodo] = $row->valor;
+            }
+
+            return $data;
+        }
+        if($typeRegionSerie==3){
+
+        }
+    }
+
+    private function valoresPeriodoRegioesSelecionadasPorMunicipio($id, $max, $regions, $typeRegionSerie){
+        if($typeRegionSerie==1){
+
+        }
+        if($typeRegionSerie==2){
+
+        }
+        if($typeRegionSerie==3){
+
+        }
+    }
+
+
 
     public function teste(){
 

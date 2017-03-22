@@ -64,9 +64,9 @@ class RangePeriodo extends React.Component {
 
     loadRange() {
         let _this = this;
-        console.log(_this.state.periodos);
-        console.log(_this.props.from);
-        console.log(_this.props.to);
+        //console.log(_this.state.periodos);
+        //console.log(_this.props.from);
+        //console.log(_this.props.to);
         $("#range").ionRangeSlider({
             values: _this.state.periodos,
             hide_min_max: true,
@@ -83,7 +83,7 @@ class RangePeriodo extends React.Component {
             prettify_enabled: false,
             onStart: function (data) {
                 //console.log('range onStart', data);
-                console.log(data.from_value, data.to_value);
+                //console.log(data.from_value, data.to_value);
                 _this.props.changePeriodo(data.from_value, data.to_value);
                 //min = data.from_value;
                 //max = data.to_value;
@@ -96,7 +96,7 @@ class RangePeriodo extends React.Component {
             },
             onFinish: function (data) {
                 //console.log('range onFinish', data);
-                console.log(data.from_value, data.to_value);
+                //console.log(data.from_value, data.to_value);
                 _this.props.changePeriodo(data.from_value, data.to_value);
                 //min = data.from_value;
                 //max = data.to_value;

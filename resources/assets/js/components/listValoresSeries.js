@@ -40,7 +40,7 @@ class ListValoresSeries extends React.Component{
             return (
                 <tr key={index}>
                     <th width="10px"><i className="fa fa-square" style={{color: getColor(item.total, intervalos)}}> </i></th>
-                    <th>{item.uf} - {item.nome}</th>
+                    <th>{item.sigla} - {item.nome}</th>
                     <td className="text-right">{item.total}</td>
                 </tr>
             );
@@ -52,7 +52,7 @@ class ListValoresSeries extends React.Component{
                 <thead>
                     <tr>
                         <th>&nbsp;</th>
-                        <th>Uf</th>
+                        <th>Território</th>
                         <th className="text-right">Ocorrências</th>
                     </tr>
                 </thead>

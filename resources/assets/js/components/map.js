@@ -58,12 +58,12 @@ class Map extends React.Component{
     }
 
     loadData(){
-        console.log('Map - loadData', this.props.typeRegion, this.props.typeRegionSerie);
+        //console.log('Map - loadData', this.props.typeRegion, this.props.typeRegionSerie);
         let _this = this;
         $.ajax("regiao/"+_this.state.id+"/"+_this.state.max+"/"+_this.props.typeRegion+"/"+_this.props.typeRegionSerie, {
             data: {},
             success: function(data){
-                console.log('map - loadData',data);
+                //console.log('map - loadData',data);
                 _this.loadMap(data);
             },
             error: function(data){

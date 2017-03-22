@@ -50,7 +50,7 @@ class ChartBar extends React.Component{
         let labels = [];
         let values = [];
         for(let i in data){
-            labels[i] = data[i].uf;
+            labels[i] = data[i].sigla;
             values[i] = data[i].total;
         }
 
@@ -96,7 +96,7 @@ class ChartBar extends React.Component{
     }
 
     getColors(values){
-        console.log('chartbar - getcolors - intervalos', this.state.intervalos.length);
+        //console.log('chartbar - getcolors - intervalos', this.state.intervalos.length);
         if(this.state.intervalos.length > 0){
             let colors = [];
             for(let i in values){

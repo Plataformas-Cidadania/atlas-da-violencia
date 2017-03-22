@@ -75,8 +75,8 @@
     Route::get('map/', 'MapController@index');
     Route::get('map/{id}/{titulo}', 'MapController@index');
     Route::post('dados-series/', 'SerieController@dataSeries');
-    Route::get('valores-regiao/{id}/{max}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresRegiaoUltimoPeriodo');
-    Route::get('periodo/{id}/{min}/{max}/{regions}', 'SerieController@valoresPeriodoRegioesSelecionadas');
+    Route::get('valores-regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresRegiaoUltimoPeriodo');
+    Route::get('periodo/{id}/{min}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresPeriodoRegioesSelecionadas');
     Route::get('periodo/{id}/{min}/{max}', 'SerieController@valoresPeriodoPorRegiao');
     //Route::get('get-data/', 'MapController@getData');
 

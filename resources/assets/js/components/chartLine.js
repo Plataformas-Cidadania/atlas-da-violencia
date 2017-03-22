@@ -33,10 +33,10 @@ class ChartLine extends React.Component{
         this.setState({loading: true});
         let _this = this;
         //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
-        $.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions, {
+        $.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.typeRegion+"/"+this.props.typeRegionSerie, {
             data: {},
             success: function(data){
-                console.log('charline', data);
+                //console.log('charline', data);
                 _this.setState({loading: false}, function(){
                     _this.loadChartLine(data);
                 });
@@ -128,7 +128,7 @@ class ChartLine extends React.Component{
 
             let colors = this.getColors(values);
 
-            console.log('colors', colors);
+            //console.log('colors', colors);
 
             datasets[cont++] = {
                 label: region,
@@ -154,7 +154,7 @@ class ChartLine extends React.Component{
 
         }
 
-        console.log(labels);
+        //console.log(labels);
 
 
         var dataChart = {
@@ -177,7 +177,7 @@ class ChartLine extends React.Component{
     }
 
     getColors(values){
-        console.log('chartline - getcolors - intervalos', this.state.intervalos.length);
+        //console.log('chartline - getcolors - intervalos', this.state.intervalos.length);
         //console.log('chartline - getcolors - values', values);
         if(this.state.intervalos.length > 0){
             let colors = [];

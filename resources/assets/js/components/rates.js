@@ -20,7 +20,7 @@ class Rates extends React.Component{
         $.ajax("valores-regiao/"+this.state.min+"/"+this.state.max, {
             data: {},
             success: function(data){
-                console.log(data);
+                //console.log(data);
             },
             error: function(data){
                 console.log('erro');

@@ -47,11 +47,11 @@ class PgSerie extends React.Component{
         $.ajax({
             method:'GET',
             //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-            url: "valores-regiao/"+this.state.id+"/"+this.state.max+"/"+this.props.typeRegion+"/"+this.props.typeRegionSerie,
+            url: "valores-regiao/"+this.state.id+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.typeRegion+"/"+this.props.typeRegionSerie,
             //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
             cache: false,
             success: function(data) {
-                //console.log('pgSerie', data);
+                console.log('pgSerie', data);
                 let totais = {
                     min: this.state.min,
                     max: this.state.max,
@@ -196,6 +196,7 @@ class PgSerie extends React.Component{
                                     periodos={this.state.periodos}
                                     regions={this.props.regions}
                                     typeRegion={this.props.typeRegion}
+                                    typeRegionSerie={this.props.typeRegionSerie}
                                     intervalos={this.state.intervalos}
                                 />
                             </div>

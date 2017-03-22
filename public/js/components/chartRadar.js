@@ -48,7 +48,7 @@ class ChartRadar extends React.Component {
         let labels = [];
         let values = [];
         for (let i in data) {
-            labels[i] = data[i].uf;
+            labels[i] = data[i].sigla;
             values[i] = data[i].total;
         }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class MapController extends Controller
 {
@@ -199,6 +200,9 @@ class MapController extends Controller
     }
 
     private function porRegiao($id, $max, $typerRegionSerie, $where){
+
+        DB::connection()->enableQueryLog();
+
         if($typerRegionSerie==1){//1 - regiao
             $valores = DB::table('valores_series')
                 ->select(
@@ -223,7 +227,25 @@ class MapController extends Controller
 
         //Caso os valores da série sejam separados por uf e a pesquisa seja por região
         if($typerRegionSerie==2){//2 - uf
-            $valores = DB::table('valores_series')
+
+            $where = [
+                ['serie_id', $id],
+                ['periodo', $max]
+            ];
+
+
+            $valores = DB::table('regions_by_uf')
+                ->select(DB::raw(
+                    "geometry, sum(valor) as total, sigla, nome, x, y"
+                ))
+                ->where($where)
+                ->groupBy("geometry", "sigla", "nome", "x", "y")
+                ->get();
+
+            return $this->mountAreas($valores);
+
+
+            /*$valores = DB::table('valores_series')
                 ->select(
                     DB::raw(
                         "
@@ -245,11 +267,12 @@ class MapController extends Controller
                 ->where($where)
                 ->groupBy("ed_territorios_regioes.edterritorios_sigla", "ed_territorios_regioes.edterritorios_nome", "ed_territorios_regioes.edterritorios_geometry", "ed_territorios_regioes.edterritorios_centroide")
                 ->orderBy('total')
-                ->get();
+                ->get();*/
 
             //return $valores;
+            //Log::info(DB::getQueryLog());
 
-            return $this->mountAreas($valores);
+            //return $this->mountAreas($valores);
         }
 
         if($typerRegionSerie==2){
@@ -260,6 +283,9 @@ class MapController extends Controller
 
 
     private function porUf($id, $max, $typerRegionSerie, $where){
+
+        DB::connection()->enableQueryLog();
+
         if($typerRegionSerie==2){//2 - uf
             $valores = DB::table('valores_series')
                 ->select(
@@ -278,6 +304,8 @@ class MapController extends Controller
                 ->groupBy("ed_territorios_uf.edterritorios_sigla", "ed_territorios_uf.edterritorios_nome", "ed_territorios_uf.edterritorios_geometry", "ed_territorios_uf.edterritorios_centroide")
                 ->orderBy('total')
                 ->get();
+
+            Log::info(DB::getQueryLog());
 
             return $this->mountAreas($valores);
         }

@@ -56,7 +56,7 @@ class ListValoresSeries extends React.Component {
                 React.createElement(
                     "th",
                     null,
-                    item.uf,
+                    item.sigla,
                     " - ",
                     item.nome
                 ),
@@ -86,7 +86,7 @@ class ListValoresSeries extends React.Component {
                     React.createElement(
                         "th",
                         null,
-                        "Uf"
+                        "Territ\xF3rio"
                     ),
                     React.createElement(
                         "th",
