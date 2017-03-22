@@ -13,7 +13,8 @@ class SeriesList extends React.Component{
                     backgroundColor: '#fff'
                 }
             },
-            markedId: ''
+            markedId: '',
+            typerRegionSerie: ''
         };
 
         this.loadData = this.loadData.bind(this);
@@ -57,9 +58,10 @@ class SeriesList extends React.Component{
         //}
     }
 
-    marked(id){
-        this.setState({markedId: id}, function(){
-            this.props.serieMarked(this.state.markedId);
+    marked(id, typeRegionSerie){
+        console.log('marked', id, typeRegionSerie);
+        this.setState({markedId: id, typeRegionSerie: typeRegionSerie}, function(){
+            this.props.serieMarked(this.state.markedId, this.state.typeRegionSerie);
         });
     }
 
@@ -70,7 +72,7 @@ class SeriesList extends React.Component{
                 select = <td><a href={"filtros/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>;
             }
             if(this.props.select == 'mark-one'){
-                select = <td onClick={() => this.marked(item.id)} style={{cursor:'pointer'}}><a>{item.titulo}</a></td>;
+                select = <td onClick={() => this.marked(item.id, item.tipo_regiao)} style={{cursor:'pointer'}}><a>{item.titulo}</a></td>;
             }
             /*if(this.props.select == 'mark-several'){
 

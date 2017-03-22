@@ -124,6 +124,17 @@ class FiltroRegions extends React.Component {
     }
 
     selectAllUf(region) {
+
+        /*this.state.regions.find(function(item){
+            if(item.region == region) {
+                let all = !item.allUfsSelected;
+                item.ufs.find(function(uf){
+                    item.allUfsSelected = all;
+                    this.verifyTypeSelected('uf', uf.uf);
+                }.bind(this));
+            }
+        }.bind(this));*/
+
         let regions = this.state.regions;
 
         regions.find(function (item) {
@@ -247,6 +258,7 @@ class FiltroRegions extends React.Component {
         //console.log(this.state.typeSelected);
         console.log(this.state.regionsSelected);
         //console.log(this.state.regions);
+
 
         let regions = this.state.regions.map(function (region, indexRegion) {
 

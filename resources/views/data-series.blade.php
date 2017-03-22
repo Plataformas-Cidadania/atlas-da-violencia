@@ -179,6 +179,8 @@
             <script>from="{!! $from !!}";</script>
             <script>to="{!! $to !!}";</script>
             <script>regions="{!! $regions !!}";</script>
+            <script>typeRegion="{!! $typeRegion !!}";</script>
+            <script>typeRegionSerie="{!! $typeRegionSerie !!}";</script>
             <div id="pgSerie"></div>
         @else
             <h1 class="text-center">Pesquisa não encontrada!</h1>

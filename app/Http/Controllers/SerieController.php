@@ -54,11 +54,11 @@ class SerieController extends Controller
         $parameters = $request->parameters;
 
         $series = DB::table('series')
-            ->select(DB::raw('series.*, min(valores_series.periodo) as min, max(valores_series.periodo) as max'))
+            ->select(DB::raw('series.*, min(valores_series.periodo) as min, max(valores_series.periodo) as max, valores_series.tipo_regiao'))
             ->join('valores_series', 'valores_series.serie_id', '=', 'series.id')
             ->where('series.id', $parameters['id'])
             ->orWhere('series.serie_id', $parameters['id'])
-            ->groupBy('series.id')
+            ->groupBy('series.id', 'valores_series.tipo_regiao')
             ->orderBy('series.titulo')
             ->get();
 
@@ -75,11 +75,27 @@ class SerieController extends Controller
             'series' => $serie,
             'from' => $request->from,
             'to' => $request->to,
-            'regions' => $request->regions
+            'regions' => $request->regions,
+            'typeRegion' => $request->typeRegion,
+            'typeRegionSerie' => $request->typeRegionSerie
         ]);
     }
 
-    function valoresRegiaoUltimoPeriodo($id, $max){
+    function valoresRegiaoUltimoPeriodo($id, $max, $typeRegion, $typeRegionSerie){
+        //$typeRegionSerie: 1(regiao), 2(uf) 3(municipio)
+
+        if($typeRegion=='region'){
+            return $this->porRegiao($id, $max, $typeRegionSerie);
+        }
+
+        if($typeRegion=='uf'){
+            return $this->porUf($id, $max,$typeRegionSerie);
+        }
+
+        if($typeRegion=='municipio'){
+            return $this->porMunicipio($id, $max, $typeRegionSerie);
+        }
+
 
         $valores = DB::table('valores_series')
             ->select(DB::raw("valores_series.valor as total, valores_series.uf, ed_territorios_uf.edterritorios_nome as nome"))
@@ -95,6 +111,43 @@ class SerieController extends Controller
 
         return $valores;
     }
+
+    private function valoresRegiaoUltimoPeriodoPorRegiao($id, $max, $typeRegionSerie){
+        if($typeRegionSerie==1){
+
+        }
+        if($typeRegionSerie==2){
+
+        }
+        if($typeRegionSerie==3){
+
+        }
+    }
+
+    private function valoresRegiaoUltimoPeriodoPorUf($id, $max, $typeRegionSerie){
+        if($typeRegionSerie==1){
+
+        }
+        if($typeRegionSerie==2){
+
+        }
+        if($typeRegionSerie==3){
+
+        }
+    }
+
+    private function valoresRegiaoUltimoPeriodoPorUf($id, $max, $typeRegionSerie){
+        if($typeRegionSerie==1){
+
+        }
+        if($typeRegionSerie==2){
+
+        }
+        if($typeRegionSerie==3){
+
+        }
+    }
+
 
     function valoresPeriodoPorRegiao($id, $min, $max){
         $valores = DB::table('valores_series')
@@ -176,7 +229,8 @@ class SerieController extends Controller
                 'spat.ed_territorios_regioes.edterritorios_sigla as sigla_regiao',
                 'spat.ed_territorios_uf.edterritorios_codigo as codigo_uf',
                 'spat.ed_territorios_uf.edterritorios_nome as nome_uf',
-                'spat.ed_territorios_uf.edterritorios_sigla as sigla_uf'
+                'spat.ed_territorios_uf.edterritorios_sigla as sigla_uf',
+                'public.valores_series.tipo_regiao'
             )
             ->join('spat.ed_territorios_uf', 'spat.ed_territorios_uf.edterritorios_codigo', '=', 'public.valores_series.regiao_id')
             ->join('spat.ed_uf', 'spat.ed_uf.eduf_cd_uf', '=', 'spat.ed_territorios_uf.edterritorios_codigo')
@@ -201,6 +255,7 @@ class SerieController extends Controller
                     'open' => false,
                     'allUfsSelected' => false,
                     'selected' => false,
+                    'typeRegionSerie' => $region->tipo_regiao,
                     'ufs' => []
                 ]);
                 $key = array_search([
@@ -210,6 +265,7 @@ class SerieController extends Controller
                     'open' => false,
                     'allUfsSelected' => false,
                     'selected' => false,
+                    'typeRegionSerie' => $region->tipo_regiao,
                     'ufs' => []
                 ], $regioes);
             }

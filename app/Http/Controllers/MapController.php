@@ -120,17 +120,47 @@ class MapController extends Controller
         return $areas;
     }
 
-    function valoresRegiaoUltimoPeriodoGeometry($id, $max){
+    function valoresRegiaoUltimoPeriodoGeometry($id, $max, $typeRegion, $typeRegionSerie){
 
         //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
 
         //ST_X(edterritorios_centroide), ST_Y(edterritorios_centroide)
 
-
         $where = [
             ['valores_series.serie_id', $id],
             ['valores_series.periodo', $max]
         ];
+
+        if($typeRegion=='region'){
+            return $this->porRegiao($id, $max, $typeRegionSerie, $where);
+        }
+
+        if($typeRegion=='uf'){
+            return $this->porUf($id, $max,$typeRegionSerie, $where);
+        }
+
+        if($typeRegion=='municipio'){
+            return $this->porMunicipio($id, $max, $typeRegionSerie, $where);
+        }
+
+
+        /////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////
+
+        $tablesRegion = '';
+        if($typeRegion=='regiao'){
+            $this->porUf($id, $max, $typeRegion);
+            $tablesRegion = 'ed_territorios_regiao';
+        }
+        if($typeRegion=='uf'){
+            $tablesRegion = 'ed_territorios_uf';
+        }
+
 
         $valores = DB::table('valores_series')
             ->select(
@@ -144,9 +174,9 @@ class MapController extends Controller
                     ST_Y(ed_territorios_uf.edterritorios_centroide) as y
                     "
                 ))
-            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->join("ed_territorios_uf", 'valores_series.uf', '=', "ed_territorios_uf.edterritorios_sigla")
             ->where($where)
-            ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_geometry', 'ed_territorios_uf.edterritorios_centroide', 'ed_territorios_uf.edterritorios_nome')
+            ->groupBy('valores_series.uf', "ed_territorios_uf.edterritorios_geometry", "ed_territorios_uf.edterritorios_centroide", "ed_territorios_uf.edterritorios_nome")
             ->orderBy('total')
             ->get();
 
@@ -167,6 +197,119 @@ class MapController extends Controller
 
         return $areas;
     }
+
+    private function porRegiao($id, $max, $typerRegionSerie, $where){
+        if($typerRegionSerie==1){//1 - regiao
+            $valores = DB::table('valores_series')
+                ->select(
+                    DB::raw(
+                        "
+                    ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry) as geometry, 
+                    sum(valores_series.valor) as total, 
+                    ed_territorios_regioes.edterritorios_sigla as sigla,
+                    ed_territorios_regioes.edterritorios_nome as nome, 
+                    ST_X(ed_territorios_uf.edterritorios_centroide) as x, 
+                    ST_Y(ed_territorios_uf.edterritorios_centroide) as y
+                    "
+                    ))
+                ->join("ed_territorios_regioes", 'valores_series.regiao_id', '=', "ed_territorios_regioes.edterritorios_codigo")
+                ->where($where)
+                ->groupBy("ed_territorios_regioes.edterritorios_sigla", "ed_territorios_regioes.edterritorios_nome", "ed_territorios_regioes.edterritorios_geometry", "ed_territorios_regioes.edterritorios_centroide")
+                ->orderBy('total')
+                ->get();
+
+            return $this->mountAreas($valores);
+        }
+
+        //Caso os valores da série sejam separados por uf e a pesquisa seja por região
+        if($typerRegionSerie==2){//2 - uf
+            $valores = DB::table('valores_series')
+                ->select(
+                    DB::raw(
+                        "
+                    ST_AsGeoJSON(ed_territorios_regioes.edterritorios_geometry) as geometry, 
+                    sum(valores_series.valor) as total, 
+                    ed_territorios_regioes.edterritorios_sigla as sigla, 
+                    ed_territorios_regioes.edterritorios_nome as nome, 
+                    ST_X(ed_territorios_regioes.edterritorios_centroide) as x, 
+                    ST_Y(ed_territorios_regioes.edterritorios_centroide) as y
+                    "
+                    ))
+                ->join("ed_territorios_uf", 'valores_series.regiao_id', '=', "ed_territorios_uf.edterritorios_codigo")
+
+                ->join('spat.ed_territorios_uf', 'spat.ed_territorios_uf.edterritorios_codigo', '=', 'public.valores_series.regiao_id')
+                ->join('spat.ed_uf', 'spat.ed_uf.eduf_cd_uf', '=', 'spat.ed_territorios_uf.edterritorios_codigo')
+                ->join('spat.territorio', 'spat.territorio.terregiao', '=', 'spat.ed_uf.edre_cd_regiao')
+                ->join('spat.ed_territorios_regioes', 'spat.ed_territorios_regioes.edterritorios_terid', '=', 'spat.territorio.terid')
+
+                ->where($where)
+                ->groupBy("ed_territorios_regioes.edterritorios_sigla", "ed_territorios_regioes.edterritorios_nome", "ed_territorios_regioes.edterritorios_geometry", "ed_territorios_regioes.edterritorios_centroide")
+                ->orderBy('total')
+                ->get();
+
+            //return $valores;
+
+            return $this->mountAreas($valores);
+        }
+
+        if($typerRegionSerie==2){
+
+        }
+
+    }
+
+
+    private function porUf($id, $max, $typerRegionSerie, $where){
+        if($typerRegionSerie==2){//2 - uf
+            $valores = DB::table('valores_series')
+                ->select(
+                    DB::raw(
+                        "
+                    ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry) as geometry, 
+                    sum(valores_series.valor) as total, 
+                    ed_territorios_uf.edterritorios_sigla as sigla,
+                    ed_territorios_uf.edterritorios_nome as nome, 
+                    ST_X(ed_territorios_uf.edterritorios_centroide) as x, 
+                    ST_Y(ed_territorios_uf.edterritorios_centroide) as y
+                    "
+                    ))
+                ->join("ed_territorios_uf", 'valores_series.regiao_id', '=', "ed_territorios_uf.edterritorios_codigo")
+                ->where($where)
+                ->groupBy("ed_territorios_uf.edterritorios_sigla", "ed_territorios_uf.edterritorios_nome", "ed_territorios_uf.edterritorios_geometry", "ed_territorios_uf.edterritorios_centroide")
+                ->orderBy('total')
+                ->get();
+
+            return $this->mountAreas($valores);
+        }
+    }
+
+    private function porMunicipio($id, $max, $typerRegionSerie, $where){
+        if($typerRegionSerie==3){
+
+        }
+    }
+
+
+
+    private function mountAreas($valores){
+        $areas = [];
+        $areas['type'] = 'FeatureCollection';
+        $areas['features'] = [];
+        foreach($valores as $index => $valor){
+            $areas['features'][$index]['type'] = 'Feature';
+            $areas['features'][$index]['id'] = $index;
+            $areas['features'][$index]['properties']['sigla'] = $valor->sigla;
+            $areas['features'][$index]['properties']['nome'] = $valor->nome;
+            $areas['features'][$index]['properties']['total'] = $valor->total;
+            $areas['features'][$index]['properties']['x'] = $valor->x;
+            $areas['features'][$index]['properties']['y'] = $valor->y;
+            $areas['features'][$index]['geometry'] = json_decode($valor->geometry);
+        }
+
+        return $areas;
+    }
+
+
 
     function valoresRegiaoPorPeriodo($id, $tipoValores, $min, $max){
 

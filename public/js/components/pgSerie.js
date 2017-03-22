@@ -46,7 +46,8 @@ class PgSerie extends React.Component {
         $.ajax({
             method: 'GET',
             //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-            url: "valores-regiao/" + this.state.id + "/" + this.state.max,
+            url: "valores-regiao/" + this.state.id + "/" + this.state.max + "/" + this.props.typeRegion + "/" + this.props.typeRegionSerie,
+            //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
             cache: false,
             success: function (data) {
                 //console.log('pgSerie', data);
@@ -175,7 +176,15 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { display: this.state.showMap ? 'block' : 'none' } },
-                    React.createElement(Map, { id: this.state.id, tipoValores: this.props.tipoValores, min: this.state.min, max: this.state.max, setIntervalos: this.setIntervalos }),
+                    React.createElement(Map, {
+                        id: this.state.id,
+                        tipoValores: this.props.tipoValores,
+                        min: this.state.min,
+                        max: this.state.max,
+                        setIntervalos: this.setIntervalos,
+                        typeRegion: this.props.typeRegion,
+                        typeRegionSerie: this.props.typeRegionSerie
+                    }),
                     React.createElement("br", null),
                     React.createElement("hr", null),
                     React.createElement("br", null)
@@ -201,28 +210,41 @@ class PgSerie extends React.Component {
                         React.createElement(
                             "div",
                             { style: { display: this.state.chartLine ? 'block' : 'none' } },
-                            React.createElement(ChartLine, { id: this.state.id,
+                            React.createElement(ChartLine, {
+                                id: this.state.id,
                                 serie: this.state.serie,
                                 min: this.state.min,
                                 max: this.state.max,
                                 periodos: this.state.periodos,
                                 regions: this.props.regions,
-                                intervalos: this.state.intervalos })
+                                typeRegion: this.props.typeRegion,
+                                intervalos: this.state.intervalos
+                            })
                         ),
                         React.createElement(
                             "div",
                             { style: { display: this.state.chartBar ? 'block' : 'none' } },
-                            React.createElement(ChartBar, { serie: this.state.serie, intervalos: this.state.intervalos, data: this.state.totaisRegioesPorPeriodo })
+                            React.createElement(ChartBar, {
+                                serie: this.state.serie,
+                                intervalos: this.state.intervalos,
+                                data: this.state.totaisRegioesPorPeriodo
+                            })
                         ),
                         React.createElement(
                             "div",
                             { style: { display: this.state.chartRadar ? 'block' : 'none' } },
-                            React.createElement(ChartRadar, { serie: this.state.serie, data: this.state.totaisRegioesPorPeriodo })
+                            React.createElement(ChartRadar, {
+                                serie: this.state.serie,
+                                data: this.state.totaisRegioesPorPeriodo
+                            })
                         ),
                         React.createElement(
                             "div",
                             { style: { display: this.state.chartPie ? 'block' : 'none' } },
-                            React.createElement(ChartPie, { intervalos: this.state.intervalos, data: this.state.totaisRegioesPorPeriodo })
+                            React.createElement(ChartPie, {
+                                intervalos: this.state.intervalos,
+                                data: this.state.totaisRegioesPorPeriodo
+                            })
                         )
                     ),
                     React.createElement("br", null),
@@ -232,7 +254,10 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { display: this.state.showRegions ? 'block' : 'none' } },
-                    React.createElement(Regions, { id: this.state.id, data: this.state.totaisRegioesPorPeriodo }),
+                    React.createElement(Regions, {
+                        id: this.state.id,
+                        data: this.state.totaisRegioesPorPeriodo
+                    }),
                     React.createElement("br", null),
                     React.createElement("hr", null),
                     React.createElement("br", null)
@@ -245,7 +270,11 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { display: this.state.showTable ? 'block' : 'none' } },
-                    React.createElement(ListValoresSeries, { min: this.state.min, max: this.state.max, data: this.state.totaisRegioesPorPeriodo }),
+                    React.createElement(ListValoresSeries, {
+                        min: this.state.min,
+                        max: this.state.max,
+                        data: this.state.totaisRegioesPorPeriodo
+                    }),
                     React.createElement("br", null),
                     React.createElement("hr", null),
                     React.createElement("br", null)
@@ -253,11 +282,24 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { className: "hidden-print", style: { display: this.state.showCalcs ? 'block' : 'none' } },
-                    React.createElement(Calcs, { id: this.state.id, serie: this.state.serie, data: this.state.totaisRegioesPorPeriodo })
+                    React.createElement(Calcs, {
+                        id: this.state.id,
+                        serie: this.state.serie,
+                        data: this.state.totaisRegioesPorPeriodo
+                    })
                 )
             )
         );
     }
 }
 
-ReactDOM.render(React.createElement(PgSerie, { id: serie_id, serie: serie, tipoValores: tipoValores, from: from, to: to, regions: regions }), document.getElementById('pgSerie'));
+ReactDOM.render(React.createElement(PgSerie, {
+    id: serie_id,
+    serie: serie,
+    tipoValores: tipoValores,
+    from: from,
+    to: to,
+    regions: regions,
+    typeRegion: typeRegion,
+    typeRegionSerie: typeRegionSerie
+}), document.getElementById('pgSerie'));

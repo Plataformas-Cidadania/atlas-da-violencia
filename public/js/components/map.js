@@ -37,7 +37,7 @@ class Map extends React.Component {
             // method that we will use to update the control based on feature properties passed
             this.state.info.update = function (props) {
                 //console.log('info', props);
-                this._div.innerHTML = '<h4>Ocorrências</h4>' + (props ? '<b>' + props.uf + ' - ' + props.nome + '</b><br />' + props.total : 'Passe o mouse na região');
+                this._div.innerHTML = '<h4>Ocorrências</h4>' + (props ? '<b>' + props.sigla + ' - ' + props.nome + '</b><br />' + props.total : 'Passe o mouse na região');
             };
             this.state.info.addTo(this.state.mymap);
         });
@@ -52,12 +52,12 @@ class Map extends React.Component {
     }
 
     loadData() {
+        console.log('Map - loadData', this.props.typeRegion, this.props.typeRegionSerie);
         let _this = this;
-        //$.ajax("regiao/"+_this.state.id+"/"+_this.props.tipoValores+"/"+_this.state.min+"/"+_this.state.max, {
-        $.ajax("regiao/" + _this.state.id + "/" + _this.state.max, {
+        $.ajax("regiao/" + _this.state.id + "/" + _this.state.max + "/" + _this.props.typeRegion + "/" + _this.props.typeRegionSerie, {
             data: {},
             success: function (data) {
-                //console.log('map',data);
+                console.log('map - loadData', data);
                 _this.loadMap(data);
             },
             error: function (data) {
