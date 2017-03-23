@@ -14,7 +14,8 @@ class SeriesList extends React.Component{
                 }
             },
             markedId: '',
-            typerRegionSerie: ''
+            typerRegionSerie: '',
+            tipo_valores: ''
         };
 
         this.loadData = this.loadData.bind(this);
@@ -37,7 +38,7 @@ class SeriesList extends React.Component{
             },
             cache: false,
             success: function(data){
-                //console.log('seriesList', data);
+                console.log('seriesList', data);
                 this.setState({data: data}, function(){
                     this.setState({loading: false});
                 });
@@ -58,10 +59,10 @@ class SeriesList extends React.Component{
         //}
     }
 
-    marked(id, typeRegionSerie){
+    marked(id, typeRegionSerie, tipoValores){
         console.log('marked', id, typeRegionSerie);
-        this.setState({markedId: id, typeRegionSerie: typeRegionSerie}, function(){
-            this.props.serieMarked(this.state.markedId, this.state.typeRegionSerie);
+        this.setState({markedId: id, typeRegionSerie: typeRegionSerie, tipoValores: tipoValores}, function(){
+            this.props.serieMarked(this.state.markedId, this.state.typeRegionSerie, this.state.tipoValores);
         });
     }
 
@@ -72,7 +73,7 @@ class SeriesList extends React.Component{
                 select = <td><a href={"filtros/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>;
             }
             if(this.props.select == 'mark-one'){
-                select = <td onClick={() => this.marked(item.id, item.tipo_regiao)} style={{cursor:'pointer'}}><a>{item.titulo}</a></td>;
+                select = <td onClick={() => this.marked(item.id, item.tipo_regiao, item.tipo_valores)} style={{cursor:'pointer'}}><a>{item.titulo}</a></td>;
             }
             /*if(this.props.select == 'mark-several'){
 

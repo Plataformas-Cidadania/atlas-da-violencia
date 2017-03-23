@@ -16,6 +16,7 @@ class PgSerie extends React.Component{
             showRegions: true,
             showTable: true,
             showCalcs: true,
+            showInfo: true,
             chartLine: true,
             chartRadar: false,
             chartBar:false,
@@ -126,17 +127,25 @@ class PgSerie extends React.Component{
                         </div>
                         <div className="col-md-6 text-right hidden-print">
                             <div className="icons-groups icon-group-print" onClick={() => window.print()}
-                                 style={{display: 'block', marginLeft: '5px'}} title=""></div>
+                                 style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
+
+                            <div className={"icons-groups" + (this.state.showInfo ? " icon-group-calc" : " icon-group-calc-disable")}
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Info')} title="">&nbsp;</div>
+
                             <div className={"icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable")}
-                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Calcs')} title=""></div>
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Calcs')} title="">&nbsp;</div>
+
                             <div className={"icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable")}
-                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Table')} title=""></div>
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Table')} title="">&nbsp;</div>
+
                             <div className={"icons-groups" + (this.state.showRegions ? " icon-group-rate" : " icon-group-rate-disable")}
-                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Regions')} title=""></div>
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Regions')} title="">&nbsp;</div>
+
                             <div className={"icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable")}
-                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Charts')} title=""></div>
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Charts')} title="">&nbsp;</div>
+
                             <div className={"icons-groups" + (this.state.showMap ? " icon-group-map" : " icon-group-map-disable")}
-                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Map')} title=""></div>
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Map')} title="">&nbsp;</div>
                         </div>
                     </div>
                     <br/>
@@ -272,8 +281,22 @@ class PgSerie extends React.Component{
                             serie={this.state.serie}
                             data={this.state.totaisRegioesPorPeriodo}
                         />
+                        <br/><hr/><br/>
                     </div>
 
+                    <div className="hidden-print" style={{display: this.state.showInfo ? 'block' : 'none'}}>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="icons-list-items icon-list-item-1" style={{float: 'left'}}></div>
+                                <h5>&nbsp;&nbsp;Metadados</h5>
+                            </div>
+                        </div>
+                        <div className="bs-callout" style={{borderLeftColor: '#3498DB'}}>
+                            <p>
+                                {this.props.metadados}
+                            </p>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -285,6 +308,7 @@ ReactDOM.render(
     <PgSerie
         id={serie_id}
         serie={serie}
+        metadados={metadados}
         tipoValores={tipoValores}
         unidade={unidade}
         from={from}

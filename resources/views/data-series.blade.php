@@ -175,6 +175,7 @@
         @if(!empty($series))
             <script>serie_id={{$id}}</script>
             <script>serie="{!! $series->titulo !!}";</script>
+            <script>metadados="{!! $series->descricao !!}";</script>
             <script>tipoValores="{!! $series->tipo_valores !!}";</script>
             <script>unidade="{!! $series->unidade !!}";</script>
             <script>from="{!! $from !!}";</script>

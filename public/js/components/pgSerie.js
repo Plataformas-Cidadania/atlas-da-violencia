@@ -16,6 +16,7 @@ class PgSerie extends React.Component {
             showRegions: true,
             showTable: true,
             showCalcs: true,
+            showInfo: true,
             chartLine: true,
             chartRadar: false,
             chartBar: false,
@@ -139,18 +140,48 @@ class PgSerie extends React.Component {
                     React.createElement(
                         "div",
                         { className: "col-md-6 text-right hidden-print" },
-                        React.createElement("div", { className: "icons-groups icon-group-print", onClick: () => window.print(),
-                            style: { display: 'block', marginLeft: '5px' }, title: "" }),
-                        React.createElement("div", { className: "icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable"),
-                            style: { marginLeft: '5px' }, onClick: () => this.showHide('Calcs'), title: "" }),
-                        React.createElement("div", { className: "icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable"),
-                            style: { marginLeft: '5px' }, onClick: () => this.showHide('Table'), title: "" }),
-                        React.createElement("div", { className: "icons-groups" + (this.state.showRegions ? " icon-group-rate" : " icon-group-rate-disable"),
-                            style: { marginLeft: '5px' }, onClick: () => this.showHide('Regions'), title: "" }),
-                        React.createElement("div", { className: "icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable"),
-                            style: { marginLeft: '5px' }, onClick: () => this.showHide('Charts'), title: "" }),
-                        React.createElement("div", { className: "icons-groups" + (this.state.showMap ? " icon-group-map" : " icon-group-map-disable"),
-                            style: { marginLeft: '5px' }, onClick: () => this.showHide('Map'), title: "" })
+                        React.createElement(
+                            "div",
+                            { className: "icons-groups icon-group-print", onClick: () => window.print(),
+                                style: { display: 'block', marginLeft: '5px' }, title: "" },
+                            "\xA0"
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "icons-groups" + (this.state.showInfo ? " icon-group-calc" : " icon-group-calc-disable"),
+                                style: { marginLeft: '5px' }, onClick: () => this.showHide('Info'), title: "" },
+                            "\xA0"
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable"),
+                                style: { marginLeft: '5px' }, onClick: () => this.showHide('Calcs'), title: "" },
+                            "\xA0"
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable"),
+                                style: { marginLeft: '5px' }, onClick: () => this.showHide('Table'), title: "" },
+                            "\xA0"
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "icons-groups" + (this.state.showRegions ? " icon-group-rate" : " icon-group-rate-disable"),
+                                style: { marginLeft: '5px' }, onClick: () => this.showHide('Regions'), title: "" },
+                            "\xA0"
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable"),
+                                style: { marginLeft: '5px' }, onClick: () => this.showHide('Charts'), title: "" },
+                            "\xA0"
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "icons-groups" + (this.state.showMap ? " icon-group-map" : " icon-group-map-disable"),
+                                style: { marginLeft: '5px' }, onClick: () => this.showHide('Map'), title: "" },
+                            "\xA0"
+                        )
                     )
                 ),
                 React.createElement("br", null),
@@ -335,7 +366,37 @@ class PgSerie extends React.Component {
                         decimais: decimais,
                         serie: this.state.serie,
                         data: this.state.totaisRegioesPorPeriodo
-                    })
+                    }),
+                    React.createElement("br", null),
+                    React.createElement("hr", null),
+                    React.createElement("br", null)
+                ),
+                React.createElement(
+                    "div",
+                    { className: "hidden-print", style: { display: this.state.showInfo ? 'block' : 'none' } },
+                    React.createElement(
+                        "div",
+                        { className: "row" },
+                        React.createElement(
+                            "div",
+                            { className: "col-md-12" },
+                            React.createElement("div", { className: "icons-list-items icon-list-item-1", style: { float: 'left' } }),
+                            React.createElement(
+                                "h5",
+                                null,
+                                "\xA0\xA0Metadados"
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "bs-callout", style: { borderLeftColor: '#3498DB' } },
+                        React.createElement(
+                            "p",
+                            null,
+                            this.props.metadados
+                        )
+                    )
                 )
             )
         );
@@ -345,6 +406,7 @@ class PgSerie extends React.Component {
 ReactDOM.render(React.createElement(PgSerie, {
     id: serie_id,
     serie: serie,
+    metadados: metadados,
     tipoValores: tipoValores,
     unidade: unidade,
     from: from,

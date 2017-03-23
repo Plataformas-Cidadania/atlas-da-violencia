@@ -9,7 +9,8 @@ class PgFiltros extends React.Component{
             to: 0,
             regions: [],
             typeRegion: '',
-            typeRegionSerie: ''
+            typeRegionSerie: '',
+            tipoValores: ''
         };
 
         this.serieMarked = this.serieMarked.bind(this);
@@ -53,9 +54,9 @@ class PgFiltros extends React.Component{
         //console.log('setRegions', regions);
     }
 
-    serieMarked(id, typeRegionSerie){
-        console.log('serieMarked', id, typeRegionSerie);
-        this.setState({serieMarked: id, typeRegionSerie:typeRegionSerie});
+    serieMarked(id, typeRegionSerie, tipoValores){
+        //console.log('serieMarked', id, typeRegionSerie);
+        this.setState({serieMarked: id, typeRegionSerie:typeRegionSerie, tipoValores: tipoValores});
     }
 
     submit(){
@@ -64,10 +65,11 @@ class PgFiltros extends React.Component{
 
     render(){
 
-        console.log('pgFiltros - render() typeRegion:', this.state.typeRegion);
-        console.log('pgFiltros - render() typeRegionSerie:', this.state.typeRegionSerie);
-        console.log('pgFiltros - render() regions:', this.state.regions);
+        //console.log('pgFiltros - render() typeRegion:', this.state.typeRegion);
+        //console.log('pgFiltros - render() typeRegionSerie:', this.state.typeRegionSerie);
+        //console.log('pgFiltros - render() regions:', this.state.regions);
 
+        console.log(this.state.tipoValores);
 
         return(
             <div>
@@ -90,11 +92,13 @@ class PgFiltros extends React.Component{
                 <br/><br/>
                 <FiltroRegions
                     id={this.state.serieMarked}
+                    tipoValores={this.state.tipoValores}
                     setRegions={this.setRegions}
                     loading={this.loading}
                 />
                 <br/><br/>
                 <button
+                    disabled={this.state.regions.length==0}
                     className="btn btn-success btn-lg"
                     style={{display: this.state.serieMarked > 0 ? 'block' : 'none', margin: 'auto', minWidth: '350px'}}
                     onClick={this.submit}>

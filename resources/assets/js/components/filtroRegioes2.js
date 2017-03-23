@@ -5,6 +5,7 @@ class FiltroRegions extends React.Component{
         super(props);
         this.state = {
             id: this.props.id,
+            tipoValores: this.props.tipoValores,
             regions: [],
             ufsSelected: [],
             regionsSelected: [],
@@ -33,8 +34,8 @@ class FiltroRegions extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(this.state.id!=props.id){
-            this.setState({id: props.id}, function(){
+        if(this.state.id!=props.id || this.state.tipoValores!=props.tipoValores){
+            this.setState({id: props.id, tipoValores:props.tipoValores}, function(){
                 this.loadData();
             });
         }
@@ -49,7 +50,7 @@ class FiltroRegions extends React.Component{
         $.ajax("regioes/"+this.state.id, {
             data: {},
             success: function(data){
-                console.log('regions', data);
+                //console.log('regions', data);
                 this.setState({regions: data}, function(){
                     //this.classDefault();
                 });
@@ -261,11 +262,14 @@ class FiltroRegions extends React.Component{
     render(){
 
         //console.log(this.state.typeSelected);
-        console.log(this.state.regionsSelected);
+        //console.log(this.state.regionsSelected);
         //console.log(this.state.regions);
 
 
         let regions = this.state.regions.map(function(region, indexRegion){
+
+            //console.log('typeRegionSerie', region.typeRegionSerie);
+            console.log('tipoVAlores', this.state.tipoValores);
 
             let ufs = region.ufs.map(function(item){
 
@@ -273,6 +277,8 @@ class FiltroRegions extends React.Component{
                     <li key={item.sigla}>
                         <a >
                             <i className="fa fa-chevron-right" aria-hidden="true"/> {item.uf}
+                            {/*Caso a série seja do tipo 3(taxa) e os tipo_regiao da série não seja 1(Região)
+                            não poderá selecionar este filtro, pois as taxas não podem ter seus valores somados*/}
                             <div className="menu-box-btn-square-li" onClick={() => this.verifyTypeSelected('uf', item.uf)}>
                                 <i className={"fa " + (item.selected ? "fa-check-square-o" : "fa-square-o")} aria-hidden="true"/>
                             </div>
@@ -292,7 +298,8 @@ class FiltroRegions extends React.Component{
 
                             <div className="menu-box-btn-square" style={{width:'20%'}}>
                                 <i onClick={() => this.verifyTypeSelected('region', region.region)}
-                                   className={"fa "+(region.selected ? "fa-check-square-o" : "fa-square-o")} aria-hidden="true"/>
+                                   className={"fa "+(region.selected ? "fa-check-square-o" : "fa-square-o")} aria-hidden="true"
+                                   style={{display: region.typeRegionSerie!=1 && this.state.tipoValores==3 ? 'none' : 'block'}}/>
                             </div>
                         </div>
                         <ul style={{display: region.open ? 'block' : 'none'}}>
@@ -312,7 +319,8 @@ class FiltroRegions extends React.Component{
         }.bind(this));
 
         return(
-            <div className="row">
+            <div className="row" style={{display: this.state.regions.length > 0 ? 'block' : 'none'}}>
+                <h4>Selecione as regiões</h4>
                 {regions}
 
                 {/*Modal Info*/}
