@@ -35,9 +35,10 @@ class Map extends React.Component {
             };
 
             // method that we will use to update the control based on feature properties passed
+            let _this = this;
             this.state.info.update = function (props) {
                 //console.log('info', props);
-                this._div.innerHTML = '<h4>Ocorrências</h4>' + (props ? '<b>' + props.sigla + ' - ' + props.nome + '</b><br />' + props.total : 'Passe o mouse na região');
+                this._div.innerHTML = '<h4>Ocorrências</h4>' + (props ? '<b>' + props.sigla + ' - ' + props.nome + '</b><br />' + formatNumber(props.total, _this.props.decimais, ',', '.') : 'Passe o mouse na região');
             };
             this.state.info.addTo(this.state.mymap);
         });
@@ -54,7 +55,7 @@ class Map extends React.Component {
     loadData() {
         //console.log('Map - loadData', this.props.typeRegion, this.props.typeRegionSerie);
         let _this = this;
-        $.ajax("regiao/" + _this.state.id + "/" + _this.state.max + "/" + _this.props.typeRegion + "/" + _this.props.typeRegionSerie, {
+        $.ajax("regiao/" + _this.state.id + "/" + _this.state.max + "/" + _this.props.regions + "/" + _this.props.typeRegion + "/" + _this.props.typeRegionSerie, {
             data: {},
             success: function (data) {
                 //console.log('map - loadData',data);
@@ -129,10 +130,10 @@ class Map extends React.Component {
                 labels = [];
             // loop through our density intervals and generate a label with a colored square for each interval
             for (let i = 0; i < grades.length; i++) {
-                div.innerHTML += '<i style="background:' + getColor(grades[i] + 1, intervalos) + '"></i> ' + numeral(grades[i]).format('0,0') + (numeral(grades[i + 1]).format('0,0') ? '&nbsp;&ndash;&nbsp;' + numeral(grades[i + 1]).format('0,0') + '<br>' : '+');
+                div.innerHTML += '<i style="background:' + getColor(grades[i] + 1, intervalos) + '"></i> ' + formatNumber(grades[i], this.props.decimais, ',', '.') + (grades[i + 1] ? '&nbsp;&ndash;&nbsp;' + formatNumber(grades[i + 1], this.props.decimais, ',', '.') + '<br>' : '+');
             }
             return div;
-        };
+        }.bind(this);
 
         if (lastIndexLegend != 0) {
             this.state.mymap.removeControl(legend[lastIndexLegend]);

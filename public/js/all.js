@@ -480,6 +480,34 @@ function convertHex(hex,opacity){
     result = 'rgba('+r+','+g+','+b+','+opacity/100+')';
     return result;
 }
+
+
+function formatNumber(n, c, d, t){
+
+    let multiplo = 1;
+    for(let i=0; i<c; i++){
+        multiplo*=10;
+    }
+
+    //console.log(multiplo);
+    //console.log(parseFloat(n));
+    //console.log(Math.round(n*multiplo)/multiplo);
+
+    var n = Math.round(n*multiplo)/multiplo,
+    c = isNaN(c = Math.round(c)) ? 2 : c,
+    d = d == undefined ? "." : d,
+    t = t == undefined ? "," : t,
+    s = n < 0 ? "-" : "",
+    i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+    j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+
+    //console.log(formatNumber(999999999999.165, 0, ',', '.'));
+}
+
+
+
+
 // Ion.RangeSlider
 // version 2.1.4 Build: 355
 // © Denis Ineshin, 2016

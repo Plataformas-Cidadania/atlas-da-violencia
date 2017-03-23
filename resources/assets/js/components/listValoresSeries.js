@@ -35,16 +35,17 @@ class ListValoresSeries extends React.Component{
         if(!this.state.valores.length){
             return (<h3>Sem Resultados</h3>);
         }
+
         //console.log('========================================================');
         let valores = this.state.valores.map(function (item, index) {
             return (
                 <tr key={index}>
                     <th width="10px"><i className="fa fa-square" style={{color: getColor(item.total, intervalos)}}> </i></th>
                     <th>{item.sigla} - {item.nome}</th>
-                    <td className="text-right">{item.total}</td>
+                    <td className="text-right">{formatNumber(item.total, this.props.decimais, ',', '.')}</td>
                 </tr>
             );
-        });
+        }.bind(this));
         //console.log('========================================================');
 
         return (

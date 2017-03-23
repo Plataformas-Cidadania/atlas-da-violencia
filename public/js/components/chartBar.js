@@ -105,9 +105,28 @@ class ChartBar extends React.Component {
 
     render() {
         return React.createElement(
-            "canvas",
-            { id: "myChartBar", width: "400", height: "200" },
-            " "
+            "div",
+            null,
+            React.createElement(
+                "div",
+                { style: { textAlign: 'center', clear: 'both' } },
+                React.createElement(
+                    "button",
+                    { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
+                    this.state.max
+                ),
+                React.createElement(
+                    "div",
+                    { style: { marginTop: '-19px' } },
+                    React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
+                )
+            ),
+            React.createElement("br", null),
+            React.createElement(
+                "canvas",
+                { id: "myChartBar", width: "400", height: "200" },
+                " "
+            )
         );
     }
 }

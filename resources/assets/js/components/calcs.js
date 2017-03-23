@@ -43,7 +43,7 @@ class Calcs extends React.Component{
         });
         this.setState({
             minValue: sort[0],
-            maxValue: sort[sort.length-1]
+            maxValue: sort[sort.length-1],
         });
 
     };
@@ -133,6 +133,16 @@ class Calcs extends React.Component{
     render(){
         return(
             <div>
+                <div className="row">
+                    <div className="col-md-12">
+                        <div style={{textAlign: 'center'}}>
+                            <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.max}</button>
+                            <div style={{marginTop:'-19px'}}>
+                                <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="row" style={{display:'none'}}>
                     <div className="col-md-12">
                         <div className="icons-list-items icon-list-item-1"></div>
@@ -155,23 +165,23 @@ class Calcs extends React.Component{
                             <h4 style={this.state.styleCalcs}>Mínima</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{this.state.minValue.total}</h4>
-
+                        <h4 className="" >{formatNumber(this.state.minValue.total, this.props.decimais, ',', '.')}</h4>
+                        <p>{this.state.minValue.sigla} - {this.state.minValue.nome}</p>
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
                             <h4 style={this.state.styleCalcs}>Máxima</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{this.state.maxValue.total}</h4>
-
+                        <h4 className="" >{formatNumber(this.state.maxValue.total, this.props.decimais, ',', '.')}</h4>
+                        <p>{this.state.maxValue.sigla} - {this.state.maxValue.nome}</p>
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
                             <h4 style={this.state.styleCalcs}>Média</h4>
                         </div>
                         <br/>
-                        <h4 className="">{this.state.media[this.state.id]}</h4>
+                        <h4 className="">{formatNumber(this.state.media[this.state.id], 2, ',', '.')}</h4>
 
                     </div>
                     <div className="col-md-2">
@@ -179,7 +189,7 @@ class Calcs extends React.Component{
                             <h4 style={{paddingTop: '45px'}}>Média Ponderada</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{this.state.mediaPonderada[this.state.id]}</h4>
+                        <h4 className="" >{formatNumber(this.state.mediaPonderada[this.state.id], 2, ',', '.')}</h4>
 
                     </div>
                     <div className="col-md-2">
@@ -187,7 +197,7 @@ class Calcs extends React.Component{
                             <h4 style={this.state.styleCalcs}>Mediana</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{this.state.mediana[this.state.id]}</h4>
+                        <h4 className="" >{formatNumber(this.state.mediana[this.state.id], 2, ',', '.')}</h4>
 
                     </div>
                     <div className="col-md-2" style={{opacity: this.state.moda[this.state.id] > 0 ? 1 : 0.5}}>
@@ -195,7 +205,7 @@ class Calcs extends React.Component{
                             <h4 style={this.state.styleCalcs}>Moda</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{this.state.moda[this.state.id]}</h4>
+                        <h4 className="" >{formatNumber(this.state.moda[this.state.id], 2, ',', '.')}</h4>
                     </div>
                 </div>
             </div>

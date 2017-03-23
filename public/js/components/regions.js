@@ -30,7 +30,7 @@ class Regions extends React.Component {
         this.setState({ loading: true });
         $.ajax({
             method: 'GET',
-            url: "valores-inicial-final-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max,
+            url: "valores-inicial-final-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions,
             cache: false,
             success: function (data) {
                 //console.log('region.js, loaddata', data);
@@ -77,7 +77,7 @@ class Regions extends React.Component {
 
             let variacao = end * 100 / start - 100;
             regions[cont] = {
-                uf: this.state.data[i].uf,
+                sigla: this.state.data[i].sigla,
                 nome: this.state.data[i].nome,
                 variacao: variacao
             };
@@ -147,118 +147,186 @@ class Regions extends React.Component {
 
         return React.createElement(
             'div',
-            { className: 'row' },
+            null,
             React.createElement(
                 'div',
-                { className: 'col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center' },
+                { className: 'row' },
                 React.createElement(
-                    'h4',
-                    null,
-                    this.state.minValue.uf,
-                    ' - ',
-                    this.state.minValue.nome
+                    'div',
+                    { className: 'col-xs-6 col-sm-6 col-md-6 col-lg-6' },
+                    React.createElement(
+                        'div',
+                        { className: 'row' },
+                        React.createElement(
+                            'div',
+                            { className: 'col-md-12' },
+                            React.createElement(
+                                'div',
+                                { style: { textAlign: 'center', clear: 'both' } },
+                                React.createElement(
+                                    'button',
+                                    { className: 'btn btn-primary btn-lg bg-pri', style: { border: '0' } },
+                                    this.state.max
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { style: { marginTop: '-19px' } },
+                                    React.createElement('i', { className: 'fa fa-sort-down fa-2x', style: { color: '#3498DB' } })
+                                )
+                            ),
+                            React.createElement('br', null)
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'row' },
+                        React.createElement(
+                            'div',
+                            { className: 'col-md-6 text-center' },
+                            React.createElement(
+                                'h4',
+                                null,
+                                this.state.minValue.sigla,
+                                ' - ',
+                                this.state.minValue.nome
+                            ),
+                            React.createElement('div', { className: 'line_title bg-pri' }),
+                            React.createElement('br', null),
+                            React.createElement('img', { src: "img/maps/png/" + this.state.minValue.sigla + ".png", alt: '' }),
+                            React.createElement('br', null),
+                            React.createElement(
+                                'p',
+                                null,
+                                '\xC9 a regi\xE3o com menor \xEDndice'
+                            ),
+                            React.createElement('br', null),
+                            React.createElement(
+                                'p',
+                                { style: this.state.styleNumber },
+                                formatNumber(this.state.minValue.total, this.props.decimais, ',', '.')
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'col-md-6 text-center' },
+                            React.createElement(
+                                'h4',
+                                null,
+                                this.state.maxValue.sigla,
+                                ' - ',
+                                this.state.maxValue.nome
+                            ),
+                            React.createElement('div', { className: 'line_title bg-pri' }),
+                            React.createElement('br', null),
+                            React.createElement('img', { src: "img/maps/png/" + this.state.maxValue.sigla + ".png", alt: '' }),
+                            React.createElement('br', null),
+                            React.createElement(
+                                'p',
+                                null,
+                                '\xC9 a regi\xE3o com maior \xEDndice'
+                            ),
+                            React.createElement('br', null),
+                            React.createElement(
+                                'p',
+                                { style: this.state.styleNumber },
+                                formatNumber(this.state.maxValue.total, this.props.decimais, ',', '.')
+                            )
+                        )
+                    )
                 ),
-                React.createElement('div', { className: 'line_title bg-pri' }),
-                React.createElement('br', null),
-                React.createElement('img', { src: "img/maps/png/" + this.state.minValue.uf + ".png", alt: '' }),
-                React.createElement('br', null),
                 React.createElement(
-                    'p',
-                    null,
-                    '\xC9 a regi\xE3o com menor \xEDndice'
-                ),
-                React.createElement('br', null),
-                React.createElement(
-                    'p',
-                    { style: this.state.styleNumber },
-                    numeral(this.state.minValue.total).format('0,0')
-                )
-            ),
-            React.createElement(
-                'div',
-                { className: 'col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center' },
-                React.createElement(
-                    'h4',
-                    null,
-                    this.state.maxValue.uf,
-                    ' - ',
-                    this.state.maxValue.nome
-                ),
-                React.createElement('div', { className: 'line_title bg-pri' }),
-                React.createElement('br', null),
-                React.createElement('img', { src: "img/maps/png/" + this.state.maxValue.uf + ".png", alt: '' }),
-                React.createElement('br', null),
-                React.createElement(
-                    'p',
-                    null,
-                    '\xC9 a regi\xE3o com maior \xEDndice'
-                ),
-                React.createElement('br', null),
-                React.createElement(
-                    'p',
-                    { style: this.state.styleNumber },
-                    numeral(this.state.maxValue.total).format('0,0')
-                )
-            ),
-            React.createElement(
-                'div',
-                { className: 'col-md-6 col-lg-6 text-center text-center', style: { display: this.state.loading ? 'block' : 'none' } },
-                React.createElement('br', null),
-                React.createElement('br', null),
-                React.createElement(
-                    'i',
-                    { className: 'fa fa-5x fa-spinner fa-spin' },
-                    ' '
-                )
-            ),
-            React.createElement(
-                'div',
-                { className: 'col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center', style: { display: this.state.loading ? 'none' : 'block' } },
-                React.createElement(
-                    'h4',
-                    null,
-                    this.state.maxDown.uf,
-                    ' - ',
-                    this.state.maxDown.nome
-                ),
-                React.createElement('div', { className: 'line_title bg-pri' }),
-                React.createElement('br', null),
-                React.createElement('img', { src: "img/maps/png/" + this.state.maxDown.uf + ".png", alt: '' }),
-                React.createElement('br', null),
-                down,
-                ' ',
-                iconDown,
-                React.createElement('br', null),
-                React.createElement(
-                    'p',
-                    { style: this.state.styleNumber },
-                    numeral(this.state.maxDown.variacao * multiplicadorDown).format('0,0.00'),
-                    '%'
-                )
-            ),
-            React.createElement(
-                'div',
-                { className: 'col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center', style: { display: this.state.loading ? 'none' : 'block' } },
-                React.createElement(
-                    'h4',
-                    null,
-                    this.state.maxUp.uf,
-                    ' - ',
-                    this.state.maxUp.nome
-                ),
-                React.createElement('div', { className: 'line_title bg-pri' }),
-                React.createElement('br', null),
-                React.createElement('img', { src: "img/maps/png/" + this.state.maxUp.uf + ".png", alt: '' }),
-                React.createElement('br', null),
-                up,
-                ' ',
-                iconUp,
-                React.createElement('br', null),
-                React.createElement(
-                    'p',
-                    { style: this.state.styleNumber },
-                    numeral(this.state.maxUp.variacao * multiplicadorUp).format('0,0.00'),
-                    '%'
+                    'div',
+                    { className: 'col-xs-6 col-sm-6 col-md-6 col-lg-6' },
+                    React.createElement(
+                        'div',
+                        { className: 'row' },
+                        React.createElement(
+                            'div',
+                            { className: 'col-md-12' },
+                            React.createElement(
+                                'div',
+                                { style: { textAlign: 'center', clear: 'both' } },
+                                React.createElement(
+                                    'button',
+                                    { className: 'btn btn-primary btn-lg bg-pri', style: { border: '0' } },
+                                    this.state.min,
+                                    ' - ',
+                                    this.state.max
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { style: { marginTop: '-19px' } },
+                                    React.createElement('i', { className: 'fa fa-sort-down fa-2x', style: { color: '#3498DB' } })
+                                )
+                            ),
+                            React.createElement('br', null)
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'row' },
+                        React.createElement(
+                            'div',
+                            { className: 'col-md-12 col-lg-12 text-center text-center', style: { display: this.state.loading ? 'block' : 'none' } },
+                            React.createElement('br', null),
+                            React.createElement('br', null),
+                            React.createElement(
+                                'i',
+                                { className: 'fa fa-5x fa-spinner fa-spin' },
+                                ' '
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'col-md-6 text-center', style: { display: this.state.loading ? 'none' : 'block' } },
+                            React.createElement(
+                                'h4',
+                                null,
+                                this.state.maxDown.sigla,
+                                ' - ',
+                                this.state.maxDown.nome
+                            ),
+                            React.createElement('div', { className: 'line_title bg-pri' }),
+                            React.createElement('br', null),
+                            React.createElement('img', { src: "img/maps/png/" + this.state.maxDown.sigla + ".png", alt: '' }),
+                            React.createElement('br', null),
+                            down,
+                            ' ',
+                            iconDown,
+                            React.createElement('br', null),
+                            React.createElement(
+                                'p',
+                                { style: this.state.styleNumber },
+                                formatNumber(this.state.maxDown.variacao * multiplicadorDown, 2, ',', '.'),
+                                '%'
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'col-md-6 text-center', style: { display: this.state.loading ? 'none' : 'block' } },
+                            React.createElement(
+                                'h4',
+                                null,
+                                this.state.maxUp.sigla,
+                                ' - ',
+                                this.state.maxUp.nome
+                            ),
+                            React.createElement('div', { className: 'line_title bg-pri' }),
+                            React.createElement('br', null),
+                            React.createElement('img', { src: "img/maps/png/" + this.state.maxUp.sigla + ".png", alt: '' }),
+                            React.createElement('br', null),
+                            up,
+                            ' ',
+                            iconUp,
+                            React.createElement('br', null),
+                            React.createElement(
+                                'p',
+                                { style: this.state.styleNumber },
+                                formatNumber(this.state.maxUp.variacao * multiplicadorUp, 2, ',', '.'),
+                                '%'
+                            )
+                        )
+                    )
                 )
             )
         );

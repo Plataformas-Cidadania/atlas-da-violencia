@@ -135,6 +135,28 @@ class Calcs extends React.Component {
             null,
             React.createElement(
                 'div',
+                { className: 'row' },
+                React.createElement(
+                    'div',
+                    { className: 'col-md-12' },
+                    React.createElement(
+                        'div',
+                        { style: { textAlign: 'center' } },
+                        React.createElement(
+                            'button',
+                            { className: 'btn btn-primary btn-lg bg-pri', style: { border: '0' } },
+                            this.state.max
+                        ),
+                        React.createElement(
+                            'div',
+                            { style: { marginTop: '-19px' } },
+                            React.createElement('i', { className: 'fa fa-sort-down fa-2x', style: { color: '#3498DB' } })
+                        )
+                    )
+                )
+            ),
+            React.createElement(
+                'div',
                 { className: 'row', style: { display: 'none' } },
                 React.createElement(
                     'div',
@@ -181,7 +203,14 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        this.state.minValue.total
+                        formatNumber(this.state.minValue.total, this.props.decimais, ',', '.')
+                    ),
+                    React.createElement(
+                        'p',
+                        null,
+                        this.state.minValue.sigla,
+                        ' - ',
+                        this.state.minValue.nome
                     )
                 ),
                 React.createElement(
@@ -200,7 +229,14 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        this.state.maxValue.total
+                        formatNumber(this.state.maxValue.total, this.props.decimais, ',', '.')
+                    ),
+                    React.createElement(
+                        'p',
+                        null,
+                        this.state.maxValue.sigla,
+                        ' - ',
+                        this.state.maxValue.nome
                     )
                 ),
                 React.createElement(
@@ -219,7 +255,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        this.state.media[this.state.id]
+                        formatNumber(this.state.media[this.state.id], 2, ',', '.')
                     )
                 ),
                 React.createElement(
@@ -238,7 +274,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        this.state.mediaPonderada[this.state.id]
+                        formatNumber(this.state.mediaPonderada[this.state.id], 2, ',', '.')
                     )
                 ),
                 React.createElement(
@@ -257,7 +293,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        this.state.mediana[this.state.id]
+                        formatNumber(this.state.mediana[this.state.id], 2, ',', '.')
                     )
                 ),
                 React.createElement(
@@ -276,7 +312,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'h4',
                         { className: '' },
-                        this.state.moda[this.state.id]
+                        formatNumber(this.state.moda[this.state.id], 2, ',', '.')
                     )
                 )
             )

@@ -194,7 +194,18 @@ class ChartLine extends React.Component{
                 <div className="text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
                     <i className="fa fa-5x fa-spinner fa-spin"> </i>
                 </div>
-                <canvas style={{display: this.state.loading ? 'none' : 'block'}} id="myChartLine" width="400" height="200"> </canvas>
+                <div style={{display: this.state.loading ? 'none' : 'block'}}>
+                    <div style={{textAlign: 'center', clear: 'both'}}>
+                        <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>
+                            {this.state.min} - {this.state.max}
+                            </button>
+                        <div style={{marginTop:'-19px'}}>
+                            <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                        </div>
+                    </div>
+                    <canvas  id="myChartLine" width="400" height="200"> </canvas>
+                </div>
+
             </div>
         );
     }

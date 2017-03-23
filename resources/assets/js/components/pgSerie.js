@@ -4,6 +4,7 @@ class PgSerie extends React.Component{
         this.state = {
             id: this.props.id,
             serie: this.props.serie,
+            unidade: this.props.unidade,
             loading: false,
             intervalos: [],
             totaisRegioesPorPeriodo: {min: 0, max: 0, values: {}},
@@ -108,6 +109,9 @@ class PgSerie extends React.Component{
 
     render(){
 
+        //utilizado para função de formatação
+        let decimais = this.state.unidade==1 ? 0 : 2;
+
         return(
             <div>
                 <div className="text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
@@ -157,15 +161,23 @@ class PgSerie extends React.Component{
 
 
 
-                    <h2 style={{textAlign: 'center'}}>{this.state.max}</h2>
+                    <div style={{textAlign: 'center', clear: 'both'}}>
+                        <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.max}</button>
+                        <div style={{marginTop:'-19px'}}>
+                            <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                        </div>
+                    </div>
+                    <br/>
 
                     <div style={{display: this.state.showMap ? 'block' : 'none'}}>
                         <Map
                             id={this.state.id}
                             tipoValores={this.props.tipoValores}
+                            decimais={decimais}
                             min={this.state.min}
                             max={this.state.max}
                             setIntervalos={this.setIntervalos}
+                            regions={this.props.regions}
                             typeRegion={this.props.typeRegion}
                             typeRegionSerie={this.props.typeRegionSerie}
                         />
@@ -176,16 +188,16 @@ class PgSerie extends React.Component{
                         <div>
                             <div style={{textAlign: 'right'}}>
                                 <div className={"icons-charts" + (this.state.chartLine ? " icon-chart-line" : " icon-chart-line-disable")}
-                                     style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartLine')} title=""></div>
+                                     style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartLine')} title="">&nbsp;</div>
 
                                 <div className={"icons-charts" + (this.state.chartBar ? " icon-chart-bar" : " icon-chart-bar-disable")}
-                                     style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartBar')} title=""></div>
+                                     style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartBar')} title="">&nbsp;</div>
 
                                 <div className={"icons-charts" + (this.state.chartRadar ? " icon-chart-radar" : " icon-chart-radar-disable")}
-                                     style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartRadar')} title=""></div>
+                                     style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartRadar')} title="">&nbsp;</div>
 
                                 <div className={"icons-charts" + (this.state.chartPie ? " icon-chart-pie" : " icon-chart-pie-disable")}
-                                     style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartPie')} title=""></div>
+                                     style={{marginLeft: '5px', display:'none'}} onClick={() => this.changeChart('chartPie')} title="">&nbsp;</div>
                             </div>
                             <div style={{display: this.state.chartLine ? 'block' : 'none'}}>
                                 <ChartLine
@@ -223,18 +235,29 @@ class PgSerie extends React.Component{
                         <br/><hr/><br/>
                     </div>
 
-                    <div style={{display: this.state.showRegions ? 'block' : 'none'}}>
+                    <div style={{display: this.state.showRegions && this.props.typeRegion=='uf' ? 'block' : 'none'}}>
                         <Regions
                             id={this.state.id}
+                            decimais={decimais}
+                            regions={this.props.regions}
+                            typeRegion={this.props.typeRegion}
+                            typeRegionSerie={this.props.typeRegionSerie}
                             data={this.state.totaisRegioesPorPeriodo}
                         />
                         <br/><hr/><br/>
                     </div>
 
-                    <h2 style={{textAlign: 'center'}}>{this.state.max}</h2>
+                    <div style={{textAlign: 'center', clear: 'both'}}>
+                        <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.max}</button>
+                        <div style={{marginTop:'-19px'}}>
+                            <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                        </div>
+                    </div>
+                    <br/>
 
                     <div style={{display: this.state.showTable ? 'block' : 'none'}}>
                         <ListValoresSeries
+                            decimais={decimais}
                             min={this.state.min}
                             max={this.state.max}
                             data={this.state.totaisRegioesPorPeriodo}
@@ -245,6 +268,7 @@ class PgSerie extends React.Component{
                     <div className="hidden-print" style={{display: this.state.showCalcs ? 'block' : 'none'}}>
                         <Calcs
                             id={this.state.id}
+                            decimais={decimais}
                             serie={this.state.serie}
                             data={this.state.totaisRegioesPorPeriodo}
                         />
@@ -262,6 +286,7 @@ ReactDOM.render(
         id={serie_id}
         serie={serie}
         tipoValores={tipoValores}
+        unidade={unidade}
         from={from}
         to={to}
         regions={regions}

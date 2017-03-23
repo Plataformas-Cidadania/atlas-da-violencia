@@ -39,6 +39,7 @@ class ListValoresSeries extends React.Component {
                 "Sem Resultados"
             );
         }
+
         //console.log('========================================================');
         let valores = this.state.valores.map(function (item, index) {
             return React.createElement(
@@ -63,10 +64,10 @@ class ListValoresSeries extends React.Component {
                 React.createElement(
                     "td",
                     { className: "text-right" },
-                    item.total
+                    formatNumber(item.total, this.props.decimais, ',', '.')
                 )
             );
-        });
+        }.bind(this));
         //console.log('========================================================');
 
         return React.createElement(

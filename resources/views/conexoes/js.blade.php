@@ -151,7 +151,9 @@ print_r($periodo_limite);*/
             return intervalos;
         }
 
-        var colors = ['#F6D473', '#F3C46D', '#F1B567', '#EFA561', '#ED965B', '#EB8856',  '#E87850',  '#E66B4B',  '#E45A45',  '#E0433C'];
+        //var colors = ['#F6D473', '#F3C46D', '#F1B567', '#EFA561', '#ED965B', '#EB8856',  '#E87850',  '#E66B4B',  '#E45A45',  '#E0433C'];
+        //var colors = ['#B3CEFB', '#8EB6F8', '#689DF6', '#4285F4', '#F6D473', '#F1B567', '#ED965B', '#E87850',  '#E45A45',  '#E0433C'];
+        var colors = ['#4285F4', '#689DF6', '#8EB6F8', '#B3CEFB', '#F6D473', '#F1B567', '#ED965B', '#E87850',  '#E45A45',  '#E0433C'];
 
 
         function getColor(d, intervalos) {

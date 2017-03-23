@@ -198,9 +198,29 @@ class ChartLine extends React.Component {
                 )
             ),
             React.createElement(
-                "canvas",
-                { style: { display: this.state.loading ? 'none' : 'block' }, id: "myChartLine", width: "400", height: "200" },
-                " "
+                "div",
+                { style: { display: this.state.loading ? 'none' : 'block' } },
+                React.createElement(
+                    "div",
+                    { style: { textAlign: 'center', clear: 'both' } },
+                    React.createElement(
+                        "button",
+                        { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
+                        this.state.min,
+                        " - ",
+                        this.state.max
+                    ),
+                    React.createElement(
+                        "div",
+                        { style: { marginTop: '-19px' } },
+                        React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
+                    )
+                ),
+                React.createElement(
+                    "canvas",
+                    { id: "myChartLine", width: "400", height: "200" },
+                    " "
+                )
             )
         );
     }

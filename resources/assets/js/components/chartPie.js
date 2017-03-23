@@ -108,7 +108,18 @@ class ChartPie extends React.Component{
 
     render(){
         //console.log('chartPie', intervalos);
-        return (<canvas id="myChartPie" width="400" height="200"> </canvas>);
+        return (
+            <div>
+                <div style={{textAlign: 'center', clear: 'both'}}>
+                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.max}</button>
+                    <div style={{marginTop:'-19px'}}>
+                        <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                    </div>
+                </div>
+                <br/>
+                <canvas id="myChartPie" width="400" height="200"> </canvas>
+            </div>
+        );
     }
 }
 

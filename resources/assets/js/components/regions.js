@@ -30,7 +30,7 @@ class Regions extends React.Component{
         this.setState({loading: true});
         $.ajax({
             method:'GET',
-            url: "valores-inicial-final-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max,
+            url: "valores-inicial-final-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions,
             cache: false,
             success: function(data) {
                 //console.log('region.js, loaddata', data);
@@ -78,7 +78,7 @@ class Regions extends React.Component{
 
             let variacao = (end * 100 / start) - 100;
             regions[cont] = {
-                uf: this.state.data[i].uf,
+                sigla: this.state.data[i].sigla,
                 nome: this.state.data[i].nome,
                 variacao: variacao
             };
@@ -133,55 +133,103 @@ class Regions extends React.Component{
         }
 
         return(
-            <div className="row">
-                <div className="col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center">
-                    <h4>{this.state.minValue.uf} - {this.state.minValue.nome}</h4>
-                    <div className="line_title bg-pri"></div>
-                    <br/>
-                    <img src={"img/maps/png/"+this.state.minValue.uf+".png"} alt=""/>
-                    <br/>
-                    <p>É a região com menor índice</p>
-                    <br/>
-                    <p style={this.state.styleNumber}>{numeral(this.state.minValue.total).format('0,0')}</p>
-                </div>
-                <div className="col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center">
-                    <h4>{this.state.maxValue.uf} - {this.state.maxValue.nome}</h4>
-                    <div className="line_title bg-pri"></div>
-                    <br/>
-                    <img src={"img/maps/png/"+this.state.maxValue.uf+".png"} alt=""/>
-                    <br/>
-                    <p>É a região com maior índice</p>
-                    <br/>
-                    <p style={this.state.styleNumber}>{numeral(this.state.maxValue.total).format('0,0')}</p>
-                </div>
+            <div>
 
-                <div className="col-md-6 col-lg-6 text-center text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
-                    <br/><br/>
-                    <i className="fa fa-5x fa-spinner fa-spin"> </i>
-                </div>
+                <div className="row">
 
 
-                <div className="col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
-                    <h4>{this.state.maxDown.uf} - {this.state.maxDown.nome}</h4>
-                    <div className="line_title bg-pri"></div>
-                    <br/>
-                    <img src={"img/maps/png/"+this.state.maxDown.uf+".png"} alt=""/>
-                    <br/>
-                    {down} {iconDown}
-                    <br/>
-                    <p style={this.state.styleNumber}>{numeral(this.state.maxDown.variacao*multiplicadorDown).format('0,0.00')}%</p>
+                    <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div style={{textAlign: 'center', clear: 'both'}}>
+                                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.max}</button>
+                                    <div style={{marginTop:'-19px'}}>
+                                        <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6 text-center">
+                                <h4>{this.state.minValue.sigla} - {this.state.minValue.nome}</h4>
+                                <div className="line_title bg-pri"></div>
+                                <br/>
+                                <img src={"img/maps/png/"+this.state.minValue.sigla+".png"} alt=""/>
+                                <br/>
+                                <p>É a região com menor índice</p>
+                                <br/>
+                                <p style={this.state.styleNumber}>{formatNumber(this.state.minValue.total, this.props.decimais, ',', '.')}</p>
+                            </div>
+                            <div className="col-md-6 text-center">
+                                <h4>{this.state.maxValue.sigla} - {this.state.maxValue.nome}</h4>
+                                <div className="line_title bg-pri"></div>
+                                <br/>
+                                <img src={"img/maps/png/"+this.state.maxValue.sigla+".png"} alt=""/>
+                                <br/>
+                                <p>É a região com maior índice</p>
+                                <br/>
+                                <p style={this.state.styleNumber}>{formatNumber(this.state.maxValue.total, this.props.decimais, ',', '.')}</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div style={{textAlign: 'center', clear: 'both'}}>
+                                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.min} - {this.state.max}</button>
+                                    <div style={{marginTop:'-19px'}}>
+                                        <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                        <div className="row">
+
+                            <div className="col-md-12 col-lg-12 text-center text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
+                                <br/><br/>
+                                <i className="fa fa-5x fa-spinner fa-spin"> </i>
+                            </div>
+
+                            <div className="col-md-6 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
+                                <h4>{this.state.maxDown.sigla} - {this.state.maxDown.nome}</h4>
+                                <div className="line_title bg-pri"></div>
+                                <br/>
+                                <img src={"img/maps/png/"+this.state.maxDown.sigla+".png"} alt=""/>
+                                <br/>
+                                {down} {iconDown}
+                                <br/>
+                                <p style={this.state.styleNumber}>{formatNumber(this.state.maxDown.variacao*multiplicadorDown, 2, ',', '.')}%</p>
+                            </div>
+                            <div className="col-md-6 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
+                                <h4>{this.state.maxUp.sigla} - {this.state.maxUp.nome}</h4>
+                                <div className="line_title bg-pri"></div>
+                                <br/>
+                                <img src={"img/maps/png/"+this.state.maxUp.sigla+".png"} alt=""/>
+                                <br/>
+                                {up} {iconUp}
+                                <br/>
+                                <p style={this.state.styleNumber}>{formatNumber(this.state.maxUp.variacao*multiplicadorUp, 2, ',', '.')}%</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
-                <div className="col-xs-6 col-sm-3 col-md-3 col-lg-3 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
-                    <h4>{this.state.maxUp.uf} - {this.state.maxUp.nome}</h4>
-                    <div className="line_title bg-pri"></div>
-                    <br/>
-                    <img src={"img/maps/png/"+this.state.maxUp.uf+".png"} alt=""/>
-                    <br/>
-                    {up} {iconUp}
-                    <br/>
-                    <p style={this.state.styleNumber}>{numeral(this.state.maxUp.variacao*multiplicadorUp).format('0,0.00')}%</p>
-                </div>
+
+
+
             </div>
+
+
+
         );
     }
 }

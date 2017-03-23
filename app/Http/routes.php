@@ -83,14 +83,14 @@
     Route::get('periodos/{id}', 'MapController@periodos');
     //Route::get('regiao/{id}/{tipoValores}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodoGeometry');
     //Route::get('valores-regiao/{id}/{tipoValores}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodo');
-    Route::get('regiao/{id}/{max}/{typeRegion}/{typeRegionSerie}', 'MapController@valoresRegiaoUltimoPeriodoGeometry');
+    Route::get('regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'MapController@valoresRegiaoUltimoPeriodoGeometry');
     Route::get('valores-series/{id}/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');
     //Route::get('periodo/{id}/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
     //Route::get('regioes/{id}', 'MapController@regioes');//usado no component filtroRegioes na página de filtros
 
 
 
-    Route::get('valores-inicial-final-regiao/{id}/{min}/{max}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
+    Route::get('valores-inicial-final-regiao/{id}/{min}/{max}/{regions}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
 
     Route::get('indices', 'IndiceController@indice');
 

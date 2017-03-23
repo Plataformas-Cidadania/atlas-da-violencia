@@ -121,11 +121,13 @@ class MapController extends Controller
         return $areas;
     }
 
-    function valoresRegiaoUltimoPeriodoGeometry($id, $max, $typeRegion, $typeRegionSerie){
+    function valoresRegiaoUltimoPeriodoGeometry($id, $max, $regions, $typeRegion, $typeRegionSerie){
 
         //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
 
         //ST_X(edterritorios_centroide), ST_Y(edterritorios_centroide)
+
+        $regions = explode(',', $regions);
 
         $where = [
             ['valores_series.serie_id', $id],
@@ -133,15 +135,15 @@ class MapController extends Controller
         ];
 
         if($typeRegion=='region'){
-            return $this->porRegiao($id, $max, $typeRegionSerie, $where);
+            return $this->porRegiao($id, $max, $regions, $typeRegionSerie, $where);
         }
 
         if($typeRegion=='uf'){
-            return $this->porUf($id, $max,$typeRegionSerie, $where);
+            return $this->porUf($id, $max, $regions, $typeRegionSerie, $where);
         }
 
         if($typeRegion=='municipio'){
-            return $this->porMunicipio($id, $max, $typeRegionSerie, $where);
+            return $this->porMunicipio($id, $max, $regions, $typeRegionSerie, $where);
         }
 
 
@@ -199,7 +201,7 @@ class MapController extends Controller
         return $areas;
     }
 
-    private function porRegiao($id, $max, $typerRegionSerie, $where){
+    private function porRegiao($id, $max, $regions, $typerRegionSerie, $where){
 
         DB::connection()->enableQueryLog();
 
@@ -236,10 +238,11 @@ class MapController extends Controller
 
             $valores = DB::table('regions_by_uf')
                 ->select(DB::raw(
-                    "geometry, sum(valor) as total, sigla, nome, x, y"
+                    "geometry, sum(valor) as total, sigla, nome, x, y, codigo"
                 ))
                 ->where($where)
-                ->groupBy("geometry", "sigla", "nome", "x", "y")
+                ->whereIn('codigo', $regions)
+                ->groupBy("geometry", "sigla", "nome", "x", "y", "codigo")
                 ->get();
 
             return $this->mountAreas($valores);
@@ -282,7 +285,7 @@ class MapController extends Controller
     }
 
 
-    private function porUf($id, $max, $typerRegionSerie, $where){
+    private function porUf($id, $max, $regions, $typerRegionSerie, $where){
 
         DB::connection()->enableQueryLog();
 
@@ -301,6 +304,7 @@ class MapController extends Controller
                     ))
                 ->join("ed_territorios_uf", 'valores_series.regiao_id', '=', "ed_territorios_uf.edterritorios_codigo")
                 ->where($where)
+                ->whereIn('ed_territorios_uf.edterritorios_codigo', $regions)
                 ->groupBy("ed_territorios_uf.edterritorios_sigla", "ed_territorios_uf.edterritorios_nome", "ed_territorios_uf.edterritorios_geometry", "ed_territorios_uf.edterritorios_centroide")
                 ->orderBy('total')
                 ->get();
@@ -311,7 +315,7 @@ class MapController extends Controller
         }
     }
 
-    private function porMunicipio($id, $max, $typerRegionSerie, $where){
+    private function porMunicipio($id, $max, $regions, $typerRegionSerie, $where){
         if($typerRegionSerie==3){
 
         }
@@ -376,15 +380,19 @@ class MapController extends Controller
 
 
 
-    function valoresInicialFinalRegiaoPorPeriodo($id, $min, $max){
+    function valoresInicialFinalRegiaoPorPeriodo($id, $min, $max, $regions){
+
+        $regions = explode(',', $regions);
+
         $valores = DB::table('valores_series')
-            ->select(DB::raw("valores_series.valor, valores_series.periodo, valores_series.uf, ed_territorios_uf.edterritorios_nome as nome"))
+            ->select(DB::raw("valores_series.valor, valores_series.periodo, valores_series.uf as sigla, ed_territorios_uf.edterritorios_nome as nome"))
             ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
             ->where('valores_series.serie_id', $id)
             ->where(function ($query) use ($min, $max) {
                 $query->where('valores_series.periodo', $min)
                     ->orWhere('valores_series.periodo', $max);
             })
+            ->whereIn('ed_territorios_uf.edterritorios_codigo', $regions)
             ->orderBy(DB::raw('valores_series.uf, valores_series.periodo'))
             ->get();
 
