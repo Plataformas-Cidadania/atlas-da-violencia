@@ -168,21 +168,6 @@ class Calcs extends React.Component {
                 ),
                 React.createElement('br', null)
             ),
-            React.createElement(
-                'div',
-                { className: 'row' },
-                React.createElement(
-                    'div',
-                    { className: 'col-md-12' },
-                    React.createElement('div', { className: 'icons-list-items icon-list-item-1', style: { float: 'left' } }),
-                    React.createElement(
-                        'h5',
-                        null,
-                        '\xA0\xA0',
-                        this.state.serie
-                    )
-                )
-            ),
             React.createElement('br', null),
             React.createElement(
                 'div',

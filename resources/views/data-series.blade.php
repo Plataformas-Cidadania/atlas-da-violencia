@@ -74,6 +74,15 @@
         .icon-group-print:hover{
             background-position: -260px 0;
         }
+        .icon-group-info{
+            background-position: -312px 0;
+        }
+        .icon-group-info-disable{
+            background-position: -312px -52px;
+        }
+        .icon-text{
+            padding-top: 7px;
+        }
 
 
         .icons-charts{
@@ -185,6 +194,7 @@
             <script>typeRegionSerie="{!! $typeRegionSerie !!}";</script>
             <script>typeRegionSerie="{!! $typeRegionSerie !!}";</script>
             <div id="pgSerie"></div>
+
 
         @else
             <h1 class="text-center">Pesquisa não encontrada!</h1>

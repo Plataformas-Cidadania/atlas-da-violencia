@@ -152,12 +152,12 @@ class Calcs extends React.Component{
                     </div>
                     <br/>
                 </div>
-                <div className="row">
+                {/*<div className="row">
                     <div className="col-md-12">
                         <div className="icons-list-items icon-list-item-1" style={{float: 'left'}}></div>
                         <h5>&nbsp;&nbsp;{this.state.serie}</h5>
                     </div>
-                </div>
+                </div>*/}
                 <br/>
                 <div className="row text-center">
                     <div className="col-md-2">

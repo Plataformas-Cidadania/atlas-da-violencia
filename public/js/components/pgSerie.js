@@ -1,3 +1,32 @@
+function Topico(props) {
+    return React.createElement(
+        "div",
+        null,
+        React.createElement("br", null),
+        React.createElement(
+            "div",
+            { className: "row" },
+            React.createElement(
+                "div",
+                { className: "col-md-12" },
+                React.createElement(
+                    "div",
+                    { className: "icons-groups " + props.icon, style: { float: 'left' } },
+                    "\xA0"
+                ),
+                React.createElement(
+                    "h4",
+                    { className: "icon-text" },
+                    "\xA0\xA0",
+                    props.text
+                )
+            )
+        ),
+        React.createElement("hr", { style: { borderColor: '#3498DB' } }),
+        React.createElement("br", null)
+    );
+}
+
 class PgSerie extends React.Component {
     constructor(props) {
         super(props);
@@ -148,7 +177,7 @@ class PgSerie extends React.Component {
                         ),
                         React.createElement(
                             "div",
-                            { className: "icons-groups" + (this.state.showInfo ? " icon-group-calc" : " icon-group-calc-disable"),
+                            { className: "icons-groups" + (this.state.showInfo ? " icon-group-info" : " icon-group-info-disable"),
                                 style: { marginLeft: '5px' }, onClick: () => this.showHide('Info'), title: "" },
                             "\xA0"
                         ),
@@ -205,22 +234,23 @@ class PgSerie extends React.Component {
                 ),
                 React.createElement(
                     "div",
-                    { style: { textAlign: 'center', clear: 'both' } },
-                    React.createElement(
-                        "button",
-                        { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                        this.state.max
-                    ),
+                    { style: { display: this.state.showMap ? 'block' : 'none' } },
+                    React.createElement(Topico, { icon: "icon-group-map", text: "Mapa" }),
                     React.createElement(
                         "div",
-                        { style: { marginTop: '-19px' } },
-                        React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
-                    )
-                ),
-                React.createElement("br", null),
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.showMap ? 'block' : 'none' } },
+                        { style: { textAlign: 'center', clear: 'both' } },
+                        React.createElement(
+                            "button",
+                            { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
+                            this.state.max
+                        ),
+                        React.createElement(
+                            "div",
+                            { style: { marginTop: '-19px' } },
+                            React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
+                        )
+                    ),
+                    React.createElement("br", null),
                     React.createElement(Map, {
                         id: this.state.id,
                         tipoValores: this.props.tipoValores,
@@ -233,12 +263,12 @@ class PgSerie extends React.Component {
                         typeRegionSerie: this.props.typeRegionSerie
                     }),
                     React.createElement("br", null),
-                    React.createElement("hr", null),
                     React.createElement("br", null)
                 ),
                 React.createElement(
                     "div",
                     { style: { display: this.state.showCharts ? 'block' : 'none' } },
+                    React.createElement(Topico, { icon: "icon-group-chart", text: "Gr\xE1ficos" }),
                     React.createElement(
                         "div",
                         null,
@@ -312,12 +342,12 @@ class PgSerie extends React.Component {
                         )
                     ),
                     React.createElement("br", null),
-                    React.createElement("hr", null),
                     React.createElement("br", null)
                 ),
                 React.createElement(
                     "div",
                     { style: { display: this.state.showRegions && this.props.typeRegion == 'uf' ? 'block' : 'none' } },
+                    React.createElement(Topico, { icon: "icon-group-rate", text: "Taxas" }),
                     React.createElement(Regions, {
                         id: this.state.id,
                         decimais: decimais,
@@ -327,27 +357,27 @@ class PgSerie extends React.Component {
                         data: this.state.totaisRegioesPorPeriodo
                     }),
                     React.createElement("br", null),
-                    React.createElement("hr", null),
                     React.createElement("br", null)
                 ),
                 React.createElement(
                     "div",
-                    { style: { textAlign: 'center', clear: 'both' } },
-                    React.createElement(
-                        "button",
-                        { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                        this.state.max
-                    ),
+                    { style: { display: this.state.showTable ? 'block' : 'none' } },
+                    React.createElement(Topico, { icon: "icon-group-table", text: "Tabela" }),
                     React.createElement(
                         "div",
-                        { style: { marginTop: '-19px' } },
-                        React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
-                    )
-                ),
-                React.createElement("br", null),
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.showTable ? 'block' : 'none' } },
+                        { style: { textAlign: 'center', clear: 'both' } },
+                        React.createElement(
+                            "button",
+                            { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
+                            this.state.max
+                        ),
+                        React.createElement(
+                            "div",
+                            { style: { marginTop: '-19px' } },
+                            React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
+                        )
+                    ),
+                    React.createElement("br", null),
                     React.createElement(ListValoresSeries, {
                         decimais: decimais,
                         min: this.state.min,
@@ -355,12 +385,12 @@ class PgSerie extends React.Component {
                         data: this.state.totaisRegioesPorPeriodo
                     }),
                     React.createElement("br", null),
-                    React.createElement("hr", null),
                     React.createElement("br", null)
                 ),
                 React.createElement(
                     "div",
                     { className: "hidden-print", style: { display: this.state.showCalcs ? 'block' : 'none' } },
+                    React.createElement(Topico, { icon: "icon-group-calcs", text: "C\xE1lculos" }),
                     React.createElement(Calcs, {
                         id: this.state.id,
                         decimais: decimais,
@@ -368,7 +398,7 @@ class PgSerie extends React.Component {
                         data: this.state.totaisRegioesPorPeriodo
                     }),
                     React.createElement("br", null),
-                    React.createElement("hr", null),
+                    React.createElement("br", null),
                     React.createElement("br", null)
                 ),
                 React.createElement(
@@ -380,14 +410,19 @@ class PgSerie extends React.Component {
                         React.createElement(
                             "div",
                             { className: "col-md-12" },
-                            React.createElement("div", { className: "icons-list-items icon-list-item-1", style: { float: 'left' } }),
                             React.createElement(
-                                "h5",
-                                null,
+                                "div",
+                                { className: "icons-groups icon-group-info", style: { float: 'left' } },
+                                "\xA0"
+                            ),
+                            React.createElement(
+                                "h4",
+                                { className: "icon-text" },
                                 "\xA0\xA0Metadados"
                             )
                         )
                     ),
+                    React.createElement("hr", { style: { borderColor: '#3498DB' } }),
                     React.createElement(
                         "div",
                         { className: "bs-callout", style: { borderLeftColor: '#3498DB' } },
