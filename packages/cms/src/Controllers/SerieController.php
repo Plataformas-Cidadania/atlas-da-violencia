@@ -180,6 +180,7 @@ class SerieController extends Controller
 
     public function testeExcel($serie_id, $arquivo){
         //$data = Excel::load(public_path().'/excel/taxa.homicidio.ANO.REGIAO.xlsx', function($reader) {
+        Log::info($arquivo);
         $data = Excel::load(public_path()."/excel/$arquivo", function($reader) {
 
         })->get();
@@ -207,16 +208,32 @@ class SerieController extends Controller
                         array_push($registros, ['uf' => $uf, 'ano' => $index, 'value' => $cel]);
                         $valor = $cel;
                         $periodo = $index;
+
+                        $tipo_regiao = 2;
+                        $regiao = DB::table('ed_territorios_uf')
+                            ->select('edterritorios_codigo as regiao_id')
+                            ->where('edterritorios_sigla', $uf)
+                            ->first();
+
+                        $regiao_id = $regiao->regiao_id;
+
+                        Log::info($regiao->regiao_id);
+
                         $reg =[
                             'valor' => $valor,
                             'periodo' => $periodo,
                             'uf' => $uf,
+                            'tipo_regiao' => $tipo_regiao,
+                            'regiao_id' => $regiao_id,
                             'municipio' => $municipio,
                             'bairro' => $bairro,
                             'serie_id' => $serie_id,
                             'cmsuser_id' => $cms_user_id
                         ];
+
                         $registro = \App\ValorSerie::create($reg);
+
+
                     }
                 }
             }
