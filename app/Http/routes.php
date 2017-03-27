@@ -53,47 +53,46 @@
     Route::get('videos/', 'VideoController@listar');
     Route::get('videos/{titulo}', 'VideoController@listar');
 
+
+    ///////////////////SERIES/////////////////////////////////////////////
+
+    //Pgs
     Route::get('series/', 'SerieController@listar');
-    Route::post('listar-series/', 'SerieController@listarSeries');
+    Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
+    Route::post('dados-series/', 'SerieController@dataSeries');
+
+    //Ajax
+    Route::get('valores-regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresRegiaoUltimoPeriodo');
+    Route::get('regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'MapController@valoresRegiaoUltimoPeriodoGeometry');
+    Route::get('valores-inicial-final-regiao/{id}/{min}/{max}/{regions}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
+    Route::get('periodo/{id}/{min}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresPeriodoRegioesSelecionadas');
+    Route::get('periodos/{id}', 'MapController@periodos');
+    Route::get('regioes/{id}', 'SerieController@regioes');//usado no component filtroRegioes na página de filtros
     Route::post('listar-series-relacionadas/', 'SerieController@listarSeriesRelacionadas');
+
+    //////////////////////////////////////////////////////////////////////
+
+
+
+    Route::post('listar-series/', 'SerieController@listarSeries');
     Route::get('series/{titulo}', 'SerieController@listar');
     Route::get('serie/', 'SerieController@detalhar');
     Route::get('serie/{id}', 'SerieController@detalhar');
     Route::get('serie/{id}/{titulo}', 'SerieController@detalhar');
-    Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
     Route::get('filtro/', 'SerieController@filtro');
     //Route::get('filtros/', 'SerieController@filtros');
     Route::get('filtro/{titulo}', 'SerieController@filtro');
-    Route::get('regioes/{id}', 'SerieController@regioes');//usado no component filtroRegioes na página de filtros
-
-
     Route::get('teste/', 'SerieController@teste');
-
     Route::post('enviar-contato', 'ContatoController@email');
-
-
-    Route::get('map/', 'MapController@index');
+    //Route::get('map/', 'MapController@index');
     Route::get('map/{id}/{titulo}', 'MapController@index');
-    Route::post('dados-series/', 'SerieController@dataSeries');
-    Route::get('valores-regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresRegiaoUltimoPeriodo');
-    Route::get('periodo/{id}/{min}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresPeriodoRegioesSelecionadas');
     Route::get('periodo/{id}/{min}/{max}', 'SerieController@valoresPeriodoPorRegiao');
     //Route::get('get-data/', 'MapController@getData');
-
-    Route::get('periodos/{id}', 'MapController@periodos');
     //Route::get('regiao/{id}/{tipoValores}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodoGeometry');
     //Route::get('valores-regiao/{id}/{tipoValores}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodo');
-    Route::get('regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'MapController@valoresRegiaoUltimoPeriodoGeometry');
     Route::get('valores-series/{id}/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');
     //Route::get('periodo/{id}/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
     //Route::get('regioes/{id}', 'MapController@regioes');//usado no component filtroRegioes na página de filtros
-
-
-
-    Route::get('valores-inicial-final-regiao/{id}/{min}/{max}/{regions}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
-
     Route::get('indices', 'IndiceController@indice');
-
-
     Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
 //});
