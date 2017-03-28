@@ -91,20 +91,13 @@
     Route::get('serie/', 'SerieController@detalhar');
     Route::get('serie/{id}', 'SerieController@detalhar');
     Route::get('serie/{id}/{titulo}', 'SerieController@detalhar');
-    Route::get('filtro/', 'SerieController@filtro');
-    //Route::get('filtros/', 'SerieController@filtros');
+    Route::get('filtro/', 'SerieController@filtro');    
     Route::get('filtro/{titulo}', 'SerieController@filtro');
     Route::get('teste/', 'SerieController@teste');
-    Route::post('enviar-contato', 'ContatoController@email');
-    //Route::get('map/', 'MapController@index');
+    Route::post('enviar-contato', 'ContatoController@email');    
     Route::get('map/{id}/{titulo}', 'MapController@index');
-    Route::get('periodo/{id}/{min}/{max}', 'SerieController@valoresPeriodoPorRegiao');
-    //Route::get('get-data/', 'MapController@getData');
-    //Route::get('regiao/{id}/{tipoValores}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodoGeometry');
-    //Route::get('valores-regiao/{id}/{tipoValores}/{min}/{max}', 'MapController@valoresRegiaoPorPeriodo');
-    Route::get('valores-series/{id}/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');
-    //Route::get('periodo/{id}/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
-    //Route::get('regioes/{id}', 'MapController@regioes');//usado no component filtroRegioes na página de filtros
+    Route::get('periodo/{id}/{min}/{max}', 'SerieController@valoresPeriodoPorRegiao');    
+    Route::get('valores-series/{id}/{min}/{max}', 'MapController@valoresSeriesRegiaoPorPeriodo');    
     Route::get('indices', 'IndiceController@indice');
     Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
 
