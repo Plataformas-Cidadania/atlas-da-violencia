@@ -62,24 +62,30 @@
     Route::post('dados-series/', 'SerieController@dataSeries');
 
     //-------------------------Ajax----------------------------------------------
-    Route::get('valores-regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresRegiaoUltimoPeriodo');
-    Route::get('regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'MapController@valoresRegiaoUltimoPeriodoGeometry');
-    Route::get('valores-inicial-final-regiao/{id}/{min}/{max}/{regions}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
+    //Component RangePeriodo nas pg filtros e series
+    Route::get('periodos/{id}', 'MapController@periodos');
 
+    //Component SeriesList na pg filtros
+    Route::post('listar-series-relacionadas/', 'SerieController@listarSeriesRelacionadas');
+    //Component SeriesList na pg series
+    Route::post('listar-series/', 'SerieController@listarSeries');
 
-
-    //
+    //Component filtroRegioes na pg filtros
     Route::get('regioes/{id}', 'SerieController@regioes');//usado no component filtroRegioes na página de filtros
 
-    //Component SeriesList na pg filtros/{id}/{titulo}
-    Route::post('listar-series-relacionadas/', 'SerieController@listarSeriesRelacionadas');
+    //Component pgSerie na pg dados-series
+    Route::get('valores-regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresRegiaoUltimoPeriodo');
 
-    //Component RangePeriodo
-    Route::get('periodos/{id}', 'MapController@periodos');
+    //Component map na pg dados-series
+    Route::get('regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'MapController@valoresRegiaoUltimoPeriodoGeometry');
+
+    //Component chartLine na pg dados-series
     Route::get('periodo/{id}/{min}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresPeriodoRegioesSelecionadas');
 
-    //Component SeriesList Na pg series
-    Route::post('listar-series/', 'SerieController@listarSeries');
+
+Route::get('valores-inicial-final-regiao/{id}/{min}/{max}/{regions}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
+
+
     //---------------------------------------------------------------------------
 
     //////////////////////////////////////////////////////////////////////
@@ -87,8 +93,8 @@
 
 
 
-    Route::get('series/{titulo}', 'SerieController@listar');
-    Route::get('serie/', 'SerieController@detalhar');
+    //Route::get('series/{titulo}', 'SerieController@listar');
+    //Route::get('serie/', 'SerieController@detalhar');
     Route::get('serie/{id}', 'SerieController@detalhar');
     Route::get('serie/{id}/{titulo}', 'SerieController@detalhar');
     Route::get('filtro/', 'SerieController@filtro');
@@ -109,7 +115,13 @@
     Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
 
 
-
     Route::get('lang/{locale}', function ($locale) {
         App::setLocale($locale);
+        return App::getLocale();
+        //return redirect('/');
+    });
+
+    Route::get('lang/', function () {
+        return App::getLocale();
+        //return redirect('/');
     });

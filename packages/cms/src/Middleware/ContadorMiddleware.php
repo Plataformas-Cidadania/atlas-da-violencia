@@ -28,12 +28,12 @@ class ContadorMiddleware
         //Separa Hora e Minutos
         $horaInicial = explode( ':', $horaInicial );
         $horaFinal = explode( ':', $horaFinal );
-        //Obtém o timestamp Unix. Seguindo, no seu caso, a ordem Hora/Minuto.
+        //ObtÃ©m o timestamp Unix. Seguindo, no seu caso, a ordem Hora/Minuto.
         $horaIni = mktime( $horaInicial[0], $horaInicial[1]);
         $horaFim = mktime( $horaFinal [0], $horaFinal [1]);
-        //Verifica a dirença entre os horários
+        //Verifica a direnÃ§a entre os horÃ¡rios
         $horaDiferenca = $horaFim - $horaIni;
-        //Imprime a diferença entre eles
+        //Imprime a diferenÃ§a entre eles
         $minutos = date('H',$horaDiferenca )*60 + date('i',$horaDiferenca );        */        
                 
         if (request()->cookie('cms-visitante')){
@@ -42,7 +42,7 @@ class ContadorMiddleware
             $counter->counter($visitante);
             return $next($request);
         }else{
-            // Aqui guardamos o objeto Response em uma variável
+            // Aqui guardamos o objeto Response em uma variï¿½vel
             $response = $next($request);
             $cookie = cookie()->forever('cms-visitante', $visitante);
             $response = $response->withCookie($cookie);

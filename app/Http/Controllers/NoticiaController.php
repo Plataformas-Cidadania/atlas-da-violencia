@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class NoticiaController extends Controller
 {
     public function listar(){
-        $noticias = DB::table('noticias')->paginate(10);
+        $noticias = DB::table('noticias')->paginate(2);
        
         return view('noticia.listar', ['noticias' => $noticias]);
     }
