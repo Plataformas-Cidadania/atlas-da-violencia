@@ -30,6 +30,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Cms\Middleware\ContadorMiddleware::class,
+            \App\Http\Middleware\SetLocale::class,
         ],
         'cms' => [
             \App\Http\Middleware\EncryptCookies::class,

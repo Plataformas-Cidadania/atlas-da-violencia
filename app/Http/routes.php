@@ -95,7 +95,10 @@ Route::get('valores-inicial-final-regiao/{id}/{min}/{max}/{regions}', 'MapContro
 Route::get('teste/', 'SerieController@teste');
 //Route::get('periodo/{id}/{min}/{max}', 'SerieController@valoresPeriodoPorRegiao');
 
-
+Route::get('lang/{locale}', function ($locale) {
+    //return App::getLocale();
+    return Redirect::back();
+});
 
 //Route::get('series/{titulo}', 'SerieController@listar');
 //Route::get('serie/', 'SerieController@detalhar');

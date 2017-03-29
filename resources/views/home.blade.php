@@ -19,7 +19,6 @@
 
     <article>
         <br><br>
-
         <div class="container block" data-move-x="500px">
             <div class="row">
                 <br><br>

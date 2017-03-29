@@ -40,11 +40,11 @@
                 <li><a href="#iniciodorodape" ng-class="{'alto-contraste': altoContrasteAtivo}" accesskey="4">Ir para o rodapé <span class="bg-sec btn-acessibilidade">4</span></a></li>
             </ul>
             <ul id="botoes" class="col-md-6 col-sm-12 text-right">
-                <li><a href="acessibilidade" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-universal-access" aria-hidden="true"></i> Acessibilidade </a></li>
+                <li><a href="acessibilidade" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-universal-access" aria-hidden="true"></i> @lang('links.accessibility') </a></li>
                 <li><a href="#" id="bt_contraste" ng-click="setAltoContraste()" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-adjust" aria-hidden="true"></i> Alto contraste</a></li>
                 {{--<li><a href="mapa.html" ng-class="{'alto-contraste': altoContrasteAtivo}"> Mapa do site </a></li>--}}
-                {{--<li><img src="img/portugues.jpg" alt=""></li>
-                <li><img src="img/ingles.jpg" alt=""></li>--}}
+                <li><a href="lang/pt_BR"><img src="img/portugues.jpg" alt=""></a></li>
+                <li><a href="lang/en"><img src="img/ingles.jpg" alt=""></a></li>
             </ul>
 
         </div>
@@ -89,13 +89,13 @@
             </div>
             <nav class="menu-position collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation" >
                 <ul id="iniciodomenu" class="nav nav-pills nav-justified">
-                    <li role="presentation"><a href="http://{{$base_href}}" accesskey="h" @if($rota=='/') class="corrente" @endif>Início</a></li>
-                    <li role="presentation"><a href="quem/3/sobre" accesskey="q" @if($rota=='quem') class="corrente" @endif>Sobre</a></li>
-                    <li role="presentation"><a href="series" accesskey="q" @if($rota=='series') class="corrente" @endif>Pesquisas</a></li>
-                    <li role="presentation"><a href="artigos/0/todos" accesskey="n" @if($rota=='artigos') class="corrente" @endif>Artigos</a></li>
-                    <li role="presentation"><a href="videos" accesskey="q" @if($rota=='videos') class="corrente" @endif>Vídeos</a></li>
-                    <li role="presentation"><a href="downloads" accesskey="q" @if($rota=='downloads') class="corrente" @endif>Downloads</a></li>
-                    <li role="presentation"><a href="contato" accesskey="c" @if($rota=='contato') class="corrente" @endif>Contato</a></li>
+                    <li role="presentation"><a href="http://{{$base_href}}" accesskey="h" @if($rota=='/') class="corrente" @endif>@lang('links.home')</a></li>
+                    <li role="presentation"><a href="quem/3/sobre" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
+                    <li role="presentation"><a href="series" accesskey="q" @if($rota=='series') class="corrente" @endif>@lang('links.researches')</a></li>
+                    <li role="presentation"><a href="artigos/0/todos" accesskey="n" @if($rota=='artigos') class="corrente" @endif>@lang('links.articles')</a></li>
+                    <li role="presentation"><a href="videos" accesskey="q" @if($rota=='videos') class="corrente" @endif>@lang('links.videos')</a></li>
+                    <li role="presentation"><a href="downloads" accesskey="q" @if($rota=='downloads') class="corrente" @endif>@lang('links.downloads')</a></li>
+                    <li role="presentation"><a href="contato" accesskey="c" @if($rota=='contato') class="corrente" @endif>@lang('links.contact')</a></li>
                 </ul>
             </nav>
         </nav>
