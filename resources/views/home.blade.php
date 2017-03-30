@@ -101,17 +101,34 @@
         <br><br>
         <div class="bg-qui" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
-                <a href="quem/conheca-o-ipea" >
-                    <br><br>
-                    <p>{{strip_tags($bemvindo->descricao)}}</p>
-                    <br><br>
-                </a>
+                <br><br>
+                <p>{{strip_tags($bemvindo->descricao)}}</p>
+                <br><br>
             </div>
         </div>
         <br><br>
 
 
+        <br><br>
+        <div id="newsletter"></div>
+        <br><br>
 
+
+<style>
+    .box-news h3{
+      color: #155077;
+    }
+    .box-news p{
+      color: #FFFFFF;
+    }
+    .box-news button{
+      font-size: 16px;
+        width: 80%;
+    }
+    .box-news button:hover{
+        background-color: #1E71A8;
+    }
+</style>
 
 
 

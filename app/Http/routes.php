@@ -13,6 +13,7 @@
 
 
 Route::get('/', 'HomeController@index');
+Route::post('/', 'HomeController@newsletter');
 
 //QUEM
 Route::get('quem/', 'QuemController@detalhar');

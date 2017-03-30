@@ -175,6 +175,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>g
     </div>
 @endsection

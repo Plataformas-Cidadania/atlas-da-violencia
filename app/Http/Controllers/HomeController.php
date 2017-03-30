@@ -34,6 +34,10 @@ class HomeController extends Controller
             'indices' => $indices
         ]);
     }
+
+    public function newsletter(){
+
+    }
 }
 
 
