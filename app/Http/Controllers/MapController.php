@@ -10,51 +10,13 @@ use Illuminate\Support\Facades\Log;
 
 class MapController extends Controller
 {
-    public function index($id){
-
-        $serie = \App\Serie::find($id);
-
-        return view('map', ['id' => $id, 'series' => $serie]);
-    }
-
-    /*public function getData(){
-        //$data = DB::table('ed_territorios_uf')->select(DB::raw("ST_AsGeoJSON(ST_Transform(edterritorios_centroide,4326))"))->get();
-        //$data = DB::table('ed_territorios_uf')->select(DB::raw("edterritorios_centroide"))->get();
-        //$data = DB::table('ed_territorios_uf')->select(DB::raw("ST_X(edterritorios_centroide), ST_Y(edterritorios_centroide)"))->get();
-        //$data = DB::table('ed_territorios_uf')->select(DB::raw("ST_AsText(edterritorios_geometry)"))->get();
-        //$data = DB::table('ed_territorios_uf')->select(DB::raw("ST_AsGeoJSON(ST_Transform(edterritorios_geometry,4326))"))->get();
-        //$data = DB::table('ed_territorios_uf')->select(DB::raw("ST_AsGeoJSON(edterritorios_geometry)"))->get();
-        $areas = DB::table('valores_series')
-            ->select(DB::raw("ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry), valores_series.valor"))
-            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
-            ->get();
-
-        $circles = DB::table('valores_series')
-            ->select(DB::raw("ST_X(edterritorios_centroide), ST_Y(edterritorios_centroide), valores_series.valor"))
-            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
-            ->get();
-        $circles = [];
-
-        $series = DB::table('series')->where('id', 1)->get();
-
-        $areas = DB::table('valores_series')
-            ->select(DB::raw("ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry), valores_series.valor, valores_series.periodo"))
-            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
-            ->get();
-
-
-        $data = ['circles' => $circles, 'areas' => $areas, 'series' => $series];
-
-        return $data;
-    }*/
 
     function periodos($id){
         $periodos = DB::table('valores_series')
             ->select('periodo')
             ->distinct('periodo')
             ->where('serie_id', $id)
-            ->orderBy('periodo')
-            ->get();
+            ->orderBy('periodo')           ->get();
 
         $retorno = [];
         foreach($periodos as $index => $periodo){
@@ -99,9 +61,6 @@ class MapController extends Controller
             ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_geometry', 'ed_territorios_uf.edterritorios_centroide', 'ed_territorios_uf.edterritorios_nome')
             ->orderBy('total')
             ->get();
-
-
-
 
         $areas = [];
         $areas['type'] = 'FeatureCollection';

@@ -1,3 +1,4 @@
+
 class PgFiltros extends React.Component{
     constructor(props){
         super(props);
@@ -35,7 +36,22 @@ class PgFiltros extends React.Component{
     }
 
     setRegions(regions, typeRegion){
+
         this.setState({regions: regions, typeRegion: typeRegion});
+
+
+        /*let regionsSelected = regions.map(function(item){
+           if(item.selected){
+               return item.uf;
+           }
+        });*/
+        /*let regionsSelected = [];
+        for(let i in regions){
+            if(regions[i].selected)
+                regionsSelected.push(regions[i].uf)
+        }
+        this.setState({regions: regionsSelected});*/
+        //console.log('setRegions', regions);
     }
 
     serieMarked(id, typeRegionSerie, tipoValores){
@@ -58,12 +74,6 @@ class PgFiltros extends React.Component{
         return(
             <div>
                 <h1>Filtros - {this.props.titulo}</h1>
-                <br/>
-                <Indicadores/>
-
-                <Abrangencia/>
-
-
                 <SeriesList
                     url="listar-series-relacionadas"
                     select="mark-one"

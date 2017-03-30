@@ -67,6 +67,10 @@ Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
 Route::post('dados-series/', 'SerieController@dataSeries');
 
 //-------------------------AJAX-----------------------------------------------------------------------------------------
+
+//Component
+Route::post('territorios/{tipo}', 'SerieController@territorios');
+
 //Component RangePeriodo nas pg filtros e series
 Route::get('periodos/{id}', 'MapController@periodos');
 

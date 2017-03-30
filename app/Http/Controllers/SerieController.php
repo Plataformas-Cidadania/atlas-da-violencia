@@ -429,4 +429,32 @@ class SerieController extends Controller
     private function porMesoRegiao(){
 
     }
+
+    public function territorios($tipo){
+        $paises = ['Brasil'];
+
+        $tabelas = [
+            1 => 'ed_territorios_paises',
+            2 => 'ed_territorios_regioes',
+            3 => 'ed_territorios_uf',
+            4 => 'ed_territorios_municipios',
+            5 => 'ed_territorios_microrregioes',
+            6 => 'ed_territorios_mesoregioes'
+        ];
+
+        if($tipo > 1){
+            $territorios = DB::table($tabelas[$tipo])
+                ->select('edterritorios_codigo', 'edterritorios_nome', 'edterritorios_sigla')
+                ->get();
+            return $territorios;
+        }
+
+        //Caso o território seja do tipo país
+        $territorios = DB::table($tabelas[$tipo])
+            ->select('edterritorios_codigo', 'edterritorios_nome', 'edterritorios_sigla')
+            ->whereIn('edterritorios_nome', $paises)
+            ->get();
+        return $territorios;
+
+    }
 }
