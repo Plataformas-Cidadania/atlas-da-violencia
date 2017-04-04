@@ -59,10 +59,12 @@ class PgFiltros extends React.Component{
             <div>
                 <h1>Filtros - {this.props.titulo}</h1>
                 <br/>
+
                 <Indicadores/>
+                <br/>
 
                 <Abrangencia/>
-
+                <br/>
 
                 <SeriesList
                     url="listar-series-relacionadas"
@@ -71,6 +73,7 @@ class PgFiltros extends React.Component{
                     serieMarked={this.serieMarked}
                 />
                 <br/>
+
                 <RangePeriodo
                     id={this.state.serieMarked}
                     changePeriodo={this.changePeriodo}

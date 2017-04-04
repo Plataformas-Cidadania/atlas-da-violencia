@@ -66,7 +66,9 @@ class PgFiltros extends React.Component {
             ),
             React.createElement('br', null),
             React.createElement(Indicadores, null),
+            React.createElement('br', null),
             React.createElement(Abrangencia, null),
+            React.createElement('br', null),
             React.createElement(SeriesList, {
                 url: 'listar-series-relacionadas',
                 select: 'mark-one',

@@ -112,6 +112,7 @@ print_r($periodo_limite);*/
 
 @if($rota=='filtros/{id}/{titulo}')
     <script src="js/components/indicadores.js"></script>
+    <script src="js/components/selectItems.js"></script>
     <script src="js/components/abrangencia.js"></script>
     <script src="js/components/seriesList.js"></script>
     <script src="js/components/rangePeriodos.js"></script>

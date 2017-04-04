@@ -430,12 +430,17 @@ class SerieController extends Controller
 
     }
 
-    public function territorios($tipo){
+    public function territorios(Request $request){
+
+        $tipo = $request->parameters['option'];
+
+        Log::info($tipo);
+
         $paises = ['Brasil'];
 
         $tabelas = [
             1 => 'ed_territorios_paises',
-            2 => 'ed_territorios_regioes',
+            2 => 'spat.ed_territorios_regioes',
             3 => 'ed_territorios_uf',
             4 => 'ed_territorios_municipios',
             5 => 'ed_territorios_microrregioes',
@@ -444,7 +449,7 @@ class SerieController extends Controller
 
         if($tipo > 1){
             $territorios = DB::table($tabelas[$tipo])
-                ->select('edterritorios_codigo', 'edterritorios_nome', 'edterritorios_sigla')
+                ->select('edterritorios_codigo as id', 'edterritorios_nome as title', 'edterritorios_sigla as sigla')
                 ->get();
             return $territorios;
         }

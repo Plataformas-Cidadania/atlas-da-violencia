@@ -17,6 +17,7 @@
         <base href="http://{{$base_href}}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @include('conexoes.css')
+
     </head>
     <body ng-app="ipeaApp"  ng-controller="appCtrl" ng-class="{'alto-contraste': altoContrasteAtivo}">
         @include('layouts.layout1')

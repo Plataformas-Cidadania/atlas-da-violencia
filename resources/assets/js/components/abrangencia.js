@@ -5,12 +5,13 @@ class Abrangencia extends React.Component{
             options: [
                 {id: 1, title: 'País', on:false},
                 {id: 2, title: 'Região', on:false},
-                {id: 3, title: 'UF', on:true},
+                {id: 3, title: 'UF', on:false},
                 {id: 4, title: 'Município', on:false}
             ]
         };
 
         this.check = this.check.bind(this);
+        this.selected = this.selected.bind(this);
     }
 
     check(id){
@@ -20,7 +21,19 @@ class Abrangencia extends React.Component{
             item.on = item.id === id;
         });
 
-        this.setState({options: options});
+        this.setState({options: options}, function(){
+
+        });
+    }
+
+    selected(){
+        let option = null;
+        this.state.options.find(function(op){
+            if(op.on){
+                option = op.id;
+            }
+        });
+        return option;
     }
 
     render(){
@@ -40,6 +53,10 @@ class Abrangencia extends React.Component{
                 <hr/>
                 {options}
                 <div style={{clear:'left'}}></div>
+                <br/>
+
+                <SelectItems url="territorios" option={this.selected()}/>
+
                 <br/>
             </div>
         );
