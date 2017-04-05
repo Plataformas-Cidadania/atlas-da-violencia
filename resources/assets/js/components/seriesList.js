@@ -90,9 +90,10 @@ class SeriesList extends React.Component{
 
         return(
             <div>
+
+                <h4>Selecione abaixo a série que deseja visualizar</h4>
                 <input type="text" className="form-control" placeholder="Pesquisa" onChange={this.handleChange}/>
                 <br/>
-                <h4>Selecione abaixo a série que deseja visualizar</h4>
                 <div className="text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
                     <i className="fa fa-4x fa-spinner fa-spin"> </i>
                 </div>

@@ -2,7 +2,10 @@ class Abrangencia extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            options: [{ id: 1, title: 'País', on: false }, { id: 2, title: 'Região', on: false }, { id: 3, title: 'UF', on: false }, { id: 4, title: 'Município', on: false }]
+            options: [{ id: 1, title: 'País', plural: ' os Países', on: false, listAll: 1 }, { id: 2, title: 'Região', plural: 'as Regiões', on: false, listAll: 1 }, { id: 3, title: 'UF', plural: 'os Estados', on: false, listAll: 1 }, { id: 4, title: 'Município', plural: 'os Municípios', on: false, listAll: 0,
+                filter: [{ id: 12, title: 'Acre' }, { id: 27, title: 'Alagoas' }, { id: 13, title: 'Amazonas' }, { id: 16, title: 'Amapá' }, { id: 29, title: 'Bahia' }, { id: 23, title: 'Ceará' }, { id: 53, title: 'Distrito Federal' }, { id: 32, title: 'Espirito Santo' }, { id: 52, title: 'Goiás' }, { id: 21, title: 'Maranhão' }, { id: 50, title: 'Mato Grosso do Sul' }, { id: 51, title: 'Mato Grosso' }, { id: 31, title: 'Minas Gerais' }, { id: 15, title: 'Pará' }, { id: 41, title: 'Paraná' }, { id: 25, title: 'Paraíba' }, { id: 26, title: 'Pernambuco' }, { id: 22, title: 'Piauí' }, { id: 33, title: 'Rio de Janeiro' }, { id: 24, title: 'Rio Grande do Norte' }, { id: 43, title: 'Rio Grande do Sul' }, { id: 11, title: 'Rondônia' }, { id: 14, title: 'Roraima' }, { id: 42, title: 'Santa Catarina' }, { id: 35, title: 'São Paulo' }, { id: 28, title: 'Sergipe' }, { id: 17, title: 'Tocantins' }]
+
+            }]
         };
 
         this.check = this.check.bind(this);
@@ -21,12 +24,13 @@ class Abrangencia extends React.Component {
 
     selected() {
         let option = null;
-        this.state.options.find(function (op) {
+        return this.state.options.find(function (op) {
             if (op.on) {
                 option = op.id;
+                return op;
             }
         });
-        return option;
+        //return option;
     }
 
     render() {
@@ -52,6 +56,11 @@ class Abrangencia extends React.Component {
             );
         }.bind(this));
 
+        let selectItems = null;
+        if (this.selected()) {
+            selectItems = React.createElement(SelectItems, { url: 'territorios', option: this.selected(), options: this.state.options });
+        }
+
         return React.createElement(
             'div',
             null,
@@ -64,7 +73,7 @@ class Abrangencia extends React.Component {
             options,
             React.createElement('div', { style: { clear: 'left' } }),
             React.createElement('br', null),
-            React.createElement(SelectItems, { url: 'territorios', option: this.selected() }),
+            selectItems,
             React.createElement('br', null)
         );
     }

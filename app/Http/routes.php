@@ -98,6 +98,7 @@ Route::get('valores-inicial-final-regiao/{id}/{min}/{max}/{regions}', 'MapContro
 //////////////////////////////////////////////////////////////////////
 
 Route::get('teste/', 'SerieController@teste');
+Route::get('teste2/', 'SerieController@teste2');
 //Route::get('periodo/{id}/{min}/{max}', 'SerieController@valoresPeriodoPorRegiao');
 
 Route::get('lang/{locale}', function ($locale) {

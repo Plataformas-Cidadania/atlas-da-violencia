@@ -313,9 +313,10 @@ class SerieController extends Controller
 
 
     public function teste(){
-
         return view('serie.teste');
-
+    }
+    public function teste2(){
+        return view('serie.ipea-selecao');
     }
 
     public function regioes($id){
@@ -432,31 +433,55 @@ class SerieController extends Controller
 
     public function territorios(Request $request){
 
-        $tipo = $request->parameters['option'];
+        //return $request->all();
+        //return $request->parameters['option'];
 
-        Log::info($tipo);
+        $tipo = $request->parameters['option']['id'];
+        $list = $request->parameters['option']['listAll'];
+        $filter = $request->parameters['filter'];
+
+        $search = $request->search;
+
+        if(($list==0 && $filter==0) && empty($search)){
+            return [];
+        }
+
+        //Log::info($tipo);
 
         $paises = ['Brasil'];
 
         $tabelas = [
-            1 => 'ed_territorios_paises',
+            1 => 'spat.ed_territorios_paises',
             2 => 'spat.ed_territorios_regioes',
-            3 => 'ed_territorios_uf',
-            4 => 'ed_territorios_municipios',
-            5 => 'ed_territorios_microrregioes',
-            6 => 'ed_territorios_mesoregioes'
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes'
         ];
+
+        $where = [['edterritorios_nome', 'ilike', "$search%"]];
+
+        if($tipo == 4){
+            if($filter){
+                array_push($where, ['edterritorios_sigla', $filter]);
+            }
+        }
+
+        DB::connection()->enableQueryLog();
 
         if($tipo > 1){
             $territorios = DB::table($tabelas[$tipo])
                 ->select('edterritorios_codigo as id', 'edterritorios_nome as title', 'edterritorios_sigla as sigla')
+                ->where($where)
                 ->get();
+            Log::info(DB::getQueryLog());
             return $territorios;
         }
 
         //Caso o território seja do tipo país
         $territorios = DB::table($tabelas[$tipo])
-            ->select('edterritorios_codigo', 'edterritorios_nome', 'edterritorios_sigla')
+            ->select('edterritorios_codigo as id', 'edterritorios_nome as title', 'edterritorios_sigla as sigla')
+            ->where('edterritorios_nome', 'like', "%$search%")
             ->whereIn('edterritorios_nome', $paises)
             ->get();
         return $territorios;

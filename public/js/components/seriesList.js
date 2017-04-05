@@ -115,13 +115,13 @@ class SeriesList extends React.Component {
         return React.createElement(
             'div',
             null,
-            React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Pesquisa', onChange: this.handleChange }),
-            React.createElement('br', null),
             React.createElement(
                 'h4',
                 null,
                 'Selecione abaixo a s\xE9rie que deseja visualizar'
             ),
+            React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Pesquisa', onChange: this.handleChange }),
+            React.createElement('br', null),
             React.createElement(
                 'div',
                 { className: 'text-center', style: { display: this.state.loading ? 'block' : 'none' } },
