@@ -2,7 +2,7 @@ class Indicadores extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            indicadores: [{ id: 1, title: 'Quantidade', on: true }, { id: 2, title: 'Taxa por 100 mil Habitantes', on: false }]
+            indicadores: [{ id: 1, title: 'Quantidade', on: false }, { id: 2, title: 'Taxa por 100 mil Habitantes', on: false }]
         };
 
         this.check = this.check.bind(this);
@@ -14,6 +14,8 @@ class Indicadores extends React.Component {
             item.on = false;
             item.on = item.id === id;
         });
+
+        this.props.setIndicador(id);
 
         this.setState({ indicadores: indicadores });
     }
@@ -47,7 +49,7 @@ class Indicadores extends React.Component {
             React.createElement(
                 'h4',
                 null,
-                'Escolha o indicador'
+                'Selecione o indicador'
             ),
             React.createElement('hr', null),
             indicadores,

@@ -3,10 +3,10 @@ class Indicadores extends React.Component{
         super (props);
         this.state = {
             indicadores: [
-                {id: 1, title: 'Quantidade', on:true},
+                {id: 1, title: 'Quantidade', on:false},
                 {id: 2, title: 'Taxa por 100 mil Habitantes', on:false}
             ]
-        }
+        };
 
         this.check = this.check.bind(this);
     }
@@ -17,6 +17,8 @@ class Indicadores extends React.Component{
             item.on = false;
             item.on = item.id === id;
         });
+
+        this.props.setIndicador(id);
 
         this.setState({indicadores: indicadores});
     }
@@ -34,7 +36,7 @@ class Indicadores extends React.Component{
 
         return(
             <div>
-                <h4>Escolha o indicador</h4>
+                <h4>Selecione o indicador</h4>
                 <hr/>
                 {indicadores}
                 <div style={{clear:'left'}}></div>

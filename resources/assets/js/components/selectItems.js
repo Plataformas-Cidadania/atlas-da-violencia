@@ -188,7 +188,9 @@ class SelectItems extends React.Component{
 
         //console.log(itemsSelected);
 
-        this.setState({items: items, itemsSelected: itemsSelected, all: all});
+        this.setState({items: items, itemsSelected: itemsSelected, all: all}, function(){
+            this.props.setItems(this.state.itemsSelected);
+        });
     }
 
     remove(id){
@@ -205,7 +207,9 @@ class SelectItems extends React.Component{
 
         let all = this.verifyAll(items);
 
-        this.setState({items: items, itemsSelected: itemsSelected, all: all});
+        this.setState({items: items, itemsSelected: itemsSelected, all: all}, function(){
+            this.props.setItems(this.state.itemsSelected);
+        });
     }
 
     removeAll(){
@@ -221,7 +225,9 @@ class SelectItems extends React.Component{
 
         let all = this.verifyAll(items);
 
-        this.setState({items: items, itemsSelected: itemsSelected, all: all});
+        this.setState({items: items, itemsSelected: itemsSelected, all: all}, function(){
+            this.props.setItems(this.state.itemsSelected);
+        });
     }
 
     indexObject(object, property, value){
@@ -257,7 +263,9 @@ class SelectItems extends React.Component{
             }
         }.bind(this));
 
-        this.setState({items: items, all: !all, itemsSelected: itemsSelected});
+        this.setState({items: items, all: !all, itemsSelected: itemsSelected}, function(){
+            this.props.setItems(this.state.itemsSelected);
+        });
     }
 
     verifyAll(items){

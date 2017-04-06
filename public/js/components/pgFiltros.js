@@ -7,6 +7,8 @@ class PgFiltros extends React.Component {
             from: 0,
             to: 0,
             regions: [],
+            indicador: 0,
+            territorio: 0,
             typeRegion: '',
             typeRegionSerie: '',
             tipoValores: ''
@@ -14,6 +16,8 @@ class PgFiltros extends React.Component {
 
         this.serieMarked = this.serieMarked.bind(this);
         this.loading = this.loading.bind(this);
+        this.setIndicador = this.setIndicador.bind(this);
+        this.setTerritorio = this.setTerritorio.bind(this);
         this.changePeriodo = this.changePeriodo.bind(this);
         this.setPeriodos = this.setPeriodos.bind(this);
         this.setRegions = this.setRegions.bind(this);
@@ -21,6 +25,18 @@ class PgFiltros extends React.Component {
 
     loading(status) {
         this.setState({ loading: status });
+    }
+
+    setIndicador(indicador) {
+        this.setState({ indicador: indicador });
+    }
+
+    setTerritorio(territorio) {
+        this.setState({ territorio: territorio });
+    }
+
+    setRegions(regions) {
+        this.setState({ regions: regions });
     }
 
     changePeriodo(min, max) {
@@ -34,9 +50,9 @@ class PgFiltros extends React.Component {
         //console.log('setPeriodos', periodos);
     }
 
-    setRegions(regions, typeRegion) {
-        this.setState({ regions: regions, typeRegion: typeRegion });
-    }
+    /*setRegions(regions, typeRegion){
+        this.setState({regions: regions, typeRegion: typeRegion});
+    }*/
 
     serieMarked(id, typeRegionSerie, tipoValores) {
         //console.log('serieMarked', id, typeRegionSerie);
@@ -55,6 +71,24 @@ class PgFiltros extends React.Component {
 
         console.log(this.state.tipoValores);
 
+        let abrangencia = null;
+        if (this.state.indicador > 0) {
+            abrangencia = React.createElement(Abrangencia, {
+                setTerritorio: this.setTerritorio,
+                setRegions: this.setRegions
+            });
+        }
+
+        let seriesList = null;
+        if (this.state.territorio > 0 && this.state.regions.length > 0) {
+            seriesList = React.createElement(SeriesList, {
+                url: 'listar-series-relacionadas',
+                select: 'mark-one',
+                parameters: { id: this.props.serie_id, indicador: this.state.indicador, territorio: this.state.territorio },
+                serieMarked: this.serieMarked
+            });
+        }
+
         return React.createElement(
             'div',
             null,
@@ -65,16 +99,13 @@ class PgFiltros extends React.Component {
                 this.props.titulo
             ),
             React.createElement('br', null),
-            React.createElement(Indicadores, null),
-            React.createElement('br', null),
-            React.createElement(Abrangencia, null),
-            React.createElement('br', null),
-            React.createElement(SeriesList, {
-                url: 'listar-series-relacionadas',
-                select: 'mark-one',
-                parameters: { id: this.props.serie_id },
-                serieMarked: this.serieMarked
+            React.createElement(Indicadores, {
+                setIndicador: this.setIndicador
             }),
+            React.createElement('br', null),
+            abrangencia,
+            React.createElement('br', null),
+            seriesList,
             React.createElement('br', null),
             React.createElement(RangePeriodo, {
                 id: this.state.serieMarked,
@@ -83,14 +114,6 @@ class PgFiltros extends React.Component {
                 loading: this.loading,
 
                 style: { display: this.state.serieMarked > 0 ? 'block' : 'none' }
-            }),
-            React.createElement('br', null),
-            React.createElement('br', null),
-            React.createElement(FiltroRegions, {
-                id: this.state.serieMarked,
-                tipoValores: this.state.tipoValores,
-                setRegions: this.setRegions,
-                loading: this.loading
             }),
             React.createElement('br', null),
             React.createElement('br', null),

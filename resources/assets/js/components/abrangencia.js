@@ -43,6 +43,7 @@ class Abrangencia extends React.Component{
 
         this.check = this.check.bind(this);
         this.selected = this.selected.bind(this);
+        this.setRegions = this.setRegions.bind(this);
     }
 
     check(id){
@@ -51,6 +52,8 @@ class Abrangencia extends React.Component{
             item.on = false;
             item.on = item.id === id;
         });
+
+        this.props.setTerritorio(id);
 
         this.setState({options: options}, function(){
 
@@ -68,7 +71,12 @@ class Abrangencia extends React.Component{
         //return option;
     }
 
+    setRegions(regions){
+        this.props.setRegions(regions);
+    }
+
     render(){
+
 
         let options = this.state.options.map(function(item){
             return (
@@ -81,12 +89,19 @@ class Abrangencia extends React.Component{
 
         let selectItems = null;
         if(this.selected()){
-            selectItems = (<SelectItems url="territorios" option={this.selected()} options={this.state.options}/>);
+            selectItems = (
+                <SelectItems
+                    url="territorios"
+                    option={this.selected()}
+                    options={this.state.options}
+                    setItems={this.setRegions}
+                />
+            );
         }
 
         return(
             <div>
-                <h4>Escolha a abrangencia</h4>
+                <h4>Selecione a abrangencia</h4>
                 <hr/>
                 {options}
                 <div style={{clear:'left'}}></div>

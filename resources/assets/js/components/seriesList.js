@@ -5,6 +5,7 @@ class SeriesList extends React.Component{
             loading: false,
             data: [],
             search: '',
+            parameters: this.props.parameters,
             style: {
                 marked:{
                     backgroundColor: '#E9F4E3'
@@ -27,6 +28,14 @@ class SeriesList extends React.Component{
         this.loadData();
     }
 
+    componentWillReceiveProps(props){
+        if(this.state.parameters.indicador != props.parameters.indicador){
+            this.setState({parameters: props.parameters}, function(){
+                this.loadData();
+            });
+        }
+    }
+
     loadData(){
         this.setState({loading: true});
         $.ajax({
@@ -34,7 +43,7 @@ class SeriesList extends React.Component{
             url: this.props.url,
             data: {
                 search: this.state.search,
-                parameters: this.props.parameters
+                parameters: this.state.parameters
             },
             cache: false,
             success: function(data){

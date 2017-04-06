@@ -10,6 +10,7 @@ class Abrangencia extends React.Component {
 
         this.check = this.check.bind(this);
         this.selected = this.selected.bind(this);
+        this.setRegions = this.setRegions.bind(this);
     }
 
     check(id) {
@@ -18,6 +19,8 @@ class Abrangencia extends React.Component {
             item.on = false;
             item.on = item.id === id;
         });
+
+        this.props.setTerritorio(id);
 
         this.setState({ options: options }, function () {});
     }
@@ -31,6 +34,10 @@ class Abrangencia extends React.Component {
             }
         });
         //return option;
+    }
+
+    setRegions(regions) {
+        this.props.setRegions(regions);
     }
 
     render() {
@@ -58,7 +65,12 @@ class Abrangencia extends React.Component {
 
         let selectItems = null;
         if (this.selected()) {
-            selectItems = React.createElement(SelectItems, { url: 'territorios', option: this.selected(), options: this.state.options });
+            selectItems = React.createElement(SelectItems, {
+                url: 'territorios',
+                option: this.selected(),
+                options: this.state.options,
+                setItems: this.setRegions
+            });
         }
 
         return React.createElement(
@@ -67,7 +79,7 @@ class Abrangencia extends React.Component {
             React.createElement(
                 'h4',
                 null,
-                'Escolha a abrangencia'
+                'Selecione a abrangencia'
             ),
             React.createElement('hr', null),
             options,

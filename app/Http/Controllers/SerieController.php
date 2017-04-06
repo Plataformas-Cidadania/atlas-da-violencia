@@ -56,7 +56,11 @@ class SerieController extends Controller
         $series = DB::table('series')
             ->select(DB::raw('series.*, min(valores_series.periodo) as min, max(valores_series.periodo) as max, valores_series.tipo_regiao'))
             ->join('valores_series', 'valores_series.serie_id', '=', 'series.id')
-            ->where('series.id', $parameters['id'])
+            ->where([
+                ['series.id', $parameters['id']],
+                ['series.indicador', $parameters['indicador']],
+                ['series.territorio', $parameters['territorio']]
+            ])
             ->orWhere('series.serie_id', $parameters['id'])
             ->groupBy('series.id', 'valores_series.tipo_regiao')
             ->orderBy('series.titulo')
