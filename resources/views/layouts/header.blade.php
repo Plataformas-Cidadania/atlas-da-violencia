@@ -108,26 +108,44 @@
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 25px; background-color: #ececec; height: 315px;"  ng-class="{'alto-contraste': altoContrasteAtivo}">
-                    <h2 style="margin-top: 0;">{{$ultimaArtigo->titulo}}</h2>
-                    <div style="height: 100px; overflow: hidden;">{!! substr(strip_tags($ultimaArtigo->descricao), 0, 600)."..." !!}</div>
-                    <br>
-                    <a href="artigo/{{$ultimaArtigo->id}}/{{clean($ultimaArtigo->titulo)}}" class="btn btn-info" >Mais Detalhes</a>
-                </div>
-            </div>
-            <?php /*?>
+
+
+
+
+
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
-                    <?php $cont_itens_wd=0;?>
+                    <?php $cont_itens_wd=2;?>
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                     @foreach($webdoors as $webdoor)
                         <li data-target="#carousel-example-generic" data-slide-to="<?php echo $cont_itens_wd;?>" @if($cont_itens_wd==0) class="active" @endif></li>
+                        <?php /*?><li data-target="#carousel-example-generic" data-slide-to="<?php echo $cont_itens_wd;?>" @if($cont_itens_wd==0) class="active" @endif></li><?php */?>
                         <?php $cont_itens_wd++;?>
                     @endforeach
+
+
                 </ol>
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
-                    <?php $cont=0;?>
+                    {{--GRAFICO--}}
+                    <a href="" class="item active" style="margin-top: -30px;">
+                        <div style="width:100%;">
+                            <canvas id="canvas"></canvas>
+                        </div>
+                    </a>
+                    {{----}}
+                    {{--TEXTO--}}
+                    <a href="" class="item" style="background-color: #ececec;">
+                        <h2 style="margin-top: 0;">{{$ultimaArtigo->titulo}}</h2>
+                        <div style="height: 100px; overflow: hidden;">{!! substr(strip_tags($ultimaArtigo->descricao), 0, 600)."..." !!}</div>
+                        <div href="artigo/{{$ultimaArtigo->id}}/{{clean($ultimaArtigo->titulo)}}" class="btn btn-info" >Mais Detalhes</div>
+                    </a>
+                    {{----}}
+                    {{--IMAGEM--}}
+                    <?php $cont=2;?>
                     @foreach($webdoors as $webdoor)
 
                         <a @if($webdoor->link!="")
@@ -135,12 +153,13 @@
                            @elseif($webdoor->descricao!="")
                            href="/webdoor/{{$webdoor->id}}"
                            @endif
-                           class="item @if($cont==0) active @endif">
+                           class="item">
+                                <?php /*?>class="item @if($cont==0) active @endif"><?php */?>
                             <picture>
                                 <source srcset="/imagens/webdoors/sm-{{$webdoor->imagem}}" media="(max-width: 468px)">
                                 <source srcset="/imagens/webdoors/md-{{$webdoor->imagem}}" media="(max-width: 768px)">
                                 <source srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" class="img-responsive">
-                                <img srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" >
+                                <img srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" width="100%" height="260">
                                 @if(!empty($webdoor->resumida))
                                     <div class="carousel-caption">
                                         <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->titulo}}</h3>
@@ -149,8 +168,12 @@
                                 @endif
                             </picture>
                         </a>
+
                         <?php $cont++;?>
                     @endforeach
+                    {{----}}
+
+
                 </div>
 
                 <!-- Controls -->
@@ -163,9 +186,33 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-            <?php */?>
+
+
+
+
+
+                </div>
+            </div>
+
             <div class="marking bg-qua"></div>
         </div>
+
+
+        {{----}}
+
+        <style>
+            canvas{
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+            }
+        </style>
+
+        {{----}}
+
+
+
+
     @endif
 </header>
 
