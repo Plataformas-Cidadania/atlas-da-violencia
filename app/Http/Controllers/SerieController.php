@@ -487,4 +487,24 @@ class SerieController extends Controller
         return $territorios;
 
     }
+
+    function homeChart($id){
+        $rows = DB::table('valores_series')
+            ->select(DB::raw("valores_series.uf, valores_series.valor as value, valores_series.periodo"))
+            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->where([
+                ['valores_series.serie_id', $id],
+                ['valores_series.uf', "RJ"]
+            ])
+            ->orderBy('valores_series.periodo')
+            ->get();
+
+        $data = [];
+
+        foreach($rows as $row){
+            $data[$row->uf][$row->periodo] = $row->value;
+        }
+
+        return $data;
+    }
 }

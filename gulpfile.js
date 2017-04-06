@@ -101,6 +101,9 @@ elixir(function(mix) {
     mix.scripts('controllers/serieCtrl.js', 'public/js/controllers/serieCtrl.js');
     //Home
     mix.scripts('controllers/linkCtrl.js', 'public/js/controllers/linkCtrl.js');
+    mix.scripts('chart/Chart.bundle.js', 'public/js/chart/Chart.bundle.js');
+    mix.scripts('chart/utils.js', 'public/js/chart/utils.js');
+    mix.scripts('chart/chartAnimate.js', 'public/js/chart/chartAnimate.js');
 
 
     mix.scripts([

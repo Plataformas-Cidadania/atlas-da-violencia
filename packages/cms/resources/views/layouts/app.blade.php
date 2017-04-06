@@ -107,6 +107,9 @@
                 <li>
                     <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
                 </li>
+                <li class="active">
+                    <a href="cms/webdoors"><i class="fa fa-fw fa-dashboard"></i> Webdoors</a>
+                </li>
                 <!--<li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo" class="collapse">

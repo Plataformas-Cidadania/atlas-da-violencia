@@ -75,6 +75,9 @@ Route::post('territorios/', 'SerieController@territorios');
 //Component RangePeriodo nas pg filtros e series
 Route::get('periodos/{id}', 'MapController@periodos');
 
+Route::get('home-chart/{id}', 'SerieController@homeChart');
+
+
 //Component SeriesList na pg filtros
 Route::post('listar-series-relacionadas/', 'SerieController@listarSeriesRelacionadas');
 //Component SeriesList na pg series
