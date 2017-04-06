@@ -132,10 +132,6 @@
 
 
 
-
-
-
-
     </article>
 
 @endsection
