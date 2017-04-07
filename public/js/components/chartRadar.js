@@ -5,22 +5,21 @@ class ChartRadar extends React.Component {
         super(props);
         this.state = {
             serie: this.props.serie,
-            min: 0,
-            max: 0
+            periodo: 0
         };
         //this.loadData = this.loadData.bind(this);
         this.loadChart = this.loadChart.bind(this);
     }
 
     componentWillReceiveProps(props) {
-        if (this.state.min != props.data.min || this.state.max != props.data.max) {
+        if (this.state.periodo != props.data.periodo) {
             /*this.setState({min: props.min, max: props.max}, function(){
                 if(myChartRadar){
                     this.chartDestroy();
                 }
                 this.loadData();
             });*/
-            this.setState({ min: props.data.min, max: props.data.max, data: props.data.values }, function () {
+            this.setState({ periodo: props.data.periodo, data: props.data.valores }, function () {
                 if (myChartRadar) {
                     this.chartDestroy();
                 }
@@ -49,7 +48,7 @@ class ChartRadar extends React.Component {
         let values = [];
         for (let i in data) {
             labels[i] = data[i].sigla;
-            values[i] = data[i].total;
+            values[i] = data[i].valor;
         }
 
         //console.log(values);
@@ -99,7 +98,7 @@ class ChartRadar extends React.Component {
                 React.createElement(
                     "button",
                     { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                    this.state.max
+                    this.state.periodo
                 ),
                 React.createElement(
                     "div",

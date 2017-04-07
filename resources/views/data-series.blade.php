@@ -182,17 +182,18 @@
     <div class="container">
 
         @if(!empty($series))
-            <script>serie_id={{$id}}</script>
-            <script>serie="{!! $series->titulo !!}";</script>
-            <script>metadados="{!! $series->descricao !!}";</script>
-            <script>tipoValores="{!! $series->tipo_valores !!}";</script>
-            <script>unidade="{!! $series->unidade !!}";</script>
-            <script>from="{!! $from !!}";</script>
-            <script>to="{!! $to !!}";</script>
-            <script>regions="{!! $regions !!}";</script>
-            <script>typeRegion="{!! $typeRegion !!}";</script>
-            <script>typeRegionSerie="{!! $typeRegionSerie !!}";</script>
-            <script>typeRegionSerie="{!! $typeRegionSerie !!}";</script>
+            <script>
+                serie_id={{$id}}
+                serie="{!! $series->titulo !!}";
+                metadados="{!! $series->descricao !!}";
+                tipoValores="{!! $series->tipo_valores !!}";
+                unidade="{!! $series->unidade !!}";
+                from="{!! $from !!}";
+                to="{!! $to !!}";
+                regions="{!! $regions !!}";
+                territorio="{{$territorio}}";
+            </script>
+
             <div id="pgSerie"></div>
 
 

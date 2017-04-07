@@ -23,7 +23,7 @@ class PgSerie extends React.Component{
             unidade: this.props.unidade,
             loading: false,
             intervalos: [],
-            totaisRegioesPorPeriodo: {min: 0, max: 0, values: {}},
+            valoresRegioesPorPeriodo: {min: 0, max: 0, values: {}},
             min: this.props.from,
             max: this.props.to,
             periodos: [],
@@ -53,6 +53,7 @@ class PgSerie extends React.Component{
 
     changePeriodo(min, max){
         this.setState({min: min, max: max}, function(){
+            console.log(min, max);
             this.loadData();
         });
     }
@@ -66,24 +67,24 @@ class PgSerie extends React.Component{
         $.ajax({
             method:'GET',
             //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-            url: "valores-regiao/"+this.state.id+"/"+this.state.max+"/"+this.props.regions,
+            url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.territorio,
             //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
             cache: false,
             success: function(data) {
-                console.log('pgSerie', data);
-                let totais = {
+                console.log('pgSerie', data);                
+                /*let totais = {
                     min: this.state.min,
                     max: this.state.max,
                     values: data
-                };
-                this.setState({totaisRegioesPorPeriodo: totais});
+                };*/
+                this.setState({valoresRegioesPorPeriodo: data});
 
 
                 ///////////////////////////////////////////////////////////
                 ///////////////////////////////////////////////////////////
                 let valores = [];
-                for(let i in data){
-                    valores[i] = data[i].total;
+                for(let i in data.max.valores){
+                    valores[i] = data.max.valores[i].valor;
                 }
                 //console.log('pgSerie', valores);
                 let valoresOrdenados = valores.sort(function(a, b){
@@ -181,7 +182,7 @@ class PgSerie extends React.Component{
                         />
                         <br/>
 
-                        <br/><hr/><br/>
+
                     </div>
 
 
@@ -205,8 +206,9 @@ class PgSerie extends React.Component{
                             max={this.state.max}
                             setIntervalos={this.setIntervalos}
                             regions={this.props.regions}
-                            typeRegion={this.props.typeRegion}
-                            typeRegionSerie={this.props.typeRegionSerie}
+                            territorio={this.props.territorio}
+                            /*typeRegion={this.props.typeRegion}
+                            typeRegionSerie={this.props.typeRegionSerie}*/
                         />
 
 
@@ -231,6 +233,7 @@ class PgSerie extends React.Component{
                                 <div className={"icons-charts" + (this.state.chartPie ? " icon-chart-pie" : " icon-chart-pie-disable")}
                                      style={{marginLeft: '5px', display:'none'}} onClick={() => this.changeChart('chartPie')} title="">&nbsp;</div>
                             </div>
+                            <div style={{clear:'both'}}><br/></div>
                             <div style={{display: this.state.chartLine ? 'block' : 'none'}}>
                                 <ChartLine
                                     id={this.state.id}
@@ -239,44 +242,49 @@ class PgSerie extends React.Component{
                                     max={this.state.max}
                                     periodos={this.state.periodos}
                                     regions={this.props.regions}
-                                    typeRegion={this.props.typeRegion}
+                                    territorio={this.props.territorio}
+                                    /*typeRegion={this.props.typeRegion}
                                     typeRegionSerie={this.props.typeRegionSerie}
-                                    intervalos={this.state.intervalos}
+                                    intervalos={this.state.intervalos}*/
                                 />
                             </div>
                             <div style={{display: this.state.chartBar ? 'block' : 'none'}}>
-                                <div className="col-md-6">
-                                    <ChartBar
-                                        serie={this.state.serie}
-                                        intervalos={this.state.intervalos}
-                                        data={this.state.totaisRegioesPorPeriodo}
-                                    />
-                                </div>
-                                <div className="col-md-6">
-                                    <ChartBar
-                                        serie={this.state.serie}
-                                        intervalos={this.state.intervalos}
-                                        data={this.state.totaisRegioesPorPeriodo}
-                                    />
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <ChartBar
+                                            serie={this.state.serie}
+                                            intervalos={this.state.intervalos}
+                                            data={this.state.valoresRegioesPorPeriodo.min}
+                                            idBar="1"
+                                        />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <ChartBar
+                                            serie={this.state.serie}
+                                            intervalos={this.state.intervalos}
+                                            data={this.state.valoresRegioesPorPeriodo.max}
+                                            idBar="2"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
                                 <ChartRadar
                                     serie={this.state.serie}
-                                    data={this.state.totaisRegioesPorPeriodo}
+                                    data={this.state.valoresRegioesPorPeriodo.max}
                                 />
                             </div>
                             <div style={{display: this.state.chartPie ? 'block' : 'none'}}>
                                 <ChartPie
                                     intervalos={this.state.intervalos}
-                                    data={this.state.totaisRegioesPorPeriodo}
+                                    data={this.state.valoresRegioesPorPeriodo.max}
                                 />
                             </div>
                         </div>
                         <br/><br/>
                     </div>
 
-                    <div style={{display: this.state.showRegions && this.props.typeRegion=='uf' ? 'block' : 'none'}}>
+                    <div style={{display: this.state.showRegions && this.props.territorio==3 ? 'block' : 'none'}}>
 
                         <Topico icon="icon-group-rate" text="Taxas"/>
 
@@ -284,9 +292,10 @@ class PgSerie extends React.Component{
                             id={this.state.id}
                             decimais={decimais}
                             regions={this.props.regions}
-                            typeRegion={this.props.typeRegion}
-                            typeRegionSerie={this.props.typeRegionSerie}
-                            data={this.state.totaisRegioesPorPeriodo}
+                            territorio={this.props.territorio}
+                            min={this.state.min}
+                            max={this.state.max}
+                            data={this.state.valoresRegioesPorPeriodo.max}
                         />
                         <br/><br/>
                     </div>
@@ -309,7 +318,7 @@ class PgSerie extends React.Component{
                             decimais={decimais}
                             min={this.state.min}
                             max={this.state.max}
-                            data={this.state.totaisRegioesPorPeriodo}
+                            data={this.state.valoresRegioesPorPeriodo.max}
                         />
                         <br/><br/>
                     </div>
@@ -322,7 +331,7 @@ class PgSerie extends React.Component{
                             id={this.state.id}
                             decimais={decimais}
                             serie={this.state.serie}
-                            data={this.state.totaisRegioesPorPeriodo}
+                            data={this.state.valoresRegioesPorPeriodo.max}
                         />
                         <br/><br/><br/>
                     </div>
@@ -358,8 +367,9 @@ ReactDOM.render(
         from={from}
         to={to}
         regions={regions}
-        typeRegion={typeRegion}
-        typeRegionSerie={typeRegionSerie}
+        territorio={territorio}
+        /*typeRegion={typeRegion}
+        typeRegionSerie={typeRegionSerie}*/
     />,
     document.getElementById('pgSerie')
 );

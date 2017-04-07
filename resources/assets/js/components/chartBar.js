@@ -1,4 +1,6 @@
-myChartBar = undefined;
+myChartBar = [];
+myChartBar[0] = undefined;
+myChartBar[1] = undefined;
 
 class ChartBar extends React.Component{
     constructor(props){
@@ -6,8 +8,7 @@ class ChartBar extends React.Component{
         this.state = {
             serie: this.props.serie,
             data: {},
-            min: 0,
-            max: 0,
+            periodo: 0,
             intervalos: this.props.intervalos
         };
         //this.loadData = this.loadData.bind(this);
@@ -15,15 +16,9 @@ class ChartBar extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(this.state.min != props.data.min || this.state.max != props.data.max || this.state.intervalos != props.intervalos){
-            /*this.setState({min: props.min, max: props.max}, function(){
-                if(myChartBar){
-                    this.chartDestroy();
-                }
-                this.loadData();
-            });*/
-            this.setState({min: props.data.min, max: props.data.max, data: props.data.values, intervalos: props.intervalos}, function(){
-                if(myChartBar){
+        if(this.state.periodo != props.data.periodo || this.state.intervalos != props.intervalos){
+            this.setState({periodo: props.data.periodo, data: props.data.valores, intervalos: props.intervalos}, function(){
+                if(myChartBar[this.props.idBar]){
                     this.chartDestroy();
                 }
                 this.loadChart(this.state.data);
@@ -49,14 +44,15 @@ class ChartBar extends React.Component{
         //console.log(data);
         let labels = [];
         let values = [];
+        //console.log(data);
         for(let i in data){
             labels[i] = data[i].sigla;
-            values[i] = data[i].total;
+            values[i] = data[i].valor;
         }
 
-        //console.log(values);
+        //console.log(labels, values);
 
-        let canvas2 = document.getElementById('myChartBar');
+        let canvas2 = document.getElementById('myChartBar'+this.props.idBar);
         let colors = this.getColors(values);
         let dataChart = {
             labels: labels,
@@ -74,6 +70,7 @@ class ChartBar extends React.Component{
             ]
         };
 
+
         let options2 = {
             scale: {
                 reverse: false,
@@ -83,7 +80,7 @@ class ChartBar extends React.Component{
             }
         };
 
-        myChartBar = new Chart(canvas2, {
+        myChartBar[this.props.idBar] = new Chart(canvas2, {
             type: 'bar',
             data: dataChart,
             options: options2
@@ -92,7 +89,8 @@ class ChartBar extends React.Component{
     }
 
     chartDestroy(){
-        myChartBar.destroy();
+        myChartBar[this.props.idBar].destroy();
+        //myChartBar[this.props.idBar].update();
     }
 
     getColors(values){
@@ -110,13 +108,13 @@ class ChartBar extends React.Component{
         return (
             <div>
                 <div style={{textAlign: 'center', clear: 'both'}}>
-                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.max}</button>
+                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.periodo}</button>
                     <div style={{marginTop:'-19px'}}>
                         <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
                     </div>
                 </div>
                 <br/>
-                <canvas id="myChartBar" width="400" height="200"> </canvas>
+                <canvas id={"myChartBar"+this.props.idBar} width="400" height="200"> </canvas>
             </div>
         );
     }

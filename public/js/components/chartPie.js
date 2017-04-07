@@ -8,8 +8,7 @@ class ChartPie extends React.Component {
         super(props);
         this.state = {
             data: {},
-            min: 0,
-            max: 0,
+            periodo: 0,
             intervalos: this.props.intervalos
         };
         //this.loadData = this.loadData.bind(this);
@@ -17,14 +16,14 @@ class ChartPie extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (this.state.min != props.data.min || this.state.max != props.data.max || this.state.intervalos != props.intervalos) {
+        if (this.state.periodo != props.data.periodo || this.state.intervalos != props.intervalos) {
             /*this.setState({min: props.min, max: props.max}, function(){
                 if(myChartPie){
                     this.chartDestroy();
                 }
                 this.loadData();
             });*/
-            this.setState({ min: props.data.min, max: props.data.max, data: props.data.values, intervalos: props.intervalos }, function () {
+            this.setState({ periodo: props.data.periodo, data: props.data.valores, intervalos: props.intervalos }, function () {
                 if (myChartPie) {
                     this.chartDestroy();
                 }
@@ -53,7 +52,7 @@ class ChartPie extends React.Component {
         let values = [];
         for (let i in data) {
             labels[i] = data[i].sigla;
-            values[i] = data[i].total;
+            values[i] = data[i].valor;
         }
 
         //console.log(values);

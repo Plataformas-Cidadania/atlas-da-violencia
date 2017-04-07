@@ -12,7 +12,8 @@ class ListValoresSeries extends React.Component {
             this.loadData();
         });*/
 
-        this.setState({ valores: props.data.values });
+        console.log(props.data);
+        this.setState({ valores: props.data.valores });
     }
 
     /*loadData(){
@@ -32,7 +33,7 @@ class ListValoresSeries extends React.Component {
     }*/
 
     render() {
-        if (!this.state.valores.length) {
+        if (!this.state.valores) {
             return React.createElement(
                 "h3",
                 null,
@@ -50,7 +51,7 @@ class ListValoresSeries extends React.Component {
                     { width: "10px" },
                     React.createElement(
                         "i",
-                        { className: "fa fa-square", style: { color: getColor(item.total, intervalos) } },
+                        { className: "fa fa-square", style: { color: getColor(item.valor, intervalos) } },
                         " "
                     )
                 ),
@@ -64,7 +65,7 @@ class ListValoresSeries extends React.Component {
                 React.createElement(
                     "td",
                     { className: "text-right" },
-                    formatNumber(item.total, this.props.decimais, ',', '.')
+                    formatNumber(item.valor, this.props.decimais, ',', '.')
                 )
             );
         }.bind(this));

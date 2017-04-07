@@ -80,28 +80,62 @@ class SerieController extends Controller
             'from' => $request->from,
             'to' => $request->to,
             'regions' => $request->regions,
-            'typeRegion' => $request->typeRegion,
-            'typeRegionSerie' => $request->typeRegionSerie
+            'territorio' => $request->territorio,
+            /*'typeRegion' => $request->typeRegion,
+            'typeRegionSerie' => $request->typeRegionSerie*/
         ]);
     }
 
-    function valoresRegiaoUltimoPeriodo($id, $max, $regions){
+    function valoresRegiaoPrimeiroUltimoPeriodo($id, $min, $max, $regions, $territorio){
         //$typeRegionSerie: 1(regiao), 2(uf) 3(municipio)
 
         $regions = explode(',', $regions);
 
+        Log:info($min.','.$max);
 
-        $valores = DB::table('valores_series')
-            ->select(DB::raw("valores_series.valor as total, valores_series.uf as sigla, ed_territorios_uf.edterritorios_nome as nome"))
-            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+        $tabelas = [
+            1 => 'spat.ed_territorios_paises',
+            2 => 'spat.ed_territorios_regioes',
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes'
+        ];
+
+        $valoresMin = DB::table('valores_series')
+            ->select(DB::raw("valores_series.valor as valor, valores_series.uf as sigla, $tabelas[$territorio].edterritorios_nome as nome"))
+            ->join($tabelas[$territorio], 'valores_series.uf', '=', "$tabelas[$territorio].edterritorios_sigla")
+            ->where([
+                ['valores_series.serie_id', $id],
+                ['valores_series.periodo', $min]
+            ])
+            ->whereIn('valores_series.regiao_id', $regions)
+            ->groupBy('valores_series.uf', "$tabelas[$territorio].edterritorios_nome", 'valores_series.valor')
+            ->orderBy('valores_series.uf')
+            ->get();
+
+        $valoresMax = DB::table('valores_series')
+            ->select(DB::raw("valores_series.valor as valor, valores_series.uf as sigla, $tabelas[$territorio].edterritorios_nome as nome"))
+            ->join($tabelas[$territorio], 'valores_series.uf', '=', "$tabelas[$territorio].edterritorios_sigla")
             ->where([
                 ['valores_series.serie_id', $id],
                 ['valores_series.periodo', $max]
             ])
             ->whereIn('valores_series.regiao_id', $regions)
-            ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_nome', 'valores_series.valor')
+            ->groupBy('valores_series.uf', "$tabelas[$territorio].edterritorios_nome", 'valores_series.valor')
             ->orderBy('valores_series.uf')
             ->get();
+
+        $valores = [
+            'min' => [
+                'periodo' => $min,
+                'valores' => $valoresMin
+            ],
+            'max' => [
+                'periodo' => $max,
+                'valores' => $valoresMax
+            ]
+        ];
 
         return $valores;
     }
@@ -123,19 +157,30 @@ class SerieController extends Controller
         return $valores;
     }
 
-    function valoresPeriodoRegioesSelecionadas($id, $min, $max, $regions){
+    function valoresPeriodoRegioesSelecionadas($id, $min, $max, $regions, $territorio){
 
         $regions = explode(',', $regions);
 
+        //Log::info($territorio);
+
+        $tabelas = [
+            1 => 'spat.ed_territorios_paises',
+            2 => 'spat.ed_territorios_regioes',
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes'
+        ];
+
         $rows = DB::table('valores_series')
-            ->select(DB::raw("ed_territorios_uf.edterritorios_sigla as sigla, valores_series.valor, valores_series.periodo"))
-            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->select(DB::raw("$tabelas[$territorio].edterritorios_sigla as sigla, valores_series.valor, valores_series.periodo"))
+            ->join($tabelas[$territorio], 'valores_series.uf', '=', "$tabelas[$territorio].edterritorios_sigla")
             ->where([
                 ['valores_series.serie_id', $id],
                 ['valores_series.periodo', '>=', $min],
                 ['valores_series.periodo', '<=', $max]
             ])
-            ->whereIn('ed_territorios_uf.edterritorios_codigo', $regions)
+            ->whereIn("$tabelas[$territorio].edterritorios_codigo", $regions)
             ->orderBy('valores_series.periodo')
             ->get();
 

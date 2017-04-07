@@ -80,13 +80,22 @@ class MapController extends Controller
         return $areas;
     }
 
-    function valoresRegiaoUltimoPeriodoGeometry($id, $max, $regions){
+    function valoresRegiaoUltimoPeriodoGeometry($id, $max, $regions, $territorio){
 
         //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
 
         //ST_X(edterritorios_centroide), ST_Y(edterritorios_centroide)
 
         $regions = explode(',', $regions);
+
+        $tabelas = [
+            1 => 'spat.ed_territorios_paises',
+            2 => 'spat.ed_territorios_regioes',
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes'
+        ];
 
         $where = [
             ['valores_series.serie_id', $id],
@@ -97,18 +106,18 @@ class MapController extends Controller
             ->select(
                 DB::raw(
                     "
-                    ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry) as geometry, 
+                    ST_AsGeoJSON($tabelas[$territorio].edterritorios_geometry) as geometry, 
                     sum(valores_series.valor) as total, 
-                    ed_territorios_uf.edterritorios_sigla as sigla,
-                    ed_territorios_uf.edterritorios_nome as nome, 
-                    ST_X(ed_territorios_uf.edterritorios_centroide) as x, 
-                    ST_Y(ed_territorios_uf.edterritorios_centroide) as y
+                    $tabelas[$territorio].edterritorios_sigla as sigla,
+                    $tabelas[$territorio].edterritorios_nome as nome, 
+                    ST_X($tabelas[$territorio].edterritorios_centroide) as x, 
+                    ST_Y($tabelas[$territorio].edterritorios_centroide) as y
                     "
                 ))
-            ->join("ed_territorios_uf", 'valores_series.regiao_id', '=', "ed_territorios_uf.edterritorios_codigo")
+            ->join("$tabelas[$territorio]", 'valores_series.regiao_id', '=', "$tabelas[$territorio].edterritorios_codigo")
             ->where($where)
-            ->whereIn('ed_territorios_uf.edterritorios_codigo', $regions)
-            ->groupBy("ed_territorios_uf.edterritorios_sigla", "ed_territorios_uf.edterritorios_nome", "ed_territorios_uf.edterritorios_geometry", "ed_territorios_uf.edterritorios_centroide")
+            ->whereIn("$tabelas[$territorio].edterritorios_codigo", $regions)
+            ->groupBy("$tabelas[$territorio].edterritorios_sigla", "$tabelas[$territorio].edterritorios_nome", "$tabelas[$territorio].edterritorios_geometry", "$tabelas[$territorio].edterritorios_centroide")
             ->orderBy('total')
             ->get();
 
@@ -174,19 +183,28 @@ class MapController extends Controller
 
 
 
-    function valoresInicialFinalRegiaoPorPeriodo($id, $min, $max, $regions){
+    function valoresInicialFinalRegiaoPorPeriodo($id, $min, $max, $regions, $territorio){
 
         $regions = explode(',', $regions);
 
+        $tabelas = [
+            1 => 'spat.ed_territorios_paises',
+            2 => 'spat.ed_territorios_regioes',
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes'
+        ];
+
         $valores = DB::table('valores_series')
-            ->select(DB::raw("valores_series.valor, valores_series.periodo, valores_series.uf as sigla, ed_territorios_uf.edterritorios_nome as nome"))
-            ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
+            ->select(DB::raw("valores_series.valor, valores_series.periodo, valores_series.uf as sigla, $tabelas[$territorio].edterritorios_nome as nome"))
+            ->join($tabelas[$territorio], 'valores_series.uf', '=', "$tabelas[$territorio].edterritorios_sigla")
             ->where('valores_series.serie_id', $id)
             ->where(function ($query) use ($min, $max) {
                 $query->where('valores_series.periodo', $min)
                     ->orWhere('valores_series.periodo', $max);
             })
-            ->whereIn('ed_territorios_uf.edterritorios_codigo', $regions)
+            ->whereIn("$tabelas[$territorio].edterritorios_codigo", $regions)
             ->orderBy(DB::raw('valores_series.uf, valores_series.periodo'))
             ->get();
 

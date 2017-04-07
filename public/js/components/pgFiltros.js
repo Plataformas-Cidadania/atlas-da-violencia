@@ -141,8 +141,7 @@ class PgFiltros extends React.Component {
                 React.createElement('input', { type: 'hidden', name: 'to', value: this.state.to }),
                 React.createElement('input', { type: 'hidden', name: 'periodos', value: this.state.periodos }),
                 React.createElement('input', { type: 'hidden', name: 'regions', value: this.state.regions }),
-                React.createElement('input', { type: 'hidden', name: 'typeRegion', value: this.state.typeRegion }),
-                React.createElement('input', { type: 'hidden', name: 'typeRegionSerie', value: this.state.typeRegionSerie })
+                React.createElement('input', { type: 'hidden', name: 'territorio', value: this.state.territorio })
             )
         );
     }

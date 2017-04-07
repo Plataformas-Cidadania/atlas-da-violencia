@@ -12,7 +12,8 @@ class ListValoresSeries extends React.Component{
             this.loadData();
         });*/
 
-        this.setState({valores: props.data.values});
+        console.log(props.data);
+        this.setState({valores: props.data.valores});
     }
 
     /*loadData(){
@@ -32,7 +33,7 @@ class ListValoresSeries extends React.Component{
     }*/
 
     render(){
-        if(!this.state.valores.length){
+        if(!this.state.valores){
             return (<h3>Sem Resultados</h3>);
         }
 
@@ -40,9 +41,9 @@ class ListValoresSeries extends React.Component{
         let valores = this.state.valores.map(function (item, index) {
             return (
                 <tr key={index}>
-                    <th width="10px"><i className="fa fa-square" style={{color: getColor(item.total, intervalos)}}> </i></th>
+                    <th width="10px"><i className="fa fa-square" style={{color: getColor(item.valor, intervalos)}}> </i></th>
                     <th>{item.sigla} - {item.nome}</th>
-                    <td className="text-right">{formatNumber(item.total, this.props.decimais, ',', '.')}</td>
+                    <td className="text-right">{formatNumber(item.valor, this.props.decimais, ',', '.')}</td>
                 </tr>
             );
         }.bind(this));

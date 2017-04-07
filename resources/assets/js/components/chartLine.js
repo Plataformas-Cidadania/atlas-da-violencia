@@ -33,7 +33,7 @@ class ChartLine extends React.Component{
         this.setState({loading: true});
         let _this = this;
         //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
-        $.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.typeRegion+"/"+this.props.typeRegionSerie, {
+        $.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.territorio, {
             data: {},
             success: function(data){
                 //console.log('charline', data);
@@ -126,25 +126,32 @@ class ChartLine extends React.Component{
 
             //console.log('values', values);
 
-            let colors = this.getColors(values);
+            //let colors = this.getColors(values);
 
-            //console.log('colors', colors);
+            let colorChart = [];
+            for(let i in colors2){
+                colorChart.push(convertHex(colors2[i], 100));
+            }
+
+            colorChart = ['#cccccc', '#000000', '#f00000', 'ff0000'];
+            colorChart = [convertHex('#cccccc', 100), convertHex('#000000', 100), convertHex('#f00000', 100), convertHex('ff0000', 100)];
+
 
             datasets[cont++] = {
                 label: region,
                 fill: false,
                 lineTension: 0.1,
-                backgroundColor: colors,
-                borderColor: colors,
+                backgroundColor: colorChart,
+                borderColor: colorChart,
                 borderCapStyle: 'butt',
                 borderDash: [],
                 borderDashOffset: 0.0,
                 borderJoinStyle: 'miter',
-                pointBorderColor: colors,
+                pointBorderColor: colorChart,
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 1,
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: colors,
+                pointHoverBackgroundColor: colorChart,
                 pointHoverBorderColor: "rgba(220,220,220,1)",
                 pointHoverBorderWidth: 2,
                 pointRadius: 5,
@@ -173,7 +180,8 @@ class ChartLine extends React.Component{
     }
 
     chartDestroy(){
-        myChartLine.destroy();
+        //myChartLine.destroy();
+        //myChartLine.update();
     }
 
     getColors(values){

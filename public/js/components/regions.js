@@ -7,6 +7,7 @@ class Regions extends React.Component {
             data: {},
             min: 0,
             max: 0,
+            periodo: 0,
             minValue: 0,
             maxValue: 0,
             maxUp: 0,
@@ -18,9 +19,11 @@ class Regions extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (this.state.min != props.data.min || this.state.max != props.data.max) {
-            this.setState({ min: props.data.min, max: props.data.max, data: props.data.values }, function () {
-                this.minMaxValue(this.state.data);
+        if (this.state.periodo != props.data.periodo || this.state.min != props.min || this.state.max != props.max) {
+            this.setState({ periodo: props.data.periodo, min: props.min, max: props.max, data: props.data.valores }, function () {
+                if (this.state.data) {
+                    this.minMaxValue(this.state.data);
+                }
                 this.loadData();
             });
         }
@@ -30,7 +33,7 @@ class Regions extends React.Component {
         this.setState({ loading: true });
         $.ajax({
             method: 'GET',
-            url: "valores-inicial-final-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions,
+            url: "valores-inicial-final-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.territorio,
             cache: false,
             success: function (data) {
                 //console.log('region.js, loaddata', data);
@@ -45,12 +48,11 @@ class Regions extends React.Component {
     }
 
     minMaxValue(data) {
-        //console.log(data);
         let sort = data.sort(function (a, b) {
-            if (parseFloat(a.total) < parseFloat(b.total)) {
+            if (parseFloat(a.valor) < parseFloat(b.valor)) {
                 return -1;
             }
-            if (parseFloat(a.total) > parseFloat(b.total)) {
+            if (parseFloat(a.valor) > parseFloat(b.valor)) {
                 return 1;
             }
             return 0;
@@ -166,7 +168,7 @@ class Regions extends React.Component {
                                 React.createElement(
                                     'button',
                                     { className: 'btn btn-primary btn-lg bg-pri', style: { border: '0' } },
-                                    this.state.max
+                                    this.state.periodo
                                 ),
                                 React.createElement(
                                     'div',
@@ -203,7 +205,7 @@ class Regions extends React.Component {
                             React.createElement(
                                 'p',
                                 { style: this.state.styleNumber },
-                                formatNumber(this.state.minValue.total, this.props.decimais, ',', '.')
+                                formatNumber(this.state.minValue.valor, this.props.decimais, ',', '.')
                             )
                         ),
                         React.createElement(
@@ -229,7 +231,7 @@ class Regions extends React.Component {
                             React.createElement(
                                 'p',
                                 { style: this.state.styleNumber },
-                                formatNumber(this.state.maxValue.total, this.props.decimais, ',', '.')
+                                formatNumber(this.state.maxValue.valor, this.props.decimais, ',', '.')
                             )
                         )
                     )

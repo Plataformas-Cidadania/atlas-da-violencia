@@ -5,22 +5,21 @@ class ChartRadar extends React.Component{
         super(props);
         this.state = {
             serie: this.props.serie,
-            min: 0,
-            max: 0
+            periodo: 0
         };
         //this.loadData = this.loadData.bind(this);
         this.loadChart = this.loadChart.bind(this);
     }
 
     componentWillReceiveProps(props){
-        if(this.state.min != props.data.min || this.state.max != props.data.max){
+        if(this.state.periodo != props.data.periodo){
             /*this.setState({min: props.min, max: props.max}, function(){
                 if(myChartRadar){
                     this.chartDestroy();
                 }
                 this.loadData();
             });*/
-            this.setState({min: props.data.min, max: props.data.max, data: props.data.values}, function(){
+            this.setState({periodo: props.data.periodo, data: props.data.valores}, function(){
                 if(myChartRadar){
                     this.chartDestroy();
                 }
@@ -49,7 +48,7 @@ class ChartRadar extends React.Component{
         let values = [];
         for(let i in data){
             labels[i] = data[i].sigla;
-            values[i] = data[i].total;
+            values[i] = data[i].valor;
         }
 
         //console.log(values);
@@ -96,7 +95,7 @@ class ChartRadar extends React.Component{
         return (
             <div>
                 <div style={{textAlign: 'center', clear: 'both'}}>
-                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.max}</button>
+                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.periodo}</button>
                     <div style={{marginTop:'-19px'}}>
                         <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
                     </div>

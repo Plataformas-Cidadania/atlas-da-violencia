@@ -140,8 +140,9 @@ class PgFiltros extends React.Component{
                     <input type="hidden" name="to" value={this.state.to}/>
                     <input type="hidden" name="periodos" value={this.state.periodos}/>
                     <input type="hidden" name="regions" value={this.state.regions}/>
-                    <input type="hidden" name="typeRegion" value={this.state.typeRegion}/>
-                    <input type="hidden" name="typeRegionSerie" value={this.state.typeRegionSerie}/>
+                    <input type="hidden" name="territorio" value={this.state.territorio}/>
+                    {/*<input type="hidden" name="typeRegion" value={this.state.typeRegion}/>
+                    <input type="hidden" name="typeRegionSerie" value={this.state.typeRegionSerie}/>*/}
                 </form>
             </div>
 
