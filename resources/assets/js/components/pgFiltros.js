@@ -29,15 +29,21 @@ class PgFiltros extends React.Component{
     }
 
     setIndicador(indicador){
-        this.setState({indicador: indicador});
+        this.setState({indicador: indicador, serieMarked: 0});
     }
 
     setTerritorio(territorio){
-        this.setState({territorio: territorio});
+        this.setState({territorio: territorio, serieMarked: 0});
     }
 
     setRegions(regions){
-        this.setState({regions: regions});
+
+        let regionsId = [];
+        for(let i in regions){
+            regionsId.push(regions[i].id)
+        }
+
+        this.setState({regions: regionsId, serieMarked: 0});
     }
 
     changePeriodo(min, max){
@@ -89,7 +95,7 @@ class PgFiltros extends React.Component{
                 <SeriesList
                     url="listar-series-relacionadas"
                     select="mark-one"
-                    parameters={{id: this.props.serie_id, indicador: this.state.indicador, territorio: this.state.territorio}}
+                    parameters={{id: this.props.serie_id, indicador: this.state.indicador, territorio: this.state.territorio, serieMarked: this.state.serieMarked}}
                     serieMarked={this.serieMarked}
                 />
             );

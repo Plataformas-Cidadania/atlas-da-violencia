@@ -176,7 +176,10 @@ class SelectItems extends React.Component{
             if(item.id == id){
                 item.selected = !item.selected;
                 if(item.selected){
+                    console.log(itemsSelected);
+                    console.log(item);
                     itemsSelected.push(item);
+                    console.log(itemsSelected);
                 }else{
                     let index = this.indexObject(itemsSelected, 'id', id);
                     itemsSelected.splice(index, 1);

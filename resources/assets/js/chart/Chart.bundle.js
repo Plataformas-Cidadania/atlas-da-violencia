@@ -11,6 +11,7 @@
 /* MIT license */
 var colorNames = require(5);
 
+
 module.exports = {
    getRgba: getRgba,
    getHsla: getHsla,

@@ -62,10 +62,11 @@ class PgSerie extends React.Component{
     }
 
     loadData(){
+        console.log(this.props.regions);
         $.ajax({
             method:'GET',
             //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-            url: "valores-regiao/"+this.state.id+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.typeRegion+"/"+this.props.typeRegionSerie,
+            url: "valores-regiao/"+this.state.id+"/"+this.state.max+"/"+this.props.regions,
             //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
             cache: false,
             success: function(data) {
@@ -244,11 +245,20 @@ class PgSerie extends React.Component{
                                 />
                             </div>
                             <div style={{display: this.state.chartBar ? 'block' : 'none'}}>
-                                <ChartBar
-                                    serie={this.state.serie}
-                                    intervalos={this.state.intervalos}
-                                    data={this.state.totaisRegioesPorPeriodo}
-                                />
+                                <div className="col-md-6">
+                                    <ChartBar
+                                        serie={this.state.serie}
+                                        intervalos={this.state.intervalos}
+                                        data={this.state.totaisRegioesPorPeriodo}
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <ChartBar
+                                        serie={this.state.serie}
+                                        intervalos={this.state.intervalos}
+                                        data={this.state.totaisRegioesPorPeriodo}
+                                    />
+                                </div>
                             </div>
                             <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
                                 <ChartRadar

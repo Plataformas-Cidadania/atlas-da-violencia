@@ -26,6 +26,26 @@
     <script src="js/chart/utils.js"></script>
     <script src="js/chart/chartAnimate.js"></script>
 
+    <script>
+        $.ajax("home-chart/1", {
+            data: {},
+            success: function(data){
+                homeChart(data);
+                ctx = document.getElementById("canvas").getContext("2d");
+                window.myLine = new Chart(ctx, config);
+                intervalo = window.setInterval('counterTime()', 570);
+            },
+            error: function(data){
+                console.log('erro');
+            }
+        });
+
+        $('.carousel').carousel({
+            interval: 10000
+        })
+
+    </script>
+
 
     {{--<script>$('.block').smoove({offset:'10%'});</script>--}}
 @endif

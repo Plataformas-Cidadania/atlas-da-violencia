@@ -87,13 +87,13 @@ Route::post('listar-series/', 'SerieController@listarSeries');
 Route::get('regioes/{id}', 'SerieController@regioes');//usado no component filtroRegioes na página de filtros
 
 //Component pgSerie na pg dados-series
-Route::get('valores-regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresRegiaoUltimoPeriodo');
+Route::get('valores-regiao/{id}/{max}/{regions}', 'SerieController@valoresRegiaoUltimoPeriodo');
 
 //Component map na pg dados-series
-Route::get('regiao/{id}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'MapController@valoresRegiaoUltimoPeriodoGeometry');
+Route::get('regiao/{id}/{max}/{regions}', 'MapController@valoresRegiaoUltimoPeriodoGeometry');
 
 //Component chartLine na pg dados-series
-Route::get('periodo/{id}/{min}/{max}/{regions}/{typeRegion}/{typeRegionSerie}', 'SerieController@valoresPeriodoRegioesSelecionadas');
+Route::get('periodo/{id}/{min}/{max}/{regions}', 'SerieController@valoresPeriodoRegioesSelecionadas');
 
 Route::get('valores-inicial-final-regiao/{id}/{min}/{max}/{regions}', 'MapController@valoresInicialFinalRegiaoPorPeriodo');
 //----------------------------------------------------------------------------------------------------------------------

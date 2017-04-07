@@ -113,7 +113,7 @@
 
 
 
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
                     <?php $cont_itens_wd=2;?>
@@ -133,7 +133,7 @@
                     {{--GRAFICO--}}
                     <a href="" class="item active" style="margin-top: -30px;">
                         <div style="width:100%;">
-                            <canvas id="canvas"></canvas>
+                            <canvas id="canvas" height="210"></canvas>
                         </div>
                     </a>
                     {{----}}
@@ -186,6 +186,9 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
+
+
+
 
 
 
