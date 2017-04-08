@@ -37,6 +37,7 @@ class PgSerie extends React.Component {
             loading: false,
             intervalos: [],
             valoresRegioesPorPeriodo: { min: 0, max: 0, values: {} },
+            smallLarge: [0, 1],
             min: this.props.from,
             max: this.props.to,
             periodos: [],
@@ -57,6 +58,7 @@ class PgSerie extends React.Component {
         this.showHide = this.showHide.bind(this);
         this.loadData = this.loadData.bind(this);
         this.setIntervalos = this.setIntervalos.bind(this);
+        this.calcSmallLarge = this.calcSmallLarge.bind(this);
     }
 
     loading(status) {
@@ -84,28 +86,29 @@ class PgSerie extends React.Component {
             cache: false,
             success: function (data) {
                 console.log('pgSerie', data);
+                //os valores menor e maior para serem utilizados no chartBar
+                let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
                 /*let totais = {
                     min: this.state.min,
                     max: this.state.max,
                     values: data
                 };*/
-                this.setState({ valoresRegioesPorPeriodo: data });
+                this.setState({ valoresRegioesPorPeriodo: data, smallLarge: smallLarge });
 
                 ///////////////////////////////////////////////////////////
                 ///////////////////////////////////////////////////////////
-                let valores = [];
-                for (let i in data.max.valores) {
+                /*let valores = [];
+                for(let i in data.max.valores){
                     valores[i] = data.max.valores[i].valor;
                 }
                 //console.log('pgSerie', valores);
-                let valoresOrdenados = valores.sort(function (a, b) {
+                let valoresOrdenados = valores.sort(function(a, b){
                     return a - b;
                 });
                 //console.log('pgSerie', valoresOrdenados);
-
-                intervalos = gerarIntervalos(valoresOrdenados);
+                 intervalos = gerarIntervalos(valoresOrdenados);
                 this.setIntervalos(intervalos);
-                //console.log('pgSerie', intervalos);
+                //console.log('pgSerie', intervalos);*/
                 ///////////////////////////////////////////////////////////
                 ///////////////////////////////////////////////////////////
 
@@ -116,6 +119,27 @@ class PgSerie extends React.Component {
                 console.log('erro');
             }.bind(this)
         });
+    }
+
+    calcSmallLarge(minValores, maxValores) {
+        let valores = [];
+        minValores.find(function (item) {
+            valores.push(parseFloat(item.valor));
+        });
+        maxValores.find(function (item) {
+            valores.push(parseFloat(item.valor));
+        });
+        let valoresSort = valores.sort(function (a, b) {
+            return a - b;
+        });
+        let smallLarge = [];
+        smallLarge[0] = valoresSort[0] - 10;
+        if (valoresSort[0] > 0 && valoresSort[0] < 10) {
+            smallLarge[0] = valoresSort[0];
+        }
+
+        smallLarge[1] = valoresSort[valoresSort.length - 1];
+        return smallLarge;
     }
 
     changeChart(chart) {
@@ -334,6 +358,7 @@ class PgSerie extends React.Component {
                                         serie: this.state.serie,
                                         intervalos: this.state.intervalos,
                                         data: this.state.valoresRegioesPorPeriodo.min,
+                                        smallLarge: this.state.smallLarge,
                                         idBar: "1"
                                     })
                                 ),
@@ -344,6 +369,7 @@ class PgSerie extends React.Component {
                                         serie: this.state.serie,
                                         intervalos: this.state.intervalos,
                                         data: this.state.valoresRegioesPorPeriodo.max,
+                                        smallLarge: this.state.smallLarge,
                                         idBar: "2"
                                     })
                                 )

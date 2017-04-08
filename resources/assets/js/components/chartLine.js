@@ -127,31 +127,26 @@ class ChartLine extends React.Component{
             //console.log('values', values);
 
             //let colors = this.getColors(values);
+            let colors = this.getColors();
 
-            let colorChart = [];
-            for(let i in colors2){
-                colorChart.push(convertHex(colors2[i], 100));
-            }
 
-            colorChart = ['#cccccc', '#000000', '#f00000', 'ff0000'];
-            colorChart = [convertHex('#cccccc', 100), convertHex('#000000', 100), convertHex('#f00000', 100), convertHex('ff0000', 100)];
 
 
             datasets[cont++] = {
                 label: region,
                 fill: false,
                 lineTension: 0.1,
-                backgroundColor: colorChart,
-                borderColor: colorChart,
+                backgroundColor: colors,
+                borderColor: colors,
                 borderCapStyle: 'butt',
                 borderDash: [],
                 borderDashOffset: 0.0,
                 borderJoinStyle: 'miter',
-                pointBorderColor: colorChart,
+                pointBorderColor: colors,
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 1,
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: colorChart,
+                pointHoverBackgroundColor: colors,
                 pointHoverBorderColor: "rgba(220,220,220,1)",
                 pointHoverBorderWidth: 2,
                 pointRadius: 5,
@@ -184,16 +179,24 @@ class ChartLine extends React.Component{
         //myChartLine.update();
     }
 
-    getColors(values){
-        //console.log('chartline - getcolors - intervalos', this.state.intervalos.length);
-        //console.log('chartline - getcolors - values', values);
-        if(this.state.intervalos.length > 0){
-            let colors = [];
-            for(let i in values){
-                colors.push(convertHex(getColor(values[i], intervalos), 100));
-            }
-            return colors;
+    //getColors(values){
+    getColors(){
+
+        let colors = [];
+        for(let i in colors2){
+            colors.push(convertHex(colors2[i], 100));
         }
+        return colors;
+
+
+        //console.log('chartbar - getcolors - intervalos', this.state.intervalos.length);
+        /*if(this.state.intervalos.length > 0){
+         let colors = [];
+         for(let i in values){
+         colors.push(convertHex(getColor(values[i], intervalos), 100));
+         }
+         return colors;
+         }*/
     }
 
     render(){

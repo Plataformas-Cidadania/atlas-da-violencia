@@ -8,6 +8,7 @@ class ChartBar extends React.Component{
         this.state = {
             serie: this.props.serie,
             data: {},
+            smallLarge: this.props.smallLarge,
             periodo: 0,
             intervalos: this.props.intervalos
         };
@@ -16,8 +17,9 @@ class ChartBar extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(this.state.periodo != props.data.periodo || this.state.intervalos != props.intervalos){
-            this.setState({periodo: props.data.periodo, data: props.data.valores, intervalos: props.intervalos}, function(){
+        console.log(props.smallLarge);
+        if(this.state.periodo != props.data.periodo || this.state.smallLarge != props.smallLarge || this.state.intervalos != props.intervalos){
+            this.setState({periodo: props.data.periodo, data: props.data.valores, intervalos: props.intervalos, smallLarge: props.smallLarge}, function(){
                 if(myChartBar[this.props.idBar]){
                     this.chartDestroy();
                 }
@@ -53,7 +55,8 @@ class ChartBar extends React.Component{
         //console.log(labels, values);
 
         let canvas2 = document.getElementById('myChartBar'+this.props.idBar);
-        let colors = this.getColors(values);
+        //let colors = this.getColors(values);
+        let colors = this.getColors();
         let dataChart = {
             labels: labels,
             datasets: [
@@ -75,8 +78,16 @@ class ChartBar extends React.Component{
             scale: {
                 reverse: false,
                 ticks: {
-                    beginAtZero: true
-                }
+                    beginAtZero: true,
+                },
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        max: this.state.smallLarge[1],
+                        min: this.state.smallLarge[0],
+                    }
+                }]
             }
         };
 
@@ -93,15 +104,24 @@ class ChartBar extends React.Component{
         //myChartBar[this.props.idBar].update();
     }
 
-    getColors(values){
+    //getColors(values){
+    getColors(){
+
+        let colors = [];
+        for(let i in colors2){
+            colors.push(convertHex(colors2[i], 100));
+        }
+        return colors;
+
+
         //console.log('chartbar - getcolors - intervalos', this.state.intervalos.length);
-        if(this.state.intervalos.length > 0){
+        /*if(this.state.intervalos.length > 0){
             let colors = [];
             for(let i in values){
                 colors.push(convertHex(getColor(values[i], intervalos), 100));
             }
             return colors;
-        }
+        }*/
     }
 
     render(){

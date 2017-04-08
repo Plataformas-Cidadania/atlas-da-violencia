@@ -110,8 +110,7 @@ class SerieController extends Controller
                 ['valores_series.periodo', $min]
             ])
             ->whereIn('valores_series.regiao_id', $regions)
-            ->groupBy('valores_series.uf', "$tabelas[$territorio].edterritorios_nome", 'valores_series.valor')
-            ->orderBy('valores_series.uf')
+            ->orderBy("$tabelas[$territorio].edterritorios_sigla")
             ->get();
 
         $valoresMax = DB::table('valores_series')
@@ -122,8 +121,7 @@ class SerieController extends Controller
                 ['valores_series.periodo', $max]
             ])
             ->whereIn('valores_series.regiao_id', $regions)
-            ->groupBy('valores_series.uf', "$tabelas[$territorio].edterritorios_nome", 'valores_series.valor')
-            ->orderBy('valores_series.uf')
+            ->orderBy("$tabelas[$territorio].edterritorios_sigla")
             ->get();
 
         $valores = [
