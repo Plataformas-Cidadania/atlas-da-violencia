@@ -1,18 +1,18 @@
 @extends('.layout')
-@section('title', 'Downloads')
+@section('title',  trans('links.downloads'))
 @section('content')
-    {{--{{ Counter::count('download') }}--}}
+
 
     <div class="container">
-        <h2>Downloads</h2>
+        <h2>@lang('links.downloads')</h2>
         <div class="line_title bg-pri"></div>
 
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>Nome</th>
-                <th>Serie</th>
-                <th>Downloads</th>
+                <th>@lang('forms.name')</th>
+                <th>@lang('pages.serie')</th>
+                <th>@lang('links.downloads')</th>
             </tr>
             </thead>
             <tbody>

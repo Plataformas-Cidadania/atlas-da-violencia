@@ -17,21 +17,21 @@
         }
     </style>
     <div class="container" ng-controller="contatoCtrl" role="application">
-        <h2>Contato</h2>
+        <h2>@lang('links.contact')</h2>
         <div class="line_title bg-pri"></div>
         <div class="row">
             <address class="col-md-4">
-                <h3><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp;Endereço</h3>
+                <h3><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp;@lang('adresses.address')</h3>
                 <p>{{$setting->endereco}}, {{$setting->numero}}{{-- - {{$setting->complemento}}--}} - {{$setting->bairro}}</p>
                 <p>{{$setting->cidade}} - {{$setting->estado}}</p>
                 <p>CEP.: {{$setting->cep}}</p>
                 <br>
-                <h3><i class="fa fa-phone fa-fw" aria-hidden="true"></i>&nbsp;Telefone</h3>
+                <h3><i class="fa fa-phone fa-fw" aria-hidden="true"></i>&nbsp;@lang('adresses.phone')</h3>
                 <abbr title="Phone">{{$setting->telefone}}</abbr><br>
                 <abbr title="Phone">{{$setting->telefone2}}</abbr><br>
                 <abbr title="Phone">{{$setting->telefone3}}</abbr>
                 <br>
-                <h3><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;E-mail</h3>
+                <h3><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;@lang('forms.email')</h3>
                 <p><a href="mailto:{{$setting->email}}">{{$setting->email}}</a></p>
             </address>
             <div class="col-md-8">

@@ -61,7 +61,7 @@
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
                 <div class="row box-hoje">
-                    <h3>Índices de hoje</h3>
+                    <h3>@lang('pages.indexes')</h3>
                     <?php $cont_indice = 1;?>
                     @foreach($indices as $indice)
                     <div class="col-md-3">
@@ -78,7 +78,7 @@
 
         <div class="container">
             <div class="row">
-                <h2 class="box-titulo">Notícias</h2>
+                <h2 class="box-titulo">@lang('links.news')</h2>
                 @foreach($noticias as $noticia)
                     <div class="col-md-6">
                         <a href="noticia/{{$noticia->id}}/{{clean($noticia->titulo)}}" aria-label="{{$noticia->titulo}}, {{str_limit(strip_tags($noticia->descricao), 180)}}, continue lendo a matéria">
@@ -90,7 +90,7 @@
                 <div class="row text-center">
                     <div class="col-md-12 space-top">
                         <a href="noticias/veja-todas-as-noticias" role="button">
-                            <button class="btn btn-sec btn-padding btn-base">VER MAIS NOTÍCIAS</button>
+                            <button class="btn btn-sec btn-padding btn-base">@lang('buttons.view-more') @lang('links.news')</button>
                         </a>
                     </div>
                 </div>

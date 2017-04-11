@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'indexes' => 'Search',
+    'search' => 'Search',
     'name' => 'Name',
     'email' => 'Email',
     'send' => 'To send',
