@@ -20,7 +20,7 @@ class ArtigoController extends Controller
     {
         $this->artigo = new \App\Artigo;
         $this->campos = [
-            'imagem', 'origem_id', 'titulo', 'descricao', 'autor', 'fonte', 'url', 'link', 'arquivo', 'legenda', 'cmsuser_id',
+            'imagem', 'origem_id', 'titulo', 'descricao', 'autor', 'fonte', 'url', 'link', 'arquivo', 'legenda', 'cmsuser_id', 'idioma_id',
         ];
         $this->pathImagem = public_path().'/imagens/artigos';
         $this->sizesImagem = [
@@ -41,8 +41,9 @@ class ArtigoController extends Controller
         $links = \App\Link::lists('titulo', 'id')->all();
         //$authors = \App\Author::lists('titulo', 'id')->all();
         $authors = \App\Author::pluck('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
 
-        return view('cms::artigo.listar', ['artigos' => $artigos, 'links' => $links, 'authors' => $authors]);
+        return view('cms::artigo.listar', ['artigos' => $artigos, 'links' => $links, 'authors' => $authors, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
@@ -137,6 +138,7 @@ class ArtigoController extends Controller
         $links = \App\Link::lists('titulo', 'id')->all();
         //$authors = \App\Author::lists('titulo', 'id')->all();
         $authors = \App\Author::pluck('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
 
         $autors_artigo = \App\AuthorArtigo::where('artigo_id', $id)->get();
 
@@ -145,7 +147,7 @@ class ArtigoController extends Controller
             $artigo->{"autor".$row->author_id} = true; //Ex.: $artigo->autor1
         }
         
-        return view('cms::artigo.detalhar', ['artigo' => $artigo, 'links' => $links, 'authors' => $authors]);
+        return view('cms::artigo.detalhar', ['artigo' => $artigo, 'links' => $links, 'authors' => $authors, 'idiomas' => $idiomas]);
     }
 
     public function alterar(Request $request, $id)

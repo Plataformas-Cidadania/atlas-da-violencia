@@ -20,7 +20,7 @@ class LinkController extends Controller
     {
         $this->link = new \App\Link;
         $this->campos = [
-            'imagem', 'tipo', 'posicao', 'titulo', 'descricao', 'link', 'tags', 'cmsuser_id',
+            'imagem', 'tipo', 'posicao', 'titulo', 'descricao', 'link', 'tags', 'cmsuser_id', 'idioma_id',
         ];
         $this->pathImagem = public_path().'/imagens/links';
         $this->sizesImagem = [
@@ -37,8 +37,9 @@ class LinkController extends Controller
 
         $links = \App\Link::all();
         $series = \App\Serie::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
 
-        return view('cms::link.listar', ['links' => $links, 'series' => $series]);
+        return view('cms::link.listar', ['links' => $links, 'series' => $series, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
@@ -99,8 +100,9 @@ class LinkController extends Controller
             ['id', '=', $id],
         ])->firstOrFail();
         $series = \App\Serie::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
 
-        return view('cms::link.detalhar', ['link' => $link, 'series' => $series]);
+        return view('cms::link.detalhar', ['link' => $link, 'series' => $series, 'idiomas' => $idiomas]);
     }
 
     public function alterar(Request $request, $id)

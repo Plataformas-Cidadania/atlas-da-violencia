@@ -20,7 +20,7 @@ class WebdoorController extends Controller
     {
         $this->webdoor = new \App\Webdoor;
         $this->campos = [
-            'imagem', 'titulo', 'resumida', 'descricao', 'link', 'cmsuser_id',
+            'imagem', 'titulo', 'resumida', 'descricao', 'link', 'cmsuser_id', 'idioma_id',
         ];
         $this->pathImagem = public_path().'/imagens/webdoors';
         $this->sizesImagem = [
@@ -36,8 +36,9 @@ class WebdoorController extends Controller
     {
 
         $webdoors = \App\Webdoor::all();
+        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
 
-        return view('cms::webdoor.listar', ['webdoors' => $webdoors]);
+        return view('cms::webdoor.listar', ['webdoors' => $webdoors, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
@@ -97,7 +98,9 @@ class WebdoorController extends Controller
         $webdoor = $this->webdoor->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        return view('cms::webdoor.detalhar', ['webdoor' => $webdoor]);
+        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+
+        return view('cms::webdoor.detalhar', ['webdoor' => $webdoor, 'idiomas' => $idiomas]);
     }
 
     public function alterar(Request $request, $id)

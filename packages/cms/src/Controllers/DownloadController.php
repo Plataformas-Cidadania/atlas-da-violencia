@@ -20,7 +20,7 @@ class DownloadController extends Controller
     {
         $this->download = new \App\Download;
         $this->campos = [
-            'imagem', 'origem_id', 'titulo', 'descricao', 'arquivo', 'cmsuser_id',
+            'imagem', 'origem_id', 'titulo', 'descricao', 'arquivo', 'cmsuser_id', 'idioma_id',
         ];
         $this->pathImagem = public_path().'/imagens/downloads';
         $this->sizesImagem = [
@@ -39,8 +39,9 @@ class DownloadController extends Controller
 
         $downloads = \App\Download::all();
         $series = \App\Serie::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
 
-        return view('cms::download.listar', ['downloads' => $downloads, 'series' => $series]);
+        return view('cms::download.listar', ['downloads' => $downloads, 'series' => $series, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
@@ -150,8 +151,9 @@ class DownloadController extends Controller
             ['id', '=', $id],
         ])->firstOrFail();
         $series = \App\Serie::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
 
-        return view('cms::download.detalhar', ['download' => $download, 'series' => $series]);
+        return view('cms::download.detalhar', ['download' => $download, 'series' => $series, 'idiomas' => $idiomas]);
     }
 
     /*public function alterar(Request $request, $id)

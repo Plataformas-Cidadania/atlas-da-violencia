@@ -24,10 +24,10 @@ class IdiomaController extends Controller
         ];
         $this->pathImagem = public_path().'/imagens/idiomas';
         $this->sizesImagem = [
-            'xs' => ['width' => 140, 'height' => 79],
-            'sm' => ['width' => 480, 'height' => 270],
-            'md' => ['width' => 580, 'height' => 326],
-            'lg' => ['width' => 1170, 'height' => 658]
+            'xs' => ['width' => 34, 'height' => 23],
+            'sm' => ['width' => 50, 'height' => 34],
+            'md' => ['width' => 100, 'height' => 68],
+            'lg' => ['width' => 150, 'height' => 101]
         ];
         $this->widthOriginal = true;
     }

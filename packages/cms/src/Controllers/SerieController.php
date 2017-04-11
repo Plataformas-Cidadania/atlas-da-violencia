@@ -21,7 +21,7 @@ class SerieController extends Controller
     {
         $this->serie = new \App\Serie;
         $this->campos = [
-            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'serie_id',
+            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'serie_id', 'idioma_id',
         ];
         $this->pathImagem = public_path().'/imagens/series';
         $this->sizesImagem = [
@@ -40,9 +40,11 @@ class SerieController extends Controller
         //$temas = \App\Tema::lists('titulo', 'id')->all();
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
         $series_relacionado = \App\Serie::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
 
 
-        return view('cms::serie.listar', ['series' => $series, 'series_relacionado' => $series_relacionado, 'fontes' => $fontes]);
+
+        return view('cms::serie.listar', ['series' => $series, 'series_relacionado' => $series_relacionado, 'fontes' => $fontes, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
@@ -106,12 +108,13 @@ class SerieController extends Controller
         $serie = $this->serie->where([
             ['id', '=', $id],
         ])->firstOrFail();
+        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
 
 
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
         $series_relacionado = \App\Serie::lists('titulo', 'id')->all();
 
-        return view('cms::serie.detalhar', ['serie' => $serie, 'series_relacionado' => $series_relacionado, 'fontes' => $fontes]);
+        return view('cms::serie.detalhar', ['serie' => $serie, 'series_relacionado' => $series_relacionado, 'fontes' => $fontes, 'idiomas' => $idiomas]);
     }
 
     public function alterar(Request $request, $id)
