@@ -2,6 +2,7 @@
 <?php
     use Illuminate\Support\Facades\DB;
     $setting = DB::table('settings')->orderBy('id', 'desc')->first();
+    $idiomas = DB::table('idiomas')->orderBy('id')->get();
 
     $base_href = $_SERVER['HTTP_HOST'];
     if(substr($base_href, 0,9)=='evbsb1052'){

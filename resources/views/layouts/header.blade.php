@@ -34,17 +34,22 @@
     <div class="container  hidden-print">
         <div id="acessibilidade">
             <ul id="atalhos" class="col-md-6 col-sm-12">
-                <li><a href="#iniciodoconteudo" ng-class="{'alto-contraste': altoContrasteAtivo}" accesskey="1">Ir para o conteúdo <span class="bg-sec btn-acessibilidade">1</span></a></li>
-                <li><a href="#iniciodomenu" ng-class="{'alto-contraste': altoContrasteAtivo}" accesskey="2">Ir para o menu <span class="bg-sec btn-acessibilidade">2</span></a></li>
+                <li><a href="#iniciodoconteudo" ng-class="{'alto-contraste': altoContrasteAtivo}" accesskey="1">@lang('links.skip-content') <span class="bg-sec btn-acessibilidade">1</span></a></li>
+                <li><a href="#iniciodomenu" ng-class="{'alto-contraste': altoContrasteAtivo}" accesskey="2">@lang('links.go-menu') <span class="bg-sec btn-acessibilidade">2</span></a></li>
                 {{--<li><a href="#busca">Ir para a busca <span class="bg-sec btn-acessibilidade">3</span></a></li>--}}
-                <li><a href="#iniciodorodape" ng-class="{'alto-contraste': altoContrasteAtivo}" accesskey="4">Ir para o rodapé <span class="bg-sec btn-acessibilidade">4</span></a></li>
+                <li><a href="#iniciodorodape" ng-class="{'alto-contraste': altoContrasteAtivo}" accesskey="4">@lang('links.go-footer') <span class="bg-sec btn-acessibilidade">4</span></a></li>
             </ul>
             <ul id="botoes" class="col-md-6 col-sm-12 text-right">
                 <li><a href="acessibilidade" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-universal-access" aria-hidden="true"></i> @lang('links.accessibility') </a></li>
-                <li><a href="#" id="bt_contraste" ng-click="setAltoContraste()" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-adjust" aria-hidden="true"></i> Alto contraste</a></li>
-                {{--<li><a href="mapa.html" ng-class="{'alto-contraste': altoContrasteAtivo}"> Mapa do site </a></li>--}}
+                <li><a href="#" id="bt_contraste" ng-click="setAltoContraste()" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-adjust" aria-hidden="true"></i> @lang('links.high-contrast')</a></li>
+                {{--<li><a href="mapa.html" ng-class="{'alto-contraste': altoContrasteAtivo}"> Mapa do site </a></li>
                 <li><a href="lang/pt_BR"><img src="img/portugues.jpg" alt=""></a></li>
                 <li><a href="lang/en"><img src="img/ingles.jpg" alt=""></a></li>
+                --}}
+
+                @foreach($idiomas as $idioma)
+                    <li><a href="lang/{{$idioma->sigla}}"><img src="imagens/idiomas/xs-{{$idioma->imagem}}" alt=""></a></li>
+                @endforeach
             </ul>
 
         </div>

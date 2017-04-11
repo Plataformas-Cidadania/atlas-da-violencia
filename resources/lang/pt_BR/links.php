@@ -1,12 +1,20 @@
 <?php
 
 return [
-    'accessibility' => 'Acessibilidade',
     'home' => 'Início',
     'about' => 'Sobre',
     'researches' => 'Pesquisas',
     'articles' => 'Artigos',
     'videos' => 'Vídeos',
-    'downloads' => 'downloads',
-    'contact' => 'contato',
+    'downloads' => 'Downloads',
+    'contact' => 'Contato',
+    'news' => 'Notícias',
+
+    'skip-content' => 'Ir para o conteúdo',
+    'go-menu' => 'Ir para o menu',
+    'go-footer' => 'Ir para o rodapé',
+    'back-top' => 'Ir para o topo',
+    'accessibility' => 'Acessibilidade',
+    'high-contrast' => 'Alto contraste'
+
 ];
