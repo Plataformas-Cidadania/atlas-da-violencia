@@ -95,6 +95,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-indice/{id}', 'Cms\Controllers\IndiceController@alterar');
         Route::get('/cms/excluir-indice/{id}', 'Cms\Controllers\IndiceController@excluir');
 
+        //IDIOMAS
+        Route::get('/cms/idiomas', 'Cms\Controllers\IdiomaController@index');
+        Route::get('/cms/listar-idiomas', 'Cms\Controllers\IdiomaController@listar');
+        Route::post('/cms/inserir-idioma', 'Cms\Controllers\IdiomaController@inserir');
+        Route::get('/cms/idioma/{id}', 'Cms\Controllers\IdiomaController@detalhar');
+        Route::post('/cms/alterar-idioma/{id}', 'Cms\Controllers\IdiomaController@alterar');
+        Route::get('/cms/excluir-idioma/{id}', 'Cms\Controllers\IdiomaController@excluir');
+
 
         //Setting
         Route::get('/cms/setting/', 'Cms\Controllers\SettingController@detalhar');

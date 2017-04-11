@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
          $this->call(WebdoorsTableSeeder::class);
          $this->call(MenuTableSeeder::class);
          $this->call(IndicesTableSeeder::class);
+         $this->call(IdiomaTableSeeder::class);
     }
 }

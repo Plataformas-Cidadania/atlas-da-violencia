@@ -70,6 +70,10 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/indiceCtrl.js', 'public/assets-cms/js/controllers/indiceCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIndiceCtrl.js', 'public/assets-cms/js/controllers/alterarIndiceCtrl.js');
 
+    //Idiomas
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaCtrl.js', 'public/assets-cms/js/controllers/idiomaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaCtrl.js');
+
     //Downloads
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/downloadCtrl.js', 'public/assets-cms/js/controllers/downloadCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarDownloadCtrl.js', 'public/assets-cms/js/controllers/alterarDownloadCtrl.js');
