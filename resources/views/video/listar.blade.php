@@ -1,9 +1,9 @@
 @extends('.layout')
-@section('title', 'Notícias')
+@section('title',  trans('links.videos'))
 @section('content')
     {{--{{ Counter::count('video') }}--}}
     <div class="container">
-        <h2>Vídeos</h2>
+        <h2>@lang('links.videos')</h2>
         <div class="line_title bg-pri"></div>
         <div class="row">
             <br>
@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputAmount">Busca</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="busca" name="busca" placeholder="Busca">
+                            <input type="text" class="form-control" id="busca" name="busca" placeholder="@lang('forms.search')">
                             <div class="input-group-addon">
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </div>

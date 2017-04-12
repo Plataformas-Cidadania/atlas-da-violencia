@@ -1,5 +1,5 @@
 @extends('.layout')
-@section('title', 'Artigos')
+@section('title', trans('links.articles'))
 @section('content')
     <script>
         function MM_jumpMenu(targ,selObj,restore){ //v3.0
@@ -10,7 +10,7 @@
 
     {{--{{ Counter::count('artigo') }}--}}
     <div class="container">
-        <h2>Artigos</h2>
+        <h2>@lang('links.articles')</h2>
         <div class="line_title bg-pri"></div>
         <div class="row">
             <br>
@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputAmount">Busca</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="busca" name="busca" placeholder="Busca">
+                            <input type="text" class="form-control" id="busca" name="busca" placeholder="@lang('forms.search')">
                             <div class="input-group-addon">
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </div>
@@ -48,7 +48,7 @@
                 </ul>
 
                 <br>
-                <h3><i class="fa fa-users" aria-hidden="true"></i> Autores</h3>
+                <h3><i class="fa fa-users" aria-hidden="true"></i> @lang('pages.authors')</h3>
                 <hr>
                 <ul class="menu-vertical">
                     @foreach($authors as $author)
@@ -75,7 +75,7 @@
                         @if(!empty($artigo->imagem))<div class="col-md-9 col-sm-9">@else<div class="col-md-12 col-sm-12">@endif
                                 <h2>{{$artigo->titulo}}</h2>
                                 <p>{{str_limit(strip_tags($artigo->descricao), 180)}}</p>
-                                <button class="btn btn-none">Continue lendo o artigo</button>
+                                <button class="btn btn-none">@lang('buttons.keep-reading')  </button>
                             </div>
                     </a>
             </div>

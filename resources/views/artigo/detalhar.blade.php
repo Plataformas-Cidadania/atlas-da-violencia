@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-3">
                 <br>
-                <h3><i class="fa fa-user" aria-hidden="true"></i> Autor</h3>
+                <h3><i class="fa fa-user" aria-hidden="true"></i> @lang('pages.author')</h3>
                 <hr>
                 <h5>
                     @foreach($autores as $autor)

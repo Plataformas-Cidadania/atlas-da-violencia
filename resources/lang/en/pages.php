@@ -3,8 +3,8 @@
 return [
     'indexes' => 'Indexes',
     'rights' => 'All rights reserved',
-    'Authors' => 'Authors',
-    'select-series' => 'Select below the series you want to view',
+    'author' => 'Author',
+    'authors' => 'Authors',
 
     'serie' => 'Serie',
     'series' => 'Series',

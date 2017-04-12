@@ -1,9 +1,9 @@
 @extends('layout')
-@section('title', $quem->titulo)
+@section('title', trans('links.about'))
 @section('content')
     {{--{{ Counter::count('quem') }}--}}
     <div class="container">
-        <h2 id="calendar" aria-label="{{$quem->titulo}}, {{strip_tags($quem->descricao)}}">{{$quem->titulo}}</h2>
+        <h2 id="calendar" aria-label="@lang('links.about')">@lang('links.about')</h2>
         <div class="line_title bg-pri"></div>
         <br>
         <div class="row">
