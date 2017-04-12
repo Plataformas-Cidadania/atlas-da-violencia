@@ -13,8 +13,9 @@ class AlterSeriesTable3 extends Migration
     public function up()
     {
         Schema::table('series', function (Blueprint $table) {
-            $table->integer('periodo_id')->unsigned();
-            $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('restrict');
+            $table->dropColumn('periodicidade');
+            $table->integer('periodicidade_id')->unsigned();
+            $table->foreign('periodicidade_id')->references('id')->on('periodicidades')->onDelete('restrict');
         });
     }
 
@@ -26,8 +27,9 @@ class AlterSeriesTable3 extends Migration
     public function down()
     {
         Schema::table('series', function (Blueprint $table) {
-            $table->dropColumn('periodo_id');
-            $table->dropForeign(['periodo_id']);
+            $table->string('periodicidade');
+            $table->dropForeign(['periodicidade_id']);
+            $table->dropColumn('periodicidade_id');
         });
     }
 }

@@ -53,7 +53,7 @@ class Abrangencia extends React.Component{
             item.on = item.id === id;
         });
 
-        this.props.setTerritorio(id);
+        this.props.setAbrangencia(id);
 
         this.setState({options: options}, function(){
 

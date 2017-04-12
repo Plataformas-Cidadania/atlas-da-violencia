@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePeriodosTable extends Migration
+class CreatePeriodicidadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,10 @@ class CreatePeriodosTable extends Migration
      */
     public function up()
     {
-        Schema::create('periodos', function (Blueprint $table) {
+        Schema::create('periodicidades', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo');
+            $table->string('idioma_sigla');
             $table->integer('cmsuser_id')->unsigned();
             $table->foreign('cmsuser_id')->references('id')->on('cms_users')->onDelete('restrict');
             $table->timestamps();

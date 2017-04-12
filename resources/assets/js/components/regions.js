@@ -33,7 +33,7 @@ class Regions extends React.Component{
         this.setState({loading: true});
         $.ajax({
             method:'GET',
-            url: "valores-inicial-final-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.territorio,
+            url: "valores-inicial-final-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia,
             cache: false,
             success: function(data) {
                 //console.log('region.js, loaddata', data);

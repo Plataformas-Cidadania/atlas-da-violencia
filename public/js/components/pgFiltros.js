@@ -8,7 +8,7 @@ class PgFiltros extends React.Component {
             to: 0,
             regions: [],
             indicador: 0,
-            territorio: 0,
+            abrangencia: 0,
             typeRegion: '',
             typeRegionSerie: '',
             tipoValores: ''
@@ -17,7 +17,7 @@ class PgFiltros extends React.Component {
         this.serieMarked = this.serieMarked.bind(this);
         this.loading = this.loading.bind(this);
         this.setIndicador = this.setIndicador.bind(this);
-        this.setTerritorio = this.setTerritorio.bind(this);
+        this.setAbrangencia = this.setAbrangencia.bind(this);
         this.changePeriodo = this.changePeriodo.bind(this);
         this.setPeriodos = this.setPeriodos.bind(this);
         this.setRegions = this.setRegions.bind(this);
@@ -31,8 +31,8 @@ class PgFiltros extends React.Component {
         this.setState({ indicador: indicador, serieMarked: 0 });
     }
 
-    setTerritorio(territorio) {
-        this.setState({ territorio: territorio, serieMarked: 0 });
+    setAbrangencia(abrangencia) {
+        this.setState({ abrangencia: abrangencia, serieMarked: 0 });
     }
 
     setRegions(regions) {
@@ -80,17 +80,17 @@ class PgFiltros extends React.Component {
         let abrangencia = null;
         if (this.state.indicador > 0) {
             abrangencia = React.createElement(Abrangencia, {
-                setTerritorio: this.setTerritorio,
+                setAbrangencia: this.setAbrangencia,
                 setRegions: this.setRegions
             });
         }
 
         let seriesList = null;
-        if (this.state.territorio > 0 && this.state.regions.length > 0) {
+        if (this.state.abrangencia > 0 && this.state.regions.length > 0) {
             seriesList = React.createElement(SeriesList, {
                 url: 'listar-series-relacionadas',
                 select: 'mark-one',
-                parameters: { id: this.props.serie_id, indicador: this.state.indicador, territorio: this.state.territorio, serieMarked: this.state.serieMarked },
+                parameters: { id: this.props.serie_id, indicador: this.state.indicador, abrangencia: this.state.abrangencia, serieMarked: this.state.serieMarked },
                 serieMarked: this.serieMarked
             });
         }
@@ -141,7 +141,7 @@ class PgFiltros extends React.Component {
                 React.createElement('input', { type: 'hidden', name: 'to', value: this.state.to }),
                 React.createElement('input', { type: 'hidden', name: 'periodos', value: this.state.periodos }),
                 React.createElement('input', { type: 'hidden', name: 'regions', value: this.state.regions }),
-                React.createElement('input', { type: 'hidden', name: 'territorio', value: this.state.territorio })
+                React.createElement('input', { type: 'hidden', name: 'abrangencia', value: this.state.abrangencia })
             )
         );
     }

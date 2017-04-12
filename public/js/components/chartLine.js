@@ -36,7 +36,7 @@ class ChartLine extends React.Component {
         this.setState({ loading: true });
         let _this = this;
         //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
-        $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.territorio, {
+        $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia, {
             data: {},
             success: function (data) {
                 //console.log('charline', data);

@@ -38,6 +38,7 @@ class SeriesList extends React.Component {
 
     loadData() {
         this.setState({ loading: true });
+        console.log(this.state.parameters);
         $.ajax({
             method: 'POST',
             url: this.props.url,

@@ -14,7 +14,7 @@ class AlterSeriesTable2 extends Migration
     {
         Schema::table('series', function (Blueprint $table) {
             $table->integer('indicador')->default(0); //1 - numerico 2 - taxa_por_habitantes 3 - taxa_bayesiana
-            $table->integer('territorio')->default(0); //1 - país 2 - região 3 - uf 4 - municipio 5 - micro-região
+            $table->integer('abrangencia')->default(0); //1 - país 2 - região 3 - uf 4 - municipio 5 - micro-região
         });
     }
 
@@ -27,7 +27,7 @@ class AlterSeriesTable2 extends Migration
     {
         Schema::table('series', function (Blueprint $table) {
             $table->dropColumn('indicador');
-            $table->dropColumn('territorio');
+            $table->dropColumn('abrangencia');
         });
     }
 }

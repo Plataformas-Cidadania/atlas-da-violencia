@@ -191,7 +191,7 @@
                 from="{!! $from !!}";
                 to="{!! $to !!}";
                 regions="{!! $regions !!}";
-                territorio="{{$territorio}}";
+                abrangencia="{{$abrangencia}}";
             </script>
 
             <div id="pgSerie"></div>

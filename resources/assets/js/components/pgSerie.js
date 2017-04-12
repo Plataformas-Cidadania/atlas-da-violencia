@@ -69,7 +69,7 @@ class PgSerie extends React.Component{
         $.ajax({
             method:'GET',
             //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-            url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.territorio,
+            url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia,
             //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
             cache: false,
             success: function(data) {
@@ -227,7 +227,7 @@ class PgSerie extends React.Component{
                                     periodo={this.state.min}
                                     setIntervalos={this.setIntervalos}
                                     regions={this.props.regions}
-                                    territorio={this.props.territorio}
+                                    abrangencia={this.props.abrangencia}
                                     /*typeRegion={this.props.typeRegion}
                                      typeRegionSerie={this.props.typeRegionSerie}*/
                                 />
@@ -243,7 +243,7 @@ class PgSerie extends React.Component{
                                     periodo={this.state.max}
                                     setIntervalos={this.setIntervalos}
                                     regions={this.props.regions}
-                                    territorio={this.props.territorio}
+                                    abrangencia={this.props.abrangencia}
                                     /*typeRegion={this.props.typeRegion}
                                      typeRegionSerie={this.props.typeRegionSerie}*/
                                 />
@@ -281,7 +281,7 @@ class PgSerie extends React.Component{
                                     max={this.state.max}
                                     periodos={this.state.periodos}
                                     regions={this.props.regions}
-                                    territorio={this.props.territorio}
+                                    abrangencia={this.props.abrangencia}
                                     /*typeRegion={this.props.typeRegion}
                                     typeRegionSerie={this.props.typeRegionSerie}
                                     intervalos={this.state.intervalos}*/
@@ -325,7 +325,7 @@ class PgSerie extends React.Component{
                         <br/><br/>
                     </div>
 
-                    <div style={{display: this.state.showRegions && this.props.territorio==3 ? 'block' : 'none'}}>
+                    <div style={{display: this.state.showRegions && this.props.abrangencia==3 ? 'block' : 'none'}}>
 
                         <Topico icon="icon-group-rate" text="Taxas"/>
 
@@ -333,7 +333,7 @@ class PgSerie extends React.Component{
                             id={this.state.id}
                             decimais={decimais}
                             regions={this.props.regions}
-                            territorio={this.props.territorio}
+                            abrangencia={this.props.abrangencia}
                             min={this.state.min}
                             max={this.state.max}
                             data={this.state.valoresRegioesPorPeriodo.max}
@@ -408,7 +408,7 @@ ReactDOM.render(
         from={from}
         to={to}
         regions={regions}
-        territorio={territorio}
+        abrangencia={abrangencia}
         /*typeRegion={typeRegion}
         typeRegionSerie={typeRegionSerie}*/
     />,

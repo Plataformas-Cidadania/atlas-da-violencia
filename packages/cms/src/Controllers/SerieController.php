@@ -21,7 +21,7 @@ class SerieController extends Controller
     {
         $this->serie = new \App\Serie;
         $this->campos = [
-            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'serie_id', 'idioma_sigla',
+            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'serie_id', 'idioma_sigla', 'unidade', 'periodicidade_id',
         ];
         $this->pathImagem = public_path().'/imagens/series';
         $this->sizesImagem = [
@@ -41,10 +41,17 @@ class SerieController extends Controller
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
         $series_relacionado = \App\Serie::lists('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
+        $periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
 
 
 
-        return view('cms::serie.listar', ['series' => $series, 'series_relacionado' => $series_relacionado, 'fontes' => $fontes, 'idiomas' => $idiomas]);
+        return view('cms::serie.listar', [
+            'series' => $series,
+            'series_relacionado' => $series_relacionado,
+            'fontes' => $fontes,
+            'idiomas' => $idiomas,
+            'periodicidades' => $periodicidades
+        ]);
     }
 
     public function listar(Request $request)
@@ -109,12 +116,18 @@ class SerieController extends Controller
             ['id', '=', $id],
         ])->firstOrFail();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
-
+        $periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
 
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
         $series_relacionado = \App\Serie::lists('titulo', 'id')->all();
 
-        return view('cms::serie.detalhar', ['serie' => $serie, 'series_relacionado' => $series_relacionado, 'fontes' => $fontes, 'idiomas' => $idiomas]);
+        return view('cms::serie.detalhar', [
+            'serie' => $serie,
+            'series_relacionado' => $series_relacionado,
+            'fontes' => $fontes,
+            'idiomas' => $idiomas,
+            'periodicidades' => $periodicidades
+        ]);
     }
 
     public function alterar(Request $request, $id)
@@ -179,6 +192,108 @@ class SerieController extends Controller
 
         $serie->delete();
 
+    }
+
+    public function viewImportar($id){
+        $serie = \App\Serie::find($id);
+        return view('cms::serie.import', ['serie' => $serie]);
+    }
+
+    public function importar(Request $request){
+
+        $data = $request->all();
+
+        $arquivo = $request->file('arquivo');
+
+        $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
+        $successArquivo = $arquivo->move(public_path()."/import", $filenameArquivo);
+        if($successArquivo){
+            $data['serie']['arquivo'] = $filenameArquivo;
+        }
+
+        $excel = Excel::load(public_path()."/import/$filenameArquivo", function($reader) {})->get();
+
+        $serie = \App\Serie::select('abrangencia')->where('id', $data['id'])->first();
+
+        if($data['serie']['abrangencia']==1 || $data['serie']['abrangencia']==2 || $data['serie']['abrangencia']==3){
+            $this->importarPaisUfRegiao($excel, $data['id'], $serie->abrangencia);
+        }
+
+    }
+
+    private function importarPaisUfRegiao($excel, $serie_id, $abrangencia){
+        Log::info('abrangencia: '.$abrangencia);
+        $registros = [];
+        $uf = '';
+        $municipio = '';
+        $bairro = '';
+        $cms_user_id = auth()->guard('cms')->user()->id;
+
+        $tabelas = [
+            1 => 'spat.ed_territorios_paises',
+            2 => 'spat.ed_territorios_regioes',
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes'
+        ];
+
+        $abrangencias = [
+            1 => 'pais',
+            2 => 'regiao',
+            3 => 'uf',
+            4 => 'micro-regiao',
+        ];
+
+        $coluna_edterritorios = 'edterritorios_nome';
+        if($abrangencia==3){
+            $coluna_edterritorios = 'edterritorios_sigla';
+        }
+
+        $territorio = '';
+        foreach($excel as $row){
+            foreach($row as $index => $cel){
+                if(!empty($index)){
+                    Log::info('titulo abrangência: '.$abrangencias[$abrangencia]);
+                    Log::info('index: '.$index);
+                    if($index==$abrangencias[$abrangencia]){
+                        $territorio = str_replace('-', ' ', $cel);
+                    }else{
+                        array_push($registros, ['ano' => $index, 'value' => $cel]);
+                        $valor = $cel;
+                        $periodo = $index;
+
+                        Log::info('territorio: '.$territorio);
+
+                        $tipo_regiao = $abrangencia;
+                        $regiao = DB::table($tabelas[$abrangencia])
+                            ->select('edterritorios_codigo as regiao_id')
+                            ->where($coluna_edterritorios, 'ilike', $territorio)
+                            ->first();
+
+                        $regiao_id = $regiao->regiao_id;
+
+                        Log::info($regiao->regiao_id);
+
+                        $reg =[
+                            'valor' => $valor,
+                            'periodo' => $periodo,
+                            'uf' => $uf,
+                            'tipo_regiao' => $tipo_regiao,
+                            'regiao_id' => $regiao_id,
+                            'municipio' => $municipio,
+                            'bairro' => $bairro,
+                            'serie_id' => $serie_id,
+                            'cmsuser_id' => $cms_user_id
+                        ];
+
+                        $registro = \App\ValorSerie::create($reg);
+
+
+                    }
+                }
+            }
+        }
     }
 
     public function testeExcel($serie_id, $arquivo){

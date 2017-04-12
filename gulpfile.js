@@ -53,6 +53,7 @@ elixir(function(mix) {
     //Series
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/serieCtrl.js', 'public/assets-cms/js/controllers/serieCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarSerieCtrl.js', 'public/assets-cms/js/controllers/alterarSerieCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/importSerieCtrl.js', 'public/assets-cms/js/controllers/importSerieCtrl.js');
 
     //Videos
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/videoCtrl.js', 'public/assets-cms/js/controllers/videoCtrl.js');
