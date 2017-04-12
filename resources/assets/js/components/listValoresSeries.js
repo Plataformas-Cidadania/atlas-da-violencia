@@ -32,22 +32,34 @@ class ListValoresSeries extends React.Component{
         });
     }*/
 
+
+
     render(){
         if(!this.state.valores){
             return (<h3>Sem Resultados</h3>);
         }
 
-        //console.log('========================================================');
+        let contColor = 0;
+
         let valores = this.state.valores.map(function (item, index) {
+
+            if(contColor > colors2.length-1){
+                contColor = 0;
+            }
+
+            let color = colors2[contColor];
+
+            contColor++;
+
             return (
                 <tr key={index}>
-                    <th width="10px"><i className="fa fa-square" style={{color: getColor(item.valor, intervalos)}}> </i></th>
+                    <th width="10px"><i className="fa fa-square" style={{color: color}}> </i></th>
                     <th>{item.sigla} - {item.nome}</th>
                     <td className="text-right">{formatNumber(item.valor, this.props.decimais, ',', '.')}</td>
                 </tr>
             );
         }.bind(this));
-        //console.log('========================================================');
+
 
         return (
             <table className="table table-striped table-bordered">

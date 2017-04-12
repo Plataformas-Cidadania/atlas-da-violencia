@@ -80,7 +80,7 @@ class MapController extends Controller
         return $areas;
     }
 
-    function valoresRegiaoUltimoPeriodoGeometry($id, $max, $regions, $territorio){
+    function valoresRegiaoUltimoPeriodoGeometry($id, $periodo, $regions, $territorio){
 
         //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
 
@@ -99,7 +99,7 @@ class MapController extends Controller
 
         $where = [
             ['valores_series.serie_id', $id],
-            ['valores_series.periodo', $max]
+            ['valores_series.periodo', $periodo]
         ];
 
         $valores = DB::table('valores_series')

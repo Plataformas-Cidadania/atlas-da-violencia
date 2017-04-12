@@ -207,7 +207,7 @@ print_r($periodo_limite);*/
             }
         }
 
-        function style(feature) {
+        /*function style(feature) {
             return {
                 fillColor: getColor(feature.properties.total, intervalos),
                 weight: 2,
@@ -216,7 +216,7 @@ print_r($periodo_limite);*/
                 dashArray: '3',
                 fillOpacity: 0.9
             };
-        }
+        }*/
 
     </script>
 

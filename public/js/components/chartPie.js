@@ -92,14 +92,21 @@ class ChartPie extends React.Component {
     }
 
     getColors(values) {
-        if (this.state.intervalos.length > 0) {
+
+        let colors = [];
+        for (let i in colors2) {
+            colors.push(convertHex(colors2[i], 100));
+        }
+        return colors;
+
+        /*if(this.state.intervalos.length > 0){
             let colors = [];
-            for (let i in values) {
+            for(let i in values){
                 colors.push(convertHex(getColor(values[i], intervalos), 100));
             }
             //console.log('chartPie', colors);
             return colors;
-        }
+        }*/
     }
 
     render() {

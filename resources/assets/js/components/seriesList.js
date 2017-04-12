@@ -76,20 +76,30 @@ class SeriesList extends React.Component{
     }
 
     render(){
-        let select = null;
+        let select1 = null;
+        let select2 = null;
         let series = this.state.data.map(function(item){
             if(this.props.select == 'link'){
-                select = <td><a href={"filtros/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>;
+                select1 = <td><a href={"filtros/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>;
             }
             if(this.props.select == 'mark-one'){
-                select = <td onClick={() => this.marked(item.id, item.tipo_regiao, item.tipo_valores)} style={{cursor:'pointer'}}><a>{item.titulo}</a></td>;
+                select1 = (
+                    <td onClick={() => this.marked(item.id, item.tipo_regiao, item.tipo_valores)} style={{cursor:'pointer'}} width={20}><a>
+                        <img  src={"img/checkbox_" + (item.id==this.state.markedId ? 'on' : 'off') + ".png"} alt=""/>
+                    </a></td>
+                );
+                select2 = (
+                        <td onClick={() => this.marked(item.id, item.tipo_regiao, item.tipo_valores)} style={{cursor:'pointer'}}><a>{item.titulo}</a></td>
+                    );
+
             }
             /*if(this.props.select == 'mark-several'){
 
             }*/
             return (
                 <tr key={item.id} style={item.id==this.state.markedId ? this.state.style.marked : this.state.style.unmarked}>
-                    {select}
+                    {select1}
+                    {select2}
                     {/*<td>&nbsp;</td>*/}
                     <td>{item.periodicidade}</td>
                     <td>{item.min} - {item.max}</td>
@@ -110,6 +120,7 @@ class SeriesList extends React.Component{
                     <table className="table table-bordered table-hover table-responsive">
                         <thead>
                         <tr>
+                            <th>&nbsp;</th>
                             <th>Série</th>
                             {/*<th>Unidade</th>*/}
                             <th>Frequência</th>

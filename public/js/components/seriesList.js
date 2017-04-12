@@ -76,10 +76,11 @@ class SeriesList extends React.Component {
     }
 
     render() {
-        let select = null;
+        let select1 = null;
+        let select2 = null;
         let series = this.state.data.map(function (item) {
             if (this.props.select == 'link') {
-                select = React.createElement(
+                select1 = React.createElement(
                     'td',
                     null,
                     React.createElement(
@@ -90,7 +91,16 @@ class SeriesList extends React.Component {
                 );
             }
             if (this.props.select == 'mark-one') {
-                select = React.createElement(
+                select1 = React.createElement(
+                    'td',
+                    { onClick: () => this.marked(item.id, item.tipo_regiao, item.tipo_valores), style: { cursor: 'pointer' }, width: 20 },
+                    React.createElement(
+                        'a',
+                        null,
+                        React.createElement('img', { src: "img/checkbox_" + (item.id == this.state.markedId ? 'on' : 'off') + ".png", alt: '' })
+                    )
+                );
+                select2 = React.createElement(
                     'td',
                     { onClick: () => this.marked(item.id, item.tipo_regiao, item.tipo_valores), style: { cursor: 'pointer' } },
                     React.createElement(
@@ -105,7 +115,8 @@ class SeriesList extends React.Component {
             return React.createElement(
                 'tr',
                 { key: item.id, style: item.id == this.state.markedId ? this.state.style.marked : this.state.style.unmarked },
-                select,
+                select1,
+                select2,
                 React.createElement(
                     'td',
                     null,
@@ -152,6 +163,11 @@ class SeriesList extends React.Component {
                         React.createElement(
                             'tr',
                             null,
+                            React.createElement(
+                                'th',
+                                null,
+                                '\xA0'
+                            ),
                             React.createElement(
                                 'th',
                                 null,
