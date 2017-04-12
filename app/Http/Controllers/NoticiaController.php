@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 class NoticiaController extends Controller
 {
     public function listar(){
-        $noticias = DB::table('noticias')->paginate(2);
+
+        $lang =  App::getLocale();
+        $noticias = DB::table('noticias')->where('idioma_sigla', $lang)->paginate(10);
        
         return view('noticia.listar', ['noticias' => $noticias]);
     }

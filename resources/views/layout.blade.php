@@ -1,8 +1,20 @@
 <?php $rota = Route::getCurrentRoute()->getPath();?>
 <?php
     use Illuminate\Support\Facades\DB;
+
+   /* $lang =  \Illuminate\Support\Facades\App::getLocale();*/
+
     $setting = DB::table('settings')->orderBy('id', 'desc')->first();
     $idiomas = DB::table('idiomas')->orderBy('id')->get();
+    /*$menusQuem = DB::table('quemsomos')
+
+        ->where([
+            ['idioma_sigla', $lang],
+            ['tipo', 1],
+            ['origem_id', 0],
+        ])
+        ->take(1)
+        ->get();*/
 
     $base_href = $_SERVER['HTTP_HOST'];
     if(substr($base_href, 0,9)=='evbsb1052'){

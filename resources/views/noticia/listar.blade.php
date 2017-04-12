@@ -1,9 +1,9 @@
 @extends('.layout')
-@section('title', 'Notícias')
+@section('title', trans('links.news'))
 @section('content')
     {{--{{ Counter::count('noticia') }}--}}
     <div class="container">
-        <h2>Notícias</h2>
+        <h2>@lang('links.news')</h2>
         <div class="line_title bg-pri"></div>
 
         @foreach($noticias as $noticia)

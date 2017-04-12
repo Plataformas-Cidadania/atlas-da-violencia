@@ -95,7 +95,10 @@
             <nav class="menu-position collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation" >
                 <ul id="iniciodomenu" class="nav nav-pills nav-justified">
                     <li role="presentation"><a href="http://{{$base_href}}" accesskey="h" @if($rota=='/') class="corrente" @endif>@lang('links.home')</a></li>
-                    <li role="presentation"><a href="quem/3/sobre" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
+                   {{-- @foreach($menusQuem as $menuQuem)
+                        <li role="presentation"><a href="quem/{{$menuQuem->id}}/{{clean($menuQuem->titulo)}}" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
+                    @endforeach--}}
+                    <li role="presentation"><a href="quem" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
                     <li role="presentation"><a href="series" accesskey="q" @if($rota=='series') class="corrente" @endif>@lang('links.researches')</a></li>
                     <li role="presentation"><a href="artigos/0/todos" accesskey="n" @if($rota=='artigos') class="corrente" @endif>@lang('links.articles')</a></li>
                     <li role="presentation"><a href="videos" accesskey="q" @if($rota=='videos') class="corrente" @endif>@lang('links.videos')</a></li>

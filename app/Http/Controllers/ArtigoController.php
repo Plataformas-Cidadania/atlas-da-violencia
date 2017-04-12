@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ArtigoController extends Controller
 {
     public function listar($origem_id, $origem_titulo, $autor_id=0){
+
+        $lang =  App::getLocale();
+
 
         $where = [];
 
@@ -21,13 +26,14 @@ class ArtigoController extends Controller
         }
 
         if(count($where)==0){
-            $artigos = DB::table('artigos')->orderBy('titulo')->paginate(10);
+            $artigos = DB::table('artigos')->where('idioma_sigla', $lang)->orderBy('titulo')->paginate(10);
         }else{
             //$artigos = DB::table('artigos')->where($where)->orderBy('titulo')->paginate(10);
 
             $artigos = DB::table('artigos')
                 ->join('author_artigo', 'artigos.id', '=', 'author_artigo.artigo_id')
                 ->where($where)
+                ->where('idioma_sigla', $lang)
                 ->select('artigos.*')
                 ->orderBy('artigos.titulo')
                 ->distinct()
@@ -47,11 +53,6 @@ class ArtigoController extends Controller
         $artigo = new \App\Artigo;
         $artigo = $artigo->find($id);
 
-        /*$autores = DB::table('artigos')
-            ->join('author_artigo', 'artigos.id', '=', 'author_artigo.artigo_id')
-            ->where('author_artigo.artigo_id', $id)
-            ->select('artigos.*')
-            ->get();*/
 
         $autores = DB::table('authors')
             ->join('author_artigo', 'authors.id', '=', 'author_artigo.author_id')
@@ -71,9 +72,6 @@ class ArtigoController extends Controller
         $busca->titulo = $dados['busca'];
         $busca->descricao = '';
 
-        /*$artigos = DB::table('artigos')->where([
-            ['titulo', 'like', "%$busca->titulo%"]
-        ])->paginate(10);*/
 
         if($origem_id==0){
             $artigos = DB::table('artigos')
