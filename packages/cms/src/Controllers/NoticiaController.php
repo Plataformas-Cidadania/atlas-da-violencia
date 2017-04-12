@@ -20,7 +20,7 @@ class NoticiaController extends Controller
     {
         $this->noticia = new \App\Noticia;
         $this->campos = [
-            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'idioma_id',
+            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'idioma_sigla',
         ];
         $this->pathImagem = public_path().'/imagens/noticias';
         $this->sizesImagem = [
@@ -36,7 +36,7 @@ class NoticiaController extends Controller
     {
 
         $noticias = \App\Noticia::all();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::noticia.listar', ['noticias' => $noticias, 'idiomas' => $idiomas]);
     }
@@ -98,7 +98,7 @@ class NoticiaController extends Controller
         $noticia = $this->noticia->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::noticia.detalhar', ['noticia' => $noticia, 'idiomas' => $idiomas]);
     }

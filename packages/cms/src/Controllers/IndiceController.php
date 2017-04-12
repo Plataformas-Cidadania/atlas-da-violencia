@@ -20,7 +20,7 @@ class IndiceController extends Controller
     {
         $this->indice = new \App\Indice;
         $this->campos = [
-            'imagem', 'posicao', 'titulo', 'descricao', 'indice', 'tags', 'cmsuser_id', 'idioma_id',
+            'imagem', 'posicao', 'titulo', 'descricao', 'indice', 'tags', 'cmsuser_id', 'idioma_sigla',
         ];
         $this->pathImagem = public_path().'/imagens/indices';
         $this->sizesImagem = [
@@ -36,7 +36,7 @@ class IndiceController extends Controller
     {
 
         $indices = \App\Indice::all();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::indice.listar', ['indices' => $indices, 'idiomas' => $idiomas]);
     }
@@ -98,7 +98,7 @@ class IndiceController extends Controller
         $indice = $this->indice->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::indice.detalhar', ['indice' => $indice, 'idiomas' => $idiomas]);
     }

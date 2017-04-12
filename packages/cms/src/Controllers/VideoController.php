@@ -20,7 +20,7 @@ class VideoController extends Controller
     {
         $this->video = new \App\Video;
         $this->campos = [
-            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'idioma_id',
+            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'idioma_sigla',
         ];
         $this->pathImagem = public_path().'/imagens/videos';
         $this->sizesImagem = [
@@ -36,7 +36,7 @@ class VideoController extends Controller
     {
 
         $videos = \App\Video::all();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::video.listar', ['videos' => $videos, 'idiomas' => $idiomas]);
     }
@@ -98,7 +98,7 @@ class VideoController extends Controller
         $video = $this->video->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::video.detalhar', ['video' => $video, 'idiomas' => $idiomas]);
     }

@@ -27,11 +27,11 @@ Route::get('webdoor/{id}', 'WebdoorController@detalhar');
 
 Route::get('contato/', 'ContatoController@listar');
 
-//Route::get('renda/', 'RendaController@detalhar');
+Route::get('renda/', 'RendaController@detalhar');
 //Route::get('pagina/', 'PaginaController@detalhar');
 
 Route::get('redirecionamento/{id}/{titulo}', 'LinkController@redirection');
-Route::get('link/{id}/{titulo}', 'LinkController@detalhar');
+Route::get('link/{id}/{titulo}', 'LinkController@detgalhar');
 
 //NOTÍCIAS
 Route::get('noticias/', 'NoticiaController@listar');

@@ -20,7 +20,7 @@ class LinkController extends Controller
     {
         $this->link = new \App\Link;
         $this->campos = [
-            'imagem', 'tipo', 'posicao', 'titulo', 'descricao', 'link', 'tags', 'cmsuser_id', 'idioma_id',
+            'imagem', 'tipo', 'posicao', 'titulo', 'descricao', 'link', 'tags', 'cmsuser_id', 'idioma_sigla',
         ];
         $this->pathImagem = public_path().'/imagens/links';
         $this->sizesImagem = [
@@ -37,7 +37,7 @@ class LinkController extends Controller
 
         $links = \App\Link::all();
         $series = \App\Serie::lists('titulo', 'id')->all();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::link.listar', ['links' => $links, 'series' => $series, 'idiomas' => $idiomas]);
     }
@@ -100,7 +100,7 @@ class LinkController extends Controller
             ['id', '=', $id],
         ])->firstOrFail();
         $series = \App\Serie::lists('titulo', 'id')->all();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::link.detalhar', ['link' => $link, 'series' => $series, 'idiomas' => $idiomas]);
     }

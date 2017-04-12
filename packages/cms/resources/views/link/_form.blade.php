@@ -1,9 +1,9 @@
 {{--É NECESSÁRIO RODAR O COMANDO composer require illuminate/html E ALTERAR ACRESCENTAR LINHA NO ARQUIVO config/app.php--}}
 
-{!! Form::label('idioma_id', 'Idioma *') !!}<br>
-{!! Form::select('idioma_id',
+{!! Form::label('idioma_sigla', 'Idioma *') !!}<br>
+{!! Form::select('idioma_sigla',
         $idiomas,
-null, ['class'=>"form-control width-medio <% validar(modulo.idioma_id) %>", 'ng-model'=>'modulo.idioma_id', 'ng-required'=>'true', 'init-model'=>'modulo.idioma_id', 'placeholder' => 'Selecione']) !!}<br>
+null, ['class'=>"form-control width-medio <% validar(link.idioma_sigla) %>", 'ng-model'=>'link.idioma_sigla', 'ng-required'=>'true', 'init-model'=>'link.idioma_sigla', 'placeholder' => 'Selecione']) !!}<br>
 
 
 {!! Form::label('tipo', 'Origem *') !!}<br>

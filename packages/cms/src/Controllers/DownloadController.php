@@ -20,7 +20,7 @@ class DownloadController extends Controller
     {
         $this->download = new \App\Download;
         $this->campos = [
-            'imagem', 'origem_id', 'titulo', 'descricao', 'arquivo', 'cmsuser_id', 'idioma_id',
+            'imagem', 'origem_id', 'titulo', 'descricao', 'arquivo', 'cmsuser_id', 'idioma_sigla',
         ];
         $this->pathImagem = public_path().'/imagens/downloads';
         $this->sizesImagem = [
@@ -39,7 +39,7 @@ class DownloadController extends Controller
 
         $downloads = \App\Download::all();
         $series = \App\Serie::lists('titulo', 'id')->all();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::download.listar', ['downloads' => $downloads, 'series' => $series, 'idiomas' => $idiomas]);
     }
@@ -151,7 +151,7 @@ class DownloadController extends Controller
             ['id', '=', $id],
         ])->firstOrFail();
         $series = \App\Serie::lists('titulo', 'id')->all();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::download.detalhar', ['download' => $download, 'series' => $series, 'idiomas' => $idiomas]);
     }

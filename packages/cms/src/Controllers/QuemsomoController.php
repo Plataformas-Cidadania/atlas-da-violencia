@@ -20,7 +20,7 @@ class QuemsomoController extends Controller
     {
         $this->quemsomo = new \App\Quemsomo;
         $this->campos = [
-            'imagem', 'origem_id', 'titulo', 'descricao', 'tipo', 'cmsuser_id', 'idioma_id',
+            'imagem', 'origem_id', 'titulo', 'descricao', 'tipo', 'cmsuser_id', 'idioma_sigla',
         ];
         $this->pathImagem = public_path().'/imagens/quemsomos';
         $this->sizesImagem = [
@@ -36,7 +36,7 @@ class QuemsomoController extends Controller
     {
 
         $quemsomos = \App\Quemsomo::all();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::quemsomo.listar', ['quemsomos' => $quemsomos, 'idiomas' => $idiomas]);
     }
@@ -99,7 +99,7 @@ class QuemsomoController extends Controller
             ['id', '=', $id],
         ])->firstOrFail();
 
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::quemsomo.detalhar', ['quemsomo' => $quemsomo, 'idiomas' => $idiomas]);
     }

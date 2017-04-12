@@ -21,7 +21,7 @@ class SerieController extends Controller
     {
         $this->serie = new \App\Serie;
         $this->campos = [
-            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'serie_id', 'idioma_id',
+            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'serie_id', 'idioma_sigla',
         ];
         $this->pathImagem = public_path().'/imagens/series';
         $this->sizesImagem = [
@@ -40,7 +40,7 @@ class SerieController extends Controller
         //$temas = \App\Tema::lists('titulo', 'id')->all();
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
         $series_relacionado = \App\Serie::lists('titulo', 'id')->all();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
 
 
@@ -108,7 +108,7 @@ class SerieController extends Controller
         $serie = $this->serie->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
 
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
