@@ -1,5 +1,4 @@
 myChartLine = undefined;
-
 class ChartLine extends React.Component {
     constructor(props) {
         super(props);
@@ -7,8 +6,8 @@ class ChartLine extends React.Component {
             id: this.props.id,
             serie: this.props.serie,
             loading: false,
-            min: 0,
-            max: 0,
+            min: props.min,
+            max: props.max,
             intervalos: this.props.intervalos
         };
         this.loadData = this.loadData.bind(this);
@@ -16,6 +15,10 @@ class ChartLine extends React.Component {
         this.singleChart = this.singleChart.bind(this);
         this.multipleChart = this.multipleChart.bind(this);
         this.getColors = this.getColors.bind(this);
+    }
+
+    componentDidMount() {
+        this.loadData();
     }
 
     componentWillReceiveProps(props) {
@@ -109,6 +112,7 @@ class ChartLine extends React.Component {
 
         let cont = 0;
         let contLabel = 0;
+        let contColor = 0;
         for (let region in data) {
 
             let values = [];
@@ -124,29 +128,37 @@ class ChartLine extends React.Component {
             //console.log('values', values);
 
             //let colors = this.getColors(values);
+
             let colors = this.getColors();
 
-            datasets[cont++] = {
+            if (contColor > colors.length - 1) {
+                contColor = 0;
+            }
+
+            datasets[cont] = {
                 label: region,
                 fill: false,
                 lineTension: 0.1,
-                backgroundColor: colors,
-                borderColor: colors,
+                backgroundColor: colors[contColor],
+                borderColor: colors[contColor],
                 borderCapStyle: 'butt',
                 borderDash: [],
                 borderDashOffset: 0.0,
                 borderJoinStyle: 'miter',
-                pointBorderColor: colors,
+                pointBorderColor: colors[contColor],
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 1,
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: colors,
-                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBackgroundColor: colors[contColor],
+                pointHoverBorderColor: colors[contColor],
                 pointHoverBorderWidth: 2,
                 pointRadius: 5,
                 pointHitRadius: 10,
                 data: values
             };
+
+            cont++;
+            contColor++;
         }
 
         //console.log(labels);
@@ -167,10 +179,10 @@ class ChartLine extends React.Component {
         });
     }
 
-    chartDestroy() {}
-    //myChartLine.destroy();
-    //myChartLine.update();
-
+    chartDestroy() {
+        myChartLine.destroy();
+        //myChartLine.update();
+    }
 
     //getColors(values){
     getColors() {

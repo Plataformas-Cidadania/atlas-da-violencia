@@ -5,6 +5,10 @@ class Map extends React.Component{
             id: this.props.id,
             min: 0,
             max: 0,
+            periodo: 0,
+            legend: [],
+            indexLegend: 1,
+            lastIndexLegend: 0
         };
         this.loadData = this.loadData.bind(this);
         this.loadMap = this.loadMap.bind(this);
@@ -16,12 +20,13 @@ class Map extends React.Component{
     }
 
     componentDidMount(){
-        this.setState({mymap: L.map('mapid').setView([-14, -52], 4)}, function(){
+        this.setState({mymap: L.map(this.props.mapId).setView([-14, -52], 4)}, function(){
             let tileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJwYXNzb3MiLCJhIjoiY2l4N3l0bXF0MDFiczJ6cnNwODN3cHJidiJ9.qnfh8Jfn_be6gpo774j_nQ', {
                 maxZoom: 18,
                 attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
                 '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
                 'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                /*id: 'mapbox.streets'*/
                 id: 'mapbox.streets'
             }).addTo(this.state.mymap);
 
@@ -51,8 +56,8 @@ class Map extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(this.state.min != props.min || this.state.max != props.max){
-            this.setState({min: props.min, max: props.max}, function(){
+        if(this.state.periodo != props.periodo){
+            this.setState({periodo: props.periodo}, function(){
                 this.loadData();
             });
         }
@@ -61,10 +66,10 @@ class Map extends React.Component{
     loadData(){
         //console.log('Map - loadData', this.props.typeRegion, this.props.typeRegionSerie);
         let _this = this;
-        $.ajax("regiao/"+_this.state.id+"/"+_this.state.max+"/"+_this.props.regions+"/"+_this.props.territorio, {
+        $.ajax("regiao/"+_this.state.id+"/"+_this.state.periodo+"/"+_this.props.regions+"/"+_this.props.territorio, {
             data: {},
             success: function(data){
-                //console.log('map - loadData',data);
+                console.log('map - loadData',data);
                 _this.loadMap(data);
             },
             error: function(data){
@@ -106,12 +111,21 @@ class Map extends React.Component{
         }
         //console.log(valores);
 
-        intervalos = gerarIntervalos(valores);
-        //console.log('map', intervalos);
+        let intervalos = gerarIntervalos(valores);
+        //console.log('map - intervalos', intervalos);
         this.props.setIntervalos(intervalos);
 
         this.setState({geojson: L.geoJson(data, {
-            style: style,
+            style: function(feature) {
+                return {
+                    fillColor: getColor(feature.properties.total, intervalos),
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.9
+                };
+            },
             onEachFeature: this.onEachFeature //listeners
         }).addTo(this.state.mymap)});
 
@@ -129,10 +143,15 @@ class Map extends React.Component{
          }).addTo(mymap);
          }*/
 
+        let legend = this.state.legend;
+        let indexLegend = this.state.indexLegend;
+        let lastIndexLegend = this.state.lastIndexLegend;
+
         legend[indexLegend] = L.control({position: 'bottomright'});
 
 
         legend[indexLegend].onAdd = function (mymap) {
+            console.log('map - intervalos', intervalos);
             let div = L.DomUtil.create('div', 'info legend'),
                 //grades = [0, 100, 300, 600, 1000, 1500, 3000, 5000, 7000, 9000],
                 grades = intervalos,
@@ -145,11 +164,12 @@ class Map extends React.Component{
                     (grades[i + 1] ? '&nbsp;&ndash;&nbsp;' + formatNumber(grades[i + 1], this.props.decimais, ',', '.') + '<br>' : '+');
             }
             return div;
-        }.bind(this);
+        }.bind(this, intervalos);
 
         if(lastIndexLegend!=0){
             this.state.mymap.removeControl(legend[lastIndexLegend]);
         }
+
         legend[indexLegend].addTo(this.state.mymap);
         lastIndexLegend = indexLegend;
         indexLegend++;
@@ -168,6 +188,8 @@ class Map extends React.Component{
             [51.503, -0.06],
             [51.51, -0.047]
         ]).addTo(this.state.mymap);
+
+        this.setState({indexLegend: indexLegend, lastIndexLegend: lastIndexLegend, legend: legend});
 
     }
 
@@ -206,6 +228,18 @@ class Map extends React.Component{
 
 
     render(){
-        return (<div id="mapid"></div>);
+        return (
+            <div>
+                <div style={{textAlign: 'center', clear: 'both'}}>
+                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.periodo}</button>
+                    <div style={{marginTop:'-19px'}}>
+                        <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                    </div>
+                </div>
+                <br/>
+                <div id={this.props.mapId} className="map"></div>
+            </div>
+
+        );
     }
 }

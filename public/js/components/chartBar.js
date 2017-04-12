@@ -10,6 +10,8 @@ class ChartBar extends React.Component {
             data: {},
             smallLarge: this.props.smallLarge,
             periodo: 0,
+            min: 0,
+            max: 0,
             intervalos: this.props.intervalos
         };
         //this.loadData = this.loadData.bind(this);
@@ -17,9 +19,10 @@ class ChartBar extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        console.log(props.smallLarge);
-        if (this.state.periodo != props.data.periodo || this.state.smallLarge != props.smallLarge || this.state.intervalos != props.intervalos) {
-            this.setState({ periodo: props.data.periodo, data: props.data.valores, intervalos: props.intervalos, smallLarge: props.smallLarge }, function () {
+        //console.log(props.smallLarge);
+        //console.log(props.data);
+        if (this.state.smallLarge != props.smallLarge || this.state.intervalos != props.intervalos) {
+            this.setState({ min: props.data.min.periodo, max: props.data.max.periodo, data: props.data, intervalos: props.intervalos, smallLarge: props.smallLarge }, function () {
                 if (myChartBar[this.props.idBar]) {
                     this.chartDestroy();
                 }
@@ -47,42 +50,92 @@ class ChartBar extends React.Component {
         let labels = [];
         let values = [];
         //console.log(data);
-        for (let i in data) {
+        /*for(let i in data){
             labels[i] = data[i].sigla;
             values[i] = data[i].valor;
+        }*/
+
+        let valuesMin = [];
+        for (let i in data.min.valores) {
+            labels[i] = data.min.valores[i].sigla;
+            valuesMin[i] = data.min.valores[i].valor;
+        }
+
+        let valuesMax = [];
+        for (let i in data.min.valores) {
+            valuesMax[i] = data.max.valores[i].valor;
         }
 
         //console.log(labels, values);
+        //console.log(valuesMin, valuesMax);
 
         let canvas2 = document.getElementById('myChartBar' + this.props.idBar);
         //let colors = this.getColors(values);
         let colors = this.getColors();
+
+        let datasets = [];
+
+        datasets[0] = {
+            label: this.state.min,
+            backgroundColor: colors[0],
+            borderColor: "rgba(179,181,198,1)",
+            pointBackgroundColor: "rgba(179,181,198,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(179,181,198,1)",
+            data: valuesMin
+        };
+
+        datasets[1] = {
+            label: this.state.max,
+            backgroundColor: colors[1],
+            borderColor: "rgba(179,181,198,1)",
+            pointBackgroundColor: "rgba(179,181,198,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(179,181,198,1)",
+            data: valuesMax
+        };
+
         let dataChart = {
             labels: labels,
-            datasets: [{
-                label: this.state.serie,
-                backgroundColor: colors,
-                borderColor: "rgba(179,181,198,1)",
-                pointBackgroundColor: "rgba(179,181,198,1)",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#fff",
-                pointHoverBorderColor: "rgba(179,181,198,1)",
-                data: values
-            }]
+            //labels: [labelsMin, labelsMax],
+            datasets: datasets
+            /*datasets: [
+                {
+                    label: this.state.serie,
+                    backgroundColor: colors,
+                    borderColor: "rgba(179,181,198,1)",
+                    pointBackgroundColor: "rgba(179,181,198,1)",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "rgba(179,181,198,1)",
+                    data: values
+                }
+            ]*/
         };
+
+        //let max = ((this.state.smallLarge[1] - this.state.smallLarge[0]) / 6) + this.state.smallLarge[1];
+
 
         let options2 = {
             scale: {
                 reverse: false,
                 ticks: {
-                    beginAtZero: true
+                    //beginAtZero: true,
                 }
             },
             scales: {
                 yAxes: [{
                     ticks: {
-                        max: this.state.smallLarge[1],
-                        min: this.state.smallLarge[0]
+                        //max: this.state.smallLarge[1],
+                        //min: this.state.smallLarge[0],
+                        //stepSize: (this.state.smallLarge[1] - this.state.smallLarge[0]) / 5,
+                        //stepSize: 2000,
+                        //suggestedMax: 6,
+                        //maxTicksLimit: 6
+
+
                     }
                 }]
             }
@@ -129,7 +182,7 @@ class ChartBar extends React.Component {
                 React.createElement(
                     "button",
                     { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                    this.state.periodo
+                    this.state.min + ' / ' + this.state.max
                 ),
                 React.createElement(
                     "div",

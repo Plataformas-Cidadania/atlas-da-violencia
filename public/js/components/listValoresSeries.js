@@ -41,8 +41,18 @@ class ListValoresSeries extends React.Component {
             );
         }
 
-        //console.log('========================================================');
+        let contColor = 0;
+
         let valores = this.state.valores.map(function (item, index) {
+
+            if (contColor > colors2.length - 1) {
+                contColor = 0;
+            }
+
+            let color = colors2[contColor];
+
+            contColor++;
+
             return React.createElement(
                 "tr",
                 { key: index },
@@ -51,7 +61,7 @@ class ListValoresSeries extends React.Component {
                     { width: "10px" },
                     React.createElement(
                         "i",
-                        { className: "fa fa-square", style: { color: getColor(item.valor, intervalos) } },
+                        { className: "fa fa-square", style: { color: color } },
                         " "
                     )
                 ),
@@ -69,7 +79,6 @@ class ListValoresSeries extends React.Component {
                 )
             );
         }.bind(this));
-        //console.log('========================================================');
 
         return React.createElement(
             "table",

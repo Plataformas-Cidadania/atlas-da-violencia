@@ -215,29 +215,43 @@ class PgSerie extends React.Component{
 
                         <Topico icon="icon-group-map" text="Mapa"/>
 
-                        <div style={{textAlign: 'center', clear: 'both'}}>
-                            <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.max}</button>
-                            <div style={{marginTop:'-19px'}}>
-                                <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                        <div className="row">
+                            <div className="col-md-6">
+                                <Map
+                                    mapId="map1"
+                                    id={this.state.id}
+                                    tipoValores={this.props.tipoValores}
+                                    decimais={decimais}
+                                    /*min={this.state.min}
+                                    max={this.state.max}*/
+                                    periodo={this.state.min}
+                                    setIntervalos={this.setIntervalos}
+                                    regions={this.props.regions}
+                                    territorio={this.props.territorio}
+                                    /*typeRegion={this.props.typeRegion}
+                                     typeRegionSerie={this.props.typeRegionSerie}*/
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <Map
+                                    mapId="map2"
+                                    id={this.state.id}
+                                    tipoValores={this.props.tipoValores}
+                                    decimais={decimais}
+                                    /*min={this.state.min}
+                                     max={this.state.max}*/
+                                    periodo={this.state.max}
+                                    setIntervalos={this.setIntervalos}
+                                    regions={this.props.regions}
+                                    territorio={this.props.territorio}
+                                    /*typeRegion={this.props.typeRegion}
+                                     typeRegionSerie={this.props.typeRegionSerie}*/
+                                />
                             </div>
                         </div>
-                        <br/>
 
-                        <Map
-                            id={this.state.id}
-                            tipoValores={this.props.tipoValores}
-                            decimais={decimais}
-                            min={this.state.min}
-                            max={this.state.max}
-                            setIntervalos={this.setIntervalos}
-                            regions={this.props.regions}
-                            territorio={this.props.territorio}
-                            /*typeRegion={this.props.typeRegion}
-                            typeRegionSerie={this.props.typeRegionSerie}*/
-                        />
+                        <br/><br/><br/>
 
-
-                        <br/><br/>
                     </div>
 
                     <div style={{display: this.state.showCharts ? 'block' : 'none'}}>
@@ -275,16 +289,16 @@ class PgSerie extends React.Component{
                             </div>
                             <div style={{display: this.state.chartBar ? 'block' : 'none'}}>
                                 <div className="row">
-                                    <div className="col-md-6">
+                                    <div className="col-md-12">
                                         <ChartBar
                                             serie={this.state.serie}
                                             intervalos={this.state.intervalos}
-                                            data={this.state.valoresRegioesPorPeriodo.min}
+                                            data={this.state.valoresRegioesPorPeriodo}
                                             smallLarge={this.state.smallLarge}
                                             idBar="1"
                                         />
                                     </div>
-                                    <div className="col-md-6">
+                                    {/*<div className="col-md-6">
                                         <ChartBar
                                             serie={this.state.serie}
                                             intervalos={this.state.intervalos}
@@ -292,7 +306,7 @@ class PgSerie extends React.Component{
                                             smallLarge={this.state.smallLarge}
                                             idBar="2"
                                         />
-                                    </div>
+                                    </div>*/}
                                 </div>
                             </div>
                             <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
@@ -352,7 +366,7 @@ class PgSerie extends React.Component{
 
                     <div className="hidden-print" style={{display: this.state.showCalcs ? 'block' : 'none'}}>
 
-                        <Topico icon="icon-group-calcs" text="Cálculos"/>
+                        <Topico icon="icon-group-calc" text="Cálculos"/>
 
                         <Calcs
                             id={this.state.id}

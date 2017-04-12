@@ -261,31 +261,45 @@ class PgSerie extends React.Component {
                     React.createElement(Topico, { icon: "icon-group-map", text: "Mapa" }),
                     React.createElement(
                         "div",
-                        { style: { textAlign: 'center', clear: 'both' } },
+                        { className: "row" },
                         React.createElement(
-                            "button",
-                            { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                            this.state.max
+                            "div",
+                            { className: "col-md-6" },
+                            React.createElement(Map, {
+                                mapId: "map1",
+                                id: this.state.id,
+                                tipoValores: this.props.tipoValores,
+                                decimais: decimais
+                                /*min={this.state.min}
+                                max={this.state.max}*/
+                                , periodo: this.state.min,
+                                setIntervalos: this.setIntervalos,
+                                regions: this.props.regions,
+                                territorio: this.props.territorio
+                                /*typeRegion={this.props.typeRegion}
+                                 typeRegionSerie={this.props.typeRegionSerie}*/
+                            })
                         ),
                         React.createElement(
                             "div",
-                            { style: { marginTop: '-19px' } },
-                            React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
+                            { className: "col-md-6" },
+                            React.createElement(Map, {
+                                mapId: "map2",
+                                id: this.state.id,
+                                tipoValores: this.props.tipoValores,
+                                decimais: decimais
+                                /*min={this.state.min}
+                                 max={this.state.max}*/
+                                , periodo: this.state.max,
+                                setIntervalos: this.setIntervalos,
+                                regions: this.props.regions,
+                                territorio: this.props.territorio
+                                /*typeRegion={this.props.typeRegion}
+                                 typeRegionSerie={this.props.typeRegionSerie}*/
+                            })
                         )
                     ),
                     React.createElement("br", null),
-                    React.createElement(Map, {
-                        id: this.state.id,
-                        tipoValores: this.props.tipoValores,
-                        decimais: decimais,
-                        min: this.state.min,
-                        max: this.state.max,
-                        setIntervalos: this.setIntervalos,
-                        regions: this.props.regions,
-                        territorio: this.props.territorio
-                        /*typeRegion={this.props.typeRegion}
-                        typeRegionSerie={this.props.typeRegionSerie}*/
-                    }),
                     React.createElement("br", null),
                     React.createElement("br", null)
                 ),
@@ -353,24 +367,13 @@ class PgSerie extends React.Component {
                                 { className: "row" },
                                 React.createElement(
                                     "div",
-                                    { className: "col-md-6" },
+                                    { className: "col-md-12" },
                                     React.createElement(ChartBar, {
                                         serie: this.state.serie,
                                         intervalos: this.state.intervalos,
-                                        data: this.state.valoresRegioesPorPeriodo.min,
+                                        data: this.state.valoresRegioesPorPeriodo,
                                         smallLarge: this.state.smallLarge,
                                         idBar: "1"
-                                    })
-                                ),
-                                React.createElement(
-                                    "div",
-                                    { className: "col-md-6" },
-                                    React.createElement(ChartBar, {
-                                        serie: this.state.serie,
-                                        intervalos: this.state.intervalos,
-                                        data: this.state.valoresRegioesPorPeriodo.max,
-                                        smallLarge: this.state.smallLarge,
-                                        idBar: "2"
                                     })
                                 )
                             )
@@ -442,7 +445,7 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { className: "hidden-print", style: { display: this.state.showCalcs ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-calcs", text: "C\xE1lculos" }),
+                    React.createElement(Topico, { icon: "icon-group-calc", text: "C\xE1lculos" }),
                     React.createElement(Calcs, {
                         id: this.state.id,
                         decimais: decimais,
