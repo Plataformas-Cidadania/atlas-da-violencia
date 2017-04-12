@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterIdiomasIdTable extends Migration
+class AlterIdiomasSiglaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,31 +13,31 @@ class AlterIdiomasIdTable extends Migration
     public function up()
     {
         Schema::table('artigos', function (Blueprint $table) {
-            $table->string('idioma_sigla');
+            $table->string('idioma_sigla')->default('');
         });
         Schema::table('downloads', function (Blueprint $table) {
-            $table->string('idioma_sigla');
+            $table->string('idioma_sigla')->default('');
         });
         Schema::table('indices', function (Blueprint $table) {
-            $table->string('idioma_sigla');
+            $table->string('idioma_sigla')->default('');
         });
         Schema::table('links', function (Blueprint $table) {
-            $table->string('idioma_sigla');
+            $table->string('idioma_sigla')->default('');
         });
         Schema::table('noticias', function (Blueprint $table) {
-            $table->string('idioma_sigla');
+            $table->string('idioma_sigla')->default('');
         });
         Schema::table('quemsomos', function (Blueprint $table) {
-            $table->string('idioma_sigla');
+            $table->string('idioma_sigla')->default('');
         });
         Schema::table('series', function (Blueprint $table) {
-            $table->string('idioma_sigla');
+            $table->string('idioma_sigla')->default('');
         });
         Schema::table('videos', function (Blueprint $table) {
-            $table->string('idioma_sigla');
+            $table->string('idioma_sigla')->default('');
         });
         Schema::table('webdoors', function (Blueprint $table) {
-            $table->string('idioma_sigla');
+            $table->string('idioma_sigla')->default('');
         });
     }
 
@@ -49,31 +49,31 @@ class AlterIdiomasIdTable extends Migration
     public function down()
     {
         Schema::table('artigos', function (Blueprint $table) {
-            $table->dropColumn('idioma_id')->default(0);
+            $table->dropColumn('idioma_sigla');
         });
         Schema::table('downloads', function (Blueprint $table) {
-            $table->dropColumn('idioma_id')->default(0);
+            $table->dropColumn('idioma_sigla');
         });
         Schema::table('indices', function (Blueprint $table) {
-            $table->dropColumn('idioma_id')->default(0);
+            $table->dropColumn('idioma_sigla');
         });
         Schema::table('links', function (Blueprint $table) {
-            $table->dropColumn('idioma_id')->default(0);
+            $table->dropColumn('idioma_sigla');
         });
         Schema::table('noticias', function (Blueprint $table) {
-            $table->dropColumn('idioma_id')->default(0);
+            $table->dropColumn('idioma_sigla');
         });
         Schema::table('quemsomos', function (Blueprint $table) {
-            $table->dropColumn('idioma_id')->default(0);
+            $table->dropColumn('idioma_sigla');
         });
         Schema::table('series', function (Blueprint $table) {
-            $table->dropColumn('idioma_id')->default(0);
+            $table->dropColumn('idioma_sigla');
         });
         Schema::table('videos', function (Blueprint $table) {
-            $table->dropColumn('idioma_id')->default(0);
+            $table->dropColumn('idioma_sigla');
         });
         Schema::table('webdoors', function (Blueprint $table) {
-            $table->dropColumn('idioma_id')->default(0);
+            $table->dropColumn('idioma_sigla');
         });
     }
 }
