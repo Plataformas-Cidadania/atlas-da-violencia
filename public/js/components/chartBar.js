@@ -57,12 +57,13 @@ class ChartBar extends React.Component {
 
         let valuesMin = [];
         for (let i in data.min.valores) {
-            labels[i] = data.min.valores[i].sigla;
+            //labels[i] = data.min.valores[i].sigla;
             valuesMin[i] = data.min.valores[i].valor;
         }
 
         let valuesMax = [];
         for (let i in data.min.valores) {
+            labels[i] = data.max.valores[i].sigla;
             valuesMax[i] = data.max.valores[i].valor;
         }
 
