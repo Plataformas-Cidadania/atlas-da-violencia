@@ -339,8 +339,7 @@ class SerieController extends Controller
             ->select(DB::raw("valores_series.uf, valores_series.valor, valores_series.periodo"))
             ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
             ->where([
-                ['valores_series.serie_id', $id],
-                ['valores_series.uf', "RJ"]
+                ['valores_series.serie_id', $id]
             ])
             ->orderBy('valores_series.periodo')
             ->get();
