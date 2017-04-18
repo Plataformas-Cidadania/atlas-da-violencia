@@ -25,7 +25,7 @@ function homeChart(data){
         data: {
             labels: [labels[0], labels[1]],
             datasets: [{
-                label: "My First dataset",
+                label: "Homicidios Brasil",
                 backgroundColor: window.chartColors.blue,
                 borderColor: window.chartColors.blue,
                 data: [values[0], values[1]],
