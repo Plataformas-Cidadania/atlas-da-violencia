@@ -17,7 +17,7 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
 
 
         Upload.upload({
-            url: 'atlasviolencia/cms/importar-serie2/',
+            url: 'cms/importar-serie2/',
             data: data1
         }).then(function (response) {
             $timeout(function () {
