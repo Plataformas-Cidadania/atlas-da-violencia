@@ -139,7 +139,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
                 $timeout(function () {
                     file.result = response.data;
                 });
-                delete $scope.serie;//limpa o form
+                //delete $scope.serie;//limpa o form
                 $scope.picFile = null;//limpa o file
                 listarSeries();
                 $scope.mensagemInserir =  "Gravado com sucesso!";
