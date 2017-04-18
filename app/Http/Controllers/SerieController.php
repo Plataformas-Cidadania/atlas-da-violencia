@@ -336,8 +336,8 @@ class SerieController extends Controller
 
     function homeChart($id){
         $rows = DB::table('valores_series')
-            ->select(DB::raw("ed_territorios_pais.edterritorios_nome, valores_series.valor, valores_series.periodo"))
-            ->join('ed_territorios_pais', 'valores_series.regiao_id', '=', 'ed_territorios_pais.edterritorios_codigo')
+            ->select(DB::raw("ed_territorios_paises.edterritorios_nome, valores_series.valor, valores_series.periodo"))
+            ->join('ed_territorios_paises', 'valores_series.regiao_id', '=', 'ed_territorios_paises.edterritorios_codigo')
             ->where([
                 ['valores_series.serie_id', $id]
             ])
