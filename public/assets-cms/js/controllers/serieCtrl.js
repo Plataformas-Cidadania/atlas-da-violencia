@@ -121,7 +121,8 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
             //console.log($scope.serie);
             $http.post("cms/inserir-serie", {serie: $scope.serie}).success(function (data){
                  listarSeries();
-                 delete $scope.serie;//limpa o form
+                 //delete $scope.serie;//limpa o form
+                $scope.serie.titulo = '';
                 $scope.mensagemInserir =  "Gravado com sucesso!";
                 $scope.processandoInserir = false;
              }).error(function(data){
