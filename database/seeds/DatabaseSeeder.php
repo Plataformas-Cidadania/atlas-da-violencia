@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
          $this->call(MenuTableSeeder::class);
          $this->call(IndicesTableSeeder::class);
          $this->call(IdiomaTableSeeder::class);
+         $this->call(PeriodoTableSeeder::class);
     }
 }

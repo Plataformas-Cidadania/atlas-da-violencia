@@ -14,7 +14,7 @@ class CreateFontes extends Migration
     {
         Schema::create('fontes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('fonte');
+            $table->string('titulo');
             $table->integer('cmsuser_id')->unsigned();
             $table->foreign('cmsuser_id')->references('id')->on('cms_users')->onDelete('restrict');
             $table->timestamps();

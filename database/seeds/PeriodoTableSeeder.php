@@ -11,21 +11,25 @@ class PeriodoTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('periodos')->insert([
+        DB::table('periodicidades')->insert([
             'titulo' => 'Anual',
-            'cmsuser_id' => 1
+            'cmsuser_id' => 1,
+            'idioma_sigla' => 'pt_BR'
         ]);
-        DB::table('periodos')->insert([
+        DB::table('periodicidades')->insert([
             'titulo' => 'Mensal',
-            'cmsuser_id' => 1
+            'cmsuser_id' => 1,
+            'idioma_sigla' => 'pt_BR'
         ]);
-        DB::table('periodos')->insert([
+        DB::table('periodicidades')->insert([
             'titulo' => 'Trimestral',
-            'cmsuser_id' => 1
+            'cmsuser_id' => 1,
+            'idioma_sigla' => 'pt_BR'
         ]);
-        DB::table('periodos')->insert([
+        DB::table('periodicidades')->insert([
             'titulo' => 'Semestral',
-            'cmsuser_id' => 1
+            'cmsuser_id' => 1,
+            'idioma_sigla' => 'pt_BR'
         ]);
     }
 }

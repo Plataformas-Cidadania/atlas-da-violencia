@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 
 class MapController extends Controller
 {
@@ -183,7 +184,7 @@ class MapController extends Controller
 
 
 
-    function valoresInicialFinalRegiaoPorPeriodo($id, $min, $max, $regions, $territorio){
+    function valoresInicialFinalRegiaoPorPeriodo($id, $min, $max, $regions, $abrangencia){
 
         $regions = explode(',', $regions);
 
@@ -196,17 +197,21 @@ class MapController extends Controller
             6 => 'spat.ed_territorios_mesoregioes'
         ];
 
+        DB::enableQueryLog();
+
         $valores = DB::table('valores_series')
-            ->select(DB::raw("valores_series.valor, valores_series.periodo, valores_series.uf as sigla, $tabelas[$territorio].edterritorios_nome as nome"))
-            ->join($tabelas[$territorio], 'valores_series.uf', '=', "$tabelas[$territorio].edterritorios_sigla")
+            ->select(DB::raw("valores_series.valor, valores_series.periodo, $tabelas[$abrangencia].edterritorios_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
+            ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
             ->where('valores_series.serie_id', $id)
             ->where(function ($query) use ($min, $max) {
                 $query->where('valores_series.periodo', $min)
                     ->orWhere('valores_series.periodo', $max);
             })
-            ->whereIn("$tabelas[$territorio].edterritorios_codigo", $regions)
-            ->orderBy(DB::raw('valores_series.uf, valores_series.periodo'))
+            ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
+            ->orderBy(DB::raw("$tabelas[$abrangencia].edterritorios_sigla, valores_series.periodo"))
             ->get();
+
+        Log::info(DB::getQueryLog());
 
         //dd($valores);
 

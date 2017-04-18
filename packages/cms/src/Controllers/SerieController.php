@@ -21,7 +21,7 @@ class SerieController extends Controller
     {
         $this->serie = new \App\Serie;
         $this->campos = [
-            'imagem', 'titulo', 'descricao', 'autor', 'fonte', 'link_font', 'cmsuser_id', 'serie_id', 'idioma_sigla', 'unidade', 'periodicidade_id',
+            'imagem', 'titulo', 'descricao', 'serie_id', 'tema_id', 'fonte_id', 'cmsuser_id', 'idioma_sigla', 'periodicidade_id', 'unidade', 'indicador', 'abrangencia',
         ];
         $this->pathImagem = public_path().'/imagens/series';
         $this->sizesImagem = [
@@ -79,6 +79,7 @@ class SerieController extends Controller
         $data = $request->all();
 
         $data['serie'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+
 
         if(empty($data['serie']['serie_id'])){
             $data['serie']['serie_id'] = 0;
@@ -203,6 +204,8 @@ class SerieController extends Controller
 
         $data = $request->all();
 
+        //return $data;
+
         $arquivo = $request->file('arquivo');
 
         $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
@@ -218,6 +221,8 @@ class SerieController extends Controller
         if($data['serie']['abrangencia']==1 || $data['serie']['abrangencia']==2 || $data['serie']['abrangencia']==3){
             $this->importarPaisUfRegiao($excel, $data['id'], $serie->abrangencia);
         }
+
+
 
     }
 

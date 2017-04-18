@@ -24,6 +24,7 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
                 $scope.result = response.data;
             });
             //$scope.fileArquivo = null;//limpa o file
+            console.log($scope.result);
             $scope.mensagemSalvar =  "Gravado com sucesso!";
             $scope.removerImagem = false;
             $scope.imagemBD = '/imagens/downloads/'+response.data;
