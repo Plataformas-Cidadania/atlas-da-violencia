@@ -18,7 +18,7 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
 
 
         Upload.upload({
-            url: 'cms/importar-serie/',
+            url: 'cms/importar-serie',
             data: data1,
             cache:false
         }).then(function (response) {
