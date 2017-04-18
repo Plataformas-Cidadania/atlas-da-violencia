@@ -30,6 +30,7 @@
         $.ajax("home-chart/17", {
             data: {},
             success: function(data){
+                console.log(data);
                 homeChart(data);
                 ctx = document.getElementById("canvas").getContext("2d");
                 window.myLine = new Chart(ctx, config);

@@ -141,7 +141,7 @@
                     {{--GRAFICO--}}
                     <a href="" class="item active" style="margin-top: -30px;">
                         <div style="width:100%;">
-                            <canvas id="canvas" height="210"></canvas>
+                            <canvas id="canvas" height="180"></canvas>
                         </div>
                     </a>
                     {{----}}
