@@ -16,9 +16,11 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
         }
 
 
+
         Upload.upload({
             url: 'cms/importar-serie/',
-            data: data1
+            data: data1,
+            cache:false
         }).then(function (response) {
             $timeout(function () {
                 $scope.result = response.data;
