@@ -27,7 +27,7 @@
     <script src="js/chart/chartAnimate.js"></script>
 
     <script>
-        $.ajax("home-chart/1", {
+        $.ajax("home-chart/17", {
             data: {},
             success: function(data){
                 homeChart(data);
