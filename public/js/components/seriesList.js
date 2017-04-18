@@ -79,6 +79,7 @@ class SeriesList extends React.Component {
     render() {
         let select1 = null;
         let select2 = null;
+        let thCheck = null;
         let series = this.state.data.map(function (item) {
             if (this.props.select == 'link') {
                 select1 = React.createElement(
@@ -92,6 +93,11 @@ class SeriesList extends React.Component {
                 );
             }
             if (this.props.select == 'mark-one') {
+                thCheck = React.createElement(
+                    'th',
+                    null,
+                    '\xA0'
+                );
                 select1 = React.createElement(
                     'td',
                     { onClick: () => this.marked(item.id, item.tipo_regiao, item.tipo_valores), style: { cursor: 'pointer' }, width: 20 },
@@ -164,11 +170,7 @@ class SeriesList extends React.Component {
                         React.createElement(
                             'tr',
                             null,
-                            React.createElement(
-                                'th',
-                                null,
-                                '\xA0'
-                            ),
+                            thCheck,
                             React.createElement(
                                 'th',
                                 null,

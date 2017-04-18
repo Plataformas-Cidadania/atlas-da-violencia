@@ -40,10 +40,11 @@ class SerieController extends Controller
     public function listarSeries(Request $request){
 
         $series = DB::table('series')
-            ->select(DB::raw('series.*, min(valores_series.periodo) as min, max(valores_series.periodo) as max'))
+            ->select(DB::raw('series.*, periodicidades.titulo as periodicidade, min(valores_series.periodo) as min, max(valores_series.periodo) as max'))
             ->join('valores_series', 'valores_series.serie_id', '=', 'series.id')
+            ->join('periodicidades', 'series.periodicidade_id', '=', 'periodicidades.id')
             ->where('series.titulo', 'ilike', "%$request->search%")
-            ->groupBy('series.id')
+            ->groupBy('series.id', 'periodicidades.titulo')
             ->get();
 
         return $series;
@@ -55,8 +56,9 @@ class SerieController extends Controller
 
 
         $series = DB::table('series')
-            ->select(DB::raw('series.*, min(valores_series.periodo) as min, max(valores_series.periodo) as max, valores_series.tipo_regiao'))
+            ->select(DB::raw('series.*, periodicidades.titulo as periodicidade, min(valores_series.periodo) as min, max(valores_series.periodo) as max, valores_series.tipo_regiao'))
             ->join('valores_series', 'valores_series.serie_id', '=', 'series.id')
+            ->join('periodicidades', 'series.periodicidade_id', '=', 'periodicidades.id')
 	        ->where(function ($query) use ($parameters) {
                 $query->where('series.id', $parameters['id'])
                       ->orWhere('series.serie_id', $parameters['id']);
@@ -66,7 +68,7 @@ class SerieController extends Controller
                 ['series.abrangencia', $parameters['abrangencia']]
             ])
             //->orWhere('series.serie_id', $parameters['id'])
-            ->groupBy('series.id', 'valores_series.tipo_regiao')
+            ->groupBy('series.id', 'valores_series.tipo_regiao', 'periodicidades.titulo')
             ->orderBy('series.titulo')
             ->get();
 

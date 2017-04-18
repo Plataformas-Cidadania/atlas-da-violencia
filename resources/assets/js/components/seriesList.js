@@ -79,11 +79,13 @@ class SeriesList extends React.Component{
     render(){
         let select1 = null;
         let select2 = null;
+        let thCheck = null;
         let series = this.state.data.map(function(item){
             if(this.props.select == 'link'){
                 select1 = <td><a href={"filtros/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>;
             }
             if(this.props.select == 'mark-one'){
+                thCheck = <th>&nbsp;</th>;
                 select1 = (
                     <td onClick={() => this.marked(item.id, item.tipo_regiao, item.tipo_valores)} style={{cursor:'pointer'}} width={20}><a>
                         <img  src={"img/checkbox_" + (item.id==this.state.markedId ? 'on' : 'off') + ".png"} alt=""/>
@@ -121,7 +123,7 @@ class SeriesList extends React.Component{
                     <table className="table table-bordered table-hover table-responsive">
                         <thead>
                         <tr>
-                            <th>&nbsp;</th>
+                            {thCheck}
                             <th>Série</th>
                             {/*<th>Unidade</th>*/}
                             <th>Frequência</th>

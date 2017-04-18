@@ -220,10 +220,34 @@ class SerieController extends Controller
 
         if($data['serie']['abrangencia']==1 || $data['serie']['abrangencia']==2 || $data['serie']['abrangencia']==3){
             $this->importarPaisUfRegiao($excel, $data['id'], $serie->abrangencia);
+            return;
         }
 
+        if($data['serie']['abrangencia']==4){
+            $this->importarMunicipios($excel, $data['id'], $serie->abrangencia);
+            return;
+        }
 
+    }
 
+    private function importarMunicipios($excel, $serie_id, $abrangencia){
+        Log::info('abrangencia: '.$abrangencia);
+        $registros = [];
+        $uf = '';
+        $municipio = '';
+        $bairro = '';
+        $cms_user_id = auth()->guard('cms')->user()->id;
+
+        $tabelas = $this->getTabelas();
+
+        $abrangencias = [
+            1 => 'pais',
+            2 => 'regiao',
+            3 => 'uf',
+            4 => 'micro-regiao',
+        ];
+
+        $coluna_edterritorios = 'edterritorios_nome';
     }
 
     private function importarPaisUfRegiao($excel, $serie_id, $abrangencia){
@@ -234,21 +258,8 @@ class SerieController extends Controller
         $bairro = '';
         $cms_user_id = auth()->guard('cms')->user()->id;
 
-        $tabelas = [
-            1 => 'spat.ed_territorios_paises',
-            2 => 'spat.ed_territorios_regioes',
-            3 => 'spat.ed_territorios_uf',
-            4 => 'spat.ed_territorios_municipios',
-            5 => 'spat.ed_territorios_microrregioes',
-            6 => 'spat.ed_territorios_mesoregioes'
-        ];
-
-        $abrangencias = [
-            1 => 'pais',
-            2 => 'regiao',
-            3 => 'uf',
-            4 => 'micro-regiao',
-        ];
+        $tabelas = $this->getTabelas();
+        $abrangencias = $this->getAbrangencias();
 
         $coluna_edterritorios = 'edterritorios_nome';
         if($abrangencia==3){
@@ -299,6 +310,30 @@ class SerieController extends Controller
                 }
             }
         }
+    }
+
+    private function getTabelas(){
+        $tabelas = [
+            1 => 'spat.ed_territorios_paises',
+            2 => 'spat.ed_territorios_regioes',
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes'
+        ];
+
+        return $tabelas;
+    }
+
+    private function getAbrangencias(){
+        $abrangencias = [
+            1 => 'pais',
+            2 => 'regiao',
+            3 => 'uf',
+            4 => 'micro-regiao',
+        ];
+
+        return $abrangencias;
     }
 
     public function testeExcel($serie_id, $arquivo){
