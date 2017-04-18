@@ -29,6 +29,6 @@ class CreatePeriodicidadesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('periodos');
+        Schema::drop('periodicidades');
     }
 }
