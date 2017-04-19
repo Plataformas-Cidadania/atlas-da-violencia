@@ -24,7 +24,8 @@ null, ['class'=>"form-control width-medio <% validar(serie.periodicidade) %>", '
 <?php 
     $indicadores = [
         '1' => 'Quantidade', 
-        '2' => 'Taxa por 100 mil Habitantes'
+        '2' => 'Taxa por 100 mil Habitantes',
+        '3' => 'Proporção'
     ];
 ?>
 
