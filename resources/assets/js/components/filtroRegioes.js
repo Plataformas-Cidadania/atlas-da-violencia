@@ -99,7 +99,7 @@ class FiltroRegions extends React.Component{
                 //periodos = data;
             }.bind(this),
             error: function(data){
-                console.log('erro');
+              console.log('erro');
             }.bind(this)
         })
     }

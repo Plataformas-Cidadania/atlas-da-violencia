@@ -45,7 +45,7 @@ class ChartLine extends React.Component{
                 });
             },
             error: function(data){
-                console.log('erro');
+              console.log('erro');
             }
         })
     }

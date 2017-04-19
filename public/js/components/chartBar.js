@@ -6,9 +6,12 @@ class ChartBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.id,
             serie: this.props.serie,
-            data: {},
-            smallLarge: this.props.smallLarge,
+            /*data: {},*/
+            valoresRegioesPorPeriodo: { min: 0, max: 0, values: {} },
+            /*smallLarge: this.props.smallLarge,*/
+            smallLarge: [0, 1],
             periodo: 0,
             min: 0,
             max: 0,
@@ -21,29 +24,77 @@ class ChartBar extends React.Component {
     componentWillReceiveProps(props) {
         //console.log(props.smallLarge);
         //console.log(props.data);
-        if (this.state.smallLarge != props.smallLarge || this.state.intervalos != props.intervalos) {
-            this.setState({ min: props.data.min.periodo, max: props.data.max.periodo, data: props.data, intervalos: props.intervalos, smallLarge: props.smallLarge }, function () {
-                if (myChartBar[this.props.idBar]) {
+        /*if(this.state.smallLarge != props.smallLarge || this.state.intervalos != props.intervalos){
+            this.setState({min: props.data.min.periodo, max:props.data.max.periodo, data: props.data, intervalos: props.intervalos, smallLarge: props.smallLarge}, function(){
+                if(myChartBar[this.props.idBar]){
                     this.chartDestroy();
                 }
                 this.loadChart(this.state.data);
             });
+        }*/
+
+        if (this.state.min != props.min || this.state.max != props.max) {
+            this.setState({ min: props.min, max: props.max }, function () {
+                if (myChartBar[this.props.idBar]) {
+                    this.chartDestroy();
+                }
+                this.loadData();
+            });
         }
     }
 
-    /*loadData(){
-        let _this = this;
-        $.ajax("valores-regiao/"+this.state.min+"/"+this.state.max, {
-            data: {},
-            success: function(data){
-                //console.log(data);
-                _this.loadChartBar(data);
-            },
-            error: function(data){
+    calcSmallLarge(minValores, maxValores) {
+        let valores = [];
+        minValores.find(function (item) {
+            valores.push(parseFloat(item.valor));
+        });
+        maxValores.find(function (item) {
+            valores.push(parseFloat(item.valor));
+        });
+        let valoresSort = valores.sort(function (a, b) {
+            return a - b;
+        });
+        let smallLarge = [];
+        smallLarge[0] = valoresSort[0] - 10;
+        if (valoresSort[0] > 0 && valoresSort[0] < 10) {
+            smallLarge[0] = valoresSort[0];
+        }
+
+        smallLarge[1] = valoresSort[valoresSort.length - 1];
+        return smallLarge;
+    }
+
+    loadData() {
+        //console.log(this.props.regions);
+        $.ajax({
+            method: 'GET',
+            //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
+            url: "valores-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia,
+            //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
+            cache: false,
+            success: function (data) {
+                //console.log('pgSerie', data);
+                //os valores menor e maior para serem utilizados no chartBar
+                let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
+                /*let totais = {
+                 min: this.state.min,
+                 max: this.state.max,
+                 values: data
+                 };*/
+                this.setState({ valoresRegioesPorPeriodo: data, smallLarge: smallLarge }, function () {
+                    if (myChartBar[this.props.idBar]) {
+                        this.chartDestroy();
+                    }
+                    this.loadChart(this.state.valoresRegioesPorPeriodo);
+                });
+
+                //loadMap(data);
+            }.bind(this),
+            error: function (xhr, status, err) {
                 console.log('erro');
-            }
-        })
-    }*/
+            }.bind(this)
+        });
+    }
 
     loadChart(data) {
         //console.log(data);

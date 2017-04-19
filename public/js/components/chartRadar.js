@@ -37,7 +37,7 @@ class ChartRadar extends React.Component {
                 _this.loadChartRadar(data);
             },
             error: function(data){
-                console.log('erro');
+              console.log('erro');
             }
         })
     }*/

@@ -68,7 +68,7 @@ class PgFiltros extends React.Component {
         //console.log('pgFiltros - render() typeRegionSerie:', this.state.typeRegionSerie);
         //console.log('pgFiltros - render() regions:', this.state.regions);
 
-        console.log(this.state.tipoValores);
+        //console.log(this.state.tipoValores);
 
         return React.createElement(
             'div',

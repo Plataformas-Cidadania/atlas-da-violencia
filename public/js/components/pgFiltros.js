@@ -75,7 +75,7 @@ class PgFiltros extends React.Component {
         //console.log('pgFiltros - render() typeRegionSerie:', this.state.typeRegionSerie);
         //console.log('pgFiltros - render() regions:', this.state.regions);
 
-        console.log(this.state.tipoValores);
+        //console.log(this.state.tipoValores);
 
         let abrangencia = null;
         if (this.state.indicador > 0) {

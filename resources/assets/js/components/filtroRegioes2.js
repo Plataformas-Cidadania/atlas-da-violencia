@@ -58,7 +58,7 @@ class FiltroRegions extends React.Component{
                 //periodos = data;
             }.bind(this),
             error: function(data){
-                console.log('erro');
+              console.log('erro');
             }.bind(this)
         })
     }
@@ -269,7 +269,7 @@ class FiltroRegions extends React.Component{
         let regions = this.state.regions.map(function(region, indexRegion){
 
             //console.log('typeRegionSerie', region.typeRegionSerie);
-            console.log('tipoVAlores', this.state.tipoValores);
+           //console.log('tipoVAlores', this.state.tipoValores);
 
             let ufs = region.ufs.map(function(item){
 

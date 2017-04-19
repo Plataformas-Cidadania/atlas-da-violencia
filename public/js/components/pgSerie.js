@@ -67,7 +67,7 @@ class PgSerie extends React.Component {
 
     changePeriodo(min, max) {
         this.setState({ min: min, max: max }, function () {
-            console.log(min, max);
+            //console.log(min, max);
             this.loadData();
         });
     }
@@ -77,7 +77,7 @@ class PgSerie extends React.Component {
     }
 
     loadData() {
-        console.log(this.props.regions);
+        //console.log(this.props.regions);
         $.ajax({
             method: 'GET',
             //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
@@ -85,7 +85,7 @@ class PgSerie extends React.Component {
             //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
             cache: false,
             success: function (data) {
-                console.log('pgSerie', data);
+                //console.log('pgSerie', data);
                 //os valores menor e maior para serem utilizados no chartBar
                 let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
                 /*let totais = {
@@ -369,11 +369,16 @@ class PgSerie extends React.Component {
                                     "div",
                                     { className: "col-md-12" },
                                     React.createElement(ChartBar, {
-                                        serie: this.state.serie,
-                                        intervalos: this.state.intervalos,
-                                        data: this.state.valoresRegioesPorPeriodo,
-                                        smallLarge: this.state.smallLarge,
-                                        idBar: "1"
+                                        id: this.state.id,
+                                        serie: this.state.serie
+                                        /*intervalos={this.state.intervalos}*/
+                                        , min: this.state.min,
+                                        max: this.state.max,
+                                        regions: this.props.regions,
+                                        abrangencia: this.props.abrangencia
+                                        /*data={this.state.valoresRegioesPorPeriodo}*/
+                                        /*smallLarge={this.state.smallLarge}*/
+                                        , idBar: "1"
                                     })
                                 )
                             )

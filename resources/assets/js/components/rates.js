@@ -23,7 +23,7 @@ class Rates extends React.Component{
                 //console.log(data);
             },
             error: function(data){
-                console.log('erro');
+              console.log('erro');
             }
         })
     }

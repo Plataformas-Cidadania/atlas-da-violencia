@@ -12,7 +12,7 @@ class ListValoresSeries extends React.Component{
             this.loadData();
         });*/
 
-        console.log(props.data);
+       //console.log(props.data);
         this.setState({valores: props.data.valores});
     }
 
@@ -27,7 +27,7 @@ class ListValoresSeries extends React.Component{
                 //loadMap(data);
             }.bind(this),
             error: function(xhr, status, err) {
-                console.log('erro');
+              console.log('erro');
             }.bind(this)
         });
     }*/

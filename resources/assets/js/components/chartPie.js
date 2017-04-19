@@ -41,7 +41,7 @@ class ChartPie extends React.Component{
                 _this.loadChartPie(data);
             },
             error: function(data){
-                console.log('erro');
+              console.log('erro');
             }
         })
     }*/

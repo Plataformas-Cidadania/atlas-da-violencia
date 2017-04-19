@@ -38,7 +38,7 @@ class SeriesList extends React.Component {
 
     loadData() {
         this.setState({ loading: true });
-        console.log(this.state.parameters);
+        //console.log(this.state.parameters);
         $.ajax({
             method: 'POST',
             url: this.props.url,
@@ -48,7 +48,7 @@ class SeriesList extends React.Component {
             },
             cache: false,
             success: function (data) {
-                console.log('seriesList', data);
+                //console.log('seriesList', data);
                 this.setState({ data: data }, function () {
                     this.setState({ loading: false });
                 });
@@ -70,7 +70,7 @@ class SeriesList extends React.Component {
     }
 
     marked(id, typeRegionSerie, tipoValores) {
-        console.log('marked', id, typeRegionSerie);
+        //console.log('marked', id, typeRegionSerie);
         this.setState({ markedId: id, typeRegionSerie: typeRegionSerie, tipoValores: tipoValores }, function () {
             this.props.serieMarked(this.state.markedId, this.state.typeRegionSerie, this.state.tipoValores);
         });

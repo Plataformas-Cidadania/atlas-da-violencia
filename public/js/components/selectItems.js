@@ -136,7 +136,7 @@ class SelectItems extends React.Component {
                 });
             }.bind(this),
             error: function (xhr, status, err) {
-                //console.log('erro', err);
+                console.log('erro', err);
             }.bind(this)
         });
     }
@@ -171,10 +171,10 @@ class SelectItems extends React.Component {
             if (item.id == id) {
                 item.selected = !item.selected;
                 if (item.selected) {
-                    console.log(itemsSelected);
-                    console.log(item);
+                    //console.log(itemsSelected);
+                    //console.log(item);
                     itemsSelected.push(item);
-                    console.log(itemsSelected);
+                    //console.log(itemsSelected);
                 } else {
                     let index = this.indexObject(itemsSelected, 'id', id);
                     itemsSelected.splice(index, 1);
@@ -279,9 +279,9 @@ class SelectItems extends React.Component {
     /*joinStyles(array){
         let style = {};
         array.find(function(style){
-            console.log(style);
+           //console.log(style);
             for(let i in style){
-                console.log(i+': '+style[i]);
+               //console.log(i+': '+style[i]);
              }
         });
     }*/
@@ -334,7 +334,7 @@ class SelectItems extends React.Component {
                 var it = {};
                 //console.log(itemSelected, this.state.items[i].id);
                 if(itemSelected==this.state.items[i].id){
-                    console.log(this.state.items[i].id);
+                   //console.log(this.state.items[i].id);
                     it.id = this.state.items[i].id;
                     it.title = this.state.items[i].title;
                     break;

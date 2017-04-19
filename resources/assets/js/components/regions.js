@@ -36,13 +36,13 @@ class Regions extends React.Component{
             url: "valores-inicial-final-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia,
             cache: false,
             success: function(data) {
-                console.log('### REGIONS.loadData ###', data);
+               //console.log('### REGIONS.loadData ###', data);
                 this.setState({data: data, loading:false}, function(){
                     this.calcMaxUpDown();
                 });
             }.bind(this),
             error: function(xhr, status, err) {
-                console.log('erro');
+              console.log('erro');
             }.bind(this)
         });
     }
@@ -99,7 +99,7 @@ class Regions extends React.Component{
 
         let last = regions.length-1;
 
-        console.log('### REGIONS.calcMaxUpDown ###', regions);
+       //console.log('### REGIONS.calcMaxUpDown ###', regions);
 
         this.setState({
             maxDown: regions[0],
@@ -115,7 +115,7 @@ class Regions extends React.Component{
         let iconRedUp = <div className="icons-arrows icon-red-up"></div>;
         let iconRedDown = <div className="icons-arrows icon-red-down"></div>;
 
-        console.log('###  REGIONS.RENDER  ###',this.state.maxDown);
+       //console.log('###  REGIONS.RENDER  ###',this.state.maxDown);
 
         let down = <p>Maior queda</p>;
         let multiplicadorDown = -1;

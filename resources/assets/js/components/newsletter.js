@@ -11,7 +11,7 @@ class Newsletter extends React.Component{
     }
 
     handleChande(event){
-        console.log(event.target);
+       //console.log(event.target);
     }
 
     submit(){

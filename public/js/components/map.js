@@ -63,11 +63,11 @@ class Map extends React.Component {
         $.ajax("regiao/" + _this.state.id + "/" + _this.state.periodo + "/" + _this.props.regions + "/" + _this.props.abrangencia, {
             data: {},
             success: function (data) {
-                console.log('map - loadData', data);
+                //console.log('map - loadData',data);
                 _this.loadMap(data);
             },
             error: function (data) {
-                console.log('map', 'erro');
+                //console.log('map', 'erro');
             }
         });
     }
@@ -141,7 +141,7 @@ class Map extends React.Component {
         legend[indexLegend] = L.control({ position: 'bottomright' });
 
         legend[indexLegend].onAdd = function (mymap) {
-            console.log('map - intervalos', intervalos);
+            //console.log('map - intervalos', intervalos);
             let div = L.DomUtil.create('div', 'info legend'),
 
             //grades = [0, 100, 300, 600, 1000, 1500, 3000, 5000, 7000, 9000],
