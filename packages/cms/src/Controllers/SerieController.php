@@ -281,11 +281,15 @@ class SerieController extends Controller
 
                         Log::info('territorio: '.$territorio);
 
+                        DB::connection()->enableQueryLog();
+
                         $tipo_regiao = $abrangencia;
                         $regiao = DB::table($tabelas[$abrangencia])
                             ->select('edterritorios_codigo as regiao_id')
                             ->where($coluna_edterritorios, 'ilike', $territorio)
                             ->first();
+
+                        Log::info(DB::getQueryLog());
 
                         $regiao_id = $regiao->regiao_id;
 
