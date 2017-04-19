@@ -486,10 +486,20 @@ class PgSerie extends React.Component {
                     React.createElement(
                         "div",
                         { className: "bs-callout", style: { borderLeftColor: '#3498DB' } },
+                        React.createElement("div", { dangerouslySetInnerHTML: { __html: this.props.metadados } }),
+                        React.createElement("br", null),
                         React.createElement(
-                            "p",
-                            null,
-                            this.props.metadados
+                            "div",
+                            { className: "text-right" },
+                            React.createElement(
+                                "a",
+                                { href: "downloads/" + this.props.id + "/" + this.props.serie, className: "text-info h5" },
+                                React.createElement(
+                                    "strong",
+                                    null,
+                                    "+ informa\xE7\xF5es"
+                                )
+                            )
                         )
                     )
                 )

@@ -391,9 +391,13 @@ class PgSerie extends React.Component{
                         </div>
                         <hr style={{borderColor: '#3498DB'}}/>
                         <div className="bs-callout" style={{borderLeftColor: '#3498DB'}}>
-                            <p>
-                                {this.props.metadados}
-                            </p>
+                            <div dangerouslySetInnerHTML={{__html: this.props.metadados}} />
+                            <br/>
+                            <div className="text-right">
+                                <a href={"downloads/"+this.props.id+"/"+this.props.serie} className="text-info h5">
+                                    <strong>+ informações</strong>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
