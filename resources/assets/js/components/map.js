@@ -238,6 +238,14 @@ class Map extends React.Component{
                 </div>
                 <br/>
                 <div id={this.props.mapId} className="map"></div>
+                {/*<br/>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <Download btnDownload={"download"+this.props.mapId} divDownload={this.props.mapId} arquivo="mapa.png"/>
+                </div>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <Print divPrint="listValoresSeries" imgPrint="imgPrintList"/>
+                </div>
+                <div style={{clear: 'both'}}/>*/}
             </div>
 
         );

@@ -168,7 +168,71 @@
             font-weight: bold;
             text-shadow: 2px 2px 2px #5d5d5d;
         }
+        .icons-components{
+            background-image: url(img/icons-groups-p.png);
+            width: 28px;
+            height: 28px;
+            margin: 1px;
+            float: left;
+            cursor: pointer;
+        }
+        .icons-component-print{
+            background-position: 0 56px;
+        }
+        .icons-component-download{
+            background-position: -28px 56px;
+        }
+        .icons-component-csv{
+            background-position: -56px 56px;
+        }
+        .icons-component-pdf{
+            background-position: -84px 56px;
+        }
+        .icons-component-btn{
+            background-position: -112px 56px;
+        }
 
+        .icons-component-print:hover{
+            background-position: 0px 0;
+        }
+        .icons-component-download:hover{
+            background-position: -28px 0;
+        }
+        .icons-component-csv:hover{
+            background-position: -56px 0;
+        }
+        .icons-component-pdf:hover{
+            background-position: -84px 0;
+        }
+        .icons-component-btn:hover{
+            background-position: -112px 0;
+        }
+
+        .icons-component-print-active{
+            background-position: 0 28px;
+        }
+        .icons-component-download-active{
+            background-position: -28px 28px;
+        }
+        .icons-component-csv-active{
+            background-position: -56px 28px;
+        }
+        .icons-component-pdf-active{
+            background-position: -84px 28px;
+        }
+        .icons-component-btn-active{
+            background-position: -112px 28px;
+        }
+
+        .print {
+            display:none;
+        }
+
+        @media print{
+            .print {
+                display:block;
+            }
+        }
 
     </style>
     {{--@if(substr($base_href, 0,9)=='evbsb1052')--}}

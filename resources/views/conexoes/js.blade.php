@@ -62,7 +62,7 @@
 {{--<script src="js/controllers/serieCtrl.js"></script>--}}
 <script src="lib/react/react.js"></script>
 <script src="lib/react/react-dom.js"></script>
-<script src="lib/numeral.js"></script>
+{{--<script src="lib/numeral.js"></script>--}}
 <script>
     // load a locale
     numeral.register('locale', 'br', {
@@ -221,6 +221,8 @@ print_r($periodo_limite);*/
 
     </script>
 
+    <script src="js/components/print.js"></script>
+    <script src="js/components/download.js"></script>
     <script src="js/components/map.js"></script>
     <script src="js/components/listValoresSeries.js"></script>
     <script src="js/components/rangePeriodos.js"></script>

@@ -120,7 +120,8 @@ elixir(function(mix) {
         'app.js',
         'utils.js',
         'lib/range/ion.rangeSlider.js',
-        'lib/numeral.js'
+        'lib/numeral.js',
+        'lib/html2canvas.js'
     ]);
 
     mix.styles([

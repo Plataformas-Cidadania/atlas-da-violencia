@@ -172,7 +172,7 @@ class Calcs extends React.Component {
             React.createElement('br', null),
             React.createElement(
                 'div',
-                { className: 'row text-center' },
+                { className: 'row text-center', id: 'calcs' },
                 React.createElement(
                     'div',
                     { className: 'col-md-2' },
@@ -297,11 +297,28 @@ class Calcs extends React.Component {
                     React.createElement('br', null),
                     React.createElement(
                         'h4',
-                        { className: '' },
+                        { className: '', style: { display: this.state.moda[this.state.id] > 0 ? 'block' : 'none' } },
                         formatNumber(this.state.moda[this.state.id], 2, ',', '.')
+                    ),
+                    React.createElement(
+                        'h4',
+                        { className: '', style: { display: this.state.moda[this.state.id] > 0 ? 'none' : 'block' } },
+                        '-'
                     )
                 )
-            )
+            ),
+            React.createElement('br', null),
+            React.createElement(
+                'div',
+                { style: { float: 'right', marginLeft: '5px' } },
+                React.createElement(Download, { btnDownload: 'downloadCalcs', divDownload: 'calcs', arquivo: 'calculos.png' })
+            ),
+            React.createElement(
+                'div',
+                { style: { float: 'right', marginLeft: '5px' } },
+                React.createElement(Print, { divPrint: 'calcs', imgPrint: 'imgCalcs' })
+            ),
+            React.createElement('div', { style: { clear: 'both' } })
         );
     }
 }

@@ -62,18 +62,29 @@ class ListValoresSeries extends React.Component{
 
 
         return (
-            <table className="table table-striped table-bordered">
-                <thead>
+            <div>
+                <table className="table table-striped table-bordered" id="listValoresSeries">
+                    <thead>
                     <tr>
                         <th>&nbsp;</th>
                         <th>Território</th>
                         <th className="text-right">Ocorrências</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     {valores}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+                <br/>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <Download btnDownload="downloadListValoresSeries" divDownload="listValoresSeries" arquivo="tabela.png"/>
+                </div>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <Print divPrint="listValoresSeries" imgPrint="imgPrintList"/>
+                </div>
+                <div style={{clear: 'both'}}/>
+            </div>
+
         );
     }
 }

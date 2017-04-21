@@ -160,7 +160,7 @@ class Calcs extends React.Component{
                     </div>
                 </div>*/}
                 <br/>
-                <div className="row text-center">
+                <div className="row text-center" id="calcs">
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
                             <h4 style={this.state.styleCalcs}>Mínima</h4>
@@ -206,9 +206,18 @@ class Calcs extends React.Component{
                             <h4 style={this.state.styleCalcs}>Moda</h4>
                         </div>
                         <br/>
-                        <h4 className="" >{formatNumber(this.state.moda[this.state.id], 2, ',', '.')}</h4>
+                        <h4 className="" style={{display: this.state.moda[this.state.id] > 0 ? 'block' : 'none'}}>{formatNumber(this.state.moda[this.state.id], 2, ',', '.')}</h4>
+                        <h4 className="" style={{display: this.state.moda[this.state.id] > 0 ? 'none' : 'block'}}>-</h4>
                     </div>
                 </div>
+                <br/>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <Download btnDownload="downloadCalcs" divDownload="calcs" arquivo="calculos.png"/>
+                </div>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <Print divPrint="calcs" imgPrint="imgCalcs"/>
+                </div>
+                <div style={{clear: 'both'}}/>
             </div>
         );
     }

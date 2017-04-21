@@ -190,6 +190,11 @@ class ChartBar extends React.Component {
 
                     }
                 }]
+            },
+            animation: {
+                onComplete: function () {
+                    downloadCanvas("downChartBar" + this.props.idBar, "myChartBar" + this.props.idBar, 'chartbar.png');
+                }.bind(this)
             }
         };
 
@@ -247,7 +252,22 @@ class ChartBar extends React.Component {
                 "canvas",
                 { id: "myChartBar" + this.props.idBar, width: "400", height: "200" },
                 " "
-            )
+            ),
+            React.createElement(
+                "div",
+                { style: { float: 'right', marginLeft: '5px' } },
+                React.createElement(
+                    "a",
+                    { id: "downChartBar" + this.props.idBar, style: { cursor: 'pointer' } },
+                    React.createElement("div", { className: "icons-components icons-component-download" })
+                )
+            ),
+            React.createElement(
+                "div",
+                { style: { float: 'right', marginLeft: '5px' } },
+                React.createElement("div", { className: "icons-components icons-component-print", onClick: () => printCanvas("myChartBar" + this.props.idBar) })
+            ),
+            React.createElement("div", { style: { clear: 'both' } })
         );
     }
 }

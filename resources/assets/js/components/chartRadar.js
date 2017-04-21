@@ -76,6 +76,11 @@ class ChartRadar extends React.Component{
                 ticks: {
                     beginAtZero: true
                 }
+            },
+            animation:{
+                onComplete: function() {
+                    downloadCanvas("downChartBar", "myChartRadar", 'chartradar.png');
+                }
             }
         };
 
@@ -102,6 +107,16 @@ class ChartRadar extends React.Component{
                 </div>
                 <br/>
                 <canvas id="myChartRadar" width="400" height="200"> </canvas>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    {/*<Download btnDownload="downloadMyChartLine" divDownload="divChartLine"/>*/}
+                    <a id="downChartBar" style={{cursor: 'pointer'}}  >
+                        <div className="icons-components icons-component-download"/>
+                    </a>
+                </div>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <div className="icons-components icons-component-print" onClick={() => printCanvas("myChartRadar")}/>
+                </div>
+                <div style={{clear: 'both'}}/>
             </div>
         );
     }

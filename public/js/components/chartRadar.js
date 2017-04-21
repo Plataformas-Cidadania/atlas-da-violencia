@@ -74,6 +74,11 @@ class ChartRadar extends React.Component {
                 ticks: {
                     beginAtZero: true
                 }
+            },
+            animation: {
+                onComplete: function () {
+                    downloadCanvas("downChartBar", "myChartRadar", 'chartradar.png');
+                }
             }
         };
 
@@ -111,7 +116,22 @@ class ChartRadar extends React.Component {
                 "canvas",
                 { id: "myChartRadar", width: "400", height: "200" },
                 " "
-            )
+            ),
+            React.createElement(
+                "div",
+                { style: { float: 'right', marginLeft: '5px' } },
+                React.createElement(
+                    "a",
+                    { id: "downChartBar", style: { cursor: 'pointer' } },
+                    React.createElement("div", { className: "icons-components icons-component-download" })
+                )
+            ),
+            React.createElement(
+                "div",
+                { style: { float: 'right', marginLeft: '5px' } },
+                React.createElement("div", { className: "icons-components icons-component-print", onClick: () => printCanvas("myChartRadar") })
+            ),
+            React.createElement("div", { style: { clear: 'both' } })
         );
     }
 }

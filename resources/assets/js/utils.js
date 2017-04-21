@@ -32,5 +32,43 @@ function formatNumber(n, c, d, t){
     //console.log(formatNumber(999999999999.165, 0, ',', '.'));
 }
 
+function downloadImage(element, btn, arquivo) {
+    //$("#btn-Convert-Html2Image").on('click', function () {
+    console.log(element, btn, arquivo);
+    html2canvas(element, {
+        onrendered: function (canvas) {
+            //$("#previewImage").append(canvas);
+
+            var imageData = canvas.toDataURL("image/png");
+            var newData = imageData.replace(/^data:image\/png/, "data:application/octet-stream");
+
+            //$("#btn-Convert-Html2Image").attr("download", "nome_arquivo.png").attr("href", newData);
+            $("#"+btn).attr("download", arquivo).attr("href", newData);
+
+            //$('#divhidden').html('<img src="'+newData+'" alt="">');
+            //print('divhidden');
+
+        }
+    });
+}
 
 
+function printCanvas(canvasId){
+    let tela_impressao = window.open('');
+    tela_impressao.document.open();
+    tela_impressao.document.write("<br><img src='"+document.getElementById(canvasId).toDataURL()+"'/>");
+    tela_impressao.document.close();
+    tela_impressao.focus();
+    tela_impressao.print();
+    tela_impressao.close();
+}
+
+
+function downloadCanvas(linkId, canvasId, filename) {
+    let link = document.getElementById(linkId);
+    /*console.log(link);
+    console.log(canvasId);
+    console.log(filename);*/
+    link.href = document.getElementById(canvasId).toDataURL();
+    link.download = filename;
+}

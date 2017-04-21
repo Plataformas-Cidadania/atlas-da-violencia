@@ -1,3 +1,6 @@
+
+
+
 myChartLine = undefined;
 class ChartLine extends React.Component{
     constructor(props){
@@ -175,16 +178,24 @@ class ChartLine extends React.Component{
         var dataChart = {
             labels: labels,
             datasets: datasets
-        }
+        };
 
         let option = {
-            showLines: true
+            showLines: true,
+            animation:{
+                onComplete: function() {
+                    downloadCanvas('downChart', 'myChartLine', 'chartline.png');
+                }
+            }
         };
 
         myChartLine = Chart.Line(canvas,{
             data:dataChart,
-            options:option
+            options:option,
         });
+
+        //downloadImage($('#divChartLine'), "downloadMyChartLine", 'chartline.png');
+
 
     }
 
@@ -228,7 +239,20 @@ class ChartLine extends React.Component{
                             <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
                         </div>
                     </div>
-                    <canvas  id="myChartLine" width="400" height="200"> </canvas>
+                    <div id="divChartLine">
+                        <canvas  id="myChartLine" width="400" height="200"> </canvas>
+                    </div>
+                    <div style={{float: 'right', marginLeft:'5px'}}>
+                        {/*<Download btnDownload="downloadMyChartLine" divDownload="divChartLine"/>*/}
+                        <a id="downChart" style={{cursor: 'pointer'}}  >
+                            <div className="icons-components icons-component-download"/>
+                        </a>
+                    </div>
+                    <div style={{float: 'right', marginLeft:'5px'}}>
+                        <div className="icons-components icons-component-print" onClick={() => printCanvas('myChartLine')}/>
+                    </div>
+                    <div style={{clear: 'both'}}/>
+
                 </div>
 
             </div>

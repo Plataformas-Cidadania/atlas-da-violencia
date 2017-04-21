@@ -81,36 +81,52 @@ class ListValoresSeries extends React.Component {
         }.bind(this));
 
         return React.createElement(
-            "table",
-            { className: "table table-striped table-bordered" },
+            "div",
+            null,
             React.createElement(
-                "thead",
-                null,
+                "table",
+                { className: "table table-striped table-bordered", id: "listValoresSeries" },
                 React.createElement(
-                    "tr",
+                    "thead",
                     null,
                     React.createElement(
-                        "th",
+                        "tr",
                         null,
-                        "\xA0"
-                    ),
-                    React.createElement(
-                        "th",
-                        null,
-                        "Territ\xF3rio"
-                    ),
-                    React.createElement(
-                        "th",
-                        { className: "text-right" },
-                        "Ocorr\xEAncias"
+                        React.createElement(
+                            "th",
+                            null,
+                            "\xA0"
+                        ),
+                        React.createElement(
+                            "th",
+                            null,
+                            "Territ\xF3rio"
+                        ),
+                        React.createElement(
+                            "th",
+                            { className: "text-right" },
+                            "Ocorr\xEAncias"
+                        )
                     )
+                ),
+                React.createElement(
+                    "tbody",
+                    null,
+                    valores
                 )
             ),
+            React.createElement("br", null),
             React.createElement(
-                "tbody",
-                null,
-                valores
-            )
+                "div",
+                { style: { float: 'right', marginLeft: '5px' } },
+                React.createElement(Download, { btnDownload: "downloadListValoresSeries", divDownload: "listValoresSeries", arquivo: "tabela.png" })
+            ),
+            React.createElement(
+                "div",
+                { style: { float: 'right', marginLeft: '5px' } },
+                React.createElement(Print, { divPrint: "listValoresSeries", imgPrint: "imgPrintList" })
+            ),
+            React.createElement("div", { style: { clear: 'both' } })
         );
     }
 }

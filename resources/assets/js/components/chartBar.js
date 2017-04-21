@@ -193,6 +193,11 @@ class ChartBar extends React.Component{
 
                     }
                 }]
+            },
+            animation:{
+                onComplete: function() {
+                    downloadCanvas("downChartBar"+this.props.idBar, "myChartBar"+this.props.idBar, 'chartbar.png');
+                }.bind(this)
             }
         };
 
@@ -240,6 +245,16 @@ class ChartBar extends React.Component{
                 </div>
                 <br/>
                 <canvas id={"myChartBar"+this.props.idBar} width="400" height="200"> </canvas>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    {/*<Download btnDownload="downloadMyChartLine" divDownload="divChartLine"/>*/}
+                    <a id={"downChartBar"+this.props.idBar} style={{cursor: 'pointer'}}  >
+                        <div className="icons-components icons-component-download"/>
+                    </a>
+                </div>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <div className="icons-components icons-component-print" onClick={() => printCanvas("myChartBar"+this.props.idBar)}/>
+                </div>
+                <div style={{clear: 'both'}}/>
             </div>
         );
     }

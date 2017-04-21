@@ -1,3 +1,5 @@
+
+
 myChartLine = undefined;
 class ChartLine extends React.Component {
     constructor(props) {
@@ -170,13 +172,21 @@ class ChartLine extends React.Component {
         };
 
         let option = {
-            showLines: true
+            showLines: true,
+            animation: {
+                onComplete: function () {
+                    downloadCanvas('downChart', 'myChartLine', 'chartline.png');
+                }
+            }
         };
 
         myChartLine = Chart.Line(canvas, {
             data: dataChart,
             options: option
         });
+
+        //downloadImage($('#divChartLine'), "downloadMyChartLine", 'chartline.png');
+
     }
 
     chartDestroy() {
@@ -236,10 +246,29 @@ class ChartLine extends React.Component {
                     )
                 ),
                 React.createElement(
-                    "canvas",
-                    { id: "myChartLine", width: "400", height: "200" },
-                    " "
-                )
+                    "div",
+                    { id: "divChartLine" },
+                    React.createElement(
+                        "canvas",
+                        { id: "myChartLine", width: "400", height: "200" },
+                        " "
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { style: { float: 'right', marginLeft: '5px' } },
+                    React.createElement(
+                        "a",
+                        { id: "downChart", style: { cursor: 'pointer' } },
+                        React.createElement("div", { className: "icons-components icons-component-download" })
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { style: { float: 'right', marginLeft: '5px' } },
+                    React.createElement("div", { className: "icons-components icons-component-print", onClick: () => printCanvas('myChartLine') })
+                ),
+                React.createElement("div", { style: { clear: 'both' } })
             )
         );
     }

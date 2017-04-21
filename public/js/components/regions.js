@@ -154,7 +154,7 @@ class Regions extends React.Component {
             null,
             React.createElement(
                 'div',
-                { className: 'row' },
+                { className: 'row', id: 'regions' },
                 React.createElement(
                     'div',
                     { className: 'col-xs-6 col-sm-6 col-md-6 col-lg-6' },
@@ -332,7 +332,19 @@ class Regions extends React.Component {
                         )
                     )
                 )
-            )
+            ),
+            React.createElement('br', null),
+            React.createElement(
+                'div',
+                { style: { float: 'right', marginLeft: '5px' } },
+                React.createElement(Download, { btnDownload: 'downloadRegions', divDownload: 'regions', arquivo: 'taxas.png' })
+            ),
+            React.createElement(
+                'div',
+                { style: { float: 'right', marginLeft: '5px' } },
+                React.createElement(Print, { divPrint: 'regions', imgPrint: 'imgRegions' })
+            ),
+            React.createElement('div', { style: { clear: 'both' } })
         );
     }
 }

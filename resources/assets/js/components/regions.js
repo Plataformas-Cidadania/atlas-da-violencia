@@ -139,7 +139,7 @@ class Regions extends React.Component{
         return(
             <div>
 
-                <div className="row">
+                <div className="row" id="regions">
 
 
                     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -227,7 +227,14 @@ class Regions extends React.Component{
 
 
                 </div>
-
+                <br/>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <Download btnDownload="downloadRegions" divDownload="regions" arquivo="taxas.png"/>
+                </div>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <Print divPrint="regions" imgPrint="imgRegions"/>
+                </div>
+                <div style={{clear: 'both'}}/>
 
 
             </div>
