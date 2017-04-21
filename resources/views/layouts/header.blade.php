@@ -113,7 +113,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
+                    {{--<iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>--}}
+                    <video width="100%" controls>
+                        <source src="videos/instucional.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 25px; background-color: #ececec; height: 315px;"  ng-class="{'alto-contraste': altoContrasteAtivo}">
 
