@@ -18,7 +18,7 @@ class QuemController extends Controller
 
         $quem = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('id', $id)->orderBy('titulo')->first();
         if($id){
-            $quem = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('id', $id)->orderBy('titulo')->first();
+            $quem = DB::table('quemsomos')->where('idioma_sigla', $lang)->orderBy('titulo')->first();
         }
 
         $menus = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 1)->where('origem_id', 1)->orderBy('titulo')->get();
