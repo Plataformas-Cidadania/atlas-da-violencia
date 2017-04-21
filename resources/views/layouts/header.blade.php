@@ -112,10 +112,12 @@
     @if($rota=='/')
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" ng-init="showVideo=false">
                     {{--<iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>--}}
-                    <video width="100%" controls>
-                        <source src="videos/instucional.mp4" type="video/mp4">
+
+                    <img ng-src='img/video.png' ng-show="!showVideo" ng-click="showVideo=true" style="cursor:pointer;">
+                    <video width="100%" controls ng-if="showVideo" autoplay>
+                        <source src="videos/institucional.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
