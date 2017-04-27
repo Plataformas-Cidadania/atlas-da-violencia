@@ -12,14 +12,29 @@ use Illuminate\Support\Facades\Log;
 
 class QuemController extends Controller
 {
-    public function detalhar(){
+    public function detalhar($id=null){
 
         $lang =  App::getLocale();
+        $menus = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 1)->where('origem_id', 1)->orderBy('posicao')->get();
 
-        $quem = DB::table('quemsomos')->where('idioma_sigla', $lang)->orderBy('titulo')->first();
-        $menus = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 1)->where('origem_id', 1)->orderBy('titulo')->get();
+        if($id){
 
-        return view('quem.detalhar', ['quem' => $quem, 'menus' => $menus]);
+            $quem = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('id', $id)->orderBy('titulo')->first();
+            if(count($quem)==0){
+                return redirect("quem/");
+            }
+
+            return view('quem.detalhar', ['quem' => $quem, 'menus' => $menus, 'id' => $id]);
+
+
+        }
+
+        $quem = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('id', $menus[0]->id)->orderBy('titulo')->first();
+
+
+
+
+        return view('quem.detalhar', ['quem' => $quem, 'menus' => $menus, 'id' => $id]);
 
     }
 }

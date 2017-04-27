@@ -10,7 +10,7 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>",
 {!! Form::select('tipo',
         array(
             '0' => 'Bem vindo',
-            '1' => 'Quem somos',
+            '1' => 'Institucional',
             '2' => 'Acessibilidade',
             '3' => 'Redirecionamento'
         ),
@@ -30,5 +30,8 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.origem_id) %>", 'n
 
 {!! Form::label('descricao', 'Descrição *') !!}<br>
 {!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(quemsomo.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'quemsomo.descricao', 'init-model'=>'quemsomo.descricao']) !!}<br>
+
+{!! Form::label('posicao', 'Posição *') !!}<br>
+{!! Form::text('posicao', null, ['class'=>"form-control width-grande <% validar(quemsomo.posicao) %>", 'ng-model'=>'quemsomo.posicao', 'ng-required'=>'true', 'init-model'=>'quemsomo.posicao', 'placeholder' => '']) !!}<br>
 
 
