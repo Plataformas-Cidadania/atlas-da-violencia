@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterQuemsomosPosisaoTable extends Migration
+class AlterQuemsomosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AlterQuemsomosPosisaoTable extends Migration
     public function up()
     {
         Schema::table('quemsomos', function (Blueprint $table) {
-            $table->integer('posicao')->default(0);
+            $table->integer('origem_id')->default(0);
         });
     }
 

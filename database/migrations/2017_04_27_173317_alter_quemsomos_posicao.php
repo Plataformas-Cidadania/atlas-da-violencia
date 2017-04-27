@@ -13,7 +13,7 @@ class AlterQuemsomosPosicao extends Migration
     public function up()
     {
         Schema::table('quemsomos', function (Blueprint $table) {
-            //
+            $table->integer('posicao')->default(0);
         });
     }
 
