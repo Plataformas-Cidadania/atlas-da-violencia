@@ -10,6 +10,45 @@ use Illuminate\Support\Facades\Log;
 
 class SerieController extends Controller
 {
+
+    public function __construct(){
+        $this->indicadores = config('constants.indicadores');
+        $this->abrangencias = config('constants.abrangencias');
+    }
+
+    public function getIndicadoresSeries($serie_id){
+        foreach($this->indicadores as $key => $indicador){
+            //Log::info($indicador);
+            $series = \App\Serie::where([
+                ['serie_id', $serie_id],
+                ['indicador', $indicador['id']]
+            ])
+            ->get();
+
+            if(count($series) > 0){
+                $this->indicadores[$key]['enable'] = true;
+            }
+        }
+        return $this->indicadores;
+    }
+
+    public function getAbrangenciasSeries($serie_id){
+        foreach($this->abrangencias as $key => $abrangencia){
+            //Log::info($indicador);
+            $series = \App\Serie::where([
+                ['serie_id', $serie_id],
+                ['abrangencia', $abrangencia['id']]
+            ])
+            ->get();
+
+            if(count($series) > 0){
+                $this->abrangencias[$key]['enable'] = true;
+            }
+        }
+        return $this->abrangencias;
+    }
+
+
     public function listar(){
         //$pages = DB::table('pages')->paginate(10);
        

@@ -80,6 +80,7 @@ class PgFiltros extends React.Component {
         let abrangencia = null;
         if (this.state.indicador > 0) {
             abrangencia = React.createElement(Abrangencia, {
+                serie_id: this.props.serie_id,
                 setAbrangencia: this.setAbrangencia,
                 setRegions: this.setRegions
             });
@@ -106,6 +107,7 @@ class PgFiltros extends React.Component {
             ),
             React.createElement('br', null),
             React.createElement(Indicadores, {
+                serie_id: this.props.serie_id,
                 setIndicador: this.setIndicador
             }),
             React.createElement('br', null),

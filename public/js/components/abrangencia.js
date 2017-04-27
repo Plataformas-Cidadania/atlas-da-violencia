@@ -9,20 +9,52 @@ class Abrangencia extends React.Component {
         };
 
         this.check = this.check.bind(this);
+        this.loadData = this.loadData.bind(this);
         this.selected = this.selected.bind(this);
         this.setRegions = this.setRegions.bind(this);
     }
 
+    componentDidMount() {
+        this.loadData();
+    }
+
     check(id) {
         let options = this.state.options;
+        let ok = true;
         options.find(function (item) {
-            item.on = false;
-            item.on = item.id === id;
+            //se o item clicado não estiver habilidado o ok será false para não alterar nada.
+            if (item.id === id && !item.enable) {
+                ok = false;
+            }
         });
 
-        this.props.setAbrangencia(id);
+        if (ok) {
+            options.find(function (item) {
+                //se o item clicado não estiver habilidado o ok será false para não alterar nada.
+                item.on = false;
+                item.on = item.id === id;
+            });
 
-        this.setState({ options: options }, function () {});
+            this.props.setAbrangencia(id);
+            this.setState({ options: options });
+        }
+    }
+
+    loadData() {
+        //this.setState({loading: true});
+        //console.log(this.state);
+        $.ajax({
+            method: 'GET',
+            url: 'get-abrangencias-series/' + this.props.serie_id,
+            cache: false,
+            success: function (data) {
+                console.log('abrangencias', data);
+                this.setState({ options: data });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.log('erro', err);
+            }.bind(this)
+        });
     }
 
     selected() {
@@ -45,7 +77,7 @@ class Abrangencia extends React.Component {
         let options = this.state.options.map(function (item) {
             return React.createElement(
                 'div',
-                { key: item.id, style: { float: 'left', marginRight: '20px', cursor: 'pointer' }, onClick: () => this.check(item.id) },
+                { key: item.id, style: { float: 'left', marginRight: '20px', cursor: 'pointer', color: item.enable ? '' : '#ccc' }, onClick: () => this.check(item.id) },
                 React.createElement(
                     'div',
                     { style: { display: item.on ? 'block' : 'none' } },

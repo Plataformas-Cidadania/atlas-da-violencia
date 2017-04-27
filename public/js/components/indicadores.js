@@ -2,22 +2,55 @@ class Indicadores extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            indicadores: [{ id: 1, title: 'Quantidade', on: false }, { id: 2, title: 'Taxa por 100 mil Habitantes', on: false }]
+            indicadores: [{ id: 1, title: 'Quantidade', on: false, enable: true }, { id: 2, title: 'Taxa por 100 mil Habitantes', on: false, enable: true }]
         };
 
         this.check = this.check.bind(this);
+        this.loadData = this.loadData.bind(this);
+    }
+
+    componentDidMount() {
+        this.loadData();
     }
 
     check(id) {
+
         let indicadores = this.state.indicadores;
+        let ok = true;
         indicadores.find(function (item) {
-            item.on = false;
-            item.on = item.id === id;
+            //se o item clicado não estiver habilidado o ok será false para não alterar nada.
+            if (item.id === id && !item.enable) {
+                ok = false;
+            }
         });
 
-        this.props.setIndicador(id);
+        if (ok) {
+            indicadores.find(function (item) {
+                //se o item clicado não estiver habilidado o ok será false para não alterar nada.
+                item.on = false;
+                item.on = item.id === id;
+            });
 
-        this.setState({ indicadores: indicadores });
+            this.props.setIndicador(id);
+            this.setState({ indicadores: indicadores });
+        }
+    }
+
+    loadData() {
+        //this.setState({loading: true});
+        //console.log(this.state);
+        $.ajax({
+            method: 'GET',
+            url: 'get-indicadores-series/' + this.props.serie_id,
+            cache: false,
+            success: function (data) {
+                //console.log('indicadores', data);
+                this.setState({ indicadores: data });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.log('erro', err);
+            }.bind(this)
+        });
     }
 
     render() {
@@ -25,7 +58,7 @@ class Indicadores extends React.Component {
         let indicadores = this.state.indicadores.map(function (item) {
             return React.createElement(
                 'div',
-                { key: item.id, style: { float: 'left', marginRight: '20px', cursor: 'pointer' }, onClick: () => this.check(item.id) },
+                { key: item.id, style: { float: 'left', marginRight: '20px', cursor: 'pointer', color: item.enable ? '' : '#ccc' }, onClick: () => this.check(item.id) },
                 React.createElement(
                     'div',
                     { style: { display: item.on ? 'block' : 'none' } },

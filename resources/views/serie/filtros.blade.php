@@ -37,7 +37,6 @@
         }
 
     </style>
-
     <div class="container">
         <script>
             serie_id = "{{$id}}";

@@ -83,6 +83,7 @@ class PgFiltros extends React.Component{
         if(this.state.indicador > 0){
             abrangencia = (
                 <Abrangencia
+                    serie_id={this.props.serie_id}
                     setAbrangencia={this.setAbrangencia}
                     setRegions={this.setRegions}
                 />
@@ -107,6 +108,7 @@ class PgFiltros extends React.Component{
                 <br/>
 
                 <Indicadores
+                    serie_id={this.props.serie_id}
                     setIndicador={this.setIndicador}
                 />
                 <br/>

@@ -77,6 +77,10 @@ Route::get('periodos/{id}', 'MapController@periodos');
 
 Route::get('home-chart/{id}', 'SerieController@homeChart');
 
+//Component Indicadores na pg filtros
+Route::get('get-indicadores-series/{serie_id}', 'SerieController@getIndicadoresSeries');
+//Component Abrangencia na pg filtros
+Route::get('get-abrangencias-series/{serie_id}', 'SerieController@getAbrangenciasSeries');
 
 //Component SeriesList na pg filtros
 Route::post('listar-series-relacionadas/', 'SerieController@listarSeriesRelacionadas');
