@@ -30,8 +30,19 @@
                 {!! Form::label('abrangencia', 'Abrangência *') !!}<br>
                 {!! Form::select('abrangencia',
                         $abrangencias,
-                null, ['class'=>"form-control width-medio <% validar(serie.abrangencia) %>", 'ng-model'=>'serie.abrangencia', 'ng-required'=>'true', 'init-model'=>'serie.abrangencia', 'placeholder' => 'Selecione']) !!}<br>
+                null, [
+                    'class'=>"form-control width-medio <% validar(serie.abrangencia) %>",
+                    'ng-model'=>'serie.abrangencia',
+                    'ng-required'=>'true',
+                    'init-model'=>'serie.abrangencia',
+                    'placeholder' => 'Selecione'
+                ]) !!}<br>
 
+
+
+                <label for="periodo"></label>
+                <input type="text" name="periodo" class="form-control width-pequeno" ng-model="serie.periodo">
+                <br>
 
                 <input type="hidden" name="id" ng-model="id" ng-init="id='{{$serie->id}}'"/>
                 <div class="row">

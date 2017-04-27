@@ -214,9 +214,14 @@ class SerieController extends Controller
             $data['serie']['arquivo'] = $filenameArquivo;
         }
 
+        ini_set('max_execution_time', 180);
+
+
+
+
         $excel = Excel::load(public_path()."/import/$filenameArquivo", function($reader) {})->get();
 
-        $serie = \App\Serie::select('abrangencia')->where('id', $data['id'])->first();
+        $serie = \App\Serie::select('abrangencia', 'indicador')->where('id', $data['id'])->first();
 
         if($data['serie']['abrangencia']==1 || $data['serie']['abrangencia']==2 || $data['serie']['abrangencia']==3){
             $this->importarPaisUfRegiao($excel, $data['id'], $serie->abrangencia);
@@ -224,19 +229,20 @@ class SerieController extends Controller
         }
 
         if($data['serie']['abrangencia']==4){
-            $this->importarMunicipios($excel, $data['id'], $serie->abrangencia);
+            $this->importarMunicipios($excel, $data['id'], $serie->abrangencia, $serie->indicador, $data['serie']['periodo']);
             return;
         }
 
     }
 
-    private function importarMunicipios($excel, $serie_id, $abrangencia){
-        Log::info('abrangencia: '.$abrangencia);
+    private function importarMunicipios($excel, $serie_id, $abrangencia, $indicador, $periodo){
+        //Log::info('abrangencia: '.$abrangencia);
         $registros = [];
         $uf = '';
         $municipio = '';
         $bairro = '';
         $cms_user_id = auth()->guard('cms')->user()->id;
+        $tipo_regiao = $abrangencia;
 
         $tabelas = $this->getTabelas();
 
@@ -247,7 +253,63 @@ class SerieController extends Controller
             4 => 'micro-regiao',
         ];
 
+        $indicadores = [
+            '1' => 'Quantidade',
+            '2' => 'Taxa por 100 mil Habitantes',
+            '3' => 'Proporção'
+        ];
+
         $coluna_edterritorios = 'edterritorios_nome';
+
+        $cont = 0;
+        foreach($excel as $row){
+            Log::info($row);
+            Log::info('indicador: '.$indicador);
+            //Log::info($row->codmun.": ".$this->calcula_dv_municipio($row->codmun));
+
+            $cod = $row->codmun.$this->calcula_dv_municipio($row->codmun);
+
+            $valor = 0;
+            if($indicador==1){
+                $valor = $row->homicidios;
+            }
+            if($indicador==2){
+                $valor = $row->txhomicidio;
+            }
+
+            $reg =[
+                'valor' => $valor,
+                'periodo' => $periodo,
+                'uf' => $uf,
+                'tipo_regiao' => $tipo_regiao,
+                'regiao_id' => $cod,
+                'municipio' => $municipio,
+                'bairro' => $bairro,
+                'serie_id' => $serie_id,
+                'cmsuser_id' => $cms_user_id
+            ];
+
+            Log::info($reg['periodo'].' / '.$reg['valor']);
+
+            $registro = \App\ValorSerie::create($reg);
+
+        }
+
+    }
+
+    private function calcula_dv_municipio($codigo_municipio){
+        $peso = "1212120";
+        //echo substr($peso,0,1);
+        $soma = 0;
+        for($i = 0; $i < 7; $i++){ $valor = substr($codigo_municipio,$i,1) * substr($peso,$i,1); if($valor>9)
+            $soma = $soma + substr($valor,0,1) + substr($valor,1,1);
+        else
+            $soma = $soma + $valor;
+        }
+        $dv = (10 - ($soma % 10));
+        if(($soma % 10)==0)
+            $dv = 0;
+        return $dv;
     }
 
     private function importarPaisUfRegiao($excel, $serie_id, $abrangencia){
