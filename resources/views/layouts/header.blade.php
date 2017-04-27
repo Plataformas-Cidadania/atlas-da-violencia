@@ -117,7 +117,7 @@
 
                     <img ng-src='img/video.png' ng-show="!showVideo" ng-click="showVideo=true" style="cursor:pointer;">
                     <video width="100%" controls ng-if="showVideo" autoplay>
-                        <source src="videos/institucional.mp4" type="video/mp4">
+                        <source src="filevideos/institucional.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
