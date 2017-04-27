@@ -23,10 +23,7 @@ class SerieController extends Controller
                 $query->where('id', $serie_id)
                     ->orWhere('serie_id', $serie_id);
             })
-            ->where([
-                ['serie_id', $serie_id],
-                ['indicador', $indicador['id']]
-            ])
+            ->where('indicador', $indicador['id'])
             ->get();
 
             if(count($series) > 0){
@@ -43,10 +40,7 @@ class SerieController extends Controller
                 $query->where('id', $serie_id)
                     ->orWhere('serie_id', $serie_id);
             })
-            ->where([
-                ['serie_id', $serie_id],
-                ['abrangencia', $abrangencia['id']]
-            ])
+            ->where('abrangencia', $abrangencia['id'])
             ->get();
 
             if(count($series) > 0){
