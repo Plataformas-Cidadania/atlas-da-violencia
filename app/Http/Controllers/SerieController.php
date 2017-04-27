@@ -19,7 +19,11 @@ class SerieController extends Controller
     public function getIndicadoresSeries($serie_id){
         foreach($this->indicadores as $key => $indicador){
             //Log::info($indicador);
-            $series = \App\Serie::where([
+            $series = \App\Serie::where(function ($query) use ($serie_id) {
+                $query->where('id', $serie_id)
+                    ->orWhere('serie_id', $serie_id);
+            })
+            ->where([
                 ['serie_id', $serie_id],
                 ['indicador', $indicador['id']]
             ])
@@ -35,7 +39,11 @@ class SerieController extends Controller
     public function getAbrangenciasSeries($serie_id){
         foreach($this->abrangencias as $key => $abrangencia){
             //Log::info($indicador);
-            $series = \App\Serie::where([
+            $series = \App\Serie::where(function ($query) use ($serie_id) {
+                $query->where('id', $serie_id)
+                    ->orWhere('serie_id', $serie_id);
+            })
+            ->where([
                 ['serie_id', $serie_id],
                 ['abrangencia', $abrangencia['id']]
             ])
