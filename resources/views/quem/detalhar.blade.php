@@ -11,12 +11,14 @@
 
             <ul class="menu-vertical">
             @foreach($menus as $menu)
-                <li role="presentation"><a href="quem/{{$menu->id}}/{{clean($menu->titulo)}}" accesskey="q" {{--@if($rota=='quem/'.$menu->id.'/'.clean($menu->titulo)) class="corrente" @endif--}} style="clear: both;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{$menu->titulo}}</a></li>
+                <li role="presentation"><a href="quem/{{$menu->id}}/{{clean($menu->titulo)}}" accesskey="q"@if($menu->id==$id) class="corrente" @endif style="clear: both;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{$menu->titulo}}</a></li>
             @endforeach
+                {{--@if($menu->id==$id) class="corrente" @endif--}}
+
             </ul>
 
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 ">
                 @if(!empty($quem->imagem))
                     <picture>
                         <source srcset="/imagens/quemsomos/sm-{{$quem->imagem}}" media="(max-width: 468px)">

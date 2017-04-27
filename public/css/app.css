@@ -752,8 +752,8 @@ footer {
   border-radius: 0 0 5px 5px;
 }
 .nav > li a:hover {
-  color: #FFFFFF;
-  background-color: #3498DB;
+  color: #FFFFFF!important;
+  background-color: #3498DB !important;
 }
 .nav > li a.corrente {
   color: #FFFFFF;
@@ -816,6 +816,10 @@ footer {
   right: auto;
   background-image: none!important;
   filter: none!important;
+}
+.corrente {
+  color: #FFFFFF!important;
+  background-color: #3498DB !important;
 }
 @media only screen and (max-width: 768px) {
   .navbar {
