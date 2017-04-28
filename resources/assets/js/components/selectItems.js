@@ -374,14 +374,14 @@ class SelectItems extends React.Component{
                 <br/>*/}
                 <div className="row">
                     {message}
-                    <div className={this.state.option.listAll ? "col-sm-12 col-md-12" : "col-sm-8 col-md-8"}>
-                        <input type="text" className="form-control" placeholder="Pesquisa" onChange={this.handleChange}/>
-                    </div>
                     <div className="col-sm-4 col-md-4" style={{display: this.state.option.listAll ? "none" : "block"}}>
                         <select className="form-control" onChange={this.selectFilter}>
                             <option key="0" value="0">Estados</option>
                             {filter}
                         </select>
+                    </div>
+                    <div className={this.state.option.listAll ? "col-sm-12 col-md-12" : "col-sm-8 col-md-8"}>
+                        <input type="text" className="form-control" placeholder="Pesquisa" onChange={this.handleChange}/>
                     </div>
                 </div>
 

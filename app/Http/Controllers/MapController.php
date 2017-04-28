@@ -81,7 +81,7 @@ class MapController extends Controller
         return $areas;
     }
 
-    function valoresRegiaoUltimoPeriodoGeometry($id, $periodo, $regions, $territorio){
+    function valoresRegiaoPeriodoGeometry($id, $periodo, $regions, $territorio){
 
         //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
 
@@ -103,13 +103,18 @@ class MapController extends Controller
             ['valores_series.periodo', $periodo]
         ];
 
+        $select_sigla = "$tabelas[$territorio].edterritorios_sigla";
+        if($territorio == 4){
+            $select_sigla = "$tabelas[$territorio].edterritorios_nome";
+        }
+
         $valores = DB::table('valores_series')
             ->select(
                 DB::raw(
                     "
                     ST_AsGeoJSON($tabelas[$territorio].edterritorios_geometry) as geometry, 
                     sum(valores_series.valor) as total, 
-                    $tabelas[$territorio].edterritorios_sigla as sigla,
+                    $select_sigla as sigla,
                     $tabelas[$territorio].edterritorios_nome as nome, 
                     ST_X($tabelas[$territorio].edterritorios_centroide) as x, 
                     ST_Y($tabelas[$territorio].edterritorios_centroide) as y
@@ -117,6 +122,8 @@ class MapController extends Controller
                 ))
             ->join("$tabelas[$territorio]", 'valores_series.regiao_id', '=', "$tabelas[$territorio].edterritorios_codigo")
             ->where($where)
+            ->whereYear("$tabelas[$territorio].edterritorios_data_inicial", '<=', $periodo)
+            ->whereYear("$tabelas[$territorio].edterritorios_data_final", '>=', $periodo)
             ->whereIn("$tabelas[$territorio].edterritorios_codigo", $regions)
             ->groupBy("$tabelas[$territorio].edterritorios_sigla", "$tabelas[$territorio].edterritorios_nome", "$tabelas[$territorio].edterritorios_geometry", "$tabelas[$territorio].edterritorios_centroide")
             ->orderBy('total')
@@ -147,7 +154,7 @@ class MapController extends Controller
 
 
 
-    function valoresRegiaoPorPeriodo($id, $tipoValores, $min, $max){
+    /*function valoresRegiaoPorPeriodo($id, $tipoValores, $min, $max){
 
         //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
         if($tipoValores==2){
@@ -180,7 +187,7 @@ class MapController extends Controller
 
 
         return $valores;
-    }
+    }*/
 
 
 

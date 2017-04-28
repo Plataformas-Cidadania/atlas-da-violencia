@@ -53,6 +53,12 @@ class ListValoresSeries extends React.Component {
 
             contColor++;
 
+            //para que no municipio não aparece repetido o nome
+            let sigla = null;
+            if (item.sigla !== item.nome) {
+                sigla = item.sigla + ' - ';
+            }
+
             return React.createElement(
                 "tr",
                 { key: index },
@@ -68,8 +74,7 @@ class ListValoresSeries extends React.Component {
                 React.createElement(
                     "th",
                     null,
-                    item.sigla,
-                    " - ",
+                    sigla,
                     item.nome
                 ),
                 React.createElement(

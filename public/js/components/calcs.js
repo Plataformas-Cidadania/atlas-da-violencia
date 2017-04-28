@@ -131,6 +131,17 @@ class Calcs extends React.Component {
     }
 
     render() {
+
+        //para que no municipio não aparece repetido o nome
+        let siglaMin = null;
+        if (this.state.minValue.sigla !== this.state.minValue.nome) {
+            siglaMin = this.state.minValue.sigla + ' - ';
+        }
+        let siglaMax = null;
+        if (this.state.maxValue.sigla !== this.state.maxValue.nome) {
+            siglaMax = this.state.maxValue.sigla + ' - ';
+        }
+
         return React.createElement(
             'div',
             null,
@@ -194,8 +205,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'p',
                         null,
-                        this.state.minValue.sigla,
-                        ' - ',
+                        siglaMin,
                         this.state.minValue.nome
                     )
                 ),
@@ -220,8 +230,7 @@ class Calcs extends React.Component {
                     React.createElement(
                         'p',
                         null,
-                        this.state.maxValue.sigla,
-                        ' - ',
+                        siglaMax,
                         this.state.maxValue.nome
                     )
                 ),

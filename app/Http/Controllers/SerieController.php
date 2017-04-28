@@ -149,8 +149,13 @@ class SerieController extends Controller
             6 => 'spat.ed_territorios_mesoregioes'
         ];
 
+        $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
+        if($abrangencia == 4){
+            $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
+        }
+
         $valoresMin = DB::table('valores_series')
-            ->select(DB::raw("valores_series.valor as valor, $tabelas[$abrangencia].edterritorios_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
+            ->select(DB::raw("valores_series.valor as valor, $select_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
             ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
             ->where([
                 ['valores_series.serie_id', $id],
@@ -161,7 +166,7 @@ class SerieController extends Controller
             ->get();
 
         $valoresMax = DB::table('valores_series')
-            ->select(DB::raw("valores_series.valor as valor, $tabelas[$abrangencia].edterritorios_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
+            ->select(DB::raw("valores_series.valor as valor, $select_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
             ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
             ->where([
                 ['valores_series.serie_id', $id],
@@ -217,8 +222,13 @@ class SerieController extends Controller
             6 => 'spat.ed_territorios_mesoregioes'
         ];
 
+        $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
+        if($abrangencia == 4){
+            $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
+        }
+
         $rows = DB::table('valores_series')
-            ->select(DB::raw("$tabelas[$abrangencia].edterritorios_sigla as sigla, valores_series.valor, valores_series.periodo"))
+            ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
             ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
             ->where([
                 ['valores_series.serie_id', $id],

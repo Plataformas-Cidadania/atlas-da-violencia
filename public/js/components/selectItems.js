@@ -373,11 +373,6 @@ class SelectItems extends React.Component {
                 message,
                 React.createElement(
                     'div',
-                    { className: this.state.option.listAll ? "col-sm-12 col-md-12" : "col-sm-8 col-md-8" },
-                    React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Pesquisa', onChange: this.handleChange })
-                ),
-                React.createElement(
-                    'div',
                     { className: 'col-sm-4 col-md-4', style: { display: this.state.option.listAll ? "none" : "block" } },
                     React.createElement(
                         'select',
@@ -389,6 +384,11 @@ class SelectItems extends React.Component {
                         ),
                         filter
                     )
+                ),
+                React.createElement(
+                    'div',
+                    { className: this.state.option.listAll ? "col-sm-12 col-md-12" : "col-sm-8 col-md-8" },
+                    React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Pesquisa', onChange: this.handleChange })
                 )
             ),
             React.createElement(

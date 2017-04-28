@@ -51,10 +51,16 @@ class ListValoresSeries extends React.Component{
 
             contColor++;
 
+            //para que no municipio não aparece repetido o nome
+            let sigla = null;
+            if(item.sigla!==item.nome){
+               sigla = item.sigla+' - '
+            }
+
             return (
                 <tr key={index}>
                     <th width="10px"><i className="fa fa-square" style={{color: color}}> </i></th>
-                    <th>{item.sigla} - {item.nome}</th>
+                    <th>{sigla}{item.nome}</th>
                     <td className="text-right">{formatNumber(item.valor, this.props.decimais, ',', '.')}</td>
                 </tr>
             );

@@ -132,6 +132,17 @@ class Calcs extends React.Component{
     }
 
     render(){
+
+        //para que no municipio não aparece repetido o nome
+        let siglaMin = null;
+        if(this.state.minValue.sigla!==this.state.minValue.nome){
+            siglaMin = this.state.minValue.sigla+' - '
+        }
+        let siglaMax = null;
+        if(this.state.maxValue.sigla!==this.state.maxValue.nome){
+            siglaMax = this.state.maxValue.sigla+' - '
+        }
+
         return(
             <div>
                 <div className="row">
@@ -167,7 +178,7 @@ class Calcs extends React.Component{
                         </div>
                         <br/>
                         <h4 className="" >{formatNumber(this.state.minValue.valor, this.props.decimais, ',', '.')}</h4>
-                        <p>{this.state.minValue.sigla} - {this.state.minValue.nome}</p>
+                        <p>{siglaMin}{this.state.minValue.nome}</p>
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
@@ -175,7 +186,7 @@ class Calcs extends React.Component{
                         </div>
                         <br/>
                         <h4 className="" >{formatNumber(this.state.maxValue.valor, this.props.decimais, ',', '.')}</h4>
-                        <p>{this.state.maxValue.sigla} - {this.state.maxValue.nome}</p>
+                        <p>{siglaMax}{this.state.maxValue.nome}</p>
                     </div>
                     <div className="col-md-2">
                         <div className="icons-list-140-150 icon-list-140-150-1">
