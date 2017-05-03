@@ -6,6 +6,7 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
     $scope.removerArquivo = 0;
 
     $scope.importar = function (arquivo){
+        $scope.processandoSalvar = true;
         var data1 = {
             id: $scope.id,
             serie: $scope.serie,
@@ -14,8 +15,6 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
         if(arquivo!=null){
             data1.arquivo = arquivo;
         }
-
-
 
         Upload.upload({
             url: 'cms/importar-serie',
