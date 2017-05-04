@@ -216,26 +216,53 @@ class SerieController extends Controller
 
         ini_set('max_execution_time', 360);
 
-
-
-
-        $excel = Excel::load(public_path()."/import/$filenameArquivo", function($reader) {})->get();
-
         $serie = \App\Serie::select('abrangencia', 'indicador')->where('id', $data['id'])->first();
 
         if($data['serie']['abrangencia']==1 || $data['serie']['abrangencia']==2 || $data['serie']['abrangencia']==3){
+            $excel = Excel::load(public_path()."/import/$filenameArquivo", function($reader) {})->get();
             $this->importarPaisUfRegiao($excel, $data['id'], $serie->abrangencia);
             return;
         }
 
         if($data['serie']['abrangencia']==4){
-            $this->importarMunicipios($excel, $data['id'], $serie->abrangencia, $serie->indicador, $data['serie']['periodo']);
+
+            $csv = [];
+
+            $file = fopen(public_path()."/import/$filenameArquivo", "r");
+
+            $cont = 0;
+            $columns = [];
+            while(!feof($file)){
+                $linha = fgets($file, 4096);
+                $values = explode(';', $linha);
+                if($cont==0){
+                    foreach($values as $key => $value){
+                        $values[$key] = somenteLetrasNumeros(clean($value));
+                    }
+                    $columns = $values;
+                    Log::info($columns);
+                }else{
+                    $row = [];
+                    foreach($values as $key => $value){
+                        $row[$columns[$key]] = $value;
+                    }
+                    array_push($csv, $row);
+                }
+
+                $cont++;
+            }
+
+            //Log::info($csv);
+
+            //return $csv;
+
+            $this->importarMunicipios($csv, $data['id'], $serie->abrangencia, $serie->indicador, $data['serie']['periodo']);
             return;
         }
 
     }
 
-    private function importarMunicipios($excel, $serie_id, $abrangencia, $indicador, $periodo){
+    private function importarMunicipios($csv, $serie_id, $abrangencia, $indicador, $periodo){
         //Log::info('abrangencia: '.$abrangencia);
         $registros = [];
         $uf = '';
@@ -262,19 +289,19 @@ class SerieController extends Controller
         $coluna_edterritorios = 'edterritorios_nome';
 
         $cont = 0;
-        foreach($excel as $row){
+        foreach($csv as $row){
             Log::info($row);
             Log::info('indicador: '.$indicador);
-            //Log::info($row->codmun.": ".$this->calcula_dv_municipio($row->codmun));
+            //Log::info($row['codmun'].": ".$this->calcula_dv_municipio($row['codmun']));
 
-            $cod = $row->codmun.$this->calcula_dv_municipio($row->codmun);
+            $cod = $row['codmun'].$this->calcula_dv_municipio($row['codmun']);
 
             $valor = 0;
             if($indicador==1){
-                $valor = $row->homicidios;
+                $valor = $row['homicidios'];
             }
             if($indicador==2){
-                $valor = $row->txhomicidio;
+                $valor = $row['txhomicidio'];
             }
 
             $reg =[

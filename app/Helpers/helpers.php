@@ -1,4 +1,5 @@
 <?php
+
 if ( ! function_exists('dataEn2Br') ){
     function dataEn2Br($valor, $tipo){
 
@@ -65,19 +66,35 @@ if ( ! function_exists('clean') ) {
     function clean($string) {
 
         $string = str_replace(' ', '-', $string); // troca espaços por hífens.
-        
+
         $string = strtolower($string);
 
-        $string = preg_replace("/[áàâãä]/", "a", $string);
-        $string = preg_replace("/[éèê]/", "e", $string);
-        $string = preg_replace("/[íì]/", "i", $string);
-        $string = preg_replace("/[óòôõö]/", "o", $string);
-        $string = preg_replace("/[úùü]/", "u", $string);
-        $string = preg_replace("/[ç]/", "c", $string);
+
+        $string = preg_replace("/[áàâãä]/u", "a", $string);// a flag "u" serve para resolver problemas de enconding
+        $string = preg_replace("/[éèê]/u", "e", $string);
+        $string = preg_replace("/[íì]/u", "i", $string);
+        $string = preg_replace("/[óòôõö]/u", "o", $string);
+        $string = preg_replace("/[úùü]/u", "u", $string);
+        $string = preg_replace("/[ç]/u", "c", $string);
         
         $string = preg_replace('/[^A-Za-z0-9\-.]/', '', $string); // remove caracteres especiais.
 
-        return preg_replace('/-+/', '-', $string); // trocas multiplos hífens por apenas um.
+        $string = preg_replace('/-+/', '-', $string); // trocas multiplos hífens por apenas um.
+
+        //\Illuminate\Support\Facades\Log::info($string);
+
+        return $string;
+    }
+}
+
+if ( ! function_exists('somenteLetrasNumeros') ) {
+    function somenteLetrasNumeros($string) {
+
+        $string = preg_replace('/[^A-Za-z0-9]/', '', $string); // remove caracteres especiais.
+
+        //\Illuminate\Support\Facades\Log::info($string);
+
+        return $string;
     }
 }
 
@@ -97,4 +114,5 @@ if ( ! function_exists('codigoYoutube') ) {
         return $codigo_youtube;
     }
 }
+
 
