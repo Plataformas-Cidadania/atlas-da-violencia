@@ -290,6 +290,9 @@ class SerieController extends Controller
 
         $cont = 0;
         foreach($csv as $row){
+            if($row['codmun']==''){
+                break;
+            }
             Log::info($row);
             Log::info('indicador: '.$indicador);
             //Log::info($row['codmun'].": ".$this->calcula_dv_municipio($row['codmun']));
