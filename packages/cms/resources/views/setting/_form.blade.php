@@ -64,3 +64,25 @@
 {!! Form::label('twitter', 'Twitter') !!}<br>
 {!! Form::text('twitter', null, ['class'=>"form-control width-grande <% validar(setting.twitter) %>", 'ng-model'=>'setting.twitter', 'ng-required'=>'true', 'init-model'=>'setting.twitter']) !!}<br>
 
+<div class="row">
+    <div class="col-md-1">
+        {!! Form::label('cor1', 'Cor 1') !!}<br>
+        {!! Form::color('cor1', null, ['class'=>"form-control width-grande <% validar(setting.cor1) %>", 'ng-model'=>'setting.cor1', 'ng-required'=>'true', 'init-model'=>'setting.cor1']) !!}<br>
+    </div>
+    <div class="col-md-1">
+        {!! Form::label('cor2', 'Cor 2') !!}<br>
+        {!! Form::color('cor2', null, ['class'=>"form-control width-grande <% validar(setting.cor2) %>", 'ng-model'=>'setting.cor2', 'ng-required'=>'true', 'init-model'=>'setting.cor2']) !!}<br>
+    </div>
+    <div class="col-md-1">
+        {!! Form::label('cor3', 'Cor 3') !!}<br>
+        {!! Form::color('cor3', null, ['class'=>"form-control width-grande <% validar(setting.cor3) %>", 'ng-model'=>'setting.cor3', 'ng-required'=>'true', 'init-model'=>'setting.cor3']) !!}<br>
+    </div>
+    <div class="col-md-1">
+        {!! Form::label('cor4', 'Cor 4') !!}<br>
+        {!! Form::color('cor4', null, ['class'=>"form-control width-grande <% validar(setting.cor4) %>", 'ng-model'=>'setting.cor4', 'ng-required'=>'true', 'init-model'=>'setting.cor4']) !!}<br>
+    </div>
+    <div class="col-md-1">
+        {!! Form::label('cor5', 'Cor 5') !!}<br>
+        {!! Form::color('cor5', null, ['class'=>"form-control width-grande <% validar(setting.cor5) %>", 'ng-model'=>'setting.cor5', 'ng-required'=>'true', 'init-model'=>'setting.cor5']) !!}<br>
+    </div>
+</div>

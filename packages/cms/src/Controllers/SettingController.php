@@ -18,7 +18,7 @@ class SettingController extends Controller
         $this->setting = new \App\Setting;
         $this->campos = [
             'imagem', 'email', 'titulo', 'rodape', 'cep', 'endereco', 'numero', 'complemento', 'bairro', 'cidade', 'estado',
-            'descricao_contato', 'telefone', 'telefone2', 'telefone3', 'facebook', 'youtube', 'pinterest', 'twitter',
+            'descricao_contato', 'telefone', 'telefone2', 'telefone3', 'facebook', 'youtube', 'pinterest', 'twitter', 'cor1', 'cor2', 'cor3', 'cor4', 'cor5',
         ];
         $this->pathImagem = public_path().'/imagens/settings';
         $this->sizesImagem = [
