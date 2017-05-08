@@ -14,6 +14,7 @@ class AlterQuemsomosTable extends Migration
     {
         Schema::table('quemsomos', function (Blueprint $table) {
             $table->integer('origem_id')->default(0);
+            $table->integer('posicao')->default(0);
         });
     }
 
