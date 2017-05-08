@@ -2,19 +2,8 @@
 <?php
     use Illuminate\Support\Facades\DB;
 
-   /* $lang =  \Illuminate\Support\Facades\App::getLocale();*/
-
     $setting = DB::table('settings')->orderBy('id', 'desc')->first();
     $idiomas = DB::table('idiomas')->orderBy('id')->get();
-    /*$menusQuem = DB::table('quemsomos')
-
-        ->where([
-            ['idioma_sigla', $lang],
-            ['tipo', 1],
-            ['origem_id', 0],
-        ])
-        ->take(1)
-        ->get();*/
 
     $base_href = $_SERVER['HTTP_HOST'];
     if(substr($base_href, 0,9)=='evbsb1052'){
@@ -30,6 +19,99 @@
         <base href="http://{{$base_href}}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @include('conexoes.css')
+
+        <style>
+            /*Bootstrap.less*/
+            .nav > li a:hover{
+                background-color: {{$setting->cor1}} !important;
+            }
+            .nav > li a.corrente{
+                background-color:{{$setting->cor1}} !important;
+            }
+            .corrente{
+                background-color: {{$setting->cor1}} !important;
+            }
+            /*theme.less*/
+            .list{
+                background-color: {{$setting->cor3}} !important;
+            }
+            .box-itens:hover .btn-rectangle{
+                background-color: {{$setting->cor1}} !important;
+            }
+            .h3-m{
+                color: {{$setting->cor1}} !important;
+            }
+            /*style.less*/
+            .bg-pri{
+                background-color: {{$setting->cor1}} !important;
+            }
+            .bg-sec{
+                background-color: {{$setting->cor2}} !important;
+            }
+            .bg-ter{
+                background-color: {{$setting->cor3}} !important;
+            }
+            .bg-qua{
+                background-color: {{$setting->cor4}} !important;
+            }
+            .bg-qui{
+                background-color: {{$setting->cor5}} !important;
+            }
+            .ft-pri{
+                color: {{$setting->cor1}} !important;
+            }
+            .ft-sec{
+                color: {{$setting->cor2}} !important;
+            }
+            .ft-ter{
+                color: {{$setting->cor3}} !important;
+            }
+            .ft-qua{
+                color: {{$setting->cor4}} !important;
+            }
+            .ft-qui{
+                color: {{$setting->cor5}} !important;
+            }
+
+            /*Menus.less*/
+            .menu-local ul li a:hover {
+                background-color: {{$setting->cor5}} !important;
+            }
+            .menu-global-box{
+                border-top: solid 5px {{$setting->cor1}} !important;
+            }
+            .menu-global-box li a:hover{
+                background-color: {{$setting->cor1}} !important;
+            }
+            .menu-vertical li a:hover{
+                background-color: {{$setting->cor1}} !important;
+            }
+            /*btns.less*/
+            .btn-circle{
+                background-color: {{$setting->cor3}} !important;
+            }
+            .btn-circle:hover {
+                background-color: {{$setting->cor1}} !important;
+            }
+
+            .btn-rectangle{
+                background-color: {{$setting->cor3}} !important;
+            }
+            .btn-rectangle:hover {
+                background-color: {{$setting->cor1}} !important;
+            }
+            .btn-sec {
+                background-color: {{$setting->cor1}} !important;
+            }
+            .btn-sec:hover {
+                background-color: {{$setting->cor1}} !important;
+            }
+            #footer-brasil {
+                background: none repeat scroll 0% 0% {{$setting->cor1}} !important;;
+            }
+
+
+        </style>
 
     </head>
     <body ng-app="ipeaApp"  ng-controller="appCtrl" ng-class="{'alto-contraste': altoContrasteAtivo}">
