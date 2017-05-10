@@ -254,7 +254,7 @@ class SerieController extends Controller
                 $cont++;
             }
 
-            //Log::info($csv);
+            Log::info($csv);
 
             //return $csv;
 

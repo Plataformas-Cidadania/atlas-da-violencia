@@ -8,7 +8,8 @@ class Map extends React.Component{
             periodo: 0,
             legend: [],
             indexLegend: 1,
-            lastIndexLegend: 0
+            lastIndexLegend: 0,
+            carregado: false
         };
         this.loadData = this.loadData.bind(this);
         this.loadMap = this.loadMap.bind(this);
@@ -23,9 +24,9 @@ class Map extends React.Component{
         this.setState({mymap: L.map(this.props.mapId).setView([-14, -52], 4)}, function(){
             let tileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJwYXNzb3MiLCJhIjoiY2l4N3l0bXF0MDFiczJ6cnNwODN3cHJidiJ9.qnfh8Jfn_be6gpo774j_nQ', {
                 maxZoom: 18,
-                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                attribution: '<div class="print-off" style="float:right;">&nbsp;Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
                 '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                'Imagery © <a href="http://mapbox.com">Mapbox</a></div>',
                 /*id: 'mapbox.streets'*/
                 id: 'mapbox.streets'
             }).addTo(this.state.mymap);
@@ -77,7 +78,7 @@ class Map extends React.Component{
         $.ajax("regiao/"+_this.state.id+"/"+_this.state.periodo+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
             data: {},
             success: function(data){
-               //console.log('map - loadData',data);
+               console.log('map - loadData',data);
                 _this.loadMap(data);
             },
             error: function(data){
@@ -86,7 +87,10 @@ class Map extends React.Component{
         })
     }
 
+
     loadMap(data){
+
+
         //console.log('map', data);
         let _this = this;
         //remove existing map layers
@@ -123,19 +127,23 @@ class Map extends React.Component{
         //console.log('map - intervalos', intervalos);
         this.props.setIntervalos(intervalos);
 
-        this.setState({geojson: L.geoJson(data, {
-            style: function(feature) {
-                return {
-                    fillColor: getColor(feature.properties.total, intervalos),
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.9
-                };
-            },
-            onEachFeature: this.onEachFeature //listeners
-        }).addTo(this.state.mymap)});
+        this.setState(
+            {
+                geojson: L.geoJson(data, {
+                    style: function(feature) {
+                        return {
+                            fillColor: getColor(feature.properties.total, intervalos),
+                            weight: 2,
+                            opacity: 1,
+                            color: 'white',
+                            dashArray: '3',
+                            fillOpacity: 0.9
+                        };
+                    },
+                    onEachFeature: this.onEachFeature //listeners
+                }).addTo(this.state.mymap),
+                area: data.bounding_box_total
+        });
 
         /*let geojson = L.geoJson(data, {
             style: style,
@@ -196,6 +204,72 @@ class Map extends React.Component{
             [51.503, -0.06],
             [51.51, -0.047]
         ]).addTo(this.state.mymap);
+
+        /*var polygon = L.polygon([
+            [51.509, -0.08],
+            [51.503, -0.06],
+            [52.51, -0.047]
+        ]).addTo(this.state.mymap);*/
+
+        let area = data.bounding_box_total;
+
+        console.log('area', area);
+
+        let new_area = [];
+        let count_area = 0;
+
+        area.find(function(item){
+            item.find(function(point){
+                //console.log(point);
+                new_area[count_area] = [];
+                new_area[count_area][0] = point[1];
+                new_area[count_area][1] = point[0];
+                //let marker = L.marker(new_area[count_area]).addTo(this.state.mymap);
+                count_area++;
+            }.bind(this));
+        }.bind(this));
+
+        //let polygonArea = L.polygon(new_area).addTo(this.state.mymap);
+        //let centerPolygon = polygonArea.getCenter();
+        //let center = [centerPolygon.lat, centerPolygon.lng];
+        //console.log('center', center);
+        //let marker = L.marker(center).addTo(this.state.mymap);
+
+        console.log('new_area', new_area);
+        this.state.mymap.fitBounds(new_area);
+
+
+        /*area.find(function(item){
+            item.find(function(it){
+                it.find(function(point){
+                    console.log(point);
+                    new_area[count_area] = [];
+                    new_area[count_area][0] = point[1];
+                    new_area[count_area][1] = point[0];
+                    let marker = L.marker(new_area[count_area]).addTo(this.state.mymap);
+                }.bind(this));
+            }.bind(this));
+        }.bind(this));*/
+
+
+
+
+
+        //let point = [];
+
+        //point[0] = area[0][0][0][1];
+        //point[1] = area[0][0][0][0];
+
+
+
+        //console.log('point', point);
+        //console.log('area', area);
+
+        //let marker = L.marker(point).addTo(this.state.mymap);
+        //let marker2 = L.marker(area[0][0][0]).addTo(this.state.mymap);
+        //let marker3 = L.marker([-14, -52]).addTo(this.state.mymap);
+
+
 
         this.setState({indexLegend: indexLegend, lastIndexLegend: lastIndexLegend, legend: legend});
 

@@ -165,6 +165,27 @@ class PgSerie extends React.Component {
         //utilizado para função de formatação
         let decimais = this.state.unidade == 1 ? 0 : 2;
 
+        let regions = null;
+
+        if (this.state.showRegions && this.props.abrangencia == 3) {
+            regions = React.createElement(
+                "div",
+                { style: { display: this.state.showRegions && this.props.abrangencia == 3 ? 'block' : 'none' } },
+                React.createElement(Topico, { icon: "icon-group-rate", text: "Taxas" }),
+                React.createElement(Regions, {
+                    id: this.state.id,
+                    decimais: decimais,
+                    regions: this.props.regions,
+                    abrangencia: this.props.abrangencia,
+                    min: this.state.min,
+                    max: this.state.max,
+                    data: this.state.valoresRegioesPorPeriodo.max
+                }),
+                React.createElement("br", null),
+                React.createElement("br", null)
+            );
+        }
+
         return React.createElement(
             "div",
             null,
@@ -264,7 +285,7 @@ class PgSerie extends React.Component {
                         { className: "row" },
                         React.createElement(
                             "div",
-                            { className: "col-md-6" },
+                            { className: "col-md-6 col-sm-12" },
                             React.createElement(Map, {
                                 mapId: "map1",
                                 id: this.state.id,
@@ -282,7 +303,7 @@ class PgSerie extends React.Component {
                         ),
                         React.createElement(
                             "div",
-                            { className: "col-md-6" },
+                            { className: "col-md-6 col-sm-12 print-map" },
                             React.createElement(Map, {
                                 mapId: "map2",
                                 id: this.state.id,
@@ -403,22 +424,7 @@ class PgSerie extends React.Component {
                     React.createElement("br", null),
                     React.createElement("br", null)
                 ),
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.showRegions && this.props.abrangencia == 3 ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-rate", text: "Taxas" }),
-                    React.createElement(Regions, {
-                        id: this.state.id,
-                        decimais: decimais,
-                        regions: this.props.regions,
-                        abrangencia: this.props.abrangencia,
-                        min: this.state.min,
-                        max: this.state.max,
-                        data: this.state.valoresRegioesPorPeriodo.max
-                    }),
-                    React.createElement("br", null),
-                    React.createElement("br", null)
-                ),
+                regions,
                 React.createElement(
                     "div",
                     { style: { display: this.state.showTable ? 'block' : 'none' } },

@@ -129,12 +129,30 @@ class MapController extends Controller
             ->orderBy('total')
             ->get();
 
-        Log::info(DB::getQueryLog());
+        $area = DB::table('valores_series')
+            ->select(
+                DB::raw(
+                    "  
+                    ST_AsGeoJSON(ST_ConvexHull(ST_Collect($tabelas[$territorio].edterritorios_bounding_box)))  as bounding_box_total
+                    "
+                ))
+            ->join("$tabelas[$territorio]", 'valores_series.regiao_id', '=', "$tabelas[$territorio].edterritorios_codigo")
+            ->where($where)
+            ->whereYear("$tabelas[$territorio].edterritorios_data_inicial", '<=', $periodo)
+            ->whereYear("$tabelas[$territorio].edterritorios_data_final", '>=', $periodo)
+            ->whereIn("$tabelas[$territorio].edterritorios_codigo", $regions)
 
-        return $this->mountAreas($valores);
+            ->get();
+
+        //Log::info($valores);
+        Log::info($area);
+
+        //Log::info(DB::getQueryLog());
+
+        return $this->mountAreas($valores, $area);
     }
 
-    private function mountAreas($valores){
+    private function mountAreas($valores, $area){
         $areas = [];
         $areas['type'] = 'FeatureCollection';
         $areas['features'] = [];
@@ -147,7 +165,21 @@ class MapController extends Controller
             $areas['features'][$index]['properties']['x'] = $valor->x;
             $areas['features'][$index]['properties']['y'] = $valor->y;
             $areas['features'][$index]['geometry'] = json_decode($valor->geometry);
+
+
+            //$areas['features'][$index]['centro'] = $valor->centro_de_tudo;
         }
+
+        $areas['bounding_box_total'] = [];
+        $areas['bounding_box_total']['type'] = 'FeatureCollection';
+        $areas['bounding_box_total']['features'] = [];
+
+
+        $object_bounding_box_total = json_decode($area[0]->bounding_box_total);
+        $bounding_box_total = $object_bounding_box_total->coordinates;
+        $areas['bounding_box_total'] = $bounding_box_total;
+
+
 
         return $areas;
     }

@@ -228,10 +228,19 @@
             display:none;
         }
 
+        .print-off {
+            display:block;
+        }
+
         @media print{
             .print {
                 display:block;
             }
+            .print-off {
+                display:none;
+            }
+
+
         }
 
     </style>

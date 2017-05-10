@@ -156,6 +156,30 @@ class PgSerie extends React.Component{
         //utilizado para função de formatação
         let decimais = this.state.unidade==1 ? 0 : 2;
 
+        let regions = null;
+
+        if(this.state.showRegions && this.props.abrangencia==3){
+            regions = (
+                <div style={{display: this.state.showRegions && this.props.abrangencia==3 ? 'block' : 'none'}}>
+
+                    <Topico icon="icon-group-rate" text="Taxas"/>
+
+                    <Regions
+                        id={this.state.id}
+                        decimais={decimais}
+                        regions={this.props.regions}
+                        abrangencia={this.props.abrangencia}
+                        min={this.state.min}
+                        max={this.state.max}
+                        data={this.state.valoresRegioesPorPeriodo.max}
+                    />
+                    <br/><br/>
+                </div>
+            );
+        }
+
+
+
         return(
             <div>
                 <div className="text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
@@ -216,7 +240,7 @@ class PgSerie extends React.Component{
                         <Topico icon="icon-group-map" text="Mapa"/>
 
                         <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-6 col-sm-12">
                                 <Map
                                     mapId="map1"
                                     id={this.state.id}
@@ -232,7 +256,7 @@ class PgSerie extends React.Component{
                                      typeRegionSerie={this.props.typeRegionSerie}*/
                                 />
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-6 col-sm-12 print-map">
                                 <Map
                                     mapId="map2"
                                     id={this.state.id}
@@ -330,23 +354,7 @@ class PgSerie extends React.Component{
                         <br/><br/>
                     </div>
 
-                    <div style={{display: this.state.showRegions && this.props.abrangencia==3 ? 'block' : 'none'}}>
-
-                        <Topico icon="icon-group-rate" text="Taxas"/>
-
-                        <Regions
-                            id={this.state.id}
-                            decimais={decimais}
-                            regions={this.props.regions}
-                            abrangencia={this.props.abrangencia}
-                            min={this.state.min}
-                            max={this.state.max}
-                            data={this.state.valoresRegioesPorPeriodo.max}
-                        />
-                        <br/><br/>
-                    </div>
-
-
+                    {regions}
 
                     <div style={{display: this.state.showTable ? 'block' : 'none'}}>
 

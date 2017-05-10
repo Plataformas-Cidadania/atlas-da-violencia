@@ -256,18 +256,17 @@ class FiltroRegions extends React.Component {
 
     render() {
 
-        let
-
         //console.log(this.state.typeSelected);
         //console.log(this.state.regionsSelected);
         //console.log(this.state.regions);
-        regions = this.state.regions.map(function (region, indexRegion) {
 
-            let
+
+        let regions = this.state.regions.map(function (region, indexRegion) {
 
             //console.log('typeRegionSerie', region.typeRegionSerie);
             //console.log('tipoVAlores', this.state.tipoValores);
-            ufs = region.ufs.map(function (item) {
+
+            let ufs = region.ufs.map(function (item) {
 
                 return React.createElement(
                     'li',
