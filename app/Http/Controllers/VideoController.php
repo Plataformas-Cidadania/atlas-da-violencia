@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class VideoController extends Controller
 {
     public function listar(){
-        $videos = DB::table('videos')->paginate(10);
+        $videos = DB::table('videos')->orderBy('posicao', 'desc')->paginate(10);
        
         return view('video.listar', ['videos' => $videos]);
     }
@@ -23,7 +23,7 @@ class VideoController extends Controller
         $busca->descricao = '';
 
         $videos = DB::table('videos')->where([
-            ['titulo', 'like', "%$busca->titulo%"]
+            ['titulo', 'ilike', "%$busca->titulo%"]
         ])->paginate(10);
 
         return view('video.listar', ['videos' => $videos, 'tipos' => $busca]);
