@@ -231,8 +231,41 @@ class PgSerie extends React.Component{
                         />
                         <br/>
 
-
                     </div>
+
+
+
+                    <div style={{borderTop: 'solid 1px #ccc', padding:'10px 0'}} className="text-right">
+
+                        <div style={{float:'right', marginLeft:'5px'}}>
+                            <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
+                                <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                <input type="hidden" name="id" value={this.props.id}/>
+                                <input type="hidden" name="serie" value={this.props.serie}/>
+                                <input type="hidden" name="from" value={this.state.min}/>
+                                <input type="hidden" name="to" value={this.state.max}/>
+                                <input type="hidden" name="regions" value={this.props.regions}/>
+                                <input type="hidden" name="abrangencia" value={this.props.abrangencia}/>
+                                <button className="btn btn-success">Download ({this.state.min} - {this.state.max})</button>
+                            </form>
+                        </div>
+                        <div style={{float:'right', marginLeft:'5px'}}>
+                            <form name="frmDownloadTotal" action="download-dados" target="_blank" method="POST">
+                                <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                <input type="hidden" name="id" value={this.props.id}/>
+                                <input type="hidden" name="serie" value={this.props.serie}/>
+                                <input type="hidden" name="regions" value={this.props.regions}/>
+                                <input type="hidden" name="abrangencia" value={this.props.abrangencia}/>
+                                <button className="btn btn-success">Download Total</button>
+                            </form>
+                        </div>
+                        <div style={{float:'right', marginLeft:'5px', paddingTop:'5px'}}>
+                            Download dos dados em .csv
+                        </div>
+
+                        <div style={{clear:'both'}}/>
+                    </div>
+
 
 
                     <div style={{display: this.state.showMap ? 'block' : 'none'}}>
@@ -244,6 +277,7 @@ class PgSerie extends React.Component{
                                 <Map
                                     mapId="map1"
                                     id={this.state.id}
+                                    serie={this.props.serie}
                                     tipoValores={this.props.tipoValores}
                                     decimais={decimais}
                                     /*min={this.state.min}
@@ -260,6 +294,7 @@ class PgSerie extends React.Component{
                                 <Map
                                     mapId="map2"
                                     id={this.state.id}
+                                    serie={this.props.serie}
                                     tipoValores={this.props.tipoValores}
                                     decimais={decimais}
                                     /*min={this.state.min}

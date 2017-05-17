@@ -119,7 +119,7 @@
         }
 
         .icons-arrows{
-            float:right;
+            /*float:right;*/
             background-image: url(img/icons/png/icons-arrow.png);
             width: 48px;
             height: 48px;

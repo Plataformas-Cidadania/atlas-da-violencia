@@ -403,4 +403,61 @@ class SerieController extends Controller
 
         return $data;
     }
+
+    public function downloadDados(Request $request){
+
+
+        $id = $request->id;
+        $serie = $request->serie;
+        $min = $request->from;
+        $max = $request->to;
+        $regions = $request->regions;
+        $abrangencia = $request->abrangencia;
+
+        $regions = explode(',', $regions);
+
+        //Log::info($abrangencia);
+
+        $tabelas = [
+            1 => 'spat.ed_territorios_paises',
+            2 => 'spat.ed_territorios_regioes',
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes'
+        ];
+
+        $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
+        if($abrangencia == 4){
+            $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
+        }
+
+        $filename = clean($serie);
+
+        $where = [['valores_series.serie_id', $id]];
+        if(!empty($min)){
+            array_push($where, ['valores_series.periodo', '>=', $min]);
+            array_push($where, ['valores_series.periodo', '<=', $max]);
+            $filename .= "-$min-$max";
+        }
+
+        $rows = DB::table('valores_series')
+            ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
+            ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+            ->where($where)
+            ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
+            ->orderBy('valores_series.periodo')
+            ->get();
+
+        $data = [];
+
+
+        $cont = 0;
+        foreach($rows as $row){
+            $data[$cont] = [$row->sigla, $row->periodo, $row->valor];
+            $cont++;
+        }
+
+        return view('serie.download', ['data' => $data, 'filename' => $filename.'.csv']);
+    }
 }

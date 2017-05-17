@@ -190,9 +190,7 @@ class Regions extends React.Component {
                             React.createElement(
                                 'h4',
                                 null,
-                                this.state.minValue.sigla,
-                                ' - ',
-                                this.state.minValue.nome
+                                'Menor \xCDndice'
                             ),
                             React.createElement('div', { className: 'line_title bg-pri' }),
                             React.createElement('br', null),
@@ -201,7 +199,9 @@ class Regions extends React.Component {
                             React.createElement(
                                 'p',
                                 null,
-                                '\xC9 a regi\xE3o com menor \xEDndice'
+                                this.state.minValue.sigla,
+                                ' - ',
+                                this.state.minValue.nome
                             ),
                             React.createElement('br', null),
                             React.createElement(
@@ -216,9 +216,7 @@ class Regions extends React.Component {
                             React.createElement(
                                 'h4',
                                 null,
-                                this.state.maxValue.sigla,
-                                ' - ',
-                                this.state.maxValue.nome
+                                'Maior \xCDndice'
                             ),
                             React.createElement('div', { className: 'line_title bg-pri' }),
                             React.createElement('br', null),
@@ -227,7 +225,9 @@ class Regions extends React.Component {
                             React.createElement(
                                 'p',
                                 null,
-                                '\xC9 a regi\xE3o com maior \xEDndice'
+                                this.state.maxValue.sigla,
+                                ' - ',
+                                this.state.maxValue.nome
                             ),
                             React.createElement('br', null),
                             React.createElement(
@@ -286,23 +286,34 @@ class Regions extends React.Component {
                             React.createElement(
                                 'h4',
                                 null,
-                                this.state.maxDown.sigla,
-                                ' - ',
-                                this.state.maxDown.nome
+                                down
                             ),
                             React.createElement('div', { className: 'line_title bg-pri' }),
                             React.createElement('br', null),
                             React.createElement('img', { src: "img/maps/png/" + this.state.maxDown.sigla + ".png", alt: '' }),
                             React.createElement('br', null),
-                            down,
-                            ' ',
-                            iconDown,
+                            this.state.maxDown.sigla,
+                            ' - ',
+                            this.state.maxDown.nome,
                             React.createElement('br', null),
                             React.createElement(
-                                'p',
-                                { style: this.state.styleNumber },
-                                formatNumber(this.state.maxDown.variacao * multiplicadorDown, 2, ',', '.'),
-                                '%'
+                                'div',
+                                { className: 'row', style: { paddingTop: '15px' } },
+                                React.createElement(
+                                    'div',
+                                    { className: 'col-md-8 text-right', style: { paddingTop: '15px' } },
+                                    React.createElement(
+                                        'p',
+                                        { style: this.state.styleNumber },
+                                        formatNumber(this.state.maxDown.variacao * multiplicadorDown, 2, ',', '.'),
+                                        '%'
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'col-md-4' },
+                                    iconDown
+                                )
                             )
                         ),
                         React.createElement(
@@ -311,23 +322,33 @@ class Regions extends React.Component {
                             React.createElement(
                                 'h4',
                                 null,
-                                this.state.maxUp.sigla,
-                                ' - ',
-                                this.state.maxUp.nome
+                                up
                             ),
                             React.createElement('div', { className: 'line_title bg-pri' }),
                             React.createElement('br', null),
                             React.createElement('img', { src: "img/maps/png/" + this.state.maxUp.sigla + ".png", alt: '' }),
                             React.createElement('br', null),
-                            up,
-                            ' ',
-                            iconUp,
-                            React.createElement('br', null),
+                            this.state.maxUp.sigla,
+                            ' - ',
+                            this.state.maxUp.nome,
                             React.createElement(
-                                'p',
-                                { style: this.state.styleNumber },
-                                formatNumber(this.state.maxUp.variacao * multiplicadorUp, 2, ',', '.'),
-                                '%'
+                                'div',
+                                { className: 'row', style: { paddingTop: '15px' } },
+                                React.createElement(
+                                    'div',
+                                    { className: 'col-md-8 text-right', style: { paddingTop: '15px' } },
+                                    React.createElement(
+                                        'p',
+                                        { style: this.state.styleNumber },
+                                        formatNumber(this.state.maxUp.variacao * multiplicadorUp, 2, ',', '.'),
+                                        '%'
+                                    )
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: 'col-md-4' },
+                                    iconUp
+                                )
                             )
                         )
                     )

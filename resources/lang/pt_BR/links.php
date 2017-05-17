@@ -3,7 +3,7 @@
 return [
     'home' => 'Início',
     'about' => 'Sobre',
-    'researches' => 'Pesquisas',
+    'researches' => 'Consultas',
     'articles' => 'Artigos',
     'videos' => 'Vídeos',
     'downloads' => 'Downloads',

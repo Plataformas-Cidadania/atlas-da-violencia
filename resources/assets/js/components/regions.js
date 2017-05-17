@@ -156,22 +156,22 @@ class Regions extends React.Component{
                         </div>
                         <div className="row">
                             <div className="col-md-6 text-center">
-                                <h4>{this.state.minValue.sigla} - {this.state.minValue.nome}</h4>
+                                <h4>Menor Índice</h4>
                                 <div className="line_title bg-pri"></div>
                                 <br/>
                                 <img src={"img/maps/png/"+this.state.minValue.sigla+".png"} alt=""/>
                                 <br/>
-                                <p>É a região com menor índice</p>
+                                <p>{this.state.minValue.sigla} - {this.state.minValue.nome}</p>
                                 <br/>
                                 <p style={this.state.styleNumber}>{formatNumber(this.state.minValue.valor, this.props.decimais, ',', '.')}</p>
                             </div>
                             <div className="col-md-6 text-center">
-                                <h4>{this.state.maxValue.sigla} - {this.state.maxValue.nome}</h4>
+                                <h4>Maior Índice</h4>
                                 <div className="line_title bg-pri"></div>
                                 <br/>
                                 <img src={"img/maps/png/"+this.state.maxValue.sigla+".png"} alt=""/>
                                 <br/>
-                                <p>É a região com maior índice</p>
+                                <p>{this.state.maxValue.sigla} - {this.state.maxValue.nome}</p>
                                 <br/>
                                 <p style={this.state.styleNumber}>{formatNumber(this.state.maxValue.valor, this.props.decimais, ',', '.')}</p>
                             </div>
@@ -202,24 +202,40 @@ class Regions extends React.Component{
                             </div>
 
                             <div className="col-md-6 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
-                                <h4>{this.state.maxDown.sigla} - {this.state.maxDown.nome}</h4>
+                                <h4>{down}</h4>
                                 <div className="line_title bg-pri"></div>
                                 <br/>
                                 <img src={"img/maps/png/"+this.state.maxDown.sigla+".png"} alt=""/>
                                 <br/>
-                                {down} {iconDown}
+                                {this.state.maxDown.sigla} - {this.state.maxDown.nome}
                                 <br/>
-                                <p style={this.state.styleNumber}>{formatNumber(this.state.maxDown.variacao*multiplicadorDown, 2, ',', '.')}%</p>
+                                <div className="row" style={{paddingTop:'15px'}}>
+                                    <div className="col-md-8 text-right" style={{paddingTop:'15px'}}>
+                                        <p style={this.state.styleNumber}>{formatNumber(this.state.maxDown.variacao*multiplicadorDown, 2, ',', '.')}%</p>
+                                    </div>
+                                    <div className="col-md-4">
+                                        {iconDown}
+                                    </div>
+                                </div>
                             </div>
                             <div className="col-md-6 text-center" style={{display: this.state.loading ? 'none' : 'block'}}>
-                                <h4>{this.state.maxUp.sigla} - {this.state.maxUp.nome}</h4>
+                                <h4>{up}</h4>
                                 <div className="line_title bg-pri"></div>
                                 <br/>
                                 <img src={"img/maps/png/"+this.state.maxUp.sigla+".png"} alt=""/>
                                 <br/>
-                                {up} {iconUp}
-                                <br/>
-                                <p style={this.state.styleNumber}>{formatNumber(this.state.maxUp.variacao*multiplicadorUp, 2, ',', '.')}%</p>
+                                {this.state.maxUp.sigla} - {this.state.maxUp.nome}
+                                <div className="row" style={{paddingTop:'15px'}}>
+                                    <div className="col-md-8 text-right" style={{paddingTop:'15px'}}>
+                                        <p style={this.state.styleNumber}>{formatNumber(this.state.maxUp.variacao*multiplicadorUp, 2, ',', '.')}%</p>
+                                    </div>
+                                    <div className="col-md-4">
+                                        {iconUp}
+                                    </div>
+                                </div>
+
+
+
                             </div>
                         </div>
                     </div>

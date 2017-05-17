@@ -3,6 +3,7 @@ class Map extends React.Component{
         super(props);
         this.state = {
             id: this.props.id,
+            serie: this.props.serie,
             min: 0,
             max: 0,
             periodo: 0,
@@ -57,7 +58,7 @@ class Map extends React.Component{
                 }
 
                 this._div.innerHTML =
-                    '<h4>Ocorrências</h4>' +  (props ? '<b>' + sigla + props.nome + '</b><br />' + formatNumber(props.total, _this.props.decimais, ',', '.')
+                    '<h6 style="margin: 3px 0; font-weight: bold">'+_this.state.serie+'</h6>' +  (props ? '<b>' + sigla + props.nome + '</b><br />' + formatNumber(props.total, _this.props.decimais, ',', '.')
                         : 'Passe o mouse na região');
             };
             this.state.info.addTo(this.state.mymap);

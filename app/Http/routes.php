@@ -66,6 +66,7 @@ Route::get('indices', 'IndiceController@indice');
 Route::get('series/', 'SerieController@listar');
 Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
 Route::post('dados-series/', 'SerieController@dataSeries');
+Route::post('download-dados/', 'SerieController@downloadDados');
 
 //-------------------------AJAX-----------------------------------------------------------------------------------------
 

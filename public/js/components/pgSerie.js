@@ -278,6 +278,58 @@ class PgSerie extends React.Component {
                 ),
                 React.createElement(
                     "div",
+                    { style: { borderTop: 'solid 1px #ccc', padding: '10px 0' }, className: "text-right" },
+                    React.createElement(
+                        "div",
+                        { style: { float: 'right', marginLeft: '5px' } },
+                        React.createElement(
+                            "form",
+                            { name: "frmDownloadPeriodo", action: "download-dados", target: "_blank", method: "POST" },
+                            React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
+                            React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
+                            React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
+                            React.createElement("input", { type: "hidden", name: "from", value: this.state.min }),
+                            React.createElement("input", { type: "hidden", name: "to", value: this.state.max }),
+                            React.createElement("input", { type: "hidden", name: "regions", value: this.props.regions }),
+                            React.createElement("input", { type: "hidden", name: "abrangencia", value: this.props.abrangencia }),
+                            React.createElement(
+                                "button",
+                                { className: "btn btn-success" },
+                                "Download (",
+                                this.state.min,
+                                " - ",
+                                this.state.max,
+                                ")"
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { style: { float: 'right', marginLeft: '5px' } },
+                        React.createElement(
+                            "form",
+                            { name: "frmDownloadTotal", action: "download-dados", target: "_blank", method: "POST" },
+                            React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
+                            React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
+                            React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
+                            React.createElement("input", { type: "hidden", name: "regions", value: this.props.regions }),
+                            React.createElement("input", { type: "hidden", name: "abrangencia", value: this.props.abrangencia }),
+                            React.createElement(
+                                "button",
+                                { className: "btn btn-success" },
+                                "Download Total"
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { style: { float: 'right', marginLeft: '5px', paddingTop: '5px' } },
+                        "Download dos dados em .csv"
+                    ),
+                    React.createElement("div", { style: { clear: 'both' } })
+                ),
+                React.createElement(
+                    "div",
                     { style: { display: this.state.showMap ? 'block' : 'none' } },
                     React.createElement(Topico, { icon: "icon-group-map", text: "Mapa" }),
                     React.createElement(
@@ -289,6 +341,7 @@ class PgSerie extends React.Component {
                             React.createElement(Map, {
                                 mapId: "map1",
                                 id: this.state.id,
+                                serie: this.props.serie,
                                 tipoValores: this.props.tipoValores,
                                 decimais: decimais
                                 /*min={this.state.min}
@@ -307,6 +360,7 @@ class PgSerie extends React.Component {
                             React.createElement(Map, {
                                 mapId: "map2",
                                 id: this.state.id,
+                                serie: this.props.serie,
                                 tipoValores: this.props.tipoValores,
                                 decimais: decimais
                                 /*min={this.state.min}
