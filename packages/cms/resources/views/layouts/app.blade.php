@@ -1,8 +1,9 @@
 <?php
-    $base_href = $_SERVER['HTTP_HOST'];
+    $base_href = config('app.url');
+    /*$base_href = $_SERVER['HTTP_HOST'];
     if(substr($base_href, 0,9)=='evbsb1052'){
         $base_href .= '/atlasviolencia/';
-    }
+    }*/
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
