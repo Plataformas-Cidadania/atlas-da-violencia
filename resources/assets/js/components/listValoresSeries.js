@@ -7,10 +7,14 @@ class ListValoresSeries extends React.Component{
         //this.loadData = this.loadData.bind(this);
     }
 
+    componentDidMount(){
+        //this.loadData();
+    }
+
     componentWillReceiveProps(props){
         /*this.setState({min: props.min, max: props.max}, function(){
-            this.loadData();
-        });*/
+         this.loadData();
+         });*/
 
        //console.log(props.data);
         this.setState({valores: props.data.valores});
@@ -19,15 +23,22 @@ class ListValoresSeries extends React.Component{
     /*loadData(){
         $.ajax({
             method:'GET',
-            url: "valores-series/"+this.props.min+"/"+this.props.max,
+            url: "periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia,
             cache: false,
             success: function(data) {
-                //console.log(data);
-                this.setState({valores: data});
-                //loadMap(data);
+                console.log('listValoresSeries', data);
+
+                let valores = [];
+                for(let i in data){
+                    let region = {};
+                    region[i] = data[i];
+                    valores.push(region);
+                }
+
+                this.setState({valores: valores});
             }.bind(this),
             error: function(xhr, status, err) {
-              console.log('erro');
+              console.log('erro', err);
             }.bind(this)
         });
     }*/
