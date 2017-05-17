@@ -8,14 +8,14 @@
         <div class="row">
             <br>
             <div class="col-md-12 text-right">
-                <form class="form-inline" action="/busca-videos" method="post">
+                <form class="form-inline" action="busca-videos" method="post">
                     {!! csrf_field() !!}
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputAmount">Busca</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="busca" name="busca" placeholder="@lang('forms.search')">
                             <div class="input-group-addon">
-                                <i class="fa fa-search" aria-hidden="true"></i>
+                                <button type="submit" value="busca-videos" style="border: 0; background-color: inherit;"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
