@@ -74,17 +74,11 @@
                     </a>
                 </div>
                 @endforeach
-                <div class="col-md-4 text-center">
-                    <img src="img/marker.png" alt=""><br><br><br><br>
-                    <a href="">
-                        <p class="line-temp-font">2017</p><br><br><br>
-                        <button class="btn btn-default">Beixar em PDF</button>
-                    </a>
-                </div>
+
             </div>
         </div>
 
-        <br><br>
+        <br><br><br><br>
 
         <br><br>
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
