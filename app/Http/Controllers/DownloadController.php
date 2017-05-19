@@ -20,4 +20,11 @@ class DownloadController extends Controller
         return view('download.listar', ['downloads' => $downloads]);
     }
 
+    public function detalhar($id){
+
+        $download = new \App\Download;
+        $download = $download->find($id);
+
+        return view('download.detalhar', ['download' => $download]);
+    }
 }

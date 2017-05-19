@@ -18,6 +18,8 @@
     </style>
 
     <article>
+
+
         <br><br>
         <div class="container block" data-move-x="500px">
             <div class="row">
@@ -56,6 +58,33 @@
                 @endforeach
             </div>
         </div>
+
+        <div class="container">
+            <div class="row">
+                <h2 class="box-titulo">Publicações Atlas ipea e FBSP</h2>
+                <br><br>
+
+                <div class="line_title bg-qui line-temp-barr"></div>
+                @foreach($downloads as $download)
+                <div class="col-md-4 text-center">
+                    <img src="img/marker.png" alt=""><br><br><br><br>
+                    <a href="download/{{$download->id}}/{{clean($download->titulo)}}">
+                        <p class="line-temp-font">{{$download->titulo}}</p><br><br><br>
+                        <button class="btn btn-default">Beixar em PDF</button>
+                    </a>
+                </div>
+                @endforeach
+                <div class="col-md-4 text-center">
+                    <img src="img/marker.png" alt=""><br><br><br><br>
+                    <a href="">
+                        <p class="line-temp-font">2017</p><br><br><br>
+                        <button class="btn btn-default">Beixar em PDF</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
 
         <br><br>
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
@@ -96,6 +125,8 @@
                 </div>
             </div>
         </div>
+
+
 
 
         <br><br>

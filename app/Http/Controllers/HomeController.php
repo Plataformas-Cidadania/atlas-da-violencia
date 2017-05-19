@@ -23,6 +23,7 @@ class HomeController extends Controller
         $menu = \App\Menu::where('menu_id', 0)->get();
         $video = \App\Video::orderBy('id', 'desc')->first();
         $indices = \App\Indice::orderBy('posicao')->where('status', 1)->take(4)->get();
+        $downloads = DB::table('downloads')->where('origem_id', 0)->orderBy('id', 'desc')->take(3)->get();
 
 
 
@@ -36,6 +37,7 @@ class HomeController extends Controller
             'menu' => $menu,
             'video' => $video,
             'indices' => $indices,
+            'downloads' => $downloads,
         ]);
     }
 

@@ -24,10 +24,32 @@
         </div>
         <div class="row">
             <br>
+            <style>
+                .visible {
+                    height: 90px;
+                    overflow: hidden;
+                }
+                .is-visible {
+                    height: 350px;
+                    overflow: auto;
+                }
+            </style>
         @foreach($videos as $video)
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
-                    <div><br></div>
+                    <h4>{{$video->titulo}}</h4>
+                    <?php if($video->data!=null){?>
+                    <h6>Publicado em
+                        <?php echo date_format(date_create($video->data),"d/m/Y");?>
+                    </h6>
+                    <?php }?>
+                    <div ng-class="{'is-visible':visible}" class="visible" >
+                        {!! $video->descricao !!}
+                    </div>
+                    <hr>
+                    <p ng-click="visible=!visible;"  style="font-size: 12px; font-weight: bold; text-align: center; cursor:pointer;">MOSTRAS MAIS</p>
+                <br>
+                <br>
                 </div>
 
         @endforeach
