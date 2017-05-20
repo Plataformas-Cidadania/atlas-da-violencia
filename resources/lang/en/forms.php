@@ -4,7 +4,5 @@ return [
     'search' => 'Search',
     'name' => 'Name',
     'email' => 'Email',
-    'send' => 'To send',
-
-
+    'send' => 'Send',
 ];

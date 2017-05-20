@@ -2,7 +2,7 @@
 
 return [
     'indexes' => 'Indexes',
-    'rights' => 'All rights reserved',
+    'rights' => 'Todos los derechos reservados',
     'author' => 'Author',
     'authors' => 'Authors',
 
