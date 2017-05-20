@@ -11,10 +11,9 @@ use Illuminate\Support\Facades\Log;
 
 class ArtigoController extends Controller
 {
-    public function listar($origem_id, $origem_titulo, $autor_id=0){
+    public function listar($origem_id, $origem_titulo, $autor_id=0, $autor_titulo=0){
 
         $lang =  App::getLocale();
-
 
         $where = [];
 
@@ -26,16 +25,15 @@ class ArtigoController extends Controller
         }
 
         if(count($where)==0){
-            $artigos = DB::table('artigos')->where('idioma_sigla', $lang)->orderBy('titulo')->paginate(10);
+            $artigos = DB::table('artigos')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->paginate(10);
         }else{
-            //$artigos = DB::table('artigos')->where($where)->orderBy('titulo')->paginate(10);
 
             $artigos = DB::table('artigos')
                 ->join('author_artigo', 'artigos.id', '=', 'author_artigo.artigo_id')
                 ->where($where)
                 ->where('idioma_sigla', $lang)
                 ->select('artigos.*')
-                ->orderBy('artigos.titulo')
+                ->orderBy('artigos.id', 'desc')
                 ->distinct()
                 ->paginate(10);
         }
@@ -44,9 +42,10 @@ class ArtigoController extends Controller
 
 
         $menus = DB::table('links')->get();
+
         $authors = DB::table('authors')->orderBy('titulo')->get();
 
-        return view('artigo.listar', ['artigos' => $artigos, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo]);
+        return view('artigo.listar', ['artigos' => $artigos, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => $autor_id, 'autor_titulo' => $autor_titulo]);
     }
     public function detalhar($id){
 
@@ -95,7 +94,7 @@ class ArtigoController extends Controller
         $origem_titulo = "";
 
 
-        return view('artigo.listar', ['artigos' => $artigos, 'tipos' => $busca, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo]);
+        return view('artigo.listar', ['artigos' => $artigos, 'tipos' => $busca, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => 0, 'autor_titulo' => 0]);
 
     }
 }

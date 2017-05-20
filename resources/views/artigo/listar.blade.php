@@ -15,23 +15,16 @@
         <div class="row">
             <br>
 
-            {{--<div class="col-md-offset-6 col-md-3 text-right">
-                <select class="form-control" onchange="MM_jumpMenu('parent',this,0)">
-                    <option value="">Todos</option>
-                    @foreach($authors as $author)
-                        <option value="artigos/{{$origem_id}}/{{$origem_titulo}}/{{$author->id}}/{{clean($author->titulo)}}">{{$author->titulo}}</option>
-                    @endforeach
-                </select>
-            </div>--}}
+
             <div class="col-md-offset-9 col-md-3 text-right">
-                <form class="form-inline" action="/busca-artigos/{{$origem_id}}/lista" method="post">
+                <form class="form-inline" action="busca-artigos/{{$origem_id}}/lista" method="post">
                     {!! csrf_field() !!}
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputAmount">Busca</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="busca" name="busca" placeholder="@lang('forms.search')">
                             <div class="input-group-addon">
-                                <i class="fa fa-search" aria-hidden="true"></i>
+                                <button type="submit" value="busca-artigos" style="border: 0; background-color: inherit;"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
@@ -40,19 +33,51 @@
         </div>
         <div class="row">
             <div class="col-md-3 col-sm-3">
+
                 <br>
-                <ul class="menu-vertical">
+
+
+                <ul class="menu-vertical ">
                     @foreach($menus as $menu)
-                        <li role="presentation"><a href="artigos/{{$menu->id}}/{{clean($menu->titulo)}}" accesskey="q" {{--@if($rota=='quem/'.$menu->id.'/'.clean($menu->titulo)) class="corrente" @endif--}} style="clear: both;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{$menu->titulo}}</a></li>
+                        <li role="presentation">
+                            <a href="artigos/{{$menu->id}}/{{clean($menu->titulo)}}" accesskey="q" @if($menu->id == $origem_id) class="menu-vertical-marcado" @endif  style="clear: both;">
+                                <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                                {{$menu->titulo}}
+
+                                <?php
+                                $menuQtd = DB::table('artigos')
+                                    ->where('origem_id', $menu->id)
+                                    ->count();
+                                ;?>
+                                <span style="float: right;">({{$menuQtd}})</span>
+                            </a></li>
                     @endforeach
+
                 </ul>
+                @if($origem_id>0)
+                <div class="text-right">
+                    <a href="artigos/0/todos/@if($autor_id>0){{$autor_id}}/{{$autor_titulo}}@endif" class="text-danger" > <i class="fa fa-times" aria-hidden="true"></i> Remover filtro</a>
+                </div>
+                @endif
 
                 <br>
                 <h3><i class="fa fa-users" aria-hidden="true"></i> @lang('pages.authors')</h3>
                 <hr>
                 <ul class="menu-vertical">
                     @foreach($authors as $author)
-                        <li><a href="artigos/{{$origem_id}}/{{$origem_titulo}}/{{$author->id}}/{{clean($author->titulo)}}"><i class="fa fa-pencil-square" aria-hidden="true"></i> {{$author->titulo}}</a></li>
+                        <li>
+                            <a href="artigos/{{$origem_id}}/{{$origem_titulo}}/{{$author->id}}/{{clean($author->titulo)}}" @if($author->id == $autor_id) class="menu-vertical-marcado" @endif>
+                                <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                                {{$author->titulo}}
+                                <?php
+                                    $authorQtd = DB::table('author_artigo')
+                                        ->where('author_id', $author->id)
+                                        ->count();
+                                ;?>
+                                <span style="float: right;">({{$authorQtd}})</span>
+
+                            </a>
+                        </li>
                     @endforeach
                 </ul>
 
@@ -74,7 +99,7 @@
 
                         @if(!empty($artigo->imagem))<div class="col-md-9 col-sm-9">@else<div class="col-md-12 col-sm-12">@endif
                                 <h2>{{$artigo->titulo}}</h2>
-                                <p>{{str_limit(strip_tags($artigo->descricao), 180)}}</p>
+                                <p>{{str_limit(strip_tags($artigo->descricao), 450)}}</p>
                                 <button class="btn btn-none">@lang('buttons.keep-reading')  </button>
                             </div>
                     </a>

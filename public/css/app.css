@@ -627,6 +627,10 @@ footer {
   background-color: #3498DB;
   color: #FFFFFF!important;
 }
+.menu-vertical-marcado {
+  background-color: #3498DB !important;
+  color: #FFFFFF!important;
+}
 .col-md-r {
   width: 18%;
   float: left;

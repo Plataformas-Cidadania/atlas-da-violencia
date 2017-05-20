@@ -24,7 +24,18 @@
                         </a>
                     </p>
                 @endif
+                <div class="row">
+                    <div class="col-md-12">
+                        @if(!empty($artigo->link))
+                            <iframe src="{{$artigo->link}}" height="1000" width="100%"  frameborder="0"></iframe>
+                        @else
+                            <iframe src="arquivos/artigos/{{$artigo->arquivo}}" height="1000" width="100%"  frameborder="0"></iframe>
+                        @endif
+
+                    </div>
+                </div>
             </div>
+
             <div class="col-md-3">
                 <br>
                 <h3><i class="fa fa-user" aria-hidden="true"></i> @lang('pages.author')</h3>
