@@ -96,6 +96,30 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/indice/{id}', 'Cms\Controllers\IndiceController@detalhar');
         Route::post('/cms/alterar-indice/{id}', 'Cms\Controllers\IndiceController@alterar');
         Route::get('/cms/excluir-indice/{id}', 'Cms\Controllers\IndiceController@excluir');
+ 
+        //ARTWORKS
+        Route::get('/cms/artworks', 'Cms\Controllers\ArtworkController@index');
+        Route::get('/cms/listar-artworks', 'Cms\Controllers\ArtworkController@listar');
+        Route::post('/cms/inserir-artwork', 'Cms\Controllers\ArtworkController@inserir');
+        Route::get('/cms/artwork/{id}', 'Cms\Controllers\ArtworkController@detalhar');
+        Route::post('/cms/alterar-artwork/{id}', 'Cms\Controllers\ArtworkController@alterar');
+        Route::get('/cms/excluir-artwork/{id}', 'Cms\Controllers\ArtworkController@excluir');
+
+        //DIRECTIVES
+        Route::get('/cms/directives', 'Cms\Controllers\DirectiveController@index');
+        Route::get('/cms/listar-directives', 'Cms\Controllers\DirectiveController@listar');
+        Route::post('/cms/inserir-directive', 'Cms\Controllers\DirectiveController@inserir');
+        Route::get('/cms/directive/{id}', 'Cms\Controllers\DirectiveController@detalhar');
+        Route::post('/cms/alterar-directive/{id}', 'Cms\Controllers\DirectiveController@alterar');
+        Route::get('/cms/excluir-directive/{id}', 'Cms\Controllers\DirectiveController@excluir');
+
+        //PRINTINGS
+        Route::get('/cms/printings', 'Cms\Controllers\PrintingController@index');
+        Route::get('/cms/listar-printings', 'Cms\Controllers\PrintingController@listar');
+        Route::post('/cms/inserir-printing', 'Cms\Controllers\PrintingController@inserir');
+        Route::get('/cms/printing/{id}', 'Cms\Controllers\PrintingController@detalhar');
+        Route::post('/cms/alterar-printing/{id}', 'Cms\Controllers\PrintingController@alterar');
+        Route::get('/cms/excluir-printing/{id}', 'Cms\Controllers\PrintingController@excluir');
 
         //IDIOMAS
         Route::get('/cms/idiomas', 'Cms\Controllers\IdiomaController@index');
