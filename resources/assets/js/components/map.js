@@ -4,6 +4,8 @@ class Map extends React.Component{
         this.state = {
             id: this.props.id,
             serie: this.props.serie,
+            data: {},
+            intervalos: [],
             min: 0,
             max: 0,
             periodo: 0,
@@ -12,7 +14,7 @@ class Map extends React.Component{
             lastIndexLegend: 0,
             carregado: false
         };
-        this.loadData = this.loadData.bind(this);
+        //this.loadData = this.loadData.bind(this);
         this.loadMap = this.loadMap.bind(this);
         this.highlightFeature = this.highlightFeature.bind(this);
         this.resetHighlight = this.resetHighlight.bind(this);
@@ -66,33 +68,47 @@ class Map extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(this.state.periodo != props.periodo){
-            this.setState({periodo: props.periodo}, function(){
-                this.loadData();
+        //console.log(props);
+        if(this.state.periodo != props.periodo, props.intervalos.length > 0){
+            this.setState({periodo: props.periodo, data: props.data, intervalos: props.intervalos}, function(){
+                //this.loadData();
+                console.log('map', this.state.data);
+                if(this.state.data){
+                    this.loadMap(this.state.data);
+                }
             });
         }
+        /*console.log('mapa will receive props 1 - intervalos', this.state.intervalos);
+        if(props.intervalos.length > 0){
+            console.log('mapa will receive props 2 - intervalos', this.state.intervalos);
+            this.setState({intervalos: props.intervalos}, function(){
+                this.loadMap(this.state.data);
+            });
+        }*/
+
     }
 
-    loadData(){
+    /*loadData(){
         //console.log('Map - loadData', this.props.typeRegion, this.props.typeRegionSerie);
         let _this = this;
         $.ajax("regiao/"+_this.state.id+"/"+_this.state.periodo+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
             data: {},
             success: function(data){
-               console.log('map - loadData',data);
+               //console.log('map - loadData',data);
+                _this.setState({data: data});
                 _this.loadMap(data);
             },
             error: function(data){
                //console.log('map', 'erro');
             }
         })
-    }
+    }*/
 
 
     loadMap(data){
 
 
-        //console.log('map', data);
+        console.log('map', data);
         let _this = this;
         //remove existing map layers
         this.state.mymap.eachLayer(function(layer){
@@ -124,23 +140,23 @@ class Map extends React.Component{
         }
         //console.log(valores);
 
-        let intervalos = gerarIntervalos(valores);
+        //let intervalos = gerarIntervalos(valores);
         //console.log('map - intervalos', intervalos);
-        this.props.setIntervalos(intervalos);
+        //this.props.setIntervalos(intervalos, this.props.tipoPeriodo);
 
         this.setState(
             {
                 geojson: L.geoJson(data, {
                     style: function(feature) {
                         return {
-                            fillColor: getColor(feature.properties.total, intervalos),
+                            fillColor: getColor(feature.properties.total, this.state.intervalos),
                             weight: 2,
                             opacity: 1,
                             color: 'white',
                             dashArray: '3',
                             fillOpacity: 0.9
                         };
-                    },
+                    }.bind(this),
                     onEachFeature: this.onEachFeature //listeners
                 }).addTo(this.state.mymap),
                 area: data.bounding_box_total
@@ -168,20 +184,21 @@ class Map extends React.Component{
 
 
         legend[indexLegend].onAdd = function (mymap) {
-           //console.log('map - intervalos', intervalos);
+           console.log('map - intervalos:', this.state.intervalos);
             let div = L.DomUtil.create('div', 'info legend'),
                 //grades = [0, 100, 300, 600, 1000, 1500, 3000, 5000, 7000, 9000],
-                grades = intervalos,
+                //grades = intervalos,
+                grades = this.state.intervalos,
                 labels = [];
             // loop through our density intervals and generate a label with a colored square for each interval
             for (let i = 0; i < grades.length; i++) {
                 div.innerHTML +=
-                    '<i style="background:' + getColor(grades[i] + 1, intervalos) + '"></i> ' +
+                    '<i style="background:' + getColor(grades[i] + 1, this.state.intervalos) + '"></i> ' +
                     formatNumber(grades[i], this.props.decimais, ',', '.') +
                     (grades[i + 1] ? '&nbsp;&ndash;&nbsp;' + formatNumber(grades[i + 1], this.props.decimais, ',', '.') + '<br>' : '+');
             }
             return div;
-        }.bind(this, intervalos);
+        }.bind(this);
 
         if(lastIndexLegend!=0){
             this.state.mymap.removeControl(legend[lastIndexLegend]);
@@ -214,7 +231,7 @@ class Map extends React.Component{
 
         let area = data.bounding_box_total;
 
-        console.log('area', area);
+        //console.log('area', area);
 
         let new_area = [];
         let count_area = 0;
@@ -236,7 +253,7 @@ class Map extends React.Component{
         //console.log('center', center);
         //let marker = L.marker(center).addTo(this.state.mymap);
 
-        console.log('new_area', new_area);
+        //console.log('new_area', new_area);
         this.state.mymap.fitBounds(new_area);
 
 

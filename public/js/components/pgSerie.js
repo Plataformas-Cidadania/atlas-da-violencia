@@ -36,6 +36,8 @@ class PgSerie extends React.Component {
             unidade: this.props.unidade,
             loading: false,
             intervalos: [],
+            intervalosFrom: [],
+            intervalosTo: [],
             valoresRegioesPorPeriodo: { min: 0, max: 0, values: {} },
             smallLarge: [0, 1],
             min: this.props.from,
@@ -57,6 +59,7 @@ class PgSerie extends React.Component {
         this.setPeriodos = this.setPeriodos.bind(this);
         this.showHide = this.showHide.bind(this);
         this.loadData = this.loadData.bind(this);
+        this.loadDataMaps = this.loadDataMaps.bind(this);
         this.setIntervalos = this.setIntervalos.bind(this);
         this.calcSmallLarge = this.calcSmallLarge.bind(this);
     }
@@ -67,8 +70,9 @@ class PgSerie extends React.Component {
 
     changePeriodo(min, max) {
         this.setState({ min: min, max: max }, function () {
-            //console.log(min, max);
+            console.log(min, max);
             this.loadData();
+            this.loadDataMaps();
         });
     }
 
@@ -121,6 +125,46 @@ class PgSerie extends React.Component {
         });
     }
 
+    loadDataMaps() {
+        let _this = this;
+        $.ajax("regiao/" + _this.state.id + "/" + _this.state.min + "/" + _this.props.regions + "/" + _this.props.abrangencia, {
+            data: {},
+            success: function (dataMapFrom) {
+
+                let valoresMapFrom = this.getValoresMap(dataMapFrom);
+
+                $.ajax("regiao/" + _this.state.id + "/" + _this.state.max + "/" + _this.props.regions + "/" + _this.props.abrangencia, {
+                    data: {},
+                    success: function (dataMapTo) {
+
+                        let valoresMapTo = this.getValoresMap(dataMapTo);
+
+                        let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
+                        console.log(dataMapFrom);
+                        console.log(dataMapTo);
+                        console.log(intervalos);
+                        this.setState({ dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos });
+                    }.bind(this),
+                    error: function (data) {
+                        //console.log('map', 'erro');
+                    }
+                });
+            }.bind(this),
+            error: function (data) {
+                //console.log('map', 'erro');
+            }
+        });
+    }
+
+    getValoresMap(data) {
+        let valores = [];
+        for (let i in data.features) {
+            valores[i] = data.features[i].properties.total;
+        }
+
+        return valores;
+    }
+
     calcSmallLarge(minValores, maxValores) {
         let valores = [];
         minValores.find(function (item) {
@@ -156,8 +200,13 @@ class PgSerie extends React.Component {
         this.setState({ ['show' + target]: inverseValue });
     }
 
-    setIntervalos(intervalos) {
-        this.setState({ intervalos: intervalos });
+    setIntervalos(intervalosFrom, intervalosTo) {
+
+        if (intervalosFrom[intervalosFrom.length - 1] > intervalosTo[intervalosTo.length - 1]) {
+            return intervalosFrom;
+        }
+
+        return intervalosTo;
     }
 
     render() {
@@ -346,10 +395,13 @@ class PgSerie extends React.Component {
                                 decimais: decimais
                                 /*min={this.state.min}
                                 max={this.state.max}*/
-                                , periodo: this.state.min,
-                                setIntervalos: this.setIntervalos,
-                                regions: this.props.regions,
-                                abrangencia: this.props.abrangencia
+                                , data: this.state.dataMapFrom,
+                                periodo: this.state.min
+                                //tipoPeriodo="from"
+                                , intervalos: this.state.intervalos
+                                //setIntervalos={this.setIntervalos}
+                                //regions={this.props.regions}
+                                //abrangencia={this.props.abrangencia}
                                 /*typeRegion={this.props.typeRegion}
                                  typeRegionSerie={this.props.typeRegionSerie}*/
                             })
@@ -365,10 +417,13 @@ class PgSerie extends React.Component {
                                 decimais: decimais
                                 /*min={this.state.min}
                                  max={this.state.max}*/
-                                , periodo: this.state.max,
-                                setIntervalos: this.setIntervalos,
-                                regions: this.props.regions,
-                                abrangencia: this.props.abrangencia
+                                , data: this.state.dataMapTo,
+                                periodo: this.state.max
+                                //tipoPeriodo="to"
+                                , intervalos: this.state.intervalos
+                                //setIntervalos={this.setIntervalos}
+                                //regions={this.props.regions}
+                                //abrangencia={this.props.abrangencia}
                                 /*typeRegion={this.props.typeRegion}
                                  typeRegionSerie={this.props.typeRegionSerie}*/
                             })
