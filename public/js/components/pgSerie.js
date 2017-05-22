@@ -502,7 +502,9 @@ class PgSerie extends React.Component {
                         decimais: decimais,
                         min: this.state.min,
                         max: this.state.max,
-                        data: this.state.valoresRegioesPorPeriodo.max
+                        data: this.state.valoresRegioesPorPeriodo.max,
+                        dataMin: this.state.valoresRegioesPorPeriodo.min,
+                        dataMax: this.state.valoresRegioesPorPeriodo.max
                     }),
                     React.createElement("br", null),
                     React.createElement("br", null)
