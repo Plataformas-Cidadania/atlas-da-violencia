@@ -70,6 +70,18 @@ elixir(function(mix) {
     //Indices
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/indiceCtrl.js', 'public/assets-cms/js/controllers/indiceCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIndiceCtrl.js', 'public/assets-cms/js/controllers/alterarIndiceCtrl.js');
+    
+    //Artworks
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/artworkCtrl.js', 'public/assets-cms/js/controllers/artworkCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarArtworkCtrl.js', 'public/assets-cms/js/controllers/alterarArtworkCtrl.js');
+
+    //Directives
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/directiveCtrl.js', 'public/assets-cms/js/controllers/directiveCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarDirectiveCtrl.js', 'public/assets-cms/js/controllers/alterarDirectiveCtrl.js');
+
+    //Printings
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/printingCtrl.js', 'public/assets-cms/js/controllers/printingCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarPrintingCtrl.js', 'public/assets-cms/js/controllers/alterarPrintingCtrl.js');
 
     //Idiomas
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaCtrl.js', 'public/assets-cms/js/controllers/idiomaCtrl.js');

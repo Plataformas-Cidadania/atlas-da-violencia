@@ -155,6 +155,7 @@
                     <a href="" class="item" style="background-color: #ececec;">
                         <h2 style="margin-top: 0;">{{$ultimaArtigo->titulo}}</h2>
                         <div style="height: 100px; overflow: hidden;">{!! substr(strip_tags($ultimaArtigo->descricao), 0, 600)."..." !!}</div>
+                        <br>
                         <div href="artigo/{{$ultimaArtigo->id}}/{{clean($ultimaArtigo->titulo)}}" class="btn btn-info" >@lang('buttons.more-details')</div>
                     </a>
                     {{----}}

@@ -6,6 +6,4 @@ return [
     'view-more' => 'View more',
     'more-details' => 'More details',
     'access-file' => 'Access file',
-
-
 ];

@@ -111,20 +111,23 @@
                 <li>
                     <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
                 </li>
-                <li class="active">
-                    <a href="cms/webdoors"><i class="fa fa-fw fa-dashboard"></i> Webdoors</a>
+                <li>
+                    <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoors</a>
                 </li>
-                <!--<li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo" class="collapse">
                         <li>
-                            <a href="#">Dropdown Item</a>
+                            <a href="cms/directives">Diretivas</a>
                         </li>
                         <li>
-                            <a href="#">Dropdown Item</a>
+                            <a href="cms/artworks">Artes</a>
+                        </li>
+                        <li>
+                            <a href="cms/printings">Impressões</a>
                         </li>
                     </ul>
-                </li>-->
+                </li>
                 <!--<li>
                     <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
                 </li>-->

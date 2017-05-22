@@ -5,9 +5,11 @@
         $idiomas,
 null, ['class'=>"form-control width-medio <% validar(download.idioma_sigla) %>", 'ng-model'=>'download.idioma_sigla', 'ng-required'=>'true', 'init-model'=>'download.idioma_sigla', 'placeholder' => 'Selecione']) !!}<br>
 
+<?php $series[0] = 'Publicações' ;?>
+
 {!! Form::label('origem_id', 'Origem *') !!}<br>
 {!! Form::select('origem_id',
-        $series,
+     $series,
 null, ['class'=>"form-control width-medio <% validar(download.origem_id) %>", 'ng-model'=>'download.origem_id', 'ng-required'=>'true', 'init-model'=>'download.origem_id', 'placeholder' => 'Selecione']) !!}<br>
 
 {!! Form::label('titulo', 'Título *') !!}<br>

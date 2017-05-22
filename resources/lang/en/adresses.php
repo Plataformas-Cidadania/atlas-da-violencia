@@ -3,6 +3,6 @@
 return [
     'address' => 'Address',
     'zip-code' => 'Zip Code',
-    'phone' => 'Phone',
+    'phone' => 'Telephone',
 
 ];
