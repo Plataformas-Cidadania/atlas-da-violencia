@@ -255,7 +255,7 @@ class SerieController extends Controller
             return;
         }*/
 
-        if($data['serie']['abrangencia']==4){
+        if($serie->abrangencia==4){
 
             $csv = [];
 
