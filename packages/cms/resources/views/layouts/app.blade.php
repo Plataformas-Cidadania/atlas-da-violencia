@@ -85,25 +85,31 @@
                     <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoor</a>
                 </li>
                 <li>
-                    <a href="cms/videos"><i class="fa fa-fw fa-newspaper-o"></i> Vídeos</a>
+                    <a href="cms/videos"><i class="fa fa-youtube" aria-hidden="true"></i> Vídeos</a>
                 </li>
                 <li>
-                    <a href="cms/authors"><i class="fa fa-fw fa-newspaper-o"></i> Autores</a>
+                    <a href="cms/authors"><i class="fa fa-user" aria-hidden="true"></i> Autores</a>
                 </li>
                 <li>
-                    <a href="cms/artigos"><i class="fa fa-fw fa-newspaper-o"></i> Artigos</a>
+                    <a href="cms/artigos"><i class="fa fa-file-text-o" aria-hidden="true"></i> Artigos</a>
                 </li>
                 <li>
                     <a href="cms/noticias"><i class="fa fa-fw fa-newspaper-o"></i> Notícias</a>
                 </li>
                 <li>
-                    <a href="cms/series"><i class="fa fa-fw fa-link"></i> Séries</a>
+                    <a href="cms/fontes"><i class="fa fa-university" aria-hidden="true"></i> Fontes</a>
+                </li>
+                <li>
+                    <a href="cms/temas"><i class="fa fa-folder-open" aria-hidden="true"></i> Temas</a>
+                </li>
+                <li>
+                    <a href="cms/series"><i class="fa fa-cubes" aria-hidden="true"></i> Séries</a>
                 </li>
                 <li>
                     <a href="cms/links"><i class="fa fa-fw fa-link"></i> Links</a>
                 </li>
                 <li>
-                    <a href="cms/indices"><i class="fa fa-fw fa-link"></i> Índices</a>
+                    <a href="cms/indices"><i class="fa fa-indent" aria-hidden="true"></i> Índices</a>
                 </li>
                 <li>
                     <a href="cms/downloads"><i class="fa fa-download" aria-hidden="true"></i> Downloads</a>

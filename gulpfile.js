@@ -87,6 +87,14 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaCtrl.js', 'public/assets-cms/js/controllers/idiomaCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaCtrl.js');
 
+    //Fontes
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/fonteCtrl.js', 'public/assets-cms/js/controllers/fonteCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFonteCtrl.js', 'public/assets-cms/js/controllers/alterarFonteCtrl.js');
+
+    //Temas
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/temaCtrl.js', 'public/assets-cms/js/controllers/temaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTemaCtrl.js', 'public/assets-cms/js/controllers/alterarTemaCtrl.js');
+
     //Downloads
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/downloadCtrl.js', 'public/assets-cms/js/controllers/downloadCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarDownloadCtrl.js', 'public/assets-cms/js/controllers/alterarDownloadCtrl.js');

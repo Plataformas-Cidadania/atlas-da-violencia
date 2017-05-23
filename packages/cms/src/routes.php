@@ -129,6 +129,22 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-idioma/{id}', 'Cms\Controllers\IdiomaController@alterar');
         Route::get('/cms/excluir-idioma/{id}', 'Cms\Controllers\IdiomaController@excluir');
 
+        //FONTES
+        Route::get('/cms/fontes', 'Cms\Controllers\FonteController@index');
+        Route::get('/cms/listar-fontes', 'Cms\Controllers\FonteController@listar');
+        Route::post('/cms/inserir-fonte', 'Cms\Controllers\FonteController@inserir');
+        Route::get('/cms/fonte/{id}', 'Cms\Controllers\FonteController@detalhar');
+        Route::post('/cms/alterar-fonte/{id}', 'Cms\Controllers\FonteController@alterar');
+        Route::get('/cms/excluir-fonte/{id}', 'Cms\Controllers\FonteController@excluir');
+
+        //TEMAS
+        Route::get('/cms/temas', 'Cms\Controllers\TemaController@index');
+        Route::get('/cms/listar-temas', 'Cms\Controllers\TemaController@listar');
+        Route::post('/cms/inserir-tema', 'Cms\Controllers\TemaController@inserir');
+        Route::get('/cms/tema/{id}', 'Cms\Controllers\TemaController@detalhar');
+        Route::post('/cms/alterar-tema/{id}', 'Cms\Controllers\TemaController@alterar');
+        Route::get('/cms/excluir-tema/{id}', 'Cms\Controllers\TemaController@excluir');
+
 
         //Setting
         Route::get('/cms/setting/', 'Cms\Controllers\SettingController@detalhar');
