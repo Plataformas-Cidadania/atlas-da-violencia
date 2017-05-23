@@ -4,7 +4,7 @@
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(video.titulo) %>", 'ng-model'=>'video.titulo', 'ng-required'=>'true', 'init-model'=>'video.titulo', 'placeholder' => '']) !!}<br>
 
 {!! Form::label('data', 'Data ') !!}<br>
-{!! Form::text('data', null, ['class'=>"form-control width-grande <% validar(video.data) %>", 'ng-model'=>'video.data', 'init-model'=>'video.data', 'placeholder' => '']) !!}<br>
+{!! Form::text('data', null, ['class'=>"form-control width-grande <% validar(video.data) %>", 'ng-model'=>'video.data', 'ng-required'=>'true', 'init-model'=>'video.data', 'placeholder' => '']) !!}<br>
 
 {!! Form::label('link_video', 'Video (link do youtube)') !!}<br>
 {!! Form::text('link_video', null, ['class'=>"form-control width-grande <% validar(video.link_video) %>", 'ng-model'=>'video.link_video', 'init-model'=>'video.link_video', 'placeholder' => '']) !!}<br>
