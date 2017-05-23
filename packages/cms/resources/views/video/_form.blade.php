@@ -3,7 +3,7 @@
 {!! Form::label('titulo', 'Título *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(video.titulo) %>", 'ng-model'=>'video.titulo', 'ng-required'=>'true', 'init-model'=>'video.titulo', 'placeholder' => '']) !!}<br>
 
-{!! Form::label('data', 'Data ') !!} 00/00/0000<br>
+{!! Form::label('data', 'Data* 00/00/0000') !!} <br>
 {!! Form::text('data', null, ['class'=>"form-control width-medio <% validar(video.data) %>", 'ng-model'=>'video.data', 'ng-required'=>'true', 'init-model'=>'video.data', 'placeholder' => '']) !!}<br>
 
 {!! Form::label('link_video', 'Video (link do youtube)') !!}<br>
