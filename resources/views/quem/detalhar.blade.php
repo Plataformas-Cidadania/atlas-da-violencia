@@ -297,7 +297,7 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="manual">
                                 @if($printingsManual)
-                                <iframe src="arquivos/printings/{{$printingsManual->arquivo}}" frameborder="0" width="100%" height="1000px"></iframe>
+                                <iframe src="arquivos/printings/{{$printingsManual->arquivo}}" frameborder="0" width="100%" height="1000px" scrolling="yes"></iframe>
                                 @endif
                             </div>
                         </div>
