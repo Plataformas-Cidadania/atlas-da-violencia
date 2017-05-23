@@ -94,11 +94,11 @@
                         <tr ng-repeat="fonte in fontes">
                             <td><% fonte.id %></td>
                             {{--<td><img ng-show="fonte.imagem" ng-src="imagens/fontes/xs-<% fonte.imagem %>" width="60"></td>--}}
-                            <td><a href="cms/fonte/<% fonte.id %>"><% fonte.tema %></a></td>
+                            <td><a href="cms/fonte/<% fonte.id %>"><% fonte.titulo %></a></td>
                             <td class="text-right">
                                 <div>
                                     <a href="cms/fonte/<% fonte.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
-                                    <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(fonte.id, fonte.tema, fonte.imagem)"></i></a>
+                                    <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(fonte.id, fonte.titulo, fonte.imagem)"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -145,7 +145,7 @@
                                 <img  ng-src="imagens/fontes/xs-<% imagemExcluir %>" width="100">
                             </div>
                             <div class="col-md-9">
-                                <p><% temaExcluir %></p>
+                                <p><% tituloExcluir %></p>
                             </div>
                         </div>
                         <div ng-show="processandoExcluir"><i class="fa fa-spinner fa-spin"></i> Processando...</div>

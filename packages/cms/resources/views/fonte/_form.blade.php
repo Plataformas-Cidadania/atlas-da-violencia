@@ -1,2 +1,2 @@
-{!! Form::label('tema', 'Tema *') !!}<br>
-{!! Form::text('tema', null, ['class'=>"form-control width-grande <% validar(fonte.tema) %>", 'ng-model'=>'fonte.tema', 'ng-required'=>'true', 'init-model'=>'fonte.tema', 'placeholder' => '']) !!}<br>
+{!! Form::label('titulo', 'Titulo *') !!}<br>
+{!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(fonte.titulo) %>", 'ng-model'=>'fonte.titulo', 'ng-required'=>'true', 'init-model'=>'fonte.titulo', 'placeholder' => '']) !!}<br>
