@@ -371,7 +371,7 @@ class SerieController extends Controller
 			$valor = 0;
 		}
 
-            if($valor!=null && $regiao_id != null && $periodo != null){
+            if($regiao_id != null && $periodo != null){
                 $registro = \App\ValorSerie::updateOrCreate(
                     $reg,
                     ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
@@ -473,7 +473,7 @@ class SerieController extends Controller
 			}
 
 
-                        if($valor!=null && $regiao_id != null && $periodo != null){
+                        if($regiao_id != null && $periodo != null){
                             $registro = \App\ValorSerie::updateOrCreate(
                                 $reg,
                                 ['valor' => $valor, 'cmsuser_id' => $cms_user_id]

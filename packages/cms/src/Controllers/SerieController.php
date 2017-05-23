@@ -145,6 +145,9 @@ class SerieController extends Controller
                 }
             }
         }
+
+	$data['serie']['tipo_valores'] = 0;
+
         $serie = $this->serie->where([
             ['id', '=', $id],
         ])->firstOrFail();
