@@ -20,10 +20,16 @@ class VideoController extends Controller
 
         $busca = new \stdClass();
         $busca->titulo = $dados['busca'];
+        $busca->tags = $dados['busca'];
         $busca->descricao = '';
+
+        //return $dados['busca'];
+
 
         $videos = DB::table('videos')->where([
             ['titulo', 'ilike', "%$busca->titulo%"]
+        ])->orWhere([
+            ['tags', 'ilike', "%$busca->tags%"]
         ])->paginate(10);
 
         return view('video.listar', ['videos' => $videos, 'tipos' => $busca]);
