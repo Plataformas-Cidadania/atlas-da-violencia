@@ -17,7 +17,7 @@
 
             </div>
             <div class="col-md-9">
-                @if($quem->titulo!='Marca')
+                @if($quem->id!='9')
                     @if(!empty($quem->imagem))
                         <picture>
                             <source srcset="imagens/quemsomos/sm-{{$quem->imagem}}" media="(max-width: 468px)">
