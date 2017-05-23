@@ -26,7 +26,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
             listarSeries();
         }
     });
-    $scope.$watch('dadoSerie', function(){
+    $scope.$watch('dadoPesquisa', function(){
         if($listar){
             listarSeries();
         }

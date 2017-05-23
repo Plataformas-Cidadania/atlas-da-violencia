@@ -6,6 +6,7 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
     $scope.removerArquivo = 0;
 
     $scope.importar = function (arquivo){
+
         $scope.processandoSalvar = true;
         var data1 = {
             id: $scope.id,
@@ -21,13 +22,23 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
             data: data1,
             cache:false
         }).then(function (response) {
+
+
+
             $timeout(function () {
                 $scope.result = response.data;
             });
+
+            if(response.data.erro){
+                $scope.mensagemSalvar = response.data.msg;
+                $scope.processandoSalvar = false;
+                return;
+            }
+
             //$scope.fileArquivo = null;//limpa o file
             console.log($scope.result);
             $scope.mensagemSalvar =  "Gravado com sucesso!";
-            $scope.removerImagem = false;
+            //$scope.removerImagem = false;
             $scope.imagemBD = '/imagens/downloads/'+response.data;
             $scope.processandoSalvar = false;
 
@@ -42,6 +53,11 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
             $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
         });
 
+    };
+
+    $scope.limparArquivo = function(){
+        delete $scope.fileArquivo;
+        $scope.form.fileArquivo.$error.maxSize = false;
     };
 
     $scope.validar = function(valor) {

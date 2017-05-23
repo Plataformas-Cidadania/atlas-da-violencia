@@ -11,7 +11,7 @@
                 {!! Form::open(['name' =>'form']) !!}
 
                 <span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
-                    Escolher Arquivo Arquivo <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".xlsx,.xls" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+                    Escolher Arquivo Arquivo <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".xlsx,.xls,.csv" ngf-max-size="100MB" ngf-model-invalid="errorFile" ng-required="true">
                 </span>
                 <button class="btn btn-danger" ng-click="limparArquivo()" ng-show="fileArquivo || arquivoBD" type="button">Remover Arquivo</button>
                 <a href="arquivos/artigos/<% arquivoBD %>" target="_blank" ng-show="arquivoBD"><% arquivoBD %></a>
@@ -27,7 +27,7 @@
                     '5' => 'Micro-Região',
                 ];
                 ?>
-                {!! Form::label('abrangencia', 'Abrangência *') !!}<br>
+                {{--{!! Form::label('abrangencia', 'Abrangência *') !!}<br>
                 {!! Form::select('abrangencia',
                         $abrangencias,
                 null, [
@@ -36,25 +36,26 @@
                     'ng-required'=>'true',
                     'init-model'=>'serie.abrangencia',
                     'placeholder' => 'Selecione'
-                ]) !!}<br>
+                ]) !!}<br>--}}
 
 
-
-                <label for="periodo"></label>
-                <input type="text" name="periodo" class="form-control width-pequeno" ng-model="serie.periodo">
+                @if($serie->abrangencia==4)
+                <label for="periodo">Periodo* (obrigatório para municipios)</label>
+                <input type="text" name="periodo" class="form-control width-pequeno" ng-model="serie.periodo" ng-required="true">
                 <br>
+                @endif
 
                 <input type="hidden" name="id" ng-model="id" ng-init="id='{{$serie->id}}'"/>
                 <div class="row">
                     <div class="col-md-1 col-lg-1 col-xs-3">
-                        <button class="btn btn-info" type="button" ng-click="importar(fileArquivo)" ng-disabled="form.$invalid && form.artigo.$dirty">Importar</button>
+                        <button class="btn btn-info" type="button" ng-click="importar(fileArquivo)" ng-disabled="form.$invalid">Importar</button>
                     </div>
-                    <div class="col-md-2 col-lg-2 col-xs-6">
+                    <div class="col-md-3 col-lg-3 col-xs-6">
                         <span class="progress" ng-show="picFile.progress >= 0">
                             <div style="width: <% picFile.progress %>%" ng-bind="picFile.progress + '%'"></div>
                         </span>
                         <div ng-show="processandoSalvar"><i class="fa fa-spinner fa-spin"></i> Processando...</div>
-                        <div><% mensagemSalvar %></div>
+                        <div>&nbsp;&nbsp;<% mensagemSalvar %></div>
                         <span ng-show="picFile.result">{{--Upload Successful--}}</span>
                         <span class="err" ng-show="errorMsg"><% errorMsg %></span>
                     </div>

@@ -56,17 +56,16 @@ class SerieController extends Controller
 
     public function listar(Request $request)
     {
-
         //Log::info('CAMPOS: '.$request->campos);
 
-        //Auth::loginUsingId(2);
+        Log::info($request->dadoPesquisa);
 
         $campos = explode(", ", $request->campos);
 
         $series = DB::table('series')
             ->select($campos)
             ->where([
-                [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
+                [$request->campoPesquisa, 'ilike', "%$request->dadoPesquisa%"],
             ])
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
@@ -202,6 +201,22 @@ class SerieController extends Controller
         return view('cms::serie.import', ['serie' => $serie]);
     }
 
+    private function validarArquivo($serie, $arquivo){
+        $ext = $arquivo->getClientOriginalExtension();
+
+        Log::info($ext);
+
+        if($serie->abrangencia==4){
+            return ['result' => $ext=='csv', 'msg' => 'O arquivo deve ser .csv'];
+        }
+
+        if($serie->abrangencia==1 || $serie->abrangencia==2 || $serie->abrangencia==3){
+            return ['result' => $ext=='xls' || $ext=='xlsx', 'msg' => 'O arquivo deve ser .xls ou .xlsx'];
+        }
+
+        return false;
+    }
+
     public function importar(Request $request){
 
         $data = $request->all();
@@ -220,11 +235,25 @@ class SerieController extends Controller
 
         $serie = \App\Serie::select('abrangencia', 'indicador')->where('id', $data['id'])->first();
 
-        if($data['serie']['abrangencia']==1 || $data['serie']['abrangencia']==2 || $data['serie']['abrangencia']==3){
+
+        $validation = $this->validarArquivo($serie, $arquivo);
+
+        if(!$validation['result']){
+            return ['erro' => 1, 'msg' => $validation['msg']];
+        }
+
+
+        if($serie->abrangencia==1 || $serie->abrangencia==2 || $serie->abrangencia==3){
             $excel = Excel::load(public_path()."/import/$filenameArquivo", function($reader) {})->get();
             $this->importarPaisUfRegiao($excel, $data['id'], $serie->abrangencia);
             return;
         }
+
+        /*if($data['serie']['abrangencia']==1 || $data['serie']['abrangencia']==2 || $data['serie']['abrangencia']==3){
+            $excel = Excel::load(public_path()."/import/$filenameArquivo", function($reader) {})->get();
+            $this->importarPaisUfRegiao($excel, $data['id'], $serie->abrangencia);
+            return;
+        }*/
 
         if($data['serie']['abrangencia']==4){
 
@@ -309,7 +338,7 @@ class SerieController extends Controller
                 $valor = $row['txhomicidio'];
             }
 
-            $reg =[
+            /*$reg =[
                 'valor' => $valor,
                 'periodo' => $periodo,
                 'uf' => $uf,
@@ -323,7 +352,27 @@ class SerieController extends Controller
 
             Log::info($reg['periodo'].' / '.$reg['valor']);
 
-            $registro = \App\ValorSerie::create($reg);
+            $registro = \App\ValorSerie::create($reg);*/
+
+            $reg =[
+                'periodo' => $periodo,
+                'uf' => $uf,
+                'tipo_regiao' => $tipo_regiao,
+                'regiao_id' => $cod,
+                'municipio' => $municipio,
+                'bairro' => $bairro,
+                'serie_id' => $serie_id,
+            ];
+
+
+            Log::info($valor);
+
+            if($valor!=null){
+                $registro = \App\ValorSerie::updateOrCreate(
+                    $reg,
+                    ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
+                );
+            }
 
         }
 
@@ -373,7 +422,7 @@ class SerieController extends Controller
                         $valor = $cel;
                         $periodo = $index;
 
-                        Log::info('territorio: '.$territorio);
+                        //Log::info('territorio: '.$territorio);
 
                         DB::connection()->enableQueryLog();
 
@@ -383,13 +432,13 @@ class SerieController extends Controller
                             ->where($coluna_edterritorios, 'ilike', $territorio)
                             ->first();
 
-                        Log::info(DB::getQueryLog());
+                        //Log::info(DB::getQueryLog());
 
                         $regiao_id = $regiao->regiao_id;
 
-                        Log::info($regiao->regiao_id);
+                        //Log::info($regiao->regiao_id);
 
-                        $reg =[
+                        /*$reg =[
                             'valor' => $valor,
                             'periodo' => $periodo,
                             'uf' => $uf,
@@ -401,7 +450,28 @@ class SerieController extends Controller
                             'cmsuser_id' => $cms_user_id
                         ];
 
-                        $registro = \App\ValorSerie::create($reg);
+                        $registro = \App\ValorSerie::create($reg);*/
+
+                        $reg =[
+                            'periodo' => $periodo,
+                            'uf' => $uf,
+                            'tipo_regiao' => $tipo_regiao,
+                            'regiao_id' => $regiao_id,
+                            'municipio' => $municipio,
+                            'bairro' => $bairro,
+                            'serie_id' => $serie_id
+                        ];
+
+                        Log::info($valor);
+
+                        if($valor!=null){
+                            $registro = \App\ValorSerie::updateOrCreate(
+                                $reg,
+                                ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
+                            );
+                        }
+
+
 
 
                     }

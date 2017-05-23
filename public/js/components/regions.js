@@ -12,7 +12,8 @@ class Regions extends React.Component {
             maxValue: 0,
             maxUp: 0,
             maxDown: 0,
-            styleNumber: { fontSize: '35px', fontWeight: 'bold' }
+            styleNumber: { fontSize: '35px', fontWeight: 'bold' },
+            showMaxUpDown: true
         };
 
         this.minMaxValue = this.minMaxValue.bind(this);
@@ -74,6 +75,13 @@ class Regions extends React.Component {
             //regions[this.state.data[i].uf].start = this.state.data[i].valor;
             //regions[this.state.data[i].uf].end = this.state.data[++i].valor;
 
+
+            let j = i + 1;
+            //para o fato de não haver valor em um determinado território
+            if (!this.state.data[i] || !this.state.data[j]) {
+                this.setState({ showMaxUpDown: false });
+                return;
+            }
             let start = parseFloat(this.state.data[i].valor);
             let end = parseFloat(this.state.data[++i].valor);
 
@@ -102,7 +110,8 @@ class Regions extends React.Component {
 
         this.setState({
             maxDown: regions[0],
-            maxUp: regions[last]
+            maxUp: regions[last],
+            showMaxUpDown: true
         });
     }
 
@@ -268,7 +277,24 @@ class Regions extends React.Component {
                     ),
                     React.createElement(
                         'div',
-                        { className: 'row' },
+                        { className: ' row text-center', style: { display: this.state.showMaxUpDown ? 'none' : 'block' } },
+                        React.createElement(
+                            'div',
+                            { className: 'col-md-12' },
+                            React.createElement('br', null),
+                            React.createElement('br', null),
+                            React.createElement('br', null),
+                            React.createElement('br', null),
+                            React.createElement(
+                                'h4',
+                                { style: { padding: '20px' } },
+                                'Em fun\xE7\xE3o de n\xE3o existirem alguns dados n\xE3o foi poss\xEDvel calcular a queda e crescimento.'
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'row', style: { display: this.state.showMaxUpDown ? 'block' : 'none' } },
                         React.createElement(
                             'div',
                             { className: 'col-md-12 col-lg-12 text-center text-center', style: { display: this.state.loading ? 'block' : 'none' } },
