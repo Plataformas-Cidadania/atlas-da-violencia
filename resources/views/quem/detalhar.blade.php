@@ -17,7 +17,7 @@
 
             </div>
             <div class="col-md-9">
-                @if($quem->titulo!='Marca')
+                @if($quem->id!='9')
                     @if(!empty($quem->imagem))
                         <picture>
                             <source srcset="imagens/quemsomos/sm-{{$quem->imagem}}" media="(max-width: 468px)">
@@ -297,7 +297,7 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="manual">
                                 @if($printingsManual)
-                                <iframe src="arquivos/printings/{{$printingsManual->arquivo}}" frameborder="0" width="100%" height="1000px"></iframe>
+                                <iframe src="arquivos/printings/{{$printingsManual->arquivo}}" height="1000px" width="100%" frameborder="0"></iframe>
                                 @endif
                             </div>
                         </div>
