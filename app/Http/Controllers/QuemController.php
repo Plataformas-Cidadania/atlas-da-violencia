@@ -27,7 +27,7 @@ class QuemController extends Controller
             ->orderBy('type')
             ->get();
         $printingsManual = DB::table('printings')->where('type', 0)->first();
-        $printings = DB::table('printings')->get();
+        $printings = DB::table('printings')->where('type','!=', 0)->get();
 
         if($id){
             $quem = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('id', $id)->orderBy('titulo')->first();
