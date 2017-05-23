@@ -138,5 +138,5 @@ if(substr($base_href, 0,9)=='evbsb1052'){
 </html>
 
 
-{{--<script defer="defer" src="//barra.brasil.gov.br/barra.js" type="text/javascript"></script>--}}
+<script defer="defer" src="//barra.brasil.gov.br/barra.js" type="text/javascript"></script>
 
