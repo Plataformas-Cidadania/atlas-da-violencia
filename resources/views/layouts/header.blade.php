@@ -29,13 +29,9 @@
     .box-destaque{
         padding: 25px;
         background-color: #ececec;
-        height: 315px;
+        min-height: 315px;
     }
-    @media (max-width: 767px) {
-        .box-destaque{
-            height: 400px;
-        }
-    }
+
 </style>
 
 
