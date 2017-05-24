@@ -317,7 +317,8 @@ class SerieController extends Controller
         $indicadores = [
             '1' => 'Quantidade',
             '2' => 'Taxa por 100 mil Habitantes',
-            '3' => 'Proporção'
+            '3' => 'Proporção',
+            '4' => 'Taxa Bayesiana'
         ];
 
         $coluna_edterritorios = 'edterritorios_nome';
@@ -339,6 +340,9 @@ class SerieController extends Controller
             }
             if($indicador==2){
                 $valor = $row['txhomicidio'];
+            }
+            if($indicador==2){
+                $valor = $row['txeb'];
             }
 
             /*$reg =[
@@ -374,7 +378,7 @@ class SerieController extends Controller
 			$valor = 0;
 		}
 
-            if($regiao_id != null && $periodo != null){
+            if($cod != null && $periodo != null){
                 $registro = \App\ValorSerie::updateOrCreate(
                     $reg,
                     ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
