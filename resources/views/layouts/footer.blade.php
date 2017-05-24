@@ -23,7 +23,7 @@
 
 
 
-    <div class="row bg-qui">
+    <div class="row bg-qui" ng-class="{'alto-contraste': altoContrasteAtivo}">
         <div class="container">
             <br>
             <div class="row">
