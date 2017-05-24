@@ -26,7 +26,7 @@
             <br>
             <style>
                 .visible {
-                    height: 90px;
+                    height: 50px;
                     overflow: hidden;
                 }
                 .is-visible {
@@ -43,11 +43,13 @@
                         <?php echo date_format(date_create($video->data),"d/m/Y");?>
                     </h6>
                     <?php }?>
-                    <div ng-class="{'is-visible':visible}" class="visible" >
-                        {!! $video->descricao !!}
-                    </div>
-                    <hr>
-                    <p ng-click="visible=!visible;"  style="font-size: 12px; font-weight: bold; text-align: center; cursor:pointer;">MOSTRAS MAIS</p>
+                    <?php if($video->descricao){?>
+                        <div ng-class="{'is-visible':visible}" class="visible" >
+                            {!! $video->descricao !!}
+                        </div>
+                        <hr>
+                        <p ng-click="visible=!visible;"  style="font-size: 12px; font-weight: bold; text-align: center; cursor:pointer;">MOSTRAS MAIS</p>
+                    <?php }?>
                 <br>
                 <br>
                 </div>
