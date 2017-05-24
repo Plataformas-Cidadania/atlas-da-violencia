@@ -10,7 +10,12 @@
             float: left;
             height: 200px;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 800px) {
+            .filtros {
+                width: 50%;
+            }
+        }
+        @media (max-width: 480px) {
             .filtros {
                 width: 100%;
             }
