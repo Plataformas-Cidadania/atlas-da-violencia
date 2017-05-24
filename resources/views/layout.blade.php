@@ -60,7 +60,7 @@ if(substr($base_href, 0,9)=='evbsb1052'){
             }
             /*style.less*/
             .bg-pri{
-                background-color: {{$setting->cor1}} !important;
+                background-color: {{$setting->cor1}} ;
             }
             .bg-sec{
                 background-color: {{$setting->cor2}} !important;
@@ -72,7 +72,7 @@ if(substr($base_href, 0,9)=='evbsb1052'){
                 background-color: {{$setting->cor4}} !important;
             }
             .bg-qui{
-                background-color: {{$setting->cor5}} !important;
+                background-color: {{$setting->cor5}};
             }
             .ft-pri{
                 color: {{$setting->cor1}} !important;

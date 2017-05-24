@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    <div class=" bg-qui  hidden-print"  ng-class="{'alto-contraste': altoContrasteAtivo}">
+    <div class=" bg-qui hidden-print"  ng-class="{'alto-contraste': altoContrasteAtivo}">
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-5">
