@@ -26,6 +26,16 @@
         margin: -30px 10px 0 0;
         font-size: 25px;
     }
+    .box-destaque{
+        padding: 25px;
+        background-color: #ececec;
+        height: 315px;
+    }
+    @media (max-width: 767px) {
+        .box-destaque{
+            height: 400px;
+        }
+    }
 </style>
 
 
@@ -121,7 +131,7 @@
                         Your browser does not support the video tag.
                     </video>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 25px; background-color: #ececec; height: 315px;"  ng-class="{'alto-contraste': altoContrasteAtivo}">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 box-destaque"   ng-class="{'alto-contraste': altoContrasteAtivo}">
 
 
 
