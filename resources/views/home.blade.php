@@ -47,7 +47,7 @@
                                     <source srcset="imagens/links/{{$link->imagem}}" class="img-responsive">
                                     <img srcset="imagens/links/{{$link->imagem}}" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}">
                                 </picture>
-                                <div class="bg-sex">
+                                <div {{--class="bg-sex"--}}>
                                     <h2 class="titulo-itens" ng-class="{'alto-contraste': altoContrasteAtivo}" href="{{$link->link}}">{{$link->titulo}}</h2>
                                 </div>
                                 <div class="box-itens-filete"></div>
