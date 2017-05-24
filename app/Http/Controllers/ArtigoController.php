@@ -76,14 +76,14 @@ class ArtigoController extends Controller
             $artigos = DB::table('artigos')
                 ->orderBy('titulo')
                 ->where([
-                ['titulo', 'like', "%$busca->titulo%"]
+                ['titulo', 'ilike', "%$busca->titulo%"]
             ])
                 ->paginate(15);
         }else{
             $artigos = DB::table('artigos')
                 ->orderBy('titulo')
                 ->where([
-                ['titulo', 'like', "%$busca->titulo%"]
+                ['titulo', 'ilike', "%$busca->titulo%"]
             ])
                 ->where('origem_id', '=', $origem_id )
                 ->paginate(15);
