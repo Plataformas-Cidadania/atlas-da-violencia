@@ -15,9 +15,67 @@
         padding: 1em 0px;
         max-width: 100%;
     }*/
+
+
 </style>
 <footer id="iniciodorodape" class="container-fluid  hidden-print" role="contentinfo" ng-class="{'alto-contraste': altoContrasteAtivo}">
     <div class="text-right"><a href="#iniciodoconteudo"><i class="fa fa-chevron-circle-up" aria-hidden="true" accesskey="9"></i> @lang('links.back-top') </a><br><br></div>
+
+
+
+    <div class="row bg-qui">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class=" menu-box-rp">
+                        <h3>Assuntos</h3>
+                        <ul class="menu-rp">
+                            @foreach($links as $link)
+                                <li>
+                                    <a href="filtros/{{$link->link}}/{{clean($link->titulo)}}">
+                                        {{$link->titulo}}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class=" menu-box-rp">
+                        <h3>Serviços</h3>
+                        <ul class="menu-rp">
+                            <li><a href="acessibilidade">@lang('links.contact')</a></li>
+                            <li><a href="acessibilidade">@lang('links.news')</a></li>
+                            <li><a href="acessibilidade">@lang('links.articles')</a></li>
+                            <li><a href="acessibilidade">@lang('links.videos')</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class=" menu-box-rp">
+                        <h3>Redes sociais</h3>
+                        <ul class="menu-rp">
+                            <li><a href="{{$setting->twitter}}" target="_blank">Twitter</a></li>
+                            <li><a href="{{$setting->youtube}}" target="_blank">YouTube</a></li>
+                            <li><a href="{{$setting->facebook}}" target="_blank">Facebook</a></li>
+                            <li><a href="{{$setting->pinterest}}" target="_blank">Google Plus</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class=" menu-box-rp">
+                        <h3>Sobre o site</h3>
+                        <ul class="menu-rp">
+                            <li><a href="acessibilidade">@lang('links.accessibility')</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
     <div class="row">
         <div id="footer-brasil"></div>
     </div>

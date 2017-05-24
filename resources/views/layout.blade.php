@@ -1,8 +1,10 @@
 <?php $rota = Route::getCurrentRoute()->getPath();?>
 <?php
     use Illuminate\Support\Facades\DB;
+    $lang =  App::getLocale();
 
     $setting = DB::table('settings')->orderBy('id', 'desc')->first();
+    $links = DB::table('links')->where('idioma_sigla', $lang)->orderBy('posicao')->take(10)->get();
     $idiomas = DB::table('idiomas')->orderBy('id')->get();
 
 
