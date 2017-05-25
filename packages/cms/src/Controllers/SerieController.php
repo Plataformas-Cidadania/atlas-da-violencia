@@ -286,7 +286,7 @@ class SerieController extends Controller
                 $cont++;
             }
 
-            Log::info($csv);
+            //Log::info($csv);
 
             //return $csv;
 
@@ -328,8 +328,8 @@ class SerieController extends Controller
             if($row['codmun']==''){
                 break;
             }
-            Log::info($row);
-            Log::info('indicador: '.$indicador);
+            //Log::info($row);
+            //Log::info('indicador: '.$indicador);
             //Log::info($row['codmun'].": ".$this->calcula_dv_municipio($row['codmun']));
 
             $cod = $row['codmun'].$this->calcula_dv_municipio($row['codmun']);
@@ -339,11 +339,11 @@ class SerieController extends Controller
                 $valor = $row['homicidios'];
             }
             if($indicador==2){
-                $valor = $row['txhomicidio'];
+                $valor = $row['taxa'];//txhomicidio
             }
-            if($indicador==2){
+            /*if($indicador==2){
                 $valor = $row['txeb'];
-            }
+            }*/
 
             /*$reg =[
                 'valor' => $valor,
@@ -372,11 +372,22 @@ class SerieController extends Controller
             ];
 
 
-            Log::info($valor);
+            //Log::info('valor antes: '.$valor.'----');
+            //Log::info('tipo: '.gettype($valor));
 
-		if($valor==null){
-			$valor = 0;
-		}
+           /* if(preg_match('/\\d/', $valor) > 0){
+                Log::info('contém numero');
+            }else{
+                Log::info('não contém numero');
+            }*/
+
+            //$valor = str_replace('<br/>', '', $valor);
+
+            if($valor==null || empty($valor) || !preg_match('/\\d/', $valor) > 0){
+                $valor = 0;
+            }
+
+            Log::info('valor: '.$valor);
 
             if($cod != null && $periodo != null){
                 $registro = \App\ValorSerie::updateOrCreate(
