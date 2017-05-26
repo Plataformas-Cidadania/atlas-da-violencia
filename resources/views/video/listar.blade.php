@@ -42,13 +42,17 @@
                     <h6>Publicado em
                         <?php echo date_format(date_create($video->data),"d/m/Y");?>
                     </h6>
-                    <?php }?>
+                    <?php }else{?>
+                    <h6>&nbsp;</h6>
+                     <?php }?>
                     <?php if($video->descricao){?>
                         <div ng-class="{'is-visible':visible}" class="visible" >
                             {!! $video->descricao !!}
                         </div>
                         <hr>
                         <p ng-click="visible=!visible;"  style="font-size: 12px; font-weight: bold; text-align: center; cursor:pointer;">MOSTRAS MAIS</p>
+                    <?php }else{?>
+                    <div><br>&nbsp;<br><br>&nbsp;<br><br>&nbsp;<br></div>
                     <?php }?>
                 <br>
                 <br>
