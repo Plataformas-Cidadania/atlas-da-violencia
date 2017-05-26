@@ -13,7 +13,7 @@ class AlterVideosTable extends Migration
     public function up()
     {
         Schema::table('videos', function (Blueprint $table) {
-            $table->string('descricao')->default('');
+            $table->text('descricao')->default('');
             $table->string('tags')->default('');
             $table->integer('posicao')->default(0);
             $table->string('imagem')->default('');
