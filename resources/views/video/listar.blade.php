@@ -26,7 +26,7 @@
             <br>
             <style>
                 .visible {
-                    height: 50px;
+                    height: 43px;
                     overflow: hidden;
                 }
                 .is-visible {
