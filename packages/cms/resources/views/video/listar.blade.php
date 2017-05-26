@@ -79,11 +79,11 @@
                                 <i ng-if="ordem=='id' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
                             {{--<th>Imagem</th>--}}
-                            <th ng-click="ordernarPor('posicao')" style="videor:pointer;">
+                            {{--<th ng-click="ordernarPor('posicao')" style="videor:pointer;">
                                 Posição
                                 <i ng-if="ordem=='posicao' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='posicao' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
-                            </th>
+                            </th>--}}
                             <th ng-click="ordernarPor('video')" style="videor:pointer;">
                                 Video
                                 <i ng-if="ordem=='video' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
