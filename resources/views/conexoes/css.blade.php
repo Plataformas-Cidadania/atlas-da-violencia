@@ -22,10 +22,6 @@
 </style>
 
 <style>
-    .irs-slider {
-        background: url(http://<?php echo $base_href;?>img/sprite-skin-flat.png) repeat-x;
-    }
-
 
     /*RANGER*/
     .irs-line-mid,
