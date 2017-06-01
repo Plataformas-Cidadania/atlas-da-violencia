@@ -23,7 +23,7 @@
 
 <style>
     .irs-slider {
-        background: url(<?php echo $base_href;?>/img/sprite-skin-flat.png) repeat-x;
+        background: url(http://<?php echo $base_href;?>img/sprite-skin-flat.png) repeat-x;
     }
 
 
@@ -34,7 +34,7 @@
     .irs-bar,
     .irs-bar-edge,
     .irs-slider {
-        background: url(<?php echo $base_href;?>/img/sprite-skin-flat.png) repeat-x;
+        background: url(http://<?php echo $base_href;?>img/sprite-skin-flat.png) repeat-x;
     }
 
     .irs {
