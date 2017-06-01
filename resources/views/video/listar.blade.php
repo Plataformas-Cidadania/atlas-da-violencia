@@ -37,7 +37,7 @@
         @foreach($videos as $video)
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
-                    <h4 style="min-height: 40px;">{{$video->titulo}}</h4>
+                    <h4 style="min-height: 40px; font-size: 17px;">{{$video->titulo}}</h4>
                     <?php if($video->data!=null){?>
                     <h6>Publicado em
                         <?php echo date_format(date_create($video->data),"d/m/Y");?>
