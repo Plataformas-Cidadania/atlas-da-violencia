@@ -11,6 +11,8 @@
 
 <style>
 <?php
+    $base_href = config('app.url');
+
     echo file_get_contents(public_path()."/css/all.css");
     echo file_get_contents(public_path()."/css/app.css");
     // \Illuminate\Support\Facades\File::get(public_path()."/css/all.css");
@@ -21,7 +23,7 @@
 
 <style>
     .irs-slider {
-        background: url(http://evbsb1052.ipea.gov.br/atlasviolencia/img/sprite-skin-flat.png) repeat-x;
+        background: url(<?php echo $base_href;?>/img/sprite-skin-flat.png) repeat-x;
     }
 
 
@@ -32,7 +34,7 @@
     .irs-bar,
     .irs-bar-edge,
     .irs-slider {
-        background: url(http://evbsb1052.ipea.gov.br/atlasviolencia/img/sprite-skin-flat.png) repeat-x;
+        background: url(<?php echo $base_href;?>/img/sprite-skin-flat.png) repeat-x;
     }
 
     .irs {
