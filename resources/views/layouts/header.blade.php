@@ -153,7 +153,7 @@
                     {{--GRAFICO--}}
                     <a href="" class="item active" style="margin-top: -30px;">
                         <div style="width:100%;">
-                            <canvas id="canvas" height="170"></canvas>
+                            <canvas id="canvas" height="160"></canvas>
                         </div>
                     </a>
                     {{----}}
