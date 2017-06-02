@@ -38,7 +38,7 @@
                          <?php }?>
                         <?php if($video->descricao){?>
                             <div>
-                                {!! strip_tags (substr($video->descricao, 0, 140)."...") !!}
+                                {!! strip_tags (substr($video->descricao, 0, 150)."...") !!}
                             </div>
                             <hr>
 
