@@ -13,6 +13,7 @@ class ArtigoController extends Controller
 {
     public function listar($origem_id, $origem_titulo, $autor_id=0, $autor_titulo=0){
 
+
         $lang =  App::getLocale();
 
         $where = [];
@@ -57,7 +58,7 @@ class ArtigoController extends Controller
 
 
 
-        return view('artigo.listar', ['artigos' => $artigos, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => $autor_id, 'autor_titulo' => $autor_titulo]);
+        return view('artigo.listar', ['artigos' => $artigos, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => $autor_id, 'autor_titulo' => $autor_titulo, 'valorBusca' => 0]);
     }
     public function detalhar($id){
 
@@ -77,12 +78,15 @@ class ArtigoController extends Controller
     }
     public function buscar(Request $request, $origem_id){
 
+
+
         $dados = $request->all();
 
         $busca = new \stdClass();
         $busca->titulo = $dados['busca'];
         $busca->descricao = '';
 
+       $valorBusca = $dados['busca'];
 
         if($origem_id==0){
             $artigos = DB::table('artigos')
@@ -106,7 +110,7 @@ class ArtigoController extends Controller
         $origem_titulo = "";
 
 
-        return view('artigo.listar', ['artigos' => $artigos, 'tipos' => $busca, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => 0, 'autor_titulo' => 0]);
+        return view('artigo.listar', ['artigos' => $artigos, 'tipos' => $busca, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => 0, 'autor_titulo' => 0, 'valorBusca' => $valorBusca]);
 
     }
 }
