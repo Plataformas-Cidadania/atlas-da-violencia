@@ -51,6 +51,7 @@ class ArtigoController extends Controller
                 ->join('artigos', 'artigos.id', '=', 'author_artigo.artigo_id')
                 ->where('artigos.origem_id', '=', $origem_id)
                 ->orderBy('authors.titulo')
+                ->distinct()
                 ->get();
         }
 
