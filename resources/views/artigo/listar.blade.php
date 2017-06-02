@@ -66,10 +66,10 @@
                 <ul class="menu-vertical">
                     @foreach($authors as $author)
                         <li>
-                                <?php if($valorBusca==0){?>
-                                    <a href="artigos/{{$origem_id}}/{{$origem_titulo}}/{{$author->id}}/{{clean($author->titulo)}}" @if($author->id == $autor_id) class="menu-vertical-marcado" @endif>
-                                <?php }else{?>
+                                <?php if($valorBusca!=0){?>
                                     <a href="artigos/0/todos/{{$author->id}}/{{clean($author->titulo)}}" @if($author->id == $autor_id) class="menu-vertical-marcado" @endif>
+                                <?php }else{?>
+                                    <a href="artigos/{{$origem_id}}/{{$origem_titulo}}/{{$author->id}}/{{clean($author->titulo)}}" @if($author->id == $autor_id) class="menu-vertical-marcado" @endif>
                                 <?php }?>
 
                                 <i class="fa fa-pencil-square" aria-hidden="true"></i>
