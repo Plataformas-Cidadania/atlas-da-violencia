@@ -115,4 +115,22 @@ if ( ! function_exists('codigoYoutube') ) {
     }
 }
 
+if ( ! function_exists('cutText') ) {
+
+    function cutText($texto, $quantidade, $simbolo = '...') {
+        //Remove as tags HTML do texto
+        $textoResumo = strip_tags($texto);
+
+        //Verifica se o tamanho do texto e maior do que o tamanho do resumo
+        if(strlen($textoResumo) > $quantidade){
+            //Se for maior, corta o texto sem cortar palavra no meio
+            return substr($textoResumo, 0, strpos($textoResumo, ' ', $quantidade)).$simbolo;
+        }
+
+        //Se não for maior, mostra o texto completo
+        return $textoResumo;
+
+    }
+}
+
 
