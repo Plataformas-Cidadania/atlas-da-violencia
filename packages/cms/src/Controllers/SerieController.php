@@ -305,7 +305,7 @@ class SerieController extends Controller
         $cms_user_id = auth()->guard('cms')->user()->id;
         $tipo_regiao = $abrangencia;
 
-        Log::info($csv);
+        //Log::info($csv);
 
         $tabelas = $this->getTabelas();
 
