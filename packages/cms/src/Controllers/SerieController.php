@@ -327,7 +327,7 @@ class SerieController extends Controller
 
         $cont = 0;
         foreach($csv as $row){
-            if($row['codmun']==''){
+            if($row['codmun']=='' || $row['nome']==''){
                 break;
             }
             //Log::info($row);
