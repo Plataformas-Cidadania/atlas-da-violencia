@@ -40,10 +40,21 @@ class ArtigoController extends Controller
 
 
 
-
         $menus = DB::table('links')->get();
 
-        $authors = DB::table('authors')->orderBy('titulo')->get();
+        if($origem_id==0){
+            $authors = DB::table('authors')->orderBy('titulo')->get();
+        }else{
+            $authors = DB::table('authors')
+                ->select('authors.*')
+                ->join('author_artigo', 'authors.id', '=', 'author_artigo.author_id')
+                ->join('artigos', 'artigos.id', '=', 'author_artigo.artigo_id')
+                ->where('artigos.origem_id', '=', $origem_id)
+                ->orderBy('authors.titulo')
+                ->get();
+        }
+
+
 
         return view('artigo.listar', ['artigos' => $artigos, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => $autor_id, 'autor_titulo' => $autor_titulo]);
     }
