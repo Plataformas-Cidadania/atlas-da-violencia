@@ -45,10 +45,10 @@
                     <div class=" menu-box-rp">
                         <h3>Serviços</h3>
                         <ul class="menu-rp">
-                            <li><a href="acessibilidade">@lang('links.contact')</a></li>
-                            <li><a href="acessibilidade">@lang('links.news')</a></li>
-                            <li><a href="acessibilidade">@lang('links.articles')</a></li>
-                            <li><a href="acessibilidade">@lang('links.videos')</a></li>
+                            <li><a href="contato">@lang('links.contact')</a></li>
+                            <li><a href="noticias">@lang('links.news')</a></li>
+                            <li><a href="artigos/0/todos">@lang('links.articles')</a></li>
+                            <li><a href="videos">@lang('links.videos')</a></li>
                         </ul>
                     </div>
                 </div>
