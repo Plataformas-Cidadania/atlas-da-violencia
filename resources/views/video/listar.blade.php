@@ -24,41 +24,54 @@
         </div>
         <div class="row">
             <br>
-            <style>
-                .visible {
-                    height: 43px;
-                    overflow: hidden;
-                }
-                .is-visible {
-                    height: 350px;
-                    overflow: auto;
-                }
-            </style>
-        @foreach($videos as $video)
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
-                    <h4 style="min-height: 40px; font-size: 17px;">{{$video->titulo}}</h4>
-                    <?php if($video->data!=null){?>
-                    <h6>Publicado em
-                        <?php echo date_format(date_create($video->data),"d/m/Y");?>
-                    </h6>
-                    <?php }else{?>
-                    <h6>&nbsp;</h6>
-                     <?php }?>
-                    <?php if($video->descricao){?>
-                        <div ng-class="{'is-visible':visible}" class="visible" >
-                            {!! $video->descricao !!}
-                        </div>
-                        <hr>
-                        <p ng-click="visible=!visible;"  style="font-size: 12px; font-weight: bold; text-align: center; cursor:pointer;">MOSTRAS MAIS</p>
-                    <?php }else{?>
-                    <div><br>&nbsp;<br><br>&nbsp;<br><br>&nbsp;<br></div>
-                    <?php }?>
-                <br>
-                <br>
-                </div>
 
-        @endforeach
+                @foreach($videos as $video)
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
+                        <h4 style="min-height: 40px; font-size: 17px;">{{$video->titulo}}</h4>
+                        <?php if($video->data!=null){?>
+                        <h6>Publicado em
+                            <?php echo date_format(date_create($video->data),"d/m/Y");?>
+                        </h6>
+                        <?php }else{?>
+                        <h6>&nbsp;</h6>
+                         <?php }?>
+                        <?php if($video->descricao){?>
+                            <div>
+                                {!! substr(strip_tags ($video->descricao), 0, 140)."..." !!}
+                            </div>
+                            <hr>
+
+                        <p style="font-size: 12px; font-weight: bold; text-align: center; cursor:pointer;" data-toggle="modal" data-target=".bs-example-modal-lg{{$video->id}}">MOSTRAS MAIS</p>
+
+
+
+                        <div class="modal fade bs-example-modal-lg{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">{{$video->titulo}}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <iframe width="100%" height="400" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
+                                        <br><br>
+                                        <p>{!! $video->descricao !!}</p>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <?php }else{?>
+                        <div><br>&nbsp;<br><br>&nbsp;</div>
+                        <?php }?>
+                    <br>
+                    <br>
+                    </div>
+                @endforeach
         </div>
         <div>{{ $videos->links() }}</div>
 
