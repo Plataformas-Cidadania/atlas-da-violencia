@@ -38,7 +38,7 @@
                          <?php }?>
                         <?php if($video->descricao){?>
                             <div>
-                                {!! substr(strip_tags ($video->descricao), 0, 140)."..." !!}
+                                {!! strip_tags (substr($video->descricao, 0, 140)."...") !!}
                             </div>
                             <hr>
 
@@ -55,7 +55,7 @@
                                         <h4 class="modal-title" id="myModalLabel">{{$video->titulo}}</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <iframe width="100%" height="400" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
+                                        <iframe width="100%" height="400" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen style="position: relative; z-index: 99999999999999999999999999;"></iframe>
                                         <br><br>
                                         <p>{!! $video->descricao !!}</p>
                                     </div>
