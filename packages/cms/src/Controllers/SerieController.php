@@ -58,7 +58,7 @@ class SerieController extends Controller
     {
         //Log::info('CAMPOS: '.$request->campos);
 
-        Log::info($request->dadoPesquisa);
+        //Log::info($request->dadoPesquisa);
 
         $campos = explode(", ", $request->campos);
 
@@ -207,7 +207,7 @@ class SerieController extends Controller
     private function validarArquivo($serie, $arquivo){
         $ext = $arquivo->getClientOriginalExtension();
 
-        Log::info($ext);
+        //Log::info($ext);
 
         if($serie->abrangencia==4){
             return ['result' => $ext=='csv', 'msg' => 'O arquivo deve ser .csv'];
@@ -274,7 +274,7 @@ class SerieController extends Controller
                         $values[$key] = somenteLetrasNumeros(clean($value));
                     }
                     $columns = $values;
-                    Log::info($columns);
+                    //Log::info($columns);
                 }else{
                     $row = [];
                     foreach($values as $key => $value){
@@ -387,7 +387,7 @@ class SerieController extends Controller
                 $valor = 0;
             }
 
-            Log::info('cod '.$cod.' valor: '.$valor);
+            //Log::info('cod '.$cod.' valor: '.$valor);
 
             if($cod != null && $periodo != null){
                 $registro = \App\ValorSerie::updateOrCreate(
@@ -416,7 +416,7 @@ class SerieController extends Controller
     }
 
     private function importarPaisUfRegiao($excel, $serie_id, $abrangencia){
-        Log::info('abrangencia: '.$abrangencia);
+        //Log::info('abrangencia: '.$abrangencia);
         $registros = [];
         $uf = '';
         $municipio = '';
@@ -435,8 +435,8 @@ class SerieController extends Controller
         foreach($excel as $row){
             foreach($row as $index => $cel){
                 if(!empty($index)){
-                    Log::info('titulo abrangência: '.$abrangencias[$abrangencia]);
-                    Log::info('index: '.$index);
+                    //Log::info('titulo abrangência: '.$abrangencias[$abrangencia]);
+                    //Log::info('index: '.$index);
                     if($index==$abrangencias[$abrangencia]){
                         $territorio = str_replace('-', ' ', $cel);
                     }else{
@@ -484,7 +484,7 @@ class SerieController extends Controller
                             'serie_id' => $serie_id
                         ];
 
-                        Log::info($valor);
+                        //Log::info($valor);
 			
 			if($valor==null){
 				$valor = 0;
@@ -533,7 +533,7 @@ class SerieController extends Controller
 
     public function testeExcel($serie_id, $arquivo){
         //$data = Excel::load(public_path().'/excel/taxa.homicidio.ANO.REGIAO.xlsx', function($reader) {
-        Log::info($arquivo);
+        //Log::info($arquivo);
         $data = Excel::load(public_path()."/excel/$arquivo", function($reader) {
 
         })->get();
@@ -570,7 +570,7 @@ class SerieController extends Controller
 
                         $regiao_id = $regiao->regiao_id;
 
-                        Log::info($regiao->regiao_id);
+                        //Log::info($regiao->regiao_id);
 
                         $reg =[
                             'valor' => $valor,
