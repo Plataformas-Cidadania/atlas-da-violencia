@@ -66,6 +66,7 @@
                 <ul class="menu-vertical">
                     @foreach($authors as $author)
                         <li>
+                                {{$valorBusca}}
                                 <?php if($valorBusca!=0){?>
                                     <a href="artigos/0/todos/{{$author->id}}/{{clean($author->titulo)}}" @if($author->id == $autor_id) class="menu-vertical-marcado" @endif>
                                 <?php }else{?>
