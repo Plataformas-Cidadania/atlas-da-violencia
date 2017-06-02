@@ -387,7 +387,7 @@ class SerieController extends Controller
                 $valor = 0;
             }
 
-            Log::info('valor: '.$valor);
+            Log::info('cod '.$cod.' valor: '.$valor);
 
             if($cod != null && $periodo != null){
                 $registro = \App\ValorSerie::updateOrCreate(
