@@ -6,7 +6,7 @@ return [
     'view-more' => 'ver mais',
     'more-details' => 'Mais detalhes',
     'access-file' => 'Acessar arquivo',
-
+    'download-pdf' => 'Baixar em PDF',
 
 
 

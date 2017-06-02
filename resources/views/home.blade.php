@@ -75,7 +75,7 @@
                     <img src="img/marker.png" alt=""><br><br><br><br>
                     <a href="download/{{$download->id}}/{{clean($download->titulo)}}">
                         <p class="line-temp-font">{{$download->titulo}}</p><br><br><br>
-                        <button class="btn btn-default">Beixar em PDF</button>
+                        <button class="btn btn-default">@lang('buttons.download-pdf')</button>
                     </a>
                 </div>
                 @endforeach
