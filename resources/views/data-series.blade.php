@@ -251,7 +251,7 @@
         @if(!empty($series))
             <script>
                 serie_id={{$id}};
-                serie="{!! $series->titulo !!}";
+                serie=<![CDATA["{!! $series->titulo !!}"]]>;
                 metadados="{!! $series->descricao !!}";
                 tipoValores="{!! $series->tipo_valores !!}";
                 unidade="{!! $series->unidade !!}";
