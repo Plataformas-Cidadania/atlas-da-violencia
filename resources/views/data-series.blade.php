@@ -260,7 +260,7 @@
                 abrangencia="{{$abrangencia}}";
             </script>
             <?php
-                $series->descricao = preg_replace('/\s/','',$series->descricao);
+                $series->descricao = preg_replace('/\s/',' ',$series->descricao);
             ?>
             <script>
                 metadados="{!! $series->descricao !!}";
