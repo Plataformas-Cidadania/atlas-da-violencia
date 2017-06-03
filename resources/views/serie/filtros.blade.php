@@ -40,7 +40,7 @@
     <div class="container">
         <script>
             serie_id = "{{$id}}";
-            titulo = "{{$serie->titulo}}";
+            titulo = "{!! $serie->titulo !!}";
         </script>
         <div id="filtros"></div>
     </div>
