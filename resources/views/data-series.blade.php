@@ -252,7 +252,10 @@
             <script>
                 serie_id={{$id}};
                 serie="{!! $series->titulo !!}";
-                metadados=utf8_decode("{!! $series->descricao !!}");
+
+
+
+                metadados="<![CDATA[{!! $series->descricao !!}]]>";
                 tipoValores="{!! $series->tipo_valores !!}";
                 unidade="{!! $series->unidade !!}";
                 from="{!! $from !!}";
