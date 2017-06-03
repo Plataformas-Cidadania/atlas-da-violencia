@@ -252,13 +252,18 @@
             <script>
                 serie_id={{$id}};
                 serie="{!! $series->titulo !!}";
-                metadados="{!! str_replace(chr(13), '', $series->descricao) !!}";
                 tipoValores="{!! $series->tipo_valores !!}";
                 unidade="{!! $series->unidade !!}";
                 from="{!! $from !!}";
                 to="{!! $to !!}";
                 regions="{!! $regions !!}";
                 abrangencia="{{$abrangencia}}";
+            </script>
+            <?php
+                $series->descricao = preg_replace('/\s/','',$series->descricao);
+            ?>
+            <script>
+                metadados="{!! $series->descricao !!}";
             </script>
 
             <div id="pgSerie"></div>
