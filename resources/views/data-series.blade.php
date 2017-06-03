@@ -250,7 +250,7 @@
 
         @if(!empty($series))
             <script>
-                serie_id={{$id}}
+                serie_id={{$id}};
                 serie="{!! $series->titulo !!}";
                 metadados="{!! $series->descricao !!}";
                 tipoValores="{!! $series->tipo_valores !!}";
