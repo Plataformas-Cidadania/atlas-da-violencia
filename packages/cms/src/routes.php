@@ -162,7 +162,8 @@ Route::group(['middleware' => 'cms'], function () {
 
         //Logs
         Route::get('/cms/logs', 'Cms\Controllers\LogController@index');
-        
+
+
     });
 
 });
