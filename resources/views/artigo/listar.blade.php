@@ -56,7 +56,7 @@
                 </ul>
                 @if($origem_id>0)
                 <div class="text-right">
-                    <a href="artigos/0/todos/@if($autor_id>0){{$autor_id}}/{{$autor_titulo}} @endif" class="text-danger" > <i class="fa fa-times" aria-hidden="true"></i> Remover filtro</a>
+                    <a href="artigos/0/todos@if($autor_id>0)/{{$autor_id}}/{{$autor_titulo}} @endif" class="text-danger" > <i class="fa fa-times" aria-hidden="true"></i> Remover filtro</a>
                 </div>
                 @endif
 
