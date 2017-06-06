@@ -60,5 +60,16 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 
+public function __construct(Application $app, Router $router)
+    {
+        parent::__construct($app, $router);
 
+        array_walk($this->bootstrappers, function(&$bootstrapper)
+        {
+            if($bootstrapper === 'Illuminate\Foundation\Bootstrap\ConfigureLogging')
+            {
+                $bootstrapper = 'App\Bootstrap\ConfigureLogging';
+            }
+        });
+    }
 }

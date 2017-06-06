@@ -31,7 +31,7 @@ Route::get('renda/', 'RendaController@detalhar');
 //Route::get('pagina/', 'PaginaController@detalhar');
 
 Route::get('redirecionamento/{id}/{titulo}', 'LinkController@redirection');
-Route::get('link/{id}/{titulo}', 'LinkController@detgalhar');
+Route::get('link/{id}/{titulo}', 'LinkController@detalhar');
 
 //NOTÍCIAS
 Route::get('noticias/', 'NoticiaController@listar');
@@ -52,6 +52,8 @@ Route::post('busca-artigos/{origem_id}/{titulo}', 'ArtigoController@buscar');
 //DOWNLOADS
 Route::get('downloads/', 'DownloadController@listar');
 Route::get('downloads/{serie_id}/{titulo}', 'DownloadController@listar');
+Route::get('download/{id}', 'DownloadController@detalhar');
+Route::get('download/{id}/{titulo}', 'DownloadController@detalhar');
 
 //VÍDEOS
 Route::post('busca-videos/', 'VideoController@buscar');
@@ -66,6 +68,7 @@ Route::get('indices', 'IndiceController@indice');
 Route::get('series/', 'SerieController@listar');
 Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
 Route::post('dados-series/', 'SerieController@dataSeries');
+Route::post('download-dados/', 'SerieController@downloadDados');
 
 //-------------------------AJAX-----------------------------------------------------------------------------------------
 
