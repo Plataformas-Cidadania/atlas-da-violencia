@@ -15,17 +15,17 @@ class CreateViewRegionsByUf extends Migration
         DB::statement(
             "create view regions_by_uf as
             select 
-            ST_AsGeoJSON(ed_territorios_regioes.edterritorios_geometry) as geometry, 
+            ST_AsGeoJSON(spat.ed_territorios_regioes.edterritorios_geometry) as geometry, 
             valores_series.valor, 
             valores_series.periodo,
             valores_series.serie_id,
-            ed_territorios_regioes.edterritorios_codigo as codigo, 
-            ed_territorios_regioes.edterritorios_sigla as sigla, 
-            ed_territorios_regioes.edterritorios_nome as nome, 
-            ST_X(ed_territorios_regioes.edterritorios_centroide) as x, 
-            ST_Y(ed_territorios_regioes.edterritorios_centroide) as y
+            spat.ed_territorios_regioes.edterritorios_codigo as codigo, 
+            spat.ed_territorios_regioes.edterritorios_sigla as sigla, 
+            spat.ed_territorios_regioes.edterritorios_nome as nome, 
+            ST_X(spat.ed_territorios_regioes.edterritorios_centroide) as x, 
+            ST_Y(spat.ed_territorios_regioes.edterritorios_centroide) as y
             
-            from valores_series inner join ed_territorios_uf on valores_series.regiao_id = ed_territorios_uf.edterritorios_codigo 
+            from valores_series inner join spat.ed_territorios_uf on valores_series.regiao_id = spat.ed_territorios_uf.edterritorios_codigo 
              
             inner join spat.ed_territorios_uf on spat.ed_territorios_uf.edterritorios_codigo = public.valores_series.regiao_id 
             inner join spat.ed_uf on spat.ed_uf.eduf_cd_uf = spat.ed_territorios_uf.edterritorios_codigo 
