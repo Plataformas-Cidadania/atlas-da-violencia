@@ -27,7 +27,7 @@ class CreateViewRegionsByUf extends Migration
             
             from valores_series inner join spat.ed_territorios_uf on valores_series.regiao_id = spat.ed_territorios_uf.edterritorios_codigo 
              
-            inner join spat.ed_territorios_uf on spat.ed_territorios_uf.edterritorios_codigo = public.valores_series.regiao_id 
+            
             inner join spat.ed_uf on spat.ed_uf.eduf_cd_uf = spat.ed_territorios_uf.edterritorios_codigo 
             inner join spat.territorio on spat.territorio.terregiao = spat.ed_uf.edre_cd_regiao 
             inner join spat.ed_territorios_regioes on spat.ed_territorios_regioes.edterritorios_terid = spat.territorio.terid 
