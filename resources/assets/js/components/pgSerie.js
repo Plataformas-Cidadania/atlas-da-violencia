@@ -128,6 +128,7 @@ class PgSerie extends React.Component{
                     data: {},
                     success: function(dataMapTo){
 
+
                         let valoresMapTo = this.getValoresMap(dataMapTo);
 
                         let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));

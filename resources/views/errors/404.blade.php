@@ -28,7 +28,7 @@ $base_href = config('app.url');
             </a>
         </div>
         <div class="col-md-6 col-sm-6 hidden-xs text-right ">
-            <h1 class="erro-h1">503</h1>
+            <h1 class="erro-h1">404</h1>
         </div>
     </div>
     <div class="container erro-box">

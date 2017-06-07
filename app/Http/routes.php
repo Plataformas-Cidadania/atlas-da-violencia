@@ -135,3 +135,4 @@ Route::get('lang/{locale}', function ($locale) {
 //Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
 
 
+

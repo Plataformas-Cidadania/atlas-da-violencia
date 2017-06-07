@@ -1,7 +1,7 @@
 APP_ENV=local
 APP_DEBUG=true
 APP_KEY=base64:Gx2cJGUIS1jUWygW4QwjCZPWyMx/js+uAWmQ8Gs/pH0=
-APP_URL=http://evbsb1052.ipea.gov.br/atlasviolencia/
+APP_URL=evbsb1052.ipea.gov.br/atlasviolencia/
 
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
@@ -24,3 +24,6 @@ MAIL_PORT=2525
 MAIL_USERNAME=null
 MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
+
+
+

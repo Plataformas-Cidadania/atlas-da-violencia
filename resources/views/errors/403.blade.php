@@ -19,7 +19,7 @@ $base_href = config('app.url');
     <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">
             <br>
-            <a href="/">
+            <a href="http://{{$base_href}}">
                 <picture>
                     <source srcset="imagens/settings/sm-{{$setting->imagem}}" media="(max-width: 468px)">
                     <source srcset="imagens/settings/sm-{{$setting->imagem}}" class="img-responsive">
@@ -28,7 +28,7 @@ $base_href = config('app.url');
             </a>
         </div>
         <div class="col-md-6 col-sm-6 hidden-xs text-right ">
-            <h1 class="erro-h1">503</h1>
+            <h1 class="erro-h1">403</h1>
         </div>
     </div>
     <div class="container erro-box">
@@ -44,7 +44,7 @@ $base_href = config('app.url');
                 <br><br><br>
             </div>
             <div class="col-md-6 text-center">
-                <a href="http://{{$base_href}}" type="button" class="btn btn-lg erro-a">IR PARA HOME</a>
+                <a href="" type="button" class="btn btn-lg erro-a">IR PARA HOME</a>
                 <br><br>
             </div>
             <div class="col-md-6 text-center">

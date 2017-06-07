@@ -159,7 +159,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/perfil', 'Cms\Controllers\CmsUserController@perfil');
         Route::post('/cms/alterar-perfil', 'Cms\Controllers\CmsUserController@alterarPerfil');
         Route::get('/cms/excluir-cmsuser/{id}', 'Cms\Controllers\CmsUserController@excluir');
-        
+
+        //Logs
+        Route::get('/cms/logs', 'Cms\Controllers\LogController@index');
+
+
+
+
+
     });
 
 });
