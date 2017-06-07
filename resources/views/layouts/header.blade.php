@@ -172,15 +172,15 @@
                         <a @if($webdoor->link!="")
                            href="{{$webdoor->link}}"
                            @elseif($webdoor->descricao!="")
-                           href="/webdoor/{{$webdoor->id}}"
+                           href="webdoor/{{$webdoor->id}}"
                            @endif
                            class="item">
                                 <?php /*?>class="item @if($cont==0) active @endif"><?php */?>
                             <picture>
-                                <source srcset="/imagens/webdoors/sm-{{$webdoor->imagem}}" media="(max-width: 468px)">
-                                <source srcset="/imagens/webdoors/md-{{$webdoor->imagem}}" media="(max-width: 768px)">
-                                <source srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" class="img-responsive">
-                                <img srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" width="100%" height="260">
+                                <source srcset="imagens/webdoors/sm-{{$webdoor->imagem}}" media="(max-width: 468px)">
+                                <source srcset="imagens/webdoors/md-{{$webdoor->imagem}}" media="(max-width: 768px)">
+                                <source srcset="imagens/webdoors/lg-{{$webdoor->imagem}}" class="img-responsive">
+                                <img srcset="imagens/webdoors/lg-{{$webdoor->imagem}}" alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" width="100%" height="260">
                                 @if(!empty($webdoor->resumida))
                                     <div class="carousel-caption">
                                         <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->titulo}}</h3>
