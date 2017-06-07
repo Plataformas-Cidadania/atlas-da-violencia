@@ -181,12 +181,12 @@
                                 <source srcset="imagens/webdoors/md-{{$webdoor->imagem}}" media="(max-width: 768px)">
                                 <source srcset="imagens/webdoors/lg-{{$webdoor->imagem}}" class="img-responsive">
                                 <img srcset="imagens/webdoors/lg-{{$webdoor->imagem}}" alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" width="100%" height="260">
-                                @if(!empty($webdoor->resumida))
+                                {{--@if(!empty($webdoor->resumida))
                                     <div class="carousel-caption">
                                         <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->titulo}}</h3>
                                         <p ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->resumida}}</p>
                                     </div>
-                                @endif
+                                @endif--}}
                             </picture>
                         </a>
 
