@@ -17,7 +17,7 @@
     <meta name="author" content="">
 
     <title>CMS - Nome do site</title>
-    <base href="http://{{$base_href}}@if($base_href=='http://10.0.52.46/datacepro')/@endif">
+    <base href="http://{{$base_href}}@if($base_href=='10.0.52.46/datacepro')/@endif">
 
     <!-- Bootstrap Core CSS -->
     <link href="assets-cms/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
