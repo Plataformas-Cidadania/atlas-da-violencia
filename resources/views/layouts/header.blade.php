@@ -73,12 +73,14 @@
                         </picture>
                     </a>
                 </div>
+                @if($base_href!='10.0.52.46/datacepro')
                 <div class="col-md-3 col-sm-4 hidden-xs text-right col-md-offset-4 box-logo">
                     <a href="http://www.ipea.gov.br/" target="_blank"><img srcset="img/ipea.png" alt="ipea" title="ipea"></a>
                 </div>
                 <div class="col-md-2 col-sm-3 hidden-xs text-right box-logo">
                     <a href="http://www.forumseguranca.org.br/" target="_blank"><img srcset="img/fbsp.png" alt="Fórum Brasileiro de Segurança Pública" title="Fórum Brasileiro de Segurança Pública"></a>
                 </div>
+                @endif
             </div>
         </div>
     </div>
