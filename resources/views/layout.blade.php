@@ -23,7 +23,7 @@ if(substr($base_href, 0,9)=='evbsb1052'){
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <title>{{$setting->titulo}} - @yield('title')</title>
-        <base href="http://{{$base_href}}@if($base_href=='10.0.52.46/datacepro')/@endif">
+        <base href="http://{{$base_href}}@if($base_href=='10.0.52.46')/@endif">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <link rel="icon" href="img/favicons/icon_16x16.png" sizes="16x16">
