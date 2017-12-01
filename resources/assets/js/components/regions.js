@@ -31,21 +31,24 @@ class Regions extends React.Component{
     }
 
     loadData(){
-        this.setState({loading: true});
-        $.ajax({
-            method:'GET',
-            url: "valores-inicial-final-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia,
-            cache: false,
-            success: function(data) {
-               //console.log('### REGIONS.loadData ###', data);
-                this.setState({data: data, loading:false}, function(){
-                    this.calcMaxUpDown();
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-              console.log('erro');
-            }.bind(this)
-        });
+        if(this.state.min && this.state.max){
+            this.setState({loading: true});
+            $.ajax({
+                method:'GET',
+                url: "valores-inicial-final-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia,
+                cache: false,
+                success: function(data) {
+                    //console.log('### REGIONS.loadData ###', data);
+                    this.setState({data: data, loading:false}, function(){
+                        this.calcMaxUpDown();
+                    });
+                }.bind(this),
+                error: function(xhr, status, err) {
+                    console.log('erro');
+                }.bind(this)
+            });
+        }
+
     }
 
     minMaxValue(data) {
@@ -156,7 +159,7 @@ class Regions extends React.Component{
                         <div className="row">
                             <div className="col-md-12">
                                 <div style={{textAlign: 'center', clear: 'both'}}>
-                                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.periodo}</button>
+                                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{formatPeriodicidade(this.state.periodo, this.props.periodicidade)}</button>
                                     <div style={{marginTop:'-19px'}}>
                                         <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
                                     </div>
@@ -196,7 +199,7 @@ class Regions extends React.Component{
                         <div className="row">
                             <div className="col-md-12">
                                 <div style={{textAlign: 'center', clear: 'both'}}>
-                                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.min} - {this.state.max}</button>
+                                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{formatPeriodicidade(this.state.min, this.props.periodicidade)} - {formatPeriodicidade(this.state.max, this.props.periodicidade)}</button>
                                     <div style={{marginTop:'-19px'}}>
                                         <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
                                     </div>

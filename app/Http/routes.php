@@ -135,4 +135,17 @@ Route::get('lang/{locale}', function ($locale) {
 //Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
 
 
-
+Route::get('mapa-calor/', function () {
+    return view('mapa-calor');
+});
+Route::get('new-maps/', function () {
+    return view('new-maps');
+    //return view('new-mapsORIGINAL');
+});
+Route::get('acidentes-transito/', function () {
+    return view('transito');
+});
+Route::post('valores-transito/', 'TransitoController@valoresMapa');
+Route::post('total-transito-territorio/', 'TransitoController@totalPorTerritorio');
+Route::post('pontos-transito-territorio/', 'TransitoController@pontosPorTerritorio');
+Route::post('pontos-transito-pais/', 'TransitoController@pontosPorPais');

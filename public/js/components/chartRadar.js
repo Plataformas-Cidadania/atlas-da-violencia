@@ -94,6 +94,18 @@ class ChartRadar extends React.Component {
     }
 
     render() {
+
+        let periodo = null;
+        if (this.state.periodo) {
+            periodo = this.state.periodo.toString();
+            if (this.props.periodicidade === "Anual") {
+                periodo = periodo.substr(0, 4);
+            }
+            if (this.props.periodicidade === "Semestral" || this.props.periodicidade === "Trimestral" || this.props.periodicidade === "Mensal") {
+                periodo = periodo.substr(0, 7);
+            }
+        }
+
         return React.createElement(
             "div",
             null,
@@ -103,12 +115,12 @@ class ChartRadar extends React.Component {
                 React.createElement(
                     "button",
                     { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                    this.state.periodo
+                    periodo
                 ),
                 React.createElement(
                     "div",
                     { style: { marginTop: '-19px' } },
-                    React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
+                    React.createElement("i", { className: "fa fa-sort-down fa-2x ft-pri" })
                 )
             ),
             React.createElement("br", null),

@@ -10,8 +10,8 @@
         }
     });
 </script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+{{--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>--}}
 
 @if($rota=='contato')
     <script src="js/controllers/contatoCtrl.js"></script>
@@ -147,6 +147,29 @@ print_r($periodo_limite);*/
     <script src="js/components/pgFiltros.js"></script>
 @endif
 
+@if($rota=='filtros-series/{id}/{tema}' || $rota=='filtros-series')
+    <script src="js/components/filtros/subtemas.js"></script>
+    <script src="js/components/filtros/temas.js"></script>
+    <script src="js/components/filtros/indicadores.js"></script>
+    <script src="js/components/filtros/selectItems.js"></script>
+    <script src="js/components/filtros/abrangencia.js"></script>
+    <script src="js/components/seriesList.js"></script>
+    <script src="js/components/rangePeriodos.js"></script>
+    <script src="js/components/filtros/filtroRegioes2.js"></script>
+    <script src="js/components/filtros/pgFiltros.js"></script>
+@endif
+
+@if($rota=='filtros-series2/{id}/{tema}' || $rota=='filtros-series2')
+    <script src="js/components/filtros2/temas.js"></script>
+    <script src="js/components/filtros2/indicadores.js"></script>
+    <script src="js/components/filtros2/selectItems.js"></script>
+    <script src="js/components/filtros2/abrangencia.js"></script>
+    <script src="js/components/filtros2/seriesList.js"></script>
+    <script src="js/components/filtros2/rangePeriodos.js"></script>
+    <script src="js/components/filtros2/filtroRegioes2.js"></script>
+    <script src="js/components/filtros2/pgFiltros.js"></script>
+@endif
+
 {{--@if($rota=='map/{id}/{titulo}')--}}
 @if($rota=='dados-series')
     {{--http://www.chartjs.org/docs/--}}
@@ -247,6 +270,11 @@ print_r($periodo_limite);*/
 
     </script>
 
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+
     <script src="js/components/print.js"></script>
     <script src="js/components/download.js"></script>
     <script src="js/components/map.js"></script>
@@ -328,4 +356,33 @@ print_r($periodo_limite);*/
         }
         //myLoop();
     </script>
+@endif
+
+@if($rota=='filtros-dados-series/{tema_id}/{tema}' || $rota=='filtros-dados-series')
+    <script src="js/components/dados/temas.js"></script>
+    <script src="js/components/dados/subtemas.js"></script>
+    <script src="js/components/dados/abrangencia.js"></script>
+    <script src="js/components/dados/indicadores.js"></script>
+    <script src="js/components/dados/series.js"></script>
+    <script src="js/components/dados/filtros.js"></script>
+    <script src="js/components/dados/pgSerie.js"></script>
+
+@endif
+
+
+@if($rota=='acidentes-transito')
+    <script src="lib/leaflet/js/leaflet-src.js"></script>
+
+    <script src="lib/leaflet/js/leaflet.markercluster-src.js"></script>
+
+    <script src="lib/leaflet/js/heatmap.js"></script>
+    <script src="lib/leaflet/js/leaflet-heatmap-overlay.js"></script>
+
+    <script src="lib/leaflet/js/Control.FullScreen.js"></script>
+
+    <script src="js/components/transito/range.js"></script>
+    <script src="js/components/transito/territories.js"></script>
+    <script src="js/components/transito/types.js"></script>
+    <script src="js/components/transito/map.js"></script>
+    <script src="js/components/transito/page.js"></script>
 @endif

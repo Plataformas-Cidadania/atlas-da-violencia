@@ -15,10 +15,10 @@ class CreateValoresSeries extends Migration
         Schema::create('valores_series', function (Blueprint $table) {
             $table->increments('id');
             $table->double('valor');
-            $table->string('periodo');
-            $table->string('uf', 2);
-            $table->string('municipio');
-            $table->string('bairro');
+            $table->date('periodo');
+            //$table->string('uf', 2);
+            //$table->string('municipio');
+            //$table->string('bairro');
             $table->integer('serie_id')->unsigned();
             $table->foreign('serie_id')->references('id')->on('series')->onDelete('restrict');
             $table->integer('cmsuser_id')->unsigned();

@@ -11,13 +11,23 @@ use Illuminate\Support\Facades\Route;
 
 class MapController extends Controller
 {
+    private $cache;
 
-    function periodos($id){
+    public function __construct(\Illuminate\Cache\Repository $cache){
+        $this->cache = $cache;
+    }
+
+    function periodos($id, $abrangencia){
         $periodos = DB::table('valores_series')
             ->select('periodo')
             ->distinct('periodo')
             ->where('serie_id', $id)
-            ->orderBy('periodo')           ->get();
+            ->where('tipo_regiao', $abrangencia)
+            ->orderBy('periodo')->get();
+
+        /*$serie = \App\Serie::select('periodicidade.titulo')
+            ->join('periodicidades', 'periodicidades.id', 'series.periodicidade_id')
+            ->first();*/
 
         $retorno = [];
         foreach($periodos as $index => $periodo){
@@ -81,11 +91,16 @@ class MapController extends Controller
         return $areas;
     }
 
-    function valoresRegiaoPeriodoGeometry($id, $periodo, $regions, $territorio){
+    function valoresRegiaoPeriodoGeometry($id, $periodo, $regions, $abrangencia){
 
         //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
 
         //ST_X(edterritorios_centroide), ST_Y(edterritorios_centroide)
+
+        //$periodo = substr($periodo, 0, 4);
+
+        $cacheKeyValores = sha1('regiao-variavel-valores'.$id.'-'.$periodo.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
+        $cacheKeyArea = sha1('regiao-variavel-area'.$id.'-'.$periodo.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
 
         $regions = explode(',', $regions);
 
@@ -95,57 +110,116 @@ class MapController extends Controller
             3 => 'spat.ed_territorios_uf',
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
-            6 => 'spat.ed_territorios_mesoregioes'
+            6 => 'spat.ed_territorios_mesoregioes',
+            7 => 'spat.ed_territorios_piaui_tds'
         ];
 
         $where = [
             ['valores_series.serie_id', $id],
-            ['valores_series.periodo', $periodo]
+            ['valores_series.periodo', $periodo],
+            ['valores_series.tipo_regiao', $abrangencia],
         ];
 
-        $select_sigla = "$tabelas[$territorio].edterritorios_sigla";
-        if($territorio == 4){
-            $select_sigla = "$tabelas[$territorio].edterritorios_nome";
+        $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
+        if($abrangencia == 4){
+            $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        $valores = DB::table('valores_series')
-            ->select(
-                DB::raw(
-                    "
-                    ST_AsGeoJSON($tabelas[$territorio].edterritorios_geometry) as geometry, 
+        //DB::connection()->enableQueryLog();
+
+        if(!$this->cache->has($cacheKeyValores)){
+            $this->cache->put($cacheKeyValores, DB::table('valores_series')
+                ->select(
+                    DB::raw(
+                        "
+                    ST_AsGeoJSON($tabelas[$abrangencia].edterritorios_geometry) as geometry, 
                     sum(valores_series.valor) as total, 
                     $select_sigla as sigla,
-                    $tabelas[$territorio].edterritorios_nome as nome, 
-                    ST_X($tabelas[$territorio].edterritorios_centroide) as x, 
-                    ST_Y($tabelas[$territorio].edterritorios_centroide) as y
+                    $tabelas[$abrangencia].edterritorios_nome as nome, 
+                    ST_X($tabelas[$abrangencia].edterritorios_centroide) as x, 
+                    ST_Y($tabelas[$abrangencia].edterritorios_centroide) as y
                     "
-                ))
-            ->join("$tabelas[$territorio]", 'valores_series.regiao_id', '=', "$tabelas[$territorio].edterritorios_codigo")
-            ->where($where)
-            ->whereYear("$tabelas[$territorio].edterritorios_data_inicial", '<=', $periodo)
-            ->whereYear("$tabelas[$territorio].edterritorios_data_final", '>=', $periodo)
-            ->whereIn("$tabelas[$territorio].edterritorios_codigo", $regions)
-            ->groupBy("$tabelas[$territorio].edterritorios_sigla", "$tabelas[$territorio].edterritorios_nome", "$tabelas[$territorio].edterritorios_geometry", "$tabelas[$territorio].edterritorios_centroide")
-            ->orderBy('total')
-            ->get();
+                    ))
+                ->join("$tabelas[$abrangencia]", 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+                ->where($where)
+                /*->whereYear("$tabelas[$abrangencia].edterritorios_data_inicial", '<=', $periodo)
+                ->whereYear("$tabelas[$abrangencia].edterritorios_data_final", '>=', $periodo)*/
+                ->where("$tabelas[$abrangencia].edterritorios_data_inicial", '<=', $periodo)
+                ->where("$tabelas[$abrangencia].edterritorios_data_final", '>=', $periodo)
+                ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
+                ->groupBy("$tabelas[$abrangencia].edterritorios_sigla", "$tabelas[$abrangencia].edterritorios_nome", "$tabelas[$abrangencia].edterritorios_geometry", "$tabelas[$abrangencia].edterritorios_centroide")
+                ->orderBy('total')
+                ->get(), 720);
+        }
 
-        $area = DB::table('valores_series')
-            ->select(
-                DB::raw(
-                    "  
-                    ST_AsGeoJSON(ST_ConvexHull(ST_Collect($tabelas[$territorio].edterritorios_bounding_box)))  as bounding_box_total
+        $valores = $this->cache->get($cacheKeyValores);
+
+//        $valores = DB::table('valores_series')
+//            ->select(
+//                DB::raw(
+//                    "
+//                    ST_AsGeoJSON($tabelas[$abrangencia].edterritorios_geometry) as geometry,
+//                    sum(valores_series.valor) as total,
+//                    $select_sigla as sigla,
+//                    $tabelas[$abrangencia].edterritorios_nome as nome,
+//                    ST_X($tabelas[$abrangencia].edterritorios_centroide) as x,
+//                    ST_Y($tabelas[$abrangencia].edterritorios_centroide) as y
+//                    "
+//                ))
+//            ->join("$tabelas[$abrangencia]", 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+//            ->where($where)
+//            /*->whereYear("$tabelas[$abrangencia].edterritorios_data_inicial", '<=', $periodo)
+//            ->whereYear("$tabelas[$abrangencia].edterritorios_data_final", '>=', $periodo)*/
+//            ->where("$tabelas[$abrangencia].edterritorios_data_inicial", '<=', $periodo)
+//            ->where("$tabelas[$abrangencia].edterritorios_data_final", '>=', $periodo)
+//            ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
+//            ->groupBy("$tabelas[$abrangencia].edterritorios_sigla", "$tabelas[$abrangencia].edterritorios_nome", "$tabelas[$abrangencia].edterritorios_geometry", "$tabelas[$abrangencia].edterritorios_centroide")
+//            ->orderBy('total')
+//            ->get();
+
+
+        if(!$this->cache->has($cacheKeyArea)){
+            $this->cache->put($cacheKeyArea, DB::table('valores_series')
+                ->select(
+                    DB::raw(
+                        "  
+                    ST_AsGeoJSON(ST_ConvexHull(ST_Collect($tabelas[$abrangencia].edterritorios_bounding_box)))  as bounding_box_total
                     "
-                ))
-            ->join("$tabelas[$territorio]", 'valores_series.regiao_id', '=', "$tabelas[$territorio].edterritorios_codigo")
-            ->where($where)
-            ->whereYear("$tabelas[$territorio].edterritorios_data_inicial", '<=', $periodo)
-            ->whereYear("$tabelas[$territorio].edterritorios_data_final", '>=', $periodo)
-            ->whereIn("$tabelas[$territorio].edterritorios_codigo", $regions)
+                    ))
+                ->join("$tabelas[$abrangencia]", 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+                ->where($where)
+                /*->whereYear("$tabelas[$abrangencia].edterritorios_data_inicial", '<=', $periodo)
+                ->whereYear("$tabelas[$abrangencia].edterritorios_data_final", '>=', $periodo)*/
+                ->where("$tabelas[$abrangencia].edterritorios_data_inicial", '<=', $periodo)
+                ->where("$tabelas[$abrangencia].edterritorios_data_final", '>=', $periodo)
+                ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
 
-            ->get();
+                ->get(), 720);
+        }
+
+        $area = $this->cache->get($cacheKeyArea);
+
+//        $area = DB::table('valores_series')
+//            ->select(
+//                DB::raw(
+//                    "
+//                    ST_AsGeoJSON(ST_ConvexHull(ST_Collect($tabelas[$abrangencia].edterritorios_bounding_box)))  as bounding_box_total
+//                    "
+//                ))
+//            ->join("$tabelas[$abrangencia]", 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+//            ->where($where)
+//            /*->whereYear("$tabelas[$abrangencia].edterritorios_data_inicial", '<=', $periodo)
+//            ->whereYear("$tabelas[$abrangencia].edterritorios_data_final", '>=', $periodo)*/
+//            ->where("$tabelas[$abrangencia].edterritorios_data_inicial", '<=', $periodo)
+//            ->where("$tabelas[$abrangencia].edterritorios_data_final", '>=', $periodo)
+//            ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
+//
+//            ->get();
+
+
 
         //Log::info($valores);
-        Log::info($area);
+        //Log::info($area);
 
         //Log::info(DB::getQueryLog());
 
@@ -178,6 +252,7 @@ class MapController extends Controller
         $object_bounding_box_total = json_decode($area[0]->bounding_box_total);
         $bounding_box_total = $object_bounding_box_total->coordinates;
         $areas['bounding_box_total'] = $bounding_box_total;
+        //$areas['bounding_box_total'] = null;
 
 
 
@@ -233,7 +308,8 @@ class MapController extends Controller
             3 => 'spat.ed_territorios_uf',
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
-            6 => 'spat.ed_territorios_mesoregioes'
+            6 => 'spat.ed_territorios_mesoregioes',
+            7 => 'spat.ed_territorios_piaui_tds'
         ];
 
         DB::enableQueryLog();
@@ -242,6 +318,7 @@ class MapController extends Controller
             ->select(DB::raw("valores_series.valor, valores_series.periodo, $tabelas[$abrangencia].edterritorios_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
             ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
             ->where('valores_series.serie_id', $id)
+            ->where('valores_series.tipo_regiao', $abrangencia)
             ->where(function ($query) use ($min, $max) {
                 $query->where('valores_series.periodo', $min)
                     ->orWhere('valores_series.periodo', $max);

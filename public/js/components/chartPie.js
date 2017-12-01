@@ -111,6 +111,9 @@ class ChartPie extends React.Component {
 
     render() {
         //console.log('chartPie', intervalos);
+
+        let max = formatPeriodicidade(this.state.max, this.props.periodicidade);
+
         return React.createElement(
             "div",
             null,
@@ -120,7 +123,7 @@ class ChartPie extends React.Component {
                 React.createElement(
                     "button",
                     { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                    this.state.max
+                    max
                 ),
                 React.createElement(
                     "div",

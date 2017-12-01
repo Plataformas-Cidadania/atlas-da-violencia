@@ -11,7 +11,7 @@
                 {!! Form::open(['name' =>'form']) !!}
 
                 <span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
-                    Escolher Arquivo Arquivo <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".xlsx,.xls,.csv" ngf-max-size="100MB" ngf-model-invalid="errorFile" ng-required="true">
+                    Escolher Arquivo <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".xlsx,.xls,.csv" ngf-max-size="100MB" ngf-model-invalid="errorFile" ng-required="true">
                 </span>
                 <button class="btn btn-danger" ng-click="limparArquivo()" ng-show="fileArquivo || arquivoBD" type="button">Remover Arquivo</button>
                 <a href="arquivos/artigos/<% arquivoBD %>" target="_blank" ng-show="arquivoBD"><% arquivoBD %></a>
@@ -25,9 +25,10 @@
                     '3' => 'UF',
                     '4' => 'Município',
                     '5' => 'Micro-Região',
+                    '7' => 'Territorio',
                 ];
                 ?>
-                {{--{!! Form::label('abrangencia', 'Abrangência *') !!}<br>
+                {!! Form::label('abrangencia', 'Abrangência *') !!}<br>
                 {!! Form::select('abrangencia',
                         $abrangencias,
                 null, [
@@ -36,14 +37,31 @@
                     'ng-required'=>'true',
                     'init-model'=>'serie.abrangencia',
                     'placeholder' => 'Selecione'
-                ]) !!}<br>--}}
+                ]) !!}<br>
+
+                <label for="modelo">Modelo de Arquivo</label>
+                <select class="form-control width-medio" name="modelo" id="modelo" ng-model="modelo" ng-required="true">
+                    <option value="">Selecione</option>
+                    <option value="1">Periodos em Linhas</option>
+                    {{--<option value="2">Periodos em Colunas</option>--}}
+                </select>
+
+                <br><br>
+
+                <div id="modelo1">
+
+                </div>
+
+                <div id="modelo2">
+
+                </div>
 
 
-                @if($serie->abrangencia==4)
+                {{--@if($serie->abrangencia==4)
                 <label for="periodo">Periodo* (obrigatório para municipios)</label>
                 <input type="text" name="periodo" class="form-control width-pequeno" ng-model="serie.periodo" ng-required="true">
                 <br>
-                @endif
+                @endif--}}
 
                 <input type="hidden" name="id" ng-model="id" ng-init="id='{{$serie->id}}'"/>
                 <div class="row">

@@ -258,6 +258,11 @@
                 to="{!! $to !!}";
                 regions="{!! $regions !!}";
                 abrangencia="{{$abrangencia}}";
+                @foreach($abrangencias as $key => $abr)
+                        @if($abr['id']==$abrangencia)
+                    nomeAbrangencia="{!! $abr['title'] !!}";
+                @endif
+                @endforeach
             </script>
             <?php
                 $series->descricao = preg_replace('/\s/',' ',$series->descricao);

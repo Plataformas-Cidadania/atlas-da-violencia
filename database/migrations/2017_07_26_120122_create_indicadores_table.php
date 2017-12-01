@@ -15,7 +15,6 @@ class CreateIndicadoresTable extends Migration
         Schema::create('indicadores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo');
-            $table->string('slug')->nullable();
             $table->integer('cmsuser_id')->unsigned();
             $table->foreign('cmsuser_id')->references('id')->on('cms_users')->onDelete('restrict');
             $table->timestamps();

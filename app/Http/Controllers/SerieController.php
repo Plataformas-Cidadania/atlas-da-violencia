@@ -5,25 +5,33 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class SerieController extends Controller
 {
 
-    public function __construct(){
+    private $cache;
+
+    public function __construct(\Illuminate\Cache\Repository $cache){
         $this->indicadores = config('constants.indicadores');
         $this->abrangencias = config('constants.abrangencias');
+        $this->cache = $cache;
     }
 
     public function getIndicadoresSeries($serie_id){
         foreach($this->indicadores as $key => $indicador){
             //Log::info($indicador);
-            $series = \App\Serie::where(function ($query) use ($serie_id) {
+            /*$series = \App\Serie::where(function ($query) use ($serie_id) {
                 $query->where('id', $serie_id)
                     ->orWhere('serie_id', $serie_id);
             })
             ->where('indicador', $indicador['id'])
+            ->get();*/
+            $series = \App\Serie::where('id', $serie_id)
+                ->where('indicador', $indicador['id'])
             ->get();
 
             if(count($series) > 0){
@@ -73,20 +81,33 @@ class SerieController extends Controller
 
     public function filtros($id, $titulo){
 
-        $serie = \App\Serie::find($id);
+        $idioma = 'pt_BR';
 
-        return view('serie.filtros', ['serie' => $serie, 'id' => $id, 'titulo' => $titulo]);
+        $serie = \App\Serie::select('series.*', 'textos_series.titulo as titulo')
+            ->join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+            ->where('series.id', $id)
+            ->where('textos_series.idioma_sigla', $idioma)->first();
+
+        //Log::info($serie);
+
+        return view('serie.filtros', ['serie' => $serie, 'id' => $id]);
     }
 
     public function listarSeries(Request $request){
 
+        $lang =  App::getLocale();
+
         $series = DB::table('series')
-            ->select(DB::raw('series.*, periodicidades.titulo as periodicidade, min(valores_series.periodo) as min, max(valores_series.periodo) as max'))
+            ->select(DB::raw('series.*, periodicidades.titulo as periodicidade, min(valores_series.periodo) as min, max(valores_series.periodo) as max, textos_series.titulo as titulo'))
             ->join('valores_series', 'valores_series.serie_id', '=', 'series.id')
             ->join('periodicidades', 'series.periodicidade_id', '=', 'periodicidades.id')
-            ->where('series.titulo', 'ilike', "%$request->search%")
-            ->groupBy('series.id', 'periodicidades.titulo')
+            ->join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+            ->where('textos_series.titulo', 'ilike', "%$request->search%")
+            ->where('textos_series.idioma_sigla', $lang)
+            ->groupBy('series.id', 'periodicidades.titulo', 'textos_series.titulo')
             ->get();
+
+        //Log::info($series);
 
         return $series;
     }
@@ -117,7 +138,10 @@ class SerieController extends Controller
     }
 
     public function dataSeries(Request $request){
-        $serie = \App\Serie::find($request->id);
+        $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade')
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+            ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
+            ->where('series.id', $request->id)->first();
 
         //$regions = explode(',', $request->regions);
 
@@ -136,9 +160,13 @@ class SerieController extends Controller
     function valoresRegiaoPrimeiroUltimoPeriodo($id, $min, $max, $regions, $abrangencia){
         //$typeRegionSerie: 1(regiao), 2(uf) 3(municipio)
 
+        $cacheKeyMin = sha1('valores-regiao-'.$id.'-'.$min.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
+        $cacheKeyMax = sha1('valores-regiao-'.$id.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
+
         $regions = explode(',', $regions);
 
-        Log:info($min.','.$max);
+        //Log::info('valoresRegiaoPrimeiroUltimoPeriodo Min: '.$cacheKeyMin);
+        //Log::info('valoresRegiaoPrimeiroUltimoPeriodo Max: '.$cacheKeyMax);
 
         $tabelas = [
             1 => 'spat.ed_territorios_paises',
@@ -146,7 +174,8 @@ class SerieController extends Controller
             3 => 'spat.ed_territorios_uf',
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
-            6 => 'spat.ed_territorios_mesoregioes'
+            6 => 'spat.ed_territorios_mesoregioes',
+            7 => 'spat.ed_territorios_piaui_tds'
         ];
 
         $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
@@ -154,27 +183,67 @@ class SerieController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        $valoresMin = DB::table('valores_series')
-            ->select(DB::raw("valores_series.valor as valor, $select_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
-            ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
-            ->where([
-                ['valores_series.serie_id', $id],
-                ['valores_series.periodo', $min]
-            ])
-            ->whereIn('valores_series.regiao_id', $regions)
-            ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
-            ->get();
+        //DB::enableQueryLog();
 
-        $valoresMax = DB::table('valores_series')
+        if(!$this->cache->has($cacheKeyMin)){
+            $this->cache->put($cacheKeyMin, DB::table('valores_series')
+                ->select(DB::raw("valores_series.valor as valor, $select_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
+                ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+                ->where([
+                    ['valores_series.serie_id', $id],
+                    ['valores_series.periodo', $min],
+                    ['valores_series.tipo_regiao', $abrangencia]
+                ])
+                ->whereIn('valores_series.regiao_id', $regions)
+                ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
+                ->get(), 720);
+        }
+
+        $valoresMin = $this->cache->get($cacheKeyMin);
+
+        /*$valoresMin = DB::table('valores_series')
             ->select(DB::raw("valores_series.valor as valor, $select_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
             ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
             ->where([
                 ['valores_series.serie_id', $id],
-                ['valores_series.periodo', $max]
+                ['valores_series.periodo', $min],
+                ['valores_series.tipo_regiao', $abrangencia]
             ])
             ->whereIn('valores_series.regiao_id', $regions)
             ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
-            ->get();
+            ->get();*/
+
+        //Log::info(DB::getQueryLog());
+
+        //Log::info($valoresMin);
+
+        if(!$this->cache->has($cacheKeyMax)){
+            $this->cache->put($cacheKeyMax, DB::table('valores_series')
+                ->select(DB::raw("valores_series.valor as valor, $select_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
+                ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+                ->where([
+                    ['valores_series.serie_id', $id],
+                    ['valores_series.periodo', $max],
+                    ['valores_series.tipo_regiao', $abrangencia]
+                ])
+                ->whereIn('valores_series.regiao_id', $regions)
+                ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
+                ->get(), 720);
+        }
+
+        $valoresMax = $this->cache->get($cacheKeyMax);
+
+        /*$valoresMax = DB::table('valores_series')
+            ->select(DB::raw("valores_series.valor as valor, $select_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
+            ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+            ->where([
+                ['valores_series.serie_id', $id],
+                ['valores_series.periodo', $max],
+                ['valores_series.tipo_regiao', $abrangencia]
+            ])
+            ->whereIn('valores_series.regiao_id', $regions)
+            ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
+            ->get();*/
 
         $valores = [
             'min' => [
@@ -209,6 +278,11 @@ class SerieController extends Controller
 
     function valoresPeriodoRegioesSelecionadas($id, $min, $max, $regions, $abrangencia){
 
+        //Log::info('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
+        $cacheKey = sha1('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
+
+        Log::info('valoresPeriodoRegioesSelecionadas: '.$cacheKey);
+
         $regions = explode(',', $regions);
 
         //Log::info($abrangencia);
@@ -219,7 +293,8 @@ class SerieController extends Controller
             3 => 'spat.ed_territorios_uf',
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
-            6 => 'spat.ed_territorios_mesoregioes'
+            6 => 'spat.ed_territorios_mesoregioes',
+            7 => 'spat.ed_territorios_piaui_tds'
         ];
 
         $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
@@ -227,17 +302,37 @@ class SerieController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        $rows = DB::table('valores_series')
+        if(!$this->cache->has($cacheKey)){
+            $this->cache->put($cacheKey, DB::table('valores_series')
+                ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
+                ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+                ->where([
+                    ['valores_series.serie_id', $id],
+                    ['valores_series.periodo', '>=', $min],
+                    ['valores_series.periodo', '<=', $max],
+                    ['valores_series.tipo_regiao', '<=', $abrangencia]
+                ])
+                ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
+                ->orderBy('valores_series.periodo')
+                ->get(), 720);
+        }
+
+        $rows = $this->cache->get($cacheKey);
+
+        //Log::info($rows);
+
+        /*$rows = DB::table('valores_series')
             ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
             ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
             ->where([
                 ['valores_series.serie_id', $id],
                 ['valores_series.periodo', '>=', $min],
-                ['valores_series.periodo', '<=', $max]
+                ['valores_series.periodo', '<=', $max],
+                ['valores_series.tipo_regiao', '<=', $abrangencia]
             ])
             ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
             ->orderBy('valores_series.periodo')
-            ->get();
+            ->get();*/
 
         $data = [];
 
@@ -353,10 +448,16 @@ class SerieController extends Controller
             3 => 'spat.ed_territorios_uf',
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
-            6 => 'spat.ed_territorios_mesoregioes'
+            6 => 'spat.ed_territorios_mesoregioes',
+            7 => 'spat.ed_territorios_piaui_tds'
         ];
 
         $where = [['edterritorios_nome', 'ilike', "$search%"]];
+
+        //utilizado para seleção em UF de um estado em particular
+        if($request->itemDefault){
+            array_push($where, ['edterritorios_codigo', $request->itemDefault]);
+        }
 
         if($tipo == 4){
             if($filter){
@@ -371,7 +472,7 @@ class SerieController extends Controller
                 ->select('edterritorios_codigo as id', 'edterritorios_nome as title', 'edterritorios_sigla as sigla')
                 ->where($where)
                 ->get();
-            Log::info(DB::getQueryLog());
+            //Log::info(DB::getQueryLog());
             return $abrangencias;
         }
 
@@ -424,7 +525,8 @@ class SerieController extends Controller
             3 => 'spat.ed_territorios_uf',
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
-            6 => 'spat.ed_territorios_mesoregioes'
+            6 => 'spat.ed_territorios_mesoregioes',
+            7 => 'spat.ed_territorios_piaui_tds'
         ];
 
         $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";

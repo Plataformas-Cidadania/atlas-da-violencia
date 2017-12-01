@@ -1,19 +1,27 @@
 {{--É NECESSÁRIO RODAR O COMANDO composer require illuminate/html E ALTERAR ACRESCENTAR LINHA NO ARQUIVO config/app.php--}}
-
+@if(empty($serie))
 {!! Form::label('idioma_sigla', 'Idioma *') !!}<br>
 {!! Form::select('idioma_sigla',
         $idiomas,
-null, ['class'=>"form-control width-medio <% validar(serie.idioma_sigla) %>", 'ng-model'=>'serie.idioma_sigla', 'ng-required'=>'true', 'init-model'=>'serie.idioma_sigla', 'placeholder' => 'Selecione']) !!}<br>
+null, ['class'=>"form-control width-medio <% validar(textos.idioma_sigla) %>", 'ng-model'=>'textos.idioma_sigla', 'ng-required'=>'true', 'init-model'=>'textos.idioma_sigla', 'placeholder' => 'Selecione']) !!}<br>
+@endif
+{{--
 
 {!! Form::hidden('tema_id', 1, ['class'=>"form-control width-grande <% validar(serie.tema_id) %>", 'ng-model'=>'serie.tema_id', 'ng-required'=>'true', 'init-model'=>'serie.tema_id', 'placeholder' => '']) !!}<br>
-
+--}}
+@if(!empty($serie))
+<h3>{{$serie->titulo}}</h3><br>
+@endif
+@if(empty($serie))
 {!! Form::label('titulo', 'Título *') !!}<br>
-{!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(serie.titulo) %>", 'ng-model'=>'serie.titulo', 'ng-required'=>'true', 'init-model'=>'serie.titulo', 'placeholder' => '']) !!}<br>
-
+{!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(textos.titulo) %>", 'ng-model'=>'textos.titulo', 'ng-required'=>'true', 'init-model'=>'textos.titulo', 'placeholder' => '']) !!}<br>
+@endif
+{{--
 {!! Form::label('serie_id', 'Séries *') !!}<br>
 {!! Form::select('serie_id',
         $series_relacionado,
 null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-model'=>'serie.serie_id', 'init-model'=>'serie.serie_id', 'placeholder' => 'Principal']) !!}<br>
+--}}
 
 
 {!! Form::label('periodicidade_id', 'Periodicidade *') !!}<br>
@@ -22,12 +30,12 @@ null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-mo
 null, ['class'=>"form-control width-medio <% validar(serie.periodicidade) %>", 'ng-model'=>'serie.periodicidade_id', 'ng-required'=>'true', 'init-model'=>'serie.periodicidade_id', 'placeholder' => 'Selecione']) !!}<br>
 
 <?php 
-    $indicadores = [
+    /*$indicadores = [
         '1' => 'Quantidade', 
         '2' => 'Taxa por 100 mil Habitantes',
         '3' => 'Proporção',
         '4' => 'Taxa Bayesiana'
-    ];
+    ];*/
 ?>
 
 {!! Form::label('indicador', 'Indicadores *') !!}<br>
@@ -36,11 +44,11 @@ null, ['class'=>"form-control width-medio <% validar(serie.periodicidade) %>", '
 null, ['class'=>"form-control width-medio <% validar(serie.indicador) %>", 'ng-model'=>'serie.indicador', 'ng-required'=>'true', 'init-model'=>'serie.indicador', 'placeholder' => 'Selecione']) !!}<br>
 
 <?php 
-    $unidades = [
+    /*$unidades = [
         '1' => 'Quantidade', 
         '2' => 'Valor',
         '3' => 'Porcentagem',
-    ];
+    ];*/
 ?>
 
 {!! Form::label('unidade', 'Unidades *') !!}<br>
@@ -49,23 +57,26 @@ null, ['class'=>"form-control width-medio <% validar(serie.indicador) %>", 'ng-m
 null, ['class'=>"form-control width-medio <% validar(serie.unidade) %>", 'ng-model'=>'serie.unidade', 'ng-required'=>'true', 'init-model'=>'serie.unidade', 'placeholder' => 'Selecione']) !!}<br>
 
 <?php
-$abrangencias = [
+/*$abrangencias = [
         '1' => 'País', 
         '2' => 'Região',
         '3' => 'UF',
         '4' => 'Município',
         '5' => 'Micro-Região',
-    ];
+    ];*/
 ?>
 
+{{--
 {!! Form::label('abrangencia', 'Abrangência *') !!}<br>
 {!! Form::select('abrangencia',
         $abrangencias,
 null, ['class'=>"form-control width-medio <% validar(serie.abrangencia) %>", 'ng-model'=>'serie.abrangencia', 'ng-required'=>'true', 'init-model'=>'serie.abrangencia', 'placeholder' => 'Selecione']) !!}<br>
+--}}
 
+@if(empty($serie))
 {!! Form::label('descricao', 'Metadados *') !!}<br>
-{!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(serie.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'serie.descricao', 'init-model'=>'serie.descricao']) !!}<br>
-
+{!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(textos.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'textos.descricao', 'init-model'=>'textos.descricao']) !!}<br>
+@endif
 
 
 {!! Form::label('fonte_id', 'Fonte *') !!}<br>

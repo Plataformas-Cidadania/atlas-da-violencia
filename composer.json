@@ -10,7 +10,9 @@
         "laravelcollective/html": "~5.0",
         "intervention/image": "^2.3",
         "graham-campbell/htmlmin": "^4.3",
-        "maatwebsite/excel": "~2.1.0"
+        "maatwebsite/excel": "~2.1.0",
+        "predis/predis": "^1.1",
+        "phaza/laravel-postgis": "^3.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -55,6 +55,15 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarSerieCtrl.js', 'public/assets-cms/js/controllers/alterarSerieCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/importSerieCtrl.js', 'public/assets-cms/js/controllers/importSerieCtrl.js');
 
+    //Textos Series
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/textoSerieCtrl.js', 'public/assets-cms/js/controllers/textoSerieCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTextoSerieCtrl.js', 'public/assets-cms/js/controllers/alterarTextoSerieCtrl.js');
+
+    //Temas Series
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/temaSerieCtrl.js', 'public/assets-cms/js/controllers/temaSerieCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTemaSerieCtrl.js', 'public/assets-cms/js/controllers/alterarTemaSerieCtrl.js');
+
+
     //Videos
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/videoCtrl.js', 'public/assets-cms/js/controllers/videoCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarVideoCtrl.js', 'public/assets-cms/js/controllers/alterarVideoCtrl.js');
@@ -86,6 +95,15 @@ elixir(function(mix) {
     //Idiomas
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaCtrl.js', 'public/assets-cms/js/controllers/idiomaCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaCtrl.js');
+
+    //Unidades
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/unidadeCtrl.js', 'public/assets-cms/js/controllers/unidadeCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarUnidadeCtrl.js', 'public/assets-cms/js/controllers/alterarUnidadeCtrl.js');
+
+    //Indicadores
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/indicadorCtrl.js', 'public/assets-cms/js/controllers/indicadorCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIndicadorCtrl.js', 'public/assets-cms/js/controllers/alterarIndicadorCtrl.js');
+
 
     //Fontes
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/fonteCtrl.js', 'public/assets-cms/js/controllers/fonteCtrl.js');

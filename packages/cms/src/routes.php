@@ -62,6 +62,22 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/importar-serie/{id}', 'Cms\Controllers\SerieController@viewImportar');
         Route::post('/cms/importar-serie', 'Cms\Controllers\SerieController@importar');
 
+        //TEXTOS SERIES
+        Route::get('/cms/textos-series/{serie_id}', 'Cms\Controllers\TextoSerieController@index');
+        Route::get('/cms/listar-textos-series', 'Cms\Controllers\TextoSerieController@listar');
+        Route::post('/cms/inserir-texto-serie', 'Cms\Controllers\TextoSerieController@inserir');
+        Route::get('/cms/texto-serie/{id}', 'Cms\Controllers\TextoSerieController@detalhar');
+        Route::post('/cms/alterar-texto-serie/{id}', 'Cms\Controllers\TextoSerieController@alterar');
+        Route::get('/cms/excluir-texto-serie/{id}', 'Cms\Controllers\TextoSerieController@excluir');
+
+        //TEMAS SERIES
+        Route::get('/cms/temas-series/{serie_id}', 'Cms\Controllers\TemaSerieController@index');
+        Route::get('/cms/listar-temas-series', 'Cms\Controllers\TemaSerieController@listar');
+        Route::post('/cms/inserir-tema-serie', 'Cms\Controllers\TemaSerieController@inserir');
+        //Route::get('/cms/tema-serie/{id}', 'Cms\Controllers\TemaSerieController@detalhar');
+        //Route::post('/cms/alterar-tema-serie/{id}', 'Cms\Controllers\TemaSerieController@alterar');
+        Route::get('/cms/excluir-tema-serie/{id}', 'Cms\Controllers\TemaSerieController@excluir');
+
         //Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
         Route::get('/cms/teste-excel/{id}/{arquivo}', 'Cms\Controllers\SerieController@testeExcel');
 
@@ -129,6 +145,22 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-idioma/{id}', 'Cms\Controllers\IdiomaController@alterar');
         Route::get('/cms/excluir-idioma/{id}', 'Cms\Controllers\IdiomaController@excluir');
 
+        //UNIDADES
+        Route::get('/cms/unidades', 'Cms\Controllers\UnidadeController@index');
+        Route::get('/cms/listar-unidades', 'Cms\Controllers\UnidadeController@listar');
+        Route::post('/cms/inserir-unidade', 'Cms\Controllers\UnidadeController@inserir');
+        Route::get('/cms/unidade/{id}', 'Cms\Controllers\UnidadeController@detalhar');
+        Route::post('/cms/alterar-unidade/{id}', 'Cms\Controllers\UnidadeController@alterar');
+        Route::get('/cms/excluir-unidade/{id}', 'Cms\Controllers\UnidadeController@excluir');
+
+        //INDICADORES
+        Route::get('/cms/indicadores', 'Cms\Controllers\IndicadorController@index');
+        Route::get('/cms/listar-indicadores', 'Cms\Controllers\IndicadorController@listar');
+        Route::post('/cms/inserir-indicador', 'Cms\Controllers\IndicadorController@inserir');
+        Route::get('/cms/indicador/{id}', 'Cms\Controllers\IndicadorController@detalhar');
+        Route::post('/cms/alterar-indicador/{id}', 'Cms\Controllers\IndicadorController@alterar');
+        Route::get('/cms/excluir-indicador/{id}', 'Cms\Controllers\IndicadorController@excluir');
+
         //FONTES
         Route::get('/cms/fontes', 'Cms\Controllers\FonteController@index');
         Route::get('/cms/listar-fontes', 'Cms\Controllers\FonteController@listar');
@@ -138,6 +170,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/excluir-fonte/{id}', 'Cms\Controllers\FonteController@excluir');
 
         //TEMAS
+        Route::get('/cms/temas/{tema_id}', 'Cms\Controllers\TemaController@index');
         Route::get('/cms/temas', 'Cms\Controllers\TemaController@index');
         Route::get('/cms/listar-temas', 'Cms\Controllers\TemaController@listar');
         Route::post('/cms/inserir-tema', 'Cms\Controllers\TemaController@inserir');

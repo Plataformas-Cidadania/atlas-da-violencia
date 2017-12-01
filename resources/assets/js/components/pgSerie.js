@@ -26,11 +26,15 @@ class PgSerie extends React.Component{
             intervalosFrom: [],
             intervalosTo: [],
             valoresRegioesPorPeriodo: {min: 0, max: 0, values: {}},
+            valoresPeriodo: {},
             smallLarge: [0,1],
             min: this.props.from,
             max: this.props.to,
+            /*min: this.props.from,
+            max: this.props.to,*/
             periodos: [],
             showMap: true,
+            loadingMap: false,
             showCharts: true,
             showRegions: true,
             showTable: true,
@@ -46,6 +50,7 @@ class PgSerie extends React.Component{
         this.setPeriodos = this.setPeriodos.bind(this);
         this.showHide = this.showHide.bind(this);
         this.loadData = this.loadData.bind(this);
+        this.loadDataPeriodo = this.loadDataPeriodo.bind(this);
         this.loadDataMaps = this.loadDataMaps.bind(this);
         this.setIntervalos = this.setIntervalos.bind(this);
         this.calcSmallLarge = this.calcSmallLarge.bind(this);
@@ -58,8 +63,9 @@ class PgSerie extends React.Component{
 
     changePeriodo(min, max){
         this.setState({min: min, max: max}, function(){
-            console.log(min, max);
+            //console.log(min, max);
             this.loadData();
+            this.loadDataPeriodo();
             this.loadDataMaps();
         });
     }
@@ -69,83 +75,84 @@ class PgSerie extends React.Component{
     }
 
     loadData(){
-       //console.log(this.props.regions);
-        $.ajax({
-            method:'GET',
-            //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-            url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia,
-            //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
-            cache: false,
-            success: function(data) {
-               //console.log('pgSerie', data);
-                //os valores menor e maior para serem utilizados no chartBar
-                let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
-                /*let totais = {
-                    min: this.state.min,
-                    max: this.state.max,
-                    values: data
-                };*/
-                this.setState({valoresRegioesPorPeriodo: data, smallLarge: smallLarge});
 
+        //console.log('MIN', this.state.min);
+        //console.log('MAX', this.state.max);
 
-                ///////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////////
-                /*let valores = [];
-                for(let i in data.max.valores){
-                    valores[i] = data.max.valores[i].valor;
-                }
-                //console.log('pgSerie', valores);
-                let valoresOrdenados = valores.sort(function(a, b){
-                    return a - b;
-                });
-                //console.log('pgSerie', valoresOrdenados);
+        if(this.state.min && this.state.max){
 
-                intervalos = gerarIntervalos(valoresOrdenados);
-                this.setIntervalos(intervalos);
-                //console.log('pgSerie', intervalos);*/
-                ///////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////////
+            //console.log(this.props.regions);
+            $.ajax({
+                method:'GET',
+                //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
+                url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia,
+                //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
+                cache: false,
+                success: function(data) {
+                    //console.log('pgSerie', data);
+                    //os valores menor e maior para serem utilizados no chartBar
+                    let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
 
+                    this.setState({valoresRegioesPorPeriodo: data, smallLarge: smallLarge});
 
+                }.bind(this),
+                error: function(xhr, status, err) {
+                  console.log('erro');
+                }.bind(this)
+            });
+        }
+    }
 
-                //loadMap(data);
-            }.bind(this),
-            error: function(xhr, status, err) {
-              console.log('erro');
-            }.bind(this)
-        });
+    loadDataPeriodo(){
+        if(this.state.min && this.state.max) {
+            let _this = this;
+            //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
+            $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia, {
+                data: {},
+                success: function (data) {
+                    this.setState({valoresPeriodo: data});
+                }.bind(this),
+                error: function (data) {
+                    console.log('erro');
+                }.bind(this)
+            })
+        }
     }
 
     loadDataMaps(){
-        let _this = this;
-        $.ajax("regiao/"+_this.state.id+"/"+_this.state.min+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
-            data: {},
-            success: function(dataMapFrom){
+        this.setState({loadingMap: true});
+        if(this.state.min && this.state.min){
+            let _this = this;
+            $.ajax("regiao/"+_this.state.id+"/"+_this.state.min+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
+                data: {},
+                success: function(dataMapFrom){
 
-                let valoresMapFrom = this.getValoresMap(dataMapFrom);
+                    let valoresMapFrom = this.getValoresMap(dataMapFrom);
 
-                $.ajax("regiao/"+_this.state.id+"/"+_this.state.max+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
-                    data: {},
-                    success: function(dataMapTo){
+                    $.ajax("regiao/"+_this.state.id+"/"+_this.state.max+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
+                        data: {},
+                        success: function(dataMapTo){
 
 
-                        let valoresMapTo = this.getValoresMap(dataMapTo);
+                            let valoresMapTo = this.getValoresMap(dataMapTo);
 
-                        let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
-                        console.log(dataMapFrom);
-                        console.log(dataMapTo);
-                        console.log(intervalos);
-                        this.setState({dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos});
-                    }.bind(this),
-                    error: function(data){
-                        //console.log('map', 'erro');
-                    }
-                })
-            }.bind(this),
-            error: function(data){
-                //console.log('map', 'erro');
-            }
-        });
+                            let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
+                            //console.log(dataMapFrom);
+                            //console.log(dataMapTo);
+                            //console.log(intervalos);
+                            this.setState({dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos, loadingMap:false});
+                        }.bind(this),
+                        error: function(data){
+                            //console.log('map', 'erro');
+                        }
+                    })
+                }.bind(this),
+                error: function(data){
+                    //console.log('map', 'erro');
+                }
+            });
+        }
+
 
     }
 
@@ -203,6 +210,10 @@ class PgSerie extends React.Component{
 
     }
 
+    change(event){
+        console.log(event.target.value);
+    }
+
     render(){
 
         //utilizado para função de formatação
@@ -218,6 +229,7 @@ class PgSerie extends React.Component{
 
                     <Regions
                         id={this.state.id}
+                        periodicidade={this.props.periodicidade}
                         decimais={decimais}
                         regions={this.props.regions}
                         abrangencia={this.props.abrangencia}
@@ -229,8 +241,6 @@ class PgSerie extends React.Component{
                 </div>
             );
         }
-
-
 
         return(
             <div>
@@ -251,14 +261,14 @@ class PgSerie extends React.Component{
                             <div className={"icons-groups" + (this.state.showInfo ? " icon-group-info" : " icon-group-info-disable")}
                                  style={{marginLeft: '5px'}} onClick={() => this.showHide('Info')} title="">&nbsp;</div>
 
-                            <div className={"icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable")}
-                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Calcs')} title="">&nbsp;</div>
+                            {/*<div className={"icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable")}
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Calcs')} title="">&nbsp;</div>*/}
 
                             <div className={"icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable")}
                                  style={{marginLeft: '5px'}} onClick={() => this.showHide('Table')} title="">&nbsp;</div>
 
-                            <div className={"icons-groups" + (this.state.showRegions ? " icon-group-rate" : " icon-group-rate-disable")}
-                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Regions')} title="">&nbsp;</div>
+                            {/*<div className={"icons-groups" + (this.state.showRegions ? " icon-group-rate" : " icon-group-rate-disable")}
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Regions')} title="">&nbsp;</div>*/}
 
                             <div className={"icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable")}
                                  style={{marginLeft: '5px'}} onClick={() => this.showHide('Charts')} title="">&nbsp;</div>
@@ -275,6 +285,8 @@ class PgSerie extends React.Component{
 
                         <RangePeriodo
                             id={this.state.id}
+                            periodicidade={this.props.periodicidade}
+                            abrangencia={this.props.abrangencia}
                             changePeriodo={this.changePeriodo}
                             setPeriodos={this.setPeriodos}
                             loading={this.loading}
@@ -298,7 +310,8 @@ class PgSerie extends React.Component{
                                 <input type="hidden" name="to" value={this.state.max}/>
                                 <input type="hidden" name="regions" value={this.props.regions}/>
                                 <input type="hidden" name="abrangencia" value={this.props.abrangencia}/>
-                                <button className="btn btn-success">Download ({this.state.min} - {this.state.max})</button>
+                                <button className="btn btn-success">Download ({formatPeriodicidade(this.state.min, this.props.periodicidade)
+                                } - {formatPeriodicidade(this.state.max, this.props.periodicidade)})</button>
                             </form>
                         </div>
                         <div style={{float:'right', marginLeft:'5px'}}>
@@ -324,12 +337,17 @@ class PgSerie extends React.Component{
 
                         <Topico icon="icon-group-map" text="Mapa"/>
 
-                        <div className="row">
+                        <div className="row col-md-12 text-center" style={{display: this.state.loadingMap ? 'block' : 'none'}}>
+                            <i className="fa fa-spin fa-spinner fa-4x"/>
+                        </div>
+
+                        <div className="row" style={{display: !this.state.loadingMap ? 'block' : 'none'}}>
                             <div className="col-md-6 col-sm-12">
                                 <Map
                                     mapId="map1"
                                     id={this.state.id}
                                     serie={this.props.serie}
+                                    periodicidade={this.props.periodicidade}
                                     tipoValores={this.props.tipoValores}
                                     decimais={decimais}
                                     /*min={this.state.min}
@@ -350,6 +368,7 @@ class PgSerie extends React.Component{
                                     mapId="map2"
                                     id={this.state.id}
                                     serie={this.props.serie}
+                                    periodicidade={this.props.periodicidade}
                                     tipoValores={this.props.tipoValores}
                                     decimais={decimais}
                                     /*min={this.state.min}
@@ -394,6 +413,7 @@ class PgSerie extends React.Component{
                                 <ChartLine
                                     id={this.state.id}
                                     serie={this.state.serie}
+                                    periodicidade={this.props.periodicidade}
                                     min={this.state.min}
                                     max={this.state.max}
                                     periodos={this.state.periodos}
@@ -410,6 +430,7 @@ class PgSerie extends React.Component{
                                         <ChartBar
                                             id={this.state.id}
                                             serie={this.state.serie}
+                                            periodicidade={this.props.periodicidade}
                                             /*intervalos={this.state.intervalos}*/
                                             min={this.state.min}
                                             max={this.state.max}
@@ -434,12 +455,14 @@ class PgSerie extends React.Component{
                             <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
                                 <ChartRadar
                                     serie={this.state.serie}
+                                    periodicidade={this.props.periodicidade}
                                     data={this.state.valoresRegioesPorPeriodo.max}
                                 />
                             </div>
                             <div style={{display: this.state.chartPie ? 'block' : 'none'}}>
                                 <ChartPie
                                     intervalos={this.state.intervalos}
+                                    periodicidade={this.props.periodicidade}
                                     data={this.state.valoresRegioesPorPeriodo.max}
                                 />
                             </div>
@@ -454,25 +477,29 @@ class PgSerie extends React.Component{
                         <Topico icon="icon-group-table" text="Tabela"/>
 
                         <div style={{textAlign: 'center', clear: 'both'}}>
-                            <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.max}</button>
+                            <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{formatPeriodicidade(this.state.min, this.props.periodicidade)} - {formatPeriodicidade(this.state.max, this.props.periodicidade)}</button>
                             <div style={{marginTop:'-19px'}}>
-                                <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                                <i className="fa fa-sort-down fa-2x ft-pri"  />
                             </div>
                         </div>
                         <br/>
 
+
                         <ListValoresSeries
                             decimais={decimais}
+                            periodicidade={this.props.periodicidade}
+                            nomeAbrangencia={this.props.nomeAbrangencia}
                             min={this.state.min}
                             max={this.state.max}
-                            data={this.state.valoresRegioesPorPeriodo.max}
-                            dataMin={this.state.valoresRegioesPorPeriodo.min}
-                            dataMax={this.state.valoresRegioesPorPeriodo.max}
+                            data={this.state.valoresPeriodo}
+                            /*data={this.state.valoresRegioesPorPeriodo.max}*/
+                            /*dataMin={this.state.valoresRegioesPorPeriodo.min}
+                            dataMax={this.state.valoresRegioesPorPeriodo.max}*/
                         />
                         <br/><br/>
                     </div>
 
-                    <div className="hidden-print" style={{display: this.state.showCalcs ? 'block' : 'none'}}>
+                    {/*<div className="hidden-print" style={{display: this.state.showCalcs ? 'block' : 'none'}}>
 
                         <Topico icon="icon-group-calc" text="Cálculos"/>
 
@@ -483,7 +510,7 @@ class PgSerie extends React.Component{
                             data={this.state.valoresRegioesPorPeriodo.max}
                         />
                         <br/><br/><br/>
-                    </div>
+                    </div>*/}
 
                     <div className="hidden-print" style={{display: this.state.showInfo ? 'block' : 'none'}}>
                         <div className="row">
@@ -514,6 +541,7 @@ ReactDOM.render(
     <PgSerie
         id={serie_id}
         serie={serie}
+        periodicidade={periodicidade}
         metadados={metadados}
         tipoValores={tipoValores}
         unidade={unidade}
@@ -521,6 +549,7 @@ ReactDOM.render(
         to={to}
         regions={regions}
         abrangencia={abrangencia}
+        nomeAbrangencia={nomeAbrangencia}
         /*typeRegion={typeRegion}
         typeRegionSerie={typeRegionSerie}*/
     />,
