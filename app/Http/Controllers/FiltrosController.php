@@ -67,11 +67,16 @@ class FiltrosController extends Controller
     public function series(Request $request){
         $parameters = $request->parameters;
 
+        //return $parameters;
+
         $idioma = "pt_BR";
 
         $cacheKey = 'series-'.$parameters['tema_id'].'-'.$parameters['indicador'].'-'.$parameters['abrangencia'].'-'.$idioma;
 
-        //$this->cache->forget($cacheKey);
+        //exclui o cache. Utilizar apenas para testes.
+        $this->cache->forget($cacheKey);
+
+        DB::connection()->enableQueryLog();
 
         if(!$this->cache->has($cacheKey)){
             $this->cache->put($cacheKey, DB::table('series')
@@ -94,6 +99,8 @@ class FiltrosController extends Controller
         }
 
         $series = $this->cache->get($cacheKey);
+
+        //return DB::getQueryLog();
 
         return $series;
     }

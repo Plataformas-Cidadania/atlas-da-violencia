@@ -249,9 +249,11 @@
     <div class="container">
 
         @if(!empty($series))
+            <?php $abrangencias = config('constants.abrangencias');?>
             <script>
                 serie_id={{$id}};
                 serie="{!! $series->titulo !!}";
+                periodicidade="{!! $series->periodicidade !!}";
                 tipoValores="{!! $series->tipo_valores !!}";
                 unidade="{!! $series->unidade !!}";
                 from="{!! $from !!}";

@@ -70,13 +70,26 @@ Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
 Route::post('dados-series/', 'SerieController@dataSeries');
 Route::post('download-dados/', 'SerieController@downloadDados');
 
+Route::get('filtros-series/{id}/{tema}', 'FiltrosController@index');
+Route::get('filtros-series/', 'FiltrosController@index');
+
+Route::get('filtros-series2/{id}/{tema}', 'FiltrosController@index');
+Route::get('filtros-series2/', 'FiltrosController@index');
+
 //-------------------------AJAX-----------------------------------------------------------------------------------------
+
+//Component Temas em components/filtros/pgFiltros
+Route::get('get-temas/{id}', 'FiltrosController@temas');
+Route::get('get-indicadores/{tema_id}', 'FiltrosController@indicadores');
+Route::get('get-abrangencias/{tema_id}', 'FiltrosController@abrangencias');
+Route::post('get-series/', 'FiltrosController@series');
 
 //Component
 Route::post('territorios/', 'SerieController@territorios');
 
 //Component RangePeriodo nas pg filtros e series
-Route::get('periodos/{id}', 'MapController@periodos');
+//Route::get('periodos/{id}', 'MapController@periodos');
+Route::get('periodos/{id}/{abrangencia}', 'MapController@periodos');
 
 Route::get('home-chart/{id}', 'SerieController@homeChart');
 

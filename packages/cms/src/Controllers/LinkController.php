@@ -36,10 +36,10 @@ class LinkController extends Controller
     {
 
         $links = \App\Link::all();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+        $temas = \App\Tema::where('tema_id', 0)->lists('tema', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::link.listar', ['links' => $links, 'series' => $series, 'idiomas' => $idiomas]);
+        return view('cms::link.listar', ['links' => $links, 'temas' => $temas, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
@@ -99,10 +99,10 @@ class LinkController extends Controller
         $link = $this->link->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+        $temas = \App\Tema::where('tema_id', 0)->lists('tema', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::link.detalhar', ['link' => $link, 'series' => $series, 'idiomas' => $idiomas]);
+        return view('cms::link.detalhar', ['link' => $link, 'temas' => $temas, 'idiomas' => $idiomas]);
     }
 
     public function alterar(Request $request, $id)
