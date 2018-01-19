@@ -48,6 +48,8 @@ class FiltrosController extends Controller
     public function abrangencias($tema_id){
         foreach($this->abrangencias as $key => $abrangencia){
             $cacheKey = 'qtd-series-abrangencia-'.$abrangencia['id'].'-tema-'.$tema_id;
+            //exclui o cache. Utilizar apenas para testes.
+            $this->cache->forget($cacheKey);
             if(!$this->cache->has($cacheKey)){
                 $this->cache->put($cacheKey, \App\Serie::join('temas_series', 'temas_series.serie_id', '=', 'series.id')
                     ->join('valores_series', 'valores_series.serie_id', '=', 'series.id')
