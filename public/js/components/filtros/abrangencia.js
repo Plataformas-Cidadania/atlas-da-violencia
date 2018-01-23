@@ -25,10 +25,9 @@ class Abrangencia extends React.Component {
     check(id) {
 
         this.setState({ ufDefault: null });
-        if (id == 3) {
-            //uf
-            this.setState({ ufDefault: 22 }); //Piauí
-        }
+        /*if(id==3){//uf
+            this.setState({ufDefault:22});//Piauí
+        }*/
 
         let options = this.state.options;
         let ok = true;
