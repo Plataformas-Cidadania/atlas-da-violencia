@@ -14,6 +14,8 @@
 <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>--}}
 
 @if($rota=='contato')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
     <script src="js/controllers/contatoCtrl.js"></script>
     <script src="lib/jquery/jquery.mask.min.js"></script>
     <script src="js/directives/maskPhoneDir.js"></script>
@@ -172,6 +174,8 @@ print_r($periodo_limite);*/
 
 {{--@if($rota=='map/{id}/{titulo}')--}}
 @if($rota=='dados-series')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
     {{--http://www.chartjs.org/docs/--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
 
