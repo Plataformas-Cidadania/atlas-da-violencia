@@ -79,6 +79,8 @@ class SerieController extends Controller
         $data['textos'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
 
+        return $data['serie'];
+
         /*if(empty($data['serie']['serie_id'])){
             $data['serie']['serie_id'] = 0;
         }*/
