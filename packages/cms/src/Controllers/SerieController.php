@@ -21,7 +21,7 @@ class SerieController extends Controller
     {
         $this->serie = new \App\Serie;
         $this->campos = [
-            'imagem', 'titulo', 'descricao', 'serie_id', 'tema_id', 'fonte_id', 'cmsuser_id', 'idioma_sigla', 'periodicidade_id', 'unidade', 'indicador', 'abrangencia', 'tipo_valores'
+            'fonte_id', 'cmsuser_id', 'periodicidade_id', 'unidade', 'indicador'
         ];
         $this->pathImagem = public_path().'/imagens/series';
         $this->sizesImagem = [
@@ -77,9 +77,6 @@ class SerieController extends Controller
 
         $data['serie'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
         $data['textos'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
-
-
-        return $data['serie'];
 
         /*if(empty($data['serie']['serie_id'])){
             $data['serie']['serie_id'] = 0;
