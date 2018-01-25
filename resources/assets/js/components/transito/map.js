@@ -7,8 +7,8 @@ class Map extends React.Component{
             data: [],
             dataCalor: [],
             type: null,
-            start: '2008-01-01',
-            end: '2008-06-30',
+            start: '2009-01-01',
+            end: '2009-12-01',
             pais: 203, //utilizado para o mapa de calor
             tipoTerritorioSelecionado: 1,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
             codigoTerritorioSelecionado: 203, //203 - Brasil 13 - SE
