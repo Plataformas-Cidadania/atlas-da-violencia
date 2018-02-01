@@ -1,6 +1,6 @@
 <?php
 
-return [
+return [    
     'indicadores' => [
         ['id' => '1', 'title' => 'Quantidade', 'on' => false, 'enable' => false],
         ['id' => '2', 'title' => 'Taxa por 100 mil Habitantes', 'on' => false, 'enable' => false],

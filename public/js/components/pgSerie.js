@@ -39,11 +39,15 @@ class PgSerie extends React.Component {
             intervalosFrom: [],
             intervalosTo: [],
             valoresRegioesPorPeriodo: { min: 0, max: 0, values: {} },
+            valoresPeriodo: {},
             smallLarge: [0, 1],
             min: this.props.from,
             max: this.props.to,
+            /*min: this.props.from,
+            max: this.props.to,*/
             periodos: [],
             showMap: true,
+            loadingMap: false,
             showCharts: true,
             showRegions: true,
             showTable: true,
@@ -59,6 +63,7 @@ class PgSerie extends React.Component {
         this.setPeriodos = this.setPeriodos.bind(this);
         this.showHide = this.showHide.bind(this);
         this.loadData = this.loadData.bind(this);
+        this.loadDataPeriodo = this.loadDataPeriodo.bind(this);
         this.loadDataMaps = this.loadDataMaps.bind(this);
         this.setIntervalos = this.setIntervalos.bind(this);
         this.calcSmallLarge = this.calcSmallLarge.bind(this);
@@ -70,8 +75,9 @@ class PgSerie extends React.Component {
 
     changePeriodo(min, max) {
         this.setState({ min: min, max: max }, function () {
-            console.log(min, max);
+            //console.log(min, max);
             this.loadData();
+            this.loadDataPeriodo();
             this.loadDataMaps();
         });
     }
@@ -81,79 +87,81 @@ class PgSerie extends React.Component {
     }
 
     loadData() {
-        //console.log(this.props.regions);
-        $.ajax({
-            method: 'GET',
-            //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-            url: "valores-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia,
-            //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
-            cache: false,
-            success: function (data) {
-                //console.log('pgSerie', data);
-                //os valores menor e maior para serem utilizados no chartBar
-                let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
-                /*let totais = {
-                    min: this.state.min,
-                    max: this.state.max,
-                    values: data
-                };*/
-                this.setState({ valoresRegioesPorPeriodo: data, smallLarge: smallLarge });
 
-                ///////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////////
-                /*let valores = [];
-                for(let i in data.max.valores){
-                    valores[i] = data.max.valores[i].valor;
-                }
-                //console.log('pgSerie', valores);
-                let valoresOrdenados = valores.sort(function(a, b){
-                    return a - b;
-                });
-                //console.log('pgSerie', valoresOrdenados);
-                 intervalos = gerarIntervalos(valoresOrdenados);
-                this.setIntervalos(intervalos);
-                //console.log('pgSerie', intervalos);*/
-                ///////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////////
+        //console.log('MIN', this.state.min);
+        //console.log('MAX', this.state.max);
 
+        if (this.state.min && this.state.max) {
 
-                //loadMap(data);
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.log('erro');
-            }.bind(this)
-        });
+            //console.log(this.props.regions);
+            $.ajax({
+                method: 'GET',
+                //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
+                url: "valores-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia,
+                //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
+                cache: false,
+                success: function (data) {
+                    //console.log('pgSerie', data);
+                    //os valores menor e maior para serem utilizados no chartBar
+                    let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
+
+                    this.setState({ valoresRegioesPorPeriodo: data, smallLarge: smallLarge });
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.log('erro');
+                }.bind(this)
+            });
+        }
+    }
+
+    loadDataPeriodo() {
+        if (this.state.min && this.state.max) {
+            let _this = this;
+            //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
+            $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia, {
+                data: {},
+                success: function (data) {
+                    this.setState({ valoresPeriodo: data });
+                }.bind(this),
+                error: function (data) {
+                    console.log('erro');
+                }.bind(this)
+            });
+        }
     }
 
     loadDataMaps() {
-        let _this = this;
-        $.ajax("regiao/" + _this.state.id + "/" + _this.state.min + "/" + _this.props.regions + "/" + _this.props.abrangencia, {
-            data: {},
-            success: function (dataMapFrom) {
+        this.setState({ loadingMap: true });
+        if (this.state.min && this.state.min) {
+            let _this = this;
+            $.ajax("regiao/" + _this.state.id + "/" + _this.state.min + "/" + _this.props.regions + "/" + _this.props.abrangencia, {
+                data: {},
+                success: function (dataMapFrom) {
 
-                let valoresMapFrom = this.getValoresMap(dataMapFrom);
+                    let valoresMapFrom = this.getValoresMap(dataMapFrom);
 
-                $.ajax("regiao/" + _this.state.id + "/" + _this.state.max + "/" + _this.props.regions + "/" + _this.props.abrangencia, {
-                    data: {},
-                    success: function (dataMapTo) {
+                    $.ajax("regiao/" + _this.state.id + "/" + _this.state.max + "/" + _this.props.regions + "/" + _this.props.abrangencia, {
+                        data: {},
+                        success: function (dataMapTo) {
 
-                        let valoresMapTo = this.getValoresMap(dataMapTo);
+                            let valoresMapTo = this.getValoresMap(dataMapTo);
 
-                        let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
-                        console.log(dataMapFrom);
-                        console.log(dataMapTo);
-                        console.log(intervalos);
-                        this.setState({ dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos });
-                    }.bind(this),
-                    error: function (data) {
-                        //console.log('map', 'erro');
-                    }
-                });
-            }.bind(this),
-            error: function (data) {
-                //console.log('map', 'erro');
-            }
-        });
+                            let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
+                            //console.log(dataMapFrom);
+                            //console.log(dataMapTo);
+                            //console.log(intervalos);
+                            this.setState({ dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos, loadingMap: false });
+                        }.bind(this),
+                        error: function (data) {
+                            //console.log('map', 'erro');
+                        }
+                    });
+                }.bind(this),
+                error: function (data) {
+                    //console.log('map', 'erro');
+                }
+            });
+        }
     }
 
     getValoresMap(data) {
@@ -209,6 +217,10 @@ class PgSerie extends React.Component {
         return intervalosTo;
     }
 
+    change(event) {
+        console.log(event.target.value);
+    }
+
     render() {
 
         //utilizado para função de formatação
@@ -223,6 +235,7 @@ class PgSerie extends React.Component {
                 React.createElement(Topico, { icon: "icon-group-rate", text: "Taxas" }),
                 React.createElement(Regions, {
                     id: this.state.id,
+                    periodicidade: this.props.periodicidade,
                     decimais: decimais,
                     regions: this.props.regions,
                     abrangencia: this.props.abrangencia,
@@ -279,20 +292,8 @@ class PgSerie extends React.Component {
                         ),
                         React.createElement(
                             "div",
-                            { className: "icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable"),
-                                style: { marginLeft: '5px' }, onClick: () => this.showHide('Calcs'), title: "" },
-                            "\xA0"
-                        ),
-                        React.createElement(
-                            "div",
                             { className: "icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable"),
                                 style: { marginLeft: '5px' }, onClick: () => this.showHide('Table'), title: "" },
-                            "\xA0"
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "icons-groups" + (this.state.showRegions ? " icon-group-rate" : " icon-group-rate-disable"),
-                                style: { marginLeft: '5px' }, onClick: () => this.showHide('Regions'), title: "" },
                             "\xA0"
                         ),
                         React.createElement(
@@ -317,6 +318,8 @@ class PgSerie extends React.Component {
                     React.createElement("br", null),
                     React.createElement(RangePeriodo, {
                         id: this.state.id,
+                        periodicidade: this.props.periodicidade,
+                        abrangencia: this.props.abrangencia,
                         changePeriodo: this.changePeriodo,
                         setPeriodos: this.setPeriodos,
                         loading: this.loading,
@@ -345,9 +348,9 @@ class PgSerie extends React.Component {
                                 "button",
                                 { className: "btn btn-success" },
                                 "Download (",
-                                this.state.min,
+                                formatPeriodicidade(this.state.min, this.props.periodicidade),
                                 " - ",
-                                this.state.max,
+                                formatPeriodicidade(this.state.max, this.props.periodicidade),
                                 ")"
                             )
                         )
@@ -383,7 +386,12 @@ class PgSerie extends React.Component {
                     React.createElement(Topico, { icon: "icon-group-map", text: "Mapa" }),
                     React.createElement(
                         "div",
-                        { className: "row" },
+                        { className: "row col-md-12 text-center", style: { display: this.state.loadingMap ? 'block' : 'none' } },
+                        React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "row", style: { display: !this.state.loadingMap ? 'block' : 'none' } },
                         React.createElement(
                             "div",
                             { className: "col-md-6 col-sm-12" },
@@ -391,6 +399,7 @@ class PgSerie extends React.Component {
                                 mapId: "map1",
                                 id: this.state.id,
                                 serie: this.props.serie,
+                                periodicidade: this.props.periodicidade,
                                 tipoValores: this.props.tipoValores,
                                 decimais: decimais
                                 /*min={this.state.min}
@@ -413,6 +422,7 @@ class PgSerie extends React.Component {
                                 mapId: "map2",
                                 id: this.state.id,
                                 serie: this.props.serie,
+                                periodicidade: this.props.periodicidade,
                                 tipoValores: this.props.tipoValores,
                                 decimais: decimais
                                 /*min={this.state.min}
@@ -479,6 +489,7 @@ class PgSerie extends React.Component {
                             React.createElement(ChartLine, {
                                 id: this.state.id,
                                 serie: this.state.serie,
+                                periodicidade: this.props.periodicidade,
                                 min: this.state.min,
                                 max: this.state.max,
                                 periodos: this.state.periodos,
@@ -500,7 +511,8 @@ class PgSerie extends React.Component {
                                     { className: "col-md-12" },
                                     React.createElement(ChartBar, {
                                         id: this.state.id,
-                                        serie: this.state.serie
+                                        serie: this.state.serie,
+                                        periodicidade: this.props.periodicidade
                                         /*intervalos={this.state.intervalos}*/
                                         , min: this.state.min,
                                         max: this.state.max,
@@ -518,6 +530,7 @@ class PgSerie extends React.Component {
                             { style: { display: this.state.chartRadar ? 'block' : 'none' } },
                             React.createElement(ChartRadar, {
                                 serie: this.state.serie,
+                                periodicidade: this.props.periodicidade,
                                 data: this.state.valoresRegioesPorPeriodo.max
                             })
                         ),
@@ -526,6 +539,7 @@ class PgSerie extends React.Component {
                             { style: { display: this.state.chartPie ? 'block' : 'none' } },
                             React.createElement(ChartPie, {
                                 intervalos: this.state.intervalos,
+                                periodicidade: this.props.periodicidade,
                                 data: this.state.valoresRegioesPorPeriodo.max
                             })
                         )
@@ -544,37 +558,28 @@ class PgSerie extends React.Component {
                         React.createElement(
                             "button",
                             { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                            this.state.max
+                            formatPeriodicidade(this.state.min, this.props.periodicidade),
+                            " - ",
+                            formatPeriodicidade(this.state.max, this.props.periodicidade)
                         ),
                         React.createElement(
                             "div",
                             { style: { marginTop: '-19px' } },
-                            React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
+                            React.createElement("i", { className: "fa fa-sort-down fa-2x ft-pri" })
                         )
                     ),
                     React.createElement("br", null),
                     React.createElement(ListValoresSeries, {
                         decimais: decimais,
+                        periodicidade: this.props.periodicidade,
+                        nomeAbrangencia: this.props.nomeAbrangencia,
                         min: this.state.min,
                         max: this.state.max,
-                        data: this.state.valoresRegioesPorPeriodo.max,
-                        dataMin: this.state.valoresRegioesPorPeriodo.min,
-                        dataMax: this.state.valoresRegioesPorPeriodo.max
+                        data: this.state.valoresPeriodo
+                        /*data={this.state.valoresRegioesPorPeriodo.max}*/
+                        /*dataMin={this.state.valoresRegioesPorPeriodo.min}
+                        dataMax={this.state.valoresRegioesPorPeriodo.max}*/
                     }),
-                    React.createElement("br", null),
-                    React.createElement("br", null)
-                ),
-                React.createElement(
-                    "div",
-                    { className: "hidden-print", style: { display: this.state.showCalcs ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-calc", text: "C\xE1lculos" }),
-                    React.createElement(Calcs, {
-                        id: this.state.id,
-                        decimais: decimais,
-                        serie: this.state.serie,
-                        data: this.state.valoresRegioesPorPeriodo.max
-                    }),
-                    React.createElement("br", null),
                     React.createElement("br", null),
                     React.createElement("br", null)
                 ),
@@ -628,13 +633,15 @@ class PgSerie extends React.Component {
 ReactDOM.render(React.createElement(PgSerie, {
     id: serie_id,
     serie: serie,
+    periodicidade: periodicidade,
     metadados: metadados,
     tipoValores: tipoValores,
     unidade: unidade,
     from: from,
     to: to,
     regions: regions,
-    abrangencia: abrangencia
+    abrangencia: abrangencia,
+    nomeAbrangencia: nomeAbrangencia
     /*typeRegion={typeRegion}
     typeRegionSerie={typeRegionSerie}*/
 }), document.getElementById('pgSerie'));

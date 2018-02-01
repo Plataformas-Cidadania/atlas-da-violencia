@@ -151,6 +151,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         'GrahamCampbell\HTMLMin\HTMLMinServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
+        'Phaza\LaravelPostgis\DatabaseServiceProvider',
 
         /*
          * Application Service Providers...

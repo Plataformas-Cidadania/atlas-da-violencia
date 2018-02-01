@@ -16,16 +16,20 @@ class Rates extends React.Component{
     }
 
     loadData(){
-        let _this = this;
-        $.ajax("valores-regiao/"+this.state.min+"/"+this.state.max, {
-            data: {},
-            success: function(data){
-                //console.log(data);
-            },
-            error: function(data){
-              console.log('erro');
-            }
-        })
+        if(this.state.min && this.state.max){
+            let _this = this;
+            $.ajax("valores-regiao/"+this.state.min+"/"+this.state.max, {
+                data: {},
+                success: function(data){
+                    //console.log(data);
+                },
+                error: function(data){
+                    console.log('erro');
+                }
+            })
+        }
+
+
     }
 
     render(){

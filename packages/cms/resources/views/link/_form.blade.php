@@ -28,9 +28,9 @@ null, ['class'=>"form-control width-medio <% validar(link.tipo) %>", 'ng-model'=
 <br><br>--}}
 
 <div ng-if="link.tipo==0">
-    {!! Form::label('link', 'Series *') !!}<br>
+    {!! Form::label('link', 'Temas *') !!}<br>
     {!! Form::select('link',
-        $series,
+        $temas,
 null, ['class'=>"form-control width-medio <% validar(link.link) %>", 'ng-model'=>'link.link', 'ng-required'=>'true', 'init-model'=>'link.link', 'placeholder' => 'Selecione']) !!}<br>
 </div>
 <div ng-if="link.tipo==1">

@@ -11,6 +11,7 @@ cmsApp.controller('alterarTemaCtrl', ['$scope', '$http', 'Upload', '$timeout', f
 
     $scope.removerImagem = false;
 
+
     $scope.alterar = function (file){
 
         if(file==null){
@@ -66,8 +67,8 @@ cmsApp.controller('alterarTemaCtrl', ['$scope', '$http', 'Upload', '$timeout', f
 
     $scope.carregaImagem  = function(img) {
         if(img!=''){
-            $scope.imagemBD = 'imagens/temas/xs-'+img;
-            //console.log($scope.imagemBD);
+            $scope.imagemBD = 'imagens/temas/md-'+img;
+            console.log($scope.imagemBD);
         }
     };
 

@@ -70,13 +70,26 @@ Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
 Route::post('dados-series/', 'SerieController@dataSeries');
 Route::post('download-dados/', 'SerieController@downloadDados');
 
+Route::get('filtros-series/{id}/{tema}', 'FiltrosController@index');
+Route::get('filtros-series/', 'FiltrosController@index');
+
+Route::get('filtros-series2/{id}/{tema}', 'FiltrosController@index');
+Route::get('filtros-series2/', 'FiltrosController@index');
+
 //-------------------------AJAX-----------------------------------------------------------------------------------------
+
+//Component Temas em components/filtros/pgFiltros
+Route::get('get-temas/{id}', 'FiltrosController@temas');
+Route::get('get-indicadores/{tema_id}', 'FiltrosController@indicadores');
+Route::get('get-abrangencias/{tema_id}', 'FiltrosController@abrangencias');
+Route::post('get-series/', 'FiltrosController@series');
 
 //Component
 Route::post('territorios/', 'SerieController@territorios');
 
 //Component RangePeriodo nas pg filtros e series
-Route::get('periodos/{id}', 'MapController@periodos');
+//Route::get('periodos/{id}', 'MapController@periodos');
+Route::get('periodos/{id}/{abrangencia}', 'MapController@periodos');
 
 Route::get('home-chart/{id}', 'SerieController@homeChart');
 
@@ -135,3 +148,17 @@ Route::get('lang/{locale}', function ($locale) {
 //Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
 
 
+Route::get('mapa-calor/', function () {
+    return view('mapa-calor');
+});
+Route::get('new-maps/', function () {
+    return view('new-maps');
+    //return view('new-mapsORIGINAL');
+});
+Route::get('acidentes-transito/', function () {
+    return view('transito');
+});
+Route::post('valores-transito/', 'TransitoController@valoresMapa');
+Route::post('total-transito-territorio/', 'TransitoController@totalPorTerritorio');
+Route::post('pontos-transito-territorio/', 'TransitoController@pontosPorTerritorio');
+Route::post('pontos-transito-pais/', 'TransitoController@pontosPorPais');

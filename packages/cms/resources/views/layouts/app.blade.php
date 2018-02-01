@@ -17,7 +17,7 @@
     <meta name="author" content="">
 
     <title>CMS - Nome do site</title>
-    <base href="http://{{$base_href}}">
+    <base href="http://{{$base_href}}@if($base_href=='10.0.52.46')/@endif">
 
     <!-- Bootstrap Core CSS -->
     <link href="assets-cms/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -100,7 +100,13 @@
                     <a href="cms/fontes"><i class="fa fa-university" aria-hidden="true"></i> Fontes</a>
                 </li>
                 <li>
-                    <a href="cms/temas"><i class="fa fa-folder-open" aria-hidden="true"></i> Temas</a>
+                    <a href="cms/temas/0"><i class="fa fa-folder-open" aria-hidden="true"></i> Temas</a>
+                </li>
+                <li>
+                    <a href="cms/indicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores</a>
+                </li>
+                <li>
+                    <a href="cms/unidades"><i class="fa fa-indent" aria-hidden="true"></i> Unidades</a>
                 </li>
                 <li>
                     <a href="cms/series"><i class="fa fa-cubes" aria-hidden="true"></i> Séries</a>

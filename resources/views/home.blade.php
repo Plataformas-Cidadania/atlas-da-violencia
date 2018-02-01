@@ -42,7 +42,7 @@
                     <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" >
                         <div>
                             @if($link->tipo==0)
-                                <a href="filtros/{{$link->link}}/{{clean($link->titulo)}}">
+                                <a href="filtros-series/{{$link->link}}/{{clean($link->titulo)}}">
                             @else
                                 <a href="redirecionamento/{{$link->id}}/{{clean($link->titulo)}}">
                             @endif

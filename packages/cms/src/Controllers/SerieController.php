@@ -21,7 +21,7 @@ class SerieController extends Controller
     {
         $this->serie = new \App\Serie;
         $this->campos = [
-            'imagem', 'titulo', 'descricao', 'serie_id', 'tema_id', 'fonte_id', 'cmsuser_id', 'idioma_sigla', 'periodicidade_id', 'unidade', 'indicador', 'abrangencia', 'tipo_valores'
+            'fonte_id', 'cmsuser_id', 'periodicidade_id', 'unidade', 'indicador'
         ];
         $this->pathImagem = public_path().'/imagens/series';
         $this->sizesImagem = [
@@ -36,21 +36,18 @@ class SerieController extends Controller
     function index()
     {
 
-        $series = \App\Serie::all();
-        //$temas = \App\Tema::lists('titulo', 'id')->all();
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
-        $series_relacionado = \App\Serie::lists('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
         $periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
-
-
+        $indicadores = \App\Indicador::lists('titulo', 'id')->all();
+        $unidades = \App\Unidade::lists('titulo', 'id')->all();
 
         return view('cms::serie.listar', [
-            'series' => $series,
-            'series_relacionado' => $series_relacionado,
             'fontes' => $fontes,
             'idiomas' => $idiomas,
-            'periodicidades' => $periodicidades
+            'periodicidades' => $periodicidades,
+            'indicadores' => $indicadores,
+            'unidades' => $unidades,
         ]);
     }
 
@@ -64,6 +61,7 @@ class SerieController extends Controller
 
         $series = DB::table('series')
             ->select($campos)
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
             ->where([
                 [$request->campoPesquisa, 'ilike', "%$request->dadoPesquisa%"],
             ])
@@ -78,13 +76,13 @@ class SerieController extends Controller
         $data = $request->all();
 
         $data['serie'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['textos'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
-
-        if(empty($data['serie']['serie_id'])){
+        /*if(empty($data['serie']['serie_id'])){
             $data['serie']['serie_id'] = 0;
-        }
+        }*/
 
-        $data['serie']['tipo_valores'] = 0;
+        //$data['serie']['tipo_valores'] = 0;
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
@@ -108,27 +106,36 @@ class SerieController extends Controller
             }
         }
 
-        return $this->serie->create($data['serie']);
+        $serie = $this->serie->create($data['serie']);
+        $data['textos'] += ['serie_id' => $serie->id];
+        $textos_serie = \App\TextoSerie::create($data['textos']);
 
     }
 
     public function detalhar($id)
     {
-        $serie = $this->serie->where([
-            ['id', '=', $id],
+        $serie = $this->serie
+            ->select('textos_series.titulo', 'series.*')
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+            ->where([
+            ['series.id', '=', $id],
         ])->firstOrFail();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
         $periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
 
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
-        $series_relacionado = \App\Serie::lists('titulo', 'id')->all();
+
+
+        $indicadores = \App\Indicador::lists('titulo', 'id')->all();
+        $unidades = \App\Unidade::lists('titulo', 'id')->all();
 
         return view('cms::serie.detalhar', [
             'serie' => $serie,
-            'series_relacionado' => $series_relacionado,
             'fontes' => $fontes,
             'idiomas' => $idiomas,
-            'periodicidades' => $periodicidades
+            'periodicidades' => $periodicidades,
+            'indicadores' => $indicadores,
+            'unidades' => $unidades,
         ]);
     }
 
@@ -204,7 +211,14 @@ class SerieController extends Controller
         return view('cms::serie.import', ['serie' => $serie]);
     }
 
-    private function validarArquivo($serie, $arquivo){
+    private function validarArquivoCsv($arquivo){
+        $ext = $arquivo->getClientOriginalExtension();
+
+        return ['result' => $ext=='csv', 'msg' => 'O arquivo deve ser .csv'];
+
+    }
+
+    private function validarArquivo2($serie, $arquivo){
         $ext = $arquivo->getClientOriginalExtension();
 
         //Log::info($ext);
@@ -220,7 +234,371 @@ class SerieController extends Controller
         return false;
     }
 
+    private function validarArquivo($data, $arquivo){
+        $ext = $arquivo->getClientOriginalExtension();
+
+        //Log::info($ext);
+
+        if($data['serie']['abrangencia']==4){
+            return ['result' => $ext=='csv', 'msg' => 'O arquivo deve ser .csv'];
+        }
+
+        if($data['serie']['abrangencia']==1 || $data['serie']['abrangencia']==2 || $data['serie']['abrangencia']==3 || $data['serie']['abrangencia']==7){
+            return ['result' => $ext=='csv', 'msg' => 'O arquivo deve ser .csv'];
+        }
+
+        return false;
+    }
+
     public function importar(Request $request){
+        $data = $request->all();
+
+        $arquivo = $request->file('arquivo');
+
+        $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
+        $successArquivo = $arquivo->move(public_path()."/import", $filenameArquivo);
+        if($successArquivo){
+            $data['serie']['arquivo'] = $filenameArquivo;
+        }
+
+        ini_set('max_execution_time', 360);
+
+        $serie = \App\Serie::select('indicador', 'periodicidade_id')->where('id', $data['id'])->first();
+
+        $validation = $this->validarArquivo($data, $arquivo);
+
+        if(!$validation['result']){
+            return ['erro' => 1, 'msg' => $validation['msg']];
+        }
+
+        $csv = $this->lerCsv($filenameArquivo);
+
+        if($data['modelo']==1){
+            $this->importarModelo1($csv, $data['id'], $data['serie']['abrangencia'], $serie->periodicidade_id);
+            return 1;
+        }
+
+        if($data['modelo']==2){
+            $this->importarModelo2($csv, $data['id'], $data['serie']['abrangencia'], $data['serie']['periodicidade']);
+            return 2;
+        }
+
+        return 0;
+
+
+        /*if($data['serie']['abrangencia']==1 || $data['serie']['abrangencia']==2 || $data['serie']['abrangencia']==3){
+            $excel = Excel::load(public_path()."/import/$filenameArquivo", function($reader) {})->get();
+            $this->importarPaisUfRegiao($excel, $data['id'], $serie->abrangencia);
+            return 1;
+        }
+
+        if($data['serie']['abrangencia']==4){
+            $this->importarMunicipios($csv, $data['id'], $data['serie']['abrangencia'], $serie->indicador);
+            return 2;
+        }
+
+        return 0;*/
+
+    }
+
+    private function lerCsv($filenameArquivo){
+        $csv = [];
+
+        $file = fopen(public_path()."/import/$filenameArquivo", "r");
+
+        $cont = 0;
+        $columns = [];
+        while(!feof($file)){
+            $linha = fgets($file, 4096);
+            $values = explode(';', $linha);
+            if($cont==0){
+                foreach($values as $key => $value){
+                    $values[$key] = somenteLetrasNumeros(clean($value));
+                }
+                $columns = $values;
+                //Log::info($columns);
+            }else{
+                $row = [];
+                foreach($values as $key => $value){
+                    $row[$columns[$key]] = $value;
+                }
+                array_push($csv, $row);
+            }
+
+            $cont++;
+        }
+
+        return $csv;
+    }
+
+    private function importarModelo1($csv, $serie_id, $abrangencia, $periodicidade){
+        $cms_user_id = auth()->guard('cms')->user()->id;
+        $tipo_regiao = $abrangencia;
+
+        foreach($csv as $row){
+            if($row['cod']==''){
+                break;
+            }
+
+            $regiao_id = $row['cod'];
+            if($abrangencia==4){
+                $regiao_id = $row['cod'].$this->calcula_dv_municipio($row['cod']);
+            }
+
+            $valor = "";
+            $valor = $row['valor'];
+
+            if($abrangencia==1 || $abrangencia==2 || $abrangencia==3){
+
+                $coluna_edterritorios = 'edterritorios_nome';
+                if($abrangencia==3){//regiao
+                    $coluna_edterritorios = 'edterritorios_sigla';
+                }
+
+                $tabelas = $this->getTabelas();
+                //$abrangencias = $this->getAbrangencias();
+
+                DB::connection()->enableQueryLog();
+
+                $regiao = DB::table($tabelas[$abrangencia])
+                    ->select('edterritorios_codigo as regiao_id')
+                    ->where($coluna_edterritorios, 'ilike', $row['cod'])//cod em pais, regiao e uf se refere a sigla
+                    ->first();
+
+                //Log::info(DB::getQueryLog());
+
+                $regiao_id = $regiao->regiao_id;//no caso de pais, regiao e uf o regiao id é pego das tabelas do spat
+
+            }
+
+            $periodo = trim($row['periodo']);
+            if($periodicidade==2 || $periodicidade==3 || $periodicidade==4){
+                $periodo = trim($row['periodo'])."-01";
+            }
+            if($periodicidade==1){//Anual
+                $periodo = trim($row['periodo'])."-01-01";
+            }
+
+            Log::info($periodo);
+
+            $reg =[
+                'periodo' => $periodo,
+                'tipo_regiao' => $tipo_regiao,
+                'regiao_id' => $regiao_id,
+                'serie_id' => $serie_id,
+                'valor' => $valor
+            ];
+
+            if($regiao_id != null && $regiao_id != "" && $valor != null & $valor != ""){
+                $registro = \App\ValorSerie::updateOrCreate(
+                    $reg,
+                    ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
+                );
+            }
+        }
+    }
+
+    private function importarModelo2($csv, $serie_id, $abrangencia, $periodicidade){
+        $cms_user_id = auth()->guard('cms')->user()->id;
+        $tipo_regiao = $abrangencia;
+
+        foreach($csv as $index => $row){
+            if($row['cod']==''){
+                break;
+            }
+
+            $regiao_id = $row['cod'];
+            if($abrangencia==4){
+                $regiao_id = $row['cod'].$this->calcula_dv_municipio($row['cod']);
+            }
+
+            $cont = 0;
+            foreach($row as $col => $value){
+                //Log::info($col);
+                if($cont >= 2){//os periodos estão a partir da posição 2
+                    $periodo = $col;
+
+                    $valor = "";
+                    $valor = $row[$periodo];
+
+                    if($abrangencia==1 || $abrangencia==2 || $abrangencia==3){
+
+                        $coluna_edterritorios = 'edterritorios_nome';
+                        if($abrangencia==3){//regiao
+                            $coluna_edterritorios = 'edterritorios_sigla';
+                        }
+
+                        $tabelas = $this->getTabelas();
+                        //$abrangencias = $this->getAbrangencias();
+
+                        DB::connection()->enableQueryLog();
+
+                        $regiao = DB::table($tabelas[$abrangencia])
+                            ->select('edterritorios_codigo as regiao_id')
+                            ->where($coluna_edterritorios, 'ilike', $row['cod'])//cod em pais, regiao e uf se refere a sigla
+                            ->first();
+
+                        //Log::info(DB::getQueryLog());
+
+                        $regiao_id = $regiao->regiao_id;//no caso de pais, regiao e uf o regiao id é pego das tabelas do spat
+
+                        //Log::info($regiao_id);
+
+                    }
+
+                    $reg =[
+                        'periodo' => $periodo,
+                        'tipo_regiao' => $tipo_regiao,
+                        'regiao_id' => $regiao_id,
+                        'serie_id' => $serie_id,
+                        'valor' => $valor
+                    ];
+
+                    if($regiao_id != null && $regiao_id != "" && $valor != null & $valor != ""){
+                        $registro = \App\ValorSerie::updateOrCreate(
+                            $reg,
+                            ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
+                        );
+                    }
+
+                }
+                $cont++;
+            }
+        }
+    }
+
+    private function importarMunicipios($csv, $serie_id, $abrangencia){
+        $cms_user_id = auth()->guard('cms')->user()->id;
+        $tipo_regiao = $abrangencia;
+
+        foreach($csv as $row){
+            if($row['cod']==''){
+                break;
+            }
+
+            $cod = $row['cod'];
+            $cod = $row['cod'].$this->calcula_dv_municipio($row['cod']);
+
+            $valor = "";
+            $valor = $row['valor'];
+
+            $reg =[
+                'periodo' => $row['periodo'],
+                'tipo_regiao' => $tipo_regiao,
+                'regiao_id' => $cod,
+                'serie_id' => $serie_id,
+                'valor' => $valor
+            ];
+
+            if($cod != null && $cod != "" && $valor != null & $valor != ""){
+                $registro = \App\ValorSerie::updateOrCreate(
+                    $reg,
+                    ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
+                );
+            }
+        }
+    }
+
+    private function importarPaisUfRegiao($excel, $serie_id, $abrangencia){
+        //Log::info('abrangencia: '.$abrangencia);
+        $registros = [];
+        $uf = '';
+        $municipio = '';
+        $bairro = '';
+        $cms_user_id = auth()->guard('cms')->user()->id;
+
+        $tabelas = $this->getTabelas();
+        $abrangencias = $this->getAbrangencias();
+
+        $coluna_edterritorios = 'edterritorios_nome';
+        if($abrangencia==3){
+            $coluna_edterritorios = 'edterritorios_sigla';
+        }
+
+        $territorio = '';
+        foreach($excel as $row){
+            foreach($row as $index => $cel){
+                if(!empty($index)){
+                    //Log::info('titulo abrangência: '.$abrangencias[$abrangencia]);
+                    //Log::info('index: '.$index);
+                    if($index==$abrangencias[$abrangencia]){
+                        $territorio = str_replace('-', ' ', $cel);
+                    }else{
+                        array_push($registros, ['ano' => $index, 'value' => $cel]);
+                        $valor = $cel;
+                        $periodo = $index;
+
+                        //Log::info('territorio: '.$territorio);
+
+                        DB::connection()->enableQueryLog();
+
+                        $tipo_regiao = $abrangencia;
+                        $regiao = DB::table($tabelas[$abrangencia])
+                            ->select('edterritorios_codigo as regiao_id')
+                            ->where($coluna_edterritorios, 'ilike', $territorio)
+                            ->first();
+
+                        //Log::info(DB::getQueryLog());
+
+                        $regiao_id = $regiao->regiao_id;
+
+                        $reg =[
+                            'periodo' => $periodo,
+                            'uf' => $uf,
+                            'tipo_regiao' => $tipo_regiao,
+                            'regiao_id' => $regiao_id,
+                            'municipio' => $municipio,
+                            'bairro' => $bairro,
+                            'serie_id' => $serie_id
+                        ];
+
+                        //Log::info($valor);
+
+                        if($valor==null){
+                            $valor = 0;
+                        }
+
+
+                        if($regiao_id != null && $periodo != null){
+                            $registro = \App\ValorSerie::updateOrCreate(
+                                $reg,
+                                ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
+                            );
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function importar2(Request $request){
 
         $data = $request->all();
 
@@ -248,7 +626,7 @@ class SerieController extends Controller
 
         if($serie->abrangencia==1 || $serie->abrangencia==2 || $serie->abrangencia==3){
             $excel = Excel::load(public_path()."/import/$filenameArquivo", function($reader) {})->get();
-            $this->importarPaisUfRegiao($excel, $data['id'], $serie->abrangencia);
+            $this->importarPaisUfRegiao2($excel, $data['id'], $serie->abrangencia);
             return;
         }
 
@@ -290,13 +668,13 @@ class SerieController extends Controller
 
             //return $csv;
 
-            $this->importarMunicipios($csv, $data['id'], $serie->abrangencia, $serie->indicador, $data['serie']['periodo']);
+            $this->importarMunicipios2($csv, $data['id'], $serie->abrangencia, $serie->indicador, $data['serie']['periodo']);
             return;
         }
 
     }
 
-    private function importarMunicipios($csv, $serie_id, $abrangencia, $indicador, $periodo){
+    private function importarMunicipios2($csv, $serie_id, $abrangencia, $indicador, $periodo){
         //Log::info('abrangencia: '.$abrangencia);
         $registros = [];
         $uf = '';
@@ -309,12 +687,14 @@ class SerieController extends Controller
 
         $tabelas = $this->getTabelas();
 
-        $abrangencias = [
+        /*$abrangencias = [
             1 => 'pais',
             2 => 'regiao',
             3 => 'uf',
             4 => 'micro-regiao',
-        ];
+        ];*/
+
+
 
         $indicadores = [
             '1' => 'Quantidade',
@@ -405,22 +785,7 @@ class SerieController extends Controller
 
     }
 
-    private function calcula_dv_municipio($codigo_municipio){
-        $peso = "1212120";
-        //echo substr($peso,0,1);
-        $soma = 0;
-        for($i = 0; $i < 7; $i++){ $valor = substr($codigo_municipio,$i,1) * substr($peso,$i,1); if($valor>9)
-            $soma = $soma + substr($valor,0,1) + substr($valor,1,1);
-        else
-            $soma = $soma + $valor;
-        }
-        $dv = (10 - ($soma % 10));
-        if(($soma % 10)==0)
-            $dv = 0;
-        return $dv;
-    }
-
-    private function importarPaisUfRegiao($excel, $serie_id, $abrangencia){
+    private function importarPaisUfRegiao2($excel, $serie_id, $abrangencia){
         //Log::info('abrangencia: '.$abrangencia);
         $registros = [];
         $uf = '';
@@ -512,6 +877,21 @@ class SerieController extends Controller
         }
     }
 
+    private function calcula_dv_municipio($codigo_municipio){
+        $peso = "1212120";
+        //echo substr($peso,0,1);
+        $soma = 0;
+        for($i = 0; $i < 7; $i++){ $valor = substr($codigo_municipio,$i,1) * substr($peso,$i,1); if($valor>9)
+            $soma = $soma + substr($valor,0,1) + substr($valor,1,1);
+        else
+            $soma = $soma + $valor;
+        }
+        $dv = (10 - ($soma % 10));
+        if(($soma % 10)==0)
+            $dv = 0;
+        return $dv;
+    }
+
     private function getTabelas(){
         $tabelas = [
             1 => 'spat.ed_territorios_paises',
@@ -519,7 +899,8 @@ class SerieController extends Controller
             3 => 'spat.ed_territorios_uf',
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
-            6 => 'spat.ed_territorios_mesoregioes'
+            6 => 'spat.ed_territorios_mesoregioes',
+            7 => 'spat.ed_territorios_piaui_tds'
         ];
 
         return $tabelas;
@@ -530,89 +911,16 @@ class SerieController extends Controller
             1 => 'pais',
             2 => 'regiao',
             3 => 'uf',
-            4 => 'micro-regiao',
+            //4 => 'micro-regiao',
+            4 => 'municipio',
+            5 => 'micro-regiao',
+            6 => 'meso-regiao',
         ];
 
         return $abrangencias;
     }
 
-    public function testeExcel($serie_id, $arquivo){
-        //$data = Excel::load(public_path().'/excel/taxa.homicidio.ANO.REGIAO.xlsx', function($reader) {
-        //Log::info($arquivo);
-        $data = Excel::load(public_path()."/excel/$arquivo", function($reader) {
 
-        })->get();
-
-        //return $data;
-
-        //dd($data);
-
-        $registros = [];
-        $valor = 0;
-        $periodo = '';
-        $uf = '';
-        $municipio = '';
-        $bairro = '';
-        //$serie_id = 14;
-        $cms_user_id = 1;
-
-
-        foreach($data as $row){
-            foreach($row as $index => $cel){
-                if(!empty($index)){
-                    if($index=='uf'){
-                        $uf = $cel;
-                    }else{
-                        array_push($registros, ['uf' => $uf, 'ano' => $index, 'value' => $cel]);
-                        $valor = $cel;
-                        $periodo = $index;
-
-                        $tipo_regiao = 2;
-                        $regiao = DB::table('ed_territorios_uf')
-                            ->select('edterritorios_codigo as regiao_id')
-                            ->where('edterritorios_sigla', $uf)
-                            ->first();
-
-                        $regiao_id = $regiao->regiao_id;
-
-                        //Log::info($regiao->regiao_id);
-
-                        $reg =[
-                            'valor' => $valor,
-                            'periodo' => $periodo,
-                            'uf' => $uf,
-                            'tipo_regiao' => $tipo_regiao,
-                            'regiao_id' => $regiao_id,
-                            'municipio' => $municipio,
-                            'bairro' => $bairro,
-                            'serie_id' => $serie_id,
-                            'cmsuser_id' => $cms_user_id
-                        ];
-
-                        $registro = \App\ValorSerie::create($reg);
-
-
-                    }
-                }
-            }
-        }
-
-        /*foreach($data['RowCollection']->items as $row){
-            foreach($row['RowCollection']->items as $index => $cel){
-                if($index != ''){
-                    if($index=='uf'){
-                        $uf = $cel;
-                    }else{
-                        array_push($registros, ['uf' => $uf, 'ano' => $index, 'value' => $cel]);
-                    }
-                }
-            }
-        }*/
-
-        dd($registros);
-    }
-
-    
 
 
 }

@@ -36,9 +36,9 @@ class AuthorController extends Controller
     {
 
         $authors = \App\Author::all();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+        //$series = \App\Serie::lists('titulo', 'id')->all();
 
-        return view('cms::author.listar', ['authors' => $authors, 'series' => $series]);
+        return view('cms::author.listar', ['authors' => $authors]);
     }
 
     public function listar(Request $request)

@@ -97,7 +97,9 @@
                             <td><a href="cms/serie/<% serie.id %>"><% serie.titulo %></a></td>
                             <td class="text-right">
                                 <div>
-                                    <a href="cms/importar-serie/<% serie.id %>"><i class="fa fa-upload fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/importar-serie/<% serie.id %>"><i class="fa fa-upload fa-2x" title="Importar"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/textos-series/<% serie.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/temas-series/<% serie.id %>"><i class="fa fa-folder-open fa-2x" title="Temas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/serie/<% serie.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(serie.id, serie.titulo, serie.imagem)"></i></a>
                                 </div>

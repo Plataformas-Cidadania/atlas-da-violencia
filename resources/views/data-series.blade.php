@@ -249,15 +249,22 @@
     <div class="container">
 
         @if(!empty($series))
+            <?php $abrangencias = config('constants.abrangencias');?>
             <script>
                 serie_id={{$id}};
                 serie="{!! $series->titulo !!}";
+                periodicidade="{!! $series->periodicidade !!}";
                 tipoValores="{!! $series->tipo_valores !!}";
                 unidade="{!! $series->unidade !!}";
                 from="{!! $from !!}";
                 to="{!! $to !!}";
                 regions="{!! $regions !!}";
                 abrangencia="{{$abrangencia}}";
+                @foreach($abrangencias as $key => $abr)
+                        @if($abr['id']==$abrangencia)
+                    nomeAbrangencia="{!! $abr['title'] !!}";
+                @endif
+                @endforeach
             </script>
             <?php
                 $series->descricao = preg_replace('/\s/',' ',$series->descricao);

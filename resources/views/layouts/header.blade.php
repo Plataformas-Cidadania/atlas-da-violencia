@@ -73,12 +73,14 @@
                         </picture>
                     </a>
                 </div>
+                @if($base_href!='10.0.52.46/datacepro')
                 <div class="col-md-3 col-sm-4 hidden-xs text-right col-md-offset-4 box-logo">
                     <a href="http://www.ipea.gov.br/" target="_blank"><img srcset="img/ipea.png" alt="ipea" title="ipea"></a>
                 </div>
                 <div class="col-md-2 col-sm-3 hidden-xs text-right box-logo">
                     <a href="http://www.forumseguranca.org.br/" target="_blank"><img srcset="img/fbsp.png" alt="Fórum Brasileiro de Segurança Pública" title="Fórum Brasileiro de Segurança Pública"></a>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -172,21 +174,21 @@
                         <a @if($webdoor->link!="")
                            href="{{$webdoor->link}}"
                            @elseif($webdoor->descricao!="")
-                           href="/webdoor/{{$webdoor->id}}"
+                           href="webdoor/{{$webdoor->id}}"
                            @endif
                            class="item">
                                 <?php /*?>class="item @if($cont==0) active @endif"><?php */?>
                             <picture>
-                                <source srcset="/imagens/webdoors/sm-{{$webdoor->imagem}}" media="(max-width: 468px)">
-                                <source srcset="/imagens/webdoors/md-{{$webdoor->imagem}}" media="(max-width: 768px)">
-                                <source srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" class="img-responsive">
-                                <img srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" width="100%" height="260">
-                                @if(!empty($webdoor->resumida))
+                                <source srcset="imagens/webdoors/sm-{{$webdoor->imagem}}" media="(max-width: 468px)">
+                                <source srcset="imagens/webdoors/md-{{$webdoor->imagem}}" media="(max-width: 768px)">
+                                <source srcset="imagens/webdoors/lg-{{$webdoor->imagem}}" class="img-responsive">
+                                <img srcset="imagens/webdoors/lg-{{$webdoor->imagem}}" alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" width="100%" height="260">
+                                {{--@if(!empty($webdoor->resumida))
                                     <div class="carousel-caption">
                                         <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->titulo}}</h3>
                                         <p ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->resumida}}</p>
                                     </div>
-                                @endif
+                                @endif--}}
                             </picture>
                         </a>
 

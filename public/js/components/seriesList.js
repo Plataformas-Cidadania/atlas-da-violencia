@@ -16,7 +16,8 @@ class SeriesList extends React.Component {
             },
             markedId: '',
             typerRegionSerie: '',
-            tipo_valores: ''
+            tipo_valores: '',
+            periodicidade: ''
         };
 
         this.loadData = this.loadData.bind(this);
@@ -69,10 +70,10 @@ class SeriesList extends React.Component {
         //}
     }
 
-    marked(id, typeRegionSerie, tipoValores) {
+    marked(id, typeRegionSerie, tipoValores, periodicidade) {
         //console.log('marked', id, typeRegionSerie);
-        this.setState({ markedId: id, typeRegionSerie: typeRegionSerie, tipoValores: tipoValores }, function () {
-            this.props.serieMarked(this.state.markedId, this.state.typeRegionSerie, this.state.tipoValores);
+        this.setState({ markedId: id, typeRegionSerie: typeRegionSerie, tipoValores: tipoValores, periodicidade: periodicidade }, function () {
+            this.props.serieMarked(this.state.markedId, this.state.typeRegionSerie, this.state.tipoValores, this.state.periodicidade);
         });
     }
 
@@ -80,7 +81,9 @@ class SeriesList extends React.Component {
         let select1 = null;
         let select2 = null;
         let thCheck = null;
-        let series = this.state.data.map(function (item) {
+        let series = this.state.data.map(function (item, index) {
+            //console.log('Titulo', item.titulo);
+
             if (this.props.select == 'link') {
                 select1 = React.createElement(
                     'td',
@@ -100,7 +103,7 @@ class SeriesList extends React.Component {
                 );
                 select1 = React.createElement(
                     'td',
-                    { onClick: () => this.marked(item.id, item.tipo_regiao, item.tipo_valores), style: { cursor: 'pointer' }, width: 20 },
+                    { onClick: () => this.marked(item.id, item.tipo_regiao, item.tipo_valores, item.periodicidade), style: { cursor: 'pointer' }, width: 20 },
                     React.createElement(
                         'a',
                         null,
@@ -109,7 +112,7 @@ class SeriesList extends React.Component {
                 );
                 select2 = React.createElement(
                     'td',
-                    { onClick: () => this.marked(item.id, item.tipo_regiao, item.tipo_valores), style: { cursor: 'pointer' } },
+                    { onClick: () => this.marked(item.id, item.tipo_regiao, item.tipo_valores, item.periodicidade), style: { cursor: 'pointer' } },
                     React.createElement(
                         'a',
                         null,
@@ -121,9 +124,14 @@ class SeriesList extends React.Component {
              }*/
             return React.createElement(
                 'tr',
-                { key: item.id, style: item.id == this.state.markedId ? this.state.style.marked : this.state.style.unmarked },
+                { key: "s_" + item.id, style: item.id == this.state.markedId ? this.state.style.marked : this.state.style.unmarked },
                 select1,
                 select2,
+                React.createElement(
+                    'td',
+                    null,
+                    item.titulo_unidade
+                ),
                 React.createElement(
                     'td',
                     null,
@@ -131,10 +139,10 @@ class SeriesList extends React.Component {
                 ),
                 React.createElement(
                     'td',
-                    null,
-                    item.min,
+                    { width: '100' },
+                    formatPeriodicidade(item.min, item.periodicidade),
                     ' - ',
-                    item.max
+                    formatPeriodicidade(item.max, item.periodicidade)
                 )
             );
         }.bind(this));
@@ -175,6 +183,11 @@ class SeriesList extends React.Component {
                                 'th',
                                 null,
                                 'S\xE9rie'
+                            ),
+                            React.createElement(
+                                'th',
+                                null,
+                                'Unidade'
                             ),
                             React.createElement(
                                 'th',

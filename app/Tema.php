@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tema extends Model
 {
     protected $fillable = [
-        'tema', 'cmsuser_id',
+        'tema', 'imagem', 'tema_id', 'cmsuser_id',
     ];
 }

@@ -30,9 +30,9 @@ class AlterIdiomasSiglaTable extends Migration
         Schema::table('quemsomos', function (Blueprint $table) {
             $table->string('idioma_sigla')->default('');
         });
-        Schema::table('series', function (Blueprint $table) {
+        /*Schema::table('series', function (Blueprint $table) {
             $table->string('idioma_sigla')->default('');
-        });
+        });*/
         Schema::table('videos', function (Blueprint $table) {
             $table->string('idioma_sigla')->default('');
         });

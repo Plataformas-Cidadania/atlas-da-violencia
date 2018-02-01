@@ -20,7 +20,9 @@ class ChartLine extends React.Component {
     }
 
     componentDidMount() {
-        this.loadData();
+        if (this.state.min && this.state.max) {
+            this.loadData();
+        }
     }
 
     componentWillReceiveProps(props) {
@@ -29,7 +31,9 @@ class ChartLine extends React.Component {
                 if (myChartBar) {
                     this.chartDestroy();
                 }
-                this.loadData();
+                if (this.state.min && this.state.max) {
+                    this.loadData();
+                }
             });
         }
     }
@@ -163,8 +167,8 @@ class ChartLine extends React.Component {
             contColor++;
         }
 
-        //console.log(labels);
-
+        //console.log('labels', labels);
+        //console.log('datasets', datasets);
 
         var dataChart = {
             labels: labels,
@@ -177,6 +181,23 @@ class ChartLine extends React.Component {
                 onComplete: function () {
                     downloadCanvas('downChart', 'myChartLine', 'chartline.png');
                 }
+            },
+            responsive: true,
+            /*legend:{
+                display: datasets.length<11
+            },*/
+            legend: false,
+            legendCallback: function (chart) {
+                let text = [];
+
+                for (let i in chart.data.datasets) {
+                    let box = '<div style="background-color:' + chart.data.datasets[i].backgroundColor + '; width:40px; height: 15px; float:left;"/>';
+                    let str = '<div style="float:left; margin-top: -3px;">&nbsp;' + chart.data.datasets[i].label + '</div>';
+                    let legend = '<div style="display: inline-block; margin-right:10px; padding: 5px;">' + box + str + '</div>';
+                    text.push(legend);
+                }
+
+                return text;
             }
         };
 
@@ -185,12 +206,33 @@ class ChartLine extends React.Component {
             options: option
         });
 
+        $("#chartjs-legend").html(myChartLine.generateLegend());
+
+        $("#chartjs-legend").on('click', "div", function () {
+
+            //let legendItem = $(this);
+
+            var index = $(this).index();
+            var meta = myChartLine.getDatasetMeta(index);
+
+            // See controller.isDatasetVisible comment
+            meta.hidden = meta.hidden === null ? !myChartLine.data.datasets[index].hidden : null;
+
+            // We hid a dataset ... rerender the chart
+            myChartLine.update();
+
+            //console.log(myChartLine.data.datasets[$(this).index()]);
+        });
+
         //downloadImage($('#divChartLine'), "downloadMyChartLine", 'chartline.png');
 
     }
 
     chartDestroy() {
-        myChartLine.destroy();
+        if (myChartLine) {
+            myChartLine.destroy();
+        }
+
         //myChartLine.update();
     }
 
@@ -202,18 +244,13 @@ class ChartLine extends React.Component {
             colors.push(convertHex(colors2[i], 100));
         }
         return colors;
-
-        //console.log('chartbar - getcolors - intervalos', this.state.intervalos.length);
-        /*if(this.state.intervalos.length > 0){
-         let colors = [];
-         for(let i in values){
-         colors.push(convertHex(getColor(values[i], intervalos), 100));
-         }
-         return colors;
-         }*/
     }
 
     render() {
+
+        let min = formatPeriodicidade(this.state.min, this.props.periodicidade);
+        let max = formatPeriodicidade(this.state.max, this.props.periodicidade);
+
         return React.createElement(
             "div",
             null,
@@ -235,22 +272,23 @@ class ChartLine extends React.Component {
                     React.createElement(
                         "button",
                         { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                        this.state.min,
+                        min,
                         " - ",
-                        this.state.max
+                        max
                     ),
                     React.createElement(
                         "div",
                         { style: { marginTop: '-19px' } },
-                        React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
+                        React.createElement("i", { className: "fa fa-sort-down fa-2x ft-pri" })
                     )
                 ),
                 React.createElement(
                     "div",
                     { id: "divChartLine" },
+                    React.createElement("div", { id: "chartjs-legend", style: { width: "100%", height: "40px", overflowX: "auto", overflowY: "hidden", whiteSpace: "nowrap" } }),
                     React.createElement(
                         "canvas",
-                        { id: "myChartLine", width: "400", height: "200" },
+                        { id: "myChartLine", width: "400", height: "200", style: { marginTop: '10px' } },
                         " "
                     )
                 ),

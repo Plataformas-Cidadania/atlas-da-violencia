@@ -2,7 +2,9 @@ class ListValoresSeries extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            valores: []
+            valores: [],
+            min: this.props.min,
+            max: this.props.max
         };
         //this.loadData = this.loadData.bind(this);
     }
@@ -17,7 +19,9 @@ class ListValoresSeries extends React.Component {
          });*/
 
         //console.log(props.data);
-        this.setState({ valores: props.data.valores });
+        //if(this.state.min!==props.min || this.state.max!==props.max){
+        this.setState({ valores: props.data });
+        //}
     }
 
     /*loadData(){
@@ -41,106 +45,197 @@ class ListValoresSeries extends React.Component {
         });
     }*/
 
+    getColors() {
+
+        let colors = [];
+        for (let i in colors2) {
+            colors.push(convertHex(colors2[i], 100));
+        }
+        return colors;
+    }
+
     render() {
         if (!this.state.valores) {
             return React.createElement(
-                "h3",
+                'h3',
                 null,
-                "Sem Resultados"
+                'Sem Resultados'
             );
         }
 
+        //let contColor = 0;
+
+        let labels = [];
+        let datasets = [];
+        let cont = 0;
+        let contLabel = 0;
         let contColor = 0;
+        let data = this.state.valores;
+        for (let region in data) {
+            let values = [];
 
-        let valores = this.state.valores.map(function (item, index) {
+            for (let periodo in data[region]) {
+                values.push(data[region][periodo]);
+                if (cont === 0) {
+                    labels[contLabel] = formatPeriodicidade(periodo, this.props.periodicidade);
+                    contLabel++;
+                }
+            }
 
-            if (contColor > colors2.length - 1) {
+            let colors = this.getColors();
+            if (contColor > colors.length - 1) {
                 contColor = 0;
             }
 
-            let color = colors2[contColor];
+            datasets[cont] = {
+                label: region,
+                values: values,
+                color: colors[contColor]
+            };
 
+            cont++;
             contColor++;
+        }
 
-            //para que no municipio não aparece repetido o nome
-            let sigla = null;
-            if (item.sigla !== item.nome) {
-                sigla = item.sigla + ' - ';
-            }
+        let periodos = labels.map(function (periodo, index) {
+            return React.createElement(
+                'td',
+                { key: "col_per_" + index, style: { textAlign: 'right', fontWeight: 'bold' } },
+                periodo
+            );
+        });
+
+        let dados = datasets.map(function (item, index) {
+
+            let valores = item.values.map(function (value, i) {
+
+                let valor = formatNumber(value, this.props.decimais, ',', '.');
+                let classValor = "text-right";
+                if (value == 0) {
+                    valor = '-';
+                    classValor = "text-center";
+                }
+
+                return React.createElement(
+                    'td',
+                    { key: "valor_tabela_" + i, className: classValor },
+                    valor
+                );
+            }.bind(this));
 
             return React.createElement(
-                "tr",
-                { key: index },
+                'tr',
+                { key: "col_valores_" + index },
                 React.createElement(
-                    "th",
-                    { width: "10px" },
+                    'th',
+                    { width: '10px' },
                     React.createElement(
-                        "i",
-                        { className: "fa fa-square", style: { color: color } },
-                        " "
+                        'i',
+                        { className: 'fa fa-square', style: { color: item.color } },
+                        ' '
                     )
                 ),
                 React.createElement(
-                    "th",
+                    'th',
                     null,
-                    sigla,
-                    item.nome
+                    item.label
                 ),
-                React.createElement(
-                    "td",
-                    { className: "text-right" },
-                    formatNumber(item.valor, this.props.decimais, ',', '.')
-                )
+                valores
             );
         }.bind(this));
 
         return React.createElement(
-            "div",
-            null,
+            'div',
+            { className: 'Container Flipped' },
             React.createElement(
-                "table",
-                { className: "table table-striped table-bordered", id: "listValoresSeries" },
+                'div',
+                { className: 'Content' },
                 React.createElement(
-                    "thead",
-                    null,
+                    'table',
+                    { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
                     React.createElement(
-                        "tr",
+                        'thead',
                         null,
                         React.createElement(
-                            "th",
+                            'tr',
                             null,
-                            "\xA0"
-                        ),
-                        React.createElement(
-                            "th",
-                            null,
-                            "Territ\xF3rio"
-                        ),
-                        React.createElement(
-                            "th",
-                            { className: "text-right" },
-                            "Ocorr\xEAncias"
+                            React.createElement(
+                                'th',
+                                null,
+                                '\xA0'
+                            ),
+                            React.createElement(
+                                'th',
+                                null,
+                                this.props.nomeAbrangencia
+                            ),
+                            periodos
                         )
+                    ),
+                    React.createElement(
+                        'tbody',
+                        null,
+                        dados
                     )
                 ),
+                React.createElement('br', null),
                 React.createElement(
-                    "tbody",
-                    null,
-                    valores
-                )
-            ),
-            React.createElement("br", null),
-            React.createElement(
-                "div",
-                { style: { float: 'right', marginLeft: '5px' } },
-                React.createElement(Download, { btnDownload: "downloadListValoresSeries", divDownload: "listValoresSeries", arquivo: "tabela.png" })
-            ),
-            React.createElement(
-                "div",
-                { style: { float: 'right', marginLeft: '5px' } },
-                React.createElement(Print, { divPrint: "listValoresSeries", imgPrint: "imgPrintList" })
-            ),
-            React.createElement("div", { style: { clear: 'both' } })
+                    'div',
+                    { style: { float: 'right', marginLeft: '5px' } },
+                    React.createElement(Download, { btnDownload: 'downloadListValoresSeries', divDownload: 'listValoresSeries', arquivo: 'tabela.png' })
+                ),
+                React.createElement(
+                    'div',
+                    { style: { float: 'right', marginLeft: '5px' } },
+                    React.createElement(Print, { divPrint: 'listValoresSeries', imgPrint: 'imgPrintList' })
+                ),
+                React.createElement('div', { style: { clear: 'both' } })
+            )
         );
+
+        /*let valores = this.state.valores.map(function (item, index) {
+             if(contColor > colors2.length-1){
+                contColor = 0;
+            }
+             let color = colors2[contColor];
+             contColor++;
+             //para que no municipio não aparece repetido o nome
+            let sigla = null;
+            if(item.sigla!==item.nome){
+               sigla = item.sigla+' - '
+            }
+             return (
+                <tr key={index}>
+                    <th width="10px"><i className="fa fa-square" style={{color: color}}> </i></th>
+                    <th>{sigla}{item.nome}</th>
+                    <td className="text-right">{formatNumber(item.valor, this.props.decimais, ',', '.')}</td>
+                </tr>
+            );
+        }.bind(this));*/
+
+        /*return (
+            <div>
+                <table className="table table-striped table-bordered" id="listValoresSeries">
+                    <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Território</th>
+                        <th className="text-right">V</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {valores}
+                    </tbody>
+                </table>
+                <br/>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <Download btnDownload="downloadListValoresSeries" divDownload="listValoresSeries" arquivo="tabela.png"/>
+                </div>
+                <div style={{float: 'right', marginLeft:'5px'}}>
+                    <Print divPrint="listValoresSeries" imgPrint="imgPrintList"/>
+                </div>
+                <div style={{clear: 'both'}}/>
+            </div>
+         );*/
     }
 }
