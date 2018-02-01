@@ -260,6 +260,21 @@ footer {
 .color-sec {
   color: #FFFFFF;
 }
+.Container {
+  width: 100%;
+  overflow-y: auto;
+}
+.Content {
+  width: 100%;
+}
+.Flipped,
+.Flipped .Content {
+  transform: rotateX(180deg);
+  -ms-transform: rotateX(180deg);
+  /* IE 9 */
+  -webkit-transform: rotateX(180deg);
+  /* Safari and Chrome */
+}
 .space-top {
   margin-top: 100px;
 }

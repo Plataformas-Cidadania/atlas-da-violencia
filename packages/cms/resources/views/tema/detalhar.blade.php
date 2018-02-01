@@ -9,7 +9,7 @@
             <div ng-init="carregaImagem('{{$tema->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>
                 {!! Form::model($tema, ['name' =>'form']) !!}
-                <div style="display: none;">
+                <div style="display: block;">
                     <div class="container-thumb">
                         <div class="box-thumb" name="fileDrop" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
                              ng-show="!picFile && !imagemBD" accept="image/*" ngf-max-size="2MB">Solte uma imagem aqui!</div>
