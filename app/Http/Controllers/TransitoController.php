@@ -20,8 +20,8 @@ class TransitoController extends Controller
 
     public function valoresMapa(Request $request){
 
-        $min = '1996-01-01';
-        $max = '1996-01-01';
+        $min = '2017-01-15';
+        $max = '2017-01-15';
 
         $regioes = DB::table('spat.ed_territorios_regioes')
             ->select(DB::raw("ST_X(spat.ed_territorios_regioes.edterritorios_centroide) as lng, ST_Y(spat.ed_territorios_regioes.edterritorios_centroide) as lat, spat.ed_territorios_regioes.edterritorios_sigla as sigla"))
