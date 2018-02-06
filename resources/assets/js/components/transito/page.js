@@ -20,7 +20,9 @@ class Page extends React.Component{
                     <h1>Acidentes de Transito</h1>
                     <div className="line_title bg-pri"/>
                     <br/><br/>
-                    <Types checkType={this.checkType}/>
+                    <Filters/>
+                    {/*<br/><br/>
+                    <Types checkType={this.checkType}/>*/}
                 </div>
                 <br/>
                 <Map id="1" type={this.state.type} />

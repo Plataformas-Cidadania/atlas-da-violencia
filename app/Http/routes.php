@@ -162,3 +162,6 @@ Route::post('valores-transito/', 'TransitoController@valoresMapa');
 Route::post('total-transito-territorio/', 'TransitoController@totalPorTerritorio');
 Route::post('pontos-transito-territorio/', 'TransitoController@pontosPorTerritorio');
 Route::post('pontos-transito-pais/', 'TransitoController@pontosPorPais');
+
+Route::post('periodos-pontos/', 'TransitoController@periodosPontosAno');
+Route::post('types/', 'TransitoController@types');

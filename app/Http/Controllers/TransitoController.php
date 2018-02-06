@@ -221,4 +221,20 @@ class TransitoController extends Controller
         return ['regioes' => $regioes, 'valores' => $valores, 'ufs' => $ufs];
 
     }
+
+
+    public function types(){
+        $types = [
+            ['id' => '1', 'title' => 'Não Informado'],
+            ['id' => '2', 'title' => 'Automóvel'],
+            ['id' => '3', 'title' => 'Motocicleta'],
+            ['id' => '4', 'title' => 'Pedestre'],
+            ['id' => '5', 'title' => 'Ônibus'],
+            ['id' => '6', 'title' => 'Caminhao'],
+            ['id' => '7', 'title' => 'Bicicleta'],
+            ['id' => '8', 'title' => 'Outros'],
+        ];
+
+        return $types;
+    }
 }

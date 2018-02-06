@@ -375,6 +375,10 @@ print_r($periodo_limite);*/
 
 
 @if($rota=='acidentes-transito')
+    <link rel="stylesheet" href="lib/rslider/rSlider.min.css">
+    <script src="lib/rslider/rSlider.min.js"></script>
+
+
     <script src="lib/leaflet/js/leaflet-src.js"></script>
 
     <script src="lib/leaflet/js/leaflet.markercluster-src.js"></script>
@@ -384,9 +388,12 @@ print_r($periodo_limite);*/
 
     <script src="lib/leaflet/js/Control.FullScreen.js"></script>
 
-    <script src="js/components/transito/range.js"></script>
+    <script src="js/components/transito/range-year.js"></script>
+    <script src="js/components/transito/range-month.js"></script>
     <script src="js/components/transito/territories.js"></script>
     <script src="js/components/transito/types.js"></script>
+    <script src="js/components/transito/type.js"></script>
     <script src="js/components/transito/map.js"></script>
+    <script src="js/components/transito/filters.js"></script>
     <script src="js/components/transito/page.js"></script>
 @endif

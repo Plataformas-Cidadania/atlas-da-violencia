@@ -28,7 +28,7 @@ class Page extends React.Component {
                 React.createElement("div", { className: "line_title bg-pri" }),
                 React.createElement("br", null),
                 React.createElement("br", null),
-                React.createElement(Types, { checkType: this.checkType })
+                React.createElement(Filters, null)
             ),
             React.createElement("br", null),
             React.createElement(Map, { id: "1", type: this.state.type })

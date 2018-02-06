@@ -2,6 +2,19 @@
 @section('title', 'Mapa')
 @section('content')
     <style>
+        fieldset{
+            border: solid 1px #E4E4E4;
+            border-radius: 5px;
+        }
+
+        legend{
+            font-size: 13px;
+            border: 0;
+            width: inherit;
+            padding: 5px;
+            margin: 0 3px;
+        }
+
         .map {
             width: 100%;
             height: 600px;
