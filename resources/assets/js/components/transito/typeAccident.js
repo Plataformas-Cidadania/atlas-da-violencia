@@ -1,4 +1,4 @@
-class Type extends React.Component{
+class TypeAccident extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -24,7 +24,7 @@ class Type extends React.Component{
     load(){
         $.ajax({
             method:'POST',
-            url: '/types',
+            url: '/types-accident',
             data:{
                 city:this.props.city,
                 search:this.state.search,
@@ -93,7 +93,7 @@ class Type extends React.Component{
             console.log('addType - typesSelected', typesSelected);
             this.setState({showtypes: false});
             this.setState({typesSelected: typesSelected}, function(){
-                this.props.checkType(this.state.typesSelected);
+                this.props.checkTypeAccident(this.state.typesSelected);
             });
         }
 
@@ -111,7 +111,7 @@ class Type extends React.Component{
         let index = typesSelected.indexOf(type);
         typesSelected.splice(index, 1);
         this.setState({typesSelected: typesSelected}, function(){
-            this.props.checkType(this.state.typesSelected);
+            this.props.checkTypeAccident(this.state.typesSelected);
         });
     }
 
@@ -148,7 +148,7 @@ class Type extends React.Component{
         console.log(typesSelected);
 
         if(typesSelected.length===0){
-            typesSelected = "Pesquise pelo tipo de locomoção";
+            typesSelected = "Pesquise pelo tipo de acidente";
         }
 
         return(

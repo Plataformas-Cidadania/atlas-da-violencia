@@ -53,7 +53,9 @@ class TransitoController extends Controller
     public function totalPorTerritorio(Request $request){
         $start = $request->start;
         $end = $request->end;
-        $type = $request->type;
+        $types = $request->types;
+        $typesAccident = $request->typesAccident;
+
 
         $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
         $tabelaTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['tabela'];
@@ -86,8 +88,11 @@ class TransitoController extends Controller
             ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
                 return $query->where($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
             })
-            ->when($type > 0, function($query) use ($type){
-                return $query->where('geovalores.tipo', $type);
+            ->when($types != null, function($query) use ($types){
+                return $query->whereIn('geovalores.tipo', $types);
+            })
+            ->when($typesAccident != null, function($query) use ($typesAccident){
+                return $query->whereIn('geovalores.tipo_acidente', $typesAccident);
             })
             ->groupBy(DB::Raw("
             ST_X($tabelaTerritorioAgrupamento.edterritorios_centroide), 
@@ -106,7 +111,8 @@ class TransitoController extends Controller
 
         $start = $request->start;
         $end = $request->end;
-        $type = $request->type;
+        $types = $request->types;
+        $typesAccident = $request->typesAccident;
 
         $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
         $tabelaTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['tabela'];
@@ -139,8 +145,11 @@ class TransitoController extends Controller
             ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
                 return $query->where($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
             })
-            ->when($type > 0, function($query) use ($type){
-                return $query->where('geovalores.tipo', $type);
+            ->when($types != null, function($query) use ($types){
+                return $query->whereIn('geovalores.tipo', $types);
+            })
+            ->when($typesAccident != null, function($query) use ($typesAccident){
+                return $query->whereIn('geovalores.tipo_acidente', $typesAccident);
             })
             ->get();
 
@@ -225,14 +234,23 @@ class TransitoController extends Controller
 
     public function types(){
         $types = [
-            ['id' => '1', 'title' => 'Não Informado'],
-            ['id' => '2', 'title' => 'Automóvel'],
-            ['id' => '3', 'title' => 'Motocicleta'],
-            ['id' => '4', 'title' => 'Pedestre'],
-            ['id' => '5', 'title' => 'Ônibus'],
-            ['id' => '6', 'title' => 'Caminhao'],
-            ['id' => '7', 'title' => 'Bicicleta'],
-            ['id' => '8', 'title' => 'Outros'],
+            ['id' => '0', 'title' => 'Não Informado'],
+            ['id' => '1', 'title' => 'Automóvel'],
+            ['id' => '2', 'title' => 'Motocicleta'],
+            ['id' => '3', 'title' => 'Pedestre'],
+            ['id' => '4', 'title' => 'Ônibus'],
+            ['id' => '5', 'title' => 'Caminhao'],
+            ['id' => '6', 'title' => 'Bicicleta'],
+            ['id' => '7', 'title' => 'Outros'],
+        ];
+
+        return $types;
+    }
+
+    public function typesAccident(){
+        $types = [
+            ['id' => '0', 'title' => 'Não Informado'],
+            ['id' => '1', 'title' => 'Atropelamento'],
         ];
 
         return $types;

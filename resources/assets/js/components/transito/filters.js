@@ -2,13 +2,30 @@ class Filters extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            type: null,
+            types: [],
+            typesAccident: [],
         };
+
+        this.checkType = this.checkType.bind(this);
+        this.checkTypeAccident = this.checkTypeAccident.bind(this);
+        this.actionFilter = this.actionFilter.bind(this);
 
     }
 
-    filterType(type){
-        console.log(type);
+    checkType(types){
+        this.setState({types: types}, function(){
+            this.props.checkType(this.state.types);
+        });
+    }
+
+    checkTypeAccident(types){
+        this.setState({typesAccident: types}, function(){
+            this.props.checkTypeAccident(this.state.typesAccident);
+        });
+    }
+
+    actionFilter(){
+        this.props.actionFilter();
     }
 
     render(){
@@ -30,7 +47,7 @@ class Filters extends React.Component{
                         <fieldset>
                             <legend>Locomoção</legend>
                             <div style={{margin: '10px'}}>
-                                <Type filterType={this.filterType}/>
+                                <Type checkType={this.checkType}/>
                             </div>
                         </fieldset>
                     </div>
@@ -39,9 +56,7 @@ class Filters extends React.Component{
                         <fieldset>
                             <legend>Tipo de Acidente</legend>
                             <div style={{margin: '10px'}}>
-                                <span>Digite abaixo para filtrar</span>
-                                <hr style={{margin: '10px 0'}}/>
-                                <input type="text" className="form-control"/>
+                                <TypeAccident checkTypeAccident={this.checkTypeAccident}/>
                             </div>
                         </fieldset>
                     </div>
@@ -76,7 +91,7 @@ class Filters extends React.Component{
                 <br/>
                 <div className="row">
                     <div className="col-md-12 text-center">
-                        <button className="btn btn-info" style={{width: "300px"}}>Filtrar</button>
+                        <button className="btn btn-info" style={{width: "300px"}} onClick={this.actionFilter}>Filtrar</button>
                     </div>
                 </div>
             </div>

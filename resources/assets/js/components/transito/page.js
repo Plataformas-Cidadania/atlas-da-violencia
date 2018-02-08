@@ -2,14 +2,36 @@ class Page extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            type: null,
+            idTypes: [],
+            idTypesAccident: [],
+            filter: 0
         };
 
         this.checkType = this.checkType.bind(this);
+        this.checkTypeAccident = this.checkTypeAccident.bind(this);
+        this.actionFilter = this.actionFilter.bind(this);
     }
 
-    checkType(type){
-        this.setState({type: type});
+    checkType(types){
+        let ids = [];
+        types.find(function(item){
+            ids.push(item.id);
+        });
+        this.setState({idTypes: ids});
+    }
+
+    checkTypeAccident(types){
+        let ids = [];
+        types.find(function(item){
+            ids.push(item.id);
+        });
+        this.setState({idTypesAccident: ids});
+    }
+
+    actionFilter(){
+        this.setState({filter: 1}, function(){
+            this.setState({filter: 0});
+        });
     }
 
     render(){
@@ -20,12 +42,12 @@ class Page extends React.Component{
                     <h1>Acidentes de Transito</h1>
                     <div className="line_title bg-pri"/>
                     <br/><br/>
-                    <Filters/>
+                    <Filters checkType={this.checkType} checkTypeAccident={this.checkTypeAccident} actionFilter={this.actionFilter}/>
                     {/*<br/><br/>
                     <Types checkType={this.checkType}/>*/}
                 </div>
                 <br/>
-                <Map id="1" type={this.state.type} />
+                <Map id="1" types={this.state.idTypes} typesAccident={this.state.idTypesAccident} filter={this.state.filter} actionFilter={this.actionFilter} />
             </div>
         );
     }

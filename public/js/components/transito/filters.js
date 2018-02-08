@@ -2,12 +2,29 @@ class Filters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            type: null
+            types: [],
+            typesAccident: []
         };
+
+        this.checkType = this.checkType.bind(this);
+        this.checkTypeAccident = this.checkTypeAccident.bind(this);
+        this.actionFilter = this.actionFilter.bind(this);
     }
 
-    filterType(type) {
-        console.log(type);
+    checkType(types) {
+        this.setState({ types: types }, function () {
+            this.props.checkType(this.state.types);
+        });
+    }
+
+    checkTypeAccident(types) {
+        this.setState({ typesAccident: types }, function () {
+            this.props.checkTypeAccident(this.state.typesAccident);
+        });
+    }
+
+    actionFilter() {
+        this.props.actionFilter();
     }
 
     render() {
@@ -47,7 +64,7 @@ class Filters extends React.Component {
                         React.createElement(
                             "div",
                             { style: { margin: '10px' } },
-                            React.createElement(Type, { filterType: this.filterType })
+                            React.createElement(Type, { checkType: this.checkType })
                         )
                     )
                 ),
@@ -65,13 +82,7 @@ class Filters extends React.Component {
                         React.createElement(
                             "div",
                             { style: { margin: '10px' } },
-                            React.createElement(
-                                "span",
-                                null,
-                                "Digite abaixo para filtrar"
-                            ),
-                            React.createElement("hr", { style: { margin: '10px 0' } }),
-                            React.createElement("input", { type: "text", className: "form-control" })
+                            React.createElement(TypeAccident, { checkTypeAccident: this.checkTypeAccident })
                         )
                     )
                 ),
@@ -151,7 +162,7 @@ class Filters extends React.Component {
                     { className: "col-md-12 text-center" },
                     React.createElement(
                         "button",
-                        { className: "btn btn-info", style: { width: "300px" } },
+                        { className: "btn btn-info", style: { width: "300px" }, onClick: this.actionFilter },
                         "Filtrar"
                     )
                 )

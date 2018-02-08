@@ -6,7 +6,8 @@ class Map extends React.Component {
             ufs: [],
             data: [],
             dataCalor: [],
-            type: null,
+            types: null,
+            typesAccident: null,
             start: '2009-01-01',
             end: '2009-12-01',
             pais: 203, //utilizado para o mapa de calor
@@ -82,8 +83,8 @@ class Map extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (this.state.type != props.type) {
-            this.setState({ type: props.type, tipoTerritorioSelecionado: 1, codigoTerritorioSelecionado: 203, tipoTerritorioAgrupamento: 2 }, function () {
+        if (props.filter == 1) {
+            this.setState({ types: props.types, typesAccident: props.typesAccident, tipoTerritorioSelecionado: 1, codigoTerritorioSelecionado: 203, tipoTerritorioAgrupamento: 2 }, function () {
                 this.loadMap();
                 this.loadDataTotalPorTerritorio();
             });
@@ -115,7 +116,7 @@ class Map extends React.Component {
         tilesLayers.satellite = satellite;
         this.setState({ tilesLayers: tilesLayers });
 
-        var latlng = L.latLng(-13.70, -69.65);
+        var latlng = L.latLng(-13.70, -55.65);
 
         let tile = null;
         if (this.state.tileLayerMap == 1) {
@@ -379,6 +380,9 @@ class Map extends React.Component {
 
         ////////////////FIM CONTROLERS DOS LAYERS////////////////////////////////////////////
 
+        //DESABILITA O ZOOM PELO SCHROLL DO MOUSE
+        mapElements.map.scrollWheelZoom.disable();
+
         this.setState({ mapElements: mapElements }, function () {
             this.loadMap();
         });
@@ -407,13 +411,15 @@ class Map extends React.Component {
     }
 
     loadDataTotalPorTerritorio() {
+        console.log('types', this.state.types);
         $.ajax({
             method: 'POST',
             url: "total-transito-territorio",
             data: {
                 start: this.state.start,
                 end: this.state.end,
-                type: this.state.type,
+                types: this.state.types,
+                typesAccident: this.state.typesAccident,
                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
                 tipoTerritorioAgrupamento: this.state.tipoTerritorioAgrupamento // tipo de territorio em que os dados são agrupados
@@ -438,7 +444,8 @@ class Map extends React.Component {
             data: {
                 start: this.state.start,
                 end: this.state.end,
-                type: this.state.type,
+                types: this.state.types,
+                typesAccident: this.state.typesAccident,
                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
             },
@@ -463,7 +470,7 @@ class Map extends React.Component {
                 start: this.state.start,
                 end: this.state.end,
                 pais: this.state.pais,
-                type: this.state.type
+                types: this.state.types
             },
             cache: false,
             success: function (data) {
@@ -479,6 +486,10 @@ class Map extends React.Component {
     }
 
     gerarIntervalos(data) {
+
+        if (data === undefined) {
+            return null;
+        }
 
         let valores = data.map(function (item) {
             return item.total;
@@ -581,7 +592,7 @@ class Map extends React.Component {
         let _this = this;
         let mapElements = this.state.mapElements;
 
-        let markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, showCoverageOnHover: false, zoomToBoundsOnClick: true });
+        let markers = L.markerClusterGroup({ spiderfyOnMaxZoom: true, showCoverageOnHover: true, zoomToBoundsOnClick: true });
 
         let data = this.state.data;
 
