@@ -3,28 +3,52 @@ class Filters extends React.Component {
         super(props);
         this.state = {
             types: [],
-            typesAccident: []
+            typesAccident: [],
+            genders: [],
+            btnFilter: false
         };
 
         this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
+        this.checkGender = this.checkGender.bind(this);
         this.actionFilter = this.actionFilter.bind(this);
+        this.enableBtnFilter = this.enableBtnFilter.bind(this);
+        this.disableBtnFilter = this.disableBtnFilter.bind(this);
     }
 
     checkType(types) {
         this.setState({ types: types }, function () {
             this.props.checkType(this.state.types);
+            this.enableBtnFilter();
         });
     }
 
     checkTypeAccident(types) {
         this.setState({ typesAccident: types }, function () {
             this.props.checkTypeAccident(this.state.typesAccident);
+            this.enableBtnFilter();
+        });
+    }
+
+    checkGender(types) {
+        this.setState({ genders: types }, function () {
+            this.props.checkGender(this.state.genders);
+            this.enableBtnFilter();
         });
     }
 
     actionFilter() {
         this.props.actionFilter();
+        this.enableBtnFilter();
+        this.disableBtnFilter();
+    }
+
+    enableBtnFilter() {
+        this.setState({ btnFilter: true });
+    }
+
+    disableBtnFilter() {
+        this.setState({ btnFilter: false });
     }
 
     render() {
@@ -124,31 +148,7 @@ class Filters extends React.Component {
                         React.createElement(
                             "div",
                             { style: { margin: '10px' } },
-                            React.createElement(
-                                "span",
-                                null,
-                                "Selecione para filtrar"
-                            ),
-                            React.createElement("hr", { style: { margin: '10px 0' } }),
-                            React.createElement(
-                                "select",
-                                { name: "sexo", id: "", className: "form-control" },
-                                React.createElement(
-                                    "option",
-                                    { value: "" },
-                                    "Todos"
-                                ),
-                                React.createElement(
-                                    "option",
-                                    { value: "" },
-                                    "Masculino"
-                                ),
-                                React.createElement(
-                                    "option",
-                                    { value: "" },
-                                    "Feminino"
-                                )
-                            )
+                            React.createElement(Gender, { checkGender: this.checkGender })
                         )
                     )
                 )
@@ -162,7 +162,7 @@ class Filters extends React.Component {
                     { className: "col-md-12 text-center" },
                     React.createElement(
                         "button",
-                        { className: "btn btn-info", style: { width: "300px" }, onClick: this.actionFilter },
+                        { className: "btn btn-info", style: { width: "300px" }, disabled: !this.state.btnFilter, onClick: this.actionFilter },
                         "Filtrar"
                     )
                 )

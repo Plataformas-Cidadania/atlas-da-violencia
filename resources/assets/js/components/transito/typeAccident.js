@@ -26,7 +26,6 @@ class TypeAccident extends React.Component{
             method:'POST',
             url: '/types-accident',
             data:{
-                city:this.props.city,
                 search:this.state.search,
             },
             cache: false,

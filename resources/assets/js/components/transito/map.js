@@ -8,11 +8,12 @@ class Map extends React.Component{
             dataCalor: [],
             types: null,
             typesAccident: null,
+            genders: null,
             start: '2009-01-01',
             end: '2009-12-01',
             pais: 203, //utilizado para o mapa de calor
             tipoTerritorioSelecionado: 1,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
-            codigoTerritorioSelecionado: 203, //203 - Brasil 13 - SE
+            codigoTerritorioSelecionado: [203], //203 - Brasil 13 - SE
             tipoTerritorioAgrupamento: 2,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
             tipo: ['Não Informado', 'Automóvel', 'Motocicleta', 'Pedestre', 'Ônibus', 'Caminhao', 'Bicicleta', 'Outros'],
             tipoIcone: ['outros.png', 'automovel.png', 'motocicleta.png', 'pedestre.png', 'onibus.png', 'caminhao.png', 'bicicleta.png', 'outros.png'],
@@ -86,7 +87,7 @@ class Map extends React.Component{
 
     componentWillReceiveProps(props){
         if(props.filter==1){
-            this.setState({types: props.types, typesAccident: props.typesAccident, tipoTerritorioSelecionado: 1, codigoTerritorioSelecionado: 203, tipoTerritorioAgrupamento: 2}, function(){
+            this.setState({types: props.types, typesAccident: props.typesAccident, genders: props.genders, tipoTerritorioSelecionado: 1, codigoTerritorioSelecionado: [203], tipoTerritorioAgrupamento: 2}, function(){
                 this.loadMap();
                 this.loadDataTotalPorTerritorio();
             });
@@ -388,9 +389,64 @@ class Map extends React.Component{
 
         ////////////////FIM CONTROLERS DOS LAYERS////////////////////////////////////////////
 
+
+        ///////////////CONTROLE HABILITA/DESABILITA ZOOM/////////////////////////////////////
+        //Clusters/Markers
+        mapElements.controlZoomMap = L.Control.extend({
+            options:{
+                position: 'topright',
+                check: false,
+            },
+            onAdd: function(){
+                let options = this.options;
+                console.log('zoom', options.check);
+                let container = L.DomUtil.create('div');
+                container.onclick = function(){
+                    options.check = !options.check;
+                    console.log(options.check);
+                    container.className = 'control-data-types leaflet-control';
+                    //container.innerHTML = '<img width="24px" height="32px" src="img/leaflet/marker-off.png">';
+                    thisReact.disableZoomMap();
+                    if(options.check){
+                        thisReact.enableZoomMap();
+                        container.className = 'control-data-types check-control-data-types leaflet-control';
+                        //container.innerHTML = '<img width="24px" height="32px" src="img/leaflet/marker-on.png">';
+                    }
+                }.bind(options, thisReact);
+
+                container.className = 'control-data-types leaflet-control';
+                if(options.check){
+                    container.className = 'control-data-types check-control-data-types leaflet-control';
+                }
+
+                container.style.cursor = 'pointer';
+                container.innerHTML = '<img src="img/leaflet/controls/zoom.png" title="Marcadores">';
+
+                return container;
+            }
+        }).bind(thisReact);
+        let controlZoomMapObj = new mapElements.controlZoomMap();
+        mapElements.map.addControl(controlZoomMapObj);
+        //pega o div do controle
+        let divControlZoomMap = controlZoomMapObj.getContainer();
+        //coloca o div do controle no div externo
+        controlsMap.appendChild(divControlZoomMap);
+        /////////////////////////////////////////////////////////////////////////////////////
+
         //DESABILITA O ZOOM PELO SCHROLL DO MOUSE
         mapElements.map.scrollWheelZoom.disable();
 
+        /*mapElements.map.on('click', function() {
+            console.log('clicou no mapa');
+            if (mapElements.map.scrollWheelZoom.enabled()) {
+                mapElements.controlZoomMap.className = "control-data-types leaflet-control";
+                mapElements.map.scrollWheelZoom.disable();
+            }
+            else {
+                mapElements.controlZoomMap.className = "control-data-types check-control-data-types leaflet-control";
+                mapElements.map.scrollWheelZoom.enable();
+            }
+        });*/
 
         this.setState({mapElements: mapElements}, function(){
             this.loadMap();
@@ -435,6 +491,7 @@ class Map extends React.Component{
                 end: this.state.end,
                 types: this.state.types,
                 typesAccident: this.state.typesAccident,
+                genders: this.state.genders,
                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
                 tipoTerritorioAgrupamento: this.state.tipoTerritorioAgrupamento // tipo de territorio em que os dados são agrupados
@@ -461,6 +518,7 @@ class Map extends React.Component{
                 end: this.state.end,
                 types: this.state.types,
                 typesAccident: this.state.typesAccident,
+                genders: this.state.genders,
                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
             },
@@ -592,7 +650,7 @@ class Map extends React.Component{
                 let zoom = _this.state.zoom[parseInt(data[i].tipo_territorio)];
                 _this.setState({
                     tipoTerritorioSelecionado: data[i].tipo_territorio,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
-                    codigoTerritorioSelecionado: data[i].codigo, //203 - Brasil 13 - SE, etc...
+                    codigoTerritorioSelecionado: [data[i].codigo], //203 - Brasil 13 - SE, etc...
                     tipoTerritorioAgrupamento: parseInt(data[i].tipo_territorio)+1,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
                 }, function(){
                     _this.state.loadData[data[i].tipo_territorio]();
@@ -709,11 +767,25 @@ class Map extends React.Component{
         mapElements.map.removeLayer(this.state.mapElements.heatmapLayer);
         this.setState({mapElements: mapElements});
     };
+
     addHeatMap(){
         let mapElements = this.state.mapElements;
         mapElements.map.addLayer(this.state.mapElements.heatmapLayer);
         this.setState({mapElements: mapElements});
     };
+
+    enableZoomMap(){
+        console.log('aaaaaaaaaaaaaaa');
+        let mapElements = this.state.mapElements;
+        mapElements.map.scrollWheelZoom.enable();
+        this.setState({mapElements: mapElements});
+    }
+
+    disableZoomMap(){
+        let mapElements = this.state.mapElements;
+        mapElements.map.scrollWheelZoom.disable();
+        this.setState({mapElements: mapElements});
+    }
 
     changeTileLayer(tile){
         let mapElements = this.state.mapElements;

@@ -26,7 +26,6 @@ class Type extends React.Component {
             method: 'POST',
             url: '/types',
             data: {
-                city: this.props.city,
                 search: this.state.search
             },
             cache: false,

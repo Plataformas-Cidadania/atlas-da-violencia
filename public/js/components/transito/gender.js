@@ -1,4 +1,4 @@
-class TypeAccident extends React.Component {
+class Gender extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +24,7 @@ class TypeAccident extends React.Component {
     load() {
         $.ajax({
             method: 'POST',
-            url: '/types-accident',
+            url: '/genders',
             data: {
                 search: this.state.search
             },
@@ -92,7 +92,7 @@ class TypeAccident extends React.Component {
             console.log('addType - typesSelected', typesSelected);
             this.setState({ showtypes: false });
             this.setState({ typesSelected: typesSelected }, function () {
-                this.props.checkTypeAccident(this.state.typesSelected);
+                this.props.checkGender(this.state.typesSelected);
             });
         }
     }
@@ -109,7 +109,7 @@ class TypeAccident extends React.Component {
         let index = typesSelected.indexOf(type);
         typesSelected.splice(index, 1);
         this.setState({ typesSelected: typesSelected }, function () {
-            this.props.checkTypeAccident(this.state.typesSelected);
+            this.props.checkGender(this.state.typesSelected);
         });
     }
 
@@ -153,7 +153,7 @@ class TypeAccident extends React.Component {
         console.log(typesSelected);
 
         if (typesSelected.length === 0) {
-            typesSelected = "Pesquise pelo tipo de acidente";
+            typesSelected = "Pesquise pelo tipo de Sexo";
         }
 
         return React.createElement(

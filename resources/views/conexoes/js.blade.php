@@ -394,6 +394,7 @@ print_r($periodo_limite);*/
     <script src="js/components/transito/types.js"></script>
     <script src="js/components/transito/type.js"></script>
     <script src="js/components/transito/typeAccident.js"></script>
+    <script src="js/components/transito/gender.js"></script>
     <script src="js/components/transito/map.js"></script>
     <script src="js/components/transito/filters.js"></script>
     <script src="js/components/transito/page.js"></script>

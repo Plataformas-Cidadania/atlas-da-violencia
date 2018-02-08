@@ -55,6 +55,7 @@ class TransitoController extends Controller
         $end = $request->end;
         $types = $request->types;
         $typesAccident = $request->typesAccident;
+        $genders = $request->genders;
 
 
         $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
@@ -86,13 +87,16 @@ class TransitoController extends Controller
                 ['geovalores.data', '<=', $end]
             ])
             ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
-                return $query->where($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
+                return $query->whereIn($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
             })
             ->when($types != null, function($query) use ($types){
                 return $query->whereIn('geovalores.tipo', $types);
             })
             ->when($typesAccident != null, function($query) use ($typesAccident){
                 return $query->whereIn('geovalores.tipo_acidente', $typesAccident);
+            })
+            ->when($genders != null, function($query) use ($genders){
+                return $query->whereIn('geovalores.sexo', $genders);
             })
             ->groupBy(DB::Raw("
             ST_X($tabelaTerritorioAgrupamento.edterritorios_centroide), 
@@ -113,6 +117,7 @@ class TransitoController extends Controller
         $end = $request->end;
         $types = $request->types;
         $typesAccident = $request->typesAccident;
+        $genders = $request->genders;
 
         $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
         $tabelaTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['tabela'];
@@ -150,6 +155,9 @@ class TransitoController extends Controller
             })
             ->when($typesAccident != null, function($query) use ($typesAccident){
                 return $query->whereIn('geovalores.tipo_acidente', $typesAccident);
+            })
+            ->when($genders != null, function($query) use ($genders){
+                return $query->whereIn('geovalores.sexo', $genders);
             })
             ->get();
 
@@ -251,6 +259,16 @@ class TransitoController extends Controller
         $types = [
             ['id' => '0', 'title' => 'Não Informado'],
             ['id' => '1', 'title' => 'Atropelamento'],
+        ];
+
+        return $types;
+    }
+
+    public function genders(){
+        $types = [
+            ['id' => '0', 'title' => 'Não Informado'],
+            ['id' => '1', 'title' => 'Masculino'],
+            ['id' => '2', 'title' => 'Feminino'],
         ];
 
         return $types;

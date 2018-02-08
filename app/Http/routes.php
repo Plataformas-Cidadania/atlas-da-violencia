@@ -166,3 +166,4 @@ Route::post('pontos-transito-pais/', 'TransitoController@pontosPorPais');
 Route::post('periodos-pontos/', 'TransitoController@periodosPontosAno');
 Route::post('types/', 'TransitoController@types');
 Route::post('types-accident/', 'TransitoController@typesAccident');
+Route::post('genders/', 'TransitoController@genders');

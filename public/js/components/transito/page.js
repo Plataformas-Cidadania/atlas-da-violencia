@@ -4,11 +4,15 @@ class Page extends React.Component {
         this.state = {
             idTypes: [],
             idTypesAccident: [],
+            idGender: [],
+
             filter: 0
+
         };
 
         this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
+        this.checkGender = this.checkGender.bind(this);
         this.actionFilter = this.actionFilter.bind(this);
     }
 
@@ -26,6 +30,14 @@ class Page extends React.Component {
             ids.push(item.id);
         });
         this.setState({ idTypesAccident: ids });
+    }
+
+    checkGender(types) {
+        let ids = [];
+        types.find(function (item) {
+            ids.push(item.id);
+        });
+        this.setState({ idGender: ids });
     }
 
     actionFilter() {
@@ -50,10 +62,10 @@ class Page extends React.Component {
                 React.createElement("div", { className: "line_title bg-pri" }),
                 React.createElement("br", null),
                 React.createElement("br", null),
-                React.createElement(Filters, { checkType: this.checkType, checkTypeAccident: this.checkTypeAccident, actionFilter: this.actionFilter })
+                React.createElement(Filters, { checkType: this.checkType, checkTypeAccident: this.checkTypeAccident, checkGender: this.checkGender, actionFilter: this.actionFilter })
             ),
             React.createElement("br", null),
-            React.createElement(Map, { id: "1", types: this.state.idTypes, typesAccident: this.state.idTypesAccident, filter: this.state.filter, actionFilter: this.actionFilter })
+            React.createElement(Map, { id: "1", types: this.state.idTypes, typesAccident: this.state.idTypesAccident, genders: this.state.idGender, filter: this.state.filter, actionFilter: this.actionFilter })
         );
     }
 }
