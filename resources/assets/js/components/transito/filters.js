@@ -5,15 +5,24 @@ class Filters extends React.Component{
             types: [],
             typesAccident: [],
             genders: [],
+            regions: [],
             btnFilter: false,
+            tipoTerritorioSelecionado: props.tipoTerritorioSelecionado,
         };
 
         this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
         this.checkGender = this.checkGender.bind(this);
+        this.checkRegion = this.checkRegion.bind(this);
         this.actionFilter = this.actionFilter.bind(this);
         this.enableBtnFilter = this.enableBtnFilter.bind(this);
         this.disableBtnFilter = this.disableBtnFilter.bind(this);
+    }
+
+    componentWillReceiveProps(props){
+        if(props.tipoTerritorioSelecionado != this.state.tipoTerritorioSelecionado){
+            this.setState({tipoTerritorioSelecionado: props.tipoTerritorioSelecionado});
+        }
     }
 
     checkType(types){
@@ -33,6 +42,13 @@ class Filters extends React.Component{
     checkGender(types){
         this.setState({genders: types}, function(){
             this.props.checkGender(this.state.genders);
+            this.enableBtnFilter();
+        });
+    }
+
+    checkRegion(types){
+        this.setState({regions: types}, function(){
+            this.props.checkRegion(this.state.regions);
             this.enableBtnFilter();
         });
     }
@@ -88,12 +104,15 @@ class Filters extends React.Component{
                         <fieldset>
                             <legend>Região</legend>
                             <div style={{margin: '10px'}}>
-                                <span>Digite abaixo para filtrar</span>
-                                <hr style={{margin: '10px 0'}}/>
-                                <input type="text" className="form-control"/>
+                                <Region
+                                    checkRegion={this.checkRegion}
+                                    tipoTerritorioSelecionado = {this.state.tipoTerritorioSelecionado}
+                                    codigoTerritorioSelecionado={this.props.codigoTerritorioSelecionado}
+                                />
                             </div>
                         </fieldset>
                     </div>
+
 
                     <div className="col-md-3">
                         <fieldset>

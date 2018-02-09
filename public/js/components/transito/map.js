@@ -12,9 +12,9 @@ class Map extends React.Component {
             start: '2009-01-01',
             end: '2009-12-01',
             pais: 203, //utilizado para o mapa de calor
-            tipoTerritorioSelecionado: 1, //1 - país, 2 - regiao, 3 - uf, 4 - municipio
-            codigoTerritorioSelecionado: [203], //203 - Brasil 13 - SE
-            tipoTerritorioAgrupamento: 2, //1 - país, 2 - regiao, 3 - uf, 4 - municipio
+            tipoTerritorioSelecionado: props.tipoTerritorioSelecionado,
+            codigoTerritorioSelecionado: props.codigoTerritorioSelecionado,
+            tipoTerritorioAgrupamento: props.tipoTerritorioAgrupamento,
             tipo: ['Não Informado', 'Automóvel', 'Motocicleta', 'Pedestre', 'Ônibus', 'Caminhao', 'Bicicleta', 'Outros'],
             tipoIcone: ['outros.png', 'automovel.png', 'motocicleta.png', 'pedestre.png', 'onibus.png', 'caminhao.png', 'bicicleta.png', 'outros.png'],
             sexo: ['Não Informado', 'Maculino', 'Feminino'],
@@ -85,7 +85,14 @@ class Map extends React.Component {
 
     componentWillReceiveProps(props) {
         if (props.filter == 1) {
-            this.setState({ types: props.types, typesAccident: props.typesAccident, genders: props.genders, tipoTerritorioSelecionado: 1, codigoTerritorioSelecionado: [203], tipoTerritorioAgrupamento: 2 }, function () {
+            this.setState({
+                types: props.types,
+                typesAccident: props.typesAccident,
+                genders: props.genders,
+                tipoTerritorioSelecionado: props.tipoTerritorioAgrupamento,
+                codigoTerritorioSelecionado: props.codigoTerritorioSelecionado,
+                tipoTerritorioAgrupamento: props.tipoTerritorioAgrupamento
+            }, function () {
                 this.loadMap();
                 this.loadDataTotalPorTerritorio();
             });

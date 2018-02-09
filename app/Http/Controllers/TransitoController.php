@@ -70,24 +70,24 @@ class TransitoController extends Controller
 
         $valores = DB::table("geovalores")
             ->select(DB::raw("
-            ST_X($tabelaTerritorioAgrupamento.edterritorios_centroide) as lng, 
-            ST_Y($tabelaTerritorioAgrupamento.edterritorios_centroide) as lat,
-            $tabelaTerritorioAgrupamento.edterritorios_sigla as sigla,
-            $tabelaTerritorioAgrupamento.edterritorios_nome as nome,
-            $tabelaTerritorioAgrupamento.edterritorios_codigo as codigo,
+            ST_X(agrupamento.edterritorios_centroide) as lng, 
+            ST_Y(agrupamento.edterritorios_centroide) as lat,
+            agrupamento.edterritorios_sigla as sigla,
+            agrupamento.edterritorios_nome as nome,
+            agrupamento.edterritorios_codigo as codigo,
             '$tipoTerritorioAgrupamento' as tipo_territorio,
             count(geovalores.id) as total
             "))
             ->join('series', 'series.id', '=', 'geovalores.serie_id')
-            ->join($tabelaTerritorioAgrupamento, DB::Raw("ST_Contains($tabelaTerritorioAgrupamento.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
-            ->join($tabelaTerritorioSelecionado, DB::Raw("ST_Contains($tabelaTerritorioSelecionado.edterritorios_geometry, $tabelaTerritorioAgrupamento.edterritorios_centroide)"), '=', DB::Raw("true"))
+            ->join("$tabelaTerritorioAgrupamento as agrupamento", DB::Raw("ST_Contains(agrupamento.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
+            ->join("$tabelaTerritorioSelecionado as selecionado", DB::Raw("ST_Contains(selecionado.edterritorios_geometry, agrupamento.edterritorios_centroide)"), '=', DB::Raw("true"))
             ->where([
                 ['geovalores.serie_id', 1],
                 ['geovalores.data', '>=', $start],
                 ['geovalores.data', '<=', $end]
             ])
             ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
-                return $query->whereIn($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
+                return $query->whereIn("selecionado.edterritorios_codigo", $codigoTerritorioSelecionado);
             })
             ->when($types != null, function($query) use ($types){
                 return $query->whereIn('geovalores.tipo', $types);
@@ -99,11 +99,11 @@ class TransitoController extends Controller
                 return $query->whereIn('geovalores.sexo', $genders);
             })
             ->groupBy(DB::Raw("
-            ST_X($tabelaTerritorioAgrupamento.edterritorios_centroide), 
-            ST_Y($tabelaTerritorioAgrupamento.edterritorios_centroide),
-            $tabelaTerritorioAgrupamento.edterritorios_sigla,
-            $tabelaTerritorioAgrupamento.edterritorios_nome,
-            $tabelaTerritorioAgrupamento.edterritorios_codigo
+            ST_X(agrupamento.edterritorios_centroide), 
+            ST_Y(agrupamento.edterritorios_centroide),
+            agrupamento.edterritorios_sigla,
+            agrupamento.edterritorios_nome,
+            agrupamento.edterritorios_codigo
             "))
             ->get();
 
@@ -272,5 +272,35 @@ class TransitoController extends Controller
         ];
 
         return $types;
+    }
+
+    public function regions(Request $request){
+
+        $tipo_territorio = $request->tipo_territorio;
+
+        $regions = DB::table('todos_territorios')
+            ->select('edterritorios_codigo as id', 'edterritorios_nome as title', 'sigla', 'tipo_territorio')
+            ->where('edterritorios_nome', 'ilike', "$request->search%")
+            ->when(!empty($tipo_territorio), function($query) use ($tipo_territorio){
+                return $query->where('tipo_territorio', $tipo_territorio);
+            })
+            ->get();
+
+        return $regions;
+    }
+
+    public function defaultRegions(Request $request){
+
+        $tipo_territorio = $request->tipo_territorio;
+
+        $regions = DB::table('todos_territorios')
+            ->select('edterritorios_codigo as id', 'edterritorios_nome as title', 'tipo_territorio')
+            ->when(!empty($tipo_territorio), function($query) use ($tipo_territorio){
+                return $query->where('tipo_territorio', $tipo_territorio);
+            })
+            ->whereIn('edterritorios_codigo', $request->ids)
+            ->get();
+
+        return $regions;
     }
 }
