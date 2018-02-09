@@ -40,6 +40,7 @@ class Map extends React.Component{
                 1:'marker',
                 2:'marker',
                 3:'marker2',
+                4:'marker2',
             },
             loadData:{
                 1: function() {
