@@ -18,6 +18,8 @@ class TransitoController extends Controller
         4 => ['nome' => "Município", 'tabela' => "spat.ed_territorios_municipios"],
     ];
 
+    private $months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
     public function valoresMapa(Request $request){
 
         $min = '2017-01-15';
@@ -302,5 +304,47 @@ class TransitoController extends Controller
             ->get();
 
         return $regions;
+    }
+
+    public function years(Request $request){
+
+        $id = 1;
+
+        $years = [];
+
+        $rows = DB::table('geovalores')
+            ->select(DB::Raw('extract(year from data) as year'))
+            ->where('serie_id', $id)
+            ->distinct()
+            ->orderby('year')
+            ->get();
+
+
+        foreach($rows as $row){
+            array_push($years, $row->year);
+        }
+
+        return $years;
+    }
+
+    public function months(Request $request){
+
+        $id = 1;
+
+        $months = [];
+
+        $rows = DB::table('geovalores')
+            ->select(DB::Raw('extract(month from data) as month'))
+            ->where('serie_id', $id)
+            ->distinct()
+            ->get();
+
+        $rows = collect($rows)->sortBy('month')->toArray();
+
+        foreach($rows as $row){
+            array_push($months, $this->months[$row->month]);
+        }
+
+        return $months;
     }
 }

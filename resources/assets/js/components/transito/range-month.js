@@ -8,10 +8,34 @@ class RangeMonth extends React.Component{
         };
 
         this.loadRange = this.loadRange.bind(this);
+        this.load = this.load.bind(this);
     }
 
     componentDidMount(){
-        this.loadRange();
+        //this.loadRange();
+        this.load();
+    }
+
+    load(){
+        $.ajax({
+            method:'POST',
+            url: '/months',
+            data:{
+                id: this.state.id
+            },
+            cache: false,
+            success: function(data) {
+
+                this.setState({options: data}, function(){
+                    this.loadRange();
+                })
+
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(status, err.toString());
+                this.setState({loading: false});
+            }.bind(this)
+        })
     }
 
     loadRange(){
