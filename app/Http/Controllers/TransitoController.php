@@ -18,7 +18,7 @@ class TransitoController extends Controller
         4 => ['nome' => "Município", 'tabela' => "spat.ed_territorios_municipios"],
     ];
 
-    private $months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    private $months = [null, 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
     public function valoresMapa(Request $request){
 
