@@ -1,7 +1,9 @@
 class Map extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
+            firstTimeLoad: true,
             regioes: [],
             ufs: [],
             data: [],
@@ -9,6 +11,8 @@ class Map extends React.Component {
             types: null,
             typesAccident: null,
             genders: null,
+            year: props.year,
+            month: props.month,
             start: '2009-01-01',
             end: '2009-12-01',
             pais: 203, //utilizado para o mapa de calor
@@ -21,6 +25,7 @@ class Map extends React.Component {
             faixaEtaria: ['Não Informado', '0-12'],
             tipoAcidente: ['Não Informado', 'Atropelamento'],
             turno: ['Não Informado', 'Manhã', 'Tarde', 'Noite'],
+            months: { 'Jan': '01', 'Fev': '02', 'Mar': '03', 'Abr': '04', 'Mai': '05', 'Jun': '06', 'Jul': '07', 'Ago': '08', 'Set': '09', 'Out': '10', 'Nov': '11', 'Dez': '12' },
             mapElements: {
                 map: null
             },
@@ -44,19 +49,19 @@ class Map extends React.Component {
             },
             loadData: {
                 1: function () {
-                    console.log('aaa');
+                    //console.log('aaa');
                     this.loadDataTotalPorTerritorio();
                 }.bind(this),
                 2: function () {
-                    console.log('bbb');
+                    //console.log('bbb');
                     this.loadDataTotalPorTerritorio();
                 }.bind(this),
                 3: function () {
-                    console.log('ccc');
+                    //console.log('ccc');
                     this.loadDataPontosPorTerritorio();
                 }.bind(this),
                 4: function () {
-                    console.log('ddd');
+                    //console.log('ddd');
                     this.loadDataPontosPorTerritorio();
                 }.bind(this)
             }
@@ -74,30 +79,53 @@ class Map extends React.Component {
         this.changeTileLayer = this.changeTileLayer.bind(this);
         this.removeMarkersGroup = this.removeMarkersGroup.bind(this);
         this.addMarkersGroup = this.addMarkersGroup.bind(this);
+        this.mountPer = this.mountPer.bind(this);
+        this.lastDayMonth = this.lastDayMonth.bind(this);
     }
 
     componentDidMount() {
         //console.log(this.props.id);
         //this.loadData();
+        //this.mountPer();
         this.loadFirstMap();
-        this.loadDataTotalPorTerritorio();
+        //this.loadDataTotalPorTerritorio();
         //this.loadDataPontosPorPais();
     }
 
     componentWillReceiveProps(props) {
-        if (props.filter == 1) {
+        if (props.filter == 1 || this.state.firstTimeLoad === true && props.year != null && props.month != null) {
             this.setState({
+                firstTimeLoad: false,
                 types: props.types,
                 typesAccident: props.typesAccident,
                 genders: props.genders,
                 tipoTerritorioSelecionado: props.tipoTerritorioAgrupamento,
                 codigoTerritorioSelecionado: props.codigoTerritorioSelecionado,
-                tipoTerritorioAgrupamento: props.tipoTerritorioAgrupamento
+                tipoTerritorioAgrupamento: props.tipoTerritorioAgrupamento,
+                year: props.year,
+                month: props.month
             }, function () {
-                this.loadMap();
-                this.loadDataTotalPorTerritorio();
+                this.mountPer();
+                //this.loadMap();
+                //this.loadDataTotalPorTerritorio();
             });
         }
+    }
+
+    mountPer() {
+        let start = this.state.year + '-' + this.state.months[this.state.month] + '-01';
+        let end = this.state.year + '-' + this.state.months[this.state.month] + '-' + this.lastDayMonth(this.state.month);
+        this.setState({ start: start, end: end }, function () {
+            this.loadMap();
+            this.loadDataTotalPorTerritorio();
+        });
+    }
+
+    lastDayMonth(month) {
+        let arrayLastDay = { '01': '31', '02': '29', '03': '31', '04': '30', '05': '31', '06': '30', '07': '31', '08': '31', '09': '30', '10': '31', '11': '30', '12': '31' };
+        let months = this.state.months;
+        console.log(month);
+        return arrayLastDay[months[month]];
     }
 
     loadFirstMap() {
@@ -308,10 +336,10 @@ class Map extends React.Component {
             },
             onAdd: function () {
                 let options = this.options;
-                console.log(options.check);
+                //console.log(options.check);
                 let container = L.DomUtil.create('div');
                 container.onclick = function () {
-                    console.log(options.check);
+                    //console.log(options.check);
                     options.check = !options.check;
                     container.className = 'control-data-types leaflet-control';
                     //container.innerHTML = '<img width="24px" height="32px" src="img/leaflet/marker-off.png">';
@@ -351,7 +379,7 @@ class Map extends React.Component {
             onAdd: function () {
 
                 let options = this.options;
-                console.log(options.check);
+                //console.log(options.check);
                 let container = L.DomUtil.create('div', 'control-data-types');
                 container.onclick = function () {
                     //console.log(options.check);
@@ -399,11 +427,11 @@ class Map extends React.Component {
             },
             onAdd: function () {
                 let options = this.options;
-                console.log('zoom', options.check);
+                //console.log('zoom', options.check);
                 let container = L.DomUtil.create('div');
                 container.onclick = function () {
                     options.check = !options.check;
-                    console.log(options.check);
+                    //console.log(options.check);
                     container.className = 'control-data-types leaflet-control';
                     //container.innerHTML = '<img width="24px" height="32px" src="img/leaflet/marker-off.png">';
                     thisReact.disableZoomMap();
@@ -449,7 +477,7 @@ class Map extends React.Component {
         });*/
 
         this.setState({ mapElements: mapElements }, function () {
-            this.loadMap();
+            //this.loadMap();
         });
     }
 
@@ -476,7 +504,7 @@ class Map extends React.Component {
     }
 
     loadDataTotalPorTerritorio() {
-        console.log('types', this.state.types);
+        //console.log('types', this.state.types);
         $.ajax({
             method: 'POST',
             url: "total-transito-territorio",
@@ -492,7 +520,7 @@ class Map extends React.Component {
             },
             cache: false,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 this.setState({ data: data.valores }, function () {
                     this.populateMap();
                 });
@@ -518,7 +546,7 @@ class Map extends React.Component {
             },
             cache: false,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 this.setState({ data: data.valores }, function () {
                     this.populateMapCluster();
                 });
@@ -541,7 +569,7 @@ class Map extends React.Component {
             },
             cache: false,
             success: function (data) {
-                console.log('pais', data);
+                //console.log('pais', data);
                 this.setState({ dataCalor: data.valores }, function () {
                     this.heatMap();
                 });
@@ -755,7 +783,7 @@ class Map extends React.Component {
     }
 
     enableZoomMap() {
-        console.log('aaaaaaaaaaaaaaa');
+        //console.log('aaaaaaaaaaaaaaa');
         let mapElements = this.state.mapElements;
         mapElements.map.scrollWheelZoom.enable();
         this.setState({ mapElements: mapElements });
@@ -786,7 +814,7 @@ class Map extends React.Component {
             data: {},
             cache: false,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 this.setState({ regioes: data.regioes, ufs: data.ufs, acidentes: data.valores }, function () {
                     this.loadMap();
                 });
@@ -1117,7 +1145,7 @@ class Map extends React.Component {
                 removeLayersRegioes();
                 removeLayersUfs();
                 let zoom = map.getZoom();
-                console.log(zoom);
+                //console.log(zoom);
                 if (zoom <= 4) {
                     addLayersRegioes();
                 }

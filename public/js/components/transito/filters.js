@@ -6,6 +6,8 @@ class Filters extends React.Component {
             typesAccident: [],
             genders: [],
             regions: [],
+            year: null,
+            month: null,
             btnFilter: false,
             tipoTerritorioSelecionado: props.tipoTerritorioSelecionado
         };
@@ -14,6 +16,8 @@ class Filters extends React.Component {
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
         this.checkGender = this.checkGender.bind(this);
         this.checkRegion = this.checkRegion.bind(this);
+        this.checkYear = this.checkYear.bind(this);
+        this.checkMonth = this.checkMonth.bind(this);
         this.actionFilter = this.actionFilter.bind(this);
         this.enableBtnFilter = this.enableBtnFilter.bind(this);
         this.disableBtnFilter = this.disableBtnFilter.bind(this);
@@ -46,10 +50,33 @@ class Filters extends React.Component {
         });
     }
 
-    checkRegion(types) {
+    checkRegion(types, enableBtnFilter) {
         this.setState({ regions: types }, function () {
             this.props.checkRegion(this.state.regions);
-            this.enableBtnFilter();
+            //console.log('BTN FILTER', enableBtnFilter);
+            if (enableBtnFilter) {
+                this.enableBtnFilter();
+            }
+        });
+    }
+
+    checkYear(year, enableBtnFilter = true) {
+        this.setState({ year: year }, function () {
+            this.props.checkYear(this.state.year);
+            //console.log('BTN FILTER YEAR', enableBtnFilter);
+            if (enableBtnFilter) {
+                this.enableBtnFilter();
+            }
+        });
+    }
+
+    checkMonth(month, enableBtnFilter = true) {
+        this.setState({ month: month }, function () {
+            this.props.checkMonth(this.state.month);
+            //console.log('BTN FILTER MONTH', enableBtnFilter);
+            if (enableBtnFilter) {
+                this.enableBtnFilter();
+            }
         });
     }
 
@@ -69,6 +96,9 @@ class Filters extends React.Component {
 
     render() {
 
+        //console.log('BTN FILTER', this.state.btnFilter);
+        //console.log('REGIONS', this.state.regions);
+
         return React.createElement(
             "div",
             null,
@@ -78,12 +108,12 @@ class Filters extends React.Component {
                 React.createElement(
                     "div",
                     { className: "col-md-6" },
-                    React.createElement(RangeYear, null)
+                    React.createElement(RangeYear, { checkYear: this.checkYear })
                 ),
                 React.createElement(
                     "div",
                     { className: "col-md-6" },
-                    React.createElement(RangeMonth, null)
+                    React.createElement(RangeMonth, { checkMonth: this.checkMonth })
                 )
             ),
             React.createElement("br", null),

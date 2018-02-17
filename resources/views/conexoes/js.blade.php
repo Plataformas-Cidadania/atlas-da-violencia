@@ -376,7 +376,8 @@ print_r($periodo_limite);*/
 
 @if($rota=='acidentes-transito')
     <link rel="stylesheet" href="lib/rslider/rSlider.min.css">
-    <script src="lib/rslider/rSlider.min.js"></script>
+    {{--<script src="lib/rslider/rSlider.min.js"></script>--}}
+    <script src="lib/rslider/rSlider.js"></script>
 
 
     <script src="lib/leaflet/js/leaflet-src.js"></script>

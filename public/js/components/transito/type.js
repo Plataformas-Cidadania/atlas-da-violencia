@@ -89,7 +89,7 @@ class Type extends React.Component {
         if (add) {
             let typesSelected = this.state.typesSelected;
             typesSelected.push(item);
-            console.log('addType - typesSelected', typesSelected);
+            //console.log('addType - typesSelected', typesSelected);
             this.setState({ showtypes: false });
             this.setState({ typesSelected: typesSelected }, function () {
                 this.props.checkType(this.state.typesSelected);
@@ -150,7 +150,7 @@ class Type extends React.Component {
             );
         }.bind(this));
 
-        console.log(typesSelected);
+        //console.log(typesSelected);
 
         if (typesSelected.length === 0) {
             typesSelected = "Pesquise pelo tipo de locomoção";

@@ -3,7 +3,7 @@ class RangeMonth extends React.Component {
         super(props);
         this.state = {
             id: props.id,
-            options: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            options: [],
             mySlider: null
         };
 
@@ -28,6 +28,7 @@ class RangeMonth extends React.Component {
 
                 this.setState({ options: data }, function () {
                     this.loadRange();
+                    this.props.checkMonth(this.state.options[this.state.options.length - 1], false);
                 });
             }.bind(this),
             error: function (xhr, status, err) {
@@ -38,6 +39,7 @@ class RangeMonth extends React.Component {
     }
 
     loadRange() {
+        let _this = this;
         let mySlider = new rSlider({
             target: '#range-month',
             values: this.state.options,
@@ -45,10 +47,19 @@ class RangeMonth extends React.Component {
             tooltip: true,
             scale: true,
             labels: false,
-            set: [this.state.options[this.state.options.length - 1]]
+            onChange(values) {
+                _this.props.checkMonth(values);
+                console.log(values);
+                //console.log(_this);
+                //console.log(this);
+            },
+            set: [this.state.options[this.state.options.length - 1]],
+            callOnChangeInFirstTime: false
         });
 
-        this.setState({ mySlider: mySlider });
+        this.setState({ mySlider: mySlider }, function () {
+            console.log(mySlider);
+        });
     }
 
     render() {

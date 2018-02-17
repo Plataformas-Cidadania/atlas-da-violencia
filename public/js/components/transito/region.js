@@ -35,11 +35,11 @@ class Region extends React.Component {
             },
             cache: false,
             success: function (data) {
-                console.log('DEFAULT REGIONS', data);
+                //console.log('DEFAULT REGIONS', data);
 
                 data.find(function (item) {
-                    console.log(item);
-                    this.addType(item);
+                    //console.log(item);
+                    this.addType(item, false); //btnFilter = false -> assim não irá habilitar o botão de filter para os filtros default
                 }.bind(this));
             }.bind(this),
             error: function (xhr, status, err) {
@@ -116,8 +116,8 @@ class Region extends React.Component {
         });
     }
 
-    addType(item) {
-        console.log('addType', item);
+    addType(item, enableBtnFilter = true) {
+        //console.log('addType', item);
         let add = true;
         this.state.typesSelected.find(function (cat) {
             if (item.title == cat.title) {
@@ -127,10 +127,10 @@ class Region extends React.Component {
         if (add) {
             let typesSelected = this.state.typesSelected;
             typesSelected.push(item);
-            console.log('addType - typesSelected', typesSelected);
+            //console.log('addType - typesSelected', typesSelected);
             this.setState({ showtypes: false });
             this.setState({ typesSelected: typesSelected }, function () {
-                this.props.checkRegion(this.state.typesSelected);
+                this.props.checkRegion(this.state.typesSelected, enableBtnFilter);
             });
         }
     }
@@ -147,7 +147,7 @@ class Region extends React.Component {
         let index = typesSelected.indexOf(type);
         typesSelected.splice(index, 1);
         this.setState({ typesSelected: typesSelected }, function () {
-            this.props.checkRegion(this.state.typesSelected);
+            this.props.checkRegion(this.state.typesSelected, true);
         });
     }
 

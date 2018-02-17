@@ -8,7 +8,9 @@ class Page extends React.Component {
             tipoTerritorioSelecionado: 2, //1 - país, 2 - regiao, 3 - uf, 4 - municipio
             codigoTerritorioSelecionado: [11, 12, 13, 14, 15], //203 - Brasil 13 - SE
             tipoTerritorioAgrupamento: 2, //1 - país, 2 - regiao, 3 - uf, 4 - municipio
-            filter: 0
+            filter: 0,
+            year: null,
+            month: null
 
         };
 
@@ -16,6 +18,8 @@ class Page extends React.Component {
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
         this.checkGender = this.checkGender.bind(this);
         this.checkRegion = this.checkRegion.bind(this);
+        this.checkYear = this.checkYear.bind(this);
+        this.checkMonth = this.checkMonth.bind(this);
         this.actionFilter = this.actionFilter.bind(this);
     }
 
@@ -43,6 +47,14 @@ class Page extends React.Component {
         this.setState({ idGender: ids });
     }
 
+    checkYear(year) {
+        this.setState({ year: year });
+    }
+
+    checkMonth(month) {
+        this.setState({ month: month });
+    }
+
     checkRegion(types) {
         let ids = [];
         let tipo_territorio = null;
@@ -60,6 +72,8 @@ class Page extends React.Component {
     }
 
     render() {
+
+        //console.log('FILTER', this.state.filter);
 
         return React.createElement(
             "div",
@@ -80,6 +94,8 @@ class Page extends React.Component {
                     checkTypeAccident: this.checkTypeAccident,
                     checkGender: this.checkGender,
                     checkRegion: this.checkRegion,
+                    checkYear: this.checkYear,
+                    checkMonth: this.checkMonth,
                     actionFilter: this.actionFilter,
                     tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado,
                     codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado
@@ -95,7 +111,9 @@ class Page extends React.Component {
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado,
                 tipoTerritorioAgrupamento: this.state.tipoTerritorioAgrupamento,
                 filter: this.state.filter,
-                actionFilter: this.actionFilter
+                actionFilter: this.actionFilter,
+                year: this.state.year,
+                month: this.state.month
             })
         );
     }
