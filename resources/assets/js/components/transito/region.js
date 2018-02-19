@@ -29,7 +29,7 @@ class Region extends React.Component{
     defaultTypes(){
         $.ajax({
             method:'POST',
-            url: '/default-regions',
+            url: 'default-regions',
             data:{
                 ids: this.props.codigoTerritorioSelecionado,
                 tipo_territorio: this.props.tipoTerritorioSelecionado,
@@ -63,7 +63,7 @@ class Region extends React.Component{
         }
         $.ajax({
             method:'POST',
-            url: '/regions',
+            url: 'regions',
             data:{
                 search:this.state.search,
                 tipo_territorio: this.state.tipoTerritorioSelecionado,

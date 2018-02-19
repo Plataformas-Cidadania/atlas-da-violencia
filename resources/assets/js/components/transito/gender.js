@@ -24,7 +24,7 @@ class Gender extends React.Component{
     load(){
         $.ajax({
             method:'POST',
-            url: '/genders',
+            url: 'genders',
             data:{
                 search:this.state.search,
             },
