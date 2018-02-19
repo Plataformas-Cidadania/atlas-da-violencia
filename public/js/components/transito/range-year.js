@@ -20,7 +20,7 @@ class RangeYear extends React.Component {
     load() {
         $.ajax({
             method: 'POST',
-            url: '/years',
+            url: 'years',
             data: {
                 id: this.state.id
             },

@@ -24,7 +24,7 @@ class Type extends React.Component {
     load() {
         $.ajax({
             method: 'POST',
-            url: '/types',
+            url: 'types',
             data: {
                 search: this.state.search
             },

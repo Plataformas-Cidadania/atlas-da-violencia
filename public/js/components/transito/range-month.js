@@ -33,7 +33,7 @@ class RangeMonth extends React.Component {
         if (this.state.year) {
             $.ajax({
                 method: 'POST',
-                url: '/months',
+                url: 'months',
                 data: {
                     id: this.state.id,
                     year: this.state.year
