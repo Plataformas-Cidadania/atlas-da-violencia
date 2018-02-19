@@ -95,6 +95,7 @@
         }
     </style>
     <script>
+        serie_id = 1;//
 
     </script>
     <div id="page"></div>

@@ -103,10 +103,10 @@ class Filters extends React.Component{
             <div>
                 <div className="row">
                     <div className="col-md-6">
-                        <RangeYear checkYear={this.checkYear} />
+                        <RangeYear id={this.props.id} checkYear={this.checkYear} />
                     </div>
                     <div className="col-md-6">
-                        <RangeMonth checkMonth={this.checkMonth} />
+                        <RangeMonth id={this.props.id} checkMonth={this.checkMonth} year={this.state.year} />
                     </div>
                 </div>
                 <br/>

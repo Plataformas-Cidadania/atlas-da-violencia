@@ -108,12 +108,12 @@ class Filters extends React.Component {
                 React.createElement(
                     "div",
                     { className: "col-md-6" },
-                    React.createElement(RangeYear, { checkYear: this.checkYear })
+                    React.createElement(RangeYear, { id: this.props.id, checkYear: this.checkYear })
                 ),
                 React.createElement(
                     "div",
                     { className: "col-md-6" },
-                    React.createElement(RangeMonth, { checkMonth: this.checkMonth })
+                    React.createElement(RangeMonth, { id: this.props.id, checkMonth: this.checkMonth, year: this.state.year })
                 )
             ),
             React.createElement("br", null),

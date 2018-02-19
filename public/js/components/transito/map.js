@@ -505,6 +505,10 @@ class Map extends React.Component {
 
     loadDataTotalPorTerritorio() {
         //console.log('types', this.state.types);
+        if (!this.state.month) {
+            return;
+        }
+
         $.ajax({
             method: 'POST',
             url: "total-transito-territorio",

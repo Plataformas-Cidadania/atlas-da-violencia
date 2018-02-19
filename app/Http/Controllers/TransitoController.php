@@ -330,16 +330,23 @@ class TransitoController extends Controller
     public function months(Request $request){
 
         $id = 1;
+        $year = $request->year;
+
+        //return $year;
 
         $months = [];
 
         $rows = DB::table('geovalores')
             ->select(DB::Raw('extract(month from data) as month'))
+            ->where(DB::Raw('extract(year from data)'), $year)
             ->where('serie_id', $id)
             ->distinct()
             ->get();
 
         $rows = collect($rows)->sortBy('month')->toArray();
+
+        //return $rows;
+
 
         foreach($rows as $row){
             array_push($months, $this->months[$row->month]);

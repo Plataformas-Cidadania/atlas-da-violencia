@@ -83,6 +83,7 @@ class Page extends React.Component{
                     <div className="line_title bg-pri"/>
                     <br/><br/>
                     <Filters
+                        id = {this.props.id}
                         checkType={this.checkType}
                         checkTypeAccident={this.checkTypeAccident}
                         checkGender={this.checkGender}
@@ -98,7 +99,7 @@ class Page extends React.Component{
                 </div>
                 <br/>
                 <Map
-                     id="1"
+                     id={this.props.id}
                      types={this.state.idTypes}
                      typesAccident={this.state.idTypesAccident}
                      genders={this.state.idGender}
@@ -116,7 +117,7 @@ class Page extends React.Component{
 }
 
 ReactDOM.render(
-    <Page />,
+    <Page id={serie_id}/>,
     document.getElementById('page')
 );
 

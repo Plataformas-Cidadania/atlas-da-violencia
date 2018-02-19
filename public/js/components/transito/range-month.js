@@ -4,7 +4,8 @@ class RangeMonth extends React.Component {
         this.state = {
             id: props.id,
             options: [],
-            mySlider: null
+            mySlider: null,
+            year: props.year
         };
 
         this.loadRange = this.loadRange.bind(this);
@@ -16,26 +17,41 @@ class RangeMonth extends React.Component {
         this.load();
     }
 
-    load() {
-        $.ajax({
-            method: 'POST',
-            url: '/months',
-            data: {
-                id: this.state.id
-            },
-            cache: false,
-            success: function (data) {
+    componentWillReceiveProps(props) {
+        if (props.year != this.state.year) {
+            let mySlider = this.state.mySlider;
+            if (mySlider) {
+                mySlider.destroy();
+            }
+            this.setState({ year: props.year }, function () {
+                this.load();
+            });
+        }
+    }
 
-                this.setState({ options: data }, function () {
-                    this.loadRange();
-                    this.props.checkMonth(this.state.options[this.state.options.length - 1], false);
-                });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.error(status, err.toString());
-                this.setState({ loading: false });
-            }.bind(this)
-        });
+    load() {
+        if (this.state.year) {
+            $.ajax({
+                method: 'POST',
+                url: '/months',
+                data: {
+                    id: this.state.id,
+                    year: this.state.year
+                },
+                cache: false,
+                success: function (data) {
+
+                    this.setState({ options: data }, function () {
+                        this.loadRange();
+                        this.props.checkMonth(this.state.options[this.state.options.length - 1], false);
+                    });
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.error(status, err.toString());
+                    this.setState({ loading: false });
+                }.bind(this)
+            });
+        }
     }
 
     loadRange() {

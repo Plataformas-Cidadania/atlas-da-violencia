@@ -90,6 +90,7 @@ class Page extends React.Component {
                 React.createElement("br", null),
                 React.createElement("br", null),
                 React.createElement(Filters, {
+                    id: this.props.id,
                     checkType: this.checkType,
                     checkTypeAccident: this.checkTypeAccident,
                     checkGender: this.checkGender,
@@ -103,7 +104,7 @@ class Page extends React.Component {
             ),
             React.createElement("br", null),
             React.createElement(Map, {
-                id: "1",
+                id: this.props.id,
                 types: this.state.idTypes,
                 typesAccident: this.state.idTypesAccident,
                 genders: this.state.idGender,
@@ -119,4 +120,4 @@ class Page extends React.Component {
     }
 }
 
-ReactDOM.render(React.createElement(Page, null), document.getElementById('page'));
+ReactDOM.render(React.createElement(Page, { id: serie_id }), document.getElementById('page'));
