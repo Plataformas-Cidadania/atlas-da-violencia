@@ -8,10 +8,17 @@ class Page extends React.Component{
             tipoTerritorioSelecionado: 2,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
             codigoTerritorioSelecionado: [11,12,13,14,15], //203 - Brasil 13 - SE
             tipoTerritorioAgrupamento: 2,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
+            typeIcons: ['outros.png', 'automovel.png', 'motocicleta.png', 'pedestre.png', 'onibus.png', 'caminhao.png', 'bicicleta.png', 'outros.png'],
+            iconsType: [],
             filter: 0,
             year: null,
             month: null,
-
+            start: null,
+            end: null,
+            months: {'Jan': '01', 'Fev': '02', 'Mar':'03', 'Abr':'04', 'Mai':'05', 'Jun':'06', 'Jul':'07', 'Ago':'08', 'Set':'09', 'Out':'10', 'Nov':'11', 'Dez':'12'},
+            valuesForTypes: [],
+            selectedTypes: [],
+            valuesForGender: [],
         };
 
         this.checkType = this.checkType.bind(this);
@@ -21,7 +28,30 @@ class Page extends React.Component{
         this.checkYear = this.checkYear.bind(this);
         this.checkMonth = this.checkMonth.bind(this);
         this.actionFilter = this.actionFilter.bind(this);
+        this.mountPer = this.mountPer.bind(this);
+        this.lastDayMonth = this.lastDayMonth.bind(this);
+        this.loadValuesForTypes = this.loadValuesForTypes.bind(this);
+        this.loadValuesForGender = this.loadValuesForGender.bind(this);
+        this.iconsType = this.iconsType.bind(this);
+    }
 
+
+    mountPer(){
+        let start = this.state.year+'-'+this.state.months[this.state.month]+'-01';
+        let end = this.state.year+'-'+this.state.months[this.state.month]+'-'+this.lastDayMonth(this.state.month);
+        this.setState({start: start, end: end}, function(){
+            //this.loadMap();
+            //this.loadDataTotalPorTerritorio();
+            this.loadValuesForTypes();
+            this.loadValuesForGender();
+        });
+    }
+
+    lastDayMonth(month){
+        let arrayLastDay = {'01':'31','02':'29','03':'31','04':'30','05':'31','06':'30','07':'31','08':'31','09':'30','10':'31','11':'30','12':'31'};
+        let months = this.state.months;
+        console.log(month);
+        return arrayLastDay[months[month]];
     }
 
     checkType(types){
@@ -49,11 +79,19 @@ class Page extends React.Component{
     }
 
     checkYear(year){
-        this.setState({year: year});
+        this.setState({year: year}, function(){
+            if(this.state.year != null && this.state.month != null){
+                this.mountPer();
+            }
+        });
     }
 
     checkMonth(month){
-        this.setState({month: month});
+        this.setState({month: month}, function(){
+            if(this.state.year != null && this.state.month != null){
+                this.mountPer();
+            }
+        });
     }
 
     checkRegion(types){
@@ -69,6 +107,67 @@ class Page extends React.Component{
     actionFilter(){
         this.setState({filter: 1}, function(){
             this.setState({filter: 0});
+            this.loadValuesForTypes();
+        });
+    }
+
+    iconsType(icons){
+        //console.log(icons);
+        this.setState({iconsType: icons});
+    }
+
+    loadValuesForTypes(){
+
+
+        if(!this.state.start || !this.state.end){
+            return;
+        }
+
+        $.ajax({
+            method:'POST',
+            url: "values-for-types",
+            data:{
+                id: this.props.id,
+                start: this.state.start,
+                end: this.state.end,
+                tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
+                codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
+            },
+            cache: false,
+            success: function(data) {
+                //console.log('values-for-types', data);
+                this.setState({valuesForTypes: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
+    }
+
+    loadValuesForGender(){
+
+        if(!this.state.start || !this.state.end){
+            return;
+        }
+
+        $.ajax({
+            method:'POST',
+            url: "values-for-gender",
+            data:{
+                id: this.props.id,
+                start: this.state.start,
+                end: this.state.end,
+                tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
+                codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
+            },
+            cache: false,
+            success: function(data) {
+                console.log('values-for-gender', data);
+                this.setState({valuesForGender: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
         });
     }
 
@@ -85,6 +184,7 @@ class Page extends React.Component{
                     <Filters
                         id = {this.props.id}
                         checkType={this.checkType}
+                        iconsType={this.iconsType}
                         checkTypeAccident={this.checkTypeAccident}
                         checkGender={this.checkGender}
                         checkRegion={this.checkRegion}
@@ -106,11 +206,34 @@ class Page extends React.Component{
                      tipoTerritorioSelecionado = {this.state.tipoTerritorioSelecionado}
                      codigoTerritorioSelecionado = {this.state.codigoTerritorioSelecionado}
                      tipoTerritorioAgrupamento = {this.state.tipoTerritorioAgrupamento}
+                     typeIcons={this.state.typeIcons}
                      filter={this.state.filter}
                      actionFilter={this.actionFilter}
-                     year={this.state.year}
-                     month={this.state.month}
+                     start={this.state.start}
+                     end={this.state.end}
+                     //year={this.state.year}
+                     //month={this.state.month}
                 />
+                <br/><br/><br/><br/>
+                <ChartBarHtml5
+                    chart='1'
+                    values={this.state.valuesForTypes}
+                    valuesSelected={this.state.typesSelected}
+                    icons={this.state.iconsType}
+                />
+                <br/><br/><br/><br/>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <ChartGender
+                                values={this.state.valuesForGender}
+                            />
+                        </div>
+                        <div className="col-md-6">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -65,7 +65,7 @@ class RangeMonth extends React.Component {
             labels: false,
             onChange(values) {
                 _this.props.checkMonth(values);
-                console.log(values);
+                //console.log(values);
                 //console.log(_this);
                 //console.log(this);
             },
@@ -74,7 +74,7 @@ class RangeMonth extends React.Component {
         });
 
         this.setState({ mySlider: mySlider }, function () {
-            console.log(mySlider);
+            //console.log(mySlider);
         });
     }
 

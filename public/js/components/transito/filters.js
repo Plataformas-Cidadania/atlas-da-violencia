@@ -21,6 +21,7 @@ class Filters extends React.Component {
         this.actionFilter = this.actionFilter.bind(this);
         this.enableBtnFilter = this.enableBtnFilter.bind(this);
         this.disableBtnFilter = this.disableBtnFilter.bind(this);
+        this.iconsType = this.iconsType.bind(this);
     }
 
     componentWillReceiveProps(props) {
@@ -86,6 +87,10 @@ class Filters extends React.Component {
         this.disableBtnFilter();
     }
 
+    iconsType(icons) {
+        this.props.iconsType(icons);
+    }
+
     enableBtnFilter() {
         this.setState({ btnFilter: true });
     }
@@ -110,9 +115,15 @@ class Filters extends React.Component {
                     { className: "col-md-6" },
                     React.createElement(RangeYear, { id: this.props.id, checkYear: this.checkYear })
                 ),
+                React.createElement("br", { className: "hidden-lg hidden-md" }),
                 React.createElement(
                     "div",
-                    { className: "col-md-6" },
+                    { className: "col-md-1" },
+                    "\xA0"
+                ),
+                React.createElement(
+                    "div",
+                    { className: "col-md-5" },
                     React.createElement(RangeMonth, { id: this.props.id, checkMonth: this.checkMonth, year: this.state.year })
                 )
             ),
@@ -134,7 +145,7 @@ class Filters extends React.Component {
                         React.createElement(
                             "div",
                             { style: { margin: '10px' } },
-                            React.createElement(Type, { checkType: this.checkType })
+                            React.createElement(Type, { checkType: this.checkType, iconsType: this.iconsType })
                         )
                     )
                 ),

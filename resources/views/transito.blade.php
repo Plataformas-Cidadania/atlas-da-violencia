@@ -94,6 +94,43 @@
             opacity: 1;
         }
     </style>
+
+    <style>
+
+        .icon-bar {
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            text-align: center;
+            margin: 2px auto;
+            text-align: center;
+
+        }
+        .icon-bar img{
+            /*color: #FFFFFF;
+            font-size: 25px;*/
+            width: 25px;
+            padding-top: 5px;
+        }
+        .txt-bar{
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 6px;
+        }
+
+        .bg-pri{
+            background-color: #3498DB;
+        }
+        .width-bar {
+            background-color: #3498DB;
+            color: white;
+            position: relative;
+            margin: 2px;
+            font-size: 25px;
+        }
+    </style>
+
+
     <script>
         serie_id = 1;//
 

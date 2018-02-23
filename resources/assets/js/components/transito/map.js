@@ -11,21 +11,21 @@ class Map extends React.Component{
             types: null,
             typesAccident: null,
             genders: null,
-            year:props.year,
-            month:props.month,
-            start: '2009-01-01',
-            end: '2009-12-01',
+            //year:props.year,
+            //month:props.month,
+            start: props.start,
+            end: props.end,
             pais: 203, //utilizado para o mapa de calor
             tipoTerritorioSelecionado: props.tipoTerritorioSelecionado,
             codigoTerritorioSelecionado: props.codigoTerritorioSelecionado,
             tipoTerritorioAgrupamento: props.tipoTerritorioAgrupamento,
             tipo: ['Não Informado', 'Automóvel', 'Motocicleta', 'Pedestre', 'Ônibus', 'Caminhao', 'Bicicleta', 'Outros'],
-            tipoIcone: ['outros.png', 'automovel.png', 'motocicleta.png', 'pedestre.png', 'onibus.png', 'caminhao.png', 'bicicleta.png', 'outros.png'],
+            tipoIcone: props.typeIcons,
             sexo: ['Não Informado', 'Maculino', 'Feminino'],
             faixaEtaria: ['Não Informado', '0-12'],
             tipoAcidente: ['Não Informado', 'Atropelamento'],
             turno: ['Não Informado', 'Manhã', 'Tarde', 'Noite'],
-            months: {'Jan': '01', 'Fev': '02', 'Mar':'03', 'Abr':'04', 'Mai':'05', 'Jun':'06', 'Jul':'07', 'Ago':'08', 'Set':'09', 'Out':'10', 'Nov':'11', 'Dez':'12'},
+
             mapElements: {
                 map:null,
             },
@@ -79,8 +79,7 @@ class Map extends React.Component{
         this.changeTileLayer = this.changeTileLayer.bind(this);
         this.removeMarkersGroup = this.removeMarkersGroup.bind(this);
         this.addMarkersGroup = this.addMarkersGroup.bind(this);
-        this.mountPer = this.mountPer.bind(this);
-        this.lastDayMonth = this.lastDayMonth.bind(this);
+
     }
 
 
@@ -94,7 +93,7 @@ class Map extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(props.filter==1 || (this.state.firstTimeLoad===true && props.year!=null && props.month != null)){
+        if(props.filter==1 || (this.state.firstTimeLoad===true && props.start!=null && props.end != null)){
             this.setState({
                 firstTimeLoad: false,
                 types: props.types,
@@ -103,31 +102,17 @@ class Map extends React.Component{
                 tipoTerritorioSelecionado: props.tipoTerritorioAgrupamento,
                 codigoTerritorioSelecionado: props.codigoTerritorioSelecionado,
                 tipoTerritorioAgrupamento: props.tipoTerritorioAgrupamento,
-                year: props.year,
-                month: props.month
+                start: props.start,
+                end: props.end
             }, function(){
-                this.mountPer();
-                //this.loadMap();
-                //this.loadDataTotalPorTerritorio();
+                //this.mountPer();
+                console.log(this.state.start, this.state.end);
+                this.loadMap();
+                this.loadDataTotalPorTerritorio();
             });
         }
     }
 
-    mountPer(){
-        let start = this.state.year+'-'+this.state.months[this.state.month]+'-01';
-        let end = this.state.year+'-'+this.state.months[this.state.month]+'-'+this.lastDayMonth(this.state.month);
-        this.setState({start: start, end: end}, function(){
-            this.loadMap();
-            this.loadDataTotalPorTerritorio();
-        });
-    }
-
-    lastDayMonth(month){
-        let arrayLastDay = {'01':'31','02':'29','03':'31','04':'30','05':'31','06':'30','07':'31','08':'31','09':'30','10':'31','11':'30','12':'31'};
-        let months = this.state.months
-        console.log(month);
-        return arrayLastDay[months[month]];
-    }
 
     loadFirstMap(){
 
@@ -518,7 +503,8 @@ class Map extends React.Component{
 
     loadDataTotalPorTerritorio(){
         //console.log('types', this.state.types);
-        if(!this.state.month){
+        //console.log('períodos', this.state.start, this.state.end);
+        if(!this.state.start || !this.state.end){
             return;
         }
 
@@ -537,7 +523,7 @@ class Map extends React.Component{
             },
             cache: false,
             success: function(data) {
-                //console.log(data);
+                console.log(data);
                 this.setState({data: data.valores}, function(){
                     this.populateMap();
                 });

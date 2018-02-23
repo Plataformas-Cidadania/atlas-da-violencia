@@ -27,7 +27,7 @@ class RangeYear extends React.Component {
             cache: false,
             success: function (data) {
 
-                console.log(data);
+                //console.log(data);
 
                 this.setState({ options: data }, function () {
                     this.loadRange();
@@ -52,7 +52,7 @@ class RangeYear extends React.Component {
             labels: false,
             onChange(values) {
                 _this.props.checkYear(values);
-                console.log(values);
+                //console.log(values);
                 //console.log(_this);
                 //console.log(this);
             },
@@ -78,10 +78,10 @@ class RangeYear extends React.Component {
     changeYear() {
         let mySlider = this.state.mySlider;
         mySlider.onChange(function (values) {
-            console.log('changeYear', values);
+            //console.log('changeYear', values);
             this.props.checkYear(values);
         });
-        console.log(mySlider);
+        //console.log(mySlider);
         this.setState({ mySlider: mySlider });
     }
 

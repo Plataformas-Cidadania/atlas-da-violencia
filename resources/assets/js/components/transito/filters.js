@@ -21,6 +21,7 @@ class Filters extends React.Component{
         this.actionFilter = this.actionFilter.bind(this);
         this.enableBtnFilter = this.enableBtnFilter.bind(this);
         this.disableBtnFilter = this.disableBtnFilter.bind(this);
+        this.iconsType = this.iconsType.bind(this);
     }
 
     componentWillReceiveProps(props){
@@ -86,6 +87,10 @@ class Filters extends React.Component{
         this.disableBtnFilter();
     }
 
+    iconsType(icons){
+        this.props.iconsType(icons);
+    }
+
     enableBtnFilter(){
         this.setState({btnFilter: true})
     }
@@ -105,7 +110,9 @@ class Filters extends React.Component{
                     <div className="col-md-6">
                         <RangeYear id={this.props.id} checkYear={this.checkYear} />
                     </div>
-                    <div className="col-md-6">
+                    <br className="hidden-lg hidden-md"/>
+                    <div className="col-md-1">&nbsp;</div>
+                    <div className="col-md-5">
                         <RangeMonth id={this.props.id} checkMonth={this.checkMonth} year={this.state.year} />
                     </div>
                 </div>
@@ -116,7 +123,7 @@ class Filters extends React.Component{
                         <fieldset>
                             <legend>Locomoção</legend>
                             <div style={{margin: '10px'}}>
-                                <Type checkType={this.checkType}/>
+                                <Type checkType={this.checkType} iconsType={this.iconsType}/>
                             </div>
                         </fieldset>
                     </div>

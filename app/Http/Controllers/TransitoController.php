@@ -244,14 +244,15 @@ class TransitoController extends Controller
 
     public function types(){
         $types = [
-            ['id' => '0', 'title' => 'Não Informado'],
-            ['id' => '1', 'title' => 'Automóvel'],
-            ['id' => '2', 'title' => 'Motocicleta'],
-            ['id' => '3', 'title' => 'Pedestre'],
-            ['id' => '4', 'title' => 'Ônibus'],
-            ['id' => '5', 'title' => 'Caminhao'],
-            ['id' => '6', 'title' => 'Bicicleta'],
-            ['id' => '7', 'title' => 'Outros'],
+            ['id' => '0', 'title' => 'Não Informado', 'icon' => 'outros.png'],
+            ['id' => '1', 'title' => 'Automóvel', 'icon' => 'automovel.png'],
+            ['id' => '2', 'title' => 'Motocicleta', 'icon' => 'motocicleta.png'],
+            ['id' => '3', 'title' => 'Pedestre', 'icon' => 'pedestre.png'],
+            ['id' => '4', 'title' => 'Ônibus', 'icon' => 'onibus.png'],
+            ['id' => '5', 'title' => 'Caminhao', 'icon' => 'caminhao.png'],
+            ['id' => '6', 'title' => 'Bicicleta', 'icon' => 'bicicleta.png'],
+            ['id' => '7', 'title' => 'Outros', 'icon' => 'outros.png'],
+
         ];
 
         return $types;
@@ -353,5 +354,59 @@ class TransitoController extends Controller
         }
 
         return $months;
+    }
+
+    public function valuesForTypes(Request $request){
+
+        $serie_id = $request->id;
+        $start = $request->start;
+        $end = $request->end;
+
+        $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
+        $tabelaTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['tabela'];
+
+        $valores = DB::table('geovalores')
+            ->select(DB::Raw('geovalores.tipo as type, count(geovalores.tipo) as value'))
+            ->join('series', 'series.id', '=', 'geovalores.serie_id')
+            ->join($tabelaTerritorioSelecionado, DB::Raw("ST_Contains($tabelaTerritorioSelecionado.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
+            ->where([
+                ['geovalores.serie_id', $serie_id],
+                ['geovalores.data', '>=', $start],
+                ['geovalores.data', '<=', $end]
+            ])
+            ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
+                return $query->whereIn("$tabelaTerritorioSelecionado.edterritorios_codigo", $codigoTerritorioSelecionado);
+            })
+            ->groupBy('geovalores.tipo')
+            ->get();
+
+        return $valores;
+    }
+
+    public function valuesForGender(Request $request){
+
+        $serie_id = $request->id;
+        $start = $request->start;
+        $end = $request->end;
+
+        $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
+        $tabelaTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['tabela'];
+
+        $valores = DB::table('geovalores')
+            ->select(DB::Raw('geovalores.sexo as type, count(geovalores.sexo) as value'))
+            ->join('series', 'series.id', '=', 'geovalores.serie_id')
+            ->join($tabelaTerritorioSelecionado, DB::Raw("ST_Contains($tabelaTerritorioSelecionado.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
+            ->where([
+                ['geovalores.serie_id', $serie_id],
+                ['geovalores.data', '>=', $start],
+                ['geovalores.data', '<=', $end]
+            ])
+            ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
+                return $query->whereIn("$tabelaTerritorioSelecionado.edterritorios_codigo", $codigoTerritorioSelecionado);
+            })
+            ->groupBy('geovalores.sexo')
+            ->get();
+
+        return $valores;
     }
 }

@@ -171,3 +171,5 @@ Route::post('regions/', 'TransitoController@regions');
 Route::post('default-regions/', 'TransitoController@defaultRegions');
 Route::post('years/', 'TransitoController@years');
 Route::post('months/', 'TransitoController@months');
+Route::post('values-for-types/', 'TransitoController@valuesForTypes');
+Route::post('values-for-gender/', 'TransitoController@valuesForGender');

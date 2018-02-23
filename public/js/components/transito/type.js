@@ -13,12 +13,23 @@ class Type extends React.Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.addType = this.addType.bind(this);
         this.removeType = this.removeType.bind(this);
+        this.iconsType = this.iconsType.bind(this);
     }
 
     componentDidMount() {
         //this.setState({typesSelected: this.props.typesUrl});
 
         this.load();
+    }
+
+    iconsType(data) {
+        let icons = [];
+
+        data.find(function (item) {
+            icons.push(item.icon);
+        });
+
+        this.props.iconsType(icons);
     }
 
     load() {
@@ -31,6 +42,8 @@ class Type extends React.Component {
             cache: false,
             success: function (data) {
                 //console.log(data);
+
+                this.iconsType(data);
 
                 //importar categorias passadas pela url//////////////
                 let typesUrl = this.props.typesUrl;
