@@ -13,7 +13,7 @@ class RangeYear extends React.Component{
         this.updateRange = this.updateRange.bind(this);
         this.loadRange = this.loadRange.bind(this);
     }
-
+1
     componentDidMount(){
         this.loadRange();
         if(this.state.id > 0){

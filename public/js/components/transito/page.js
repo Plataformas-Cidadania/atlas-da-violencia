@@ -18,7 +18,8 @@ class Page extends React.Component {
             months: { 'Jan': '01', 'Fev': '02', 'Mar': '03', 'Abr': '04', 'Mai': '05', 'Jun': '06', 'Jul': '07', 'Ago': '08', 'Set': '09', 'Out': '10', 'Nov': '11', 'Dez': '12' },
             valuesForTypes: [],
             selectedTypes: [],
-            valuesForGender: []
+            valuesForGender: [],
+            values: []
         };
 
         this.checkType = this.checkType.bind(this);
@@ -33,6 +34,7 @@ class Page extends React.Component {
         this.loadValuesForTypes = this.loadValuesForTypes.bind(this);
         this.loadValuesForGender = this.loadValuesForGender.bind(this);
         this.iconsType = this.iconsType.bind(this);
+        this.loadValues = this.loadValues.bind(this);
     }
 
     mountPer() {
@@ -43,6 +45,7 @@ class Page extends React.Component {
             //this.loadDataTotalPorTerritorio();
             this.loadValuesForTypes();
             this.loadValuesForGender();
+            this.loadValues();
         });
     }
 
@@ -107,6 +110,8 @@ class Page extends React.Component {
         this.setState({ filter: 1 }, function () {
             this.setState({ filter: 0 });
             this.loadValuesForTypes();
+            this.loadValuesForGender();
+            this.loadValues();
         });
     }
 
@@ -162,6 +167,35 @@ class Page extends React.Component {
             success: function (data) {
                 console.log('values-for-gender', data);
                 this.setState({ valuesForGender: data });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
+    }
+
+    loadValues() {
+        if (!this.state.start || !this.state.end) {
+            return;
+        }
+
+        $.ajax({
+            method: 'POST',
+            url: "pontos-transito-territorio",
+            data: {
+                start: this.state.start,
+                end: this.state.end,
+                types: this.state.types,
+                typesAccident: this.state.typesAccident,
+                genders: this.state.genders,
+                tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
+                codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
+                paginate: true
+            },
+            cache: false,
+            success: function (data) {
+                console.log('load-values', data);
+                this.setState({ values: data.valores });
             }.bind(this),
             error: function (xhr, status, err) {
                 console.log('erro');
@@ -247,6 +281,18 @@ class Page extends React.Component {
                     ),
                     React.createElement('div', { className: 'col-md-6' })
                 )
+            ),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement(
+                'div',
+                { className: 'container' },
+                React.createElement(ListItems, {
+                    type: '1',
+                    items: this.state.values
+                })
             )
         );
     }

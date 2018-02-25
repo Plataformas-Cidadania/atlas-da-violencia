@@ -401,6 +401,7 @@ print_r($periodo_limite);*/
     <script src="js/components/transito/chartBarHtml5.js"></script>
     <script src="js/components/transito/chartDonutHtml5.js"></script>
     <script src="js/components/transito/chartGender.js"></script>
+    <script src="js/components/transito/listItems.js"></script>
     <script src="js/components/transito/filters.js"></script>
     <script src="js/components/transito/page.js"></script>
 @endif

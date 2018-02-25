@@ -19,6 +19,7 @@ class Page extends React.Component{
             valuesForTypes: [],
             selectedTypes: [],
             valuesForGender: [],
+            values: [],
         };
 
         this.checkType = this.checkType.bind(this);
@@ -33,6 +34,7 @@ class Page extends React.Component{
         this.loadValuesForTypes = this.loadValuesForTypes.bind(this);
         this.loadValuesForGender = this.loadValuesForGender.bind(this);
         this.iconsType = this.iconsType.bind(this);
+        this.loadValues = this.loadValues.bind(this);
     }
 
 
@@ -44,6 +46,7 @@ class Page extends React.Component{
             //this.loadDataTotalPorTerritorio();
             this.loadValuesForTypes();
             this.loadValuesForGender();
+            this.loadValues();
         });
     }
 
@@ -108,6 +111,8 @@ class Page extends React.Component{
         this.setState({filter: 1}, function(){
             this.setState({filter: 0});
             this.loadValuesForTypes();
+            this.loadValuesForGender();
+            this.loadValues();
         });
     }
 
@@ -169,6 +174,35 @@ class Page extends React.Component{
                 console.log('erro');
             }.bind(this)
         });
+    }
+
+    loadValues(){
+        if(!this.state.start || !this.state.end){
+            return;
+        }
+
+        $.ajax({
+            method:'POST',
+            url: "pontos-transito-territorio",
+            data:{
+                start: this.state.start,
+                end: this.state.end,
+                types: this.state.types,
+                typesAccident: this.state.typesAccident,
+                genders: this.state.genders,
+                tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
+                codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
+                paginate: true,
+            },
+            cache: false,
+            success: function(data) {
+                console.log('load-values', data);
+                this.setState({values: data.valores});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        })
     }
 
     render(){
@@ -233,6 +267,13 @@ class Page extends React.Component{
 
                         </div>
                     </div>
+                </div>
+                <br/><br/><br/><br/>
+                <div className="container">
+                    <ListItems
+                        type="1"
+                        items={this.state.values}
+                    />
                 </div>
             </div>
         );

@@ -1,0 +1,88 @@
+class ListItems extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            type: props.type,
+            items: props.items,
+        }
+    }
+
+    componentWillReceiveProps(props){
+        if(props.items != this.state.items){
+            this.setState({items: props.items});
+        }
+        if(props.tipo != this.state.type){
+            this.setState({type: props.type});
+        }
+    }
+
+    render(){
+
+        let head = null;
+        let items = null;
+
+        console.log('ITEMS ########', this.state.items);
+
+        if(this.state.type == 1){
+            head = (
+                <tr>
+                    <th>Local</th>
+                    <th>Locomoção</th>
+                    <th>Tipo de Acidente</th>
+                    <th>Sexo</th>
+                    <th>Turno</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                </tr>
+            );
+            if(this.state.items.data != undefined){
+                items = this.state.items.data.map(function(item){
+                    console.log(item);
+                    return (
+                        <tr key={"item_"+item.id}>
+                            <td>{item.endereco}</td>
+                            <td>{item.tipo}</td>
+                            <td>{item.tipo_acidente}</td>
+                            <td>{item.sexo}</td>
+                            <td>{item.turno}</td>
+                            <td>{item.data}</td>
+                            <td>{item.hora}</td>
+                        </tr>
+                    );
+                });
+            }
+
+        }
+
+        console.log('ITEMS >>>>>>>>>>>>', items);
+
+        if(this.state.type == 2){
+            head = (
+                <tr>
+                    <th>Território</th>
+                    <th>Total</th>
+                </tr>
+            );
+            items = this.state.items.map(function(item){
+                return (
+                    <tr>
+                        <td>{item.territorio}</td>
+                        <td>{item.total}</td>
+                    </tr>
+                );
+            });
+        }
+
+        return(
+            <div>
+                <table>
+                    <thead>
+                        {head}
+                    </thead>
+                    {items}
+                </table>
+
+            </div>
+        );
+    }
+}

@@ -120,6 +120,7 @@ class TransitoController extends Controller
         $types = $request->types;
         $typesAccident = $request->typesAccident;
         $genders = $request->genders;
+        $paginate = $request->paginate;
 
         $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
         $tabelaTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['tabela'];
@@ -131,6 +132,7 @@ class TransitoController extends Controller
 
         $valores = DB::table("geovalores")
             ->select(DB::raw("
+            geovalores.id, 
             ST_X(geovalores.ponto) as lng, 
             ST_Y(geovalores.ponto) as lat,
             geovalores.endereco, 
@@ -150,7 +152,7 @@ class TransitoController extends Controller
                 ['geovalores.data', '<=', $end]
             ])
             ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
-                return $query->where($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
+                return $query->whereIn($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
             })
             ->when($types != null, function($query) use ($types){
                 return $query->whereIn('geovalores.tipo', $types);
@@ -160,8 +162,17 @@ class TransitoController extends Controller
             })
             ->when($genders != null, function($query) use ($genders){
                 return $query->whereIn('geovalores.sexo', $genders);
-            })
-            ->get();
+            });
+
+        if(!$paginate){
+            $valores = $valores->get();
+        }
+
+        if($paginate){
+            $valores = $valores->paginate(50);
+        }
+
+
 
         return ['valores' => $valores];
     }
