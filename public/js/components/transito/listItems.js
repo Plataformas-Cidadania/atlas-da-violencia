@@ -3,8 +3,17 @@ class ListItems extends React.Component {
         super(props);
         this.state = {
             type: props.type,
-            items: props.items
+            items: props.items,
+            types: [],
+            typesAccident: [],
+            genders: []
         };
+
+        this.loadArrays = this.loadArrays.bind(this);
+    }
+
+    componentDidMount() {
+        this.loadArrays();
     }
 
     componentWillReceiveProps(props) {
@@ -16,12 +25,28 @@ class ListItems extends React.Component {
         }
     }
 
+    loadArrays() {
+        $.ajax({
+            method: 'POST',
+            url: "arrays-transito",
+            data: {},
+            cache: false,
+            success: function (data) {
+                //console.log('values-for-types', data);
+                this.setState({ types: data.types, typesAccident: data.typesAccident, genders: data.genders });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
+    }
+
     render() {
 
         let head = null;
         let items = null;
 
-        console.log('ITEMS ########', this.state.items);
+        //console.log('ITEMS ########', this.state.items);
 
         if (this.state.type == 1) {
             head = React.createElement(
@@ -50,11 +75,6 @@ class ListItems extends React.Component {
                 React.createElement(
                     'th',
                     null,
-                    'Turno'
-                ),
-                React.createElement(
-                    'th',
-                    null,
                     'Data'
                 ),
                 React.createElement(
@@ -65,7 +85,25 @@ class ListItems extends React.Component {
             );
             if (this.state.items.data != undefined) {
                 items = this.state.items.data.map(function (item) {
-                    console.log(item);
+                    let type = null;
+                    this.state.types.find(function (it) {
+                        if (it.id == item.tipo) {
+                            type = it.title;
+                        }
+                    });
+                    let typeAccident = null;
+                    this.state.typesAccident.find(function (it) {
+                        if (it.id == item.tipo_acidente) {
+                            typeAccident = it.title;
+                        }
+                    });
+                    let gender = null;
+                    this.state.genders.find(function (it) {
+                        if (it.id == item.sexo) {
+                            gender = it.title;
+                        }
+                    });
+
                     return React.createElement(
                         'tr',
                         { key: "item_" + item.id },
@@ -77,22 +115,17 @@ class ListItems extends React.Component {
                         React.createElement(
                             'td',
                             null,
-                            item.tipo
+                            type
                         ),
                         React.createElement(
                             'td',
                             null,
-                            item.tipo_acidente
+                            typeAccident
                         ),
                         React.createElement(
                             'td',
                             null,
-                            item.sexo
-                        ),
-                        React.createElement(
-                            'td',
-                            null,
-                            item.turno
+                            gender
                         ),
                         React.createElement(
                             'td',
@@ -105,11 +138,11 @@ class ListItems extends React.Component {
                             item.hora
                         )
                     );
-                });
+                }.bind(this));
             }
         }
 
-        console.log('ITEMS >>>>>>>>>>>>', items);
+        //console.log('ITEMS >>>>>>>>>>>>', items);
 
         if (this.state.type == 2) {
             head = React.createElement(
@@ -149,13 +182,17 @@ class ListItems extends React.Component {
             null,
             React.createElement(
                 'table',
-                null,
+                { className: 'table' },
                 React.createElement(
                     'thead',
                     null,
                     head
                 ),
-                items
+                React.createElement(
+                    'tbody',
+                    null,
+                    items
+                )
             )
         );
     }

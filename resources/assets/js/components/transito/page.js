@@ -20,6 +20,7 @@ class Page extends React.Component{
             selectedTypes: [],
             valuesForGender: [],
             values: [],
+
         };
 
         this.checkType = this.checkType.bind(this);
@@ -196,7 +197,7 @@ class Page extends React.Component{
             },
             cache: false,
             success: function(data) {
-                console.log('load-values', data);
+                //console.log('load-values', data);
                 this.setState({values: data.valores});
             }.bind(this),
             error: function(xhr, status, err) {

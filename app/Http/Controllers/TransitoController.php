@@ -169,7 +169,7 @@ class TransitoController extends Controller
         }
 
         if($paginate){
-            $valores = $valores->paginate(50);
+            $valores = $valores->paginate(30);
         }
 
 
@@ -419,5 +419,13 @@ class TransitoController extends Controller
             ->get();
 
         return $valores;
+    }
+
+    public function arraysTransito(){
+        $types = $this->types();
+        $typesAccident = $this->typesAccident();
+        $genders = $this->genders();
+
+        return ['types'=>$types, 'typesAccident'=>$typesAccident, 'genders'=>$genders];
     }
 }

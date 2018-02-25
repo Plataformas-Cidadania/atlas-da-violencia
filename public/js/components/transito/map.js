@@ -530,8 +530,7 @@ class Map extends React.Component {
                 typesAccident: this.state.typesAccident,
                 genders: this.state.genders,
                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
-                codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
-                paginate: true,
+                codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
             },
             cache: false,
             success: function (data) {
