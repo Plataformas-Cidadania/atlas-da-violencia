@@ -6,10 +6,12 @@ class ListItems extends React.Component {
             items: props.items,
             types: [],
             typesAccident: [],
-            genders: []
+            genders: [],
+            currentPage: 1
         };
 
         this.loadArrays = this.loadArrays.bind(this);
+        this.setCurrentPage = this.setCurrentPage.bind(this);
     }
 
     componentDidMount() {
@@ -23,6 +25,12 @@ class ListItems extends React.Component {
         if (props.tipo != this.state.type) {
             this.setState({ type: props.type });
         }
+    }
+
+    setCurrentPage(page) {
+        this.setState({ currentPage: page }, function () {
+            this.props.setCurrentPageListItems(page);
+        });
     }
 
     loadArrays() {
@@ -46,7 +54,7 @@ class ListItems extends React.Component {
         let head = null;
         let items = null;
 
-        //console.log('ITEMS ########', this.state.items);
+        console.log('ITEMS ########', this.state.items);
 
         if (this.state.type == 1) {
             head = React.createElement(
@@ -177,6 +185,9 @@ class ListItems extends React.Component {
             });
         }
 
+        let prev = 'disabled';
+        let next = '';
+
         return React.createElement(
             'div',
             null,
@@ -193,7 +204,11 @@ class ListItems extends React.Component {
                     null,
                     items
                 )
-            )
+            ),
+            React.createElement(Pagination, {
+                currentPage: this.state.currentPage,
+                setCurrentPage: this.setCurrentPage
+            })
         );
     }
 }

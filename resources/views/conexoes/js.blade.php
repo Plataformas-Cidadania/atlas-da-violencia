@@ -389,6 +389,7 @@ print_r($periodo_limite);*/
 
     <script src="lib/leaflet/js/Control.FullScreen.js"></script>
 
+    <script src="js/components/pagination.js"></script>
     <script src="js/components/transito/range-year.js"></script>
     <script src="js/components/transito/range-month.js"></script>
     <script src="js/components/transito/territories.js"></script>

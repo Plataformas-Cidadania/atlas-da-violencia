@@ -19,7 +19,8 @@ class Page extends React.Component {
             valuesForTypes: [],
             selectedTypes: [],
             valuesForGender: [],
-            values: []
+            values: [],
+            currentPageListItems: 1
 
         };
 
@@ -35,6 +36,7 @@ class Page extends React.Component {
         this.loadValuesForTypes = this.loadValuesForTypes.bind(this);
         this.loadValuesForGender = this.loadValuesForGender.bind(this);
         this.iconsType = this.iconsType.bind(this);
+        this.setCurrentPageListItems = this.setCurrentPageListItems.bind(this);
         this.loadValues = this.loadValues.bind(this);
     }
 
@@ -175,6 +177,12 @@ class Page extends React.Component {
         });
     }
 
+    setCurrentPageListItems(page) {
+        this.setState({ currentPageListItems: page }, function () {
+            this.loadValues();
+        });
+    }
+
     loadValues() {
         if (!this.state.start || !this.state.end) {
             return;
@@ -191,7 +199,8 @@ class Page extends React.Component {
                 genders: this.state.genders,
                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
-                paginate: true
+                paginate: true,
+                page: this.state.currentPageListItems
             },
             cache: false,
             success: function (data) {
@@ -292,7 +301,8 @@ class Page extends React.Component {
                 { className: 'container' },
                 React.createElement(ListItems, {
                     type: '1',
-                    items: this.state.values
+                    items: this.state.values,
+                    setCurrentPageListItems: this.setCurrentPageListItems
                 })
             )
         );
