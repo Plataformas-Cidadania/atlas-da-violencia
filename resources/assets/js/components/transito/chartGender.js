@@ -27,7 +27,7 @@ class ChartGender extends React.Component{
 
         let total = this.total(this.state.values);
 
-        console.log(total);
+        //console.log(total);
 
         let male = 0;
         let female = 0;
@@ -41,8 +41,8 @@ class ChartGender extends React.Component{
             }
         });
 
-        console.log(male);
-        console.log(female);
+        //console.log(male);
+        //console.log(female);
 
         return(
             <div>

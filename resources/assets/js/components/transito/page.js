@@ -19,6 +19,7 @@ class Page extends React.Component{
             valuesForTypes: [],
             selectedTypes: [],
             valuesForGender: [],
+            valuesForRegions: [],
             values: [],
             currentPageListItems: 1,
 
@@ -38,6 +39,7 @@ class Page extends React.Component{
         this.iconsType = this.iconsType.bind(this);
         this.setCurrentPageListItems = this.setCurrentPageListItems.bind(this);
         this.loadValues = this.loadValues.bind(this);
+        this.loadValuesForRegions = this.loadValuesForRegions.bind(this);
     }
 
 
@@ -49,6 +51,7 @@ class Page extends React.Component{
             //this.loadDataTotalPorTerritorio();
             this.loadValuesForTypes();
             this.loadValuesForGender();
+            this.loadValuesForRegions();
             this.loadValues();
         });
     }
@@ -56,7 +59,7 @@ class Page extends React.Component{
     lastDayMonth(month){
         let arrayLastDay = {'01':'31','02':'29','03':'31','04':'30','05':'31','06':'30','07':'31','08':'31','09':'30','10':'31','11':'30','12':'31'};
         let months = this.state.months;
-        console.log(month);
+        //console.log(month);
         return arrayLastDay[months[month]];
     }
 
@@ -170,8 +173,36 @@ class Page extends React.Component{
             },
             cache: false,
             success: function(data) {
-                console.log('values-for-gender', data);
+                //console.log('values-for-gender', data);
                 this.setState({valuesForGender: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
+    }
+
+    loadValuesForRegions(){
+
+        if(!this.state.start || !this.state.end){
+            return;
+        }
+
+        $.ajax({
+            method:'POST',
+            url: "values-for-regions",
+            data:{
+                id: this.props.id,
+                start: this.state.start,
+                end: this.state.end,
+                tipoTerritorioSelecionado: 2,
+                codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado,
+                tipoTerritorioAgrupamento: 2,
+            },
+            cache: false,
+            success: function(data) {
+                console.log('values-for-regions', data);
+                this.setState({valuesForRegions: data});
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log('erro');
@@ -261,20 +292,25 @@ class Page extends React.Component{
                 <br/><br/><br/><br/>
                 <ChartBarHtml5
                     chart='1'
+                    type='2'
                     values={this.state.valuesForTypes}
                     valuesSelected={this.state.typesSelected}
                     icons={this.state.iconsType}
                 />
                 <br/><br/><br/><br/>
                 <div className="container">
-                    <div className="row">
+                    <div className="row" style={{paddingBottom: 0}}>
                         <div className="col-md-6">
                             <ChartGender
                                 values={this.state.valuesForGender}
                             />
                         </div>
                         <div className="col-md-6">
-
+                            <ChartBarHtml5
+                                chart='2'
+                                type='1'
+                                values={this.state.valuesForRegions}
+                            />
                         </div>
                     </div>
                 </div>

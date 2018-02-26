@@ -50,7 +50,7 @@ class Pagination extends React.Component {
         let firstNumber = 1;
         let half = Math.floor(this.state.countNumbers / 2);
 
-        console.log(half);
+        //console.log(half);
 
         if (this.state.currentPage > half) {
             firstNumber = this.state.currentPage - half;

@@ -173,4 +173,5 @@ Route::post('years/', 'TransitoController@years');
 Route::post('months/', 'TransitoController@months');
 Route::post('values-for-types/', 'TransitoController@valuesForTypes');
 Route::post('values-for-gender/', 'TransitoController@valuesForGender');
+Route::post('values-for-regions/', 'TransitoController@valuesForRegions');
 Route::post('arrays-transito/', 'TransitoController@arraysTransito');

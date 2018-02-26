@@ -54,7 +54,7 @@ class ListItems extends React.Component {
         let head = null;
         let items = null;
 
-        console.log('ITEMS ########', this.state.items);
+        //console.log('ITEMS ########', this.state.items);
 
         if (this.state.type == 1) {
             head = React.createElement(
