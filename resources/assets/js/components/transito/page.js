@@ -20,6 +20,7 @@ class Page extends React.Component{
             selectedTypes: [],
             valuesForGender: [],
             valuesForRegions: [],
+            valuesForUfs: [],
             values: [],
             currentPageListItems: 1,
 
@@ -40,6 +41,7 @@ class Page extends React.Component{
         this.setCurrentPageListItems = this.setCurrentPageListItems.bind(this);
         this.loadValues = this.loadValues.bind(this);
         this.loadValuesForRegions = this.loadValuesForRegions.bind(this);
+        this.loadValuesForUfs = this.loadValuesForUfs.bind(this);
     }
 
 
@@ -52,6 +54,7 @@ class Page extends React.Component{
             this.loadValuesForTypes();
             this.loadValuesForGender();
             this.loadValuesForRegions();
+            this.loadValuesForUfs();
             this.loadValues();
         });
     }
@@ -118,6 +121,8 @@ class Page extends React.Component{
             this.setState({filter: 0});
             this.loadValuesForTypes();
             this.loadValuesForGender();
+            this.loadValuesForRegions();
+            this.loadValuesForUfs();
             this.loadValues();
         });
     }
@@ -141,6 +146,8 @@ class Page extends React.Component{
                 id: this.props.id,
                 start: this.state.start,
                 end: this.state.end,
+                typesAccident: this.state.idTypesAccident,
+                genders: this.state.idGender,
                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
             },
@@ -168,6 +175,8 @@ class Page extends React.Component{
                 id: this.props.id,
                 start: this.state.start,
                 end: this.state.end,
+                types: this.state.idTypes,
+                typesAccident: this.state.idTypesAccident,
                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
             },
@@ -195,14 +204,48 @@ class Page extends React.Component{
                 id: this.props.id,
                 start: this.state.start,
                 end: this.state.end,
+                types: this.state.idTypes,
+                typesAccident: this.state.idTypesAccident,
+                genders: this.state.idGender,
                 tipoTerritorioSelecionado: 2,
-                codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado,
+                codigoTerritorioSelecionado: [11,12,13,14,15],
                 tipoTerritorioAgrupamento: 2,
             },
             cache: false,
             success: function(data) {
                 console.log('values-for-regions', data);
                 this.setState({valuesForRegions: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
+    }
+
+    loadValuesForUfs(){
+
+        if(!this.state.start || !this.state.end){
+            return;
+        }
+
+        $.ajax({
+            method:'POST',
+            url: "values-for-regions",
+            data:{
+                id: this.props.id,
+                start: this.state.start,
+                end: this.state.end,
+                types: this.state.idTypes,
+                typesAccident: this.state.idTypesAccident,
+                genders: this.state.idGender,
+                tipoTerritorioSelecionado: 3,
+                codigoTerritorioSelecionado: [11,12,13,14,15,16,17,23,27,29,33,35,53,21,22,24,25,26,28,31,32,41,42,43,50,51,52],
+                tipoTerritorioAgrupamento: 3,
+            },
+            cache: false,
+            success: function(data) {
+                console.log('values-for-regions', data);
+                this.setState({valuesForUfs: data});
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log('erro');
@@ -227,9 +270,9 @@ class Page extends React.Component{
             data:{
                 start: this.state.start,
                 end: this.state.end,
-                types: this.state.types,
-                typesAccident: this.state.typesAccident,
-                genders: this.state.genders,
+                types: this.state.idTypes,
+                typesAccident: this.state.idTypesAccident,
+                genders: this.state.idGender,
                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
                 paginate: true,
@@ -309,10 +352,22 @@ class Page extends React.Component{
                             <ChartBarHtml5
                                 chart='2'
                                 type='1'
+                                height='350px'
+                                show="3"
                                 values={this.state.valuesForRegions}
                             />
                         </div>
                     </div>
+                </div>
+                <br/><br/><br/><br/>
+                <div className="container">
+                    <ChartBarHtml5
+                        chart='3'
+                        type='1'
+                        height='350px'
+                        show='2'
+                        values={this.state.valuesForUfs}
+                    />
                 </div>
                 <br/><br/><br/><br/>
                 <div className="container">

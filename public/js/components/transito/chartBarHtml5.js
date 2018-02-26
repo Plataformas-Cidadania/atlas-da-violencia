@@ -6,7 +6,8 @@ class ChartBarHtml5 extends React.Component {
             type: props.type, //1 - vertical 2 - horizontal
             values: props.values,
             valuesSelected: props.valuesSelected,
-            icons: props.icons
+            icons: props.icons,
+            show: props.show ? parseInt(props.show) : 1 //1 - valor, 2 - porcentagem, 3 - valor e porcentagem
         };
     }
 
@@ -31,23 +32,43 @@ class ChartBarHtml5 extends React.Component {
         return total;
     }
 
+    max(values) {
+        let max = 0;
+
+        values.find(function (item) {
+            max = item.value > max ? item.value : max;
+        });
+
+        return max;
+    }
+
     render() {
 
         let total = this.total(this.state.values);
+        let max = this.max(this.state.values);
 
         if (this.props.type == 1) {
             let bars = this.state.values.map(function (item, index) {
 
+                let value = this.state.show === 1 || this.state.show === 3 ? item.value : null;
+                let percent = this.state.show === 2 || this.state.show === 3 ? formatNumber(item.value * 100 / total, 2, ',', '.') + "%" : null;
+                let parenteseAberto = this.state.show === 3 ? '(' : null;
+                let parenteseFechado = this.state.show === 3 ? ')' : null;
+
                 return React.createElement(
                     'li',
-                    { key: 'itemChartBar' + this.state.chart + "_" + index },
+                    { key: 'itemChartBar' + this.state.chart + "_" + index, style: { height: item.value * 100 / max + '%' } },
                     React.createElement(
                         'span',
-                        { style: { height: item.value * 100 / total + '%' }, className: 'bg-pri' },
+                        { style: { height: item.value * 100 / max + '%' }, className: 'bg-pri' },
                         React.createElement(
                             'strong',
                             { className: 'hidden-xs' },
-                            item.value
+                            value,
+                            ' ',
+                            parenteseAberto,
+                            percent,
+                            parenteseFechado
                         )
                     ),
                     React.createElement(
@@ -63,7 +84,7 @@ class ChartBarHtml5 extends React.Component {
                 null,
                 React.createElement(
                     'ul',
-                    { className: 'chart', style: { height: '350px' } },
+                    { className: 'chart', style: { height: this.props.height } },
                     bars
                 )
             );
