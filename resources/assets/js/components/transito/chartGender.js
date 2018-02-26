@@ -47,33 +47,39 @@ class ChartGender extends React.Component{
         return(
             <div>
                 <div className="row">
-                    <div className="col-md-6 text-center">
-                        <i className="fa fa-male" style={{fontSize: '150px'}}/>
+                    <div className="col-md-6">
+                        <div className="row">
+                            <div className="col-md-12 text-center">
+                                <i className="fa fa-male" style={{fontSize: '150px'}}/>
+                            </div>
+                            <div className="col-md-12 text-center">
+                                <ChartDonutHtml5
+                                    width="80%"
+                                    height="80%"
+                                    strokeWidth="4"
+                                    strokeRing="#d2d3d4"
+                                    strokeSegment="#3498DB"
+                                    percent={male*100/total}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className="col-md-6 text-center">
-                        <i className="fa fa-female" style={{fontSize: '150px'}}/>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-6 text-center">
-                        <ChartDonutHtml5
-                            width="80%"
-                            height="80%"
-                            strokeWidth="4"
-                            strokeRing="#d2d3d4"
-                            strokeSegment="#3498DB"
-                            percent={male*100/total}
-                        />
-                    </div>
-                    <div className="col-md-6 text-center">
-                        <ChartDonutHtml5
-                            width="80%"
-                            height="80%"
-                            strokeWidth="4"
-                            strokeRing="#d2d3d4"
-                            strokeSegment="#ce4b99"
-                            percent={female*100/total}
-                        />
+                    <div className="col-md-6">
+                        <div className="row">
+                            <div className="col-md-12 text-center">
+                                <i className="fa fa-female" style={{fontSize: '150px'}}/>
+                            </div>
+                            <div className="col-md-12 text-center">
+                                <ChartDonutHtml5
+                                    width="80%"
+                                    height="80%"
+                                    strokeWidth="4"
+                                    strokeRing="#d2d3d4"
+                                    strokeSegment="#ce4b99"
+                                    percent={female*100/total}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
