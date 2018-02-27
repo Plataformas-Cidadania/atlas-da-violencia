@@ -8,7 +8,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class FiltrosController extends Controller
+class FiltrosSeriesController extends Controller
 {
 
     private $cache;
@@ -21,7 +21,7 @@ class FiltrosController extends Controller
 
     public function index($id = null, $tema = null){
 
-        return view('serie.filtros-series', ['id' => $id]);
+        return view('serie.novo-filtros-series', ['id' => $id]);
 
     }
 
@@ -31,21 +31,25 @@ class FiltrosController extends Controller
         return $temas;
     }
 
-    public function indicadores($tema_id){
-        foreach($this->indicadores as $key => $indicador){
-            $series = \App\Serie::join('temas_series', 'temas_series.serie_id', '=', 'series.id')
-                ->where('temas_series.tema_id', $tema_id)
-                ->where('indicador', $indicador['id'])
-                ->get();
+    public function indicadores(Request $request){
+        $tema_id = $request->conditions['tema_id'];
+        $search = $request->search;
 
-            if(count($series) > 0){
-                $this->indicadores[$key]['enable'] = true;
-            }
-        }
-        return $this->indicadores;
+
+        $indicadores = \App\Indicador::select('indicadores.id', 'indicadores.titulo as title')
+            ->join('series', 'series.indicador', '=', 'indicadores.id')
+            ->join('temas_series', 'temas_series.serie_id', '=', 'series.id')
+            ->where('temas_series.tema_id', $tema_id)
+            ->where('indicadores.titulo', 'ilike', "$search%")
+            ->get();
+
+        return $indicadores;
     }
 
-    public function abrangencias($tema_id){
+    public function abrangencias(Request $request){
+
+        $tema_id = $request->conditions['tema_id'];
+
         foreach($this->abrangencias as $key => $abrangencia){
             $cacheKey = 'qtd-series-abrangencia-'.$abrangencia['id'].'-tema-'.$tema_id;
             //exclui o cache. Utilizar apenas para testes.
@@ -73,7 +77,17 @@ class FiltrosController extends Controller
 
         $idioma = "pt_BR";
 
-        $cacheKey = 'series-'.$parameters['tema_id'].'-'.$parameters['indicador'].'-'.$parameters['abrangencia'].'-'.$idioma;
+        if(!array_key_exists('indicadores', $parameters)){
+            $parameters['indicadores'] = [];
+        }
+        if(!array_key_exists('abrangencias', $parameters)){
+            $parameters['abrangencias'] = [];
+        }
+
+        $str_indicadores = implode('-', $parameters['indicadores']);
+        $str_abrangencias = implode('-', $parameters['abrangencias']);
+
+        $cacheKey = 'series-'.$parameters['tema_id'].'-'.$str_indicadores.'-'.$str_abrangencias.'-'.$idioma;
 
         //exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKey);
@@ -91,9 +105,16 @@ class FiltrosController extends Controller
                 ->where([
                     ['textos_series.idioma_sigla', $idioma],
                     ['temas_series.tema_id', $parameters['tema_id']],
-                    ['series.indicador', $parameters['indicador']],
-                    ['valores_series.tipo_regiao', $parameters['abrangencia']]
+                    ['textos_series.titulo', $parameters['search']]
+                    /*['series.indicador', $parameters['indicador']],*/
+                    /*['valores_series.tipo_regiao', $parameters['abrangencia']]*/
                 ])
+                ->when(!empty($parameters['indicador']), function($query) use ($parameters){
+                    return $query->whereIn('series.indicador', $parameters['indicadores']);
+                })
+                ->when(!empty($parameters['abrangencia']), function($query) use ($parameters){
+                    return $query->whereIn('series.tipo_regiao', $parameters['abrangencias']);
+                })
                 //->orWhere('series.serie_id', $parameters['id'])
                 ->groupBy('series.id', 'valores_series.tipo_regiao', 'periodicidades.titulo', 'textos_series.titulo', 'unidades.titulo')
                 ->orderBy('textos_series.titulo')

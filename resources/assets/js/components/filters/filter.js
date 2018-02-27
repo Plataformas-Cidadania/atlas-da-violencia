@@ -1,4 +1,4 @@
-class Type extends React.Component{
+class Filter extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -6,6 +6,7 @@ class Type extends React.Component{
             search:'',
             showtypes: false,
             typesSelected: [],
+            conditions: props.conditions ? props.conditions : [],
         };
 
         this.load = this.load.bind(this);
@@ -22,22 +23,34 @@ class Type extends React.Component{
         this.load();
     }
 
+    componentWillReceiveProps(){
+        if(this.state.conditions != props.conditions){
+            this.setState({condigions: props.conditions}, function(){
+                this.load();
+            });
+        }
+    }
+
     iconsType(data){
-        let icons = [];
+        if(this.props.iconsType){
+            let icons = [];
 
-        data.find(function(item){
-            icons.push(item.icon);
-        });
+            data.find(function(item){
+                icons.push(item.icon);
+            });
 
-        this.props.iconsType(icons);
+            this.props.iconsType(icons);
+        }
     }
 
     load(){
+        console.log(this.state.search);
         $.ajax({
             method:'POST',
-            url: 'types',
+            url: this.props.url,
             data:{
                 search:this.state.search,
+                conditions: this.state.conditions,
             },
             cache: false,
             success: function(data) {
@@ -160,7 +173,7 @@ class Type extends React.Component{
         //console.log(typesSelected);
 
         if(typesSelected.length===0){
-            typesSelected = "Pesquise pelo tipo de locomoção";
+            typesSelected = this.props.text;
         }
 
         return(

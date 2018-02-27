@@ -175,3 +175,11 @@ Route::post('values-for-types/', 'TransitoController@valuesForTypes');
 Route::post('values-for-gender/', 'TransitoController@valuesForGender');
 Route::post('values-for-regions/', 'TransitoController@valuesForRegions');
 Route::post('arrays-transito/', 'TransitoController@arraysTransito');
+
+//////////NOVA PÁGINAS DE FILTROS/////////////////////////
+Route::get('novo-filtros-series/{id}/{tema}', 'FiltrosSeriesController@index');
+//Route::post('get-temas', 'FiltrosSeriesController@temas');
+Route::post('get-indicadores', 'FiltrosSeriesController@indicadores');
+Route::post('get-abrangencias', 'FiltrosSeriesController@abrangencias');
+Route::post('list-series', 'FiltrosSeriesController@series');
+//////////////////////////////////////////////////////////

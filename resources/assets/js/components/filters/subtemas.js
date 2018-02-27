@@ -61,7 +61,7 @@ class Subtema extends React.Component{
             url: 'get-temas/'+this.state.tema_id,
             cache: false,
             success: function(data){
-                //console.log('subtemas', data);
+                console.log('subtemas', data);
                 this.setState({subtemas: data});
             }.bind(this),
             error: function(xhr, status, err){
@@ -85,7 +85,6 @@ class Subtema extends React.Component{
         //let componentSubtema = null;
 
 
-
         let subtemas = this.state.subtemas.map(function(item){
             return (
                 <option key={"subtema_"+item.id} value={item.id}>{item.tema}</option>
@@ -93,14 +92,16 @@ class Subtema extends React.Component{
         }.bind(this));
 
         return(
-            <div>
-                <br/>
-                <select className="form-control" onChange={this.select}>
-                    <option value="">Selecione</option>
-                    {subtemas}
-                </select>
-
-                {this.state.componentSubtema}
+            <div style={{display: this.state.subtemas.length>0 ? '' : 'none'}}>
+                <div style={{width: '300px', float:'left', marginRight: '10px'}}>
+                    <select className="form-control" onChange={this.select}>
+                        <option value="">Selecione</option>
+                        {subtemas}
+                    </select>
+                </div>
+                <div>
+                    {this.state.componentSubtema}
+                </div>
             </div>
         );
     }

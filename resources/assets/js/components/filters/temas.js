@@ -42,7 +42,7 @@ class Temas extends React.Component{
             url: 'get-temas/'+this.state.tema_id,
             cache: false,
             success: function(data){
-                console.log('subtemas', data);
+                console.log('temas', data);
                 this.setState({temas: data});
             }.bind(this),
             error: function(xhr, status, err){
@@ -62,8 +62,8 @@ class Temas extends React.Component{
         let temas = this.state.temas.map(function(item){
             return (
                 <div key={"tema2_"+item.id}
-                     style={{float: 'left', padding: '3px', cursor: 'pointer', width: '150px'}}
-                     className="text-center" title={item.tema}
+                     style={{float: 'left', padding: '3px', cursor: 'pointer', width: '120px'}}
+                     className="" title={item.tema}
                      onClick={() => this.select2(item.id)}
                 >
                         <img src={item.imagem ? "imagens/temas/sm-"+(item.imagem) : "img/default64.png"} className={(this.state.id==item.id ? '' : 'img-disable')}  />

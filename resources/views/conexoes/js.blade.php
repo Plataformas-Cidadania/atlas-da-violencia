@@ -373,7 +373,6 @@ print_r($periodo_limite);*/
 
 @endif
 
-
 @if($rota=='acidentes-transito')
     <link rel="stylesheet" href="lib/rslider/rSlider.min.css">
     {{--<script src="lib/rslider/rSlider.min.js"></script>--}}
@@ -405,4 +404,12 @@ print_r($periodo_limite);*/
     <script src="js/components/transito/listItems.js"></script>
     <script src="js/components/transito/filters.js"></script>
     <script src="js/components/transito/page.js"></script>
+@endif
+
+@if($rota=='novo-filtros-series/{id}/{tema}')
+    <script src="js/components/filters/temas.js"></script>
+    <script src="js/components/filters/subtemas.js"></script>
+    <script src="js/components/filters/filter.js"></script>
+    <script src="js/components/filters/list.js"></script>
+    <script src="js/components/filters/pageFilters.js"></script>
 @endif
