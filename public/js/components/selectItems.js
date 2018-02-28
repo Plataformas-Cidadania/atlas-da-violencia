@@ -302,6 +302,8 @@ class SelectItems extends React.Component {
 
         //console.log(this.state.parameters);
 
+        console.log(this.state);
+
         let filter = null;
         if (!this.state.option.listAll) {
             filter = this.state.option.filter.map(function (item) {

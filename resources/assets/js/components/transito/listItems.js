@@ -8,6 +8,7 @@ class ListItems extends React.Component{
             typesAccident: [],
             genders: [],
             currentPage: 1,
+            perPage: props.perPage ? props.perPage : 20,
         };
 
         this.loadArrays = this.loadArrays.bind(this);
@@ -141,6 +142,9 @@ class ListItems extends React.Component{
                 <Pagination
                     currentPage = {this.state.currentPage}
                     setCurrentPage = {this.setCurrentPage}
+                    total = {this.state.items.total}
+                    perPage = {this.state.perPage}
+                    lastPage = {this.state.items.last_page}
                 />
 
             </div>

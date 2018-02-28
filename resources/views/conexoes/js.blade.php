@@ -407,9 +407,12 @@ print_r($periodo_limite);*/
 @endif
 
 @if($rota=='novo-filtros-series/{id}/{tema}')
+    <script src="js/components/pagination.js"></script>
+    <script src="js/components/filters/modal.js"></script>
     <script src="js/components/filters/temas.js"></script>
     <script src="js/components/filters/subtemas.js"></script>
     <script src="js/components/filters/filter.js"></script>
     <script src="js/components/filters/list.js"></script>
+    <script src="js/components/selectItems.js"></script>
     <script src="js/components/filters/pageFilters.js"></script>
 @endif

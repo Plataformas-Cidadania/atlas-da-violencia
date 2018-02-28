@@ -7,7 +7,8 @@ class ListItems extends React.Component {
             types: [],
             typesAccident: [],
             genders: [],
-            currentPage: 1
+            currentPage: 1,
+            perPage: props.perPage ? props.perPage : 20
         };
 
         this.loadArrays = this.loadArrays.bind(this);
@@ -207,7 +208,10 @@ class ListItems extends React.Component {
             ),
             React.createElement(Pagination, {
                 currentPage: this.state.currentPage,
-                setCurrentPage: this.setCurrentPage
+                setCurrentPage: this.setCurrentPage,
+                total: this.state.items.total,
+                perPage: this.state.perPage,
+                lastPage: this.state.items.last_page
             })
         );
     }

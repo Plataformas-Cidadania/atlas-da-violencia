@@ -22,6 +22,7 @@ class Pagination extends React.Component{
     }
 
     componentWillReceiveProps(props){
+        //console.log('PROPS', props);
         if(
             (this.state.prev !== props.prev && props.prev !== undefined) ||
             (this.state.next !== props.next && props.next !== undefined) ||
@@ -43,7 +44,7 @@ class Pagination extends React.Component{
                     lastPage: props.lastPage,
                     perPage: props.perPage,
                     total: props.total,
-                    countNumbers: props.countNumbers,
+                    countNumbers: props.countNumbers ? props.countNumbers : this.state.countNumbers,
                 }
             );
         }
@@ -63,7 +64,10 @@ class Pagination extends React.Component{
         let firstNumber = 1;
         let half = Math.floor(this.state.countNumbers  / 2);
 
-        //console.log(half);
+
+        //console.log('HALF', half);
+
+        let lastPage = this.state.lastPage ? this.state.lastPage : 1;
 
         if(this.state.currentPage > half){
             firstNumber = this.state.currentPage - half;
@@ -73,19 +77,22 @@ class Pagination extends React.Component{
             numbers.push(<li key='pg...start'><a href="">...</a></li>);
         }
 
-        for(let i = firstNumber; i <= this.state.total; i++){
+        //console.log(lastPage);
+
+        for(let i = firstNumber; i <= lastPage; i++){
             let active = null;
 
             if(i==this.state.currentPage){
                 active = 'active';
             }
+            //console.log('PAGINATION', i, firstNumber, this.state.countNumbers);
 
             if(i==firstNumber+this.state.countNumbers){
-                numbers.push(<li key='pg...end'><a href="">...</a></li>);
+                numbers.push(<li key='pg...end'><a href="javascript:;">...</a></li>);
                 break;
             }
 
-            numbers.push(<li key={'pg'+i} className={active}><a href="" onClick={() => this.setCurrentPage(i)}>{i}</a></li>);
+            numbers.push(<li key={'pg'+i} className={active}><a href="javascript:;" onClick={() => this.setCurrentPage(i)}>{i}</a></li>);
         }
 
 
@@ -94,14 +101,14 @@ class Pagination extends React.Component{
             <nav aria-label="Page navigation">
                 <ul className="pagination">
                     <li className={this.state.prev}>
-                        <a href="" aria-label="Previous" onClick={() => this.setCurrentPage(this.state.currentPage-1)}>
+                        <a href="javascript:;" aria-label="Previous" onClick={() => this.setCurrentPage(this.state.currentPage-1)}>
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     {/*<li className="active"><a href="#">1</a></li>*/}
                     {numbers}
                     <li className={this.state.next} onClick={() => this.setCurrentPage(this.state.currentPage+1)}>
-                        <a href="" aria-label="Next">
+                        <a href="javascript:;" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

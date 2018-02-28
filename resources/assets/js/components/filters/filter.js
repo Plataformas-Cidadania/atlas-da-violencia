@@ -23,7 +23,7 @@ class Filter extends React.Component{
         this.load();
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps(props){
         if(this.state.conditions != props.conditions){
             this.setState({condigions: props.conditions}, function(){
                 this.load();
@@ -44,7 +44,7 @@ class Filter extends React.Component{
     }
 
     load(){
-        console.log(this.state.search);
+        //console.log(this.state.search);
         $.ajax({
             method:'POST',
             url: this.props.url,

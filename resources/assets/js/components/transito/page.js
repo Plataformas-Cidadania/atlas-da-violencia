@@ -213,7 +213,7 @@ class Page extends React.Component{
             },
             cache: false,
             success: function(data) {
-                console.log('values-for-regions', data);
+                //console.log('values-for-regions', data);
                 this.setState({valuesForRegions: data});
             }.bind(this),
             error: function(xhr, status, err) {
@@ -244,7 +244,7 @@ class Page extends React.Component{
             },
             cache: false,
             success: function(data) {
-                console.log('values-for-regions', data);
+                //console.log('values-for-regions', data);
                 this.setState({valuesForUfs: data});
             }.bind(this),
             error: function(xhr, status, err) {

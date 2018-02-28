@@ -22,6 +22,7 @@ class Pagination extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+        //console.log('PROPS', props);
         if (this.state.prev !== props.prev && props.prev !== undefined || this.state.next !== props.next && props.next !== undefined || this.state.currentPage !== props.currentPage && props.currentPage !== undefined || this.state.from !== props.from && props.from !== undefined || this.state.to !== props.to && props.to !== undefined || this.state.lastPage !== props.lastPage && props.lastPage !== undefined || this.state.perPage !== props.perPage && props.perPage !== undefined || this.state.total !== props.total && props.total !== undefined || this.state.countNumbers !== props.countNumbers && props.countNumbers !== undefined) {
             this.setState({
                 prev: props.prev,
@@ -32,7 +33,7 @@ class Pagination extends React.Component {
                 lastPage: props.lastPage,
                 perPage: props.perPage,
                 total: props.total,
-                countNumbers: props.countNumbers
+                countNumbers: props.countNumbers ? props.countNumbers : this.state.countNumbers
             });
         }
     }
@@ -50,7 +51,9 @@ class Pagination extends React.Component {
         let firstNumber = 1;
         let half = Math.floor(this.state.countNumbers / 2);
 
-        //console.log(half);
+        //console.log('HALF', half);
+
+        let lastPage = this.state.lastPage ? this.state.lastPage : 1;
 
         if (this.state.currentPage > half) {
             firstNumber = this.state.currentPage - half;
@@ -68,12 +71,15 @@ class Pagination extends React.Component {
             ));
         }
 
-        for (let i = firstNumber; i <= this.state.total; i++) {
+        //console.log(lastPage);
+
+        for (let i = firstNumber; i <= lastPage; i++) {
             let active = null;
 
             if (i == this.state.currentPage) {
                 active = 'active';
             }
+            //console.log('PAGINATION', i, firstNumber, this.state.countNumbers);
 
             if (i == firstNumber + this.state.countNumbers) {
                 numbers.push(React.createElement(
@@ -81,7 +87,7 @@ class Pagination extends React.Component {
                     { key: 'pg...end' },
                     React.createElement(
                         'a',
-                        { href: '' },
+                        { href: 'javascript:;' },
                         '...'
                     )
                 ));
@@ -93,7 +99,7 @@ class Pagination extends React.Component {
                 { key: 'pg' + i, className: active },
                 React.createElement(
                     'a',
-                    { href: '', onClick: () => this.setCurrentPage(i) },
+                    { href: 'javascript:;', onClick: () => this.setCurrentPage(i) },
                     i
                 )
             ));
@@ -110,7 +116,7 @@ class Pagination extends React.Component {
                     { className: this.state.prev },
                     React.createElement(
                         'a',
-                        { href: '', 'aria-label': 'Previous', onClick: () => this.setCurrentPage(this.state.currentPage - 1) },
+                        { href: 'javascript:;', 'aria-label': 'Previous', onClick: () => this.setCurrentPage(this.state.currentPage - 1) },
                         React.createElement(
                             'span',
                             { 'aria-hidden': 'true' },
@@ -124,7 +130,7 @@ class Pagination extends React.Component {
                     { className: this.state.next, onClick: () => this.setCurrentPage(this.state.currentPage + 1) },
                     React.createElement(
                         'a',
-                        { href: '', 'aria-label': 'Next' },
+                        { href: 'javascript:;', 'aria-label': 'Next' },
                         React.createElement(
                             'span',
                             { 'aria-hidden': 'true' },

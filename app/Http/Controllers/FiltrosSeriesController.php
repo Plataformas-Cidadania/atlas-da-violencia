@@ -89,14 +89,15 @@ class FiltrosSeriesController extends Controller
 
         $cacheKey = 'series-'.$parameters['tema_id'].'-'.$str_indicadores.'-'.$str_abrangencias.'-'.$idioma;
 
+
         //exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKey);
 
-        DB::connection()->enableQueryLog();
+        //DB::connection()->enableQueryLog();
 
         if(!$this->cache->has($cacheKey)){
             $this->cache->put($cacheKey, DB::table('series')
-                ->select(DB::raw('series.id, textos_series.titulo, unidades.titulo as titulo_unidade, periodicidades.titulo as periodicidade, min(valores_series.periodo) as min, max(valores_series.periodo) as max, valores_series.tipo_regiao'))
+                ->select(DB::raw('series.id, textos_series.titulo, valores_series.tipo_regiao, unidades.titulo as titulo_unidade, periodicidades.titulo as periodicidade, min(valores_series.periodo) as min, max(valores_series.periodo) as max'))
                 ->join('unidades', 'series.unidade', '=', 'unidades.id')
                 ->join('valores_series', 'valores_series.serie_id', '=', 'series.id')
                 ->join('periodicidades', 'series.periodicidade_id', '=', 'periodicidades.id')
@@ -105,20 +106,18 @@ class FiltrosSeriesController extends Controller
                 ->where([
                     ['textos_series.idioma_sigla', $idioma],
                     ['temas_series.tema_id', $parameters['tema_id']],
-                    ['textos_series.titulo', $parameters['search']]
-                    /*['series.indicador', $parameters['indicador']],*/
-                    /*['valores_series.tipo_regiao', $parameters['abrangencia']]*/
+                    ['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%']
                 ])
-                ->when(!empty($parameters['indicador']), function($query) use ($parameters){
+                ->when(!empty($parameters['indicadores']), function($query) use ($parameters){
                     return $query->whereIn('series.indicador', $parameters['indicadores']);
                 })
-                ->when(!empty($parameters['abrangencia']), function($query) use ($parameters){
-                    return $query->whereIn('series.tipo_regiao', $parameters['abrangencias']);
+                ->when(!empty($parameters['abrangencias']), function($query) use ($parameters){
+                    return $query->whereIn('valores_series.tipo_regiao', $parameters['abrangencias']);
                 })
                 //->orWhere('series.serie_id', $parameters['id'])
                 ->groupBy('series.id', 'valores_series.tipo_regiao', 'periodicidades.titulo', 'textos_series.titulo', 'unidades.titulo')
                 ->orderBy('textos_series.titulo')
-                ->get(), 60);
+                ->paginate(20), 60);
         }
 
         $series = $this->cache->get($cacheKey);
