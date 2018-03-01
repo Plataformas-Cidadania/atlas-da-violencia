@@ -8,7 +8,7 @@ class Modal extends React.Component {
 
         return React.createElement(
             "div",
-            { id: this.props.id, className: "modal fade", tabindex: "-1", role: "dialog" },
+            { id: this.props.id, className: "modal fade", tabindex: "-1", role: "dialog", style: { zIndex: '9999999999999999999' } },
             React.createElement(
                 "div",
                 { className: "modal-dialog", role: "document" },
@@ -36,11 +36,7 @@ class Modal extends React.Component {
                     React.createElement(
                         "div",
                         { className: "modal-body" },
-                        React.createElement(
-                            "p",
-                            null,
-                            this.props.body
-                        )
+                        this.props.body
                     ),
                     React.createElement(
                         "div",

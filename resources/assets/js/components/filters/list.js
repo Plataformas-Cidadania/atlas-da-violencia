@@ -9,6 +9,7 @@ class List extends React.Component{
         };
 
         this.select = this.select.bind(this);
+        this.getAbrangencia = this.getAbrangencia.bind(this);
     }
 
     componentDidMount(){
@@ -31,6 +32,16 @@ class List extends React.Component{
         this.props.select(id);
     }
 
+    getAbrangencia(codAbrangencia){
+        let abrangencia = null;
+        this.props.abrangencias.find(function(item){
+            if(item.id===codAbrangencia){
+               abrangencia = item.title;
+            }
+        });
+
+        return abrangencia;
+    }
 
     render(){
 
@@ -55,13 +66,25 @@ class List extends React.Component{
                     if(this.state.showId==0 && col=='id'){
                         return;
                     }
+
+                    let content = item[col];
+
+                    if(col==='min' || col==='max'){
+                        content = content.substr(0, 4);
+                    }
+
+                    if(col==='tipo_regiao'){
+                        content = this.getAbrangencia(content);
+                    }
+
+
                     return (
-                        <td key={'colum-serie-name'+i}>{item[col]}</td>
+                        <td key={'colum-serie-name'+i}>{content}</td>
                     );
                 }.bind(this));
 
                 return(
-                    <tr key={'item-serie'+index} onClick={() => this.select(item['id'])}>{columns}</tr>
+                    <tr key={'item-serie'+index} onClick={() => this.select(item)}>{columns}</tr>
                 );
             }.bind(this));
 

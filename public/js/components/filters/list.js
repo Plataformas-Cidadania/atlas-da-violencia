@@ -9,6 +9,7 @@ class List extends React.Component {
         };
 
         this.select = this.select.bind(this);
+        this.getAbrangencia = this.getAbrangencia.bind(this);
     }
 
     componentDidMount() {}
@@ -27,6 +28,17 @@ class List extends React.Component {
 
     select(id) {
         this.props.select(id);
+    }
+
+    getAbrangencia(codAbrangencia) {
+        let abrangencia = null;
+        this.props.abrangencias.find(function (item) {
+            if (item.id === codAbrangencia) {
+                abrangencia = item.title;
+            }
+        });
+
+        return abrangencia;
     }
 
     render() {
@@ -54,16 +66,27 @@ class List extends React.Component {
                     if (this.state.showId == 0 && col == 'id') {
                         return;
                     }
+
+                    let content = item[col];
+
+                    if (col === 'min' || col === 'max') {
+                        content = content.substr(0, 4);
+                    }
+
+                    if (col === 'tipo_regiao') {
+                        content = this.getAbrangencia(content);
+                    }
+
                     return React.createElement(
                         'td',
                         { key: 'colum-serie-name' + i },
-                        item[col]
+                        content
                     );
                 }.bind(this));
 
                 return React.createElement(
                     'tr',
-                    { key: 'item-serie' + index, onClick: () => this.select(item['id']) },
+                    { key: 'item-serie' + index, onClick: () => this.select(item) },
                     columns
                 );
             }.bind(this));

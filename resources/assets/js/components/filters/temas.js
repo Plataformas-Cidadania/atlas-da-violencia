@@ -79,8 +79,7 @@ class Temas extends React.Component{
                 <br/>
                 {temas}
                 <div style={{clear: 'both'}}/>
-                <br/>
-
+                <h3>Subtemas</h3>
                 {subtema}
             </div>
         );

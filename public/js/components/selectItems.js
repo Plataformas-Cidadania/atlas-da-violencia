@@ -84,7 +84,9 @@ class SelectItems extends React.Component {
         let parameters = this.state.parameters;
         parameters.option = this.props.option;
         this.setState({ option: this.props.option, parameters: parameters }, function () {
-            this.loadData();
+            if (this.state.option) {
+                this.loadData();
+            }
         });
     }
 
@@ -301,6 +303,10 @@ class SelectItems extends React.Component {
     render() {
 
         //console.log(this.state.parameters);
+
+        if (!this.state.option) {
+            return null;
+        }
 
         console.log(this.state);
 

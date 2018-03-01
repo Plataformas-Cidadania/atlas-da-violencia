@@ -350,10 +350,12 @@ class SerieController extends Controller
 
             if($abrangencia==1 || $abrangencia==2 || $abrangencia==3){
 
-                $coluna_edterritorios = 'edterritorios_nome';
-                if($abrangencia==3){//regiao
-                    $coluna_edterritorios = 'edterritorios_sigla';
-                }
+                //$coluna_edterritorios = 'edterritorios_nome';
+                //if($abrangencia==3){//regiao
+                    //$coluna_edterritorios = 'edterritorios_sigla';
+                //}
+
+                $coluna_edterritorios = 'edterritorios_sigla';
 
                 $tabelas = $this->getTabelas();
                 //$abrangencias = $this->getAbrangencias();
@@ -395,6 +397,8 @@ class SerieController extends Controller
                     ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
                 );
             }
+
+            //Log::info(DB::getQueryLog());
         }
     }
 

@@ -8,9 +8,12 @@ class PageFilters extends React.Component{
             indicadores: [],
             abrangencias: [],
             currentPageListItems: 1,
-            serieSelected: null,
-            abrangenciaSelected: null,
-            regionsSelected: [],
+            serieMarked: null,
+            abrangencia: null,
+            regions: [],
+            periodos: [],
+            from: null,
+            to: null,
             optionsAbrangencia: [
                 {id: 1, title: 'País', plural: ' os Países', on:false, listAll:1, height: '250px'},
                 {id: 2, title: 'Região', plural: 'as Regiões', on:false, listAll:1, height: '250px'},
@@ -55,6 +58,8 @@ class PageFilters extends React.Component{
         this.checkIndicadores = this.checkIndicadores.bind(this);
         this.checkAbrangencias = this.checkAbrangencias.bind(this);
         this.selectSerie = this.selectSerie.bind(this);
+        this.setRegions = this.setRegions.bind(this);
+        this.loadPeriodos = this.loadPeriodos.bind(this);
     }
 
     componentDidMount(){
@@ -122,16 +127,23 @@ class PageFilters extends React.Component{
         });
     }
 
-    selectSerie(id){
-        this.setState({serieSelected: id}, function(){
+    selectSerie(item){
+
+        let optionsAbrangencia = this.state.optionsAbrangencia;
+
+        optionsAbrangencia.find(function(option){
+            option.on = option.id === item.tipo_regiao;
+        });
+
+        console.log('ITEM CLICADO', item);
+        console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
+
+        this.setState({serieMarked: item.id, abrangencia: item.tipo_regiao}, function(){
+            this.loadPeriodos();
             $("#modalAbrangencias").modal();
         });
     }
 
-    enviar(e){
-        e.preventDefault();
-        console.log('enviar');
-    }
 
     selectedAbrangencia(){
         let option = null;
@@ -144,9 +156,37 @@ class PageFilters extends React.Component{
         //return option;
     }
 
-    setRegions(){
+    setRegions(regions){
 
+        let regionsId = [];
+        for(let i in regions){
+            regionsId.push(regions[i].id)
+        }
+
+        console.log(regionsId);
+
+        this.setState({regions: regionsId});
     }
+
+    loadPeriodos(){
+        $.ajax("periodos/"+this.state.serieMarked+"/"+this.state.abrangencia, {
+            data: {},
+            success: function(data){
+                //console.log('range', data);
+                this.setState({periodos: data, from:data[0], to:data[data.length-1]}, function(){
+
+                });
+            }.bind(this),
+            error: function(data){
+                console.log('erro');
+            }.bind(this)
+        })
+    }
+
+    submit(){
+        $('#formFiltros').submit();
+    }
+
 
     render(){
 
@@ -159,7 +199,10 @@ class PageFilters extends React.Component{
             />
         );
 
-        selectItems = null;
+        let btnContinuar = <button type="button" className="btn btn-primary" onClick={() => this.submit()} disabled >Continuar</button>;
+        if(this.state.regions.length > 0 && this.state.periodos.length > 0 && this.state.from && this.state.to && this.state.abrangencia && this.state.serieMarked){
+            btnContinuar = <button type="button" className="btn btn-primary" onClick={() => this.submit()}  >Continuar</button>
+        }
 
 
         return(
@@ -210,11 +253,12 @@ class PageFilters extends React.Component{
                     <div className="col-md-9">
                         <List
                             items={this.state.items}
-                            head={['Série', 'Abrangência', 'Unidade', 'Frequência', 'Inicial', 'Final']}
+                            head={['Série', 'Abrangência', 'Unidade', 'Periodicidade', 'Inicial', 'Final']}
                             showId='0'
                             setCurrentPageListItems = {this.setCurrentPageListItems}
                             perPage='20'
                             select={this.selectSerie}
+                            abrangencias={this.state.optionsAbrangencia}
                         />
                     </div>
                 </div>
@@ -226,10 +270,22 @@ class PageFilters extends React.Component{
                     buttons={(
                         <div>
                             <button type="button" className="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-primary" onClick={this.enviar}>Continuar</button>
+                            {btnContinuar}
                         </div>
                     )}
                 />
+
+                <form id="formFiltros" style={{display:'none'}} action="dados-series" method="POST">
+                    <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                    <input type="hidden" name="id" value={this.state.serieMarked}/>
+                    <input type="hidden" name="from" value={this.state.from}/>
+                    <input type="hidden" name="to" value={this.state.to}/>
+                    <input type="hidden" name="periodos" value={this.state.periodos}/>
+                    <input type="hidden" name="regions" value={this.state.regions}/>
+                    <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                    {/*<input type="hidden" name="typeRegion" value={this.state.typeRegion}/>
+                    <input type="hidden" name="typeRegionSerie" value={this.state.typeRegionSerie}/>*/}
+                </form>
 
             </div>
         );

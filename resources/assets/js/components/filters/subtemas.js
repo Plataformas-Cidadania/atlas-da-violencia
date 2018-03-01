@@ -37,7 +37,6 @@ class Subtema extends React.Component{
         this.setState({id: id});
         let promise = this.loadSubtemas(id).success(function(data){
             if(data.length){
-                console.log('aaaa');
                 let subtema = <Subtema setTema={this.props.setTema} tema_id={id}/>;
                 this.setState({componentSubtema: subtema});
             }else{
@@ -95,7 +94,7 @@ class Subtema extends React.Component{
             <div style={{display: this.state.subtemas.length>0 ? '' : 'none'}}>
                 <div style={{width: '300px', float:'left', marginRight: '10px'}}>
                     <select className="form-control" onChange={this.select}>
-                        <option value="">Selecione</option>
+                        <option value="">Todos</option>
                         {subtemas}
                     </select>
                 </div>

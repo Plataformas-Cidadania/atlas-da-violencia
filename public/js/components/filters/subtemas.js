@@ -37,7 +37,6 @@ class Subtema extends React.Component {
         this.setState({ id: id });
         let promise = this.loadSubtemas(id).success(function (data) {
             if (data.length) {
-                console.log('aaaa');
                 let subtema = React.createElement(Subtema, { setTema: this.props.setTema, tema_id: id });
                 this.setState({ componentSubtema: subtema });
             } else {
@@ -105,7 +104,7 @@ class Subtema extends React.Component {
                     React.createElement(
                         'option',
                         { value: '' },
-                        'Selecione'
+                        'Todos'
                     ),
                     subtemas
                 )

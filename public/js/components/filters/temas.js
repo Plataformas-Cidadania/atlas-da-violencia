@@ -83,7 +83,11 @@ class Temas extends React.Component {
             React.createElement('br', null),
             temas,
             React.createElement('div', { style: { clear: 'both' } }),
-            React.createElement('br', null),
+            React.createElement(
+                'h3',
+                null,
+                'Subtemas'
+            ),
             subtema
         );
     }
