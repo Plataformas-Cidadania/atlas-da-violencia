@@ -10,6 +10,7 @@ class SelectItems extends React.Component{
             parameters: {filter:0},
             items:[],
             itemsSelected:[],
+            conditions: props.conditions ? props.conditions : null,
             style: {
                 boxOptions: {
                     border: 'solid 1px #CCCCCC',
@@ -101,6 +102,14 @@ class SelectItems extends React.Component{
                 this.loadData();
             });
         }
+
+        if(this.state.conditions != props.conditions){
+            this.setState({conditions: props.conditions}, function(){
+                if(this.state.option){
+                    this.loadData();
+                }
+            });
+        }
     }
 
     handleChange(e){
@@ -129,7 +138,8 @@ class SelectItems extends React.Component{
             url: this.props.url,
             data: {
                 search: this.state.search,
-                parameters: this.state.parameters
+                parameters: this.state.parameters,
+                conditions: this.state.conditions
             },
             cache: false,
             success: function(data){

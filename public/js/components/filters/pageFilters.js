@@ -155,6 +155,7 @@ class PageFilters extends React.Component {
 
         let selectItems = React.createElement(SelectItems, {
             url: 'territorios',
+            conditions: { id: this.state.serieMarked },
             option: this.selectedAbrangencia(),
             options: this.state.optionsAbrangencia,
             setItems: this.setRegions

@@ -432,6 +432,11 @@ class SerieController extends Controller
         $list = $request->parameters['option']['listAll'];
         $filter = $request->parameters['filter'];
 
+        $conditions = null;
+        if($request->conditions){
+            $conditions = $request->conditions;
+        }
+
         $search = $request->search;
 
         if(($list==0 && $filter==0) && empty($search)){
@@ -471,8 +476,14 @@ class SerieController extends Controller
             $abrangencias = DB::table($tabelas[$tipo])
                 ->select('edterritorios_codigo as id', 'edterritorios_nome as title', 'edterritorios_sigla as sigla')
                 ->where($where)
+                ->when($conditions, function($query) use ($conditions, $tabelas, $tipo){
+                    return $query->join('valores_series', 'valores_series.regiao_id', '=', $tabelas[$tipo].'.edterritorios_codigo')
+                        ->where('valores_series.serie_id', $conditions['id'])
+                        ->where('valores_series.tipo_regiao', $tipo);
+                })
                 ->get();
             //Log::info(DB::getQueryLog());
+
             return $abrangencias;
         }
 

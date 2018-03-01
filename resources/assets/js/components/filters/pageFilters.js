@@ -193,6 +193,7 @@ class PageFilters extends React.Component{
         let selectItems = (
             <SelectItems
                 url="territorios"
+                conditions={{id: this.state.serieMarked}}
                 option={this.selectedAbrangencia()}
                 options={this.state.optionsAbrangencia}
                 setItems={this.setRegions}
