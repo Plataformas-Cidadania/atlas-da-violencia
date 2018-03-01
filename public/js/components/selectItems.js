@@ -325,16 +325,20 @@ class SelectItems extends React.Component {
             filter = this.state.option.filter.map(function (item) {
                 return React.createElement(
                     'option',
-                    { key: item.id, value: item.id },
+                    { key: 'option-item' + item.id, value: item.id },
                     item.title
                 );
             });
         }
 
         let items = this.state.items.map(function (item) {
+
+            //let rand = null;
+            //let rand = Math.floor((Math.random() * 100) + 1);
+
             return React.createElement(
                 'div',
-                { key: item.id, onClick: () => this.select(item.id) },
+                { key: 'item' + item.id, onClick: () => this.select(item.id) },
                 React.createElement(
                     'li',
                     { style: this.state.style.boxOptionsLi },
@@ -361,7 +365,7 @@ class SelectItems extends React.Component {
 
             return React.createElement(
                 'li',
-                { key: 's' + itemSelected.id, style: this.state.style.boxOptionsLi, onClick: () => this.remove(itemSelected.id) },
+                { key: 'item-selected' + itemSelected.id, style: this.state.style.boxOptionsLi, onClick: () => this.remove(itemSelected.id) },
                 React.createElement('i', { className: 'fa fa-check-square fa-options-active', style: this.state.style.faOptionsActive, 'aria-hidden': 'true' }),
                 '\xA0',
                 itemSelected.title,

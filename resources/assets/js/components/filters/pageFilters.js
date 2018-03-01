@@ -127,7 +127,7 @@ class PageFilters extends React.Component{
         });
     }
 
-    selectSerie(item){
+    selectSerie(item, all){
 
         let optionsAbrangencia = this.state.optionsAbrangencia;
 
@@ -140,6 +140,10 @@ class PageFilters extends React.Component{
 
         this.setState({serieMarked: item.id, abrangencia: item.tipo_regiao}, function(){
             this.loadPeriodos();
+            if(all){
+                this.submit();
+                return;
+            }
             $("#modalAbrangencias").modal();
         });
     }
@@ -254,7 +258,7 @@ class PageFilters extends React.Component{
                     <div className="col-md-9">
                         <List
                             items={this.state.items}
-                            head={['Série', 'Abrangência', 'Unidade', 'Periodicidade', 'Inicial', 'Final']}
+                            head={['Série', 'Abrangência', 'Unidade', 'Periodicidade', 'Inicial', 'Final', 'Territórios', '']}
                             showId='0'
                             setCurrentPageListItems = {this.setCurrentPageListItems}
                             perPage='20'

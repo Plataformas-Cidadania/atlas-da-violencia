@@ -330,19 +330,24 @@ class SelectItems extends React.Component{
 
         console.log(this.state);
 
+
         let filter = null;
         if(!this.state.option.listAll){
             filter = this.state.option.filter.map(function(item){
                 return(
-                    <option key={item.id} value={item.id}>{item.title}</option>
+                    <option key={'option-item'+item.id} value={item.id}>{item.title}</option>
                 );
             });
         }
 
 
         let items = this.state.items.map(function(item){
+
+            //let rand = null;
+            //let rand = Math.floor((Math.random() * 100) + 1);
+
             return(
-                <div key={item.id} onClick={() => this.select(item.id)}>
+                <div key={'item'+item.id} onClick={() => this.select(item.id)}>
                     <li style={this.state.style.boxOptionsLi}>
                         <i className={"fa " + (item.selected ? "fa-check-square" : "fa-square-o")}
                            style={item.selected ? this.state.style.faOptionsActive : this.state.boxOptionsI} aria-hidden="true"/> {item.title}
@@ -366,7 +371,7 @@ class SelectItems extends React.Component{
             }*/
 
             return (
-                <li key={'s'+itemSelected.id} style={this.state.style.boxOptionsLi} onClick={() => this.remove(itemSelected.id)}>
+                <li key={'item-selected'+itemSelected.id} style={this.state.style.boxOptionsLi} onClick={() => this.remove(itemSelected.id)}>
                     <i className="fa fa-check-square fa-options-active" style={this.state.style.faOptionsActive} aria-hidden="true"/>
                     &nbsp;{itemSelected.title}
                     <i className="fa fa-times fa-options-times" style={Object.assign({}, this.state.style.boxOptionsI, this.state.style.faOptionsTimes)} aria-hidden="true"/>

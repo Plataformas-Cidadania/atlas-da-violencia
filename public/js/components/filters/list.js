@@ -26,8 +26,8 @@ class List extends React.Component {
         });
     }
 
-    select(id) {
-        this.props.select(id);
+    select(id, all) {
+        this.props.select(id, all);
     }
 
     getAbrangencia(codAbrangencia) {
@@ -62,6 +62,30 @@ class List extends React.Component {
 
                 //console.log(columnsNames);
 
+                let buttons = [React.createElement(
+                    'td',
+                    null,
+                    React.createElement(
+                        'button',
+                        { className: 'btn btn-primary', style: { float: 'right' }, onClick: () => this.select(item, false), title: 'selecionar territ\xF3rios' },
+                        React.createElement('i', { className: 'fa fa-edit', style: { fontSize: '1.5em' } })
+                    )
+                ), React.createElement(
+                    'td',
+                    null,
+                    React.createElement(
+                        'button',
+                        { className: 'btn btn-primary', onClick: () => this.select(item, true), title: 'todos os territ\xF3rios' },
+                        React.createElement('i', { className: 'fa fa-arrow-circle-right', style: { fontSize: '1.5em' } })
+                    )
+                )];
+                /*let buttons = [
+                    <td>
+                        <button className='btn btn-primary' onClick={() => this.select(item, false)}><i className="fa fa-edit" style={{fontSize: '1.5em'}}/></button>&nbsp;&nbsp;
+                        <button className='btn btn-primary' onClick={() => this.select(item, true)}><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button>
+                    </td>
+                ];*/
+
                 let columns = columnsNames.map(function (col, i) {
                     if (this.state.showId == 0 && col == 'id') {
                         return;
@@ -84,9 +108,13 @@ class List extends React.Component {
                     );
                 }.bind(this));
 
+                buttons.find(function (btn) {
+                    columns.push(btn);
+                });
+
                 return React.createElement(
                     'tr',
-                    { key: 'item-serie' + index, onClick: () => this.select(item) },
+                    { key: 'item-serie' + index },
                     columns
                 );
             }.bind(this));

@@ -194,6 +194,9 @@ class SerieController extends Controller
                     ['valores_series.periodo', $min],
                     ['valores_series.tipo_regiao', $abrangencia]
                 ])
+                /*->when(!empty($regions), function($query) use ($regions){
+                    return $query->whereIn('valores_series.regiao_id', $regions);
+                })*/
                 ->whereIn('valores_series.regiao_id', $regions)
                 ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
                 ->get(), 720);
@@ -312,6 +315,9 @@ class SerieController extends Controller
                     ['valores_series.periodo', '<=', $max],
                     ['valores_series.tipo_regiao', '<=', $abrangencia]
                 ])
+                /*->when(!empty($regions), function($query) use ($regions, $tabelas, $abrangencia){
+                    return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions);
+                })*/
                 ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
                 ->orderBy('valores_series.periodo')
                 ->get(), 720);
@@ -481,6 +487,7 @@ class SerieController extends Controller
                         ->where('valores_series.serie_id', $conditions['id'])
                         ->where('valores_series.tipo_regiao', $tipo);
                 })
+                ->distinct()
                 ->get();
             //Log::info(DB::getQueryLog());
 
