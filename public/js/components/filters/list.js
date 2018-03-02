@@ -62,7 +62,15 @@ class List extends React.Component {
 
                 //console.log(columnsNames);
 
-                let buttons = [React.createElement(
+                /*let buttons = [
+                    <td key='btn-selecionar-territorios'>
+                        <button className='btn btn-primary' style={{float: 'right'}} onClick={() => this.select(item, false)} title="selecionar territórios"><i className="fa fa-edit" style={{fontSize: '1.5em'}}/></button>
+                    </td>,
+                    <td key='btn-todos-os-territorios'><button className='btn btn-primary' onClick={() => this.select(item, true)} title="todos os territórios"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button></td>
+                 ];*/
+
+                let buttons = [];
+                buttons.push(React.createElement(
                     'td',
                     { key: 'btn-selecionar-territorios' },
                     React.createElement(
@@ -70,15 +78,19 @@ class List extends React.Component {
                         { className: 'btn btn-primary', style: { float: 'right' }, onClick: () => this.select(item, false), title: 'selecionar territ\xF3rios' },
                         React.createElement('i', { className: 'fa fa-edit', style: { fontSize: '1.5em' } })
                     )
-                ), React.createElement(
-                    'td',
-                    { key: 'btn-todos-os-territorios' },
-                    React.createElement(
-                        'button',
-                        { className: 'btn btn-primary', onClick: () => this.select(item, true), title: 'todos os territ\xF3rios' },
-                        React.createElement('i', { className: 'fa fa-arrow-circle-right', style: { fontSize: '1.5em' } })
-                    )
-                )];
+                ));
+                if (item.tipo_regiao != 4) {
+                    buttton.push(React.createElement(
+                        'td',
+                        { key: 'btn-todos-os-territorios' },
+                        React.createElement(
+                            'button',
+                            { className: 'btn btn-success', onClick: () => this.select(item, true), title: 'todos os territ\xF3rios' },
+                            React.createElement('i', { className: 'fa fa-arrow-circle-right', style: { fontSize: '1.5em' } })
+                        )
+                    ));
+                }
+
                 /*let buttons = [
                     <td>
                         <button className='btn btn-primary' onClick={() => this.select(item, false)}><i className="fa fa-edit" style={{fontSize: '1.5em'}}/></button>&nbsp;&nbsp;
