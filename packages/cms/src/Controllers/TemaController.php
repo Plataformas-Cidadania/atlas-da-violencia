@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
-use function MongoDB\BSON\toJSON;
+//use function MongoDB\BSON\toJSON;
 
 class TemaController extends Controller
 {

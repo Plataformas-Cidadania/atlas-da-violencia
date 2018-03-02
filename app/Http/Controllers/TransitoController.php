@@ -253,7 +253,7 @@ class TransitoController extends Controller
     }
 
 
-    public function types(){
+    public function types(Request $request){
         $types = [
             ['id' => '0', 'title' => 'Não Informado', 'icon' => 'outros.png'],
             ['id' => '1', 'title' => 'Automóvel', 'icon' => 'automovel.png'],
@@ -265,6 +265,19 @@ class TransitoController extends Controller
             ['id' => '7', 'title' => 'Outros', 'icon' => 'outros.png'],
 
         ];
+
+        if(!empty($request->search)){
+            $foundTypes = [];
+
+            foreach($types as $type){
+                if(stripos($type['title'], $request->search) !== false){
+                    array_push($foundTypes, $type);
+                }
+            }
+
+            return $foundTypes;
+        }
+
 
         return $types;
     }
