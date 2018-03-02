@@ -82,7 +82,7 @@ class List extends React.Component {
                 buttons[1] = React.createElement(
                     'td',
                     null,
-                    '"\xA0"'
+                    '\xA0'
                 );
                 if (item.tipo_regiao != 4) {
                     buttons[1] = React.createElement(
