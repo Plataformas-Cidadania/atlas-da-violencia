@@ -77,7 +77,7 @@ class List extends React.Component{
                     </td>
                 );
                 if(item.tipo_regiao != 4){
-                    buttton.push(<td key='btn-todos-os-territorios'><button className='btn btn-success' onClick={() => this.select(item, true)} title="todos os territórios"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button></td>);
+                    buttons.push(<td key='btn-todos-os-territorios'><button className='btn btn-success' onClick={() => this.select(item, true)} title="todos os territórios"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button></td>);
                 }
 
                 /*let buttons = [

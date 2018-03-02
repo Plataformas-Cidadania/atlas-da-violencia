@@ -80,7 +80,7 @@ class List extends React.Component {
                     )
                 ));
                 if (item.tipo_regiao != 4) {
-                    buttton.push(React.createElement(
+                    buttons.push(React.createElement(
                         'td',
                         { key: 'btn-todos-os-territorios' },
                         React.createElement(
