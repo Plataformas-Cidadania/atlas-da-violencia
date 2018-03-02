@@ -76,7 +76,7 @@ class List extends React.Component{
                         <button className='btn btn-primary' style={{float: 'right'}} onClick={() => this.select(item, false)} title="selecionar territórios"><i className="fa fa-edit" style={{fontSize: '1.5em'}}/></button>
                     </td>
                 );
-                buttons[1] = "&nbsp;";
+                buttons[1] = <td>"&nbsp;"</td>;
                 if(item.tipo_regiao != 4){
                     buttons[1] = (<td key='btn-todos-os-territorios'><button className='btn btn-success' onClick={() => this.select(item, true)} title="todos os territórios"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button></td>);
                 }

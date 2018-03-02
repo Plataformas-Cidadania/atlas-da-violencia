@@ -79,7 +79,11 @@ class List extends React.Component {
                         React.createElement('i', { className: 'fa fa-edit', style: { fontSize: '1.5em' } })
                     )
                 );
-                buttons[1] = "&nbsp;";
+                buttons[1] = React.createElement(
+                    'td',
+                    null,
+                    '"\xA0"'
+                );
                 if (item.tipo_regiao != 4) {
                     buttons[1] = React.createElement(
                         'td',
