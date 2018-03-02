@@ -14,6 +14,7 @@ class PageFilters extends React.Component {
             periodos: [],
             from: null,
             to: null,
+            loadingDefaultValues: false,
             optionsAbrangencia: [{ id: 1, title: 'País', plural: ' os Países', on: false, listAll: 1, height: '250px' }, { id: 2, title: 'Região', plural: 'as Regiões', on: false, listAll: 1, height: '250px' }, { id: 3, title: 'UF', plural: 'os Estados', on: false, listAll: 1, height: '400px' }, { id: 4, title: 'Município', plural: 'os Municípios', on: false, listAll: 0, height: '400px',
                 filter: [{ id: 12, title: 'Acre' }, { id: 27, title: 'Alagoas' }, { id: 13, title: 'Amazonas' }, { id: 16, title: 'Amapá' }, { id: 29, title: 'Bahia' }, { id: 23, title: 'Ceará' }, { id: 53, title: 'Distrito Federal' }, { id: 32, title: 'Espirito Santo' }, { id: 52, title: 'Goiás' }, { id: 21, title: 'Maranhão' }, { id: 50, title: 'Mato Grosso do Sul' }, { id: 51, title: 'Mato Grosso' }, { id: 31, title: 'Minas Gerais' }, { id: 15, title: 'Pará' }, { id: 41, title: 'Paraná' }, { id: 25, title: 'Paraíba' }, { id: 26, title: 'Pernambuco' }, { id: 22, title: 'Piauí' }, { id: 33, title: 'Rio de Janeiro' }, { id: 24, title: 'Rio Grande do Norte' }, { id: 43, title: 'Rio Grande do Sul' }, { id: 11, title: 'Rondônia' }, { id: 14, title: 'Roraima' }, { id: 42, title: 'Santa Catarina' }, { id: 35, title: 'São Paulo' }, { id: 28, title: 'Sergipe' }, { id: 17, title: 'Tocantins' }]
 
@@ -27,6 +28,8 @@ class PageFilters extends React.Component {
         this.selectSerie = this.selectSerie.bind(this);
         this.setRegions = this.setRegions.bind(this);
         this.loadPeriodos = this.loadPeriodos.bind(this);
+        this.loadDefaultValues = this.loadDefaultValues.bind(this);
+        this.loadRegions = this.loadRegions.bind(this);
     }
 
     componentDidMount() {
@@ -34,7 +37,20 @@ class PageFilters extends React.Component {
     }
 
     setTema(tema) {
-        this.setState({ tema: tema });
+        this.setState({
+            tema: tema,
+            items: [],
+            indicadores: [],
+            abrangencias: [],
+            serieMarked: null,
+            abrangencia: null,
+            regions: [],
+            periodos: [],
+            from: null,
+            to: null
+        }, function () {
+            this.loadItems();
+        });
     }
 
     setCurrentPageListItems(page) {
@@ -106,11 +122,14 @@ class PageFilters extends React.Component {
         console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
 
         this.setState({ serieMarked: item.id, abrangencia: item.tipo_regiao }, function () {
-            this.loadPeriodos();
             if (all) {
-                this.submit();
+                this.setState({ loadingDefaultValues: true });
+                this.loadDefaultValues();
+                //this.submit();
                 return;
             }
+
+            this.loadPeriodos();
             $("#modalAbrangencias").modal();
         });
     }
@@ -138,8 +157,18 @@ class PageFilters extends React.Component {
         this.setState({ regions: regionsId });
     }
 
+    loadDefaultValues() {
+        this.loadPeriodos().then(function () {
+            //console.log(this.state.periodos);
+            this.loadRegions().then(function () {
+                //console.log(this.state.regions);
+                this.submit();
+            }.bind(this));
+        }.bind(this));
+    }
+
     loadPeriodos() {
-        $.ajax("periodos/" + this.state.serieMarked + "/" + this.state.abrangencia, {
+        return $.ajax("periodos/" + this.state.serieMarked + "/" + this.state.abrangencia, {
             data: {},
             success: function (data) {
                 //console.log('range', data);
@@ -147,6 +176,25 @@ class PageFilters extends React.Component {
             }.bind(this),
             error: function (data) {
                 console.log('erro');
+            }.bind(this)
+        });
+    }
+
+    loadRegions() {
+        return $.ajax({
+            method: 'POST',
+            url: 'territorios-serie-abrangencia',
+            data: {
+                id: this.state.serieMarked,
+                abrangencia: this.state.abrangencia
+            },
+            cache: false,
+            success: function (data) {
+                //console.log('regions default', data);
+                this.setState({ regions: data });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.log('erro', err);
             }.bind(this)
         });
     }
@@ -181,15 +229,11 @@ class PageFilters extends React.Component {
         return React.createElement(
             'div',
             { className: 'container' },
-            React.createElement(Temas, {
-                tema_id: this.state.tema,
-                setTema: this.setTema
-            }),
-            React.createElement('br', null),
-            React.createElement('br', null),
-            React.createElement('br', null),
-            React.createElement('hr', { style: { width: '95%' } }),
-            React.createElement('br', null),
+            React.createElement(
+                'h1',
+                null,
+                'Consultas'
+            ),
             React.createElement('br', null),
             React.createElement(
                 'div',
@@ -199,16 +243,19 @@ class PageFilters extends React.Component {
                     { className: 'col-md-3' },
                     React.createElement(
                         'fieldset',
-                        null,
+                        { style: { marginTop: '-15px' } },
                         React.createElement(
                             'legend',
                             null,
-                            'Pesquisa'
+                            'Temas'
                         ),
                         React.createElement(
                             'div',
                             { style: { margin: '10px' } },
-                            React.createElement('input', { className: 'form-control', onChange: this.handleSearch, type: 'text' })
+                            React.createElement(Temas, {
+                                tema_id: this.state.tema,
+                                setTema: this.setTema
+                            })
                         )
                     ),
                     React.createElement(
@@ -257,6 +304,8 @@ class PageFilters extends React.Component {
                 React.createElement(
                     'div',
                     { className: 'col-md-9' },
+                    React.createElement('input', { className: 'form-control', onChange: this.handleSearch, type: 'text', placeholder: 'Pesquise pelo nome' }),
+                    React.createElement('br', null),
                     React.createElement(List, {
                         items: this.state.items,
                         head: ['Série', 'Abrangência', 'Unidade', 'Periodicidade', 'Inicial', 'Final', 'Territórios', ''],
@@ -283,6 +332,42 @@ class PageFilters extends React.Component {
                     btnContinuar
                 )
             }),
+            React.createElement(
+                'div',
+                { style: {
+                        position: 'fixed',
+                        top: 0, right: 0, bottom: 0, left: 0,
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                        width: '100%',
+                        height: '100%',
+                        zIndex: '99999999999999999',
+                        display: this.state.loadingDefaultValues ? '' : 'none'
+                    } },
+                React.createElement(
+                    'div',
+                    { style: {
+                            position: 'absolute',
+                            top: 0,
+                            right: 0,
+                            bottom: 0, left: 0,
+                            width: '400px',
+                            height: '200px',
+                            backgroundColor: '#fff',
+                            border: 'solid 1px #ccc',
+                            paddingTop: '60px',
+                            margin: 'auto',
+                            textAlign: 'center',
+                            borderRadius: '5px'
+                        }
+                    },
+                    React.createElement(
+                        'h1',
+                        null,
+                        React.createElement('i', { className: 'fa fa-spinner fa-spin' }),
+                        ' Aguarde ...'
+                    )
+                )
+            ),
             React.createElement(
                 'form',
                 { id: 'formFiltros', style: { display: 'none' }, action: 'dados-series', method: 'POST' },

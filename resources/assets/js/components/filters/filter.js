@@ -25,7 +25,7 @@ class Filter extends React.Component{
 
     componentWillReceiveProps(props){
         if(this.state.conditions != props.conditions){
-            this.setState({condigions: props.conditions}, function(){
+            this.setState({conditions: props.conditions}, function(){
                 this.load();
             });
         }

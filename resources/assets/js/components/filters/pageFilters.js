@@ -14,6 +14,7 @@ class PageFilters extends React.Component{
             periodos: [],
             from: null,
             to: null,
+            loadingDefaultValues: false,
             optionsAbrangencia: [
                 {id: 1, title: 'País', plural: ' os Países', on:false, listAll:1, height: '250px'},
                 {id: 2, title: 'Região', plural: 'as Regiões', on:false, listAll:1, height: '250px'},
@@ -60,6 +61,8 @@ class PageFilters extends React.Component{
         this.selectSerie = this.selectSerie.bind(this);
         this.setRegions = this.setRegions.bind(this);
         this.loadPeriodos = this.loadPeriodos.bind(this);
+        this.loadDefaultValues = this.loadDefaultValues.bind(this);
+        this.loadRegions = this.loadRegions.bind(this);
     }
 
     componentDidMount(){
@@ -67,7 +70,20 @@ class PageFilters extends React.Component{
     }
 
     setTema(tema){
-        this.setState({tema: tema});
+        this.setState({
+            tema: tema,
+            items: [],
+            indicadores:[],
+            abrangencias: [],
+            serieMarked: null,
+            abrangencia:null,
+            regions: [],
+            periodos: [],
+            from: null,
+            to:null
+        }, function(){
+            this.loadItems();
+        });
     }
 
     setCurrentPageListItems(page){
@@ -139,15 +155,17 @@ class PageFilters extends React.Component{
         console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
 
         this.setState({serieMarked: item.id, abrangencia: item.tipo_regiao}, function(){
-            this.loadPeriodos();
             if(all){
-                this.submit();
+                this.setState({loadingDefaultValues: true});
+                this.loadDefaultValues();
+                //this.submit();
                 return;
             }
+
+            this.loadPeriodos();
             $("#modalAbrangencias").modal();
         });
     }
-
 
     selectedAbrangencia(){
         let option = null;
@@ -172,8 +190,18 @@ class PageFilters extends React.Component{
         this.setState({regions: regionsId});
     }
 
+    loadDefaultValues(){
+        this.loadPeriodos().then(function(){
+            //console.log(this.state.periodos);
+            this.loadRegions().then(function(){
+                //console.log(this.state.regions);
+                this.submit();
+            }.bind(this));
+        }.bind(this));
+    }
+
     loadPeriodos(){
-        $.ajax("periodos/"+this.state.serieMarked+"/"+this.state.abrangencia, {
+        return $.ajax("periodos/"+this.state.serieMarked+"/"+this.state.abrangencia, {
             data: {},
             success: function(data){
                 //console.log('range', data);
@@ -184,7 +212,26 @@ class PageFilters extends React.Component{
             error: function(data){
                 console.log('erro');
             }.bind(this)
-        })
+        });
+    }
+
+    loadRegions(){
+        return $.ajax({
+            method: 'POST',
+            url: 'territorios-serie-abrangencia',
+            data: {
+                id: this.state.serieMarked,
+                abrangencia: this.state.abrangencia,
+            },
+            cache: false,
+            success: function(data){
+                //console.log('regions default', data);
+                this.setState({regions: data});
+            }.bind(this),
+            error: function(xhr, status, err){
+                console.log('erro', err);
+            }.bind(this)
+        });
     }
 
     submit(){
@@ -212,20 +259,17 @@ class PageFilters extends React.Component{
 
         return(
             <div className="container">
-                <Temas
-                    tema_id={this.state.tema}
-                    setTema={this.setTema}
-                />
-                <br/><br/><br/>
-                <hr style={{width:'95%'}}/>
-                <br/><br/>
-
+                <h1>Consultas</h1>
+                <br/>
                 <div className="row">
                     <div className="col-md-3">
-                        <fieldset>
-                            <legend>Pesquisa</legend>
+                        <fieldset style={{marginTop: '-15px'}}>
+                            <legend>Temas</legend>
                             <div style={{margin: '10px'}}>
-                                <input className='form-control' onChange={this.handleSearch} type="text"/>
+                                <Temas
+                                    tema_id={this.state.tema}
+                                    setTema={this.setTema}
+                                />
                             </div>
                         </fieldset>
                         <fieldset>
@@ -256,6 +300,8 @@ class PageFilters extends React.Component{
                         </fieldset>
                     </div>
                     <div className="col-md-9">
+                        <input className='form-control' onChange={this.handleSearch} type="text" placeholder="Pesquise pelo nome"/>
+                        <br/>
                         <List
                             items={this.state.items}
                             head={['Série', 'Abrangência', 'Unidade', 'Periodicidade', 'Inicial', 'Final', 'Territórios', '']}
@@ -279,6 +325,38 @@ class PageFilters extends React.Component{
                         </div>
                     )}
                 />
+
+                <div style={{
+                    position: 'fixed',
+                    top:0, right:0, bottom:0, left:0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                    width: '100%',
+                    height: '100%',
+                    zIndex: '99999999999999999',
+                    display: this.state.loadingDefaultValues ? '' : 'none',
+                }}>
+                    <div style={{
+                        position: 'absolute',
+                        top:0,
+                        right:0,
+                        bottom:0, left:0,
+                        width:'400px',
+                        height:'200px',
+                        backgroundColor: '#fff',
+                        border: 'solid 1px #ccc',
+                        paddingTop: '60px',
+                        margin:'auto',
+                        textAlign: 'center',
+                        borderRadius: '5px',
+                    }}
+                    >
+                        <h1>
+                            <i className="fa fa-spinner fa-spin"/> Aguarde ...
+                        </h1>
+                    </div>
+                </div>
+
+
 
                 <form id="formFiltros" style={{display:'none'}} action="dados-series" method="POST">
                     <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>

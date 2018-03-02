@@ -182,4 +182,5 @@ Route::get('novo-filtros-series/{id}/{tema}', 'FiltrosSeriesController@index');
 Route::post('get-indicadores', 'FiltrosSeriesController@indicadores');
 Route::post('get-abrangencias', 'FiltrosSeriesController@abrangencias');
 Route::post('list-series', 'FiltrosSeriesController@series');
+Route::post('territorios-serie-abrangencia', 'FiltrosSeriesController@territoriosSerieAbrangencia');
 //////////////////////////////////////////////////////////

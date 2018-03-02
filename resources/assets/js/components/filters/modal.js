@@ -11,7 +11,7 @@ class Modal extends React.Component{
         
         
         return(
-            <div id={this.props.id} className="modal fade" tabindex="-1" role="dialog" style={{zIndex: '9999999999999999999'}}>
+            <div id={this.props.id} className="modal fade" tabIndex="-1" role="dialog" style={{zIndex: '9999999999999999999'}}>
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">

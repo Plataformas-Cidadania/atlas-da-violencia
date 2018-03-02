@@ -64,7 +64,7 @@ class List extends React.Component {
 
                 let buttons = [React.createElement(
                     'td',
-                    null,
+                    { key: 'btn-selecionar-territorios' },
                     React.createElement(
                         'button',
                         { className: 'btn btn-primary', style: { float: 'right' }, onClick: () => this.select(item, false), title: 'selecionar territ\xF3rios' },
@@ -72,7 +72,7 @@ class List extends React.Component {
                     )
                 ), React.createElement(
                     'td',
-                    null,
+                    { key: 'btn-todos-os-territorios' },
                     React.createElement(
                         'button',
                         { className: 'btn btn-primary', onClick: () => this.select(item, true), title: 'todos os territ\xF3rios' },

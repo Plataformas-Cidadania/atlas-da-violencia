@@ -36,7 +36,8 @@ class Subtema extends React.Component {
 
         this.setState({ id: id });
         let promise = this.loadSubtemas(id).success(function (data) {
-            if (data.length) {
+            if (data.length && this.state.id != this.state.tema_id) {
+                //this.state.id != this.state.tema_id é para que ao selecionar todos no subtema não crie outro subtema repetido
                 let subtema = React.createElement(Subtema, { setTema: this.props.setTema, tema_id: id });
                 this.setState({ componentSubtema: subtema });
             } else {
@@ -95,15 +96,16 @@ class Subtema extends React.Component {
         return React.createElement(
             'div',
             { style: { display: this.state.subtemas.length > 0 ? '' : 'none' } },
+            React.createElement('br', null),
             React.createElement(
                 'div',
-                { style: { width: '300px', float: 'left', marginRight: '10px' } },
+                null,
                 React.createElement(
                     'select',
                     { className: 'form-control', onChange: this.select },
                     React.createElement(
                         'option',
-                        { value: '' },
+                        { value: this.state.tema_id },
                         'Todos'
                     ),
                     subtemas

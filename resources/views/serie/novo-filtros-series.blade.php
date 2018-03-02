@@ -49,6 +49,19 @@
             margin: 0 3px;
         }
 
+        .div-options{
+            border: solid 1px #ccc;
+            padding: 8px;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .div-options i{
+            float:right;
+        }
+
     </style>
     <div class="container">
         <script>

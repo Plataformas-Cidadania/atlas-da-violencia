@@ -428,7 +428,6 @@ class SerieController extends Controller
         return $regioes;
     }*/
 
-
     public function territorios(Request $request){
 
         //return $request->all();

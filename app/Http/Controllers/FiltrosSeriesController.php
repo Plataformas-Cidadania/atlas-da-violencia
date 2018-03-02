@@ -77,6 +77,16 @@ class FiltrosSeriesController extends Controller
 
         $idioma = "pt_BR";
 
+        if(!array_key_exists('tema_id', $parameters)){
+            $parameters['tema_id'] = 0;
+            $temas = [];
+        }
+
+        if($parameters['tema_id'] > 0){
+            $temas = \App\Tema::select('id')->where('tema_id', $parameters['tema_id'])->orWhere('id', $parameters['tema_id'])->pluck('id');
+        }
+
+
         if(!array_key_exists('indicadores', $parameters)){
             $parameters['indicadores'] = [];
         }
@@ -105,9 +115,11 @@ class FiltrosSeriesController extends Controller
                 ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
                 ->where([
                     ['textos_series.idioma_sigla', $idioma],
-                    ['temas_series.tema_id', $parameters['tema_id']],
                     ['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%']
                 ])
+                ->when(!empty($temas), function($query) use ($temas){
+                    return $query->whereIn('temas_series.tema_id', $temas);
+                })
                 ->when(!empty($parameters['indicadores']), function($query) use ($parameters){
                     return $query->whereIn('series.indicador', $parameters['indicadores']);
                 })
@@ -117,6 +129,7 @@ class FiltrosSeriesController extends Controller
                 //->orWhere('series.serie_id', $parameters['id'])
                 ->groupBy('series.id', 'valores_series.tipo_regiao', 'periodicidades.titulo', 'textos_series.titulo', 'unidades.titulo')
                 ->orderBy('textos_series.titulo')
+                ->distinct()
                 ->paginate(20), 60);
         }
 
@@ -125,5 +138,32 @@ class FiltrosSeriesController extends Controller
         //return DB::getQueryLog();
 
         return $series;
+    }
+
+    public function territoriosSerieAbrangencia(Request $request){
+        $tabelas = [
+            1 => 'spat.ed_territorios_paises',
+            2 => 'spat.ed_territorios_regioes',
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes',
+            7 => 'spat.ed_territorios_piaui_tds'
+        ];
+
+        $abrangencia = $request->abrangencia;
+        $id = $request->id;
+
+        $abrangencias = DB::table($tabelas[$abrangencia])
+            ->select('edterritorios_codigo')
+            ->join('valores_series', 'valores_series.regiao_id', '=', $tabelas[$abrangencia].'.edterritorios_codigo')
+            ->where('valores_series.serie_id', $id)
+            ->where('valores_series.tipo_regiao', $abrangencia)
+            ->distinct()
+            ->pluck('edterritorios_codigo');
+
+        //Log::info(DB::getQueryLog());
+
+        return $abrangencias;
     }
 }
