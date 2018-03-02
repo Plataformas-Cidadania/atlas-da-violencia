@@ -70,7 +70,7 @@ class List extends React.Component {
                  ];*/
 
                 let buttons = [];
-                buttons.push(React.createElement(
+                buttons[0] = React.createElement(
                     'td',
                     { key: 'btn-selecionar-territorios' },
                     React.createElement(
@@ -78,9 +78,10 @@ class List extends React.Component {
                         { className: 'btn btn-primary', style: { float: 'right' }, onClick: () => this.select(item, false), title: 'selecionar territ\xF3rios' },
                         React.createElement('i', { className: 'fa fa-edit', style: { fontSize: '1.5em' } })
                     )
-                ));
+                );
+                buttons[1] = "&nbsp;";
                 if (item.tipo_regiao != 4) {
-                    buttons.push(React.createElement(
+                    buttons[1] = React.createElement(
                         'td',
                         { key: 'btn-todos-os-territorios' },
                         React.createElement(
@@ -88,7 +89,7 @@ class List extends React.Component {
                             { className: 'btn btn-success', onClick: () => this.select(item, true), title: 'todos os territ\xF3rios' },
                             React.createElement('i', { className: 'fa fa-arrow-circle-right', style: { fontSize: '1.5em' } })
                         )
-                    ));
+                    );
                 }
 
                 /*let buttons = [

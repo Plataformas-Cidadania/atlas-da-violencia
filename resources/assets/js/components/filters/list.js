@@ -71,13 +71,14 @@ class List extends React.Component{
                 ];*/
 
                 let buttons = [];
-                buttons.push(
+                buttons[0] = (
                     <td key='btn-selecionar-territorios'>
                         <button className='btn btn-primary' style={{float: 'right'}} onClick={() => this.select(item, false)} title="selecionar territórios"><i className="fa fa-edit" style={{fontSize: '1.5em'}}/></button>
                     </td>
                 );
+                buttons[1] = "&nbsp;";
                 if(item.tipo_regiao != 4){
-                    buttons.push(<td key='btn-todos-os-territorios'><button className='btn btn-success' onClick={() => this.select(item, true)} title="todos os territórios"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button></td>);
+                    buttons[1] = (<td key='btn-todos-os-territorios'><button className='btn btn-success' onClick={() => this.select(item, true)} title="todos os territórios"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button></td>);
                 }
 
                 /*let buttons = [
