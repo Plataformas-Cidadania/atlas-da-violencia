@@ -10,6 +10,9 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('info123', function(){
+     //return view('info');
+});
 
 
 Route::get('/', 'HomeController@index');
