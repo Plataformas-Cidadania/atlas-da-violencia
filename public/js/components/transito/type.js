@@ -166,20 +166,20 @@ class Type extends React.Component {
         //console.log(typesSelected);
 
         if (typesSelected.length === 0) {
-            typesSelected = "Pesquise pelo tipo de locomoção";
+            typesSelected = "";
         }
 
         return React.createElement(
             'div',
             null,
-            typesSelected,
-            React.createElement('hr', { style: { margin: '10px 0' } }),
-            React.createElement('input', { type: 'text', name: 'titleType', className: 'form-control input-sm', onClick: this.clickSearch, onChange: this.handleSearch }),
+            React.createElement('input', { type: 'text', name: 'titleType', className: 'form-control input-sm', onClick: this.clickSearch, onChange: this.handleSearch, placeholder: 'Pesquise pelo tipo de locomo\xE7\xE3o' }),
             React.createElement(
                 'div',
                 { className: 'div-info', style: { border: "solid 1px #CCC", display: this.state.showtypes ? 'block' : 'none' } },
                 types
-            )
+            ),
+            React.createElement('hr', { style: { margin: '10px 0' } }),
+            typesSelected
         );
     }
 }

@@ -147,17 +147,18 @@ class Gender extends React.Component{
         //console.log(typesSelected);
 
         if(typesSelected.length===0){
-            typesSelected = "Pesquise pelo tipo de Sexo";
+            typesSelected = "";
         }
 
         return(
             <div>
-                {typesSelected}
-                <hr style={{margin: '10px 0'}}/>
-                <input type="text" name="titleType" className="form-control input-sm" onClick={this.clickSearch} onChange={this.handleSearch}/>
+
+                <input type="text" name="titleType" className="form-control input-sm" onClick={this.clickSearch} onChange={this.handleSearch} placeholder="Pesquise pelo tipo de Sexo"/>
                 <div className="div-info" style={{border: "solid 1px #CCC", display: this.state.showtypes ? 'block' : 'none'}}>
                     {types}
                 </div>
+                <hr style={{margin: '10px 0'}}/>
+                {typesSelected}
             </div>
         );
     }

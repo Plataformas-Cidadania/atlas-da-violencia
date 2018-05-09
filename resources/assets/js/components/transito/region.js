@@ -194,7 +194,7 @@ class Region extends React.Component{
         //console.log(typesSelected);
 
         if(typesSelected.length===0){
-            typesSelected = "Pesquise pelo tipo de locomoção";
+            typesSelected = "";
         }
 
         let aviso_territorios_pesquisa = null;
@@ -206,12 +206,17 @@ class Region extends React.Component{
 
         return(
             <div>
-                {typesSelected}
-                <hr style={{margin: '10px 0'}}/>
-                <input type="text" name="titleType" className="form-control input-sm" onClick={this.clickSearch} onChange={this.handleSearch}/>
+
+
+                <input type="text" name="titleType" className="form-control input-sm" onClick={this.clickSearch} onChange={this.handleSearch} placeholder="Pesquise por regiões"/>
                 <div className="div-info" style={{border: "solid 1px #CCC", display: this.state.showtypes ? 'block' : 'none'}}>
                     {aviso_territorios_pesquisa}
                     {types}
+                </div>
+                <hr style={{margin: '10px 0'}}/>
+
+                <div style={{overflowX: "auto", width: "100%", height: "45px"}}>
+                    <div style={{width: "1000px"}}>{typesSelected}</div>
                 </div>
             </div>
         );
