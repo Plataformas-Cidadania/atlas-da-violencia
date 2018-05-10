@@ -179,7 +179,15 @@ class Type extends React.Component {
                 types
             ),
             React.createElement('hr', { style: { margin: '10px 0' } }),
-            typesSelected
+            React.createElement(
+                'div',
+                { style: { overflowX: "auto", width: "100%", height: "45px" } },
+                React.createElement(
+                    'div',
+                    { style: { width: "1000px" } },
+                    typesSelected
+                )
+            )
         );
     }
 }

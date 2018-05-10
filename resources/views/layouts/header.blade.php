@@ -107,7 +107,7 @@
                         <li role="presentation"><a href="quem/{{$menuQuem->id}}/{{clean($menuQuem->titulo)}}" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
                     @endforeach--}}
                     <li role="presentation"><a href="quem" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
-                    <li role="presentation"><a href="series" accesskey="q" @if($rota=='series') class="corrente" @endif>@lang('links.researches')</a></li>
+                    <li role="presentation"><a href="filtros-series" accesskey="q" @if($rota=='series') class="corrente" @endif>@lang('links.researches')</a></li>
                     <li role="presentation"><a href="artigos/0/todos" accesskey="n" @if($rota=='artigos/{origem_id}/{titulo}') class="corrente" @endif>@lang('links.articles')</a></li>
                     <li role="presentation"><a href="videos" accesskey="q" @if($rota=='videos') class="corrente" @endif>@lang('links.videos')</a></li>
                     <li role="presentation"><a href="downloads" accesskey="q" @if($rota=='downloads') class="corrente" @endif>@lang('links.downloads')</a></li>

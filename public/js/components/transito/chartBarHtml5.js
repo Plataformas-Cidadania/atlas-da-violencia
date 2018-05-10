@@ -7,6 +7,7 @@ class ChartBarHtml5 extends React.Component {
             values: props.values,
             valuesSelected: props.valuesSelected,
             icons: props.icons,
+            title: props.title,
             show: props.show ? parseInt(props.show) : 1 //1 - valor, 2 - porcentagem, 3 - valor e porcentagem
         };
     }
@@ -83,6 +84,16 @@ class ChartBarHtml5 extends React.Component {
                 'div',
                 null,
                 React.createElement(
+                    'h2',
+                    null,
+                    this.state.title
+                ),
+                React.createElement('div', { className: 'line-title-sm bg-pri' }),
+                React.createElement('hr', { className: 'line-hr-sm' }),
+                React.createElement('br', null),
+                React.createElement('br', null),
+                React.createElement('br', null),
+                React.createElement(
                     'ul',
                     { className: 'chart', style: { height: this.props.height } },
                     bars
@@ -98,16 +109,16 @@ class ChartBarHtml5 extends React.Component {
                     { className: 'row', key: 'itemChartBar' + this.state.chart + "_" + index },
                     React.createElement(
                         'div',
-                        { className: 'col-xs-1 col-sm-1 col-md-1' },
+                        { className: 'col-xs-2 col-sm-1 col-md-1' },
                         React.createElement(
                             'div',
-                            { className: 'bg-pri icon-bar' },
+                            { className: 'icon-bar' },
                             React.createElement('img', { src: "img/leaflet/" + this.state.icons[item.type], alt: '' })
                         )
                     ),
                     React.createElement(
                         'div',
-                        { className: 'col-xs-8 col-sm-8 col-md-8' },
+                        { className: 'col-xs-10 col-sm-8 col-md-8' },
                         React.createElement(
                             'div',
                             { style: { backgroundColor: "#F4F4F4" } },
@@ -120,7 +131,7 @@ class ChartBarHtml5 extends React.Component {
                     ),
                     React.createElement(
                         'div',
-                        { className: 'col-xs-3 col-sm-3 col-md-3' },
+                        { className: 'col-xs-10 col-sm-3 col-md-3' },
                         React.createElement(
                             'p',
                             { className: 'txt-bar' },
@@ -136,6 +147,16 @@ class ChartBarHtml5 extends React.Component {
             return React.createElement(
                 'div',
                 { className: 'container' },
+                React.createElement(
+                    'h2',
+                    null,
+                    this.state.title
+                ),
+                React.createElement('div', { className: 'line-title-sm bg-pri' }),
+                React.createElement('hr', { className: 'line-hr-sm' }),
+                React.createElement('br', null),
+                React.createElement('br', null),
+                React.createElement('br', null),
                 bars
             );
         }

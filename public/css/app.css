@@ -343,6 +343,19 @@ footer {
   height: 3px;
   /*margin-bottom: 20px;*/
 }
+.line-title-sm {
+  height: 3px;
+  max-width: 250px;
+}
+.line-hr-sm {
+  margin: 0px 0 40px 0;
+}
+.fa-male {
+  color: #3498DB;
+}
+.fa-female {
+  color: #CE4B99;
+}
 .list {
   clear: both;
   margin: 30px 0;

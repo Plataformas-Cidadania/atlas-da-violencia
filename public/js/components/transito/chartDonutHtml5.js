@@ -27,7 +27,7 @@ class ChartDonutHtml5 extends React.Component {
             ),
             React.createElement(
                 "div",
-                { style: { fontSize: "35px", marginTop: "-120px", marginBottom: "120px" } },
+                { style: { fontSize: "25px", marginTop: "-120px", marginBottom: "120px" } },
                 formatNumber(this.state.percent, 2, ',', '.'),
                 "%"
             )

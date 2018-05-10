@@ -58,6 +58,9 @@ class ChartGender extends React.Component {
                         React.createElement(
                             "div",
                             { className: "col-md-12 text-center" },
+                            React.createElement("br", null),
+                            React.createElement("br", null),
+                            React.createElement("br", null),
                             React.createElement("i", { className: "fa fa-male", style: { fontSize: '150px' } })
                         ),
                         React.createElement(
@@ -83,6 +86,9 @@ class ChartGender extends React.Component {
                         React.createElement(
                             "div",
                             { className: "col-md-12 text-center" },
+                            React.createElement("br", null),
+                            React.createElement("br", null),
+                            React.createElement("br", null),
                             React.createElement("i", { className: "fa fa-female", style: { fontSize: '150px' } })
                         ),
                         React.createElement(

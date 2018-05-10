@@ -50,6 +50,7 @@ class ChartGender extends React.Component{
                     <div className="col-md-6">
                         <div className="row">
                             <div className="col-md-12 text-center">
+                                <br/><br/><br/>
                                 <i className="fa fa-male" style={{fontSize: '150px'}}/>
                             </div>
                             <div className="col-md-12 text-center">
@@ -67,6 +68,7 @@ class ChartGender extends React.Component{
                     <div className="col-md-6">
                         <div className="row">
                             <div className="col-md-12 text-center">
+                                <br/><br/><br/>
                                 <i className="fa fa-female" style={{fontSize: '150px'}}/>
                             </div>
                             <div className="col-md-12 text-center">

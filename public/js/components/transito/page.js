@@ -345,7 +345,8 @@ class Page extends React.Component {
                 type: '2',
                 values: this.state.valuesForTypes,
                 valuesSelected: this.state.typesSelected,
-                icons: this.state.iconsType
+                icons: this.state.iconsType,
+                title: 'Locomo\xE7\xE3o'
             }),
             React.createElement('br', null),
             React.createElement('br', null),
@@ -372,6 +373,7 @@ class Page extends React.Component {
                             type: '1',
                             height: '350px',
                             show: '3',
+                            title: 'Regi\xF5es',
                             values: this.state.valuesForRegions
                         })
                     )
@@ -389,7 +391,8 @@ class Page extends React.Component {
                     type: '1',
                     height: '350px',
                     show: '2',
-                    values: this.state.valuesForUfs
+                    values: this.state.valuesForUfs,
+                    title: 'UF'
                 })
             ),
             React.createElement('br', null),

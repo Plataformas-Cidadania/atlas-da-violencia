@@ -149,7 +149,7 @@ print_r($periodo_limite);*/
     <script src="js/components/pgFiltros.js"></script>
 @endif
 
-@if($rota=='filtros-series/{id}/{tema}' || $rota=='filtros-series')
+@if($rota=='antigo-filtros-series/{id}/{tema}' || $rota=='antigo-filtros-series')
     <script src="js/components/filtros/subtemas.js"></script>
     <script src="js/components/filtros/temas.js"></script>
     <script src="js/components/filtros/indicadores.js"></script>
@@ -406,7 +406,7 @@ print_r($periodo_limite);*/
     <script src="js/components/transito/page.js"></script>
 @endif
 
-@if($rota=='novo-filtros-series/{id}/{tema}')
+@if($rota=='filtros-series/{id}/{tema}' || $rota=='filtros-series')
     <script src="js/components/pagination.js"></script>
     <script src="js/components/filters/modal.js"></script>
     {{--<script src="js/components/filters/temas.js"></script>--}}

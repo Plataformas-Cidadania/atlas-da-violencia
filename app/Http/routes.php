@@ -73,8 +73,8 @@ Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
 Route::post('dados-series/', 'SerieController@dataSeries');
 Route::post('download-dados/', 'SerieController@downloadDados');
 
-Route::get('filtros-series/{id}/{tema}', 'FiltrosController@index');
-Route::get('filtros-series/', 'FiltrosController@index');
+Route::get('antigo-filtros-series/{id}/{tema}', 'FiltrosController@index');
+Route::get('antigo-filtros-series/', 'FiltrosController@index');
 
 Route::get('filtros-series2/{id}/{tema}', 'FiltrosController@index');
 Route::get('filtros-series2/', 'FiltrosController@index');
@@ -180,7 +180,8 @@ Route::post('values-for-regions/', 'TransitoController@valuesForRegions');
 Route::post('arrays-transito/', 'TransitoController@arraysTransito');
 
 //////////NOVA PÁGINAS DE FILTROS/////////////////////////
-Route::get('novo-filtros-series/{id}/{tema}', 'FiltrosSeriesController@index');
+Route::get('filtros-series/{id}/{tema}', 'FiltrosSeriesController@index');
+Route::get('filtros-series/', 'FiltrosSeriesController@index');
 //Route::post('get-temas', 'FiltrosSeriesController@temas');
 Route::post('get-indicadores', 'FiltrosSeriesController@indicadores');
 Route::post('get-abrangencias', 'FiltrosSeriesController@abrangencias');

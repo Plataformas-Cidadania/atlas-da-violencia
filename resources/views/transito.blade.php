@@ -98,19 +98,16 @@
     <style>
 
         .icon-bar {
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
             text-align: center;
-            margin: 2px auto;
-            text-align: center;
-
         }
         .icon-bar img{
             /*color: #FFFFFF;
             font-size: 25px;*/
-            width: 25px;
-            padding-top: 5px;
+            width: 60%;
+            min-width: 35px;
+            /*padding-top: 5px;*/
+            float: right;
+            margin: 2px 0;
         }
         .txt-bar{
             font-size: 16px;
@@ -125,7 +122,7 @@
             background-color: #3498DB;
             color: white;
             position: relative;
-            margin: 2px;
+            margin: 10px 2px 2px 2px;
             font-size: 25px;
         }
     </style>

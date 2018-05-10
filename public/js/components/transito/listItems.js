@@ -139,11 +139,15 @@ class ListItems extends React.Component {
                         React.createElement(
                             'td',
                             null,
+                            React.createElement('i', { className: 'fa fa-calendar' }),
+                            ' ',
                             item.data
                         ),
                         React.createElement(
                             'td',
                             null,
+                            React.createElement('i', { className: 'fa fa-clock-o' }),
+                            ' ',
                             item.hora
                         )
                     );
@@ -192,6 +196,14 @@ class ListItems extends React.Component {
         return React.createElement(
             'div',
             null,
+            React.createElement(
+                'h2',
+                null,
+                'Acidentes'
+            ),
+            React.createElement('div', { className: 'line-title-sm bg-pri' }),
+            React.createElement('hr', { className: 'line-hr-sm' }),
+            React.createElement('br', null),
             React.createElement(
                 'table',
                 { className: 'table' },

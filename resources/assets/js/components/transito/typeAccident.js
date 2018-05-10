@@ -157,7 +157,9 @@ class TypeAccident extends React.Component{
                     {types}
                 </div>
                 <hr style={{margin: '10px 0'}}/>
-                {typesSelected}
+                <div style={{overflowX: "auto", width: "100%", height: "45px"}}>
+                    <div style={{width: "1000px"}}>{typesSelected}</div>
+                </div>
 
             </div>
         );

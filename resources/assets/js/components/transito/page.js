@@ -339,6 +339,7 @@ class Page extends React.Component{
                     values={this.state.valuesForTypes}
                     valuesSelected={this.state.typesSelected}
                     icons={this.state.iconsType}
+                    title="Locomoção"
                 />
                 <br/><br/><br/><br/>
                 <div className="container">
@@ -354,6 +355,7 @@ class Page extends React.Component{
                                 type='1'
                                 height='350px'
                                 show="3"
+                                title="Regiões"
                                 values={this.state.valuesForRegions}
                             />
                         </div>
@@ -367,6 +369,7 @@ class Page extends React.Component{
                         height='350px'
                         show='2'
                         values={this.state.valuesForUfs}
+                        title="UF"
                     />
                 </div>
                 <br/><br/><br/><br/>

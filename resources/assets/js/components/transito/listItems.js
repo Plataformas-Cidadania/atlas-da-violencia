@@ -98,8 +98,8 @@ class ListItems extends React.Component{
                             <td>{type}</td>
                             <td>{typeAccident}</td>
                             <td>{gender}</td>
-                            <td>{item.data}</td>
-                            <td>{item.hora}</td>
+                            <td><i className="fa fa-calendar"/> {item.data}</td>
+                            <td><i className="fa fa-clock-o"/> {item.hora}</td>
                         </tr>
                     );
                 }.bind(this));
@@ -131,6 +131,9 @@ class ListItems extends React.Component{
 
         return(
             <div>
+                <h2>Acidentes</h2>
+                <div className="line-title-sm bg-pri"/><hr className="line-hr-sm"/>
+                <br/>
                 <table className="table">
                     <thead>
                         {head}

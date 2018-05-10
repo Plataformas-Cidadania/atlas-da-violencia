@@ -22,7 +22,7 @@ class ChartDonutHtml5 extends React.Component{
 
                     <circle className="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke={this.props.strokeSegment} strokeWidth={this.props.strokeWidth} strokeDasharray={this.state.percent+" "+(100-this.state.percent)} strokeDashoffset="25"/>>
                 </svg>
-                <div style={{fontSize: "35px", marginTop: "-120px", marginBottom: "120px"}}>{formatNumber(this.state.percent, 2, ',', '.')}%</div>
+                <div style={{fontSize: "25px", marginTop: "-120px", marginBottom: "120px"}}>{formatNumber(this.state.percent, 2, ',', '.')}%</div>
             </div>
         );
     }
