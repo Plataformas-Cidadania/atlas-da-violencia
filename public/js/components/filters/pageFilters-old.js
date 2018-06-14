@@ -274,27 +274,6 @@ class PageFilters extends React.Component {
                                 setTema: this.setTema
                             })
                         )
-                    ),
-                    React.createElement(
-                        'fieldset',
-                        null,
-                        React.createElement(
-                            'legend',
-                            null,
-                            'Indicadores'
-                        ),
-                        React.createElement(
-                            'div',
-                            { style: { margin: '10px' } },
-                            React.createElement(Filter, {
-                                url: 'get-indicadores',
-                                text: 'pesquise pelos indicadores',
-                                conditions: {
-                                    tema_id: this.state.tema
-                                },
-                                checkType: this.checkIndicadores
-                            })
-                        )
                     )
                 ),
                 React.createElement(
@@ -321,7 +300,7 @@ class PageFilters extends React.Component {
                         { style: { display: items.data.length > 0 ? '' : 'none' } },
                         React.createElement(List, {
                             items: items,
-                            head: ['Série', 'Unidade', 'Periodicidade', '', ''],
+                            head: ['Série', 'Abrangência', 'Unidade', 'Periodicidade', 'Inicial', 'Final', 'Territórios', ''],
                             showId: '0',
                             setCurrentPageListItems: this.setCurrentPageListItems,
                             currentPage: this.state.currentPageListItems,

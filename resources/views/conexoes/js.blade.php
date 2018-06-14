@@ -162,14 +162,15 @@ print_r($periodo_limite);*/
 @endif
 
 @if($rota=='filtros-series2/{id}/{tema}' || $rota=='filtros-series2')
-    <script src="js/components/filtros2/temas.js"></script>
-    <script src="js/components/filtros2/indicadores.js"></script>
-    <script src="js/components/filtros2/selectItems.js"></script>
-    <script src="js/components/filtros2/abrangencia.js"></script>
-    <script src="js/components/filtros2/seriesList.js"></script>
-    <script src="js/components/filtros2/rangePeriodos.js"></script>
-    <script src="js/components/filtros2/filtroRegioes2.js"></script>
-    <script src="js/components/filtros2/pgFiltros.js"></script>
+    <script src="js/components/pagination.js"></script>
+    <script src="js/components/filters/modal.js"></script>
+    {{--<script src="js/components/filters/temas.js"></script>--}}
+    <script src="js/components/filters/temasSelect.js"></script>
+    <script src="js/components/filters/subtemas.js"></script>
+    <script src="js/components/filters/filter.js"></script>
+    <script src="js/components/filters/list.js"></script>
+    <script src="js/components/selectItems.js"></script>
+    <script src="js/components/filters/pageFilters.js"></script>
 @endif
 
 {{--@if($rota=='map/{id}/{titulo}')--}}

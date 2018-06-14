@@ -107,9 +107,8 @@ class FiltrosSeriesController extends Controller
 
         if(!$this->cache->has($cacheKey)){
             $this->cache->put($cacheKey, DB::table('series')
-                ->select(DB::raw('series.id, textos_series.titulo, valores_series.tipo_regiao, unidades.titulo as titulo_unidade, periodicidades.titulo as periodicidade, min(valores_series.periodo) as min, max(valores_series.periodo) as max'))
+                ->select('series.id', 'textos_series.titulo as titulo', 'unidades.titulo as titulo_unidade', 'periodicidades.titulo as periodicidade')
                 ->join('unidades', 'series.unidade', '=', 'unidades.id')
-                ->join('valores_series', 'valores_series.serie_id', '=', 'series.id')
                 ->join('periodicidades', 'series.periodicidade_id', '=', 'periodicidades.id')
                 ->join('temas_series', 'temas_series.serie_id', '=', 'series.id')
                 ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
@@ -117,20 +116,15 @@ class FiltrosSeriesController extends Controller
                     ['textos_series.idioma_sigla', $idioma],
                     ['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%']
                 ])
-                ->when(!empty($temas), function($query) use ($temas){
-                    return $query->whereIn('temas_series.tema_id', $temas);
-                })
                 ->when(!empty($parameters['indicadores']), function($query) use ($parameters){
                     return $query->whereIn('series.indicador', $parameters['indicadores']);
                 })
-                ->when(!empty($parameters['abrangencias']), function($query) use ($parameters){
-                    return $query->whereIn('valores_series.tipo_regiao', $parameters['abrangencias']);
+                ->when(!empty($temas), function($query) use ($temas){
+                    return $query->whereIn('tema_id', $temas);
                 })
-                //->orWhere('series.serie_id', $parameters['id'])
-                ->groupBy('series.id', 'valores_series.tipo_regiao', 'periodicidades.titulo', 'textos_series.titulo', 'unidades.titulo')
                 ->orderBy('textos_series.titulo')
-                ->distinct()
-                ->paginate(20), 60);
+                ->paginate($parameters['limit']),
+                60);
         }
 
         $series = $this->cache->get($cacheKey);

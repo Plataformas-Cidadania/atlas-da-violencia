@@ -137,24 +137,166 @@ class SerieController extends Controller
         return $series;
     }
 
-    public function dataSeries(Request $request){
-        $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade')
+//    public function dataSeries(Request $request){
+//        $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade')
+//            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+//            ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
+//            ->where('series.id', $request->id)->first();
+//
+//        //$regions = explode(',', $request->regions);
+//
+//        return view('data-series', [
+//            'id' => $request->id,
+//            'series' => $serie,
+//            'from' => $request->from,
+//            'to' => $request->to,
+//            'regions' => $request->regions,
+//            'abrangencia' => $request->abrangencia,
+//            /*'typeRegion' => $request->typeRegion,
+//            'typeRegionSerie' => $request->typeRegionSerie*/
+//        ]);
+//    }
+
+    public function dataSeries($serie_id){
+
+        $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
             ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
             ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
-            ->where('series.id', $request->id)->first();
+            ->join('fontes', 'fontes.id', '=', 'series.fonte_id')
+            ->join('unidades', 'unidades.id', '=', 'series.unidade')
+            ->where('series.id', $serie_id)->first();
 
         //$regions = explode(',', $request->regions);
 
+        $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+        $indiceAbrangencia = 0;
+        $abrangencia = $abrangencias[$indiceAbrangencia];
+
+
+        //alem de pegar os valores de from e to também serve para verificar se existem valores nesta abrangência
+        $fromTo = $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $serie_id);
+
+        //senão existe valores em nenhuma das abrangências pesquisadas.
+        if($fromTo==0){
+            $serie = null;
+        }
+
+        $from = $fromTo[0];
+        $to = $fromTo[1];
+        $abrangencia = $fromTo[2];
+
+        $regions = $this->getRegions($abrangencia);
+
+        $regions = implode(",", $regions);
+
+        $abrangenciasOk = $this->verifyExistsRegions($abrangencias, $serie_id);
+
         return view('data-series', [
-            'id' => $request->id,
+            'id' => $serie_id,
             'series' => $serie,
-            'from' => $request->from,
-            'to' => $request->to,
-            'regions' => $request->regions,
-            'abrangencia' => $request->abrangencia,
-            /*'typeRegion' => $request->typeRegion,
-            'typeRegionSerie' => $request->typeRegionSerie*/
+            'from' => $from,
+            'to' => $to,
+            'regions' => $regions,
+            'abrangencia' => $abrangencia,
+            'abrangenciasOk' => $abrangenciasOk,
         ]);
+    }
+
+    private function verifyExistsRegions($abrangencias, $serie_id){
+
+        $abrangenciasOk = [];
+
+        foreach ($abrangencias as $abrangencia){
+            $qtd = DB::table('valores_series')
+                ->where([
+                    ['serie_id', $serie_id],
+                    ['tipo_regiao', $abrangencia],
+                ])->count();
+            if($qtd > 0){
+                array_push($abrangenciasOk, $abrangencia);
+            }
+        }
+        return implode(',', $abrangenciasOk);
+    }
+
+    private function fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $serie_id){
+        $from = DB::table('valores_series')
+            ->where([
+                ['serie_id', $serie_id],
+                ['tipo_regiao', $abrangencia],
+            ])->min('periodo');
+
+        $to = DB::table('valores_series')
+            ->where([
+                ['serie_id', $serie_id],
+                ['tipo_regiao', $abrangencia],
+            ])->max('periodo');
+
+        if(!empty($from)){
+            return [$from, $to, $abrangencia];
+        }
+
+        //verifica se existem valores nesta abrangência. Senão existirem irá tentar outra abrangência
+        if(empty($from)){
+            $indiceAbrangencia++;
+            if(!array_key_exists($indiceAbrangencia, $abrangencias)){
+                return 0;
+            }
+            $abrangencia = $abrangencias[$indiceAbrangencia];
+            return $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $serie_id);
+        }
+
+
+    }
+
+    private function getRegions($abrangencia){
+        $padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+        $regions = $padraoTerritorios[$abrangencia];
+
+
+
+        //se a abrangência for de municipio então irá pegar os municipios de um determinado estado se o codigo nao for 0
+        if($abrangencia==4){
+            if($regions[0]==0){//pegar todos os municipios
+                return $this->getAllRegions($abrangencia);
+            }
+            return $this->getMunicipios($regions[0]);
+        }
+
+        if($regions[0]==0){
+            return $this->getAllRegions($abrangencia);
+        }
+
+        return $regions;
+    }
+
+    private function getMunicipios($codUF){
+        $return = DB::table('spat.ed_territorios_municipios')
+            ->select('edterritorios_codigo')
+            ->where('edterritorios_sigla', $codUF)
+            ->get();
+
+        $regions = [];
+
+        foreach ($return as $item) {
+            array_push($regions,$item->edterritorios_codigo);
+        }
+
+        return $regions;
+    }
+
+    private function getAllRegions($abrangencia){
+        $regionTable = $this->tabelas[$abrangencia];
+
+        $return = DB::table($regionTable)->select('edterritorios_codigo')->get();
+
+        $regions = [];
+
+        foreach ($return as $item) {
+            array_push($regions,$item->edterritorios_codigo);
+        }
+
+        return $regions;
     }
 
     function valoresRegiaoPrimeiroUltimoPeriodo($id, $min, $max, $regions, $abrangencia){

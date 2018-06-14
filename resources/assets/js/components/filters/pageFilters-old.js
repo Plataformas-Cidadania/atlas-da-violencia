@@ -289,7 +289,7 @@ class PageFilters extends React.Component{
                                 />
                             </div>
                         </fieldset>
-                        <fieldset>
+                        {/*<fieldset>
                             <legend>Indicadores</legend>
                             <div style={{margin: '10px'}}>
                                 <Filter
@@ -301,7 +301,7 @@ class PageFilters extends React.Component{
                                     checkType={this.checkIndicadores}
                                 />
                             </div>
-                        </fieldset>
+                        </fieldset>*/}
                         {/*<fieldset>
                             <legend>Abrangências</legend>
                             <div style={{margin: '10px'}}>
@@ -324,7 +324,7 @@ class PageFilters extends React.Component{
                         <div style={{display: items.data.length > 0 ? '' : 'none'}}>
                             <List
                                 items={items}
-                                head={['Série', 'Unidade', 'Periodicidade', '', '']}
+                                head={['Série', 'Abrangência', 'Unidade', 'Periodicidade', 'Inicial', 'Final', 'Territórios', '']}
                                 showId='0'
                                 setCurrentPageListItems = {this.setCurrentPageListItems}
                                 currentPage = {this.state.currentPageListItems}

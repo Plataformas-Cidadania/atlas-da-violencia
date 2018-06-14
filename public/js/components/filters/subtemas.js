@@ -5,7 +5,9 @@ class Subtema extends React.Component {
             subtemas: [],
             tema_id: this.props.tema_id,
             id: 0,
-            componentSubtema: null
+            componentSubtema: null,
+            loading: false,
+            loadingData: false
         };
 
         this.select = this.select.bind(this);
@@ -34,7 +36,7 @@ class Subtema extends React.Component {
             this.setState({ componentSubtema: null });
         }
 
-        this.setState({ id: id });
+        this.setState({ id: id, loading: true });
         let promise = this.loadSubtemas(id).success(function (data) {
             if (data.length && this.state.id != this.state.tema_id) {
                 //this.state.id != this.state.tema_id é para que ao selecionar todos no subtema não crie outro subtema repetido
@@ -43,6 +45,7 @@ class Subtema extends React.Component {
             } else {
                 this.setState({ componentSubtema: null });
             }
+            this.setState({ loading: false });
         }.bind(this));
     }
 
@@ -56,13 +59,14 @@ class Subtema extends React.Component {
         //this.setState({loading: true});
         //console.log(this.state);
         console.log(this.state.tema_id);
+        this.setState({ loadingData: true });
         $.ajax({
             method: 'GET',
             url: 'get-temas/' + this.state.tema_id,
             cache: false,
             success: function (data) {
-                console.log('subtemas', data);
-                this.setState({ subtemas: data });
+                //console.log('subtemas', data);
+                this.setState({ subtemas: data, loadingData: false });
             }.bind(this),
             error: function (xhr, status, err) {
                 console.log('erro', err);
@@ -84,7 +88,6 @@ class Subtema extends React.Component {
 
         //let componentSubtema = null;
 
-
         let subtemas = this.state.subtemas.map(function (item) {
             return React.createElement(
                 'option',
@@ -95,26 +98,35 @@ class Subtema extends React.Component {
 
         return React.createElement(
             'div',
-            { style: { display: this.state.subtemas.length > 0 ? '' : 'none' } },
-            React.createElement('br', null),
+            null,
             React.createElement(
                 'div',
-                null,
+                { style: { display: this.state.subtemas.length > 0 ? '' : 'none' } },
+                React.createElement('br', null),
                 React.createElement(
-                    'select',
-                    { className: 'form-control', onChange: this.select },
+                    'div',
+                    null,
                     React.createElement(
-                        'option',
-                        { value: this.state.tema_id },
-                        'Todos'
-                    ),
-                    subtemas
+                        'select',
+                        { className: 'form-control', onChange: this.select },
+                        React.createElement(
+                            'option',
+                            { value: this.state.tema_id },
+                            'Selecione'
+                        ),
+                        subtemas
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    null,
+                    this.state.componentSubtema
                 )
             ),
             React.createElement(
                 'div',
-                null,
-                this.state.componentSubtema
+                { className: 'text-center', style: { display: this.state.loading || this.state.loadingData ? '' : 'none', marginTop: '5px' } },
+                React.createElement('i', { className: 'fa fa-spin fa-spinner' })
             )
         );
     }

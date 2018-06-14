@@ -41,5 +41,13 @@ return [
                     ['id'=> 17, 'title'=> 'Tocantins'],
             ]
         ]
-    ]
+    ],
+    'PADRAO_ABRANGENCIA' => [3,4,7],//3 - UF | 4 - Municipios | 7 - Territorios
+    'PADRAO_TERRITORIOS' => [ //
+        1 => [203],// 203 - Brasil
+        2 => [0],//0 - Todos,
+        3 => [22],//22 - Piauí
+        4 => [0],//Código do estado. Desta forma irá pegar todos os munínicios do estado - 0 para todos
+        7 => [0],//0 - Todos | Territórios do Piauí
+    ],
 ];

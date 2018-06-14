@@ -31,13 +31,13 @@ class ListValoresSeries extends React.Component {
             cache: false,
             success: function(data) {
                 console.log('listValoresSeries', data);
-                  let valores = [];
+                 let valores = [];
                 for(let i in data){
                     let region = {};
                     region[i] = data[i];
                     valores.push(region);
                 }
-                  this.setState({valores: valores});
+                 this.setState({valores: valores});
             }.bind(this),
             error: function(xhr, status, err) {
               console.log('erro', err);
@@ -194,17 +194,17 @@ class ListValoresSeries extends React.Component {
         );
 
         /*let valores = this.state.valores.map(function (item, index) {
-              if(contColor > colors2.length-1){
+             if(contColor > colors2.length-1){
                 contColor = 0;
             }
-              let color = colors2[contColor];
-              contColor++;
-              //para que no municipio não aparece repetido o nome
+             let color = colors2[contColor];
+             contColor++;
+             //para que no municipio não aparece repetido o nome
             let sigla = null;
             if(item.sigla!==item.nome){
                sigla = item.sigla+' - '
             }
-              return (
+             return (
                 <tr key={index}>
                     <th width="10px"><i className="fa fa-square" style={{color: color}}> </i></th>
                     <th>{sigla}{item.nome}</th>
@@ -236,6 +236,6 @@ class ListValoresSeries extends React.Component {
                 </div>
                 <div style={{clear: 'both'}}/>
             </div>
-          );*/
+         );*/
     }
 }
