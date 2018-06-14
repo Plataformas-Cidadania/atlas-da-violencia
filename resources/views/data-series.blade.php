@@ -256,10 +256,13 @@
                 periodicidade="{!! $series->periodicidade !!}";
                 tipoValores="{!! $series->tipo_valores !!}";
                 unidade="{!! $series->unidade !!}";
+                tipoUnidade="{!! $series->tipo_unidade !!}";
+                fonte="{!! $series->fonte !!}";
                 from="{!! $from !!}";
                 to="{!! $to !!}";
                 regions="{!! $regions !!}";
                 abrangencia="{{$abrangencia}}";
+                abrangenciasOk="{{$abrangenciasOk}}";
                 @foreach($abrangencias as $key => $abr)
                         @if($abr['id']==$abrangencia)
                     nomeAbrangencia="{!! $abr['title'] !!}";

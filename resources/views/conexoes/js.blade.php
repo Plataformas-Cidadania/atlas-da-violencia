@@ -174,7 +174,7 @@ print_r($periodo_limite);*/
 @endif
 
 {{--@if($rota=='map/{id}/{titulo}')--}}
-@if($rota=='dados-series')
+@if($rota=='dados-series/{serie_id}')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
     {{--http://www.chartjs.org/docs/--}}
@@ -277,13 +277,12 @@ print_r($periodo_limite);*/
 
 
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
-
+    <script src="js/components/filters/modal.js"></script>
     <script src="js/components/print.js"></script>
     <script src="js/components/download.js"></script>
     <script src="js/components/map.js"></script>
     <script src="js/components/listValoresSeries.js"></script>
+    <script src="js/components/abrangenciaSerie.js"></script>
     <script src="js/components/rangePeriodos.js"></script>
     <script src="js/components/chartLine.js"></script>
     <script src="js/components/chartBar.js"></script>
@@ -291,7 +290,11 @@ print_r($periodo_limite);*/
     <script src="js/components/chartPie.js"></script>
     <script src="js/components/regions.js"></script>
     <script src="js/components/calcs.js"></script>
+    <script src="js/components/selectItems.js"></script>
     <script src="js/components/pgSerie.js"></script>
+    <script src="lib/jquery/jquery.mask.min.js"></script>
+    <script src="js/directives/maskPhoneDir.js"></script>
+    <script src="js/controllers/contatoSerieCtrl.js"></script>
 
 
 @endif

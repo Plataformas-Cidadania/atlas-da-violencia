@@ -70,7 +70,8 @@ Route::get('indices', 'IndiceController@indice');
 //Pgs
 Route::get('series/', 'SerieController@listar');
 Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
-Route::post('dados-series/', 'SerieController@dataSeries');
+//Route::post('dados-series/', 'SerieController@dataSeries');
+Route::get('dados-series/{serie_id}', 'SerieController@dataSeries');
 Route::post('download-dados/', 'SerieController@downloadDados');
 
 Route::get('antigo-filtros-series/{id}/{tema}', 'FiltrosController@index');

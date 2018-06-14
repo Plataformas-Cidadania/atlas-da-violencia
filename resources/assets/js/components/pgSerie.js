@@ -20,8 +20,9 @@ class PgSerie extends React.Component{
         this.state = {
             id: this.props.id,
             serie: this.props.serie,
-            unidade: this.props.unidade,
+            fonte: this.props.fonte,
             loading: false,
+            loadingItems: true,
             intervalos: [],
             intervalosFrom: [],
             intervalosTo: [],
@@ -33,6 +34,9 @@ class PgSerie extends React.Component{
             /*min: this.props.from,
             max: this.props.to,*/
             periodos: [],
+            abrangencia: props.abrangencia,
+            abrangenciasOk: props.abrangenciasOk,
+            regions: props.regions,
             showMap: true,
             loadingMap: false,
             showCharts: true,
@@ -43,7 +47,7 @@ class PgSerie extends React.Component{
             chartLine: true,
             chartRadar: false,
             chartBar:false,
-            chartPie:false
+            chartPie:false,
         };
         this.loading = this.loading.bind(this);
         this.changePeriodo = this.changePeriodo.bind(this);
@@ -54,6 +58,8 @@ class PgSerie extends React.Component{
         this.loadDataMaps = this.loadDataMaps.bind(this);
         this.setIntervalos = this.setIntervalos.bind(this);
         this.calcSmallLarge = this.calcSmallLarge.bind(this);
+        this.setAbrangencia = this.setAbrangencia.bind(this);
+        this.setRegions = this.setRegions.bind(this);
 
     }
 
@@ -74,6 +80,27 @@ class PgSerie extends React.Component{
         this.setState({periodos: periodos});
     }
 
+    setAbrangencia(abrangencia){
+        $.ajax({
+            method:'GET',
+            url: "get-regions/"+abrangencia,
+            cache: false,
+            success: function(data) {
+                console.log('GET-REGIONS IN PGSERIE', data);
+                this.setState({regions: data, abrangencia: abrangencia});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
+    }
+
+    setRegions(regions){
+        console.log(regions);
+        this.setState({regions: regions});
+    }
+
+
     loadData(){
 
         //console.log('MIN', this.state.min);
@@ -81,11 +108,13 @@ class PgSerie extends React.Component{
 
         if(this.state.min && this.state.max){
 
-            //console.log(this.props.regions);
+            this.setState({loadingItems: true});
+
+            //console.log(this.state.regions);
             $.ajax({
                 method:'GET',
                 //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-                url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia,
+                url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.state.regions+"/"+this.state.abrangencia,
                 //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
                 cache: false,
                 success: function(data) {
@@ -93,7 +122,7 @@ class PgSerie extends React.Component{
                     //os valores menor e maior para serem utilizados no chartBar
                     let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
 
-                    this.setState({valoresRegioesPorPeriodo: data, smallLarge: smallLarge});
+                    this.setState({valoresRegioesPorPeriodo: data, smallLarge: smallLarge, loadingItems: false});
 
                 }.bind(this),
                 error: function(xhr, status, err) {
@@ -107,7 +136,7 @@ class PgSerie extends React.Component{
         if(this.state.min && this.state.max) {
             let _this = this;
             //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
-            $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia, {
+            $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.state.regions + "/" + this.state.abrangencia, {
                 data: {},
                 success: function (data) {
                     this.setState({valoresPeriodo: data});
@@ -123,13 +152,13 @@ class PgSerie extends React.Component{
         this.setState({loadingMap: true});
         if(this.state.min && this.state.min){
             let _this = this;
-            $.ajax("regiao/"+_this.state.id+"/"+_this.state.min+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
+            $.ajax("regiao/"+_this.state.id+"/"+_this.state.min+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
                 data: {},
                 success: function(dataMapFrom){
 
                     let valoresMapFrom = this.getValoresMap(dataMapFrom);
 
-                    $.ajax("regiao/"+_this.state.id+"/"+_this.state.max+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
+                    $.ajax("regiao/"+_this.state.id+"/"+_this.state.max+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
                         data: {},
                         success: function(dataMapTo){
 
@@ -214,25 +243,28 @@ class PgSerie extends React.Component{
         console.log(event.target.value);
     }
 
+
+
     render(){
 
         //utilizado para função de formatação
-        let decimais = this.state.unidade==1 ? 0 : 2;
+        let decimais = this.props.tipoUnidade==1 ? 0 : 2;
 
         let regions = null;
 
-        if(this.state.showRegions && this.props.abrangencia==3){
+
+
+        /*if(this.state.showRegions && this.state.abrangencia==3){
             regions = (
-                <div style={{display: this.state.showRegions && this.props.abrangencia==3 ? 'block' : 'none'}}>
+                <div style={{display: this.state.showRegions && this.state.abrangencia==3 ? 'block' : 'none'}}>
 
                     <Topico icon="icon-group-rate" text="Taxas"/>
-
                     <Regions
                         id={this.state.id}
                         periodicidade={this.props.periodicidade}
                         decimais={decimais}
-                        regions={this.props.regions}
-                        abrangencia={this.props.abrangencia}
+                        regions={this.state.regions}
+                        abrangencia={this.state.abrangencia}
                         min={this.state.min}
                         max={this.state.max}
                         data={this.state.valoresRegioesPorPeriodo.max}
@@ -240,7 +272,7 @@ class PgSerie extends React.Component{
                     <br/><br/>
                 </div>
             );
-        }
+        }*/
 
         return(
             <div>
@@ -250,11 +282,59 @@ class PgSerie extends React.Component{
                 </div>
                 <div style={{visibility: this.state.loading ? 'disable' : 'enable'}}>
                     <div className="row">
-                        <div className="col-md-6 h3" style={{margin:0}}>
-                            <img style={{marginLeft: '5px'}} src="imagens/links/8516-01.png" width="52" alt="" title=""/>
+                        <div className="h3">
+                           {/* <img style={{marginLeft: '5px'}} src="imagens/links/8516-01.png" width="52" alt="" title=""/>*/}
                             &nbsp;{this.state.serie}
                         </div>
+
+                        <div className="line_title bg-pri"/>
+                        <br/>
+
+                        <div className="col-md-6">
+                            <AbrangenciaSerie abrangencia={this.state.abrangencia} setAbrangencia={this.setAbrangencia} abrangenciasOk={this.state.abrangenciasOk} setRegions={this.setRegions}/>
+                        </div>
+
+
+
                         <div className="col-md-6 text-right hidden-print">
+
+                            <div className="dropdown">
+                                <div id="dLabel" className="icons-groups icon-group-download"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                     style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
+
+                                <ul className="dropdown-menu" aria-labelledby="dLabel" style={{left: 'inherit', right: '0', float: 'right', margin: '40px 0 0'}}>
+                                    <li><a>Dados em .csv</a></li>
+                                    <li role="separator" className="divider"/>
+                                    <li>
+                                        <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
+                                            <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                            <input type="hidden" name="id" value={this.props.id}/>
+                                            <input type="hidden" name="serie" value={this.props.serie}/>
+                                            <input type="hidden" name="from" value={this.state.min}/>
+                                            <input type="hidden" name="to" value={this.state.max}/>
+                                            <input type="hidden" name="regions" value={this.state.regions}/>
+                                            <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                                            <button className="btn-download">Download ({formatPeriodicidade(this.state.min, this.props.periodicidade)
+                                            } - {formatPeriodicidade(this.state.max, this.props.periodicidade)})</button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form name="frmDownloadTotal" action="download-dados" target="_blank" method="POST">
+                                            <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                            <input type="hidden" name="id" value={this.props.id}/>
+                                            <input type="hidden" name="serie" value={this.props.serie}/>
+                                            <input type="hidden" name="regions" value={this.state.regions}/>
+                                            <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                                            <button className="btn-download">Download Total</button>
+                                        </form>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div className="icons-groups icon-group-email"  data-toggle="modal" data-target="#myModal"
+                                 style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
+
                             <div className="icons-groups icon-group-print" onClick={() => window.print()}
                                  style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
 
@@ -277,8 +357,12 @@ class PgSerie extends React.Component{
                                  style={{marginLeft: '5px'}} onClick={() => this.showHide('Map')} title="">&nbsp;</div>
                         </div>
                     </div>
-                    <br/>
-                    <div className="line_title bg-pri"></div>
+
+
+
+
+
+
 
                     <div className="hidden-print">
                         <br/>
@@ -286,7 +370,7 @@ class PgSerie extends React.Component{
                         <RangePeriodo
                             id={this.state.id}
                             periodicidade={this.props.periodicidade}
-                            abrangencia={this.props.abrangencia}
+                            abrangencia={this.state.abrangencia}
                             changePeriodo={this.changePeriodo}
                             setPeriodos={this.setPeriodos}
                             loading={this.loading}
@@ -301,15 +385,15 @@ class PgSerie extends React.Component{
 
                     <div style={{borderTop: 'solid 1px #ccc', padding:'10px 0'}} className="text-right">
 
-                        <div style={{float:'right', marginLeft:'5px'}}>
+                        {/*<div style={{float:'right', marginLeft:'5px'}}>
                             <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
                                 <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
                                 <input type="hidden" name="id" value={this.props.id}/>
                                 <input type="hidden" name="serie" value={this.props.serie}/>
                                 <input type="hidden" name="from" value={this.state.min}/>
                                 <input type="hidden" name="to" value={this.state.max}/>
-                                <input type="hidden" name="regions" value={this.props.regions}/>
-                                <input type="hidden" name="abrangencia" value={this.props.abrangencia}/>
+                                <input type="hidden" name="regions" value={this.state.regions}/>
+                                <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
                                 <button className="btn btn-success">Download ({formatPeriodicidade(this.state.min, this.props.periodicidade)
                                 } - {formatPeriodicidade(this.state.max, this.props.periodicidade)})</button>
                             </form>
@@ -319,76 +403,52 @@ class PgSerie extends React.Component{
                                 <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
                                 <input type="hidden" name="id" value={this.props.id}/>
                                 <input type="hidden" name="serie" value={this.props.serie}/>
-                                <input type="hidden" name="regions" value={this.props.regions}/>
-                                <input type="hidden" name="abrangencia" value={this.props.abrangencia}/>
+                                <input type="hidden" name="regions" value={this.state.regions}/>
+                                <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
                                 <button className="btn btn-success">Download Total</button>
                             </form>
                         </div>
                         <div style={{float:'right', marginLeft:'5px', paddingTop:'5px'}}>
                             Download dos dados em .csv
-                        </div>
+                        </div>*/}
 
                         <div style={{clear:'both'}}/>
                     </div>
 
+                    <div style={{display: this.state.showTable ? 'block' : 'none'}}>
 
+                        <Topico icon="icon-group-table" text="Tabela"/>
 
-                    <div style={{display: this.state.showMap ? 'block' : 'none'}}>
-
-                        <Topico icon="icon-group-map" text="Mapa"/>
-
-                        <div className="row col-md-12 text-center" style={{display: this.state.loadingMap ? 'block' : 'none'}}>
-                            <i className="fa fa-spin fa-spinner fa-4x"/>
-                        </div>
-
-                        <div className="row" style={{display: !this.state.loadingMap ? 'block' : 'none'}}>
-                            <div className="col-md-6 col-sm-12">
-                                <Map
-                                    mapId="map1"
-                                    id={this.state.id}
-                                    serie={this.props.serie}
-                                    periodicidade={this.props.periodicidade}
-                                    tipoValores={this.props.tipoValores}
-                                    decimais={decimais}
-                                    /*min={this.state.min}
-                                    max={this.state.max}*/
-                                    data={this.state.dataMapFrom}
-                                    periodo={this.state.min}
-                                    //tipoPeriodo="from"
-                                    intervalos={this.state.intervalos}
-                                    //setIntervalos={this.setIntervalos}
-                                    //regions={this.props.regions}
-                                    //abrangencia={this.props.abrangencia}
-                                    /*typeRegion={this.props.typeRegion}
-                                     typeRegionSerie={this.props.typeRegionSerie}*/
-                                />
-                            </div>
-                            <div className="col-md-6 col-sm-12 print-map">
-                                <Map
-                                    mapId="map2"
-                                    id={this.state.id}
-                                    serie={this.props.serie}
-                                    periodicidade={this.props.periodicidade}
-                                    tipoValores={this.props.tipoValores}
-                                    decimais={decimais}
-                                    /*min={this.state.min}
-                                     max={this.state.max}*/
-                                    data={this.state.dataMapTo}
-                                    periodo={this.state.max}
-                                    //tipoPeriodo="to"
-                                    intervalos={this.state.intervalos}
-                                    //setIntervalos={this.setIntervalos}
-                                    //regions={this.props.regions}
-                                    //abrangencia={this.props.abrangencia}
-                                    /*typeRegion={this.props.typeRegion}
-                                     typeRegionSerie={this.props.typeRegionSerie}*/
-                                />
+                        {/*<div style={{textAlign: 'center', clear: 'both'}}>
+                            <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{formatPeriodicidade(this.state.min, this.props.periodicidade)} - {formatPeriodicidade(this.state.max, this.props.periodicidade)}</button>
+                            <div style={{marginTop:'-19px'}}>
+                                <i className="fa fa-sort-down fa-2x ft-pri"  />
                             </div>
                         </div>
+                        <br/>*/}
 
-                        <br/><br/><br/>
+                        <div style={{display: this.state.loadingItems ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>
+                        <div style={{display: this.state.loadingItems ? 'none' : ''}}>
+                            <ListValoresSeries
+                                decimais={decimais}
+                                periodicidade={this.props.periodicidade}
+                                nomeAbrangencia={this.props.nomeAbrangencia}
+                                min={this.state.min}
+                                max={this.state.max}
+                                data={this.state.valoresPeriodo}
+                                tipoUnidade={this.props.tipoUnidade}
+                                /*data={this.state.valoresRegioesPorPeriodo.max}*/
+                                /*dataMin={this.state.valoresRegioesPorPeriodo.min}
+                                dataMax={this.state.valoresRegioesPorPeriodo.max}*/
+                            />
+                            <p style={{marginTop: '-50px'}}><strong>Unidade: </strong>{this.props.unidade}</p>
+                        </div>
+
+                        <br/><br/>
 
                     </div>
+
+
 
                     <div style={{display: this.state.showCharts ? 'block' : 'none'}}>
 
@@ -417,8 +477,8 @@ class PgSerie extends React.Component{
                                     min={this.state.min}
                                     max={this.state.max}
                                     periodos={this.state.periodos}
-                                    regions={this.props.regions}
-                                    abrangencia={this.props.abrangencia}
+                                    regions={this.state.regions}
+                                    abrangencia={this.state.abrangencia}
                                     /*typeRegion={this.props.typeRegion}
                                     typeRegionSerie={this.props.typeRegionSerie}
                                     intervalos={this.state.intervalos}*/
@@ -434,8 +494,8 @@ class PgSerie extends React.Component{
                                             /*intervalos={this.state.intervalos}*/
                                             min={this.state.min}
                                             max={this.state.max}
-                                            regions={this.props.regions}
-                                            abrangencia={this.props.abrangencia}
+                                            regions={this.state.regions}
+                                            abrangencia={this.state.abrangencia}
                                             /*data={this.state.valoresRegioesPorPeriodo}*/
                                             /*smallLarge={this.state.smallLarge}*/
                                             idBar="1"
@@ -472,32 +532,7 @@ class PgSerie extends React.Component{
 
                     {regions}
 
-                    <div style={{display: this.state.showTable ? 'block' : 'none'}}>
 
-                        <Topico icon="icon-group-table" text="Tabela"/>
-
-                        <div style={{textAlign: 'center', clear: 'both'}}>
-                            <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{formatPeriodicidade(this.state.min, this.props.periodicidade)} - {formatPeriodicidade(this.state.max, this.props.periodicidade)}</button>
-                            <div style={{marginTop:'-19px'}}>
-                                <i className="fa fa-sort-down fa-2x ft-pri"  />
-                            </div>
-                        </div>
-                        <br/>
-
-
-                        <ListValoresSeries
-                            decimais={decimais}
-                            periodicidade={this.props.periodicidade}
-                            nomeAbrangencia={this.props.nomeAbrangencia}
-                            min={this.state.min}
-                            max={this.state.max}
-                            data={this.state.valoresPeriodo}
-                            /*data={this.state.valoresRegioesPorPeriodo.max}*/
-                            /*dataMin={this.state.valoresRegioesPorPeriodo.min}
-                            dataMax={this.state.valoresRegioesPorPeriodo.max}*/
-                        />
-                        <br/><br/>
-                    </div>
 
                     {/*<div className="hidden-print" style={{display: this.state.showCalcs ? 'block' : 'none'}}>
 
@@ -511,6 +546,63 @@ class PgSerie extends React.Component{
                         />
                         <br/><br/><br/>
                     </div>*/}
+
+                    <div style={{display: this.state.showMap ? 'block' : 'none'}}>
+
+                        <Topico icon="icon-group-map" text="Mapa"/>
+
+                        <div className="row col-md-12 text-center" style={{display: this.state.loadingMap ? 'block' : 'none'}}>
+                            <i className="fa fa-spin fa-spinner fa-4x"/>
+                        </div>
+
+                        <div className="row" style={{display: !this.state.loadingMap ? 'block' : 'none'}}>
+                            <div className="col-md-6 col-sm-12">
+                                <Map
+                                    mapId="map1"
+                                    id={this.state.id}
+                                    serie={this.props.serie}
+                                    periodicidade={this.props.periodicidade}
+                                    tipoValores={this.props.tipoValores}
+                                    decimais={decimais}
+                                    /*min={this.state.min}
+                                    max={this.state.max}*/
+                                    data={this.state.dataMapFrom}
+                                    periodo={this.state.min}
+                                    //tipoPeriodo="from"
+                                    intervalos={this.state.intervalos}
+                                    //setIntervalos={this.setIntervalos}
+                                    //regions={this.state.regions}
+                                    //abrangencia={this.state.abrangencia}
+                                    /*typeRegion={this.props.typeRegion}
+                                     typeRegionSerie={this.props.typeRegionSerie}*/
+                                />
+                            </div>
+                            <div className="col-md-6 col-sm-12 print-map">
+                                <Map
+                                    mapId="map2"
+                                    id={this.state.id}
+                                    serie={this.props.serie}
+                                    periodicidade={this.props.periodicidade}
+                                    tipoValores={this.props.tipoValores}
+                                    decimais={decimais}
+                                    /*min={this.state.min}
+                                     max={this.state.max}*/
+                                    data={this.state.dataMapTo}
+                                    periodo={this.state.max}
+                                    //tipoPeriodo="to"
+                                    intervalos={this.state.intervalos}
+                                    //setIntervalos={this.setIntervalos}
+                                    //regions={this.state.regions}
+                                    //abrangencia={this.state.abrangencia}
+                                    /*typeRegion={this.props.typeRegion}
+                                     typeRegionSerie={this.props.typeRegionSerie}*/
+                                />
+                            </div>
+                        </div>
+
+                        <br/><br/><br/>
+
+                    </div>
 
                     <div className="hidden-print" style={{display: this.state.showInfo ? 'block' : 'none'}}>
                         <div className="row">
@@ -529,8 +621,10 @@ class PgSerie extends React.Component{
                                 </a>
                             </div>
                         </div>
-                    </div>
 
+                        <p><strong>Fonte: </strong>{this.props.fonte}</p>
+                       {/* <p><strong>Periodicidade: </strong>{this.props.periodicidade}</p>*/}
+                    </div>
                 </div>
             </div>
         );
@@ -543,12 +637,15 @@ ReactDOM.render(
         serie={serie}
         periodicidade={periodicidade}
         metadados={metadados}
+        fonte={fonte}
         tipoValores={tipoValores}
         unidade={unidade}
+        tipoUnidade={tipoUnidade}
         from={from}
         to={to}
         regions={regions}
         abrangencia={abrangencia}
+        abrangenciasOk={abrangenciasOk}
         nomeAbrangencia={nomeAbrangencia}
         /*typeRegion={typeRegion}
         typeRegionSerie={typeRegionSerie}*/

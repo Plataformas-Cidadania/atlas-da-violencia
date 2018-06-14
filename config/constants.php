@@ -46,8 +46,8 @@ return [
     'PADRAO_TERRITORIOS' => [ //
         1 => [203],// 203 - Brasil
         2 => [0],//0 - Todos,
-        3 => [22],//22 - Piauí
-        4 => [0],//Código do estado. Desta forma irá pegar todos os munínicios do estado - 0 para todos
+        3 => [0],//0 - Todos | colocar os códigos das ufs que deseja carregar por padrão
+        4 => [0],//Código do estado. Desta forma irá pegar todos os munínicios do estado | 0 para todos
         7 => [0],//0 - Todos | Territórios do Piauí
     ],
 ];

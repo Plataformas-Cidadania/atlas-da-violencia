@@ -33,8 +33,9 @@ class PgSerie extends React.Component {
         this.state = {
             id: this.props.id,
             serie: this.props.serie,
-            unidade: this.props.unidade,
+            fonte: this.props.fonte,
             loading: false,
+            loadingItems: true,
             intervalos: [],
             intervalosFrom: [],
             intervalosTo: [],
@@ -46,6 +47,9 @@ class PgSerie extends React.Component {
             /*min: this.props.from,
             max: this.props.to,*/
             periodos: [],
+            abrangencia: props.abrangencia,
+            abrangenciasOk: props.abrangenciasOk,
+            regions: props.regions,
             showMap: true,
             loadingMap: false,
             showCharts: true,
@@ -67,6 +71,8 @@ class PgSerie extends React.Component {
         this.loadDataMaps = this.loadDataMaps.bind(this);
         this.setIntervalos = this.setIntervalos.bind(this);
         this.calcSmallLarge = this.calcSmallLarge.bind(this);
+        this.setAbrangencia = this.setAbrangencia.bind(this);
+        this.setRegions = this.setRegions.bind(this);
     }
 
     loading(status) {
@@ -86,6 +92,26 @@ class PgSerie extends React.Component {
         this.setState({ periodos: periodos });
     }
 
+    setAbrangencia(abrangencia) {
+        $.ajax({
+            method: 'GET',
+            url: "get-regions/" + abrangencia,
+            cache: false,
+            success: function (data) {
+                console.log('GET-REGIONS IN PGSERIE', data);
+                this.setState({ regions: data, abrangencia: abrangencia });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
+    }
+
+    setRegions(regions) {
+        console.log(regions);
+        this.setState({ regions: regions });
+    }
+
     loadData() {
 
         //console.log('MIN', this.state.min);
@@ -93,11 +119,13 @@ class PgSerie extends React.Component {
 
         if (this.state.min && this.state.max) {
 
-            //console.log(this.props.regions);
+            this.setState({ loadingItems: true });
+
+            //console.log(this.state.regions);
             $.ajax({
                 method: 'GET',
                 //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-                url: "valores-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia,
+                url: "valores-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.state.regions + "/" + this.state.abrangencia,
                 //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
                 cache: false,
                 success: function (data) {
@@ -105,7 +133,7 @@ class PgSerie extends React.Component {
                     //os valores menor e maior para serem utilizados no chartBar
                     let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
 
-                    this.setState({ valoresRegioesPorPeriodo: data, smallLarge: smallLarge });
+                    this.setState({ valoresRegioesPorPeriodo: data, smallLarge: smallLarge, loadingItems: false });
                 }.bind(this),
                 error: function (xhr, status, err) {
                     console.log('erro');
@@ -118,7 +146,7 @@ class PgSerie extends React.Component {
         if (this.state.min && this.state.max) {
             let _this = this;
             //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
-            $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia, {
+            $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.state.regions + "/" + this.state.abrangencia, {
                 data: {},
                 success: function (data) {
                     this.setState({ valoresPeriodo: data });
@@ -134,13 +162,13 @@ class PgSerie extends React.Component {
         this.setState({ loadingMap: true });
         if (this.state.min && this.state.min) {
             let _this = this;
-            $.ajax("regiao/" + _this.state.id + "/" + _this.state.min + "/" + _this.props.regions + "/" + _this.props.abrangencia, {
+            $.ajax("regiao/" + _this.state.id + "/" + _this.state.min + "/" + _this.state.regions + "/" + _this.state.abrangencia, {
                 data: {},
                 success: function (dataMapFrom) {
 
                     let valoresMapFrom = this.getValoresMap(dataMapFrom);
 
-                    $.ajax("regiao/" + _this.state.id + "/" + _this.state.max + "/" + _this.props.regions + "/" + _this.props.abrangencia, {
+                    $.ajax("regiao/" + _this.state.id + "/" + _this.state.max + "/" + _this.state.regions + "/" + _this.state.abrangencia, {
                         data: {},
                         success: function (dataMapTo) {
 
@@ -224,29 +252,28 @@ class PgSerie extends React.Component {
     render() {
 
         //utilizado para função de formatação
-        let decimais = this.state.unidade == 1 ? 0 : 2;
+        let decimais = this.props.tipoUnidade == 1 ? 0 : 2;
 
         let regions = null;
 
-        if (this.state.showRegions && this.props.abrangencia == 3) {
-            regions = React.createElement(
-                "div",
-                { style: { display: this.state.showRegions && this.props.abrangencia == 3 ? 'block' : 'none' } },
-                React.createElement(Topico, { icon: "icon-group-rate", text: "Taxas" }),
-                React.createElement(Regions, {
-                    id: this.state.id,
-                    periodicidade: this.props.periodicidade,
-                    decimais: decimais,
-                    regions: this.props.regions,
-                    abrangencia: this.props.abrangencia,
-                    min: this.state.min,
-                    max: this.state.max,
-                    data: this.state.valoresRegioesPorPeriodo.max
-                }),
-                React.createElement("br", null),
-                React.createElement("br", null)
+        /*if(this.state.showRegions && this.state.abrangencia==3){
+            regions = (
+                <div style={{display: this.state.showRegions && this.state.abrangencia==3 ? 'block' : 'none'}}>
+                     <Topico icon="icon-group-rate" text="Taxas"/>
+                    <Regions
+                        id={this.state.id}
+                        periodicidade={this.props.periodicidade}
+                        decimais={decimais}
+                        regions={this.state.regions}
+                        abrangencia={this.state.abrangencia}
+                        min={this.state.min}
+                        max={this.state.max}
+                        data={this.state.valoresRegioesPorPeriodo.max}
+                    />
+                    <br/><br/>
+                </div>
             );
-        }
+        }*/
 
         return React.createElement(
             "div",
@@ -270,14 +297,92 @@ class PgSerie extends React.Component {
                     { className: "row" },
                     React.createElement(
                         "div",
-                        { className: "col-md-6 h3", style: { margin: 0 } },
-                        React.createElement("img", { style: { marginLeft: '5px' }, src: "imagens/links/8516-01.png", width: "52", alt: "", title: "" }),
+                        { className: "h3" },
                         "\xA0",
                         this.state.serie
+                    ),
+                    React.createElement("div", { className: "line_title bg-pri" }),
+                    React.createElement("br", null),
+                    React.createElement(
+                        "div",
+                        { className: "col-md-6" },
+                        React.createElement(AbrangenciaSerie, { abrangencia: this.state.abrangencia, setAbrangencia: this.setAbrangencia, abrangenciasOk: this.state.abrangenciasOk, setRegions: this.setRegions })
                     ),
                     React.createElement(
                         "div",
                         { className: "col-md-6 text-right hidden-print" },
+                        React.createElement(
+                            "div",
+                            { className: "dropdown" },
+                            React.createElement(
+                                "div",
+                                { id: "dLabel", className: "icons-groups icon-group-download", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false",
+                                    style: { display: 'block', marginLeft: '5px' }, title: "" },
+                                "\xA0"
+                            ),
+                            React.createElement(
+                                "ul",
+                                { className: "dropdown-menu", "aria-labelledby": "dLabel", style: { left: 'inherit', right: '0', float: 'right', margin: '40px 0 0' } },
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    React.createElement(
+                                        "a",
+                                        null,
+                                        "Dados em .csv"
+                                    )
+                                ),
+                                React.createElement("li", { role: "separator", className: "divider" }),
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    React.createElement(
+                                        "form",
+                                        { name: "frmDownloadPeriodo", action: "download-dados", target: "_blank", method: "POST" },
+                                        React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
+                                        React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
+                                        React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
+                                        React.createElement("input", { type: "hidden", name: "from", value: this.state.min }),
+                                        React.createElement("input", { type: "hidden", name: "to", value: this.state.max }),
+                                        React.createElement("input", { type: "hidden", name: "regions", value: this.state.regions }),
+                                        React.createElement("input", { type: "hidden", name: "abrangencia", value: this.state.abrangencia }),
+                                        React.createElement(
+                                            "button",
+                                            { className: "btn-download" },
+                                            "Download (",
+                                            formatPeriodicidade(this.state.min, this.props.periodicidade),
+                                            " - ",
+                                            formatPeriodicidade(this.state.max, this.props.periodicidade),
+                                            ")"
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    React.createElement(
+                                        "form",
+                                        { name: "frmDownloadTotal", action: "download-dados", target: "_blank", method: "POST" },
+                                        React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
+                                        React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
+                                        React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
+                                        React.createElement("input", { type: "hidden", name: "regions", value: this.state.regions }),
+                                        React.createElement("input", { type: "hidden", name: "abrangencia", value: this.state.abrangencia }),
+                                        React.createElement(
+                                            "button",
+                                            { className: "btn-download" },
+                                            "Download Total"
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "icons-groups icon-group-email", "data-toggle": "modal", "data-target": "#myModal",
+                                style: { display: 'block', marginLeft: '5px' }, title: "" },
+                            "\xA0"
+                        ),
                         React.createElement(
                             "div",
                             { className: "icons-groups icon-group-print", onClick: () => window.print(),
@@ -310,8 +415,6 @@ class PgSerie extends React.Component {
                         )
                     )
                 ),
-                React.createElement("br", null),
-                React.createElement("div", { className: "line_title bg-pri" }),
                 React.createElement(
                     "div",
                     { className: "hidden-print" },
@@ -319,7 +422,7 @@ class PgSerie extends React.Component {
                     React.createElement(RangePeriodo, {
                         id: this.state.id,
                         periodicidade: this.props.periodicidade,
-                        abrangencia: this.props.abrangencia,
+                        abrangencia: this.state.abrangencia,
                         changePeriodo: this.changePeriodo,
                         setPeriodos: this.setPeriodos,
                         loading: this.loading,
@@ -331,115 +434,43 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { borderTop: 'solid 1px #ccc', padding: '10px 0' }, className: "text-right" },
-                    React.createElement(
-                        "div",
-                        { style: { float: 'right', marginLeft: '5px' } },
-                        React.createElement(
-                            "form",
-                            { name: "frmDownloadPeriodo", action: "download-dados", target: "_blank", method: "POST" },
-                            React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
-                            React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
-                            React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
-                            React.createElement("input", { type: "hidden", name: "from", value: this.state.min }),
-                            React.createElement("input", { type: "hidden", name: "to", value: this.state.max }),
-                            React.createElement("input", { type: "hidden", name: "regions", value: this.props.regions }),
-                            React.createElement("input", { type: "hidden", name: "abrangencia", value: this.props.abrangencia }),
-                            React.createElement(
-                                "button",
-                                { className: "btn btn-success" },
-                                "Download (",
-                                formatPeriodicidade(this.state.min, this.props.periodicidade),
-                                " - ",
-                                formatPeriodicidade(this.state.max, this.props.periodicidade),
-                                ")"
-                            )
-                        )
-                    ),
-                    React.createElement(
-                        "div",
-                        { style: { float: 'right', marginLeft: '5px' } },
-                        React.createElement(
-                            "form",
-                            { name: "frmDownloadTotal", action: "download-dados", target: "_blank", method: "POST" },
-                            React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
-                            React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
-                            React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
-                            React.createElement("input", { type: "hidden", name: "regions", value: this.props.regions }),
-                            React.createElement("input", { type: "hidden", name: "abrangencia", value: this.props.abrangencia }),
-                            React.createElement(
-                                "button",
-                                { className: "btn btn-success" },
-                                "Download Total"
-                            )
-                        )
-                    ),
-                    React.createElement(
-                        "div",
-                        { style: { float: 'right', marginLeft: '5px', paddingTop: '5px' } },
-                        "Download dos dados em .csv"
-                    ),
                     React.createElement("div", { style: { clear: 'both' } })
                 ),
                 React.createElement(
                     "div",
-                    { style: { display: this.state.showMap ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-map", text: "Mapa" }),
+                    { style: { display: this.state.showTable ? 'block' : 'none' } },
+                    React.createElement(Topico, { icon: "icon-group-table", text: "Tabela" }),
                     React.createElement(
                         "div",
-                        { className: "row col-md-12 text-center", style: { display: this.state.loadingMap ? 'block' : 'none' } },
+                        { style: { display: this.state.loadingItems ? '' : 'none' }, className: "text-center" },
                         React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
                     ),
                     React.createElement(
                         "div",
-                        { className: "row", style: { display: !this.state.loadingMap ? 'block' : 'none' } },
+                        { style: { display: this.state.loadingItems ? 'none' : '' } },
+                        React.createElement(ListValoresSeries, {
+                            decimais: decimais,
+                            periodicidade: this.props.periodicidade,
+                            nomeAbrangencia: this.props.nomeAbrangencia,
+                            min: this.state.min,
+                            max: this.state.max,
+                            data: this.state.valoresPeriodo,
+                            tipoUnidade: this.props.tipoUnidade
+                            /*data={this.state.valoresRegioesPorPeriodo.max}*/
+                            /*dataMin={this.state.valoresRegioesPorPeriodo.min}
+                            dataMax={this.state.valoresRegioesPorPeriodo.max}*/
+                        }),
                         React.createElement(
-                            "div",
-                            { className: "col-md-6 col-sm-12" },
-                            React.createElement(Map, {
-                                mapId: "map1",
-                                id: this.state.id,
-                                serie: this.props.serie,
-                                periodicidade: this.props.periodicidade,
-                                tipoValores: this.props.tipoValores,
-                                decimais: decimais
-                                /*min={this.state.min}
-                                max={this.state.max}*/
-                                , data: this.state.dataMapFrom,
-                                periodo: this.state.min
-                                //tipoPeriodo="from"
-                                , intervalos: this.state.intervalos
-                                //setIntervalos={this.setIntervalos}
-                                //regions={this.props.regions}
-                                //abrangencia={this.props.abrangencia}
-                                /*typeRegion={this.props.typeRegion}
-                                 typeRegionSerie={this.props.typeRegionSerie}*/
-                            })
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "col-md-6 col-sm-12 print-map" },
-                            React.createElement(Map, {
-                                mapId: "map2",
-                                id: this.state.id,
-                                serie: this.props.serie,
-                                periodicidade: this.props.periodicidade,
-                                tipoValores: this.props.tipoValores,
-                                decimais: decimais
-                                /*min={this.state.min}
-                                 max={this.state.max}*/
-                                , data: this.state.dataMapTo,
-                                periodo: this.state.max
-                                //tipoPeriodo="to"
-                                , intervalos: this.state.intervalos
-                                //setIntervalos={this.setIntervalos}
-                                //regions={this.props.regions}
-                                //abrangencia={this.props.abrangencia}
-                                /*typeRegion={this.props.typeRegion}
-                                 typeRegionSerie={this.props.typeRegionSerie}*/
-                            })
+                            "p",
+                            { style: { marginTop: '-50px' } },
+                            React.createElement(
+                                "strong",
+                                null,
+                                "Unidade: "
+                            ),
+                            this.props.unidade
                         )
                     ),
-                    React.createElement("br", null),
                     React.createElement("br", null),
                     React.createElement("br", null)
                 ),
@@ -493,8 +524,8 @@ class PgSerie extends React.Component {
                                 min: this.state.min,
                                 max: this.state.max,
                                 periodos: this.state.periodos,
-                                regions: this.props.regions,
-                                abrangencia: this.props.abrangencia
+                                regions: this.state.regions,
+                                abrangencia: this.state.abrangencia
                                 /*typeRegion={this.props.typeRegion}
                                 typeRegionSerie={this.props.typeRegionSerie}
                                 intervalos={this.state.intervalos}*/
@@ -516,8 +547,8 @@ class PgSerie extends React.Component {
                                         /*intervalos={this.state.intervalos}*/
                                         , min: this.state.min,
                                         max: this.state.max,
-                                        regions: this.props.regions,
-                                        abrangencia: this.props.abrangencia
+                                        regions: this.state.regions,
+                                        abrangencia: this.state.abrangencia
                                         /*data={this.state.valoresRegioesPorPeriodo}*/
                                         /*smallLarge={this.state.smallLarge}*/
                                         , idBar: "1"
@@ -550,36 +581,64 @@ class PgSerie extends React.Component {
                 regions,
                 React.createElement(
                     "div",
-                    { style: { display: this.state.showTable ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-table", text: "Tabela" }),
+                    { style: { display: this.state.showMap ? 'block' : 'none' } },
+                    React.createElement(Topico, { icon: "icon-group-map", text: "Mapa" }),
                     React.createElement(
                         "div",
-                        { style: { textAlign: 'center', clear: 'both' } },
+                        { className: "row col-md-12 text-center", style: { display: this.state.loadingMap ? 'block' : 'none' } },
+                        React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "row", style: { display: !this.state.loadingMap ? 'block' : 'none' } },
                         React.createElement(
-                            "button",
-                            { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                            formatPeriodicidade(this.state.min, this.props.periodicidade),
-                            " - ",
-                            formatPeriodicidade(this.state.max, this.props.periodicidade)
+                            "div",
+                            { className: "col-md-6 col-sm-12" },
+                            React.createElement(Map, {
+                                mapId: "map1",
+                                id: this.state.id,
+                                serie: this.props.serie,
+                                periodicidade: this.props.periodicidade,
+                                tipoValores: this.props.tipoValores,
+                                decimais: decimais
+                                /*min={this.state.min}
+                                max={this.state.max}*/
+                                , data: this.state.dataMapFrom,
+                                periodo: this.state.min
+                                //tipoPeriodo="from"
+                                , intervalos: this.state.intervalos
+                                //setIntervalos={this.setIntervalos}
+                                //regions={this.state.regions}
+                                //abrangencia={this.state.abrangencia}
+                                /*typeRegion={this.props.typeRegion}
+                                 typeRegionSerie={this.props.typeRegionSerie}*/
+                            })
                         ),
                         React.createElement(
                             "div",
-                            { style: { marginTop: '-19px' } },
-                            React.createElement("i", { className: "fa fa-sort-down fa-2x ft-pri" })
+                            { className: "col-md-6 col-sm-12 print-map" },
+                            React.createElement(Map, {
+                                mapId: "map2",
+                                id: this.state.id,
+                                serie: this.props.serie,
+                                periodicidade: this.props.periodicidade,
+                                tipoValores: this.props.tipoValores,
+                                decimais: decimais
+                                /*min={this.state.min}
+                                 max={this.state.max}*/
+                                , data: this.state.dataMapTo,
+                                periodo: this.state.max
+                                //tipoPeriodo="to"
+                                , intervalos: this.state.intervalos
+                                //setIntervalos={this.setIntervalos}
+                                //regions={this.state.regions}
+                                //abrangencia={this.state.abrangencia}
+                                /*typeRegion={this.props.typeRegion}
+                                 typeRegionSerie={this.props.typeRegionSerie}*/
+                            })
                         )
                     ),
                     React.createElement("br", null),
-                    React.createElement(ListValoresSeries, {
-                        decimais: decimais,
-                        periodicidade: this.props.periodicidade,
-                        nomeAbrangencia: this.props.nomeAbrangencia,
-                        min: this.state.min,
-                        max: this.state.max,
-                        data: this.state.valoresPeriodo
-                        /*data={this.state.valoresRegioesPorPeriodo.max}*/
-                        /*dataMin={this.state.valoresRegioesPorPeriodo.min}
-                        dataMax={this.state.valoresRegioesPorPeriodo.max}*/
-                    }),
                     React.createElement("br", null),
                     React.createElement("br", null)
                 ),
@@ -623,6 +682,16 @@ class PgSerie extends React.Component {
                                 )
                             )
                         )
+                    ),
+                    React.createElement(
+                        "p",
+                        null,
+                        React.createElement(
+                            "strong",
+                            null,
+                            "Fonte: "
+                        ),
+                        this.props.fonte
                     )
                 )
             )
@@ -635,12 +704,15 @@ ReactDOM.render(React.createElement(PgSerie, {
     serie: serie,
     periodicidade: periodicidade,
     metadados: metadados,
+    fonte: fonte,
     tipoValores: tipoValores,
     unidade: unidade,
+    tipoUnidade: tipoUnidade,
     from: from,
     to: to,
     regions: regions,
     abrangencia: abrangencia,
+    abrangenciasOk: abrangenciasOk,
     nomeAbrangencia: nomeAbrangencia
     /*typeRegion={typeRegion}
     typeRegionSerie={typeRegionSerie}*/
