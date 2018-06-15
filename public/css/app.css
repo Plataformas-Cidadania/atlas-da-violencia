@@ -508,6 +508,23 @@ footer {
 .line-temp-barr {
   margin-bottom: -23px;
 }
+.btn-type {
+  color: #3498DB;
+  background-color: #EEEEEE;
+  border: solid 1px #3498DB;
+}
+.btn-type-active {
+  color: #FFFFFF;
+  background-color: #3498DB;
+}
+.btn-type-inactive {
+  color: #CCCCCC;
+  border: solid 1px #EEEEEE;
+  background-color: #EEEEEE;
+}
+.btn-type-inactive:hover {
+  color: #CCCCCC!important;
+}
 @media only screen and (max-width: 980px) {
   .box_data_mes {
     margin: 0 -15px 0 -15px;

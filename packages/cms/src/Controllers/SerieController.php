@@ -207,7 +207,7 @@ class SerieController extends Controller
     }
 
     public function viewImportar($id){
-        $serie = \App\Serie::find($id);
+        $serie = \App\Serie::select('series.*', 'textos_series.*')->where('series.id', $id)->join('textos_series', 'textos_series.serie_id', '=', 'series.id')->first();
         return view('cms::serie.import', ['serie' => $serie]);
     }
 

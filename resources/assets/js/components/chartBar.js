@@ -118,7 +118,7 @@ class ChartBar extends React.Component{
         }
 
         let valuesMax = [];
-        for(let i in data.min.valores){
+        for(let i in data.max.valores){
             labels[i] = data.max.valores[i].sigla;
             valuesMax[i] = data.max.valores[i].valor;
         }

@@ -39,14 +39,16 @@
                     'placeholder' => 'Selecione'
                 ]) !!}<br>
 
-                <label for="modelo">Modelo de Arquivo</label>
-                <select class="form-control width-medio" name="modelo" id="modelo" ng-model="modelo" ng-required="true">
-                    <option value="">Selecione</option>
-                    <option value="1">Periodos em Linhas</option>
-                    {{--<option value="2">Periodos em Colunas</option>--}}
-                </select>
+                <div style="display:none;">
+                    <label for="modelo">Modelo de Arquivo</label>
+                    <select class="form-control width-medio" name="modelo" id="modelo" ng-model="modelo" ng-required="true" ng-init="modelo='1'">
+                        <option value="">Selecione</option>
+                        <option value="1">Periodos em Linhas</option>
+                        {{--<option value="2">Periodos em Colunas</option>--}}
+                    </select>
+                    <br><br>
+                </div>
 
-                <br><br>
 
                 <div id="modelo1">
 
