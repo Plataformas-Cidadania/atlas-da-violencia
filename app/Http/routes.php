@@ -112,6 +112,7 @@ Route::post('listar-series/', 'SerieController@listarSeries');
 
 //Component pgSerie na pg dados-series
 Route::get('valores-regiao/{id}/{min}/{max}/{regions}/{abrangencia}', 'SerieController@valoresRegiaoPrimeiroUltimoPeriodo');
+Route::get('get-regions/{abrangencia}', 'SerieController@getRegionsByAbrangencia');
 
 //Component map na pg dados-series
 Route::get('regiao/{id}/{periodo}/{regions}/{abrangencia}', 'MapController@valoresRegiaoPeriodoGeometry');
