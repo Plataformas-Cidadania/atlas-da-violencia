@@ -732,4 +732,34 @@ class SerieController extends Controller
 
         return view('serie.download', ['data' => $data, 'filename' => $filename.'.csv']);
     }
+
+    public function getRegionsByAbrangencia($abrangencia){
+
+        $table = $this->tabelas[$abrangencia];
+
+        $padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+        $uf = $padraoTerritorios[4];
+
+        /*->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
+            return $query->where($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
+        })*/
+
+        DB::enableQueryLog();
+
+        $result = DB::table($table)->select('edterritorios_codigo')
+            ->when($abrangencia==4 && $uf!=0, function($query) use ($uf){
+                return $query->where('edterritorios_sigla', $uf);
+            })
+            ->get();
+
+        Log::info(DB::getQueryLog());
+
+        $regions = [];
+
+        foreach ($result as $item) {
+            array_push($regions, $item->edterritorios_codigo);
+        }
+
+        return $regions;
+    }
 }
