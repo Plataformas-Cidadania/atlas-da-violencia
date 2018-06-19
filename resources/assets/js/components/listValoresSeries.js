@@ -64,6 +64,7 @@ class ListValoresSeries extends React.Component{
     }
 
     generateTable(){
+        console.log("--------");
         this.setState({loading: true});
 
         let labels = [];
