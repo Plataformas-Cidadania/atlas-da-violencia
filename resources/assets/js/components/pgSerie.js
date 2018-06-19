@@ -409,6 +409,7 @@ class PgSerie extends React.Component{
                                 max={this.state.max}
                                 data={this.state.valoresPeriodo}
                                 tipoUnidade={this.props.tipoUnidade}
+                                abrangencia={this.state.abrangencia}
                                 /*data={this.state.valoresRegioesPorPeriodo.max}*/
                                 /*dataMin={this.state.valoresRegioesPorPeriodo.min}
                                 dataMax={this.state.valoresRegioesPorPeriodo.max}*/

@@ -7,7 +7,8 @@ class ListValoresSeries extends React.Component {
             max: this.props.max,
             loading: true,
             columnsTd: null,
-            dataTable: null
+            dataTable: null,
+            abrangencia: null
         };
         //this.loadData = this.loadData.bind(this);
         this.generateTable = this.generateTable.bind(this);
@@ -24,8 +25,8 @@ class ListValoresSeries extends React.Component {
          });*/
 
         //console.log(props.data);
-        if (this.state.valores != props.data) {
-            this.setState({ valores: props.data, columnsTd: React.createElement(
+        if (this.state.abrangencia != props.abrangencia) {
+            this.setState({ columnsTd: React.createElement(
                     'td',
                     null,
                     '\xA0'
@@ -37,7 +38,11 @@ class ListValoresSeries extends React.Component {
                         null,
                         '\xA0'
                     )
-                ), loading: true }, function () {
+                ), loading: true });
+        }
+
+        if (this.state.valores != props.data) {
+            this.setState({ valores: props.data, loading: true }, function () {
                 this.generateTable();
             });
         }
