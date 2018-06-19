@@ -521,76 +521,7 @@ class SerieController extends Controller
         return view('serie.ipea-selecao');
     }
 
-    /*public function regioes($id){
-        $tipo_regiao = \App\ValorSerie::select('tipo_regiao')->where('serie_id', $id)->first();
 
-
-        if($tipo_regiao->tipo_regiao==2){
-            return $this->porUf($id);
-        }
-
-    }*/
-
-    /*private function porUf($id){
-        DB::connection()->enableQueryLog();
-
-        $regions = DB::table('public.valores_series')
-            ->select(
-                'spat.ed_territorios_regioes.edterritorios_codigo as codigo_regiao',
-                'spat.ed_territorios_regioes.edterritorios_nome as nome_regiao',
-                'spat.ed_territorios_regioes.edterritorios_sigla as sigla_regiao',
-                'spat.ed_territorios_uf.edterritorios_codigo as codigo_uf',
-                'spat.ed_territorios_uf.edterritorios_nome as nome_uf',
-                'spat.ed_territorios_uf.edterritorios_sigla as sigla_uf',
-                'public.valores_series.tipo_regiao'
-            )
-            ->join('spat.ed_territorios_uf', 'spat.ed_territorios_uf.edterritorios_codigo', '=', 'public.valores_series.regiao_id')
-            ->join('spat.ed_uf', 'spat.ed_uf.eduf_cd_uf', '=', 'spat.ed_territorios_uf.edterritorios_codigo')
-            ->join('spat.territorio', 'spat.territorio.terregiao', '=', 'spat.ed_uf.edre_cd_regiao')
-            ->join('spat.ed_territorios_regioes', 'spat.ed_territorios_regioes.edterritorios_terid', '=', 'spat.territorio.terid')
-            ->where('public.valores_series.serie_id', $id)
-            ->distinct()
-            ->get();
-
-        //return $regions;
-
-        $regioes = [];
-        foreach ($regions as $region) {
-
-            $key = array_search($region->nome_regiao, array_column($regioes, 'region'));
-
-            if($key===false){
-                array_push($regioes, [
-                    'region' => $region->nome_regiao,
-                    'codigo' => $region->codigo_regiao,
-                    'sigla' => $region->sigla_regiao,
-                    'open' => false,
-                    'allUfsSelected' => false,
-                    'selected' => false,
-                    'typeRegionSerie' => $region->tipo_regiao,
-                    'ufs' => []
-                ]);
-                $key = array_search([
-                    'region' => $region->nome_regiao,
-                    'codigo' => $region->codigo_regiao,
-                    'sigla' => $region->sigla_regiao,
-                    'open' => false,
-                    'allUfsSelected' => false,
-                    'selected' => false,
-                    'typeRegionSerie' => $region->tipo_regiao,
-                    'ufs' => []
-                ], $regioes);
-            }
-
-            array_push($regioes[$key]['ufs'],[
-                'codigo' => $region->codigo_uf,
-                'uf' => $region->nome_uf,
-                'sigla' => $region->sigla_uf,
-                'selected' => false
-            ]);
-        }
-        return $regioes;
-    }*/
 
     public function territorios(Request $request){
 
