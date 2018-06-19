@@ -195,7 +195,7 @@ class ListValoresSeries extends React.Component{
 
         return (
             <div>
-                {<div style={{display: this.state.loading || !this.state.dataTable ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>
+                <div style={{display: this.state.loading || !this.state.dataTable ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>
                 <div  style={{display: this.state.loading || !this.state.dataTable ? 'none' : ''}}>
 
                         <div className="Container">

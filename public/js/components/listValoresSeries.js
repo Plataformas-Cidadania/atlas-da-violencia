@@ -25,7 +25,19 @@ class ListValoresSeries extends React.Component {
 
         //console.log(props.data);
         if (this.state.valores != props.data) {
-            this.setState({ valores: props.data, columnsTd: null, dataTable: null, loading: true }, function () {
+            this.setState({ valores: props.data, columnsTd: React.createElement(
+                    'td',
+                    null,
+                    '\xA0'
+                ), dataTable: React.createElement(
+                    'tr',
+                    null,
+                    React.createElement(
+                        'td',
+                        null,
+                        '\xA0'
+                    )
+                ), loading: true }, function () {
                 this.generateTable();
             });
         }
@@ -211,7 +223,12 @@ class ListValoresSeries extends React.Component {
             null,
             React.createElement(
                 'div',
-                { style: { display: this.state.loading || !this.state.dataTable ? '' : '' } },
+                { style: { display: this.state.loading || !this.state.dataTable ? '' : 'none' }, className: 'text-center' },
+                React.createElement('i', { className: 'fa fa-spin fa-spinner fa-4x' })
+            ),
+            React.createElement(
+                'div',
+                { style: { display: this.state.loading || !this.state.dataTable ? 'none' : '' } },
                 React.createElement(
                     'div',
                     { className: 'Container' },
