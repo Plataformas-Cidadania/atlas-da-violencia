@@ -127,6 +127,9 @@ class MapController extends Controller
 
         //DB::connection()->enableQueryLog();
 
+        //exclui o cache. Utilizar apenas para testes.
+        $this->cache->forget($cacheKeyValores);
+
         if(!$this->cache->has($cacheKeyValores)){
             $this->cache->put($cacheKeyValores, DB::table('valores_series')
                 ->select(
@@ -158,6 +161,9 @@ class MapController extends Controller
 
         $valores = $this->cache->get($cacheKeyValores);
 
+
+        //exclui o cache. Utilizar apenas para testes.
+        $this->cache->forget($cacheKeyArea);
 
         if(!$this->cache->has($cacheKeyArea)){
             $this->cache->put($cacheKeyArea, DB::table('valores_series')

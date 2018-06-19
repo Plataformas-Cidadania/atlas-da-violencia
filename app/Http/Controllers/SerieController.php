@@ -339,6 +339,9 @@ class SerieController extends Controller
 
         //DB::enableQueryLog();
 
+        //exclui o cache. Utilizar apenas para testes.
+        $this->cache->forget($cacheKeyMin);
+
         if(!$this->cache->has($cacheKeyMin)){
             $this->cache->put($cacheKeyMin, DB::table('valores_series')
                 ->select(DB::raw("valores_series.valor as valor, $select_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
@@ -377,6 +380,9 @@ class SerieController extends Controller
 
         //Log::info($valoresMin);
 
+        //exclui o cache. Utilizar apenas para testes.
+        $this->cache->forget($cacheKeyMax);
+
         if(!$this->cache->has($cacheKeyMax)){
             $this->cache->put($cacheKeyMax, DB::table('valores_series')
                 ->select(DB::raw("valores_series.valor as valor, $select_sigla as sigla, $tabelas[$abrangencia].edterritorios_nome as nome"))
@@ -386,7 +392,10 @@ class SerieController extends Controller
                     ['valores_series.periodo', $max],
                     ['valores_series.tipo_regiao', $abrangencia]
                 ])
-                ->whereIn('valores_series.regiao_id', $regions)
+                ->when($regions[0]!=0, function($query) use ($regions){
+                    return $query->whereIn('valores_series.regiao_id', $regions);
+                })
+                /*->whereIn('valores_series.regiao_id', $regions)*/
                 ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
                 ->get(), 720);
         }
