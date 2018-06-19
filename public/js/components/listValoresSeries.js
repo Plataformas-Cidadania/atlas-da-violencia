@@ -216,7 +216,7 @@ class ListValoresSeries extends React.Component {
             ),
             React.createElement(
                 'div',
-                { className: 'Container Flipped', style: { display: this.state.loading ? 'none' : '', overflowY: 'auto', height: '600px' } },
+                { className: 'Container', style: { display: this.state.loading ? 'none' : '', overflowY: 'auto', height: '600px' } },
                 React.createElement(
                     'div',
                     { className: 'Content' },
