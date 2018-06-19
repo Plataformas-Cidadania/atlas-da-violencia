@@ -744,6 +744,10 @@ class SerieController extends Controller
             return $query->where($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
         })*/
 
+        if($uf[0]==0){
+            return [0];
+        }
+
         DB::enableQueryLog();
 
         Log::info([$padraoTerritorios]);
@@ -757,6 +761,7 @@ class SerieController extends Controller
         Log::info(DB::getQueryLog());
 
         $regions = [];
+
 
         foreach ($result as $item) {
             array_push($regions, $item->edterritorios_codigo);
