@@ -28,7 +28,6 @@ class ChartRadar extends React.Component{
         }
     }
 
-
     /*loadData(){
         let _this = this;
         $.ajax("valores-regiao/"+this.state.min+"/"+this.state.max, {
