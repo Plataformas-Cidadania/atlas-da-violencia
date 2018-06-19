@@ -11,7 +11,9 @@ class ChartLine extends React.Component{
             loading: false,
             min: props.min,
             max: props.max,
-            intervalos: this.props.intervalos
+            intervalos: this.props.intervalos,
+            regions: this.props.regions,
+            abrangencia: this.props.abrangencia,
         };
         this.loadData = this.loadData.bind(this);
         this.loadChartLine = this.loadChartLine.bind(this);
@@ -28,8 +30,14 @@ class ChartLine extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(this.state.min != props.min || this.state.max != props.max || this.state.intervalos != props.intervalos){
-            this.setState({min: props.min, max: props.max, intervalos: props.intervalos}, function(){
+        if(
+            this.state.min != props.min ||
+            this.state.max != props.max ||
+            this.state.intervalos != props.intervalos ||
+            this.state.regions != props.regions ||
+            this.state.abrangencia != props.abrangencia
+        ){
+            this.setState({min: props.min, max: props.max, intervalos: props.intervalos, regions: props.regions, abrangencia: props.abrangencia}, function(){
                 if(myChartBar){
                     this.chartDestroy();
                 }
@@ -44,7 +52,7 @@ class ChartLine extends React.Component{
         this.setState({loading: true});
         let _this = this;
         //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
-        $.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia, {
+        $.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.state.regions+"/"+this.state.abrangencia, {
             data: {},
             success: function(data){
                 //console.log('charline', data);
