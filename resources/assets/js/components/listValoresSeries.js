@@ -25,7 +25,7 @@ class ListValoresSeries extends React.Component{
 
         //console.log(props.data);
         if(this.state.valores!=props.data){
-            this.setState({valores: props.data, columnsTd: null, dataTable: null, loading:true}, function(){
+            this.setState({valores: props.data, columnsTd: (<td>&nbsp;</td>), dataTable: (<tr><td>&nbsp;</td></tr>), loading:true}, function(){
                 this.generateTable();
             });
 
