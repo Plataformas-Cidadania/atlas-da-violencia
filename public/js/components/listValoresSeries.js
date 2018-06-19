@@ -218,7 +218,7 @@ class ListValoresSeries extends React.Component {
             ),
             React.createElement(
                 'div',
-                { className: 'Container Flipped', style: { display: this.state.loading ? 'none' : '' } },
+                { className: 'Container Flipped', style: { display: this.state.loading ? 'none' : '', overflowY: 'auto', height: '400px' } },
                 React.createElement(
                     'div',
                     { className: 'Content' },
@@ -236,7 +236,7 @@ class ListValoresSeries extends React.Component {
                         ),
                         React.createElement(
                             'tbody',
-                            { style: { overflowY: 'auto', height: '400px' } },
+                            null,
                             this.state.dataTable
                         )
                     ),
