@@ -222,7 +222,7 @@ class ListValoresSeries extends React.Component {
                     { className: 'Container' },
                     React.createElement(
                         'div',
-                        { className: 'Content', style: { overflowY: 'auto', height: '600px' } },
+                        { className: 'Content', style: { overflowY: 'auto', maxHeight: '600px' } },
                         React.createElement(
                             'table',
                             { className: 'table table-striped table-bordered', id: 'listValoresSeries' },

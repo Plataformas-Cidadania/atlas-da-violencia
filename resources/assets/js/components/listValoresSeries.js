@@ -199,7 +199,7 @@ class ListValoresSeries extends React.Component{
                 <div  style={{display: this.state.loading ? 'none' : ''}}>
 
                         <div className="Container">
-                            <div className="Content" style={{overflowY: 'auto', height: '600px'}}>
+                            <div className="Content" style={{overflowY: 'auto', maxHeight: '600px'}}>
                                 <table className="table table-striped table-bordered" id="listValoresSeries">
                                     <thead>
                                     <tr>
