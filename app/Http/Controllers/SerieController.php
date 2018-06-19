@@ -749,7 +749,7 @@ class SerieController extends Controller
         Log::info([$padraoTerritorios]);
 
         $result = DB::table($table)->select('edterritorios_codigo')
-            ->when($abrangencia==4 && $uf!=0, function($query) use ($uf){
+            ->when($abrangencia==4 && $uf[0]!=0, function($query) use ($uf){
                 return $query->where('edterritorios_sigla', $uf);
             })
             ->get();
