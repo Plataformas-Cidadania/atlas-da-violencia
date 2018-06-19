@@ -462,6 +462,11 @@ class SerieController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
+        //DB::enableQueryLog();
+
+        //exclui o cache. Utilizar apenas para testes.
+        $this->cache->forget($cacheKey);
+
         if(!$this->cache->has($cacheKey)){
             $this->cache->put($cacheKey, DB::table('valores_series')
                 ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
@@ -472,13 +477,15 @@ class SerieController extends Controller
                     ['valores_series.periodo', '<=', $max],
                     ['valores_series.tipo_regiao', '<=', $abrangencia]
                 ])
-                /*->when(!empty($regions), function($query) use ($regions, $tabelas, $abrangencia){
+                ->when($regions[0]!=0, function($query) use ($regions, $tabelas, $abrangencia){
                     return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions);
-                })*/
-                ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
+                })
+                /*->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)*/
                 ->orderBy('valores_series.periodo')
                 ->get(), 720);
         }
+
+        //Log::info(DB::getQueryLog());
 
         $rows = $this->cache->get($cacheKey);
 
