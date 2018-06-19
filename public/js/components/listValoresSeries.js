@@ -211,12 +211,12 @@ class ListValoresSeries extends React.Component {
             null,
             React.createElement(
                 'div',
-                { style: { display: this.state.loading || this.state.dataTable ? '' : 'none' }, className: 'text-center' },
+                { style: { display: this.state.loading || !this.state.dataTable ? '' : 'none' }, className: 'text-center' },
                 React.createElement('i', { className: 'fa fa-spin fa-spinner fa-4x' })
             ),
             React.createElement(
                 'div',
-                { style: { display: this.state.loading && !this.state.dataTable ? 'none' : '' } },
+                { style: { display: this.state.loading || !this.state.dataTable ? 'none' : '' } },
                 React.createElement(
                     'div',
                     { className: 'Container' },
