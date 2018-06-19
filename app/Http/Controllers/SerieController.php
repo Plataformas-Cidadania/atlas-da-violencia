@@ -331,6 +331,7 @@ class SerieController extends Controller
             7 => 'spat.ed_territorios_piaui_tds'
         ];
 
+
         $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
         if($abrangencia == 4){
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
@@ -350,7 +351,10 @@ class SerieController extends Controller
                 /*->when(!empty($regions), function($query) use ($regions){
                     return $query->whereIn('valores_series.regiao_id', $regions);
                 })*/
-                ->whereIn('valores_series.regiao_id', $regions)
+                ->when($regions[0]!=0, function($query) use ($regions){
+                    return $query->whereIn('valores_series.regiao_id', $regions);
+                })
+                /*->whereIn('valores_series.regiao_id', $regions)*/
                 ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
                 ->get(), 720);
         }
