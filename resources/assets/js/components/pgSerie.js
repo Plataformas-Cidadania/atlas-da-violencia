@@ -384,34 +384,6 @@ class PgSerie extends React.Component{
 
 
                     <div style={{borderTop: 'solid 1px #ccc', padding:'10px 0'}} className="text-right">
-
-                        {/*<div style={{float:'right', marginLeft:'5px'}}>
-                            <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
-                                <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
-                                <input type="hidden" name="id" value={this.props.id}/>
-                                <input type="hidden" name="serie" value={this.props.serie}/>
-                                <input type="hidden" name="from" value={this.state.min}/>
-                                <input type="hidden" name="to" value={this.state.max}/>
-                                <input type="hidden" name="regions" value={this.state.regions}/>
-                                <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
-                                <button className="btn btn-success">Download ({formatPeriodicidade(this.state.min, this.props.periodicidade)
-                                } - {formatPeriodicidade(this.state.max, this.props.periodicidade)})</button>
-                            </form>
-                        </div>
-                        <div style={{float:'right', marginLeft:'5px'}}>
-                            <form name="frmDownloadTotal" action="download-dados" target="_blank" method="POST">
-                                <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
-                                <input type="hidden" name="id" value={this.props.id}/>
-                                <input type="hidden" name="serie" value={this.props.serie}/>
-                                <input type="hidden" name="regions" value={this.state.regions}/>
-                                <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
-                                <button className="btn btn-success">Download Total</button>
-                            </form>
-                        </div>
-                        <div style={{float:'right', marginLeft:'5px', paddingTop:'5px'}}>
-                            Download dos dados em .csv
-                        </div>*/}
-
                         <div style={{clear:'both'}}/>
                     </div>
 

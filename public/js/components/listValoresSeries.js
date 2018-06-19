@@ -5,13 +5,17 @@ class ListValoresSeries extends React.Component {
             valores: [],
             min: this.props.min,
             max: this.props.max,
-            loading: true
+            loading: true,
+            columnsTd: null,
+            datatable: null
         };
         //this.loadData = this.loadData.bind(this);
+        this.generateTable = this.generateTable.bind(this);
     }
 
     componentDidMount() {
         //this.loadData();
+        this.generateTable();
     }
 
     componentWillReceiveProps(props) {
@@ -22,6 +26,7 @@ class ListValoresSeries extends React.Component {
         //console.log(props.data);
         //if(this.state.min!==props.min || this.state.max!==props.max){
         this.setState({ valores: props.data });
+        this.generateTable();
         //}
     }
 
@@ -55,17 +60,8 @@ class ListValoresSeries extends React.Component {
         return colors;
     }
 
-    render() {
-        if (!this.state.valores) {
-            return React.createElement(
-                'h3',
-                null,
-                'Sem Resultados'
-            );
-        }
-
-        //let contColor = 0;
-
+    generateTable() {
+        this.setState({ loading: true });
 
         let labels = [];
         let datasets = [];
@@ -123,19 +119,6 @@ class ListValoresSeries extends React.Component {
             //console.log('DATASETS[REGISTER] DEPOIS', datasets[register]);
         }
 
-        //console.log(datasets);
-
-
-        /*labels = [];
-        datasets = [];
-        cont = 0;
-        contLabel = 0;
-        contColor = 0;
-        data = this.state.valores;
-        currentPer = null;*/
-
-        //console.log(datasets);
-
         let columnsTd = columns.map(function (column, index) {
 
             if (index >= 2) {
@@ -153,14 +136,9 @@ class ListValoresSeries extends React.Component {
 
             let valores = [];
 
-            //valores.push(<th width="10px"><i className="fa fa-square" style={{color: item['legend']}}> </i></th>);
-            //valores.push(<th>{item['region']}</th>);
-
             for (let i in columns) {
 
                 let column = columns[i];
-
-                //console.log(column, item[column]);
 
                 let valor = item[column];
 
@@ -207,33 +185,6 @@ class ListValoresSeries extends React.Component {
                 valores.push(td);
             }
 
-            /*for(let i in item){
-                 if(index==23){
-                    console.log(i, item[i]);
-                }
-                 let valor = item[i];
-                 //testa se é numero
-                let regra = /^[0-9]+$/;
-                if(item[i]){
-                    if(item[i].match(regra)){
-                        valor = formatNumber(item[i], this.props.decimais, ',', '.');
-                    }
-                }
-                  let classValor = "text-right";
-                if(item[i]==0){
-                    valor = '-';
-                    classValor = "text-center"
-                }
-                 let td = (<td key={"valor_tabela_"+i} className={classValor}>{valor}</td>);
-                 if(i=='legend'){
-                    td = (<th width="10px"><i className="fa fa-square" style={{color: item[i]}}> </i></th>);
-                }
-                 if(i=='region'){
-                    td = (<th>{item[i]}</th>);
-                }
-                 valores.push (td);
-            }*/
-
             return React.createElement(
                 'tr',
                 { key: "col_valores_" + index },
@@ -241,179 +192,64 @@ class ListValoresSeries extends React.Component {
             );
         }.bind(this));
 
+        this.setState({ columnsTd: columnsTd, dataTable: dataTable, loading: false });
+    }
+
+    render() {
+        if (!this.state.valores) {
+            return React.createElement(
+                'h3',
+                null,
+                'Sem Resultados'
+            );
+        }
+
         return React.createElement(
             'div',
-            { className: 'Container Flipped' },
+            null,
             React.createElement(
                 'div',
-                { className: 'Content' },
+                { style: { display: this.state.loading ? '' : 'none' }, className: 'text-center' },
+                React.createElement('i', { className: 'fa fa-spin fa-spinner fa-4x' })
+            ),
+            React.createElement(
+                'div',
+                { className: 'Container Flipped', style: { display: this.state.loading ? 'none' : '' } },
                 React.createElement(
-                    'table',
-                    { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
+                    'div',
+                    { className: 'Content' },
                     React.createElement(
-                        'thead',
-                        null,
+                        'table',
+                        { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
                         React.createElement(
-                            'tr',
+                            'thead',
                             null,
-                            columnsTd
+                            React.createElement(
+                                'tr',
+                                null,
+                                this.state.columnsTd
+                            )
+                        ),
+                        React.createElement(
+                            'tbody',
+                            null,
+                            this.state.dataTable
                         )
                     ),
+                    React.createElement('br', null),
                     React.createElement(
-                        'tbody',
-                        null,
-                        dataTable
-                    )
-                ),
-                React.createElement('br', null),
-                React.createElement(
-                    'div',
-                    { style: { float: 'right', marginLeft: '5px' } },
-                    React.createElement(Download, { btnDownload: 'downloadListValoresSeries', divDownload: 'listValoresSeries', arquivo: 'tabela.png' })
-                ),
-                React.createElement(
-                    'div',
-                    { style: { float: 'right', marginLeft: '5px' } },
-                    React.createElement(Print, { divPrint: 'listValoresSeries', imgPrint: 'imgPrintList' })
-                ),
-                React.createElement('div', { style: { clear: 'both' } })
+                        'div',
+                        { style: { float: 'right', marginLeft: '5px' } },
+                        React.createElement(Download, { btnDownload: 'downloadListValoresSeries', divDownload: 'listValoresSeries', arquivo: 'tabela.png' })
+                    ),
+                    React.createElement(
+                        'div',
+                        { style: { float: 'right', marginLeft: '5px' } },
+                        React.createElement(Print, { divPrint: 'listValoresSeries', imgPrint: 'imgPrintList' })
+                    ),
+                    React.createElement('div', { style: { clear: 'both' } })
+                )
             )
         );
-
-        //////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////
-
-
-        //----------------------------------------------------------------------------------------------------
-        //----------------------------------------------------------------------------------------------------
-        //----------------------------------------------------------------------------------------------------
-        //----------------------------------------------------------------------------------------------------
-        //----------------------------------------------------------------------------------------------------
-
-        /*for(let region in data){
-            let values = [];
-             for(let periodo in data[region]){
-                values.push(data[region][periodo]);
-                if(cont===0){
-                    labels[contLabel] = formatPeriodicidade(periodo, this.props.periodicidade);
-                    contLabel++
-                }
-            }
-             let colors = this.getColors();
-            if(contColor > colors.length-1){
-                contColor = 0;
-            }
-             datasets[cont] = {
-                periodo: currentPer,
-                label: region,
-                values: values,
-                color: colors[contColor],
-            };
-             cont++;
-            contColor++;
-         }
-          let periodos = labels.map(function (periodo, index){
-            return(
-                <td key={"col_per_"+index} style={{textAlign: 'right', fontWeight: 'bold'}}>{periodo}</td>
-            );
-        });
-         let dados = datasets.map(function (item, index) {
-             let valores = item.values.map(function(value, i){
-                  let valor = formatNumber(value, this.props.decimais, ',', '.');
-                 let classValor = "text-right";
-                if(value==0){
-                    valor = '-';
-                    classValor = "text-center"
-                }
-                  return (
-                    <td key={"valor_tabela_"+i} className={classValor}>{valor}</td>
-                );
-            }.bind(this));
-             return (
-                <tr key={"col_valores_"+index}>
-                    <th width="10px"><i className="fa fa-square" style={{color: item.color}}> </i></th>
-                    <th>{item.label}</th>
-                    {valores}
-                </tr>
-            );
-        }.bind(this));
-         return (
-            <div className="Container Flipped">
-                <div className="Content">
-                    <table className="table table-striped table-bordered" id="listValoresSeries">
-                        <thead>
-                        <tr>
-                            <th>&nbsp;</th>
-                            <th>{this.props.nomeAbrangencia}</th>
-                            {periodos}
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {dados}
-                        </tbody>
-                    </table>
-                    <br/>
-                    <div style={{float: 'right', marginLeft:'5px'}}>
-                        <Download btnDownload="downloadListValoresSeries" divDownload="listValoresSeries" arquivo="tabela.png"/>
-                    </div>
-                    <div style={{float: 'right', marginLeft:'5px'}}>
-                        <Print divPrint="listValoresSeries" imgPrint="imgPrintList"/>
-                    </div>
-                    <div style={{clear: 'both'}}/>
-                </div>
-            </div>
-         );*/
-
-        //------------------------------------------------------------------------------------------------------------------
-        //------------------------------------------------------------------------------------------------------------------
-        //------------------------------------------------------------------------------------------------------------------
-        //------------------------------------------------------------------------------------------------------------------
-        //------------------------------------------------------------------------------------------------------------------
-        //------------------------------------------------------------------------------------------------------------------
-
-        /*let valores = this.state.valores.map(function (item, index) {
-             if(contColor > colors2.length-1){
-                contColor = 0;
-            }
-             let color = colors2[contColor];
-             contColor++;
-             //para que no municipio não aparece repetido o nome
-            let sigla = null;
-            if(item.sigla!==item.nome){
-               sigla = item.sigla+' - '
-            }
-             return (
-                <tr key={index}>
-                    <th width="10px"><i className="fa fa-square" style={{color: color}}> </i></th>
-                    <th>{sigla}{item.nome}</th>
-                    <td className="text-right">{formatNumber(item.valor, this.props.decimais, ',', '.')}</td>
-                </tr>
-            );
-        }.bind(this));*/
-
-        /*return (
-            <div>
-                <table className="table table-striped table-bordered" id="listValoresSeries">
-                    <thead>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th>Território</th>
-                        <th className="text-right">V</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {valores}
-                    </tbody>
-                </table>
-                <br/>
-                <div style={{float: 'right', marginLeft:'5px'}}>
-                    <Download btnDownload="downloadListValoresSeries" divDownload="listValoresSeries" arquivo="tabela.png"/>
-                </div>
-                <div style={{float: 'right', marginLeft:'5px'}}>
-                    <Print divPrint="listValoresSeries" imgPrint="imgPrintList"/>
-                </div>
-                <div style={{clear: 'both'}}/>
-            </div>
-         );*/
     }
 }
