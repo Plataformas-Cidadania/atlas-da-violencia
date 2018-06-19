@@ -38,12 +38,10 @@ class ListValoresSeries extends React.Component {
                         null,
                         '\xA0'
                     )
-                ), loading: true }, function () {
-                this.generateTable();
-            });
+                ), loading: true });
         }
 
-        if (this.state.valores != props.data || this.state.abrangencia != props.abrangencia) {
+        if (this.state.valores != props.data) {
             this.setState({ valores: props.data, loading: true }, function () {
                 this.generateTable();
             });
