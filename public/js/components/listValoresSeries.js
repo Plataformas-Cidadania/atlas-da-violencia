@@ -219,27 +219,23 @@ class ListValoresSeries extends React.Component {
                 { className: 'Container Flipped', style: { display: this.state.loading ? 'none' : '' } },
                 React.createElement(
                     'div',
-                    { className: 'Content' },
+                    { className: 'Content', style: { overflowY: 'auto', height: '600px' } },
                     React.createElement(
-                        'div',
-                        { style: { overflowY: 'auto', height: '600px' } },
+                        'table',
+                        { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
                         React.createElement(
-                            'table',
-                            { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
+                            'thead',
+                            null,
                             React.createElement(
-                                'thead',
+                                'tr',
                                 null,
-                                React.createElement(
-                                    'tr',
-                                    null,
-                                    this.state.columnsTd
-                                )
-                            ),
-                            React.createElement(
-                                'tbody',
-                                null,
-                                this.state.dataTable
+                                this.state.columnsTd
                             )
+                        ),
+                        React.createElement(
+                            'tbody',
+                            null,
+                            this.state.dataTable
                         )
                     ),
                     React.createElement('br', null),

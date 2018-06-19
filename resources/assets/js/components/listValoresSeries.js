@@ -197,8 +197,8 @@ class ListValoresSeries extends React.Component{
             <div>
                 <div style={{display: this.state.loading ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>
                 <div className="Container Flipped" style={{display: this.state.loading ? 'none' : ''}}>
-                    <div className="Content">
-                        <div style={{overflowY: 'auto', height: '600px'}}>
+                    <div className="Content" style={{overflowY: 'auto', height: '600px'}}>
+
                             <table className="table table-striped table-bordered" id="listValoresSeries">
                                 <thead>
                                 <tr>
@@ -209,7 +209,7 @@ class ListValoresSeries extends React.Component{
                                 {this.state.dataTable}
                                 </tbody>
                             </table>
-                        </div>
+
                         <br/>
                         <div style={{float: 'right', marginLeft:'5px'}}>
                             <Download btnDownload="downloadListValoresSeries" divDownload="listValoresSeries" arquivo="tabela.png"/>
