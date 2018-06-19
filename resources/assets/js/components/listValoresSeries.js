@@ -25,8 +25,10 @@ class ListValoresSeries extends React.Component{
 
         //console.log(props.data);
         //if(this.state.min!==props.min || this.state.max!==props.max){
-            this.setState({valores: props.data});
-            this.generateTable();
+            this.setState({valores: props.data, columnsTd: null, dataTable: null, loading:true}, function(){
+                this.generateTable();
+            });
+
         //}
 
     }
@@ -65,7 +67,6 @@ class ListValoresSeries extends React.Component{
 
     generateTable(){
         console.log("--------");
-        this.setState({loading: true});
 
         let labels = [];
         let datasets = [];
@@ -190,10 +191,6 @@ class ListValoresSeries extends React.Component{
         if(!this.state.valores){
             return (<h3>Sem Resultados</h3>);
         }
-
-
-        console.log(this.state.columnsTd);
-
 
         return (
             <div>
