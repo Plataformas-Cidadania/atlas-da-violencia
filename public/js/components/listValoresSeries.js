@@ -194,7 +194,7 @@ class ListValoresSeries extends React.Component {
             );
         }.bind(this));
 
-        //this.setState({columnsTd: columnsTd, dataTable:dataTable, loading: false});
+        this.setState({ columnsTd: columnsTd, dataTable: dataTable, loading: false });
     }
 
     render() {
@@ -205,6 +205,8 @@ class ListValoresSeries extends React.Component {
                 'Sem Resultados'
             );
         }
+
+        console.log(this.state.loading);
 
         return React.createElement(
             'div',
