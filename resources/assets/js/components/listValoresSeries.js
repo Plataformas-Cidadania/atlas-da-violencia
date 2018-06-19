@@ -25,12 +25,14 @@ class ListValoresSeries extends React.Component{
          });*/
 
         //console.log(props.data);
-        if(this.state.abrangencia!=props.abrangencia){
-            this.setState({columnsTd: (<td>&nbsp;</td>), dataTable: (<tr><td>&nbsp;</td></tr>), loading:true});
-        }
+        /*if(this.state.abrangencia!=props.abrangencia){
+            this.setState({columnsTd: (<td>&nbsp;</td>), dataTable: (<tr><td>&nbsp;</td></tr>), loading:true}, function(){
+                this.generateTable();
+            });
+        }*/
 
-        if(this.state.valores!=props.data){
-            this.setState({valores: props.data, loading:true}, function(){
+        if(this.state.valores!=props.data || this.state.abrangencia!=props.abrangencia){
+            this.setState({valores: props.data, loading:true, columnsTd: (<td>&nbsp;</td>), dataTable: (<tr><td>&nbsp;</td></tr>), loading:true}, function(){
                 this.generateTable();
             });
         }

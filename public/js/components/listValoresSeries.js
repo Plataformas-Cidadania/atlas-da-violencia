@@ -25,8 +25,14 @@ class ListValoresSeries extends React.Component {
          });*/
 
         //console.log(props.data);
-        if (this.state.abrangencia != props.abrangencia) {
-            this.setState({ columnsTd: React.createElement(
+        /*if(this.state.abrangencia!=props.abrangencia){
+            this.setState({columnsTd: (<td>&nbsp;</td>), dataTable: (<tr><td>&nbsp;</td></tr>), loading:true}, function(){
+                this.generateTable();
+            });
+        }*/
+
+        if (this.state.valores != props.data || this.state.abrangencia != props.abrangencia) {
+            this.setState({ valores: props.data, loading: true, columnsTd: React.createElement(
                     'td',
                     null,
                     '\xA0'
@@ -38,11 +44,7 @@ class ListValoresSeries extends React.Component {
                         null,
                         '\xA0'
                     )
-                ), loading: true });
-        }
-
-        if (this.state.valores != props.data) {
-            this.setState({ valores: props.data, loading: true }, function () {
+                ), loading: true }, function () {
                 this.generateTable();
             });
         }
