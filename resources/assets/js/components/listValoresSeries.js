@@ -183,7 +183,7 @@ class ListValoresSeries extends React.Component{
             );
         }.bind(this));
 
-        this.setState({columnsTd: columnsTd, dataTable:dataTable, loading: false});
+        //this.setState({columnsTd: columnsTd, dataTable:dataTable, loading: false});
     }
 
 
