@@ -7,7 +7,7 @@ class ListValoresSeries extends React.Component {
             max: this.props.max,
             loading: true,
             columnsTd: null,
-            datatable: null
+            dataTable: null
         };
         //this.loadData = this.loadData.bind(this);
         this.generateTable = this.generateTable.bind(this);
