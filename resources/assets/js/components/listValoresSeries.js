@@ -26,7 +26,7 @@ class ListValoresSeries extends React.Component{
         //console.log(props.data);
         if(this.state.valores!=props.data){
             this.setState({valores: props.data, columnsTd: null, dataTable: null, loading:true}, function(){
-                //this.generateTable();
+                this.generateTable();
             });
 
         }
@@ -191,12 +191,12 @@ class ListValoresSeries extends React.Component{
             return (<h3>Sem Resultados</h3>);
         }
 
-        //console.log(this.state.loading);
+        console.log(this.state.columnsTd);
 
         return (
             <div>
-                {/*<div style={{display: this.state.loading || !this.state.dataTable ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>*/}
-                <div  style={{display: this.state.loading || !this.state.dataTable ? '' : ''}}>
+                {<div style={{display: this.state.loading || !this.state.dataTable ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>
+                <div  style={{display: this.state.loading || !this.state.dataTable ? 'none' : ''}}>
 
                         <div className="Container">
                             <div className="Content" style={{overflowY: 'auto', maxHeight: '600px'}}>

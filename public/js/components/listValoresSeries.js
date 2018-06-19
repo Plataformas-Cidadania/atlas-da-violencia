@@ -26,7 +26,7 @@ class ListValoresSeries extends React.Component {
         //console.log(props.data);
         if (this.state.valores != props.data) {
             this.setState({ valores: props.data, columnsTd: null, dataTable: null, loading: true }, function () {
-                //this.generateTable();
+                this.generateTable();
             });
         }
     }
@@ -204,7 +204,7 @@ class ListValoresSeries extends React.Component {
             );
         }
 
-        //console.log(this.state.loading);
+        console.log(this.state.columnsTd);
 
         return React.createElement(
             'div',
