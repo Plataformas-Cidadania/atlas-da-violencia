@@ -216,13 +216,13 @@ class ListValoresSeries extends React.Component {
             ),
             React.createElement(
                 'div',
-                { style: { display: this.state.loading ? 'none' : '', overflowY: 'auto', height: '600px' } },
+                { style: { display: this.state.loading ? 'none' : '' } },
                 React.createElement(
                     'div',
                     { className: 'Container' },
                     React.createElement(
                         'div',
-                        { className: 'Content' },
+                        { className: 'Content', style: { overflowY: 'auto', height: '600px' } },
                         React.createElement(
                             'table',
                             { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
