@@ -24,12 +24,11 @@ class ListValoresSeries extends React.Component {
          });*/
 
         //console.log(props.data);
-        //if(this.state.min!==props.min || this.state.max!==props.max){
-        this.setState({ valores: props.data, columnsTd: null, dataTable: null, loading: true }, function () {
-            this.generateTable();
-        });
-
-        //}
+        if (this.state.valores != props.data) {
+            this.setState({ valores: props.data, columnsTd: null, dataTable: null, loading: true }, function () {
+                this.generateTable();
+            });
+        }
     }
 
     /*loadData(){
@@ -63,7 +62,6 @@ class ListValoresSeries extends React.Component {
     }
 
     generateTable() {
-        console.log("--------");
 
         let labels = [];
         let datasets = [];
@@ -206,7 +204,7 @@ class ListValoresSeries extends React.Component {
             );
         }
 
-        console.log(this.state.loading);
+        //console.log(this.state.loading);
 
         return React.createElement(
             'div',
@@ -218,26 +216,30 @@ class ListValoresSeries extends React.Component {
             ),
             React.createElement(
                 'div',
-                { className: 'Container Flipped', style: { display: this.state.loading ? 'none' : '', overflowY: 'auto', height: '400px' } },
+                { className: 'Container Flipped', style: { display: this.state.loading ? 'none' : '' } },
                 React.createElement(
                     'div',
                     { className: 'Content' },
                     React.createElement(
-                        'table',
-                        { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
+                        'div',
+                        { style: { overflowY: 'auto', height: '600px' } },
                         React.createElement(
-                            'thead',
-                            null,
+                            'table',
+                            { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
                             React.createElement(
-                                'tr',
+                                'thead',
                                 null,
-                                this.state.columnsTd
+                                React.createElement(
+                                    'tr',
+                                    null,
+                                    this.state.columnsTd
+                                )
+                            ),
+                            React.createElement(
+                                'tbody',
+                                null,
+                                this.state.dataTable
                             )
-                        ),
-                        React.createElement(
-                            'tbody',
-                            null,
-                            this.state.dataTable
                         )
                     ),
                     React.createElement('br', null),

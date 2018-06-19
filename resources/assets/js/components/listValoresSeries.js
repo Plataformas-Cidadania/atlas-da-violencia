@@ -24,12 +24,12 @@ class ListValoresSeries extends React.Component{
          });*/
 
         //console.log(props.data);
-        //if(this.state.min!==props.min || this.state.max!==props.max){
+        if(this.state.valores!=props.data){
             this.setState({valores: props.data, columnsTd: null, dataTable: null, loading:true}, function(){
                 this.generateTable();
             });
 
-        //}
+        }
 
     }
 
@@ -66,7 +66,6 @@ class ListValoresSeries extends React.Component{
     }
 
     generateTable(){
-        console.log("--------");
 
         let labels = [];
         let datasets = [];
@@ -192,23 +191,25 @@ class ListValoresSeries extends React.Component{
             return (<h3>Sem Resultados</h3>);
         }
 
-        console.log(this.state.loading);
+        //console.log(this.state.loading);
 
         return (
             <div>
                 <div style={{display: this.state.loading ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>
-                <div className="Container Flipped" style={{display: this.state.loading ? 'none' : '', overflowY: 'auto', height: '400px'}}>
+                <div className="Container Flipped" style={{display: this.state.loading ? 'none' : ''}}>
                     <div className="Content">
-                        <table className="table table-striped table-bordered" id="listValoresSeries">
-                            <thead>
-                            <tr>
-                                {this.state.columnsTd}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.state.dataTable}
-                            </tbody>
-                        </table>
+                        <div style={{overflowY: 'auto', height: '600px'}}>
+                            <table className="table table-striped table-bordered" id="listValoresSeries">
+                                <thead>
+                                <tr>
+                                    {this.state.columnsTd}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {this.state.dataTable}
+                                </tbody>
+                            </table>
+                        </div>
                         <br/>
                         <div style={{float: 'right', marginLeft:'5px'}}>
                             <Download btnDownload="downloadListValoresSeries" divDownload="listValoresSeries" arquivo="tabela.png"/>
