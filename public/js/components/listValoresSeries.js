@@ -216,41 +216,45 @@ class ListValoresSeries extends React.Component {
             ),
             React.createElement(
                 'div',
-                { className: 'Container', style: { display: this.state.loading ? 'none' : '', overflowY: 'auto', height: '600px' } },
+                { style: { display: this.state.loading ? 'none' : '', overflowY: 'auto', height: '600px' } },
                 React.createElement(
                     'div',
-                    { className: 'Content' },
+                    { className: 'Container' },
                     React.createElement(
-                        'table',
-                        { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
+                        'div',
+                        { className: 'Content' },
                         React.createElement(
-                            'thead',
-                            null,
+                            'table',
+                            { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
                             React.createElement(
-                                'tr',
+                                'thead',
                                 null,
-                                this.state.columnsTd
+                                React.createElement(
+                                    'tr',
+                                    null,
+                                    this.state.columnsTd
+                                )
+                            ),
+                            React.createElement(
+                                'tbody',
+                                null,
+                                this.state.dataTable
                             )
-                        ),
-                        React.createElement(
-                            'tbody',
-                            null,
-                            this.state.dataTable
                         )
-                    ),
-                    React.createElement('br', null),
-                    React.createElement(
-                        'div',
-                        { style: { float: 'right', marginLeft: '5px' } },
-                        React.createElement(Download, { btnDownload: 'downloadListValoresSeries', divDownload: 'listValoresSeries', arquivo: 'tabela.png' })
-                    ),
-                    React.createElement(
-                        'div',
-                        { style: { float: 'right', marginLeft: '5px' } },
-                        React.createElement(Print, { divPrint: 'listValoresSeries', imgPrint: 'imgPrintList' })
-                    ),
-                    React.createElement('div', { style: { clear: 'both' } })
-                )
+                    )
+                ),
+                React.createElement('br', null),
+                React.createElement(
+                    'div',
+                    { style: { float: 'right', marginLeft: '5px' } },
+                    React.createElement(Download, { btnDownload: 'downloadListValoresSeries', divDownload: 'listValoresSeries', arquivo: 'tabela.png' })
+                ),
+                React.createElement(
+                    'div',
+                    { style: { float: 'right', marginLeft: '5px' } },
+                    React.createElement(Print, { divPrint: 'listValoresSeries', imgPrint: 'imgPrintList' })
+                ),
+                React.createElement('div', { style: { clear: 'both' } })
             )
         );
     }

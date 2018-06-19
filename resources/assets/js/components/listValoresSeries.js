@@ -196,18 +196,22 @@ class ListValoresSeries extends React.Component{
         return (
             <div>
                 <div style={{display: this.state.loading ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>
-                <div className="Container" style={{display: this.state.loading ? 'none' : '', overflowY: 'auto', height: '600px'}}>
-                    <div className="Content">
-                        <table className="table table-striped table-bordered" id="listValoresSeries">
-                            <thead>
-                            <tr>
-                                {this.state.columnsTd}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.state.dataTable}
-                            </tbody>
-                        </table>
+                <div  style={{display: this.state.loading ? 'none' : '', overflowY: 'auto', height: '600px'}}>
+
+                        <div className="Container">
+                            <div className="Content">
+                                <table className="table table-striped table-bordered" id="listValoresSeries">
+                                    <thead>
+                                    <tr>
+                                        {this.state.columnsTd}
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {this.state.dataTable}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
                         <br/>
                         <div style={{float: 'right', marginLeft:'5px'}}>
@@ -217,7 +221,7 @@ class ListValoresSeries extends React.Component{
                             <Print divPrint="listValoresSeries" imgPrint="imgPrintList"/>
                         </div>
                         <div style={{clear: 'both'}}/>
-                    </div>
+
                 </div>
             </div>
 
