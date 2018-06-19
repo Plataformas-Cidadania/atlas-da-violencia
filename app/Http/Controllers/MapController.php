@@ -179,10 +179,10 @@ class MapController extends Controller
                 ->whereYear("$tabelas[$abrangencia].edterritorios_data_final", '>=', $periodo)*/
                 ->where("$tabelas[$abrangencia].edterritorios_data_inicial", '<=', $periodo)
                 ->where("$tabelas[$abrangencia].edterritorios_data_final", '>=', $periodo)
-                /*->when(!empty($regions), function($query) use ($regions, $tabelas, $abrangencia){
+                ->when($regions[0]!=0, function($query) use ($regions, $tabelas, $abrangencia){
                     return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions);
-                })*/
-                ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
+                })
+                /*->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)*/
 
                 ->get(), 720);
         }
