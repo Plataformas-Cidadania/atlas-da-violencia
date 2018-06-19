@@ -236,7 +236,7 @@ class ListValoresSeries extends React.Component {
                         ),
                         React.createElement(
                             'tbody',
-                            null,
+                            { style: { overflowY: 'auto', height: '400px' } },
                             this.state.dataTable
                         )
                     ),

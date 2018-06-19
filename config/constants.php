@@ -42,7 +42,7 @@ return [
             ]
         ]
     ],
-    'PADRAO_ABRANGENCIA' => [3,4,7],//3 - UF | 4 - Municipios | 7 - Territorios
+    'PADRAO_ABRANGENCIA' => [3,2,4],//3 - UF | 4 - Municipios | 2 - Regiões
     'PADRAO_TERRITORIOS' => [ //
         1 => [203],// 203 - Brasil
         2 => [0],//0 - Todos,

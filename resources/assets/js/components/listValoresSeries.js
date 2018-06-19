@@ -205,7 +205,7 @@ class ListValoresSeries extends React.Component{
                                 {this.state.columnsTd}
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody style={{overflowY: 'auto', height: '400px'}}>
                             {this.state.dataTable}
                             </tbody>
                         </table>
