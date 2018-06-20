@@ -3,7 +3,7 @@ class AbrangenciaSerie extends React.Component {
         super(props);
 
         this.state = {
-            abrangencias: props.abrangencias ? props.abrangencias : [{ id: 2, titulo: 'Regiões' }, { id: 3, titulo: 'UF' }, { id: 4, titulo: 'Municípios' }],
+            abrangencias: props.abrangencias ? props.abrangencias : [{ id: 1, titulo: 'País' }, { id: 2, titulo: 'Regiões' }, { id: 3, titulo: 'UF' }, { id: 4, titulo: 'Municípios' }],
             regionsId: [0],
             nomeAbrangencia: props.nomeAbrangencia,
             abrangencia: props.abrangencia,
