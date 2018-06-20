@@ -26,19 +26,7 @@ class ListValoresSeries extends React.Component {
 
         //console.log(props.data);
         if (this.state.abrangencia != props.abrangencia) {
-            this.setState({ columnsTd: React.createElement(
-                    'td',
-                    null,
-                    '\xA0'
-                ), dataTable: React.createElement(
-                    'tr',
-                    null,
-                    React.createElement(
-                        'td',
-                        null,
-                        '\xA0'
-                    )
-                ) });
+            //this.setState({columnsTd: (<td>&nbsp;</td>), dataTable: (<tr><td>&nbsp;</td></tr>)});
         }
 
         if (this.state.valores != props.data) {
