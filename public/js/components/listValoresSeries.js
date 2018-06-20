@@ -38,7 +38,7 @@ class ListValoresSeries extends React.Component {
                         null,
                         '\xA0'
                     )
-                ), loading: true });
+                ) });
         }
 
         if (this.state.valores != props.data) {
