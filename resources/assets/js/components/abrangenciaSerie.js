@@ -8,6 +8,7 @@ class AbrangenciaSerie extends React.Component{
                 {id: 3, titulo: 'UF'},
                 {id: 4, titulo: 'Municípios'},
             ],
+            regionsId: [0],
             abrangencia: props.abrangencia,
             abrangenciasOk: props.abrangenciasOk,
             optionsAbrangencia: [
@@ -52,14 +53,46 @@ class AbrangenciaSerie extends React.Component{
 
         this.setAbrangencia = this.setAbrangencia.bind(this);
         this.showRegions = this.showRegions.bind(this);
+        this.activateOptionsAbrangencia = this.activateOptionsAbrangencia.bind(this);
+        this.setRegions = this.setRegions.bind(this);
+        this.loadWithRegions = this.loadWithRegions.bind(this);
 
 
     }
 
+    componentDidMount(){
+        this.activateOptionsAbrangencia();
+    }
+
     componentWillReceiveProps(props){
         if(this.state.abrangencia !== props.abrangencia){
-            this.setState({abrangencia: props.abrangencia});
+            this.setState({abrangencia: props.abrangencia}, function(){
+                this.activateOptionsAbrangencia();
+            });
         }
+    }
+
+    activateOptionsAbrangencia(){
+        let optionsAbrangencia = this.state.optionsAbrangencia;
+
+        optionsAbrangencia.find(function(option){
+            option.on = option.id === parseInt(this.state.abrangencia);
+            //console.log(this.state.abrangencia, option.id, option.on);
+        }.bind(this));
+
+        console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
+
+        /*this.setState({serieMarked: item.id, abrangencia: item.tipo_regiao}, function(){
+            if(all){
+                this.setState({loadingDefaultValues: true});
+                this.loadDefaultValues();
+                //this.submit();
+                return;
+            }
+
+            this.loadPeriodos();
+            $("#modalAbrangencias").modal();
+        });*/
     }
 
     showRegions(){
@@ -92,7 +125,18 @@ class AbrangenciaSerie extends React.Component{
         console.log(regionsId);
 
         //this.setState({regions: regionsId});
-        this.props.setRegions(regionsId);
+
+        if(regionsId.length == 0){
+            regionsId.push(0);//0 irá pegar todas as regiões da abrangência no backend
+        }
+
+        //this.props.setRegions(regionsId);
+        this.setState({regionsId: regionsId})
+    }
+
+    loadWithRegions(){
+        this.props.setRegions(this.state.regionsId);
+        $("#modalAbrangencias").modal('hide');
     }
 
     render(){
@@ -107,7 +151,7 @@ class AbrangenciaSerie extends React.Component{
             />
         );
 
-        let btnContinuar = <button className="btn btn-primary">Continuar</button>
+        let btnContinuar = <button className="btn btn-primary" onClick={this.loadWithRegions}>Continuar</button>
         /*let btnContinuar = <button type="button" className="btn btn-primary" onClick={() => this.submit()} disabled >Continuar</button>;
         if(this.state.regions.length > 0 && this.state.periodos.length > 0 && this.state.from && this.state.to && this.state.abrangencia && this.state.serieMarked){
             btnContinuar = <button type="button" className="btn btn-primary" onClick={() => this.submit()}  >Continuar</button>
@@ -116,7 +160,7 @@ class AbrangenciaSerie extends React.Component{
         let tituloAbrangencia = null;
 
         let filterRegions = null;
-        filterRegions = <button className="btn btn-info" style={{marginLeft: '10px'}} onClick={this.showRegions}><i className="fa fa-filter "/> Filtrar Regiões</button>;
+        filterRegions = <button className="btn btn-info" style={{marginLeft: '10px'}} onClick={this.showRegions}><i className="fa fa-filter "/> Filtrar Territórios</button>;
         /*if(this.state.abrangencia!==3){
             filterRegions = <button className="btn btn-info" style={{marginLeft: '10px'}} onClick={this.showRegions}><i className="fa fa-filter "/> Filtrar Regiões</button>;
         }*/
@@ -136,6 +180,7 @@ class AbrangenciaSerie extends React.Component{
             );
 
         }.bind(this));
+
 
         return(
             <div>

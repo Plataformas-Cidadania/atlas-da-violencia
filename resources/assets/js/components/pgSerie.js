@@ -97,7 +97,11 @@ class PgSerie extends React.Component{
 
     setRegions(regions){
         console.log(regions);
-        this.setState({regions: regions});
+        this.setState({regions: regions}, function(){
+            this.loadData();
+            this.loadDataPeriodo();
+            this.loadDataMaps();
+        });
     }
 
 

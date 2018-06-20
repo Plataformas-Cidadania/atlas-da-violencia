@@ -319,16 +319,16 @@ class SelectItems extends React.Component{
     }
 
 
-
     render(){
 
         //console.log(this.state.parameters);
+
 
         if(!this.state.option){
             return null;
         }
 
-        console.log(this.state);
+        //console.log(this.state);
 
 
         let filter = null;
@@ -387,6 +387,8 @@ class SelectItems extends React.Component{
                 </div>
             );
         }
+
+
 
         return (
             <div>

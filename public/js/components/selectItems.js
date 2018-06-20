@@ -314,11 +314,13 @@ class SelectItems extends React.Component {
 
         //console.log(this.state.parameters);
 
+
         if (!this.state.option) {
             return null;
         }
 
-        console.log(this.state);
+        //console.log(this.state);
+
 
         let filter = null;
         if (!this.state.option.listAll) {
