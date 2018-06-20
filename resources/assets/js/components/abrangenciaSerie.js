@@ -66,6 +66,11 @@ class AbrangenciaSerie extends React.Component{
     }
 
     componentWillReceiveProps(props){
+
+        if(this.state.nomeAbrangencia !== props.nomeAbrangencia){
+            this.setState({nomeAbrangencia: props.nomeAbrangencia});
+        }
+
         if(this.state.abrangencia !== props.abrangencia){
             this.setState({abrangencia: props.abrangencia}, function(){
                 this.activateOptionsAbrangencia();
