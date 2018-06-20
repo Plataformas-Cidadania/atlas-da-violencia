@@ -35,6 +35,7 @@ class PgSerie extends React.Component{
             max: this.props.to,*/
             periodos: [],
             abrangencia: props.abrangencia,
+            nomeAbrangencia: props.nomeAbrangencia,
             abrangenciasOk: props.abrangenciasOk,
             regions: props.regions,
             showMap: true,
@@ -59,6 +60,7 @@ class PgSerie extends React.Component{
         this.setIntervalos = this.setIntervalos.bind(this);
         this.calcSmallLarge = this.calcSmallLarge.bind(this);
         this.setAbrangencia = this.setAbrangencia.bind(this);
+        this.setNomeAbrangencia = this.setNomeAbrangencia.bind(this);
         this.setRegions = this.setRegions.bind(this);
 
     }
@@ -93,6 +95,10 @@ class PgSerie extends React.Component{
                 console.log('erro');
             }.bind(this)
         });
+    }
+
+    setNomeAbrangencia(nomeAbrangencia){
+        this.setState({nomeAbrangencia: nomeAbrangencia});
     }
 
     setRegions(regions){
@@ -295,7 +301,14 @@ class PgSerie extends React.Component{
                         <br/>
 
                         <div className="col-md-6">
-                            <AbrangenciaSerie abrangencia={this.state.abrangencia} setAbrangencia={this.setAbrangencia} abrangenciasOk={this.state.abrangenciasOk} setRegions={this.setRegions}/>
+                            <AbrangenciaSerie
+                                abrangencia={this.state.abrangencia}
+                                nomeAbrangencia={this.state.nomeAbrangencia}
+                                setAbrangencia={this.setAbrangencia}
+                                abrangenciasOk={this.state.abrangenciasOk}
+                                setRegions={this.setRegions}
+                                setNomeAbrangencia={this.setNomeAbrangencia}
+                            />
                         </div>
 
 
@@ -408,7 +421,7 @@ class PgSerie extends React.Component{
                             <ListValoresSeries
                                 decimais={decimais}
                                 periodicidade={this.props.periodicidade}
-                                nomeAbrangencia={this.props.nomeAbrangencia}
+                                nomeAbrangencia={this.state.nomeAbrangencia}
                                 min={this.state.min}
                                 max={this.state.max}
                                 data={this.state.valoresPeriodo}
