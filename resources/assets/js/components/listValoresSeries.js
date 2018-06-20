@@ -195,7 +195,7 @@ class ListValoresSeries extends React.Component{
             return (<h3>Sem Resultados</h3>);
         }
 
-        console.log(this.state.columnsTd);
+        //console.log(this.state.columnsTd);
 
         return (
             <div>

@@ -9,6 +9,7 @@ class AbrangenciaSerie extends React.Component{
                 {id: 4, titulo: 'Municípios'},
             ],
             regionsId: [0],
+            abrangenciaName: null,
             abrangencia: props.abrangencia,
             abrangenciasOk: props.abrangenciasOk,
             optionsAbrangencia: [
@@ -74,13 +75,19 @@ class AbrangenciaSerie extends React.Component{
 
     activateOptionsAbrangencia(){
         let optionsAbrangencia = this.state.optionsAbrangencia;
+        let abrangenciaName = null;
 
         optionsAbrangencia.find(function(option){
             option.on = option.id === parseInt(this.state.abrangencia);
+            if(option.on){
+                abrangenciaName = option.title;
+            }
             //console.log(this.state.abrangencia, option.id, option.on);
         }.bind(this));
 
-        console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
+        this.setState({abrangenciaName: abrangenciaName});
+
+        //console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
 
         /*this.setState({serieMarked: item.id, abrangencia: item.tipo_regiao}, function(){
             if(all){
@@ -160,7 +167,7 @@ class AbrangenciaSerie extends React.Component{
         let tituloAbrangencia = null;
 
         let filterRegions = null;
-        filterRegions = <button className="btn btn-info" style={{marginLeft: '10px'}} onClick={this.showRegions}><i className="fa fa-filter "/> Filtrar Territórios</button>;
+        filterRegions = <button className="btn btn-info" style={{marginLeft: '10px'}} onClick={this.showRegions}><i className="fa fa-filter "/> Filtrar {this.state.abrangenciaName}</button>;
         /*if(this.state.abrangencia!==3){
             filterRegions = <button className="btn btn-info" style={{marginLeft: '10px'}} onClick={this.showRegions}><i className="fa fa-filter "/> Filtrar Regiões</button>;
         }*/

@@ -209,7 +209,7 @@ class ListValoresSeries extends React.Component {
             );
         }
 
-        console.log(this.state.columnsTd);
+        //console.log(this.state.columnsTd);
 
         return React.createElement(
             'div',

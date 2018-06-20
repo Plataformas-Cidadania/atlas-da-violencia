@@ -5,6 +5,7 @@ class AbrangenciaSerie extends React.Component {
         this.state = {
             abrangencias: props.abrangencias ? props.abrangencias : [{ id: 2, titulo: 'Regiões' }, { id: 3, titulo: 'UF' }, { id: 4, titulo: 'Municípios' }],
             regionsId: [0],
+            abrangenciaName: null,
             abrangencia: props.abrangencia,
             abrangenciasOk: props.abrangenciasOk,
             optionsAbrangencia: [{ id: 1, title: 'País', plural: ' os Países', on: false, listAll: 1, height: '250px' }, { id: 2, title: 'Região', plural: 'as Regiões', on: false, listAll: 1, height: '250px' }, { id: 3, title: 'UF', plural: 'os Estados', on: false, listAll: 1, height: '400px' }, { id: 7, title: 'Território', plural: 'os Estados', on: false, listAll: 1, height: '400px' }, { id: 4, title: 'Município', plural: 'os Municípios', on: false, listAll: 0, height: '400px',
@@ -34,13 +35,19 @@ class AbrangenciaSerie extends React.Component {
 
     activateOptionsAbrangencia() {
         let optionsAbrangencia = this.state.optionsAbrangencia;
+        let abrangenciaName = null;
 
         optionsAbrangencia.find(function (option) {
             option.on = option.id === parseInt(this.state.abrangencia);
+            if (option.on) {
+                abrangenciaName = option.title;
+            }
             //console.log(this.state.abrangencia, option.id, option.on);
         }.bind(this));
 
-        console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
+        this.setState({ abrangenciaName: abrangenciaName });
+
+        //console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
 
         /*this.setState({serieMarked: item.id, abrangencia: item.tipo_regiao}, function(){
             if(all){
@@ -125,7 +132,8 @@ class AbrangenciaSerie extends React.Component {
             'button',
             { className: 'btn btn-info', style: { marginLeft: '10px' }, onClick: this.showRegions },
             React.createElement('i', { className: 'fa fa-filter ' }),
-            ' Filtrar Territ\xF3rios'
+            ' Filtrar ',
+            this.state.abrangenciaName
         );
         /*if(this.state.abrangencia!==3){
             filterRegions = <button className="btn btn-info" style={{marginLeft: '10px'}} onClick={this.showRegions}><i className="fa fa-filter "/> Filtrar Regiões</button>;
