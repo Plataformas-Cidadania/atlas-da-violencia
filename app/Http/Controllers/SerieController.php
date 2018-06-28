@@ -612,7 +612,8 @@ class SerieController extends Controller
             ->select(DB::raw("spat.ed_territorios_paises.edterritorios_nome, valores_series.valor, valores_series.periodo"))
             ->join('spat.ed_territorios_paises', 'valores_series.regiao_id', '=', 'spat.ed_territorios_paises.edterritorios_codigo')
             ->where([
-                ['valores_series.serie_id', $id]
+                ['valores_series.serie_id', $id],
+                ['valores_series.tipo_regiao', 1]
             ])
             ->orderBy('valores_series.periodo')
             ->get();

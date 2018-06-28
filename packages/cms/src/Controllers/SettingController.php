@@ -37,9 +37,12 @@ class SettingController extends Controller
        // $series = \App\Serie::lists('titulo', 'sigla')->all();
 
 
-        $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')->orderBy('textos_series.titulo')->lists('textos_series.titulo', 'series.id')
-
-        ->all();
+        $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+            ->join('valores_series', 'series.id', '=', 'valores_series.serie_id')
+            ->where('valores_series.tipo_regiao', 1)
+            ->orderBy('textos_series.titulo')
+            ->lists('textos_series.titulo', 'series.id')
+            ->all();
 
 
 

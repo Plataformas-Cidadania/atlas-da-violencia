@@ -114,7 +114,7 @@
             {!! Form::label('serie_id', 'Séries *') !!}<br>
             {!! Form::select('serie_id',
                     $series,
-            null, ['class'=>"form-control width-medio <% validar(setting.serie_id) %>", 'ng-model'=>'setting.serie_id', 'ng-required'=>'true', 'init-model'=>'setting.serie_id', 'placeholder' => 'Selecione']) !!}<br>
+            null, ['class'=>"form-control width-grande <% validar(setting.serie_id) %>", 'ng-model'=>'setting.serie_id', 'ng-required'=>'true', 'init-model'=>'setting.serie_id', 'placeholder' => 'Selecione']) !!}<br>
         </div>
     </div>
 
