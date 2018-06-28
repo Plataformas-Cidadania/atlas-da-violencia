@@ -13,6 +13,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="site">
+            <br>
             {!! Form::label('titulo', 'Nome') !!}<br>
             {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(setting.titulo) %>", 'ng-model'=>'setting.titulo', 'ng-required'=>'true', 'init-model'=>'setting.titulo']) !!}<br>
 
@@ -24,6 +25,7 @@
 
         </div>
         <div role="tabpanel" class="tab-pane" id="contato">
+            <br>
             {!! Form::label('email', 'E-mail') !!}<br>
             {!! Form::text('email', null, ['class'=>"form-control width-grande <% validar(setting.email) %>", 'ng-model'=>'setting.email', 'ng-required'=>'true', 'init-model'=>'setting.email']) !!}<br>
 
@@ -68,6 +70,7 @@
 
         </div>
         <div role="tabpanel" class="tab-pane" id="cor">
+            <br>
             <div class="row">
                 <div class="col-md-1">
                     {!! Form::label('cor1', 'Cor 1') !!}<br>
@@ -92,6 +95,7 @@
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="redes">
+            <br>
             {!! Form::label('facebook', 'Facebook') !!}<br>
             {!! Form::text('facebook', null, ['class'=>"form-control width-grande <% validar(setting.facebook) %>", 'ng-model'=>'setting.facebook', 'ng-required'=>'true', 'init-model'=>'setting.facebook']) !!}<br>
 
