@@ -1,5 +1,4 @@
 cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-    
 
     $scope.temas = [];
     $scope.currentPage = 1;
@@ -8,7 +7,7 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, tema";
+    $scope.campos = "id, tema, imagem";
     $scope.campoPesquisa = "tema";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;

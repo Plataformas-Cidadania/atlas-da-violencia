@@ -1,5 +1,4 @@
 cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-    
 
     $scope.temas = [];
     $scope.currentPage = 1;

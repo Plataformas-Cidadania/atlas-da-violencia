@@ -93,7 +93,7 @@
                         <tbody>
                         <tr ng-repeat="tema in temas">
                             <td><% tema.id %></td>
-                            <td><img ng-show="tema.imagem" ng-src="imagens/temas/xs-<% tema.imagem %>" width="60"></td>
+                            <td><img ng-show="tema.imagem" ng-src="imagens/temas/xs-<% tema.imagem %>"  width="60"></td>
                             <td><a href="cms/tema/<% tema.id %>"><% tema.tema %></a></td>
                             <td class="text-right">
                                 <div>
