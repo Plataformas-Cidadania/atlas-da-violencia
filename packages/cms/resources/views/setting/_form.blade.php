@@ -110,6 +110,7 @@
 
         </div>
         <div role="tabpanel" class="tab-pane" id="home">
+            <br>
             {!! Form::label('serie_id', 'Séries *') !!}<br>
             {!! Form::select('serie_id',
                     $series,

@@ -1,3 +1,5 @@
+<?php $setting = DB::table('settings')->orderBy('id', 'desc')->first();?>
+
 {{--<script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="/lib/angular/angular.min.js"></script>
@@ -29,7 +31,7 @@
     <script src="js/chart/chartAnimate.js"></script>
 
     <script>
-        $.ajax("home-chart/17", {
+        $.ajax("home-chart/<?php echo $setting->serie_id;?>", {
             data: {},
             success: function(data){
                 console.log(data);
