@@ -152,6 +152,8 @@ Route::get('lang/{locale}', function ($locale) {
 //Route::get('regioes/{id}', 'MapController@regioes');//usado no component filtroRegioes na página de filtros
 //Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
 
+Route::post('enviar-contato-serie/', 'ContatoSerieController@email');
+
 
 Route::get('mapa-calor/', function () {
     return view('mapa-calor');

@@ -140,6 +140,8 @@ elixir(function(mix) {
     //Controllers
     //Contato
     mix.scripts('controllers/contatoCtrl.js', 'public/js/controllers/contatoCtrl.js');
+    //ContatoSerie
+    mix.scripts('controllers/contatoSerieCtrl.js', 'public/js/controllers/contatoSerieCtrl.js');
     //Serie
     mix.scripts('controllers/serieCtrl.js', 'public/js/controllers/serieCtrl.js');
     //Home

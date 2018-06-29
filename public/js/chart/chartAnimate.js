@@ -9,7 +9,7 @@ var ctx = null;
 
 var config = {};
 var values = [];
-function homeChart(data, titulo){
+function homeChart(data){
     //var MONTHS = ["1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"];
 
     let count = 0;
@@ -25,7 +25,7 @@ function homeChart(data, titulo){
         data: {
             labels: [labels[0], labels[1]],
             datasets: [{
-                label: titulo,
+                label: "Homicidios Brasil",
                 backgroundColor: window.chartColors.blue,
                 borderColor: window.chartColors.blue,
                 data: [values[0], values[1]],
