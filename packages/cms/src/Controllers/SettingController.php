@@ -19,6 +19,7 @@ class SettingController extends Controller
         $this->campos = [
             'imagem', 'email', 'titulo', 'rodape', 'cep', 'endereco', 'numero', 'complemento', 'bairro', 'cidade', 'estado',
             'descricao_contato', 'telefone', 'telefone2', 'telefone3', 'facebook', 'youtube', 'pinterest', 'twitter', 'cor1', 'cor2', 'cor3', 'cor4', 'cor5',
+            'serie_id',
         ];
         $this->pathImagem = public_path().'/imagens/settings';
         $this->sizesImagem = [
@@ -33,7 +34,19 @@ class SettingController extends Controller
     public function detalhar()
     {        
         $setting = $this->setting->firstOrFail();
-        return view('cms::setting.detalhar', ['setting' => $setting]);
+       // $series = \App\Serie::lists('titulo', 'sigla')->all();
+
+
+        $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+            ->join('valores_series', 'series.id', '=', 'valores_series.serie_id')
+            ->where('valores_series.tipo_regiao', 1)
+            ->orderBy('textos_series.titulo')
+            ->lists('textos_series.titulo', 'series.id')
+            ->all();
+
+
+
+        return view('cms::setting.detalhar', ['setting' => $setting, 'series' => $series]);
     }
 
     public function alterar(Request $request)

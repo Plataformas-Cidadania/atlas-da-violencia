@@ -1,3 +1,11 @@
+<?php
+    $setting = DB::table('settings')->orderBy('id', 'desc')->first();
+
+    $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+        ->where('series.id', $setting->serie_id)
+        ->first();
+?>
+
 {{--<script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="/lib/angular/angular.min.js"></script>
@@ -29,11 +37,11 @@
     <script src="js/chart/chartAnimate.js"></script>
 
     <script>
-        $.ajax("home-chart/17", {
+        $.ajax("home-chart/<?php echo $setting->serie_id;?>", {
             data: {},
             success: function(data){
-                console.log(data);
-                homeChart(data);
+                //console.log(data);
+                homeChart(data, '<?php echo $series->titulo;?>');
                 ctx = document.getElementById("canvas").getContext("2d");
                 window.myLine = new Chart(ctx, config);
                 intervalo = window.setInterval('counterTime()', 570);

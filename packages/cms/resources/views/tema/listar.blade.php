@@ -81,7 +81,7 @@
                                 <i ng-if="ordem=='id' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='id' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
-                            {{--<th>Imagem</th>--}}
+                            <th>Imagem</th>
                             <th ng-click="ordernarPor('tema')" style="temar:pointer;">
                                 Tema
                                 <i ng-if="ordem=='tema' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
@@ -93,7 +93,7 @@
                         <tbody>
                         <tr ng-repeat="tema in temas">
                             <td><% tema.id %></td>
-                            {{--<td><img ng-show="tema.imagem" ng-src="imagens/temas/xs-<% tema.imagem %>" width="60"></td>--}}
+                            <td><img ng-show="tema.imagem" ng-src="imagens/temas/xs-<% tema.imagem %>"  width="60"></td>
                             <td><a href="cms/tema/<% tema.id %>"><% tema.tema %></a></td>
                             <td class="text-right">
                                 <div>
