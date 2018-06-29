@@ -12,6 +12,7 @@
             <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Series</h1>
             <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Nova Serie</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
+            <a class="btn btn-success" href="cms/importar-varias-series" style="float: right;">Importar Dados</a>
             <br><br>
             <div ng-show="mostrarForm">
                 <span class="texto-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>
