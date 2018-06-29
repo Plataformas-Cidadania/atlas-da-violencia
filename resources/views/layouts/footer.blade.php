@@ -19,7 +19,7 @@
 
 </style>
 <footer id="iniciodorodape" class="container-fluid  hidden-print" role="contentinfo" ng-class="{'alto-contraste': altoContrasteAtivo}">
-    <div class="text-right"><a href="<?php echo $rota;?>/#iniciodoconteudo"><i class="fa fa-chevron-circle-up" aria-hidden="true" accesskey="9"></i> @lang('links.back-top') </a><br><br></div>
+    <div class="text-right"><a href="{{--/<?php echo $rota;?>/--}}#iniciodoconteudo"><i class="fa fa-chevron-circle-up" aria-hidden="true" accesskey="9"></i> @lang('links.back-top') </a><br><br></div>
 
 
 
