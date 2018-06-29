@@ -19,7 +19,7 @@ class SettingController extends Controller
         $this->campos = [
             'imagem', 'email', 'titulo', 'rodape', 'cep', 'endereco', 'numero', 'complemento', 'bairro', 'cidade', 'estado',
             'descricao_contato', 'telefone', 'telefone2', 'telefone3', 'facebook', 'youtube', 'pinterest', 'twitter', 'cor1', 'cor2', 'cor3', 'cor4', 'cor5',
-            'serie_id',
+            'serie_id', 'email_host', 'email_port', 'email_address', 'email_name', 'email_user', 'email_password',
         ];
         $this->pathImagem = public_path().'/imagens/settings';
         $this->sizesImagem = [

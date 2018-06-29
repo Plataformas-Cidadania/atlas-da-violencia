@@ -8,6 +8,7 @@
         <li role="presentation"><a href="#cor" aria-controls="cor" role="tab" data-toggle="tab">Cores</a></li>
         <li role="presentation"><a href="#redes" aria-controls="redes" role="tab" data-toggle="tab">Redes</a></li>
         <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home Séries</a></li>
+        <li role="presentation"><a href="#emails" aria-controls="emails" role="tab" data-toggle="tab">E-mail</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -115,6 +116,33 @@
             {!! Form::select('serie_id',
                     $series,
             null, ['class'=>"form-control width-grande <% validar(setting.serie_id) %>", 'ng-model'=>'setting.serie_id', 'ng-required'=>'true', 'init-model'=>'setting.serie_id', 'placeholder' => 'Selecione']) !!}<br>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="emails">
+            <br>
+            {!! Form::label('email_host', 'Host') !!}<br>
+            {!! Form::text('email_host', null, ['class'=>"form-control width-grande <% validar(setting.email_host) %>", 'ng-model'=>'setting.email_host', 'ng-required'=>'true', 'init-model'=>'setting.email_host']) !!}<br>
+
+            {!! Form::label('email_port', 'Porta') !!}<br>
+            {!! Form::text('email_port', null, ['class'=>"form-control width-grande <% validar(setting.email_port) %>", 'ng-model'=>'setting.email_port', 'ng-required'=>'true', 'init-model'=>'setting.email_port']) !!}<br>
+
+            {!! Form::label('email_address', 'E-mail') !!}<br>
+            {!! Form::text('email_address', null, ['class'=>"form-control width-grande <% validar(setting.email_address) %>", 'ng-model'=>'setting.email_address', 'ng-required'=>'true', 'init-model'=>'setting.email_address']) !!}<br>
+
+            {!! Form::label('email_name', 'Nome Usuário') !!}<br>
+            {!! Form::text('email_name', null, ['class'=>"form-control width-grande <% validar(setting.email_name) %>", 'ng-model'=>'setting.email_name', 'ng-required'=>'true', 'init-model'=>'setting.email_name']) !!}<br>
+
+            {!! Form::label('email_user', 'Usuário') !!}<br>
+            {!! Form::text('email_user', null, ['class'=>"form-control width-grande <% validar(setting.email_user) %>", 'ng-model'=>'setting.email_user', 'ng-required'=>'true', 'init-model'=>'setting.email_user']) !!}<br>
+
+            {{--{!! Form::label('email_password', 'Senha') !!}<br>
+            {!! Form::password('email_password', null, ['class'=>"form-control width-grande <% validar(setting.email_password) %>", 'ng-model'=>'setting.email_password', 'ng-required'=>'true', 'init-model'=>'setting.email_password']) !!}<br>
+--}}
+            <label for="password">Senha *</label><br>
+            <input type="password" class="form-control width-grande" ng-required="true" ng-model="setting.email_password" ng-init="setting.email_password={{$setting->email_password}}"><br>
+
+
+            <br>
+
         </div>
     </div>
 
