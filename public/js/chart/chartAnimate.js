@@ -14,7 +14,7 @@ function homeChart(data, titulo){
 
     let count = 0;
     for(let i in data){
-        labels[count] = i;
+        labels[count] = i.substr(0, 4);
         values[count] = data[i];
         count++;
     }
