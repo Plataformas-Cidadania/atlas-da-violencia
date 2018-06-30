@@ -1,4 +1,12 @@
 <?php
+
+if(!empty($ods)){
+    $ods->load($data);
+    return $ods->stream($filename);
+    exit;
+}
+
+
 $delimiter=';';
 
 // open raw memory as file so no temp files needed, you might run out of memory though
@@ -18,3 +26,14 @@ header('Content-Disposition: attachment; filename="'.$filename.'";');
 fpassthru($f);
 
 //echo "<script>window.close();</script>";
+
+
+
+
+
+//$users = User::select('id', 'name', 'email', 'created_at')->get();
+/*Excel::create('valores', function($excel) use($data) {
+    $excel->sheet('Sheet 1', function($sheet) use($data) {
+        $sheet->fromArray($data);
+    });
+})->export('ods');*/

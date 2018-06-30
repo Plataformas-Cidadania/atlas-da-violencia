@@ -254,6 +254,15 @@ class PgSerie extends React.Component{
     }
 
 
+    generateArrayYears(from, to){
+        let arrayYears = [];
+        for(let i = from ; i <= to ; i++){
+            arrayYears.push(i);
+        }
+
+        return arrayYears;
+    }
+
 
     render(){
 
@@ -264,7 +273,28 @@ class PgSerie extends React.Component{
 
 
 
-        /*if(this.state.showRegions && this.state.abrangencia==3){
+        let from = formatPeriodicidade(this.state.min, this.props.periodicidade);
+        let to = formatPeriodicidade(this.state.max, this.props.periodicidade);
+
+        let arrayYears = this.generateArrayYears(from, to)
+
+        let optionsDownloadPeriodosFrom = arrayYears.map(function(item, index){
+            let selected = false;
+            if(index==0){
+                selected = 'selected';
+            }
+            return <option selected={selected} value={item+'-01-'+'-01'}>{item}</option>
+        });
+
+        let optionsDownloadPeriodosTo = arrayYears.map(function(item, index){
+            let selected = false;
+            if(index==arrayYears.length-1){
+                selected = 'selected';
+            }
+            return <option selected={selected} value={item+'-01-'+'-01'}>{item}</option>
+        }.bind(this));
+
+        if(this.state.showRegions && this.state.abrangencia==3){
             regions = (
                 <div style={{display: this.state.showRegions && this.state.abrangencia==3 ? 'block' : 'none'}}>
 
@@ -282,7 +312,7 @@ class PgSerie extends React.Component{
                     <br/><br/>
                 </div>
             );
-        }*/
+        }
 
         return(
             <div>
@@ -325,6 +355,7 @@ class PgSerie extends React.Component{
                                     <li>
                                         <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
                                             <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                            <input type="hidden" name="downloadType" value='csv'/>
                                             <input type="hidden" name="id" value={this.props.id}/>
                                             <input type="hidden" name="serie" value={this.props.serie}/>
                                             <input type="hidden" name="from" value={this.state.min}/>
@@ -338,6 +369,7 @@ class PgSerie extends React.Component{
                                     <li>
                                         <form name="frmDownloadTotal" action="download-dados" target="_blank" method="POST">
                                             <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                            <input type="hidden" name="downloadType" value='csv'/>
                                             <input type="hidden" name="id" value={this.props.id}/>
                                             <input type="hidden" name="serie" value={this.props.serie}/>
                                             <input type="hidden" name="regions" value={this.state.regions}/>
@@ -345,7 +377,86 @@ class PgSerie extends React.Component{
                                             <button className="btn-download">Download Total</button>
                                         </form>
                                     </li>
+                                    <li>
+                                        <button className="btn-download" data-toggle="modal" data-target="#downloadModal">Download Personalizado</button>
+                                    </li>
+                                    <br/>
+                                    <li><a>Dados em .ods</a></li>
+                                    <li role="separator" className="divider"/>
+                                    <li>
+                                        <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
+                                            <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                            <input type="hidden" name="downloadType" value='ods'/>
+                                            <input type="hidden" name="id" value={this.props.id}/>
+                                            <input type="hidden" name="serie" value={this.props.serie}/>
+                                            <input type="hidden" name="from" value={this.state.min}/>
+                                            <input type="hidden" name="to" value={this.state.max}/>
+                                            <input type="hidden" name="regions" value={this.state.regions}/>
+                                            <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                                            <button className="btn-download">Download ({formatPeriodicidade(this.state.min, this.props.periodicidade)
+                                            } - {formatPeriodicidade(this.state.max, this.props.periodicidade)})</button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form name="frmDownloadTotal" action="download-dados" target="_blank" method="POST">
+                                            <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                            <input type="hidden" name="downloadType" value='ods'/>
+                                            <input type="hidden" name="id" value={this.props.id}/>
+                                            <input type="hidden" name="serie" value={this.props.serie}/>
+                                            <input type="hidden" name="regions" value={this.state.regions}/>
+                                            <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                                            <button className="btn-download">Download Total</button>
+                                        </form>
+                                    </li>
+
                                 </ul>
+                                <div id="downloadModal" className="modal fade text-left" role="dialog" style={{zIndex: "9999999999"}}>
+                                    <div className="modal-dialog">
+                                        <div className="modal-content">
+                                            <form name="frmDownloadTotal" action="download-dados" target="_blank" method="POST">
+                                                <div className="modal-header">
+                                                    <button type="button" className="close"
+                                                            data-dismiss="modal">&times;</button>
+                                                    <h4 className="modal-title">Personalizar Download</h4>
+                                                </div>
+                                                <div className="modal-body">
+                                                    <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                                    <input type="hidden" name="downloadType" value='csv'/>
+                                                    <input type="hidden" name="id" value={this.props.id}/>
+                                                    <input type="hidden" name="serie" value={this.props.serie}/>
+                                                    <div>
+                                                        <label htmlFor="decimal">Separador Decimal</label>
+                                                        <select name="decimal" className="form-control">
+                                                            <option value=",">,</option>
+                                                            <option value=".">.</option>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="from">De</label>
+                                                        <select name="from" className="form-control">
+                                                            {optionsDownloadPeriodosFrom}
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="to">Até</label>
+                                                        <select name="to" className="form-control">
+                                                            {optionsDownloadPeriodosTo}
+                                                        </select>
+                                                    </div>
+                                                    <input type="hidden" name="regions" value={this.state.regions}/>
+                                                    <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                                                </div>
+                                                <div className="modal-footer">
+                                                    <button type="button" className="btn btn-default"
+                                                            data-dismiss="modal">Fechar
+                                                    </button>
+                                                    <button className="btn btn-primary">Download</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
 
                             </div>
 

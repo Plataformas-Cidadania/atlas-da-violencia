@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Exporter;
 
 class SerieController extends Controller
 {
@@ -669,7 +670,10 @@ class SerieController extends Controller
             ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
             ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
             ->where($where)
-            ->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
+            ->when($regions[0]!=0, function($query) use ($regions, $tabelas, $abrangencia){
+                return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions);
+            })
+            //->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
             ->orderBy('valores_series.periodo')
             ->get();
 
@@ -678,11 +682,28 @@ class SerieController extends Controller
 
         $cont = 0;
         foreach($rows as $row){
-            $data[$cont] = [$row->sigla, $row->periodo, $row->valor];
+
+            if($request->decimal==','){
+                $row->valor = number_format($row->valor, '2', ',', '');
+            }
+
+            $data[$cont] = [$row->sigla, $this->formatPeriodicidade('anual', $row->periodo), $row->valor];
             $cont++;
         }
 
+        if($request->downloadType=='ods'){
+            $ods = Exporter::make('OpenOffice');
+            $data = collect($data);
+            return view('serie.download', ['data' => $data, 'filename' => $filename.'.ods', 'ods' => $ods]);
+        }
+
         return view('serie.download', ['data' => $data, 'filename' => $filename.'.csv']);
+    }
+
+    private function formatPeriodicidade($periodicidade, $periodo){
+        if($periodicidade=='anual'){
+            return substr($periodo, 0, 4);
+        }
     }
 
     public function getRegionsByAbrangencia($abrangencia){

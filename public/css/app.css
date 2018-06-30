@@ -131,6 +131,18 @@
   background-color: inherit;
   float: right;
 }
+.btn-download {
+  border: 0;
+  border-bottom: solid 1px #CCCCCC;
+  width: 100%;
+  display: block;
+  background-color: #FFFFFF;
+  text-align: left;
+}
+.btn-download:hover {
+  background-color: #3498DB;
+  color: #FFFFFF;
+}
 @font-face {
   font-family: 'Josefin Sans';
   font-style: normal;

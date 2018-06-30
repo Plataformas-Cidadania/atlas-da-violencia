@@ -152,6 +152,7 @@ return [
         'GrahamCampbell\HTMLMin\HTMLMinServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
         'Phaza\LaravelPostgis\DatabaseServiceProvider',
+        Cyberduck\LaravelExcel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -259,6 +259,15 @@ class PgSerie extends React.Component {
         console.log(event.target.value);
     }
 
+    generateArrayYears(from, to) {
+        let arrayYears = [];
+        for (let i = from; i <= to; i++) {
+            arrayYears.push(i);
+        }
+
+        return arrayYears;
+    }
+
     render() {
 
         //utilizado para função de formatação
@@ -266,24 +275,54 @@ class PgSerie extends React.Component {
 
         let regions = null;
 
-        /*if(this.state.showRegions && this.state.abrangencia==3){
-            regions = (
-                <div style={{display: this.state.showRegions && this.state.abrangencia==3 ? 'block' : 'none'}}>
-                     <Topico icon="icon-group-rate" text="Taxas"/>
-                    <Regions
-                        id={this.state.id}
-                        periodicidade={this.props.periodicidade}
-                        decimais={decimais}
-                        regions={this.state.regions}
-                        abrangencia={this.state.abrangencia}
-                        min={this.state.min}
-                        max={this.state.max}
-                        data={this.state.valoresRegioesPorPeriodo.max}
-                    />
-                    <br/><br/>
-                </div>
+        let from = formatPeriodicidade(this.state.min, this.props.periodicidade);
+        let to = formatPeriodicidade(this.state.max, this.props.periodicidade);
+
+        let arrayYears = this.generateArrayYears(from, to);
+
+        let optionsDownloadPeriodosFrom = arrayYears.map(function (item, index) {
+            let selected = false;
+            if (index == 0) {
+                selected = 'selected';
+            }
+            return React.createElement(
+                "option",
+                { selected: selected, value: item + '-01-' + '-01' },
+                item
             );
-        }*/
+        });
+
+        let optionsDownloadPeriodosTo = arrayYears.map(function (item, index) {
+            let selected = false;
+            if (index == arrayYears.length - 1) {
+                selected = 'selected';
+            }
+            return React.createElement(
+                "option",
+                { selected: selected, value: item + '-01-' + '-01' },
+                item
+            );
+        }.bind(this));
+
+        if (this.state.showRegions && this.state.abrangencia == 3) {
+            regions = React.createElement(
+                "div",
+                { style: { display: this.state.showRegions && this.state.abrangencia == 3 ? 'block' : 'none' } },
+                React.createElement(Topico, { icon: "icon-group-rate", text: "Taxas" }),
+                React.createElement(Regions, {
+                    id: this.state.id,
+                    periodicidade: this.props.periodicidade,
+                    decimais: decimais,
+                    regions: this.state.regions,
+                    abrangencia: this.state.abrangencia,
+                    min: this.state.min,
+                    max: this.state.max,
+                    data: this.state.valoresRegioesPorPeriodo.max
+                }),
+                React.createElement("br", null),
+                React.createElement("br", null)
+            );
+        }
 
         return React.createElement(
             "div",
@@ -357,6 +396,7 @@ class PgSerie extends React.Component {
                                         "form",
                                         { name: "frmDownloadPeriodo", action: "download-dados", target: "_blank", method: "POST" },
                                         React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
+                                        React.createElement("input", { type: "hidden", name: "downloadType", value: "csv" }),
                                         React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
                                         React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
                                         React.createElement("input", { type: "hidden", name: "from", value: this.state.min }),
@@ -381,6 +421,7 @@ class PgSerie extends React.Component {
                                         "form",
                                         { name: "frmDownloadTotal", action: "download-dados", target: "_blank", method: "POST" },
                                         React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
+                                        React.createElement("input", { type: "hidden", name: "downloadType", value: "csv" }),
                                         React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
                                         React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
                                         React.createElement("input", { type: "hidden", name: "regions", value: this.state.regions }),
@@ -389,6 +430,177 @@ class PgSerie extends React.Component {
                                             "button",
                                             { className: "btn-download" },
                                             "Download Total"
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    React.createElement(
+                                        "button",
+                                        { className: "btn-download", "data-toggle": "modal", "data-target": "#downloadModal" },
+                                        "Download Personalizado"
+                                    )
+                                ),
+                                React.createElement("br", null),
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    React.createElement(
+                                        "a",
+                                        null,
+                                        "Dados em .ods"
+                                    )
+                                ),
+                                React.createElement("li", { role: "separator", className: "divider" }),
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    React.createElement(
+                                        "form",
+                                        { name: "frmDownloadPeriodo", action: "download-dados", target: "_blank", method: "POST" },
+                                        React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
+                                        React.createElement("input", { type: "hidden", name: "downloadType", value: "ods" }),
+                                        React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
+                                        React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
+                                        React.createElement("input", { type: "hidden", name: "from", value: this.state.min }),
+                                        React.createElement("input", { type: "hidden", name: "to", value: this.state.max }),
+                                        React.createElement("input", { type: "hidden", name: "regions", value: this.state.regions }),
+                                        React.createElement("input", { type: "hidden", name: "abrangencia", value: this.state.abrangencia }),
+                                        React.createElement(
+                                            "button",
+                                            { className: "btn-download" },
+                                            "Download (",
+                                            formatPeriodicidade(this.state.min, this.props.periodicidade),
+                                            " - ",
+                                            formatPeriodicidade(this.state.max, this.props.periodicidade),
+                                            ")"
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    React.createElement(
+                                        "form",
+                                        { name: "frmDownloadTotal", action: "download-dados", target: "_blank", method: "POST" },
+                                        React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
+                                        React.createElement("input", { type: "hidden", name: "downloadType", value: "ods" }),
+                                        React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
+                                        React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
+                                        React.createElement("input", { type: "hidden", name: "regions", value: this.state.regions }),
+                                        React.createElement("input", { type: "hidden", name: "abrangencia", value: this.state.abrangencia }),
+                                        React.createElement(
+                                            "button",
+                                            { className: "btn-download" },
+                                            "Download Total"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { id: "downloadModal", className: "modal fade text-left", role: "dialog", style: { zIndex: "9999999999" } },
+                                React.createElement(
+                                    "div",
+                                    { className: "modal-dialog" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "modal-content" },
+                                        React.createElement(
+                                            "form",
+                                            { name: "frmDownloadTotal", action: "download-dados", target: "_blank", method: "POST" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "modal-header" },
+                                                React.createElement(
+                                                    "button",
+                                                    { type: "button", className: "close",
+                                                        "data-dismiss": "modal" },
+                                                    "\xD7"
+                                                ),
+                                                React.createElement(
+                                                    "h4",
+                                                    { className: "modal-title" },
+                                                    "Personalizar Download"
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "modal-body" },
+                                                React.createElement("input", { type: "hidden", name: "_token", value: $('meta[name="csrf-token"]').attr('content') }),
+                                                React.createElement("input", { type: "hidden", name: "downloadType", value: "csv" }),
+                                                React.createElement("input", { type: "hidden", name: "id", value: this.props.id }),
+                                                React.createElement("input", { type: "hidden", name: "serie", value: this.props.serie }),
+                                                React.createElement(
+                                                    "div",
+                                                    null,
+                                                    React.createElement(
+                                                        "label",
+                                                        { htmlFor: "decimal" },
+                                                        "Separador Decimal"
+                                                    ),
+                                                    React.createElement(
+                                                        "select",
+                                                        { name: "decimal", className: "form-control" },
+                                                        React.createElement(
+                                                            "option",
+                                                            { value: "," },
+                                                            ","
+                                                        ),
+                                                        React.createElement(
+                                                            "option",
+                                                            { value: "." },
+                                                            "."
+                                                        )
+                                                    )
+                                                ),
+                                                React.createElement(
+                                                    "div",
+                                                    null,
+                                                    React.createElement(
+                                                        "label",
+                                                        { htmlFor: "from" },
+                                                        "De"
+                                                    ),
+                                                    React.createElement(
+                                                        "select",
+                                                        { name: "from", className: "form-control" },
+                                                        optionsDownloadPeriodosFrom
+                                                    )
+                                                ),
+                                                React.createElement(
+                                                    "div",
+                                                    null,
+                                                    React.createElement(
+                                                        "label",
+                                                        { htmlFor: "to" },
+                                                        "At\xE9"
+                                                    ),
+                                                    React.createElement(
+                                                        "select",
+                                                        { name: "to", className: "form-control" },
+                                                        optionsDownloadPeriodosTo
+                                                    )
+                                                ),
+                                                React.createElement("input", { type: "hidden", name: "regions", value: this.state.regions }),
+                                                React.createElement("input", { type: "hidden", name: "abrangencia", value: this.state.abrangencia })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "modal-footer" },
+                                                React.createElement(
+                                                    "button",
+                                                    { type: "button", className: "btn btn-default",
+                                                        "data-dismiss": "modal" },
+                                                    "Fechar"
+                                                ),
+                                                React.createElement(
+                                                    "button",
+                                                    { className: "btn btn-primary" },
+                                                    "Download"
+                                                )
+                                            )
                                         )
                                     )
                                 )
