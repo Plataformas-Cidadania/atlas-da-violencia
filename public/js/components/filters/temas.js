@@ -36,7 +36,7 @@ class Temas extends React.Component {
     loadData() {
         //this.setState({loading: true});
         //console.log(this.state);
-        console.log(this.props.tema_id);
+        //console.log(this.props.tema_id);
         $.ajax({
             method: 'GET',
             url: 'get-temas/' + this.state.tema_id,
@@ -70,8 +70,8 @@ class Temas extends React.Component {
                 React.createElement('img', { src: item.imagem ? "imagens/temas/sm-" + item.imagem : "img/default64.png", className: this.state.id == item.id ? '' : 'img-disable' }),
                 React.createElement(
                     'p',
-                    { style: { textTransform: 'capitalize', marginTop: '5px', height: '25px' } },
-                    item.tema.substr(0, 35).toLowerCase()
+                    { style: { textTransform: 'capitalize', marginTop: '5px', height: '25px' }, title: item.tema.toLowerCase() },
+                    item.tema.substr(0, 40).toLowerCase()
                 )
             );
         }.bind(this));
