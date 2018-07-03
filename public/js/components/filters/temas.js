@@ -59,13 +59,7 @@ class Temas extends React.Component {
             subtema = React.createElement(Subtema, { setTema: this.props.setTema, tema_id: this.state.id });
         }
 
-        let maxTitle = 30;
         let temas = this.state.temas.map(function (item) {
-
-            let title = "";
-            if (item.tema.length > maxTitle) {
-                title = item.tema;
-            }
 
             return React.createElement(
                 'div',
