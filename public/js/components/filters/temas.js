@@ -59,7 +59,14 @@ class Temas extends React.Component {
             subtema = React.createElement(Subtema, { setTema: this.props.setTema, tema_id: this.state.id });
         }
 
+        let maxTitle = 30;
         let temas = this.state.temas.map(function (item) {
+
+            let title = "";
+            if (item.tema.length > maxTitle) {
+                title = item.tema;
+            }
+
             return React.createElement(
                 'div',
                 { key: "tema2_" + item.id,
@@ -70,8 +77,8 @@ class Temas extends React.Component {
                 React.createElement('img', { src: item.imagem ? "imagens/temas/sm-" + item.imagem : "img/default64.png", className: this.state.id == item.id ? '' : 'img-disable' }),
                 React.createElement(
                     'p',
-                    { style: { textTransform: 'capitalize', marginTop: '5px', height: '25px' }, title: item.tema.toLowerCase() },
-                    item.tema.substr(0, 40).toLowerCase()
+                    { style: { textTransform: 'capitalize', marginTop: '5px', height: '25px' }, title: item.tema },
+                    item.tema.substr(0, maxTitle).toLowerCase()
                 )
             );
         }.bind(this));

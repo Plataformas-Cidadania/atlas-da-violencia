@@ -59,7 +59,14 @@ class Temas extends React.Component{
             subtema = <Subtema setTema={this.props.setTema} tema_id={this.state.id}/>
         }
 
+        let maxTitle = 30;
         let temas = this.state.temas.map(function(item){
+
+            let title = "";
+            if(item.tema.length > maxTitle){
+                title = item.tema;
+            }
+
             return (
                 <div key={"tema2_"+item.id}
                      style={{float: 'left', padding: '3px', cursor: 'pointer', width: '120px'}}
@@ -67,7 +74,7 @@ class Temas extends React.Component{
                      onClick={() => this.select2(item.id)}
                 >
                         <img src={item.imagem ? "imagens/temas/sm-"+(item.imagem) : "img/default64.png"} className={(this.state.id==item.id ? '' : 'img-disable')}  />
-                        <p style={{textTransform: 'capitalize', marginTop: '5px', height: '25px'}} title={item.tema.toLowerCase()}>{item.tema.substr(0, 40).toLowerCase()}</p>
+                        <p style={{textTransform: 'capitalize', marginTop: '5px', height: '25px'}} title={item.tema}>{item.tema.substr(0, maxTitle).toLowerCase()}</p>
                 </div>
             );
         }.bind(this));
