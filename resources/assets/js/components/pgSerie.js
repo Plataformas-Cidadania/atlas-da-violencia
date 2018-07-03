@@ -515,6 +515,63 @@ class PgSerie extends React.Component{
                         <div style={{clear:'both'}}/>
                     </div>
 
+                    <div style={{display: this.state.showMap ? 'block' : 'none'}}>
+
+                        <Topico icon="icon-group-map" text="Mapa"/>
+
+                        <div className="row col-md-12 text-center" style={{display: this.state.loadingMap ? 'block' : 'none'}}>
+                            <i className="fa fa-spin fa-spinner fa-4x"/>
+                        </div>
+
+                        <div className="row" style={{display: !this.state.loadingMap ? 'block' : 'none'}}>
+                            <div className="col-md-6 col-sm-12">
+                                <Map
+                                    mapId="map1"
+                                    id={this.state.id}
+                                    serie={this.props.serie}
+                                    periodicidade={this.props.periodicidade}
+                                    tipoValores={this.props.tipoValores}
+                                    decimais={decimais}
+                                    /*min={this.state.min}
+                                    max={this.state.max}*/
+                                    data={this.state.dataMapFrom}
+                                    periodo={this.state.min}
+                                    //tipoPeriodo="from"
+                                    intervalos={this.state.intervalos}
+                                    //setIntervalos={this.setIntervalos}
+                                    //regions={this.state.regions}
+                                    //abrangencia={this.state.abrangencia}
+                                    /*typeRegion={this.props.typeRegion}
+                                     typeRegionSerie={this.props.typeRegionSerie}*/
+                                />
+                            </div>
+                            <div className="col-md-6 col-sm-12 print-map">
+                                <Map
+                                    mapId="map2"
+                                    id={this.state.id}
+                                    serie={this.props.serie}
+                                    periodicidade={this.props.periodicidade}
+                                    tipoValores={this.props.tipoValores}
+                                    decimais={decimais}
+                                    /*min={this.state.min}
+                                     max={this.state.max}*/
+                                    data={this.state.dataMapTo}
+                                    periodo={this.state.max}
+                                    //tipoPeriodo="to"
+                                    intervalos={this.state.intervalos}
+                                    //setIntervalos={this.setIntervalos}
+                                    //regions={this.state.regions}
+                                    //abrangencia={this.state.abrangencia}
+                                    /*typeRegion={this.props.typeRegion}
+                                     typeRegionSerie={this.props.typeRegionSerie}*/
+                                />
+                            </div>
+                        </div>
+
+                        <br/><br/><br/>
+
+                    </div>
+
                     <div style={{display: this.state.showTable ? 'block' : 'none'}}>
 
                         <Topico icon="icon-group-table" text="Tabela"/>
@@ -648,62 +705,7 @@ class PgSerie extends React.Component{
                         <br/><br/><br/>
                     </div>*/}
 
-                    <div style={{display: this.state.showMap ? 'block' : 'none'}}>
 
-                        <Topico icon="icon-group-map" text="Mapa"/>
-
-                        <div className="row col-md-12 text-center" style={{display: this.state.loadingMap ? 'block' : 'none'}}>
-                            <i className="fa fa-spin fa-spinner fa-4x"/>
-                        </div>
-
-                        <div className="row" style={{display: !this.state.loadingMap ? 'block' : 'none'}}>
-                            <div className="col-md-6 col-sm-12">
-                                <Map
-                                    mapId="map1"
-                                    id={this.state.id}
-                                    serie={this.props.serie}
-                                    periodicidade={this.props.periodicidade}
-                                    tipoValores={this.props.tipoValores}
-                                    decimais={decimais}
-                                    /*min={this.state.min}
-                                    max={this.state.max}*/
-                                    data={this.state.dataMapFrom}
-                                    periodo={this.state.min}
-                                    //tipoPeriodo="from"
-                                    intervalos={this.state.intervalos}
-                                    //setIntervalos={this.setIntervalos}
-                                    //regions={this.state.regions}
-                                    //abrangencia={this.state.abrangencia}
-                                    /*typeRegion={this.props.typeRegion}
-                                     typeRegionSerie={this.props.typeRegionSerie}*/
-                                />
-                            </div>
-                            <div className="col-md-6 col-sm-12 print-map">
-                                <Map
-                                    mapId="map2"
-                                    id={this.state.id}
-                                    serie={this.props.serie}
-                                    periodicidade={this.props.periodicidade}
-                                    tipoValores={this.props.tipoValores}
-                                    decimais={decimais}
-                                    /*min={this.state.min}
-                                     max={this.state.max}*/
-                                    data={this.state.dataMapTo}
-                                    periodo={this.state.max}
-                                    //tipoPeriodo="to"
-                                    intervalos={this.state.intervalos}
-                                    //setIntervalos={this.setIntervalos}
-                                    //regions={this.state.regions}
-                                    //abrangencia={this.state.abrangencia}
-                                    /*typeRegion={this.props.typeRegion}
-                                     typeRegionSerie={this.props.typeRegionSerie}*/
-                                />
-                            </div>
-                        </div>
-
-                        <br/><br/><br/>
-
-                    </div>
 
                     <div className="hidden-print" style={{display: this.state.showInfo ? 'block' : 'none'}}>
                         <div className="row">

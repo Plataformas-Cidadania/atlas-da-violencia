@@ -667,6 +667,69 @@ class PgSerie extends React.Component {
                 ),
                 React.createElement(
                     "div",
+                    { style: { display: this.state.showMap ? 'block' : 'none' } },
+                    React.createElement(Topico, { icon: "icon-group-map", text: "Mapa" }),
+                    React.createElement(
+                        "div",
+                        { className: "row col-md-12 text-center", style: { display: this.state.loadingMap ? 'block' : 'none' } },
+                        React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "row", style: { display: !this.state.loadingMap ? 'block' : 'none' } },
+                        React.createElement(
+                            "div",
+                            { className: "col-md-6 col-sm-12" },
+                            React.createElement(Map, {
+                                mapId: "map1",
+                                id: this.state.id,
+                                serie: this.props.serie,
+                                periodicidade: this.props.periodicidade,
+                                tipoValores: this.props.tipoValores,
+                                decimais: decimais
+                                /*min={this.state.min}
+                                max={this.state.max}*/
+                                , data: this.state.dataMapFrom,
+                                periodo: this.state.min
+                                //tipoPeriodo="from"
+                                , intervalos: this.state.intervalos
+                                //setIntervalos={this.setIntervalos}
+                                //regions={this.state.regions}
+                                //abrangencia={this.state.abrangencia}
+                                /*typeRegion={this.props.typeRegion}
+                                 typeRegionSerie={this.props.typeRegionSerie}*/
+                            })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "col-md-6 col-sm-12 print-map" },
+                            React.createElement(Map, {
+                                mapId: "map2",
+                                id: this.state.id,
+                                serie: this.props.serie,
+                                periodicidade: this.props.periodicidade,
+                                tipoValores: this.props.tipoValores,
+                                decimais: decimais
+                                /*min={this.state.min}
+                                 max={this.state.max}*/
+                                , data: this.state.dataMapTo,
+                                periodo: this.state.max
+                                //tipoPeriodo="to"
+                                , intervalos: this.state.intervalos
+                                //setIntervalos={this.setIntervalos}
+                                //regions={this.state.regions}
+                                //abrangencia={this.state.abrangencia}
+                                /*typeRegion={this.props.typeRegion}
+                                 typeRegionSerie={this.props.typeRegionSerie}*/
+                            })
+                        )
+                    ),
+                    React.createElement("br", null),
+                    React.createElement("br", null),
+                    React.createElement("br", null)
+                ),
+                React.createElement(
+                    "div",
                     { style: { display: this.state.showTable ? 'block' : 'none' } },
                     React.createElement(Topico, { icon: "icon-group-table", text: "Tabela" }),
                     React.createElement(
@@ -809,69 +872,6 @@ class PgSerie extends React.Component {
                     React.createElement("br", null)
                 ),
                 regions,
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.showMap ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-map", text: "Mapa" }),
-                    React.createElement(
-                        "div",
-                        { className: "row col-md-12 text-center", style: { display: this.state.loadingMap ? 'block' : 'none' } },
-                        React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "row", style: { display: !this.state.loadingMap ? 'block' : 'none' } },
-                        React.createElement(
-                            "div",
-                            { className: "col-md-6 col-sm-12" },
-                            React.createElement(Map, {
-                                mapId: "map1",
-                                id: this.state.id,
-                                serie: this.props.serie,
-                                periodicidade: this.props.periodicidade,
-                                tipoValores: this.props.tipoValores,
-                                decimais: decimais
-                                /*min={this.state.min}
-                                max={this.state.max}*/
-                                , data: this.state.dataMapFrom,
-                                periodo: this.state.min
-                                //tipoPeriodo="from"
-                                , intervalos: this.state.intervalos
-                                //setIntervalos={this.setIntervalos}
-                                //regions={this.state.regions}
-                                //abrangencia={this.state.abrangencia}
-                                /*typeRegion={this.props.typeRegion}
-                                 typeRegionSerie={this.props.typeRegionSerie}*/
-                            })
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "col-md-6 col-sm-12 print-map" },
-                            React.createElement(Map, {
-                                mapId: "map2",
-                                id: this.state.id,
-                                serie: this.props.serie,
-                                periodicidade: this.props.periodicidade,
-                                tipoValores: this.props.tipoValores,
-                                decimais: decimais
-                                /*min={this.state.min}
-                                 max={this.state.max}*/
-                                , data: this.state.dataMapTo,
-                                periodo: this.state.max
-                                //tipoPeriodo="to"
-                                , intervalos: this.state.intervalos
-                                //setIntervalos={this.setIntervalos}
-                                //regions={this.state.regions}
-                                //abrangencia={this.state.abrangencia}
-                                /*typeRegion={this.props.typeRegion}
-                                 typeRegionSerie={this.props.typeRegionSerie}*/
-                            })
-                        )
-                    ),
-                    React.createElement("br", null),
-                    React.createElement("br", null),
-                    React.createElement("br", null)
-                ),
                 React.createElement(
                     "div",
                     { className: "hidden-print", style: { display: this.state.showInfo ? 'block' : 'none' } },
