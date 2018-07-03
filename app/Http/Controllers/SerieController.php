@@ -485,7 +485,7 @@ class SerieController extends Controller
                     ['valores_series.serie_id', $id],
                     ['valores_series.periodo', '>=', $min],
                     ['valores_series.periodo', '<=', $max],
-                    ['valores_series.tipo_regiao', '<=', $abrangencia]
+                    ['valores_series.tipo_regiao', $abrangencia]
                 ])
                 ->when($regions[0]!=0, function($query) use ($regions, $tabelas, $abrangencia){
                     return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions);

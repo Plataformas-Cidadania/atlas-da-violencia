@@ -21,6 +21,11 @@ class FiltrosSeriesController extends Controller
 
     public function index($id = null, $tema = null){
 
+        if($id==null){
+            $tema = \App\Tema::where('tema_id', 0)->first();
+            $id = $tema->id;
+        }
+
         return view('serie.novo-filtros-series', ['id' => $id]);
 
     }
