@@ -667,7 +667,7 @@ class SerieController extends Controller
         }
 
         $rows = DB::table('valores_series')
-            ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
+            ->select(DB::raw("$tabelas[$abrangencia].edterritorios_codigo as cod, $select_sigla as sigla, valores_series.valor, valores_series.periodo"))
             ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
             ->where($where)
             ->when($regions[0]!=0, function($query) use ($regions, $tabelas, $abrangencia){
@@ -680,14 +680,15 @@ class SerieController extends Controller
         $data = [];
 
 
-        $cont = 0;
+        $cont = 1;
+        $data[0] = ['cod', 'nome', 'período', 'valor'];
         foreach($rows as $row){
 
             if($request->decimal==','){
                 $row->valor = number_format($row->valor, '2', ',', '');
             }
 
-            $data[$cont] = [$row->sigla, $this->formatPeriodicidade('anual', $row->periodo), $row->valor];
+            $data[$cont] = [$row->cod, $row->sigla, $this->formatPeriodicidade('anual', $row->periodo), $row->valor];
             $cont++;
         }
 
