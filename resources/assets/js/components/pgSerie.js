@@ -504,7 +504,7 @@ class PgSerie extends React.Component{
                             loading={this.loading}
                             from={this.props.from}
                             to={this.props.to}
-                        />ADV-13
+                        />
                         <br/>
 
                     </div>
