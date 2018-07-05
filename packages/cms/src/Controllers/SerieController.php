@@ -410,7 +410,6 @@ class SerieController extends Controller
                 $periodo = trim($row['periodo'])."-01-01";
             }
 
-            Log::info($periodo);
 
             $reg =[
                 'periodo' => $periodo,
@@ -419,11 +418,16 @@ class SerieController extends Controller
                 'serie_id' => $serieId
             ];
 
+            Log::info($reg);
+
+
             if($regiao_id != null && $regiao_id != "" && $valor != null & $valor != ""){
                 $registro = \App\ValorSerie::updateOrCreate(
                     $reg,
                     ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
                 );
+
+                Log::info([$registro]);
             }
 
             //Log::info(DB::getQueryLog());
