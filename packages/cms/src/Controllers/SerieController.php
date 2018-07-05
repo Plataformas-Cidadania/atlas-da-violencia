@@ -372,7 +372,10 @@ class SerieController extends Controller
 
             $regiao_id = $row['cod'];
             if($abrangencia==4){
-                $regiao_id = $row['cod'].$this->calcula_dv_municipio($row['cod']);
+                if(count($row['cod']) == 6){
+                    $regiao_id = $row['cod'].$this->calcula_dv_municipio($row['cod']);
+                }
+
             }
 
             $valor = "";
