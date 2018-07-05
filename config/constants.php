@@ -43,7 +43,7 @@ return [
         ]
     ],
     'PADRAO_ABRANGENCIA' => [3,2,1,4],//3 - UF | 4 - Municipios | 2 - Regiões | 1 - País
-    'PADRAO_TERRITORIOS' => [ //
+    'PADRAO_TERRITORIOS' => [
         1 => [0],// 1076 (era 203) - Brasil
         2 => [0],//0 - Todos,
         3 => [0],//0 - Todos | colocar os códigos das ufs que deseja carregar por padrão
