@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/importSerieCtrl.js') !!}
     <div ng-controller="importSerieCtrl">
         <div class="box-padrao">
-            <h1><a href="cms/series"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Importar Série - {{$serie->titulo}}</h1>
+            <h1><a href="cms/series"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Importar Série - {{$textos_series->titulo}}</h1>
 
             <div >
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>
