@@ -670,6 +670,7 @@ class SerieController extends Controller
             ->select(DB::raw("$tabelas[$abrangencia].edterritorios_codigo as cod, $select_sigla as sigla, valores_series.valor, valores_series.periodo"))
             ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
             ->where($where)
+            ->where("valores_series.tipo_regiao", $abrangencia)
             ->when($regions[0]!=0, function($query) use ($regions, $tabelas, $abrangencia){
                 return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions);
             })
