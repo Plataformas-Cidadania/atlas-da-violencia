@@ -18,7 +18,7 @@ class CreateTextosSeriesTable extends Migration
             $table->text('descricao');
             $table->string('idioma_sigla')->default('');
             $table->integer('serie_id')->unsigned()->default(0);
-            $table->foreign('serie_id')->references('id')->on('series')->onDelete('restrict');
+            $table->foreign('serie_id')->references('id')->on('series')->onDelete('cascade');
             $table->integer('cmsuser_id')->unsigned();
             $table->foreign('cmsuser_id')->references('id')->on('cms_users')->onDelete('restrict');
             $table->timestamps();
