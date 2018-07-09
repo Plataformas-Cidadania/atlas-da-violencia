@@ -148,7 +148,7 @@ class ListValoresSeries extends React.Component {
                 let valor = item[column];
 
                 //testa se é numero
-                let regra = /^[0-9]+$/;
+                let regra = /^[0-9.]+$/;
                 if (item[column]) {
                     if (item[column].match(regra)) {
                         valor = formatNumber(item[column], this.props.decimais, ',', '.');
