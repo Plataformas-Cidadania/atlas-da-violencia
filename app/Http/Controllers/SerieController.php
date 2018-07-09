@@ -683,6 +683,22 @@ class SerieController extends Controller
 
         $cont = 1;
         $data[0] = ['cod', 'nome', 'período', 'valor'];
+
+        if($request->downloadType=='ods'){
+
+            foreach($rows as $row){
+                $data[$cont] = [$row->cod, $row->sigla, $this->formatPeriodicidade('anual', $row->periodo), $row->valor];
+                $cont++;
+            }
+
+            $data = collect($data);
+
+            $ods = Exporter::make('OpenOffice');
+            return view('serie.download', ['data' => $data, 'filename' => $filename.'.ods', 'ods' => $ods]);
+        }
+
+
+
         foreach($rows as $row){
 
             if($request->decimal==','){
@@ -693,11 +709,6 @@ class SerieController extends Controller
             $cont++;
         }
 
-        if($request->downloadType=='ods'){
-            $ods = Exporter::make('OpenOffice');
-            $data = collect($data);
-            return view('serie.download', ['data' => $data, 'filename' => $filename.'.ods', 'ods' => $ods]);
-        }
 
         return view('serie.download', ['data' => $data, 'filename' => $filename.'.csv']);
     }
