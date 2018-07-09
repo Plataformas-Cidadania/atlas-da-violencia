@@ -687,7 +687,7 @@ class SerieController extends Controller
         if($request->downloadType=='ods'){
 
             foreach($rows as $row){
-                $data[$cont] = [$row->cod, $row->sigla, $this->formatPeriodicidade('anual', $row->periodo), $row->valor];
+                $data[$cont] = [$row->cod, $row->sigla, $this->formatPeriodicidade('anual', $row->periodo), floatval($row->valor)];
                 $cont++;
             }
 
