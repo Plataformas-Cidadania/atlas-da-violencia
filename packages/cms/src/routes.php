@@ -202,6 +202,8 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/logs', 'Cms\Controllers\LogController@index');
 
 
+        Route::get('/cms/acertar-id-seq', 'Cms\Controllers\LogController@id_seq');
+
 
 
 
