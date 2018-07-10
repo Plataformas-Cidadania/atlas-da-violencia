@@ -10,7 +10,7 @@
     <div ng-controller="downloadCtrl">
         <div class="box-padrao">
             <h1><i class="fa fa-download" aria-hidden="true"></i>&nbsp;Downloads</h1>
-            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Nova Download</button>
+            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Download</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>
             <div ng-show="mostrarForm">

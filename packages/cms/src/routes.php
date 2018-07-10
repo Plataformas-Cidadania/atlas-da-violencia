@@ -83,6 +83,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/excluir-tema-serie/{id}', 'Cms\Controllers\TemaSerieController@excluir');
 
         //Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
+        //Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
         Route::get('/cms/teste-excel/{id}/{arquivo}', 'Cms\Controllers\SerieController@testeExcel');
 
         //VIDEOS
