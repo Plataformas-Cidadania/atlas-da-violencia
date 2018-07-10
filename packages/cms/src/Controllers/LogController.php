@@ -20,10 +20,11 @@ class LogController extends Controller
         $tables = [
             'artigos', 'artworks', 'authors', 'cms_users', 'directives',
             'downloads', 'fontes', 'historias', 'hits', 'idiomas',
-            'indicadores', 'idiomas', 'indicadores', 'indices', 'links',
-            'menu', 'noticias', 'paginas', 'parceiros',
-            'periodicidades', 'printings', 'quemsomos', 'series', 'settings',
-            'sub_temas', 'tags', 'tags_series', 'temas', 'videos', 'visitantes', 'visitas', 'webdoors'
+            'indicadores', 'indices', 'links', 'menu', 'noticias',
+            'paginas', 'parceiros', 'periodicidades', 'printings',
+            'quemsomos', 'series', 'settings', 'sub_temas', 'tags',
+            'tags_series', 'temas', 'videos', 'visitantes', 'visitas',
+            'webdoors'
         ];
 
         $rows = [];
