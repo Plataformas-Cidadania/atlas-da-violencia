@@ -28,5 +28,13 @@ class ValoresSerieController extends Controller
 
     }
 
+    public function limparValoresSerie($serie_id, $abrangencia) {
+
+        DB::table('valores_series')->where('serie_id', $serie_id)
+            ->when($abrangencia > 0, function($query) use ($abrangencia){
+                return $query->where('tipo_regiao', $abrangencia);
+            })->delete();
+    }
+
 
 }

@@ -181,7 +181,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
         $scope.imagemExcluir = imagem;
         $scope.excluido = false;
         $scope.mensagemExcluido = "";
-    }
+    };
 
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
@@ -201,6 +201,32 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
         });
     };
     //////////////////////////////////
+
+
+    //LIMPAR VALORES///////////////////////////
+    $scope.perguntaLimparValores = function (id, titulo, imagem){
+        $scope.idLimparValores = id;
+        $scope.tituloLimparValores = titulo;
+        $scope.mensagemExcluidoValores = "";
+    };
+
+    $scope.limpar = function(id){
+        $scope.processandoLimparValores = true;
+        $http({
+            url: 'cms/limpar-valores-serie/'+id+'/'+$scope.abrangenciaLimpar,
+            method: 'GET'
+        }).success(function(data, status, headers, config){
+            console.log(data);
+            $scope.processandoLimparValores = false;
+            $scope.mensagemExcluidoValores = "Excluído com sucesso!";
+            listarSeries();
+        }).error(function(data){
+            $scope.message = "Ocorreu um erro: "+data;
+            $scope.processandoLimpar = false;
+            $scope.mensagemExcluido = "Erro ao tentar limpar!";
+        });
+    };
+    ////////////////////////////////////////////
 
 
 }]);

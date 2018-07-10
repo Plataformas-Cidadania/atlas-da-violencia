@@ -65,6 +65,7 @@ Route::group(['middleware' => 'cms'], function () {
 
         //VALORES SERIES
         Route::get('/cms/valores-serie/{serie_id}', 'Cms\Controllers\ValoresSerieController@index');
+        Route::get('/cms/limpar-valores-serie/{serie_id}/{abrangencia}', 'Cms\Controllers\ValoresSerieController@limparValoresSerie');
 
         //TEXTOS SERIES
         Route::get('/cms/textos-series/{serie_id}', 'Cms\Controllers\TextoSerieController@index');
