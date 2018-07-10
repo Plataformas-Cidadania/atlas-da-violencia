@@ -175,7 +175,7 @@
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <form>
+                    <form name="form2">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Limpar Valores</h4>
@@ -210,7 +210,7 @@
                             <div class="mensagem-ok text-center text-danger"><% mensagemExcluidoValores %></div>
                         </div>
                         <div id="opcoesLimpar" class="modal-footer">
-                            <button id="btnLimpar" type="button" class="btn btn-danger" ng-click="limpar(idLimparValores);" {{--ng-disabled="form.$invalid"--}}>Limpar</button>
+                            <button id="btnLimpar" type="button" class="btn btn-danger" ng-click="limpar(idLimparValores);" ng-disabled="form2.$invalid">Limpar</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                         </div>
                     </form>
