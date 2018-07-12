@@ -384,11 +384,23 @@ class PgSerie extends React.Component {
                                     null,
                                     React.createElement(
                                         "a",
-                                        null,
-                                        "Dados em .csv"
+                                        { className: "bg-pri box-download-title" },
+                                        "Downloads"
                                     )
                                 ),
-                                React.createElement("li", { role: "separator", className: "divider" }),
+                                React.createElement(
+                                    "li",
+                                    null,
+                                    React.createElement(
+                                        "a",
+                                        null,
+                                        React.createElement(
+                                            "h3",
+                                            { className: "box-download-subtitle" },
+                                            ".CSV"
+                                        )
+                                    )
+                                ),
                                 React.createElement(
                                     "li",
                                     null,
@@ -406,7 +418,8 @@ class PgSerie extends React.Component {
                                         React.createElement(
                                             "button",
                                             { className: "btn-download" },
-                                            "Download (",
+                                            React.createElement("i", { className: "fa fa-download", "aria-hidden": "true" }),
+                                            " (",
                                             formatPeriodicidade(this.state.min, this.props.periodicidade),
                                             " - ",
                                             formatPeriodicidade(this.state.max, this.props.periodicidade),
@@ -429,7 +442,8 @@ class PgSerie extends React.Component {
                                         React.createElement(
                                             "button",
                                             { className: "btn-download" },
-                                            "Download Total"
+                                            React.createElement("i", { className: "fa fa-download", "aria-hidden": "true" }),
+                                            " Total"
                                         )
                                     )
                                 ),
@@ -439,20 +453,23 @@ class PgSerie extends React.Component {
                                     React.createElement(
                                         "button",
                                         { className: "btn-download", "data-toggle": "modal", "data-target": "#downloadModal" },
-                                        "Download Personalizado"
+                                        React.createElement("i", { className: "fa fa-download", "aria-hidden": "true" }),
+                                        " Personalizado"
                                     )
                                 ),
-                                React.createElement("br", null),
                                 React.createElement(
                                     "li",
                                     null,
                                     React.createElement(
                                         "a",
                                         null,
-                                        "Dados em .ods"
+                                        React.createElement(
+                                            "h3",
+                                            { className: "box-download-subtitle" },
+                                            ".ODS"
+                                        )
                                     )
                                 ),
-                                React.createElement("li", { role: "separator", className: "divider" }),
                                 React.createElement(
                                     "li",
                                     null,
@@ -470,7 +487,8 @@ class PgSerie extends React.Component {
                                         React.createElement(
                                             "button",
                                             { className: "btn-download" },
-                                            "Download (",
+                                            React.createElement("i", { className: "fa fa-download", "aria-hidden": "true" }),
+                                            " (",
                                             formatPeriodicidade(this.state.min, this.props.periodicidade),
                                             " - ",
                                             formatPeriodicidade(this.state.max, this.props.periodicidade),
@@ -493,7 +511,8 @@ class PgSerie extends React.Component {
                                         React.createElement(
                                             "button",
                                             { className: "btn-download" },
-                                            "Download Total"
+                                            React.createElement("i", { className: "fa fa-download", "aria-hidden": "true" }),
+                                            " Total"
                                         )
                                     )
                                 )
@@ -522,7 +541,8 @@ class PgSerie extends React.Component {
                                                 React.createElement(
                                                     "h4",
                                                     { className: "modal-title" },
-                                                    "Personalizar Download"
+                                                    React.createElement("i", { className: "fa fa-download", "aria-hidden": "true" }),
+                                                    " Personalizar"
                                                 )
                                             ),
                                             React.createElement(

@@ -43,13 +43,13 @@ class ListValoresSeries extends React.Component {
             cache: false,
             success: function(data) {
                 console.log('listValoresSeries', data);
-                 let valores = [];
+                  let valores = [];
                 for(let i in data){
                     let region = {};
                     region[i] = data[i];
                     valores.push(region);
                 }
-                 this.setState({valores: valores});
+                  this.setState({valores: valores});
             }.bind(this),
             error: function(xhr, status, err) {
               console.log('erro', err);

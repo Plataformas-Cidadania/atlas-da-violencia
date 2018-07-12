@@ -350,8 +350,8 @@ class PgSerie extends React.Component{
                                      style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
 
                                 <ul className="dropdown-menu" aria-labelledby="dLabel" style={{left: 'inherit', right: '0', float: 'right', margin: '40px 0 0'}}>
-                                    <li><a>Dados em .csv</a></li>
-                                    <li role="separator" className="divider"/>
+                                    <li><a className="bg-pri box-download-title">Downloads</a></li>
+                                    <li><a><h3 className="box-download-subtitle">.CSV</h3></a></li>
                                     <li>
                                         <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
                                             <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
@@ -362,7 +362,7 @@ class PgSerie extends React.Component{
                                             <input type="hidden" name="to" value={this.state.max}/>
                                             <input type="hidden" name="regions" value={this.state.regions}/>
                                             <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
-                                            <button className="btn-download">Download ({formatPeriodicidade(this.state.min, this.props.periodicidade)
+                                            <button className="btn-download"><i className="fa fa-download" aria-hidden="true"/> ({formatPeriodicidade(this.state.min, this.props.periodicidade)
                                             } - {formatPeriodicidade(this.state.max, this.props.periodicidade)})</button>
                                         </form>
                                     </li>
@@ -374,15 +374,14 @@ class PgSerie extends React.Component{
                                             <input type="hidden" name="serie" value={this.props.serie}/>
                                             <input type="hidden" name="regions" value={this.state.regions}/>
                                             <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
-                                            <button className="btn-download">Download Total</button>
+                                            <button className="btn-download"><i className="fa fa-download" aria-hidden="true"/> Total</button>
                                         </form>
                                     </li>
                                     <li>
-                                        <button className="btn-download" data-toggle="modal" data-target="#downloadModal">Download Personalizado</button>
+                                        <button className="btn-download" data-toggle="modal" data-target="#downloadModal"><i className="fa fa-download" aria-hidden="true"/> Personalizado</button>
                                     </li>
-                                    <br/>
-                                    <li><a>Dados em .ods</a></li>
-                                    <li role="separator" className="divider"/>
+
+                                    <li><a><h3 className="box-download-subtitle">.ODS</h3></a></li>
                                     <li>
                                         <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
                                             <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
@@ -393,7 +392,7 @@ class PgSerie extends React.Component{
                                             <input type="hidden" name="to" value={this.state.max}/>
                                             <input type="hidden" name="regions" value={this.state.regions}/>
                                             <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
-                                            <button className="btn-download">Download ({formatPeriodicidade(this.state.min, this.props.periodicidade)
+                                            <button className="btn-download"><i className="fa fa-download" aria-hidden="true"/> ({formatPeriodicidade(this.state.min, this.props.periodicidade)
                                             } - {formatPeriodicidade(this.state.max, this.props.periodicidade)})</button>
                                         </form>
                                     </li>
@@ -405,7 +404,7 @@ class PgSerie extends React.Component{
                                             <input type="hidden" name="serie" value={this.props.serie}/>
                                             <input type="hidden" name="regions" value={this.state.regions}/>
                                             <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
-                                            <button className="btn-download">Download Total</button>
+                                            <button className="btn-download"><i className="fa fa-download" aria-hidden="true"/> Total</button>
                                         </form>
                                     </li>
 
@@ -417,7 +416,7 @@ class PgSerie extends React.Component{
                                                 <div className="modal-header">
                                                     <button type="button" className="close"
                                                             data-dismiss="modal">&times;</button>
-                                                    <h4 className="modal-title">Personalizar Download</h4>
+                                                    <h4 className="modal-title"><i className="fa fa-download" aria-hidden="true"/> Personalizar</h4>
                                                 </div>
                                                 <div className="modal-body">
                                                     <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
