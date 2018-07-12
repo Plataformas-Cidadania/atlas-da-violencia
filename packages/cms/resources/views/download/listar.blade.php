@@ -99,7 +99,7 @@
                         <tbody>
                         <tr ng-repeat="download in downloads">
                             <td><% download.id %></td>
-                            <td><img ng-show="download.imagem" ng-src="/imagens/downloads/xs-<% download.imagem %>" width="60"></td>
+                            <td><img ng-show="download.imagem" ng-src="imagens/downloads/xs-<% download.imagem %>" width="60"></td>
                             <td><a href="cms/download/<% download.id %>"><% download.titulo %></a></td>
                             <td class="text-right">
                                 <div>
