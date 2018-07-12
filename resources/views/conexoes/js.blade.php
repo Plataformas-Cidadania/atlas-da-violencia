@@ -233,7 +233,7 @@ print_r($periodo_limite);*/
             //console.log('resto', intervalo % 100);
             let rounder =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
             intervalo = Math.ceil(intervalo/rounder) * rounder;
-            //console.log(intervalo);
+            console.log('intervalo', intervalo);
             intervalos[0] = 0;
             intervalos[1] = minUtil;
             intervalos[9] = maxUtil;
