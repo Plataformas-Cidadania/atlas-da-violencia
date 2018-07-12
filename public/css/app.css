@@ -131,18 +131,6 @@
   background-color: inherit;
   float: right;
 }
-.btn-download {
-  border: 0;
-  border-bottom: solid 1px #CCCCCC;
-  width: 100%;
-  display: block;
-  background-color: #FFFFFF;
-  text-align: left;
-}
-.btn-download:hover {
-  background-color: #3498DB;
-  color: #FFFFFF;
-}
 @font-face {
   font-family: 'Josefin Sans';
   font-style: normal;
@@ -558,6 +546,34 @@ footer {
     width: 90%;
     left: 5%;
   }
+}
+.btn-download {
+  border: 0;
+  border-bottom: solid 1px #f8f8f8;
+  width: 100%;
+  display: block;
+  background-color: #FFFFFF;
+  text-align: left;
+}
+.btn-download:hover {
+  background-color: #3498DB;
+  color: #FFFFFF;
+}
+.box-download-title {
+  color: #FFFFFF !important;
+  margin: 0 5px 5px 5px;
+  font-weight: bold !important;
+}
+.box-download-subtitle {
+  color: #3498DB !important;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.box-download-subtitle-dorder {
+  border-bottom: solid 1px #3498DB;
 }
 .chart {
   display: table;
