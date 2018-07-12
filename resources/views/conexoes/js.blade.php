@@ -228,7 +228,8 @@ print_r($periodo_limite);*/
             console.log(max+'-'+max+' * 10 / 100');
             let maxUtil = parseInt(max - max * 10 / 100);
             let qtdIntervalos = 10;
-            let intervalo = parseInt(maxUtil / qtdIntervalos);
+            let intervalo = maxUtil >= 10 ? parseInt(maxUtil / qtdIntervalos) : (maxUtil / qtdIntervalos);
+
             console.log('maxUtil', intervalo);
             //console.log(intervalo);
             //console.log('resto', intervalo % 100);
