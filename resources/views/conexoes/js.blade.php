@@ -229,6 +229,7 @@ print_r($periodo_limite);*/
 
             let qtdIntervalos = 10;
             let intervalo = parseInt(maxUtil / qtdIntervalos);
+            console.log('maxUtil', intervalo);
             //console.log(intervalo);
             //console.log('resto', intervalo % 100);
             let rounder =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
