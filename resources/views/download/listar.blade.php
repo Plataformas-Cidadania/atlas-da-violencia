@@ -20,7 +20,7 @@
                 <tr>
                     <td>{{$download->titulo}}</td>
                     <td>
-                        <?php $serie = DB::table('series')->where('id', $download->origem_id)->first();?>
+                        <?php $serie = DB::table('textos_series')->where('serie_id', $download->origem_id)->first();?>
 
                         <?php if(is_object($serie)){?>{{$serie->titulo}}<?php }else{?>Publicações Atlas<?php }?>
                     </td>
