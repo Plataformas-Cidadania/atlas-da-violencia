@@ -60,7 +60,7 @@ class MapController extends Controller
                 DB::raw(
                     "
                     ST_AsGeoJSON(ed_territorios_uf.edterritorios_geometry) as geometry, 
-                    sum(valores_series.valor) as total, 
+                    valores_series.valor as total, 
                     valores_series.uf, 
                     ed_territorios_uf.edterritorios_nome as nome, 
                     ST_X(ed_territorios_uf.edterritorios_centroide) as x, 
@@ -69,7 +69,7 @@ class MapController extends Controller
                 ))
             ->join('ed_territorios_uf', 'valores_series.uf', '=', 'ed_territorios_uf.edterritorios_sigla')
             ->where($where)
-            ->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_geometry', 'ed_territorios_uf.edterritorios_centroide', 'ed_territorios_uf.edterritorios_nome')
+            //->groupBy('valores_series.uf', 'ed_territorios_uf.edterritorios_geometry', 'ed_territorios_uf.edterritorios_centroide', 'ed_territorios_uf.edterritorios_nome')
             ->orderBy('total')
             ->get();
 
@@ -125,7 +125,7 @@ class MapController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        //DB::connection()->enableQueryLog();
+        DB::connection()->enableQueryLog();
 
         //exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKeyValores);
@@ -189,7 +189,8 @@ class MapController extends Controller
 
         $area = $this->cache->get($cacheKeyArea);
 
-        //Log::info(DB::getQueryLog());
+        Log::info("======================================================================");
+	Log::info(DB::getQueryLog());
 
         return $this->mountAreas($valores, $area);
     }
