@@ -338,7 +338,7 @@ class SerieController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        //DB::enableQueryLog();
+        DB::enableQueryLog();
 
         //exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKeyMin);
@@ -377,7 +377,11 @@ class SerieController extends Controller
             ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
             ->get();*/
 
-        //Log::info(DB::getQueryLog());
+        Log::info("===============================================================================");
+        Log::info("===============================================================================");
+        Log::info(DB::getQueryLog());
+        Log::info("===============================================================================");
+        Log::info("===============================================================================");
 
         //Log::info($valoresMin);
 
