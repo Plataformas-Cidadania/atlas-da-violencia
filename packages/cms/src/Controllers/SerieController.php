@@ -422,7 +422,7 @@ class SerieController extends Controller
                 'serie_id' => $serieId
             ];
 
-            Log::info($reg);
+            //Log::info($reg);
 
 
             if($regiao_id != null && $regiao_id != "" && $valor != null & $valor != ""){
