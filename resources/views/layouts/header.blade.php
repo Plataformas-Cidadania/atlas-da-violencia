@@ -73,14 +73,11 @@
                         </picture>
                     </a>
                 </div>
-                @if($base_href!='10.0.52.46/datacepro')
-                <div class="col-md-3 col-sm-4 hidden-xs text-right col-md-offset-4 box-logo">
-                    <a href="http://www.ipea.gov.br/" target="_blank"><img srcset="img/ipea.png" alt="ipea" title="ipea"></a>
+                <div class="col-md-5 col-sm-7 hidden-xs text-right col-md-offset-4 box-logo">
+                    @foreach($apoios as $apoio)
+                    <a href="{{$apoio->url}}" target="_blank"><img srcset="imagens/apoios/{{$apoio->imagem}}" alt="ipea" title="ipea" height="51" style="margin-left: 50px;"></a>
+                    @endforeach
                 </div>
-                <div class="col-md-2 col-sm-3 hidden-xs text-right box-logo">
-                    <a href="http://www.forumseguranca.org.br/" target="_blank"><img srcset="img/fbsp.png" alt="Fórum Brasileiro de Segurança Pública" title="Fórum Brasileiro de Segurança Pública"></a>
-                </div>
-                @endif
             </div>
         </div>
     </div>

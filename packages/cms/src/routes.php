@@ -199,6 +199,17 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-perfil', 'Cms\Controllers\CmsUserController@alterarPerfil');
         Route::get('/cms/excluir-cmsuser/{id}', 'Cms\Controllers\CmsUserController@excluir');
 
+        //APOIOS
+        Route::get('/cms/apoios', 'Cms\Controllers\ApoioController@index');
+        Route::get('/cms/listar-apoios', 'Cms\Controllers\ApoioController@listar');
+        Route::post('/cms/inserir-apoio', 'Cms\Controllers\ApoioController@inserir');
+        Route::get('/cms/apoio/{id}', 'Cms\Controllers\ApoioController@detalhar');
+        Route::post('/cms/alterar-apoio/{id}', 'Cms\Controllers\ApoioController@alterar');
+        Route::get('/cms/excluir-apoio/{id}', 'Cms\Controllers\ApoioController@excluir');
+        Route::get('/cms/status-apoio/{id}', 'Cms\Controllers\ApoioController@status');
+        Route::get('/cms/positionUp-apoio/{id}', 'Cms\Controllers\ApoioController@positionUp');
+        Route::get('/cms/positionDown-apoio/{id}', 'Cms\Controllers\ApoioController@positionDown');
+
         //Logs
         Route::get('/cms/logs', 'Cms\Controllers\LogController@index');
 

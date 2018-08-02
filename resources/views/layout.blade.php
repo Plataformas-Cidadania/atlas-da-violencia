@@ -6,6 +6,7 @@
     $setting = DB::table('settings')->orderBy('id', 'desc')->first();
     $links = DB::table('links')->where('idioma_sigla', $lang)->orderBy('posicao')->take(10)->get();
     $idiomas = DB::table('idiomas')->orderBy('id')->get();
+    $apoios = DB::table('apoios')->orderBy('posicao')->get();
 
 
     $base_href = config('app.url');

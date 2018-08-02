@@ -121,6 +121,9 @@
                     <a href="cms/downloads"><i class="fa fa-download" aria-hidden="true"></i> Downloads</a>
                 </li>
                 <li>
+                    <a href="cms/apoios"><i class="fa fa-fw fa-anchor"></i> Apoio</a>
+                </li>
+                <li>
                     <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
                 </li>
                 <li>

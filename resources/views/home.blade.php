@@ -65,8 +65,13 @@
         </div>
 
         <div class="container">
-            <div class="row">
-                <h2 class="box-titulo">Publicações Atlas ipea e FBSP</h2>
+            <div class="row text-center">
+                @foreach($tituloLinhaTempo as $titulo)
+                <h2 class="box-titulo">
+                    {{$titulo->titulo}}
+                </h2>
+                    {!! $titulo->descricao !!}
+                @endforeach
                 <br><br>
 
                 <div class="line_title bg-qui line-temp-barr"></div>
