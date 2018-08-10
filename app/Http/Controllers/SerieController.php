@@ -338,7 +338,7 @@ class SerieController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        //DB::enableQueryLog();
+        DB::enableQueryLog();
 
         //exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKeyMin);
@@ -377,8 +377,8 @@ class SerieController extends Controller
             ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
             ->get();*/
 
-        /*Log::info("===============================================================================");
-        Log::info("===============================================================================");
+        /*Log::info("================valoresRegiaoPrimeiroUltimoPeriodo()==========================");
+        Log::info("===========valores-regiao/id/min/max/regions/abrangencia======================");
         Log::info(DB::getQueryLog());
         Log::info("===============================================================================");
         Log::info("===============================================================================");*/
@@ -476,7 +476,7 @@ class SerieController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        //DB::enableQueryLog();
+        DB::enableQueryLog();
 
         //exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKey);
@@ -495,15 +495,19 @@ class SerieController extends Controller
                     return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions);
                 })
                 /*->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)*/
-                ->orderBy('valores_series.periodo')
+                ->orderBy(DB::Raw($tabelas[$abrangencia].'.edterritorios_codigo, valores_series.periodo'))
                 ->get(), 720);
         }
 
-        //Log::info(DB::getQueryLog());
 
         $rows = $this->cache->get($cacheKey);
 
-        //Log::info($rows);
+        Log::info('==============valoresPeriodoRegioesSelecionadas==============');
+        Log::info('=============================================================');
+        Log::info(DB::getQueryLog());
+        Log::info($rows);
+        Log::info('=============================================================');
+        Log::info('=============================================================');
 
         /*$rows = DB::table('valores_series')
             ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
