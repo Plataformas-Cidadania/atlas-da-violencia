@@ -116,6 +116,10 @@ Route::get('lang/{locale}', function ($locale) {
     return Redirect::back();
 });
 
+Route::get('teste-menu', function(){
+	return \Illuminate\Support\Facades\Config::get('constants.menu');
+});
+
 //Route::get('series/{titulo}', 'SerieController@listar');
 //Route::get('serie/', 'SerieController@detalhar');
 //Route::get('serie/{id}', 'SerieController@detalhar');
@@ -133,5 +137,6 @@ Route::get('lang/{locale}', function ($locale) {
 //Route::get('periodo/{id}/{min}/{max}', 'MapController@valoresPeriodoPorRegiao');
 //Route::get('regioes/{id}', 'MapController@regioes');//usado no component filtroRegioes na página de filtros
 //Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
+
 
 

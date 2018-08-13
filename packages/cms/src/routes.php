@@ -61,7 +61,29 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/excluir-serie/{id}', 'Cms\Controllers\SerieController@excluir');
         Route::get('/cms/importar-serie/{id}', 'Cms\Controllers\SerieController@viewImportar');
         Route::post('/cms/importar-serie', 'Cms\Controllers\SerieController@importar');
+        Route::get('/cms/importar-varias-series', 'Cms\Controllers\SerieController@viewImportarVarias');
 
+        //VALORES SERIES
+        Route::get('/cms/valores-serie/{serie_id}', 'Cms\Controllers\ValoresSerieController@index');
+        Route::get('/cms/limpar-valores-serie/{serie_id}/{abrangencia}', 'Cms\Controllers\ValoresSerieController@limparValoresSerie');
+
+        //TEXTOS SERIES
+        Route::get('/cms/textos-series/{serie_id}', 'Cms\Controllers\TextoSerieController@index');
+        Route::get('/cms/listar-textos-series', 'Cms\Controllers\TextoSerieController@listar');
+        Route::post('/cms/inserir-texto-serie', 'Cms\Controllers\TextoSerieController@inserir');
+        Route::get('/cms/texto-serie/{id}', 'Cms\Controllers\TextoSerieController@detalhar');
+        Route::post('/cms/alterar-texto-serie/{id}', 'Cms\Controllers\TextoSerieController@alterar');
+        Route::get('/cms/excluir-texto-serie/{id}', 'Cms\Controllers\TextoSerieController@excluir');
+
+        //TEMAS SERIES
+        Route::get('/cms/temas-series/{serie_id}', 'Cms\Controllers\TemaSerieController@index');
+        Route::get('/cms/listar-temas-series', 'Cms\Controllers\TemaSerieController@listar');
+        Route::post('/cms/inserir-tema-serie', 'Cms\Controllers\TemaSerieController@inserir');
+        //Route::get('/cms/tema-serie/{id}', 'Cms\Controllers\TemaSerieController@detalhar');
+        //Route::post('/cms/alterar-tema-serie/{id}', 'Cms\Controllers\TemaSerieController@alterar');
+        Route::get('/cms/excluir-tema-serie/{id}', 'Cms\Controllers\TemaSerieController@excluir');
+
+        //Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
         //Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
         Route::get('/cms/teste-excel/{id}/{arquivo}', 'Cms\Controllers\SerieController@testeExcel');
 
@@ -129,6 +151,22 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-idioma/{id}', 'Cms\Controllers\IdiomaController@alterar');
         Route::get('/cms/excluir-idioma/{id}', 'Cms\Controllers\IdiomaController@excluir');
 
+        //UNIDADES
+        Route::get('/cms/unidades', 'Cms\Controllers\UnidadeController@index');
+        Route::get('/cms/listar-unidades', 'Cms\Controllers\UnidadeController@listar');
+        Route::post('/cms/inserir-unidade', 'Cms\Controllers\UnidadeController@inserir');
+        Route::get('/cms/unidade/{id}', 'Cms\Controllers\UnidadeController@detalhar');
+        Route::post('/cms/alterar-unidade/{id}', 'Cms\Controllers\UnidadeController@alterar');
+        Route::get('/cms/excluir-unidade/{id}', 'Cms\Controllers\UnidadeController@excluir');
+
+        //INDICADORES
+        Route::get('/cms/indicadores', 'Cms\Controllers\IndicadorController@index');
+        Route::get('/cms/listar-indicadores', 'Cms\Controllers\IndicadorController@listar');
+        Route::post('/cms/inserir-indicador', 'Cms\Controllers\IndicadorController@inserir');
+        Route::get('/cms/indicador/{id}', 'Cms\Controllers\IndicadorController@detalhar');
+        Route::post('/cms/alterar-indicador/{id}', 'Cms\Controllers\IndicadorController@alterar');
+        Route::get('/cms/excluir-indicador/{id}', 'Cms\Controllers\IndicadorController@excluir');
+
         //FONTES
         Route::get('/cms/fontes', 'Cms\Controllers\FonteController@index');
         Route::get('/cms/listar-fontes', 'Cms\Controllers\FonteController@listar');
@@ -138,6 +176,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/excluir-fonte/{id}', 'Cms\Controllers\FonteController@excluir');
 
         //TEMAS
+        Route::get('/cms/temas/{tema_id}', 'Cms\Controllers\TemaController@index');
         Route::get('/cms/temas', 'Cms\Controllers\TemaController@index');
         Route::get('/cms/listar-temas', 'Cms\Controllers\TemaController@listar');
         Route::post('/cms/inserir-tema', 'Cms\Controllers\TemaController@inserir');
@@ -160,6 +199,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-perfil', 'Cms\Controllers\CmsUserController@alterarPerfil');
         Route::get('/cms/excluir-cmsuser/{id}', 'Cms\Controllers\CmsUserController@excluir');
 
+<<<<<<< HEAD
         //WEBINDICADORES
         Route::get('/cms/webindicadores', 'Cms\Controllers\WebindicadorController@index');
         Route::get('/cms/listar-webindicadores', 'Cms\Controllers\WebindicadorController@listar');
@@ -168,6 +208,28 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-webindicador/{id}', 'Cms\Controllers\WebindicadorController@alterar');
         Route::get('/cms/excluir-webindicador/{id}', 'Cms\Controllers\WebindicadorController@excluir');
         
+=======
+        //APOIOS
+        Route::get('/cms/apoios', 'Cms\Controllers\ApoioController@index');
+        Route::get('/cms/listar-apoios', 'Cms\Controllers\ApoioController@listar');
+        Route::post('/cms/inserir-apoio', 'Cms\Controllers\ApoioController@inserir');
+        Route::get('/cms/apoio/{id}', 'Cms\Controllers\ApoioController@detalhar');
+        Route::post('/cms/alterar-apoio/{id}', 'Cms\Controllers\ApoioController@alterar');
+        Route::get('/cms/excluir-apoio/{id}', 'Cms\Controllers\ApoioController@excluir');
+        Route::get('/cms/status-apoio/{id}', 'Cms\Controllers\ApoioController@status');
+        Route::get('/cms/positionUp-apoio/{id}', 'Cms\Controllers\ApoioController@positionUp');
+        Route::get('/cms/positionDown-apoio/{id}', 'Cms\Controllers\ApoioController@positionDown');
+
+        //Logs
+        Route::get('/cms/logs', 'Cms\Controllers\LogController@index');
+
+
+        Route::get('/cms/id-seq', 'Cms\Controllers\LogController@id_seq');
+
+
+
+
+>>>>>>> 7bff32e05c05412236c3a60f7775f584234759f9
     });
 
 });

@@ -7,16 +7,16 @@
         $('[data-toggle="popover"]').popover()
     })
 </script>
-    <div ng-controller="temaCtrl">
+    <div ng-controller="temaCtrl" ng-init="setTemaId({{$tema_id}})">
         <div class="box-padrao">
-            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Temas</h1>
+            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Temas @if($tema) - {{$tema->tema}} @endif</h1>
             <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Tema</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>
             <div ng-show="mostrarForm">
                 <span class="texto-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>
                 {!! Form::open(['name' =>'form']) !!}
-                <div style="display: none;">
+                <div style="display: block;">
                     <div class="container-thumb">
                         <div class="box-thumb" name="fileDrop" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
                              ng-show="!picFile" accept="image/*" ngf-max-size="2MB">Solte uma imagem aqui!</div>
@@ -81,7 +81,7 @@
                                 <i ng-if="ordem=='id' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='id' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
-                            {{--<th>Imagem</th>--}}
+                            <th>Imagem</th>
                             <th ng-click="ordernarPor('tema')" style="temar:pointer;">
                                 Tema
                                 <i ng-if="ordem=='tema' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
@@ -93,11 +93,12 @@
                         <tbody>
                         <tr ng-repeat="tema in temas">
                             <td><% tema.id %></td>
-                            {{--<td><img ng-show="tema.imagem" ng-src="imagens/temas/xs-<% tema.imagem %>" width="60"></td>--}}
+                            <td><img ng-show="tema.imagem" ng-src="imagens/temas/xs-<% tema.imagem %>"  width="60"></td>
                             <td><a href="cms/tema/<% tema.id %>"><% tema.tema %></a></td>
                             <td class="text-right">
                                 <div>
                                     <a href="cms/tema/<% tema.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/temas/<% tema.id %>"><i class="fa fa-folder-open fa-2x" title="SubTemas"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(tema.id, tema.tema, tema.imagem)"></i></a>
                                 </div>
                             </td>

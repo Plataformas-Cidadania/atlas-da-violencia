@@ -24,10 +24,10 @@ class WebdoorController extends Controller
         ];
         $this->pathImagem = public_path().'/imagens/webdoors';
         $this->sizesImagem = [
-            'xs' => ['width' => 300, 'height' => 169],
-            'sm' => ['width' => 480, 'height' => 164],
-            'md' => ['width' => 780, 'height' => 267],
-            'lg' => ['width' => 1170, 'height' => 400]
+            'xs' => ['width' => 300, 'height' => 146],
+            'sm' => ['width' => 400, 'height' => 194],
+            'md' => ['width' => 535, 'height' => 260],
+            'lg' => ['width' => 535, 'height' => 260]
         ];
         $this->widthOriginal = true;
     }

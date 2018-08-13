@@ -97,12 +97,24 @@ class ChartRadar extends React.Component{
     }
 
     render(){
+
+        let periodo = null;
+        if(this.state.periodo){
+            periodo = this.state.periodo.toString();
+            if(this.props.periodicidade==="Anual"){
+                periodo = periodo.substr(0, 4);
+            }
+            if(this.props.periodicidade==="Semestral" || this.props.periodicidade==="Trimestral" || this.props.periodicidade==="Mensal"){
+                periodo = periodo.substr(0, 7);
+            }
+        }
+
         return (
             <div>
                 <div style={{textAlign: 'center', clear: 'both'}}>
-                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.periodo}</button>
+                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{periodo}</button>
                     <div style={{marginTop:'-19px'}}>
-                        <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                        <i className="fa fa-sort-down fa-2x ft-pri"  />
                     </div>
                 </div>
                 <br/>

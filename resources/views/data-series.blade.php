@@ -37,6 +37,23 @@
             width: 52px;
             height: 52px;
             cursor: pointer;
+            margin-top: -5px;
+
+            -webkit-transform: scale(0.8, 0.8);
+            -moz-transform: scale(0.8, 0.8);
+            -o-transform: scale(0.8, 0.8);
+            -ms-transform: scale(0.8, 0.8);
+            transform: scale(0.8, 0.8);
+
+        }
+
+        .icons-groups:hover{
+            -webkit-transform: scale(1.0, 1.0);
+            -moz-transform: scale(1.0, 1.0);
+            -o-transform: scale(1.0, 1.0);
+            -ms-transform: scale(1.0, 1.0);
+            transform: scale(1.0, 1.0);
+
         }
         .icon-group-map{
             background-position: 0 0;
@@ -79,6 +96,18 @@
         }
         .icon-group-info-disable{
             background-position: -312px -52px;
+        }
+        .icon-group-download{
+            background-position: -364px -52px;
+        }
+        .icon-group-download:hover{
+            background-position: -364px 0;
+        }
+        .icon-group-email{
+            background-position: -416px -52px;
+        }
+        .icon-group-email:hover{
+            background-position: -416px 0;
         }
         .icon-text{
             padding-top: 7px;
@@ -249,15 +278,25 @@
     <div class="container">
 
         @if(!empty($series))
+            <?php $abrangencias = config('constants.abrangencias');?>
             <script>
                 serie_id={{$id}};
                 serie="{!! $series->titulo !!}";
+                periodicidade="{!! $series->periodicidade !!}";
                 tipoValores="{!! $series->tipo_valores !!}";
                 unidade="{!! $series->unidade !!}";
+                tipoUnidade="{!! $series->tipo_unidade !!}";
+                fonte="{!! $series->fonte !!}";
                 from="{!! $from !!}";
                 to="{!! $to !!}";
                 regions="{!! $regions !!}";
                 abrangencia="{{$abrangencia}}";
+                abrangenciasOk="{{$abrangenciasOk}}";
+                @foreach($abrangencias as $key => $abr)
+                        @if($abr['id']==$abrangencia)
+                    nomeAbrangencia="{!! $abr['title'] !!}";
+                @endif
+                @endforeach
             </script>
             <?php
                 $series->descricao = preg_replace('/\s/',' ',$series->descricao);
@@ -287,6 +326,60 @@
         <canvas id="myChart" width="400" height="200"></canvas>--}}
         {{--<canvas id="myChartRadar" width="400" height="200"></canvas>--}}
         {{--<button onclick="getData()">Carregar</button>--}}
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 9999999999999999999999999999;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Contato</h4>
+                </div>
+                <div class="modal-body" ng-controller="contatoSerieCtrl" role="application">
+                    <span class="texto-obrigatorio" ng-show="frmContatoSerie.$invalid">* campos obrigatórios</span><br><br>
+                    <form action="" name="frmContatoSerie">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" ng-model="contatoSerie.nome" ng-required="true" class="form-control" placeholder="* Nome" ><br>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="email" name="email" ng-model="contatoSerie.email"  ng-required="true" class="form-control" placeholder="* E-mail" ><br>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" ng-model="contatoSerie.telefone" class="form-control" placeholder="Telefone" mask-phone-dir><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" ng-model="contatoSerie.serie" ng-required="true" class="form-control"  ng-init="contatoSerie.serie='{{$id}} - {!! $series->titulo !!}'" readonly="true"><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea name="" ng-model="contatoSerie.mensagem" ng-required="true" cols="30" rows="10" class="form-control" placeholder="* Mensagem" ></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-2">
+                                <button type="button" class="btn btn-primary" ng-click="inserir()" ng-disabled="frmContatoSerie.$invalid || enviandoContatoSerie">Enviar</button>
+                            </div>
+                            <div class="col-md-10 col-xs-10">
+                                <div class="text-primary" ng-show="enviandoContatoSerie" style="padding: 7px;"><i class="fa fa-spinner fa-pulse"></i> Enviando e-mail</div>
+                                <div ng-show="erroContatoSerie" class="text-danger" style="padding: 7px;"><i class="fa fa-exclamation-triangle"></i> Ocorreu um erro. Tente novamente!</div>
+                                <div ng-show="enviadoContatoSerie" class="text-success" style="padding: 7px;"><i class="fa fa-check"></i> Enviado com sucesso!</div>
+                                <div ng-show="frmContatoSerie.email.$dirty && frmContatoSerie.email.$invalid" class="text-danger">E-mail inválido</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 

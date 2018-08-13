@@ -1,5 +1,4 @@
 cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-    
 
     $scope.temas = [];
     $scope.currentPage = 1;
@@ -8,7 +7,7 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, tema";
+    $scope.campos = "id, tema, imagem";
     $scope.campoPesquisa = "tema";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -32,6 +31,12 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
         }
     });
 
+    $scope.tema_id = 0;
+    $scope.setTemaId = function(tema_id){
+        $scope.tema_id = tema_id;
+        listarTemas();
+    };
+
     var listarTemas = function(){
         $scope.processandoListagem = true;
         $http({
@@ -44,7 +49,8 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
                 campos: $scope.campos,
                 campoPesquisa: $scope.campoPesquisa,
                 ordem: $scope.ordem,
-                sentido: $scope.sentidoOrdem
+                sentido: $scope.sentidoOrdem,
+                tema_id: $scope.tema_id
             }
         }).success(function(data, status, headers, config){
             $scope.temas = data.data;
@@ -101,7 +107,7 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
     };
     
 
-    listarTemas();
+    //listarTemas();
 
     //INSERIR/////////////////////////////
 
@@ -118,10 +124,12 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
         if(file==null){
             $scope.processandoInserir = true;
 
+
             //console.log($scope.tema);
             $http.post("cms/inserir-tema", {tema: $scope.tema}).success(function (data){
                  listarTemas();
-                 delete $scope.tema;//limpa o form
+                 //delete $scope.tema;//limpa o form
+                 delete $scope.tema.tema;
                 $scope.mensagemInserir =  "Gravado com sucesso!";
                 $scope.processandoInserir = false;
              }).error(function(data){
@@ -138,7 +146,8 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
                 $timeout(function () {
                     file.result = response.data;
                 });
-                delete $scope.tema;//limpa o form
+                //delete $scope.tema;//limpa o form
+                delete $scope.tema.tema;
                 $scope.picFile = null;//limpa o file
                 listarTemas();
                 $scope.mensagemInserir =  "Gravado com sucesso!";

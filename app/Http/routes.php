@@ -10,6 +10,9 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('info123', function(){
+     //return view('info');
+});
 
 
 Route::get('/', 'HomeController@index');
@@ -67,16 +70,30 @@ Route::get('indices', 'IndiceController@indice');
 //Pgs
 Route::get('series/', 'SerieController@listar');
 Route::get('filtros/{id}/{titulo}', 'SerieController@filtros');
-Route::post('dados-series/', 'SerieController@dataSeries');
+//Route::post('dados-series/', 'SerieController@dataSeries');
+Route::get('dados-series/{serie_id}', 'SerieController@dataSeries');
 Route::post('download-dados/', 'SerieController@downloadDados');
 
+Route::get('antigo-filtros-series/{id}/{tema}', 'FiltrosController@index');
+Route::get('antigo-filtros-series/', 'FiltrosController@index');
+
+Route::get('filtros-series2/{id}/{tema}', 'FiltrosController@index');
+Route::get('filtros-series2/', 'FiltrosController@index');
+
 //-------------------------AJAX-----------------------------------------------------------------------------------------
+
+//Component Temas em components/filtros/pgFiltros
+Route::get('get-temas/{id}', 'FiltrosController@temas');
+Route::get('get-indicadores/{tema_id}', 'FiltrosController@indicadores');
+Route::get('get-abrangencias/{tema_id}', 'FiltrosController@abrangencias');
+Route::post('get-series/', 'FiltrosController@series');
 
 //Component
 Route::post('territorios/', 'SerieController@territorios');
 
 //Component RangePeriodo nas pg filtros e series
-Route::get('periodos/{id}', 'MapController@periodos');
+//Route::get('periodos/{id}', 'MapController@periodos');
+Route::get('periodos/{id}/{abrangencia}', 'MapController@periodos');
 
 Route::get('home-chart/{id}', 'SerieController@homeChart');
 
@@ -95,6 +112,7 @@ Route::post('listar-series/', 'SerieController@listarSeries');
 
 //Component pgSerie na pg dados-series
 Route::get('valores-regiao/{id}/{min}/{max}/{regions}/{abrangencia}', 'SerieController@valoresRegiaoPrimeiroUltimoPeriodo');
+Route::get('get-regions/{abrangencia}', 'SerieController@getRegionsByAbrangencia');
 
 //Component map na pg dados-series
 Route::get('regiao/{id}/{periodo}/{regions}/{abrangencia}', 'MapController@valoresRegiaoPeriodoGeometry');
@@ -134,4 +152,43 @@ Route::get('lang/{locale}', function ($locale) {
 //Route::get('regioes/{id}', 'MapController@regioes');//usado no component filtroRegioes na página de filtros
 //Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
 
+Route::post('enviar-contato-serie/', 'ContatoSerieController@email');
 
+
+Route::get('mapa-calor/', function () {
+    return view('mapa-calor');
+});
+Route::get('new-maps/', function () {
+    return view('new-maps');
+    //return view('new-mapsORIGINAL');
+});
+Route::get('acidentes-transito/', function () {
+    return view('transito');
+});
+Route::post('valores-transito/', 'TransitoController@valoresMapa');
+Route::post('total-transito-territorio/', 'TransitoController@totalPorTerritorio');
+Route::post('pontos-transito-territorio/', 'TransitoController@pontosPorTerritorio');
+Route::post('pontos-transito-pais/', 'TransitoController@pontosPorPais');
+
+Route::post('periodos-pontos/', 'TransitoController@periodosPontosAno');
+Route::post('types/', 'TransitoController@types');
+Route::post('types-accident/', 'TransitoController@typesAccident');
+Route::post('genders/', 'TransitoController@genders');
+Route::post('regions/', 'TransitoController@regions');
+Route::post('default-regions/', 'TransitoController@defaultRegions');
+Route::post('years/', 'TransitoController@years');
+Route::post('months/', 'TransitoController@months');
+Route::post('values-for-types/', 'TransitoController@valuesForTypes');
+Route::post('values-for-gender/', 'TransitoController@valuesForGender');
+Route::post('values-for-regions/', 'TransitoController@valuesForRegions');
+Route::post('arrays-transito/', 'TransitoController@arraysTransito');
+
+//////////NOVA PÁGINAS DE FILTROS/////////////////////////
+Route::get('filtros-series/{id}/{tema}', 'FiltrosSeriesController@index');
+Route::get('filtros-series/', 'FiltrosSeriesController@index');
+//Route::post('get-temas', 'FiltrosSeriesController@temas');
+Route::post('get-indicadores', 'FiltrosSeriesController@indicadores');
+Route::post('get-abrangencias', 'FiltrosSeriesController@abrangencias');
+Route::post('list-series', 'FiltrosSeriesController@series');
+Route::post('territorios-serie-abrangencia', 'FiltrosSeriesController@territoriosSerieAbrangencia');
+//////////////////////////////////////////////////////////

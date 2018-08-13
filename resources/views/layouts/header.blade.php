@@ -73,11 +73,10 @@
                         </picture>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-4 hidden-xs text-right col-md-offset-4 box-logo">
-                    <a href="http://www.ipea.gov.br/" target="_blank"><img srcset="img/ipea.png" alt="ipea" title="ipea"></a>
-                </div>
-                <div class="col-md-2 col-sm-3 hidden-xs text-right box-logo">
-                    <a href="http://www.forumseguranca.org.br/" target="_blank"><img srcset="img/fbsp.png" alt="Fórum Brasileiro de Segurança Pública" title="Fórum Brasileiro de Segurança Pública"></a>
+                <div class="col-md-5 col-sm-7 hidden-xs text-right col-md-offset-4 box-logo">
+                    @foreach($apoios as $apoio)
+                    <a href="{{$apoio->url}}" target="_blank"><img srcset="imagens/apoios/{{$apoio->imagem}}" alt="ipea" title="ipea" height="51" style="margin-left: 50px;"></a>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -105,8 +104,12 @@
                         <li role="presentation"><a href="quem/{{$menuQuem->id}}/{{clean($menuQuem->titulo)}}" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
                     @endforeach--}}
                     <li role="presentation"><a href="quem" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
+<<<<<<< HEAD
                     <li role="presentation"><a href="series" accesskey="q" @if($rota=='series') class="corrente" @endif>@lang('links.researches')</a></li>
                     <li role="presentation"><a href="indicadores" accesskey="n">Indicadores</a></li>
+=======
+                    <li role="presentation"><a href="filtros-series" accesskey="q" @if($rota=='series') class="corrente" @endif>@lang('links.researches')</a></li>
+>>>>>>> 7bff32e05c05412236c3a60f7775f584234759f9
                     <li role="presentation"><a href="artigos/0/todos" accesskey="n" @if($rota=='artigos/{origem_id}/{titulo}') class="corrente" @endif>@lang('links.articles')</a></li>
                     <li role="presentation"><a href="videos" accesskey="q" @if($rota=='videos') class="corrente" @endif>@lang('links.videos')</a></li>
                     <li role="presentation"><a href="downloads" accesskey="q" @if($rota=='downloads') class="corrente" @endif>@lang('links.downloads')</a></li>
@@ -173,21 +176,21 @@
                         <a @if($webdoor->link!="")
                            href="{{$webdoor->link}}"
                            @elseif($webdoor->descricao!="")
-                           href="/webdoor/{{$webdoor->id}}"
+                           href="webdoor/{{$webdoor->id}}"
                            @endif
                            class="item">
                                 <?php /*?>class="item @if($cont==0) active @endif"><?php */?>
                             <picture>
-                                <source srcset="/imagens/webdoors/sm-{{$webdoor->imagem}}" media="(max-width: 468px)">
-                                <source srcset="/imagens/webdoors/md-{{$webdoor->imagem}}" media="(max-width: 768px)">
-                                <source srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" class="img-responsive">
-                                <img srcset="/imagens/webdoors/lg-{{$webdoor->imagem}}" alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" width="100%" height="260">
-                                @if(!empty($webdoor->resumida))
+                                <source srcset="imagens/webdoors/sm-{{$webdoor->imagem}}" media="(max-width: 468px)">
+                                <source srcset="imagens/webdoors/md-{{$webdoor->imagem}}" media="(max-width: 768px)">
+                                <source srcset="imagens/webdoors/lg-{{$webdoor->imagem}}" class="img-responsive">
+                                <img srcset="imagens/webdoors/lg-{{$webdoor->imagem}}" alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" width="100%" height="260">
+                                {{--@if(!empty($webdoor->resumida))
                                     <div class="carousel-caption">
                                         <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->titulo}}</h3>
                                         <p ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->resumida}}</p>
                                     </div>
-                                @endif
+                                @endif--}}
                             </picture>
                         </a>
 

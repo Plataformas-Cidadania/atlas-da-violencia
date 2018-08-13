@@ -8,11 +8,11 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo";
-    $scope.campoPesquisa = "titulo";
+    $scope.campos = "series.id, textos_series.titulo";
+    $scope.campoPesquisa = "textos_series.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "titulo";
+    $scope.ordem = "textos_series.titulo";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 
@@ -119,10 +119,11 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
             $scope.processandoInserir = true;
 
             //console.log($scope.serie);
-            $http.post("cms/inserir-serie", {serie: $scope.serie}).success(function (data){
+            $http.post("cms/inserir-serie", {serie: $scope.serie, textos: $scope.textos}).success(function (data){
                  listarSeries();
                  //delete $scope.serie;//limpa o form
-                $scope.serie.titulo = '';
+                delete $scope.textos.titulo;
+                delete $scope.textos.descricao;
                 $scope.mensagemInserir =  "Gravado com sucesso!";
                 $scope.processandoInserir = false;
              }).error(function(data){
@@ -132,7 +133,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
         }else{
             file.upload = Upload.upload({
                 url: 'cms/inserir-serie',
-                data: {serie: $scope.serie, file: file},
+                data: {serie: $scope.serie, textos: $scope.textos, file: file},
             });
 
             file.upload.then(function (response) {
@@ -140,6 +141,8 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
                     file.result = response.data;
                 });
                 //delete $scope.serie;//limpa o form
+                delete $scope.textos.titulo;
+                delete $scope.textos.descricao;
                 $scope.picFile = null;//limpa o file
                 listarSeries();
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -155,6 +158,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
         }
 
     };
+
 
     $scope.limparImagem = function(){
         delete $scope.picFile;
@@ -177,7 +181,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
         $scope.imagemExcluir = imagem;
         $scope.excluido = false;
         $scope.mensagemExcluido = "";
-    }
+    };
 
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
@@ -197,6 +201,32 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
         });
     };
     //////////////////////////////////
+
+
+    //LIMPAR VALORES///////////////////////////
+    $scope.perguntaLimparValores = function (id, titulo, imagem){
+        $scope.idLimparValores = id;
+        $scope.tituloLimparValores = titulo;
+        $scope.mensagemExcluidoValores = "";
+    };
+
+    $scope.limpar = function(id){
+        $scope.processandoLimparValores = true;
+        $http({
+            url: 'cms/limpar-valores-serie/'+id+'/'+$scope.abrangenciaLimpar,
+            method: 'GET'
+        }).success(function(data, status, headers, config){
+            console.log(data);
+            $scope.processandoLimparValores = false;
+            $scope.mensagemExcluidoValores = "Excluído com sucesso!";
+            listarSeries();
+        }).error(function(data){
+            $scope.message = "Ocorreu um erro: "+data;
+            $scope.processandoLimpar = false;
+            $scope.mensagemExcluido = "Erro ao tentar limpar!";
+        });
+    };
+    ////////////////////////////////////////////
 
 
 }]);

@@ -76,6 +76,8 @@ class NoticiaController extends Controller
 
         $file = $request->file('file');
 
+	//Log::info($request);
+
         if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();

@@ -545,6 +545,21 @@ function downloadCanvas(linkId, canvasId, filename) {
     link.href = document.getElementById(canvasId).toDataURL();
     link.download = filename;
 }
+
+function formatPeriodicidade(statePeriodo, periodicidade){
+    let periodo = null;
+    if(statePeriodo){
+        periodo = statePeriodo.toString();
+        if(periodicidade==="Anual"){
+            periodo = periodo.substr(0, 4);
+        }
+        if(periodicidade==="Semestral" || periodicidade==="Trimestral" || periodicidade==="Mensal"){
+            periodo = periodo.substr(0, 7);
+        }
+    }
+    return periodo;
+}
+
 // Ion.RangeSlider
 // version 2.1.4 Build: 355
 // © Denis Ineshin, 2016

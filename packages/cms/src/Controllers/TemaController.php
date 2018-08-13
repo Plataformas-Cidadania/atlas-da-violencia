@@ -10,11 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
+//use function MongoDB\BSON\toJSON;
 
 class TemaController extends Controller
 {
-    
-    
 
     public function __construct()
     {
@@ -24,20 +23,49 @@ class TemaController extends Controller
         ];
         $this->pathImagem = public_path().'/imagens/temas';
         $this->sizesImagem = [
-            'xs' => ['width' => 34, 'height' => 23],
-            'sm' => ['width' => 50, 'height' => 34],
-            'md' => ['width' => 100, 'height' => 68],
-            'lg' => ['width' => 150, 'height' => 101]
+            'xs' => ['width' => 32, 'height' => 32],
+            'sm' => ['width' => 64, 'height' => 64],
+            'md' => ['width' => 128, 'height' => 128],
+            'lg' => ['width' => 256, 'height' => 256]
         ];
         $this->widthOriginal = true;
     }
 
-    function index()
-    {
+    function index($tema_id)    {
 
-        $temas = \App\Tema::all();
+        $tema = \App\Tema::find($tema_id);
 
-        return view('cms::tema.listar', ['temas' => $temas]);
+        return view('cms::tema.listar', ['tema' => $tema, 'tema_id' => $tema_id]);
+
+        //$temas = [];
+        //$temas = $this->mountListTemas($temas, 0, "");
+
+        //return view('cms::tema.listar', ['temas' => $temas]);
+
+        //$temas = $this->mountArrayTemas(0);
+        //return view('cms::teste-array', ['temas' => $temas]);
+
+    }
+
+    private function mountListTemas($arrayTemas, $tema_id, $nivel){
+        $temas = \App\Tema::select('id', 'tema')->where('tema_id', $tema_id)->orderBy('id')->get();
+        foreach($temas as $index => $tema){
+            $titulo = $nivel.' - '.$tema->tema;
+            if($nivel==""){
+                $titulo = $tema->tema;
+            }
+            $arrayTemas[$tema->id] = $titulo;
+            $arrayTemas = $this->mountListTemas($arrayTemas, $tema->id, $titulo);
+        }
+        return $arrayTemas;
+    }
+
+    private function mountArrayTemas($tema_id){
+        $temas = \App\Tema::select('id', 'tema')->where('tema_id', $tema_id)->orderBy('id')->get();
+        foreach($temas as $index => $tema){
+            $temas[$index]['subtemas'] = $this->mountArrayTemas($tema->id);
+        }
+        return $temas;
     }
 
     public function listar(Request $request)
@@ -53,6 +81,7 @@ class TemaController extends Controller
             ->select($campos)
             ->where([
                 [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
+                ['tema_id', '=', $request->tema_id],
             ])
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
@@ -71,6 +100,9 @@ class TemaController extends Controller
             if(!array_key_exists($campo, $data)){
                 $data['tema'] += [$campo => ''];
             }
+        }
+        if($data['tema']['tema_id']==""){
+            $data['tema']['tema_id'] = 0;
         }
 
         $file = $request->file('file');
@@ -94,10 +126,18 @@ class TemaController extends Controller
 
     public function detalhar($id)
     {
+
+        //$temas = \App\Tema::lists('tema', 'id')->all();
+        //$temas = [];
+        //$temas = $this->mountListTemas($temas, 0, "");
+
         $tema = $this->tema->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        return view('cms::tema.detalhar', ['tema' => $tema]);
+
+        $tema_id = $tema->tema_id;
+
+        return view('cms::tema.detalhar', ['tema' => $tema, 'tema_id' => $tema_id]);
     }
 
     public function alterar(Request $request, $id)
@@ -112,6 +152,9 @@ class TemaController extends Controller
                     $data['tema'] += [$campo => ''];
                 }
             }
+        }
+        if($data['tema']['tema_id']==""){
+            $data['tema']['tema_id'] = 0;
         }
         $tema = $this->tema->where([
             ['id', '=', $id],

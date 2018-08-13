@@ -31,21 +31,23 @@ class Regions extends React.Component {
     }
 
     loadData() {
-        this.setState({ loading: true });
-        $.ajax({
-            method: 'GET',
-            url: "valores-inicial-final-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia,
-            cache: false,
-            success: function (data) {
-                //console.log('### REGIONS.loadData ###', data);
-                this.setState({ data: data, loading: false }, function () {
-                    this.calcMaxUpDown();
-                });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.log('erro');
-            }.bind(this)
-        });
+        if (this.state.min && this.state.max) {
+            this.setState({ loading: true });
+            $.ajax({
+                method: 'GET',
+                url: "valores-inicial-final-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia,
+                cache: false,
+                success: function (data) {
+                    //console.log('### REGIONS.loadData ###', data);
+                    this.setState({ data: data, loading: false }, function () {
+                        this.calcMaxUpDown();
+                    });
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.log('erro');
+                }.bind(this)
+            });
+        }
     }
 
     minMaxValue(data) {
@@ -179,7 +181,7 @@ class Regions extends React.Component {
                                 React.createElement(
                                     'button',
                                     { className: 'btn btn-primary btn-lg bg-pri', style: { border: '0' } },
-                                    this.state.periodo
+                                    formatPeriodicidade(this.state.periodo, this.props.periodicidade)
                                 ),
                                 React.createElement(
                                     'div',
@@ -262,9 +264,9 @@ class Regions extends React.Component {
                                 React.createElement(
                                     'button',
                                     { className: 'btn btn-primary btn-lg bg-pri', style: { border: '0' } },
-                                    this.state.min,
+                                    formatPeriodicidade(this.state.min, this.props.periodicidade),
                                     ' - ',
-                                    this.state.max
+                                    formatPeriodicidade(this.state.max, this.props.periodicidade)
                                 ),
                                 React.createElement(
                                     'div',

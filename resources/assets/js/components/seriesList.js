@@ -16,7 +16,8 @@ class SeriesList extends React.Component{
             },
             markedId: '',
             typerRegionSerie: '',
-            tipo_valores: ''
+            tipo_valores: '',
+            periodicidade: ''
         };
 
         this.loadData = this.loadData.bind(this);
@@ -48,7 +49,7 @@ class SeriesList extends React.Component{
             },
             cache: false,
             success: function(data){
-               //console.log('seriesList', data);
+                //console.log('seriesList', data);
                 this.setState({data: data}, function(){
                     this.setState({loading: false});
                 });
@@ -69,10 +70,10 @@ class SeriesList extends React.Component{
         //}
     }
 
-    marked(id, typeRegionSerie, tipoValores){
+    marked(id, typeRegionSerie, tipoValores, periodicidade){
        //console.log('marked', id, typeRegionSerie);
-        this.setState({markedId: id, typeRegionSerie: typeRegionSerie, tipoValores: tipoValores}, function(){
-            this.props.serieMarked(this.state.markedId, this.state.typeRegionSerie, this.state.tipoValores);
+        this.setState({markedId: id, typeRegionSerie: typeRegionSerie, tipoValores: tipoValores, periodicidade: periodicidade}, function(){
+            this.props.serieMarked(this.state.markedId, this.state.typeRegionSerie, this.state.tipoValores, this.state.periodicidade);
         });
     }
 
@@ -80,19 +81,21 @@ class SeriesList extends React.Component{
         let select1 = null;
         let select2 = null;
         let thCheck = null;
-        let series = this.state.data.map(function(item){
+        let series = this.state.data.map(function(item, index){
+            //console.log('Titulo', item.titulo);
+
             if(this.props.select == 'link'){
                 select1 = <td><a href={"filtros/"+item.id+"/"+item.titulo}>{item.titulo}</a></td>;
             }
             if(this.props.select == 'mark-one'){
                 thCheck = <th>&nbsp;</th>;
                 select1 = (
-                    <td onClick={() => this.marked(item.id, item.tipo_regiao, item.tipo_valores)} style={{cursor:'pointer'}} width={20}><a>
+                    <td onClick={() => this.marked(item.id, item.tipo_regiao, item.tipo_valores, item.periodicidade)} style={{cursor:'pointer'}} width={20}><a>
                         <img  src={"img/checkbox_" + (item.id==this.state.markedId ? 'on' : 'off') + ".png"} alt=""/>
                     </a></td>
                 );
                 select2 = (
-                        <td onClick={() => this.marked(item.id, item.tipo_regiao, item.tipo_valores)} style={{cursor:'pointer'}}><a>{item.titulo}</a></td>
+                        <td onClick={() => this.marked(item.id, item.tipo_regiao, item.tipo_valores, item.periodicidade)} style={{cursor:'pointer'}}><a>{item.titulo}</a></td>
                     );
 
             }
@@ -100,12 +103,12 @@ class SeriesList extends React.Component{
 
             }*/
             return (
-                <tr key={item.id} style={item.id==this.state.markedId ? this.state.style.marked : this.state.style.unmarked}>
+                <tr key={"s_"+item.id} style={item.id==this.state.markedId ? this.state.style.marked : this.state.style.unmarked}>
                     {select1}
                     {select2}
-                    {/*<td>&nbsp;</td>*/}
+                    <td>{item.titulo_unidade}</td>
                     <td>{item.periodicidade}</td>
-                    <td>{item.min} - {item.max}</td>
+                    <td width="100">{formatPeriodicidade(item.min, item.periodicidade)} - {formatPeriodicidade(item.max, item.periodicidade)}</td>
                 </tr>
             );
         }.bind(this));
@@ -125,7 +128,7 @@ class SeriesList extends React.Component{
                         <tr>
                             {thCheck}
                             <th>Série</th>
-                            {/*<th>Unidade</th>*/}
+                            <th>Unidade</th>
                             <th>Frequência</th>
                             <th>Período</th>
                         </tr>
@@ -140,4 +143,5 @@ class SeriesList extends React.Component{
         );
     }
 }
+
 

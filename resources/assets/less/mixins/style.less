@@ -98,3 +98,48 @@ footer{
 .color-sec{
   color: @font-sec;
 }
+
+.Container
+{
+  width: 100%;
+  overflow-y: auto;
+}
+.Content
+{
+  width: 100%;
+}
+
+.Flipped, .Flipped .Content
+{
+  transform:rotateX(180deg);
+  -ms-transform:rotateX(180deg); /* IE 9 */
+  -webkit-transform:rotateX(180deg); /* Safari and Chrome */
+}
+
+
+/*div flutuante para info*/
+.div-info{
+  position:absolute;
+  background-color:#FFFFFF;
+  border:solid 1px #CDCDCD;
+  padding:5px;
+
+  width:88%;
+  height: 200px;
+  overflow-y: auto;
+  z-index: 999999999999999;
+}
+.div-info p{
+  margin:10px;
+  border-bottom:solid 1px #E9E9E9;
+  cursor:pointer;
+}
+.div-info p:hover{
+  margin:10px;
+  border-bottom:solid 1px #E9E9E9;
+  background-color:#F0F0F0;
+}
+.div-info p i{
+  margin-right:5px;
+}
+

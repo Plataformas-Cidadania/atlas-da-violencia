@@ -1,6 +1,6 @@
 <?php
 
-return [
+return [    
     'indicadores' => [
         ['id' => '1', 'title' => 'Quantidade', 'on' => false, 'enable' => false],
         ['id' => '2', 'title' => 'Taxa por 100 mil Habitantes', 'on' => false, 'enable' => false],
@@ -41,5 +41,13 @@ return [
                     ['id'=> 17, 'title'=> 'Tocantins'],
             ]
         ]
-    ]
+    ],
+    'PADRAO_ABRANGENCIA' => [3,2,1,4],//3 - UF | 4 - Municipios | 2 - Regiões | 1 - País
+    'PADRAO_TERRITORIOS' => [
+        1 => [0],// 1076 (era 203) - Brasil
+        2 => [0],//0 - Todos,
+        3 => [0],//0 - Todos | colocar os códigos das ufs que deseja carregar por padrão
+        4 => [0],//Código do estado. Desta forma irá pegar todos os munínicios do estado | 0 para todos
+        7 => [0],//0 - Todos | Territórios do Piauí
+    ],
 ];

@@ -2,13 +2,21 @@ class ListValoresSeries extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            valores: []
+            valores: [],
+            min: this.props.min,
+            max: this.props.max,
+            loading: true,
+            columnsTd: null,
+            dataTable: null,
+            abrangencia: null
         };
         //this.loadData = this.loadData.bind(this);
+        this.generateTable = this.generateTable.bind(this);
     }
 
     componentDidMount() {
         //this.loadData();
+        this.generateTable();
     }
 
     componentWillReceiveProps(props) {
@@ -17,7 +25,15 @@ class ListValoresSeries extends React.Component {
          });*/
 
         //console.log(props.data);
-        this.setState({ valores: props.data.valores });
+        if (this.state.abrangencia != props.abrangencia) {
+            //this.setState({columnsTd: (<td>&nbsp;</td>), dataTable: (<tr><td>&nbsp;</td></tr>)});
+        }
+
+        if (this.state.valores != props.data) {
+            this.setState({ valores: props.data, loading: true }, function () {
+                this.generateTable();
+            });
+        }
     }
 
     /*loadData(){
@@ -27,13 +43,13 @@ class ListValoresSeries extends React.Component {
             cache: false,
             success: function(data) {
                 console.log('listValoresSeries', data);
-                 let valores = [];
+                  let valores = [];
                 for(let i in data){
                     let region = {};
                     region[i] = data[i];
                     valores.push(region);
                 }
-                 this.setState({valores: valores});
+                  this.setState({valores: valores});
             }.bind(this),
             error: function(xhr, status, err) {
               console.log('erro', err);
@@ -41,106 +57,210 @@ class ListValoresSeries extends React.Component {
         });
     }*/
 
-    render() {
-        if (!this.state.valores) {
-            return React.createElement(
-                "h3",
-                null,
-                "Sem Resultados"
-            );
+    getColors() {
+
+        let colors = [];
+        for (let i in colors2) {
+            colors.push(convertHex(colors2[i], 100));
         }
+        return colors;
+    }
 
+    generateTable() {
+
+        let labels = [];
+        let datasets = [];
+        let cont = 0;
+        let contLabel = 0;
         let contColor = 0;
+        let data = this.state.valores;
+        let currentPer = null;
 
-        let valores = this.state.valores.map(function (item, index) {
+        //////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////
+        let columns = [];
+        columns.push(null);
+        columns.push(this.props.nomeAbrangencia);
+        let values = [];
+        let colors = this.getColors();
 
-            if (contColor > colors2.length - 1) {
+        for (let region in data) {
+
+            if (contColor > colors.length - 1) {
                 contColor = 0;
             }
 
-            let color = colors2[contColor];
+            let register = {};
+            register['legend'] = colors[contColor];
+            register['region'] = region;
+
+            for (let periodo in data[region]) {
+                //console.log('##########', periodo);
+                //console.log('>>>>>>>>', columns.indexOf(periodo));
+                if (columns.indexOf(periodo) == -1) {
+                    columns.push(periodo);
+                }
+                register[periodo] = data[region][periodo];
+            }
 
             contColor++;
 
-            //para que no municipio não aparece repetido o nome
-            let sigla = null;
-            if (item.sigla !== item.nome) {
-                sigla = item.sigla + ' - ';
+            datasets.push(register);
+        }
+
+        //console.log('COLUMNS', columns);
+
+        for (let register in datasets) {
+            //console.log('--------------------------------');
+            //console.log(datasets[register]);
+            for (let column in columns) {
+                //console.log('###', columns[column]);
+                //console.log('A COLUNA EXISTE?', datasets[register].hasOwnProperty(columns[column]));
+                if (!datasets[register].hasOwnProperty(columns[column])) {
+                    //console.log('ADICIONAR COLUNA', columns[column], 'COM VALOR NULL');
+                    datasets[register][columns[column]] = null;
+                }
+            }
+            //console.log('DATASETS[REGISTER] DEPOIS', datasets[register]);
+        }
+
+        let columnsTd = columns.map(function (column, index) {
+
+            if (index >= 2) {
+                column = formatPeriodicidade(column, this.props.periodicidade);
             }
 
             return React.createElement(
-                "tr",
-                { key: index },
-                React.createElement(
-                    "th",
-                    { width: "10px" },
-                    React.createElement(
-                        "i",
-                        { className: "fa fa-square", style: { color: color } },
-                        " "
-                    )
-                ),
-                React.createElement(
-                    "th",
-                    null,
-                    sigla,
-                    item.nome
-                ),
-                React.createElement(
-                    "td",
-                    { className: "text-right" },
-                    formatNumber(item.valor, this.props.decimais, ',', '.')
-                )
+                'th',
+                { key: "col_list_" + index, style: { textAlign: 'right', fontWeight: 'bold' } },
+                column
             );
         }.bind(this));
 
+        let dataTable = datasets.map(function (item, index) {
+
+            let valores = [];
+
+            for (let i in columns) {
+
+                let column = columns[i];
+
+                let valor = item[column];
+
+                //testa se é numero
+                let regra = /^[0-9.]+$/;
+                if (item[column]) {
+                    if (item[column].match(regra)) {
+                        valor = formatNumber(item[column], this.props.decimais, ',', '.');
+                    }
+                }
+
+                let classValor = "text-right";
+                if (item[column] == 0) {
+                    valor = '-';
+                    classValor = "text-center";
+                }
+
+                let td = React.createElement(
+                    'td',
+                    { key: "valor_tabela_" + index + '_' + column, className: classValor },
+                    valor
+                );
+
+                if (i == 0) {
+                    td = React.createElement(
+                        'th',
+                        { key: "valor_tabela_" + index + '_' + column, width: '10px' },
+                        React.createElement(
+                            'i',
+                            { className: 'fa fa-square', style: { color: item['legend'] } },
+                            ' '
+                        )
+                    );
+                }
+
+                if (i == 1) {
+                    td = React.createElement(
+                        'th',
+                        { key: "valor_tabela_" + index + '_' + column },
+                        item['region']
+                    );
+                }
+
+                valores.push(td);
+            }
+
+            return React.createElement(
+                'tr',
+                { key: "col_valores_" + index },
+                valores
+            );
+        }.bind(this));
+
+        this.setState({ columnsTd: columnsTd, dataTable: dataTable, loading: false });
+    }
+
+    render() {
+        if (!this.state.valores) {
+            return React.createElement(
+                'h3',
+                null,
+                'Sem Resultados'
+            );
+        }
+
+        //console.log(this.state.columnsTd);
+
         return React.createElement(
-            "div",
+            'div',
             null,
             React.createElement(
-                "table",
-                { className: "table table-striped table-bordered", id: "listValoresSeries" },
+                'div',
+                { style: { display: this.state.loading || !this.state.dataTable ? '' : 'none' }, className: 'text-center' },
+                React.createElement('i', { className: 'fa fa-spin fa-spinner fa-4x' })
+            ),
+            React.createElement(
+                'div',
+                { style: { display: this.state.loading || !this.state.dataTable ? 'none' : '' } },
                 React.createElement(
-                    "thead",
-                    null,
+                    'div',
+                    { className: 'Container' },
                     React.createElement(
-                        "tr",
-                        null,
+                        'div',
+                        { className: 'Content', style: { overflowY: 'auto', maxHeight: '600px' } },
                         React.createElement(
-                            "th",
-                            null,
-                            "\xA0"
-                        ),
-                        React.createElement(
-                            "th",
-                            null,
-                            "Territ\xF3rio"
-                        ),
-                        React.createElement(
-                            "th",
-                            { className: "text-right" },
-                            "Ocorr\xEAncias"
+                            'table',
+                            { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
+                            React.createElement(
+                                'thead',
+                                null,
+                                React.createElement(
+                                    'tr',
+                                    null,
+                                    this.state.columnsTd
+                                )
+                            ),
+                            React.createElement(
+                                'tbody',
+                                null,
+                                this.state.dataTable
+                            )
                         )
                     )
                 ),
+                React.createElement('br', null),
                 React.createElement(
-                    "tbody",
-                    null,
-                    valores
-                )
-            ),
-            React.createElement("br", null),
-            React.createElement(
-                "div",
-                { style: { float: 'right', marginLeft: '5px' } },
-                React.createElement(Download, { btnDownload: "downloadListValoresSeries", divDownload: "listValoresSeries", arquivo: "tabela.png" })
-            ),
-            React.createElement(
-                "div",
-                { style: { float: 'right', marginLeft: '5px' } },
-                React.createElement(Print, { divPrint: "listValoresSeries", imgPrint: "imgPrintList" })
-            ),
-            React.createElement("div", { style: { clear: 'both' } })
+                    'div',
+                    { style: { float: 'right', marginLeft: '5px' } },
+                    React.createElement(Download, { btnDownload: 'downloadListValoresSeries', divDownload: 'listValoresSeries', arquivo: 'tabela.png' })
+                ),
+                React.createElement(
+                    'div',
+                    { style: { float: 'right', marginLeft: '5px' } },
+                    React.createElement(Print, { divPrint: 'listValoresSeries', imgPrint: 'imgPrintList' })
+                ),
+                React.createElement('div', { style: { clear: 'both' } })
+            )
         );
     }
 }

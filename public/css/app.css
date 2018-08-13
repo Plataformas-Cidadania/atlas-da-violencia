@@ -260,6 +260,45 @@ footer {
 .color-sec {
   color: #FFFFFF;
 }
+.Container {
+  width: 100%;
+  overflow-y: auto;
+}
+.Content {
+  width: 100%;
+}
+.Flipped,
+.Flipped .Content {
+  transform: rotateX(180deg);
+  -ms-transform: rotateX(180deg);
+  /* IE 9 */
+  -webkit-transform: rotateX(180deg);
+  /* Safari and Chrome */
+}
+/*div flutuante para info*/
+.div-info {
+  position: absolute;
+  background-color: #FFFFFF;
+  border: solid 1px #CDCDCD;
+  padding: 5px;
+  width: 88%;
+  height: 200px;
+  overflow-y: auto;
+  z-index: 999999999999999;
+}
+.div-info p {
+  margin: 10px;
+  border-bottom: solid 1px #E9E9E9;
+  cursor: pointer;
+}
+.div-info p:hover {
+  margin: 10px;
+  border-bottom: solid 1px #E9E9E9;
+  background-color: #F0F0F0;
+}
+.div-info p i {
+  margin-right: 5px;
+}
 .space-top {
   margin-top: 100px;
 }
@@ -303,6 +342,19 @@ footer {
 .line_title {
   height: 3px;
   /*margin-bottom: 20px;*/
+}
+.line-title-sm {
+  height: 3px;
+  max-width: 250px;
+}
+.line-hr-sm {
+  margin: 0px 0 40px 0;
+}
+.fa-male {
+  color: #3498DB;
+}
+.fa-female {
+  color: #CE4B99;
 }
 .list {
   clear: both;
@@ -450,11 +502,28 @@ footer {
   padding-top: 30px;
 }
 .line-temp-font {
-  font-size: 96px;
+  font-size: 30px;
   font-weight: bold;
 }
 .line-temp-barr {
   margin-bottom: -23px;
+}
+.btn-type {
+  color: #3498DB;
+  background-color: #EEEEEE;
+  border: solid 1px #3498DB;
+}
+.btn-type-active {
+  color: #FFFFFF;
+  background-color: #3498DB;
+}
+.btn-type-inactive {
+  color: #CCCCCC;
+  border: solid 1px #EEEEEE;
+  background-color: #EEEEEE;
+}
+.btn-type-inactive:hover {
+  color: #CCCCCC!important;
 }
 @media only screen and (max-width: 980px) {
   .box_data_mes {
@@ -477,6 +546,35 @@ footer {
     width: 90%;
     left: 5%;
   }
+}
+.btn-download {
+  border: 0;
+  border-bottom: solid 1px #f8f8f8;
+  width: 100%;
+  display: block;
+  background-color: #FFFFFF;
+  text-align: left;
+}
+.btn-download:hover {
+  background-color: #3498DB;
+  color: #FFFFFF;
+}
+.box-download-title {
+  color: #FFFFFF !important;
+  margin: 0 5px 5px 5px;
+  font-weight: bold !important;
+  text-align: center;
+}
+.box-download-subtitle {
+  color: #3498DB !important;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.box-download-subtitle-dorder {
+  border-bottom: solid 1px #3498DB;
 }
 .chart {
   display: table;

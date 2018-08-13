@@ -20,17 +20,26 @@ class PgSerie extends React.Component{
         this.state = {
             id: this.props.id,
             serie: this.props.serie,
-            unidade: this.props.unidade,
+            fonte: this.props.fonte,
             loading: false,
+            loadingItems: true,
             intervalos: [],
             intervalosFrom: [],
             intervalosTo: [],
             valoresRegioesPorPeriodo: {min: 0, max: 0, values: {}},
+            valoresPeriodo: {},
             smallLarge: [0,1],
             min: this.props.from,
             max: this.props.to,
+            /*min: this.props.from,
+            max: this.props.to,*/
             periodos: [],
+            abrangencia: props.abrangencia,
+            nomeAbrangencia: props.nomeAbrangencia,
+            abrangenciasOk: props.abrangenciasOk,
+            regions: props.regions,
             showMap: true,
+            loadingMap: false,
             showCharts: true,
             showRegions: true,
             showTable: true,
@@ -39,16 +48,20 @@ class PgSerie extends React.Component{
             chartLine: true,
             chartRadar: false,
             chartBar:false,
-            chartPie:false
+            chartPie:false,
         };
         this.loading = this.loading.bind(this);
         this.changePeriodo = this.changePeriodo.bind(this);
         this.setPeriodos = this.setPeriodos.bind(this);
         this.showHide = this.showHide.bind(this);
         this.loadData = this.loadData.bind(this);
+        this.loadDataPeriodo = this.loadDataPeriodo.bind(this);
         this.loadDataMaps = this.loadDataMaps.bind(this);
         this.setIntervalos = this.setIntervalos.bind(this);
         this.calcSmallLarge = this.calcSmallLarge.bind(this);
+        this.setAbrangencia = this.setAbrangencia.bind(this);
+        this.setNomeAbrangencia = this.setNomeAbrangencia.bind(this);
+        this.setRegions = this.setRegions.bind(this);
 
     }
 
@@ -58,8 +71,9 @@ class PgSerie extends React.Component{
 
     changePeriodo(min, max){
         this.setState({min: min, max: max}, function(){
-            console.log(min, max);
+            //console.log(min, max);
             this.loadData();
+            this.loadDataPeriodo();
             this.loadDataMaps();
         });
     }
@@ -68,84 +82,116 @@ class PgSerie extends React.Component{
         this.setState({periodos: periodos});
     }
 
-    loadData(){
-       //console.log(this.props.regions);
+    setAbrangencia(abrangencia){
         $.ajax({
             method:'GET',
-            //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-            url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia,
-            //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
+            url: "get-regions/"+abrangencia,
             cache: false,
             success: function(data) {
-               //console.log('pgSerie', data);
-                //os valores menor e maior para serem utilizados no chartBar
-                let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
-                /*let totais = {
-                    min: this.state.min,
-                    max: this.state.max,
-                    values: data
-                };*/
-                this.setState({valoresRegioesPorPeriodo: data, smallLarge: smallLarge});
-
-
-                ///////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////////
-                /*let valores = [];
-                for(let i in data.max.valores){
-                    valores[i] = data.max.valores[i].valor;
-                }
-                //console.log('pgSerie', valores);
-                let valoresOrdenados = valores.sort(function(a, b){
-                    return a - b;
-                });
-                //console.log('pgSerie', valoresOrdenados);
-
-                intervalos = gerarIntervalos(valoresOrdenados);
-                this.setIntervalos(intervalos);
-                //console.log('pgSerie', intervalos);*/
-                ///////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////////
-
-
-
-                //loadMap(data);
+                console.log('GET-REGIONS IN PGSERIE', data);
+                this.setState({regions: data, abrangencia: abrangencia});
             }.bind(this),
             error: function(xhr, status, err) {
-              console.log('erro');
+                console.log('erro');
             }.bind(this)
         });
     }
 
-    loadDataMaps(){
-        let _this = this;
-        $.ajax("regiao/"+_this.state.id+"/"+_this.state.min+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
-            data: {},
-            success: function(dataMapFrom){
+    setNomeAbrangencia(nomeAbrangencia){
+        this.setState({nomeAbrangencia: nomeAbrangencia});
+    }
 
-                let valoresMapFrom = this.getValoresMap(dataMapFrom);
-
-                $.ajax("regiao/"+_this.state.id+"/"+_this.state.max+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
-                    data: {},
-                    success: function(dataMapTo){
-
-
-                        let valoresMapTo = this.getValoresMap(dataMapTo);
-
-                        let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
-                        console.log(dataMapFrom);
-                        console.log(dataMapTo);
-                        console.log(intervalos);
-                        this.setState({dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos});
-                    }.bind(this),
-                    error: function(data){
-                        //console.log('map', 'erro');
-                    }
-                })
-            }.bind(this),
-            error: function(data){
-                //console.log('map', 'erro');
-            }
+    setRegions(regions){
+        console.log(regions);
+        this.setState({regions: regions}, function(){
+            this.loadData();
+            this.loadDataPeriodo();
+            this.loadDataMaps();
         });
+    }
+
+
+    loadData(){
+
+        //console.log('MIN', this.state.min);
+        //console.log('MAX', this.state.max);
+
+        if(this.state.min && this.state.max){
+
+            this.setState({loadingItems: true});
+
+            //console.log(this.state.regions);
+            $.ajax({
+                method:'GET',
+                //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
+                url: "valores-regiao/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.state.regions+"/"+this.state.abrangencia,
+                //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
+                cache: false,
+                success: function(data) {
+                    //console.log('pgSerie', data);
+                    //os valores menor e maior para serem utilizados no chartBar
+                    let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
+
+                    this.setState({valoresRegioesPorPeriodo: data, smallLarge: smallLarge, loadingItems: false});
+
+                }.bind(this),
+                error: function(xhr, status, err) {
+                  console.log('erro');
+                }.bind(this)
+            });
+        }
+    }
+
+    loadDataPeriodo(){
+        if(this.state.min && this.state.max) {
+            let _this = this;
+            //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
+            $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.state.regions + "/" + this.state.abrangencia, {
+                data: {},
+                success: function (data) {
+                    this.setState({valoresPeriodo: data});
+                }.bind(this),
+                error: function (data) {
+                    console.log('erro');
+                }.bind(this)
+            })
+        }
+    }
+
+    loadDataMaps(){
+        this.setState({loadingMap: true});
+        if(this.state.min && this.state.min){
+            let _this = this;
+            $.ajax("regiao/"+_this.state.id+"/"+_this.state.min+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
+                data: {},
+                success: function(dataMapFrom){
+
+                    let valoresMapFrom = this.getValoresMap(dataMapFrom);
+
+                    $.ajax("regiao/"+_this.state.id+"/"+_this.state.max+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
+                        data: {},
+                        success: function(dataMapTo){
+
+
+                            let valoresMapTo = this.getValoresMap(dataMapTo);
+
+                            let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
+                            //console.log(dataMapFrom);
+                            //console.log(dataMapTo);
+                            //console.log(intervalos);
+                            this.setState({dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos, loadingMap:false});
+                        }.bind(this),
+                        error: function(data){
+                            //console.log('map', 'erro');
+                        }
+                    })
+                }.bind(this),
+                error: function(data){
+                    //console.log('map', 'erro');
+                }
+            });
+        }
+
 
     }
 
@@ -203,24 +249,62 @@ class PgSerie extends React.Component{
 
     }
 
+    change(event){
+        console.log(event.target.value);
+    }
+
+
+    generateArrayYears(from, to){
+        let arrayYears = [];
+        for(let i = from ; i <= to ; i++){
+            arrayYears.push(i);
+        }
+
+        return arrayYears;
+    }
+
+
     render(){
 
         //utilizado para função de formatação
-        let decimais = this.state.unidade==1 ? 0 : 2;
+        let decimais = this.props.tipoUnidade==1 ? 0 : 2;
 
         let regions = null;
 
-        if(this.state.showRegions && this.props.abrangencia==3){
+
+
+        let from = formatPeriodicidade(this.state.min, this.props.periodicidade);
+        let to = formatPeriodicidade(this.state.max, this.props.periodicidade);
+
+        let arrayYears = this.generateArrayYears(from, to)
+
+        let optionsDownloadPeriodosFrom = arrayYears.map(function(item, index){
+            let selected = false;
+            if(index==0){
+                selected = 'selected';
+            }
+            return <option selected={selected} value={item+'-01-'+'-01'}>{item}</option>
+        });
+
+        let optionsDownloadPeriodosTo = arrayYears.map(function(item, index){
+            let selected = false;
+            if(index==arrayYears.length-1){
+                selected = 'selected';
+            }
+            return <option selected={selected} value={item+'-01-'+'-01'}>{item}</option>
+        }.bind(this));
+
+        if(this.state.showRegions && this.state.abrangencia==3){
             regions = (
-                <div style={{display: this.state.showRegions && this.props.abrangencia==3 ? 'block' : 'none'}}>
+                <div style={{display: this.state.showRegions && this.state.abrangencia==3 ? 'block' : 'none'}}>
 
                     <Topico icon="icon-group-rate" text="Taxas"/>
-
                     <Regions
                         id={this.state.id}
+                        periodicidade={this.props.periodicidade}
                         decimais={decimais}
-                        regions={this.props.regions}
-                        abrangencia={this.props.abrangencia}
+                        regions={this.state.regions}
+                        abrangencia={this.state.abrangencia}
                         min={this.state.min}
                         max={this.state.max}
                         data={this.state.valoresRegioesPorPeriodo.max}
@@ -230,8 +314,6 @@ class PgSerie extends React.Component{
             );
         }
 
-
-
         return(
             <div>
                 <div className="text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
@@ -240,25 +322,160 @@ class PgSerie extends React.Component{
                 </div>
                 <div style={{visibility: this.state.loading ? 'disable' : 'enable'}}>
                     <div className="row">
-                        <div className="col-md-6 h3" style={{margin:0}}>
-                            <img style={{marginLeft: '5px'}} src="imagens/links/8516-01.png" width="52" alt="" title=""/>
+                        <div className="h3">
+                           {/* <img style={{marginLeft: '5px'}} src="imagens/links/8516-01.png" width="52" alt="" title=""/>*/}
                             &nbsp;{this.state.serie}
                         </div>
+
+                        <div className="line_title bg-pri"/>
+                        <br/>
+
+                        <div className="col-md-6">
+                            <AbrangenciaSerie
+                                abrangencia={this.state.abrangencia}
+                                nomeAbrangencia={this.state.nomeAbrangencia}
+                                setAbrangencia={this.setAbrangencia}
+                                abrangenciasOk={this.state.abrangenciasOk}
+                                setRegions={this.setRegions}
+                                setNomeAbrangencia={this.setNomeAbrangencia}
+                            />
+                        </div>
+
+
+
                         <div className="col-md-6 text-right hidden-print">
+
+                            <div className="dropdown">
+                                <div id="dLabel" className="icons-groups icon-group-download"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                     style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
+
+                                <ul className="dropdown-menu" aria-labelledby="dLabel" style={{left: 'inherit', right: '0', float: 'right', margin: '40px 0 0'}}>
+                                    <li><a className="bg-pri box-download-title">Downloads</a></li>
+                                    <li><a><h3 className="box-download-subtitle">.CSV</h3></a></li>
+                                    <li>
+                                        <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
+                                            <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                            <input type="hidden" name="downloadType" value='csv'/>
+                                            <input type="hidden" name="id" value={this.props.id}/>
+                                            <input type="hidden" name="serie" value={this.props.serie}/>
+                                            <input type="hidden" name="from" value={this.state.min}/>
+                                            <input type="hidden" name="to" value={this.state.max}/>
+                                            <input type="hidden" name="regions" value={this.state.regions}/>
+                                            <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                                            <button className="btn-download"><i className="fa fa-download" aria-hidden="true"/> ({formatPeriodicidade(this.state.min, this.props.periodicidade)
+                                            } - {formatPeriodicidade(this.state.max, this.props.periodicidade)})</button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form name="frmDownloadTotal" action="download-dados" target="_blank" method="POST">
+                                            <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                            <input type="hidden" name="downloadType" value='csv'/>
+                                            <input type="hidden" name="id" value={this.props.id}/>
+                                            <input type="hidden" name="serie" value={this.props.serie}/>
+                                            <input type="hidden" name="regions" value={this.state.regions}/>
+                                            <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                                            <button className="btn-download"><i className="fa fa-download" aria-hidden="true"/> Total</button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <button className="btn-download" data-toggle="modal" data-target="#downloadModal"><i className="fa fa-download" aria-hidden="true"/> Personalizado</button>
+                                    </li>
+
+                                    <li><a><h3 className="box-download-subtitle">.ODS</h3></a></li>
+                                    <li>
+                                        <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
+                                            <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                            <input type="hidden" name="downloadType" value='ods'/>
+                                            <input type="hidden" name="id" value={this.props.id}/>
+                                            <input type="hidden" name="serie" value={this.props.serie}/>
+                                            <input type="hidden" name="from" value={this.state.min}/>
+                                            <input type="hidden" name="to" value={this.state.max}/>
+                                            <input type="hidden" name="regions" value={this.state.regions}/>
+                                            <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                                            <button className="btn-download"><i className="fa fa-download" aria-hidden="true"/> ({formatPeriodicidade(this.state.min, this.props.periodicidade)
+                                            } - {formatPeriodicidade(this.state.max, this.props.periodicidade)})</button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form name="frmDownloadTotal" action="download-dados" target="_blank" method="POST">
+                                            <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                            <input type="hidden" name="downloadType" value='ods'/>
+                                            <input type="hidden" name="id" value={this.props.id}/>
+                                            <input type="hidden" name="serie" value={this.props.serie}/>
+                                            <input type="hidden" name="regions" value={this.state.regions}/>
+                                            <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                                            <button className="btn-download"><i className="fa fa-download" aria-hidden="true"/> Total</button>
+                                        </form>
+                                    </li>
+
+                                </ul>
+                                <div id="downloadModal" className="modal fade text-left" role="dialog" style={{zIndex: "9999999999"}}>
+                                    <div className="modal-dialog">
+                                        <div className="modal-content">
+                                            <form name="frmDownloadTotal" action="download-dados" target="_blank" method="POST">
+                                                <div className="modal-header">
+                                                    <button type="button" className="close"
+                                                            data-dismiss="modal">&times;</button>
+                                                    <h4 className="modal-title"><i className="fa fa-download" aria-hidden="true"/> Personalizar</h4>
+                                                </div>
+                                                <div className="modal-body">
+                                                    <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
+                                                    <input type="hidden" name="downloadType" value='csv'/>
+                                                    <input type="hidden" name="id" value={this.props.id}/>
+                                                    <input type="hidden" name="serie" value={this.props.serie}/>
+                                                    <div>
+                                                        <label htmlFor="decimal">Separador Decimal</label>
+                                                        <select name="decimal" className="form-control">
+                                                            <option value=",">,</option>
+                                                            <option value=".">.</option>
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="from">De</label>
+                                                        <select name="from" className="form-control">
+                                                            {optionsDownloadPeriodosFrom}
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="to">Até</label>
+                                                        <select name="to" className="form-control">
+                                                            {optionsDownloadPeriodosTo}
+                                                        </select>
+                                                    </div>
+                                                    <input type="hidden" name="regions" value={this.state.regions}/>
+                                                    <input type="hidden" name="abrangencia" value={this.state.abrangencia}/>
+                                                </div>
+                                                <div className="modal-footer">
+                                                    <button type="button" className="btn btn-default"
+                                                            data-dismiss="modal">Fechar
+                                                    </button>
+                                                    <button className="btn btn-primary">Download</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div className="icons-groups icon-group-email"  data-toggle="modal" data-target="#myModal"
+                                 style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
+
                             <div className="icons-groups icon-group-print" onClick={() => window.print()}
                                  style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
 
                             <div className={"icons-groups" + (this.state.showInfo ? " icon-group-info" : " icon-group-info-disable")}
                                  style={{marginLeft: '5px'}} onClick={() => this.showHide('Info')} title="">&nbsp;</div>
 
-                            <div className={"icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable")}
-                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Calcs')} title="">&nbsp;</div>
+                            {/*<div className={"icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable")}
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Calcs')} title="">&nbsp;</div>*/}
 
                             <div className={"icons-groups" + (this.state.showTable ? " icon-group-table" : " icon-group-table-disable")}
                                  style={{marginLeft: '5px'}} onClick={() => this.showHide('Table')} title="">&nbsp;</div>
 
-                            <div className={"icons-groups" + (this.state.showRegions ? " icon-group-rate" : " icon-group-rate-disable")}
-                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Regions')} title="">&nbsp;</div>
+                            {/*<div className={"icons-groups" + (this.state.showRegions ? " icon-group-rate" : " icon-group-rate-disable")}
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Regions')} title="">&nbsp;</div>*/}
 
                             <div className={"icons-groups" + (this.state.showCharts ? " icon-group-chart" : " icon-group-chart-disable")}
                                  style={{marginLeft: '5px'}} onClick={() => this.showHide('Charts')} title="">&nbsp;</div>
@@ -267,14 +484,20 @@ class PgSerie extends React.Component{
                                  style={{marginLeft: '5px'}} onClick={() => this.showHide('Map')} title="">&nbsp;</div>
                         </div>
                     </div>
-                    <br/>
-                    <div className="line_title bg-pri"></div>
+
+
+
+
+
+
 
                     <div className="hidden-print">
                         <br/>
 
                         <RangePeriodo
                             id={this.state.id}
+                            periodicidade={this.props.periodicidade}
+                            abrangencia={this.state.abrangencia}
                             changePeriodo={this.changePeriodo}
                             setPeriodos={this.setPeriodos}
                             loading={this.loading}
@@ -288,48 +511,24 @@ class PgSerie extends React.Component{
 
 
                     <div style={{borderTop: 'solid 1px #ccc', padding:'10px 0'}} className="text-right">
-
-                        <div style={{float:'right', marginLeft:'5px'}}>
-                            <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
-                                <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
-                                <input type="hidden" name="id" value={this.props.id}/>
-                                <input type="hidden" name="serie" value={this.props.serie}/>
-                                <input type="hidden" name="from" value={this.state.min}/>
-                                <input type="hidden" name="to" value={this.state.max}/>
-                                <input type="hidden" name="regions" value={this.props.regions}/>
-                                <input type="hidden" name="abrangencia" value={this.props.abrangencia}/>
-                                <button className="btn btn-success">Download ({this.state.min} - {this.state.max})</button>
-                            </form>
-                        </div>
-                        <div style={{float:'right', marginLeft:'5px'}}>
-                            <form name="frmDownloadTotal" action="download-dados" target="_blank" method="POST">
-                                <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
-                                <input type="hidden" name="id" value={this.props.id}/>
-                                <input type="hidden" name="serie" value={this.props.serie}/>
-                                <input type="hidden" name="regions" value={this.props.regions}/>
-                                <input type="hidden" name="abrangencia" value={this.props.abrangencia}/>
-                                <button className="btn btn-success">Download Total</button>
-                            </form>
-                        </div>
-                        <div style={{float:'right', marginLeft:'5px', paddingTop:'5px'}}>
-                            Download dos dados em .csv
-                        </div>
-
                         <div style={{clear:'both'}}/>
                     </div>
-
-
 
                     <div style={{display: this.state.showMap ? 'block' : 'none'}}>
 
                         <Topico icon="icon-group-map" text="Mapa"/>
 
-                        <div className="row">
+                        <div className="row col-md-12 text-center" style={{display: this.state.loadingMap ? 'block' : 'none'}}>
+                            <i className="fa fa-spin fa-spinner fa-4x"/>
+                        </div>
+
+                        <div className="row" style={{display: !this.state.loadingMap ? 'block' : 'none'}}>
                             <div className="col-md-6 col-sm-12">
                                 <Map
                                     mapId="map1"
                                     id={this.state.id}
                                     serie={this.props.serie}
+                                    periodicidade={this.props.periodicidade}
                                     tipoValores={this.props.tipoValores}
                                     decimais={decimais}
                                     /*min={this.state.min}
@@ -339,8 +538,8 @@ class PgSerie extends React.Component{
                                     //tipoPeriodo="from"
                                     intervalos={this.state.intervalos}
                                     //setIntervalos={this.setIntervalos}
-                                    //regions={this.props.regions}
-                                    //abrangencia={this.props.abrangencia}
+                                    //regions={this.state.regions}
+                                    //abrangencia={this.state.abrangencia}
                                     /*typeRegion={this.props.typeRegion}
                                      typeRegionSerie={this.props.typeRegionSerie}*/
                                 />
@@ -350,6 +549,7 @@ class PgSerie extends React.Component{
                                     mapId="map2"
                                     id={this.state.id}
                                     serie={this.props.serie}
+                                    periodicidade={this.props.periodicidade}
                                     tipoValores={this.props.tipoValores}
                                     decimais={decimais}
                                     /*min={this.state.min}
@@ -359,8 +559,8 @@ class PgSerie extends React.Component{
                                     //tipoPeriodo="to"
                                     intervalos={this.state.intervalos}
                                     //setIntervalos={this.setIntervalos}
-                                    //regions={this.props.regions}
-                                    //abrangencia={this.props.abrangencia}
+                                    //regions={this.state.regions}
+                                    //abrangencia={this.state.abrangencia}
                                     /*typeRegion={this.props.typeRegion}
                                      typeRegionSerie={this.props.typeRegionSerie}*/
                                 />
@@ -370,6 +570,42 @@ class PgSerie extends React.Component{
                         <br/><br/><br/>
 
                     </div>
+
+                    <div style={{display: this.state.showTable ? 'block' : 'none'}}>
+
+                        <Topico icon="icon-group-table" text="Tabela"/>
+
+                        {/*<div style={{textAlign: 'center', clear: 'both'}}>
+                            <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{formatPeriodicidade(this.state.min, this.props.periodicidade)} - {formatPeriodicidade(this.state.max, this.props.periodicidade)}</button>
+                            <div style={{marginTop:'-19px'}}>
+                                <i className="fa fa-sort-down fa-2x ft-pri"  />
+                            </div>
+                        </div>
+                        <br/>*/}
+
+                        <div style={{display: this.state.loadingItems ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>
+                        <div style={{display: this.state.loadingItems ? 'none' : ''}}>
+                            <ListValoresSeries
+                                decimais={decimais}
+                                periodicidade={this.props.periodicidade}
+                                nomeAbrangencia={this.state.nomeAbrangencia}
+                                min={this.state.min}
+                                max={this.state.max}
+                                data={this.state.valoresPeriodo}
+                                tipoUnidade={this.props.tipoUnidade}
+                                abrangencia={this.state.abrangencia}
+                                /*data={this.state.valoresRegioesPorPeriodo.max}*/
+                                /*dataMin={this.state.valoresRegioesPorPeriodo.min}
+                                dataMax={this.state.valoresRegioesPorPeriodo.max}*/
+                            />
+                            <p style={{marginTop: '-50px'}}><strong>Unidade: </strong>{this.props.unidade}</p>
+                        </div>
+
+                        <br/><br/>
+
+                    </div>
+
+
 
                     <div style={{display: this.state.showCharts ? 'block' : 'none'}}>
 
@@ -394,11 +630,12 @@ class PgSerie extends React.Component{
                                 <ChartLine
                                     id={this.state.id}
                                     serie={this.state.serie}
+                                    periodicidade={this.props.periodicidade}
                                     min={this.state.min}
                                     max={this.state.max}
                                     periodos={this.state.periodos}
-                                    regions={this.props.regions}
-                                    abrangencia={this.props.abrangencia}
+                                    regions={this.state.regions}
+                                    abrangencia={this.state.abrangencia}
                                     /*typeRegion={this.props.typeRegion}
                                     typeRegionSerie={this.props.typeRegionSerie}
                                     intervalos={this.state.intervalos}*/
@@ -410,11 +647,12 @@ class PgSerie extends React.Component{
                                         <ChartBar
                                             id={this.state.id}
                                             serie={this.state.serie}
+                                            periodicidade={this.props.periodicidade}
                                             /*intervalos={this.state.intervalos}*/
                                             min={this.state.min}
                                             max={this.state.max}
-                                            regions={this.props.regions}
-                                            abrangencia={this.props.abrangencia}
+                                            regions={this.state.regions}
+                                            abrangencia={this.state.abrangencia}
                                             /*data={this.state.valoresRegioesPorPeriodo}*/
                                             /*smallLarge={this.state.smallLarge}*/
                                             idBar="1"
@@ -434,12 +672,14 @@ class PgSerie extends React.Component{
                             <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
                                 <ChartRadar
                                     serie={this.state.serie}
+                                    periodicidade={this.props.periodicidade}
                                     data={this.state.valoresRegioesPorPeriodo.max}
                                 />
                             </div>
                             <div style={{display: this.state.chartPie ? 'block' : 'none'}}>
                                 <ChartPie
                                     intervalos={this.state.intervalos}
+                                    periodicidade={this.props.periodicidade}
                                     data={this.state.valoresRegioesPorPeriodo.max}
                                 />
                             </div>
@@ -449,30 +689,9 @@ class PgSerie extends React.Component{
 
                     {regions}
 
-                    <div style={{display: this.state.showTable ? 'block' : 'none'}}>
 
-                        <Topico icon="icon-group-table" text="Tabela"/>
 
-                        <div style={{textAlign: 'center', clear: 'both'}}>
-                            <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{this.state.max}</button>
-                            <div style={{marginTop:'-19px'}}>
-                                <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
-                            </div>
-                        </div>
-                        <br/>
-
-                        <ListValoresSeries
-                            decimais={decimais}
-                            min={this.state.min}
-                            max={this.state.max}
-                            data={this.state.valoresRegioesPorPeriodo.max}
-                            dataMin={this.state.valoresRegioesPorPeriodo.min}
-                            dataMax={this.state.valoresRegioesPorPeriodo.max}
-                        />
-                        <br/><br/>
-                    </div>
-
-                    <div className="hidden-print" style={{display: this.state.showCalcs ? 'block' : 'none'}}>
+                    {/*<div className="hidden-print" style={{display: this.state.showCalcs ? 'block' : 'none'}}>
 
                         <Topico icon="icon-group-calc" text="Cálculos"/>
 
@@ -483,7 +702,9 @@ class PgSerie extends React.Component{
                             data={this.state.valoresRegioesPorPeriodo.max}
                         />
                         <br/><br/><br/>
-                    </div>
+                    </div>*/}
+
+
 
                     <div className="hidden-print" style={{display: this.state.showInfo ? 'block' : 'none'}}>
                         <div className="row">
@@ -502,8 +723,10 @@ class PgSerie extends React.Component{
                                 </a>
                             </div>
                         </div>
-                    </div>
 
+                        <p><strong>Fonte: </strong>{this.props.fonte}</p>
+                       {/* <p><strong>Periodicidade: </strong>{this.props.periodicidade}</p>*/}
+                    </div>
                 </div>
             </div>
         );
@@ -514,13 +737,18 @@ ReactDOM.render(
     <PgSerie
         id={serie_id}
         serie={serie}
+        periodicidade={periodicidade}
         metadados={metadados}
+        fonte={fonte}
         tipoValores={tipoValores}
         unidade={unidade}
+        tipoUnidade={tipoUnidade}
         from={from}
         to={to}
         regions={regions}
         abrangencia={abrangencia}
+        abrangenciasOk={abrangenciasOk}
+        nomeAbrangencia={nomeAbrangencia}
         /*typeRegion={typeRegion}
         typeRegionSerie={typeRegionSerie}*/
     />,

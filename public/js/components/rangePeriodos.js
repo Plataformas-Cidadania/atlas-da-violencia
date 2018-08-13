@@ -3,6 +3,7 @@ class RangePeriodo extends React.Component {
         super(props);
         this.state = {
             id: this.props.id,
+            abrangencia: 0,
             firstLoad: true,
             slider: {},
             periodos: []
@@ -11,6 +12,8 @@ class RangePeriodo extends React.Component {
         this.loadData = this.loadData.bind(this);
         this.updateRange = this.updateRange.bind(this);
         this.loadRange = this.loadRange.bind(this);
+        this.convertePeriodos = this.convertePeriodos.bind(this);
+        this.getFromTo = this.getFromTo.bind(this);
     }
 
     componentDidMount() {
@@ -20,8 +23,8 @@ class RangePeriodo extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (this.state.id != props.id) {
-            this.setState({ id: props.id }, function () {
+        if (this.state.id != props.id || this.state.abrangencia != props.abrangencia) {
+            this.setState({ id: props.id, abrangencia: props.abrangencia }, function () {
                 this.loadData();
             });
         }
@@ -33,7 +36,7 @@ class RangePeriodo extends React.Component {
 
     loadData() {
         this.loading(true);
-        $.ajax("periodos/" + this.state.id, {
+        $.ajax("periodos/" + this.state.id + "/" + this.state.abrangencia, {
             data: {},
             success: function (data) {
                 //console.log('range', data);
@@ -54,37 +57,94 @@ class RangePeriodo extends React.Component {
         });
     }
 
+    convertePeriodos() {
+        let periodos = [];
+        let from = null;
+        let to = null;
+        for (let i in this.state.periodos) {
+            periodos[i] = formatPeriodicidade(this.state.periodos[i], this.props.periodicidade);
+            if (this.state.periodos[i] == this.props.from) {
+                from = i;
+            }
+            if (this.state.periodos[i] == this.props.to) {
+                to = i;
+            }
+        }
+
+        return {
+            periodos: periodos,
+            from: from,
+            to: to
+        };
+    }
+
+    getFromTo(periodos, data) {
+        let iFrom = null;
+        let iTo = null;
+        for (let i in periodos) {
+            //console.log('start', periodos[i], data.from_value, data.to_value);
+            if (periodos[i] == data.from_value) {
+                iFrom = i;
+            }
+            if (periodos[i] == data.to_value) {
+                iTo = i;
+            }
+        }
+
+        let from = this.state.periodos[iFrom];
+        let to = this.state.periodos[iTo];
+
+        return {
+            from: from,
+            to: to
+        };
+    }
+
     updateRange() {
+        //console.log(formatPeriodicidade(this.state.periodos[0], "Anual"));
+
+        let objPeriodos = this.convertePeriodos();
+
         this.state.slider.update({
-            values: this.state.periodos,
-            from: this.state.periodos[0],
-            to: this.state.periodos.length - 1
+            values: objPeriodos.periodos,
+            from: objPeriodos.from,
+            to: objPeriodos.to
+            //from: this.state.periodos[0],
+            //to: this.state.periodos.length-1,
         });
     }
 
     loadRange() {
         let _this = this;
-        //console.log(_this.state.periodos);
+
+        let objPeriodos = this.convertePeriodos();
+
         //console.log(_this.props.from);
         //console.log(_this.props.to);
         $("#range").ionRangeSlider({
-            values: _this.state.periodos,
+            values: objPeriodos.periodos,
             hide_min_max: true,
-            keyboard: true,
+            //keyboard: true,
             //min: 0,
             //max: 5000,
-            //from:0,
-            //to: 5000,
+            from: objPeriodos.from,
+            to: objPeriodos.to,
             type: 'double',
-            step: 1,
+            //step: 1,
             prefix: "",
             //postfix: " million pounds",
             grid: true,
-            prettify_enabled: false,
             onStart: function (data) {
                 //console.log('range onStart', data);
                 //console.log(data.from_value, data.to_value);
-                _this.props.changePeriodo(data.from_value, data.to_value);
+
+                let periodos = this.values;
+
+                let fromTo = _this.getFromTo(periodos, data);
+
+                _this.props.changePeriodo(fromTo.from, fromTo.to);
+
+                //_this.props.changePeriodo(data.from_value, data.to_value);
                 //min = data.from_value;
                 //max = data.to_value;
                 //dataToMap(data.from_value, data.to_value);
@@ -97,7 +157,13 @@ class RangePeriodo extends React.Component {
             onFinish: function (data) {
                 //console.log('range onFinish', data);
                 //console.log(data.from_value, data.to_value);
-                _this.props.changePeriodo(data.from_value, data.to_value);
+
+                let periodos = this.values;
+                let fromTo = _this.getFromTo(periodos, data);
+
+                _this.props.changePeriodo(fromTo.from, fromTo.to);
+
+                //_this.props.changePeriodo(data.from_value, data.to_value);
                 //min = data.from_value;
                 //max = data.to_value;
                 //dataToMap(data.from_value, data.to_value);
@@ -106,7 +172,13 @@ class RangePeriodo extends React.Component {
                 //dataToChartRadar(data.from_value, data.to_value);
             },
             onUpdate: function (data) {
-                _this.props.changePeriodo(data.from_value, data.to_value);
+
+                let periodos = this.values;
+                let fromTo = _this.getFromTo(periodos, data);
+
+                _this.props.changePeriodo(fromTo.from, fromTo.to);
+
+                //_this.props.changePeriodo(data.from_value, data.to_value);
                 //console.log('onUpdate');
             }
 
@@ -117,6 +189,8 @@ class RangePeriodo extends React.Component {
         this.setState({ slider: slider });
     }
 
+    change() {}
+
     render() {
         return React.createElement(
             "div",
@@ -126,7 +200,7 @@ class RangePeriodo extends React.Component {
                 null,
                 "Selecione o per\xEDodo desejado"
             ),
-            React.createElement("input", { type: "text", id: "range", value: this.props.from + ';' + this.props.to, name: "range" })
+            React.createElement("input", { type: "text", id: "range", value: this.props.from + ';' + this.props.to, name: "range", onChange: this.change })
         );
     }
 }

@@ -36,9 +36,9 @@ class AuthorController extends Controller
     {
 
         $authors = \App\Author::all();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+        //$series = \App\Serie::lists('titulo', 'id')->all();
 
-        return view('cms::author.listar', ['authors' => $authors, 'series' => $series]);
+        return view('cms::author.listar', ['authors' => $authors]);
     }
 
     public function listar(Request $request)
@@ -98,9 +98,9 @@ class AuthorController extends Controller
         $author = $this->author->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+        //$series = \App\Serie::lists('titulo', 'id')->all();
 
-        return view('cms::author.detalhar', ['author' => $author, 'series' => $series]);
+        return view('cms::author.detalhar', ['author' => $author/*, 'series' => $series*/]);
     }
 
     public function alterar(Request $request, $id)

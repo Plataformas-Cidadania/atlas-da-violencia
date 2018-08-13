@@ -65,35 +65,37 @@ class ChartBar extends React.Component {
     }
 
     loadData() {
-        //console.log(this.props.regions);
-        $.ajax({
-            method: 'GET',
-            //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
-            url: "valores-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia,
-            //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
-            cache: false,
-            success: function (data) {
-                //console.log('pgSerie', data);
-                //os valores menor e maior para serem utilizados no chartBar
-                let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
-                /*let totais = {
-                 min: this.state.min,
-                 max: this.state.max,
-                 values: data
-                 };*/
-                this.setState({ valoresRegioesPorPeriodo: data, smallLarge: smallLarge }, function () {
-                    if (myChartBar[this.props.idBar]) {
-                        this.chartDestroy();
-                    }
-                    this.loadChart(this.state.valoresRegioesPorPeriodo);
-                });
+        if (this.state.min && this.state.max) {
+            //console.log(this.props.regions);
+            $.ajax({
+                method: 'GET',
+                //url: "valores-regiao/"+this.state.id+"/"+this.props.tipoValores+"/"+this.state.min+"/"+this.state.max,
+                url: "valores-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.props.regions + "/" + this.props.abrangencia,
+                //url: "valores-regiao/"+this.state.id+"/"+this.state.max,
+                cache: false,
+                success: function (data) {
+                    //console.log('pgSerie', data);
+                    //os valores menor e maior para serem utilizados no chartBar
+                    let smallLarge = this.calcSmallLarge(data.min.valores, data.max.valores);
+                    /*let totais = {
+                     min: this.state.min,
+                     max: this.state.max,
+                     values: data
+                     };*/
+                    this.setState({ valoresRegioesPorPeriodo: data, smallLarge: smallLarge }, function () {
+                        if (myChartBar[this.props.idBar]) {
+                            this.chartDestroy();
+                        }
+                        this.loadChart(this.state.valoresRegioesPorPeriodo);
+                    });
 
-                //loadMap(data);
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.log('erro');
-            }.bind(this)
-        });
+                    //loadMap(data);
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.log('erro');
+                }.bind(this)
+            });
+        }
     }
 
     loadChart(data) {
@@ -128,7 +130,7 @@ class ChartBar extends React.Component {
         let datasets = [];
 
         datasets[0] = {
-            label: this.state.min,
+            label: formatPeriodicidade(this.state.min, this.props.periodicidade),
             backgroundColor: colors[0],
             borderColor: "rgba(179,181,198,1)",
             pointBackgroundColor: "rgba(179,181,198,1)",
@@ -139,7 +141,7 @@ class ChartBar extends React.Component {
         };
 
         datasets[1] = {
-            label: this.state.max,
+            label: formatPeriodicidade(this.state.max, this.props.periodicidade),
             backgroundColor: colors[1],
             borderColor: "rgba(179,181,198,1)",
             pointBackgroundColor: "rgba(179,181,198,1)",
@@ -218,18 +220,13 @@ class ChartBar extends React.Component {
             colors.push(convertHex(colors2[i], 100));
         }
         return colors;
-
-        //console.log('chartbar - getcolors - intervalos', this.state.intervalos.length);
-        /*if(this.state.intervalos.length > 0){
-            let colors = [];
-            for(let i in values){
-                colors.push(convertHex(getColor(values[i], intervalos), 100));
-            }
-            return colors;
-        }*/
     }
 
     render() {
+
+        let min = formatPeriodicidade(this.state.min, this.props.periodicidade);
+        let max = formatPeriodicidade(this.state.max, this.props.periodicidade);
+
         return React.createElement(
             "div",
             null,
@@ -239,12 +236,12 @@ class ChartBar extends React.Component {
                 React.createElement(
                     "button",
                     { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                    this.state.min + ' / ' + this.state.max
+                    min + ' / ' + max
                 ),
                 React.createElement(
                     "div",
                     { style: { marginTop: '-19px' } },
-                    React.createElement("i", { className: "fa fa-sort-down fa-2x", style: { color: '#3498DB' } })
+                    React.createElement("i", { className: "fa fa-sort-down fa-2x ft-pri" })
                 )
             ),
             React.createElement("br", null),

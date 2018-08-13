@@ -12,6 +12,7 @@
             <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Series</h1>
             <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Nova Serie</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
+            <a class="btn btn-success" href="cms/importar-varias-series" style="float: right;">Importar Dados</a>
             <br><br>
             <div ng-show="mostrarForm">
                 <span class="texto-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>
@@ -97,9 +98,12 @@
                             <td><a href="cms/serie/<% serie.id %>"><% serie.titulo %></a></td>
                             <td class="text-right">
                                 <div>
-                                    <a href="cms/importar-serie/<% serie.id %>"><i class="fa fa-upload fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/importar-serie/<% serie.id %>"><i class="fa fa-upload fa-2x" title="Importar"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/textos-series/<% serie.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/temas-series/<% serie.id %>"><i class="fa fa-folder-open fa-2x" title="Temas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/serie/<% serie.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(serie.id, serie.titulo, serie.imagem)"></i></a>
+                                    <a style="diplay:block;" title="excluir valores séries"><i data-toggle="modal" data-target="#modalLimparValores" class="fa fa-eraser fa-2x" ng-click="perguntaLimparValores(serie.id, serie.titulo, serie.imagem)"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -163,5 +167,56 @@
             </div>
         </div>
         <!-- Fim Modal Excluir-->
+
+
+
+        <!-- Modal Limpar Valores Séries-->
+        <div class="modal fade" id="modalLimparValores" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <form name="form2">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Limpar Valores</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p><% idLimparValores %> - <% tituloLimparValores %></p>
+                                    <p>
+                                        <?php
+                                        $abrangencias = [
+                                            '0' => 'Todas',
+                                            '1' => 'País',
+                                            '2' => 'Região',
+                                            '3' => 'UF',
+                                            '4' => 'Município',
+                                        ];
+                                        ?>
+                                        {!! Form::label('abrangencia', 'Abrangência') !!}<br>
+                                        {!! Form::select('abrangencia',
+                                                $abrangencias,
+                                        null, [
+                                            'class'=>"form-control width-medio",
+                                            'ng-model'=>'abrangenciaLimpar',
+                                            'ng-required'=>'true',
+                                            'placeholder' => 'Selecione'
+                                        ]) !!}<br>
+                                    </p>
+                                </div>
+                            </div>
+                            <div ng-show="processandoLimparValores"><i class="fa fa-spinner fa-spin"></i> Processando...</div>
+                            <div class="mensagem-ok text-center text-danger"><% mensagemExcluidoValores %></div>
+                        </div>
+                        <div id="opcoesLimpar" class="modal-footer">
+                            <button id="btnLimpar" type="button" class="btn btn-danger" ng-click="limpar(idLimparValores);" ng-disabled="form2.$invalid">Limpar</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Fim Modal Limpar Valores Séries-->
     </div>
 @endsection

@@ -55,6 +55,15 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarSerieCtrl.js', 'public/assets-cms/js/controllers/alterarSerieCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/importSerieCtrl.js', 'public/assets-cms/js/controllers/importSerieCtrl.js');
 
+    //Textos Series
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/textoSerieCtrl.js', 'public/assets-cms/js/controllers/textoSerieCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTextoSerieCtrl.js', 'public/assets-cms/js/controllers/alterarTextoSerieCtrl.js');
+
+    //Temas Series
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/temaSerieCtrl.js', 'public/assets-cms/js/controllers/temaSerieCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTemaSerieCtrl.js', 'public/assets-cms/js/controllers/alterarTemaSerieCtrl.js');
+
+
     //Videos
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/videoCtrl.js', 'public/assets-cms/js/controllers/videoCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarVideoCtrl.js', 'public/assets-cms/js/controllers/alterarVideoCtrl.js');
@@ -87,6 +96,15 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaCtrl.js', 'public/assets-cms/js/controllers/idiomaCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaCtrl.js');
 
+    //Unidades
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/unidadeCtrl.js', 'public/assets-cms/js/controllers/unidadeCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarUnidadeCtrl.js', 'public/assets-cms/js/controllers/alterarUnidadeCtrl.js');
+
+    //Indicadores
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/indicadorCtrl.js', 'public/assets-cms/js/controllers/indicadorCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIndicadorCtrl.js', 'public/assets-cms/js/controllers/alterarIndicadorCtrl.js');
+
+
     //Fontes
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/fonteCtrl.js', 'public/assets-cms/js/controllers/fonteCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFonteCtrl.js', 'public/assets-cms/js/controllers/alterarFonteCtrl.js');
@@ -103,10 +121,17 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/cmsUserCtrl.js', 'public/assets-cms/js/controllers/cmsUserCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarCmsUserCtrl.js', 'public/assets-cms/js/controllers/alterarCmsUserCtrl.js');
 
+<<<<<<< HEAD
     //Webindicadores
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/webindicadorCtrl.js', 'public/assets-cms/js/controllers/webindicadorCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarWebindicadorCtrl.js', 'public/assets-cms/js/controllers/alterarWebindicadorCtrl.js');
     
+=======
+    //Apoios
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/apoioCtrl.js', 'public/assets-cms/js/controllers/apoioCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarApoioCtrl.js', 'public/assets-cms/js/controllers/alterarApoioCtrl.js');
+
+>>>>>>> 7bff32e05c05412236c3a60f7775f584234759f9
     //Settings
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarSettingCtrl.js', 'public/assets-cms/js/controllers/alterarSettingCtrl.js');
 
@@ -126,6 +151,8 @@ elixir(function(mix) {
     //Controllers
     //Contato
     mix.scripts('controllers/contatoCtrl.js', 'public/js/controllers/contatoCtrl.js');
+    //ContatoSerie
+    mix.scripts('controllers/contatoSerieCtrl.js', 'public/js/controllers/contatoSerieCtrl.js');
     //Serie
     mix.scripts('controllers/serieCtrl.js', 'public/js/controllers/serieCtrl.js');
     //Home

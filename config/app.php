@@ -2,6 +2,9 @@
 
 return [
 
+
+    //'app_storage' => env('APP_STORAGE', storage_path()),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -151,6 +154,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         'GrahamCampbell\HTMLMin\HTMLMinServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
+        'Phaza\LaravelPostgis\DatabaseServiceProvider',
+        Cyberduck\LaravelExcel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...

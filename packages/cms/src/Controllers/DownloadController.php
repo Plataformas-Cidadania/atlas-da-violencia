@@ -38,7 +38,7 @@ class DownloadController extends Controller
     {
 
         $downloads = \App\Download::all();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+        $series = \App\Serie::join('textos_series', 'textos_series.serie_id', '=', 'series.id')->lists('textos_series.titulo', 'series.id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::download.listar', ['downloads' => $downloads, 'series' => $series, 'idiomas' => $idiomas]);
@@ -150,7 +150,7 @@ class DownloadController extends Controller
         $download = $this->download->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+        $series = \App\Serie::join('textos_series', 'textos_series.serie_id', '=', 'series.id')->lists('textos_series.titulo', 'series.id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::download.detalhar', ['download' => $download, 'series' => $series, 'idiomas' => $idiomas]);

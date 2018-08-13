@@ -124,3 +124,10 @@
     }
 
 </style>
+
+@if($rota=='acidentes-transito')
+    <link rel="stylesheet" href="lib/leaflet/css/leaflet.css"/>
+
+    <link rel="stylesheet" href="lib/leaflet/css/MarkerCluster.css" />
+    <link rel="stylesheet" href="lib/leaflet/css/MarkerCluster.Default.css" />
+@endif

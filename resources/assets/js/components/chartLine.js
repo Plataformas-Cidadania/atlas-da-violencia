@@ -11,7 +11,9 @@ class ChartLine extends React.Component{
             loading: false,
             min: props.min,
             max: props.max,
-            intervalos: this.props.intervalos
+            intervalos: this.props.intervalos,
+            regions: this.props.regions,
+            abrangencia: this.props.abrangencia,
         };
         this.loadData = this.loadData.bind(this);
         this.loadChartLine = this.loadChartLine.bind(this);
@@ -21,16 +23,27 @@ class ChartLine extends React.Component{
     }
 
     componentDidMount(){
-        this.loadData();
+        if(this.state.min && this.state.max){
+            this.loadData();
+        }
+
     }
 
     componentWillReceiveProps(props){
-        if(this.state.min != props.min || this.state.max != props.max || this.state.intervalos != props.intervalos){
-            this.setState({min: props.min, max: props.max, intervalos: props.intervalos}, function(){
+        if(
+            this.state.min != props.min ||
+            this.state.max != props.max ||
+            this.state.intervalos != props.intervalos ||
+            this.state.regions != props.regions ||
+            this.state.abrangencia != props.abrangencia
+        ){
+            this.setState({min: props.min, max: props.max, intervalos: props.intervalos, regions: props.regions, abrangencia: props.abrangencia}, function(){
                 if(myChartBar){
                     this.chartDestroy();
                 }
-                this.loadData();
+                if(this.state.min && this.state.max){
+                    this.loadData();
+                }
             });
         }
     }
@@ -39,7 +52,7 @@ class ChartLine extends React.Component{
         this.setState({loading: true});
         let _this = this;
         //$.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max, {
-        $.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.props.regions+"/"+this.props.abrangencia, {
+        $.ajax("periodo/"+this.state.id+"/"+this.state.min+"/"+this.state.max+"/"+this.state.regions+"/"+this.state.abrangencia, {
             data: {},
             success: function(data){
                 //console.log('charline', data);
@@ -172,8 +185,8 @@ class ChartLine extends React.Component{
 
         }
 
-        //console.log(labels);
-
+        //console.log('labels', labels);
+        //console.log('datasets', datasets);
 
         var dataChart = {
             labels: labels,
@@ -186,6 +199,23 @@ class ChartLine extends React.Component{
                 onComplete: function() {
                     downloadCanvas('downChart', 'myChartLine', 'chartline.png');
                 }
+            },
+            responsive: true,
+            /*legend:{
+                display: datasets.length<11
+            },*/
+            legend: false,
+            legendCallback: function(chart){
+                let text = [];
+
+                for(let i in chart.data.datasets){
+                    let box = '<div style="background-color:'+chart.data.datasets[i].backgroundColor+'; width:40px; height: 15px; float:left;"/>';
+                    let str = '<div style="float:left; margin-top: -3px;">&nbsp;'+chart.data.datasets[i].label+'</div>';
+                    let legend = '<div style="display: inline-block; margin-right:10px; padding: 5px;">'+box+str+'</div>';
+                    text.push(legend);
+                }
+
+                return text;
             }
         };
 
@@ -194,13 +224,34 @@ class ChartLine extends React.Component{
             options:option,
         });
 
+        $("#chartjs-legend").html(myChartLine.generateLegend());
+
+        $("#chartjs-legend").on('click', "div", function() {
+
+            //let legendItem = $(this);
+
+            var index = $(this).index();
+            var meta = myChartLine.getDatasetMeta(index);
+
+            // See controller.isDatasetVisible comment
+            meta.hidden = meta.hidden === null? !myChartLine.data.datasets[index].hidden : null;
+
+            // We hid a dataset ... rerender the chart
+            myChartLine.update();
+
+            //console.log(myChartLine.data.datasets[$(this).index()]);
+        });
+
         //downloadImage($('#divChartLine'), "downloadMyChartLine", 'chartline.png');
 
 
     }
 
     chartDestroy(){
-        myChartLine.destroy();
+        if(myChartLine){
+            myChartLine.destroy();
+        }
+
         //myChartLine.update();
     }
 
@@ -212,19 +263,13 @@ class ChartLine extends React.Component{
             colors.push(convertHex(colors2[i], 100));
         }
         return colors;
-
-
-        //console.log('chartbar - getcolors - intervalos', this.state.intervalos.length);
-        /*if(this.state.intervalos.length > 0){
-         let colors = [];
-         for(let i in values){
-         colors.push(convertHex(getColor(values[i], intervalos), 100));
-         }
-         return colors;
-         }*/
     }
 
     render(){
+
+        let min = formatPeriodicidade(this.state.min, this.props.periodicidade);
+        let max = formatPeriodicidade(this.state.max, this.props.periodicidade);
+
         return (
             <div>
                 <div className="text-center" style={{display: this.state.loading ? 'block' : 'none'}}>
@@ -233,14 +278,15 @@ class ChartLine extends React.Component{
                 <div style={{display: this.state.loading ? 'none' : 'block'}}>
                     <div style={{textAlign: 'center', clear: 'both'}}>
                         <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>
-                            {this.state.min} - {this.state.max}
+                            {min} - {max}
                             </button>
                         <div style={{marginTop:'-19px'}}>
-                            <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
+                            <i className="fa fa-sort-down fa-2x ft-pri"  />
                         </div>
                     </div>
                     <div id="divChartLine">
-                        <canvas  id="myChartLine" width="400" height="200"> </canvas>
+                        <div id="chartjs-legend" style={{width: "100%", height: "40px", overflowX: "auto", overflowY: "hidden", whiteSpace: "nowrap"}}/>
+                        <canvas  id="myChartLine" width="400" height="200" style={{marginTop: '10px'}}> </canvas>
                     </div>
                     <div style={{float: 'right', marginLeft:'5px'}}>
                         {/*<Download btnDownload="downloadMyChartLine" divDownload="divChartLine"/>*/}

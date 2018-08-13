@@ -1,3 +1,12 @@
+<?php
+    $setting = DB::table('settings')->orderBy('id', 'desc')->first();
+
+    $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+        ->where('series.id', $setting->serie_id)
+        ->first();
+?>
+
+
 {{--<script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="/lib/angular/angular.min.js"></script>
@@ -10,10 +19,12 @@
         }
     });
 </script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+{{--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>--}}
 
 @if($rota=='contato')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
     <script src="js/controllers/contatoCtrl.js"></script>
     <script src="lib/jquery/jquery.mask.min.js"></script>
     <script src="js/directives/maskPhoneDir.js"></script>
@@ -27,11 +38,11 @@
     <script src="js/chart/chartAnimate.js"></script>
 
     <script>
-        $.ajax("home-chart/17", {
+        $.ajax("home-chart/<?php echo $setting->serie_id;?>", {
             data: {},
             success: function(data){
-                console.log(data);
-                homeChart(data);
+                //console.log(data);
+                homeChart(data, '<?php echo $series->titulo;?>');
                 ctx = document.getElementById("canvas").getContext("2d");
                 window.myLine = new Chart(ctx, config);
                 intervalo = window.setInterval('counterTime()', 570);
@@ -147,8 +158,34 @@ print_r($periodo_limite);*/
     <script src="js/components/pgFiltros.js"></script>
 @endif
 
+@if($rota=='antigo-filtros-series/{id}/{tema}' || $rota=='antigo-filtros-series')
+    <script src="js/components/filtros/subtemas.js"></script>
+    <script src="js/components/filtros/temas.js"></script>
+    <script src="js/components/filtros/indicadores.js"></script>
+    <script src="js/components/filtros/selectItems.js"></script>
+    <script src="js/components/filtros/abrangencia.js"></script>
+    <script src="js/components/seriesList.js"></script>
+    <script src="js/components/rangePeriodos.js"></script>
+    <script src="js/components/filtros/filtroRegioes2.js"></script>
+    <script src="js/components/filtros/pgFiltros.js"></script>
+@endif
+
+@if($rota=='filtros-series2/{id}/{tema}' || $rota=='filtros-series2')
+    <script src="js/components/pagination.js"></script>
+    <script src="js/components/filters/modal.js"></script>
+    {{--<script src="js/components/filters/temas.js"></script>--}}
+    <script src="js/components/filters/temasSelect.js"></script>
+    <script src="js/components/filters/subtemas.js"></script>
+    <script src="js/components/filters/filter.js"></script>
+    <script src="js/components/filters/list.js"></script>
+    <script src="js/components/selectItems.js"></script>
+    <script src="js/components/filters/pageFilters.js"></script>
+@endif
+
 {{--@if($rota=='map/{id}/{titulo}')--}}
-@if($rota=='dados-series')
+@if($rota=='dados-series/{serie_id}')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
     {{--http://www.chartjs.org/docs/--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
 
@@ -188,15 +225,19 @@ print_r($periodo_limite);*/
             let minUtil = parseInt(min + min * 10 / 100);
 
             let max = parseInt(valores[valores.length-1]);
+            console.log(max+'-'+max+' * 10 / 100');
             let maxUtil = parseInt(max - max * 10 / 100);
-
             let qtdIntervalos = 10;
-            let intervalo = parseInt(maxUtil / qtdIntervalos);
+            let intervalo = maxUtil >= 10 ? parseInt(maxUtil / qtdIntervalos) : (maxUtil / qtdIntervalos);
+
+            console.log('maxUtil', intervalo);
             //console.log(intervalo);
             //console.log('resto', intervalo % 100);
             let rounder =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
+            console.log('intervalo antes', intervalo);
+            console.log('rounder', rounder);
             intervalo = Math.ceil(intervalo/rounder) * rounder;
-            //console.log(intervalo);
+            console.log('intervalo depois', intervalo);
             intervalos[0] = 0;
             intervalos[1] = minUtil;
             intervalos[9] = maxUtil;
@@ -247,10 +288,16 @@ print_r($periodo_limite);*/
 
     </script>
 
+
+
+
     <script src="js/components/print.js"></script>
     <script src="js/components/download.js"></script>
     <script src="js/components/map.js"></script>
     <script src="js/components/listValoresSeries.js"></script>
+    <script src="js/components/selectItems.js"></script>
+    <script src="js/components/filters/modal.js"></script>
+    <script src="js/components/abrangenciaSerie.js"></script>
     <script src="js/components/rangePeriodos.js"></script>
     <script src="js/components/chartLine.js"></script>
     <script src="js/components/chartBar.js"></script>
@@ -259,6 +306,9 @@ print_r($periodo_limite);*/
     <script src="js/components/regions.js"></script>
     <script src="js/components/calcs.js"></script>
     <script src="js/components/pgSerie.js"></script>
+    <script src="lib/jquery/jquery.mask.min.js"></script>
+    <script src="js/directives/maskPhoneDir.js"></script>
+    <script src="js/controllers/contatoSerieCtrl.js"></script>
 
 
 @endif
@@ -328,4 +378,60 @@ print_r($periodo_limite);*/
         }
         //myLoop();
     </script>
+@endif
+
+@if($rota=='filtros-dados-series/{tema_id}/{tema}' || $rota=='filtros-dados-series')
+    <script src="js/components/dados/temas.js"></script>
+    <script src="js/components/dados/subtemas.js"></script>
+    <script src="js/components/dados/abrangencia.js"></script>
+    <script src="js/components/dados/indicadores.js"></script>
+    <script src="js/components/dados/series.js"></script>
+    <script src="js/components/dados/filtros.js"></script>
+    <script src="js/components/dados/pgSerie.js"></script>
+
+@endif
+
+@if($rota=='acidentes-transito')
+    <link rel="stylesheet" href="lib/rslider/rSlider.min.css">
+    {{--<script src="lib/rslider/rSlider.min.js"></script>--}}
+    <script src="lib/rslider/rSlider.js"></script>
+
+
+    <script src="lib/leaflet/js/leaflet-src.js"></script>
+
+    <script src="lib/leaflet/js/leaflet.markercluster-src.js"></script>
+
+    <script src="lib/leaflet/js/heatmap.js"></script>
+    <script src="lib/leaflet/js/leaflet-heatmap-overlay.js"></script>
+
+    <script src="lib/leaflet/js/Control.FullScreen.js"></script>
+
+    <script src="js/components/pagination.js"></script>
+    <script src="js/components/transito/range-year.js"></script>
+    <script src="js/components/transito/range-month.js"></script>
+    <script src="js/components/transito/territories.js"></script>
+    <script src="js/components/transito/types.js"></script>
+    <script src="js/components/transito/type.js"></script>
+    <script src="js/components/transito/typeAccident.js"></script>
+    <script src="js/components/transito/gender.js"></script>
+    <script src="js/components/transito/region.js"></script>
+    <script src="js/components/transito/map.js"></script>
+    <script src="js/components/transito/chartBarHtml5.js"></script>
+    <script src="js/components/transito/chartDonutHtml5.js"></script>
+    <script src="js/components/transito/chartGender.js"></script>
+    <script src="js/components/transito/listItems.js"></script>
+    <script src="js/components/transito/filters.js"></script>
+    <script src="js/components/transito/page.js"></script>
+@endif
+
+@if($rota=='filtros-series/{id}/{tema}' || $rota=='filtros-series')
+    <script src="js/components/pagination.js"></script>
+    <script src="js/components/filters/modal.js"></script>
+    {{--<script src="js/components/filters/temas.js"></script>--}}
+    <script src="js/components/filters/temasSelect.js"></script>
+    <script src="js/components/filters/subtemas.js"></script>
+    <script src="js/components/filters/filter.js"></script>
+    <script src="js/components/filters/list.js"></script>
+    <script src="js/components/selectItems.js"></script>
+    <script src="js/components/filters/pageFilters.js"></script>
 @endif
