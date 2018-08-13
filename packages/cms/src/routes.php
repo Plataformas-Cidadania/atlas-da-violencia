@@ -199,7 +199,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-perfil', 'Cms\Controllers\CmsUserController@alterarPerfil');
         Route::get('/cms/excluir-cmsuser/{id}', 'Cms\Controllers\CmsUserController@excluir');
 
-<<<<<<< HEAD
+
         //WEBINDICADORES
         Route::get('/cms/webindicadores', 'Cms\Controllers\WebindicadorController@index');
         Route::get('/cms/listar-webindicadores', 'Cms\Controllers\WebindicadorController@listar');
@@ -208,7 +208,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-webindicador/{id}', 'Cms\Controllers\WebindicadorController@alterar');
         Route::get('/cms/excluir-webindicador/{id}', 'Cms\Controllers\WebindicadorController@excluir');
         
-=======
+
         //APOIOS
         Route::get('/cms/apoios', 'Cms\Controllers\ApoioController@index');
         Route::get('/cms/listar-apoios', 'Cms\Controllers\ApoioController@listar');
@@ -229,7 +229,7 @@ Route::group(['middleware' => 'cms'], function () {
 
 
 
->>>>>>> 7bff32e05c05412236c3a60f7775f584234759f9
+
     });
 
 });

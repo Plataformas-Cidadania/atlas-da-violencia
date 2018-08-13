@@ -130,6 +130,9 @@
                     <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoors</a>
                 </li>
                 <li>
+                    <a href="cms/webindicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores Site</a>
+                </li>
+                <li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo" class="collapse">
                         <li>
@@ -143,6 +146,8 @@
                         </li>
                     </ul>
                 </li>
+
+
                 <!--<li>
                     <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
                 </li>-->

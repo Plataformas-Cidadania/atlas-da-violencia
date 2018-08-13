@@ -121,17 +121,15 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/cmsUserCtrl.js', 'public/assets-cms/js/controllers/cmsUserCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarCmsUserCtrl.js', 'public/assets-cms/js/controllers/alterarCmsUserCtrl.js');
 
-<<<<<<< HEAD
-    //Webindicadores
+
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/webindicadorCtrl.js', 'public/assets-cms/js/controllers/webindicadorCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarWebindicadorCtrl.js', 'public/assets-cms/js/controllers/alterarWebindicadorCtrl.js');
     
-=======
+
     //Apoios
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/apoioCtrl.js', 'public/assets-cms/js/controllers/apoioCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarApoioCtrl.js', 'public/assets-cms/js/controllers/alterarApoioCtrl.js');
 
->>>>>>> 7bff32e05c05412236c3a60f7775f584234759f9
     //Settings
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarSettingCtrl.js', 'public/assets-cms/js/controllers/alterarSettingCtrl.js');
 
