@@ -102,6 +102,10 @@ elixir(function(mix) {
     //CmsUsers
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/cmsUserCtrl.js', 'public/assets-cms/js/controllers/cmsUserCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarCmsUserCtrl.js', 'public/assets-cms/js/controllers/alterarCmsUserCtrl.js');
+
+    //Webindicadores
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/webindicadorCtrl.js', 'public/assets-cms/js/controllers/webindicadorCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarWebindicadorCtrl.js', 'public/assets-cms/js/controllers/alterarWebindicadorCtrl.js');
     
     //Settings
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarSettingCtrl.js', 'public/assets-cms/js/controllers/alterarSettingCtrl.js');

@@ -159,6 +159,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/perfil', 'Cms\Controllers\CmsUserController@perfil');
         Route::post('/cms/alterar-perfil', 'Cms\Controllers\CmsUserController@alterarPerfil');
         Route::get('/cms/excluir-cmsuser/{id}', 'Cms\Controllers\CmsUserController@excluir');
+
+        //WEBINDICADORES
+        Route::get('/cms/webindicadores', 'Cms\Controllers\WebindicadorController@index');
+        Route::get('/cms/listar-webindicadores', 'Cms\Controllers\WebindicadorController@listar');
+        Route::post('/cms/inserir-webindicador', 'Cms\Controllers\WebindicadorController@inserir');
+        Route::get('/cms/webindicador/{id}', 'Cms\Controllers\WebindicadorController@detalhar');
+        Route::post('/cms/alterar-webindicador/{id}', 'Cms\Controllers\WebindicadorController@alterar');
+        Route::get('/cms/excluir-webindicador/{id}', 'Cms\Controllers\WebindicadorController@excluir');
         
     });
 
