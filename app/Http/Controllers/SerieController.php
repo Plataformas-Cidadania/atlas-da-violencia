@@ -359,7 +359,7 @@ class SerieController extends Controller
                     return $query->whereIn('valores_series.regiao_id', $regions);
                 })
                 /*->whereIn('valores_series.regiao_id', $regions)*/
-                ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
+                ->orderBy("$tabelas[$abrangencia].edterritorios_codigo")
                 ->get(), 720);
         }
 
@@ -401,7 +401,7 @@ class SerieController extends Controller
                     return $query->whereIn('valores_series.regiao_id', $regions);
                 })
                 /*->whereIn('valores_series.regiao_id', $regions)*/
-                ->orderBy("$tabelas[$abrangencia].edterritorios_sigla")
+                ->orderBy("$tabelas[$abrangencia].edterritorios_codigo")
                 ->get(), 720);
         }
 
@@ -455,7 +455,7 @@ class SerieController extends Controller
         //Log::info('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
         $cacheKey = sha1('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
 
-        Log::info('valoresPeriodoRegioesSelecionadas: '.$cacheKey);
+        //Log::info('valoresPeriodoRegioesSelecionadas: '.$cacheKey);
 
         $regions = explode(',', $regions);
 
