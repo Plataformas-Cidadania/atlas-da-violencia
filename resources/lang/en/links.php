@@ -5,6 +5,7 @@ return [
     'home' => 'Home',
     'about' => 'About',
     'researches' => 'Research',
+    'indicators' => 'Indicators',
     'articles' => 'Publications',
     'videos' => 'Videos',
     'downloads' => 'Downloads',

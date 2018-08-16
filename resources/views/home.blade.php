@@ -46,12 +46,24 @@
                             @else
                                 <a href="redirecionamento/{{$link->id}}/{{clean($link->titulo)}}">
                             @endif
-                                <picture>
-                                    <source srcset="imagens/links/{{$link->imagem}}" media="(max-width: 468px)">
-                                    <source srcset="imagens/links/{{$link->imagem}}" media="(max-width: 768px)">
-                                    <source srcset="imagens/links/{{$link->imagem}}" class="img-responsive">
-                                    <img srcset="imagens/links/{{$link->imagem}}" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}">
-                                </picture>
+
+
+                                    <picture>
+                                            {{--<source srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" media="(max-width: 468px)">
+                                            <source srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" media="(max-width: 768px)">
+                                            <source srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" class="img-responsive">--}}
+                                            {{--<img srcset="imagens/links/{{$link->imagem}}" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}">--}}
+                                            <img class="imgLinks" srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}" >
+                                    </picture>
+                                    <script type="text/javascript">
+                                        function setSrc(e){
+                                            console.log('antes', e);
+                                            e.setAttribute('srcset', 'img/fallback.png');
+                                            e.setAttribute('onerror', '');
+                                            console.log('depois', e);
+                                        }
+                                    </script>
+
                                 <div {{--class="bg-sex"--}}>
                                     <h2 class="titulo-itens" ng-class="{'alto-contraste': altoContrasteAtivo}" href="{{$link->link}}">{{$link->titulo}}</h2>
                                 </div>

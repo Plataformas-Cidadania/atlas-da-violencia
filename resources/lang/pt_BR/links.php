@@ -4,6 +4,7 @@ return [
     'home' => 'Início',
     'about' => 'Sobre',
     'researches' => 'Consultas',
+    'indicators' => 'Indicadores',
     'articles' => 'Artigos',
     'videos' => 'Vídeos',
     'downloads' => 'Downloads',

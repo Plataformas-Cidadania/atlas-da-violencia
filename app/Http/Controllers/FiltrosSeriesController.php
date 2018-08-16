@@ -82,6 +82,8 @@ class FiltrosSeriesController extends Controller
 
         $idioma = "pt_BR";
 
+        $temas = [];
+
         if(!array_key_exists('tema_id', $parameters)){
             $parameters['tema_id'] = 0;
             $temas = [];

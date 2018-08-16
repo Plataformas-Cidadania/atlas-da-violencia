@@ -7,7 +7,7 @@
     $links = DB::table('links')->where('idioma_sigla', $lang)->orderBy('posicao')->take(10)->get();
     $idiomas = DB::table('idiomas')->orderBy('id')->get();
     $apoios = DB::table('apoios')->orderBy('posicao')->get();
-
+    $indicadores = DB::table('webindicadores')->get();
 
     $base_href = config('app.url');
 
