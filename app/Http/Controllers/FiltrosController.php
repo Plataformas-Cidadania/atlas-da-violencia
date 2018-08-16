@@ -29,12 +29,17 @@ class FiltrosController extends Controller
         $temas = [];
         $todos = new \stdClass();
 
-        $todos->id = 0;
+        $todos->id = $tema_id;
         $todos->tema = "Todos";
         $todos->position = 0;
         array_push($temas, $todos);
 
         $temasBd = \App\Tema::where('tema_id', $tema_id)->orderBy('tema')->get();
+
+        Log::info($temasBd);
+        if(count($temasBd)==0){
+            return [];
+        }
 
         foreach ($temasBd as $tema) {
             array_push($temas, $tema);
