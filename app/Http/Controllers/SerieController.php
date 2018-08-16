@@ -476,7 +476,7 @@ class SerieController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
 
         //exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKey);
@@ -502,12 +502,12 @@ class SerieController extends Controller
 
         $rows = $this->cache->get($cacheKey);
 
-        Log::info('==============valoresPeriodoRegioesSelecionadas==============');
+        /*Log::info('==============valoresPeriodoRegioesSelecionadas==============');
         Log::info('=============================================================');
         Log::info(DB::getQueryLog());
         Log::info($rows);
         Log::info('=============================================================');
-        Log::info('=============================================================');
+        Log::info('=============================================================');*/
 
         /*$rows = DB::table('valores_series')
             ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
@@ -742,9 +742,9 @@ class SerieController extends Controller
             return [0];
         }
 
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
 
-        Log::info([$padraoTerritorios]);
+        //Log::info([$padraoTerritorios]);
 
         $result = DB::table($table)->select('edterritorios_codigo')
             ->when($abrangencia==4 && $uf[0]!=0, function($query) use ($uf){
@@ -752,7 +752,7 @@ class SerieController extends Controller
             })
             ->get();
 
-        Log::info(DB::getQueryLog());
+        //Log::info(DB::getQueryLog());
 
         $regions = [];
 
