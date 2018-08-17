@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Log;
 class IndicadorController extends Controller
 {
     public function detalhar(){
+        $lang =  App::getLocale();
 
-        $indicador = DB::table('quemsomos')->where('tipo', 4)->first();
+        $indicador = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 5)->first();
         $menuIndicadores = DB::table('webindicadores')->get();
         $indicadores = DB::table('webindicadores')->get();
 
