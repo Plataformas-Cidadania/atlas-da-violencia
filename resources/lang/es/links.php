@@ -5,6 +5,7 @@ return [
     'home' => 'Home',
     'about' => 'Acerca',
     'researches' => 'Investigaciones',
+    'indicators' => 'Indicadores',
     'articles' => 'Artículos',
     'videos' => 'Videos',
     'downloads' => 'Descarregar',

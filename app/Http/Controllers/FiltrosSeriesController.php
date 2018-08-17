@@ -19,12 +19,12 @@ class FiltrosSeriesController extends Controller
         $this->cache = $cache;
     }
 
-    public function index($id = null, $tema = null){
+    public function index($id = 0, $tema = null){
 
-        if($id==null){
+        /*if($id==null){
             $tema = \App\Tema::where('tema_id', 0)->first();
             $id = $tema->id;
-        }
+        }*/
 
         return view('serie.novo-filtros-series', ['id' => $id]);
 
@@ -81,6 +81,8 @@ class FiltrosSeriesController extends Controller
         //return $parameters;
 
         $idioma = "pt_BR";
+
+        $temas = [];
 
         if(!array_key_exists('tema_id', $parameters)){
             $parameters['tema_id'] = 0;

@@ -84,6 +84,10 @@ class Subtema extends React.Component {
 
     render() {
 
+        if (this.state.tema_id == 0) {
+            return null;
+        }
+
         //console.log(this.state.subtemas);
 
         //let componentSubtema = null;

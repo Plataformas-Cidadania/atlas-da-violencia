@@ -26,6 +26,8 @@ Route::get('quem/{origem_id}/{titulo}', 'QuemController@detalhar');
 
 Route::get('acessibilidade/', 'AcessibilidadeController@detalhar');
 
+Route::get('indicadores/', 'IndicadorController@detalhar');
+
 Route::get('webdoor/{id}', 'WebdoorController@detalhar');
 
 Route::get('contato/', 'ContatoController@listar');

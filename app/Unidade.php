@@ -10,3 +10,4 @@ class Unidade extends Model
         'titulo', 'tipo', 'cmsuser_id',
     ];
 }
+

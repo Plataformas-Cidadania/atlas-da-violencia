@@ -19,14 +19,31 @@ class FiltrosController extends Controller
         $this->cache = $cache;
     }
 
-    public function index($id = null, $tema = null){
+    public function index($id = 0, $tema = null){
 
         return view('serie.filtros-series', ['id' => $id]);
 
     }
 
     public function temas($tema_id){
-        $temas = \App\Tema::where('tema_id', $tema_id)->orderBy('tema')->get();
+        $temas = [];
+        $todos = new \stdClass();
+
+        $todos->id = $tema_id;
+        $todos->tema = "Todos";
+        $todos->position = 0;
+        array_push($temas, $todos);
+
+        $temasBd = \App\Tema::where('tema_id', $tema_id)->orderBy('tema')->get();
+
+        Log::info($temasBd);
+        if(count($temasBd)==0){
+            return [];
+        }
+
+        foreach ($temasBd as $tema) {
+            array_push($temas, $tema);
+        }
 
         return $temas;
     }
