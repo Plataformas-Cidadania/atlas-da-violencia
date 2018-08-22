@@ -8,4 +8,6 @@ return [
 
     'serie' => 'Serie',
     'series' => 'Series',
+
+    'construction' => 'Under construction',
 ];
