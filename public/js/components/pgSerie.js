@@ -308,7 +308,7 @@ class PgSerie extends React.Component {
             regions = React.createElement(
                 "div",
                 { style: { display: this.state.showRegions && this.state.abrangencia == 3 ? 'block' : 'none' } },
-                React.createElement(Topico, { icon: "icon-group-rate", text: "Taxas" }),
+                React.createElement(Topico, { icon: "icon-group-rate", text: this.props.lang_rates }),
                 React.createElement(Regions, {
                     id: this.state.id,
                     periodicidade: this.props.periodicidade,
@@ -317,7 +317,14 @@ class PgSerie extends React.Component {
                     abrangencia: this.state.abrangencia,
                     min: this.state.min,
                     max: this.state.max,
-                    data: this.state.valoresRegioesPorPeriodo.max
+                    data: this.state.valoresRegioesPorPeriodo.max,
+
+                    lang_smallest_index: this.props.lang_smallest_index,
+                    lang_higher_index: this.props.lang_higher_index,
+                    lang_largest_drop: this.props.lang_largest_drop,
+                    lang_increased_growth: this.props.lang_increased_growth,
+                    lang_lower_growth: this.props.lang_lower_growth,
+                    lang_lower_fall: this.props.lang_lower_fall
                 }),
                 React.createElement("br", null),
                 React.createElement("br", null)
@@ -362,6 +369,7 @@ class PgSerie extends React.Component {
                             abrangenciasOk: this.state.abrangenciasOk,
                             setRegions: this.setRegions,
                             setNomeAbrangencia: this.setNomeAbrangencia
+
                         })
                     ),
                     React.createElement(
@@ -454,7 +462,8 @@ class PgSerie extends React.Component {
                                         "button",
                                         { className: "btn-download", "data-toggle": "modal", "data-target": "#downloadModal" },
                                         React.createElement("i", { className: "fa fa-download", "aria-hidden": "true" }),
-                                        " Personalizado"
+                                        " ",
+                                        this.props.lang_created
                                     )
                                 ),
                                 React.createElement(
@@ -676,7 +685,9 @@ class PgSerie extends React.Component {
                         setPeriodos: this.setPeriodos,
                         loading: this.loading,
                         from: this.props.from,
-                        to: this.props.to
+                        to: this.props.to,
+
+                        lang_select_period: this.props.lang_select_period
                     }),
                     React.createElement("br", null)
                 ),
@@ -688,7 +699,7 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { display: this.state.showMap ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-map", text: "Mapa" }),
+                    React.createElement(Topico, { icon: "icon-group-map", text: this.props.lang_map }),
                     React.createElement(
                         "div",
                         { className: "row col-md-12 text-center", style: { display: this.state.loadingMap ? 'block' : 'none' } },
@@ -751,7 +762,7 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { display: this.state.showTable ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-table", text: "Tabela" }),
+                    React.createElement(Topico, { icon: "icon-group-table", text: this.props.lang_table }),
                     React.createElement(
                         "div",
                         { style: { display: this.state.loadingItems ? '' : 'none' }, className: "text-center" },
@@ -779,7 +790,8 @@ class PgSerie extends React.Component {
                             React.createElement(
                                 "strong",
                                 null,
-                                "Unidade: "
+                                this.props.lang_unity,
+                                ": "
                             ),
                             this.props.unidade
                         )
@@ -790,7 +802,7 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { display: this.state.showCharts ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-chart", text: "Gr\xE1ficos" }),
+                    React.createElement(Topico, { icon: "icon-group-chart", text: this.props.lang_graphics }),
                     React.createElement(
                         "div",
                         null,
@@ -909,7 +921,8 @@ class PgSerie extends React.Component {
                             React.createElement(
                                 "h4",
                                 { className: "icon-text" },
-                                "\xA0\xA0Metadados"
+                                "\xA0\xA0",
+                                this.props.lang_metadata
                             )
                         )
                     ),
@@ -928,7 +941,8 @@ class PgSerie extends React.Component {
                                 React.createElement(
                                     "strong",
                                     null,
-                                    "+ informa\xE7\xF5es"
+                                    "+ ",
+                                    this.props.lang_information
                                 )
                             )
                         )
@@ -939,7 +953,8 @@ class PgSerie extends React.Component {
                         React.createElement(
                             "strong",
                             null,
-                            "Fonte: "
+                            this.props.lang_source,
+                            ": "
                         ),
                         this.props.fonte
                     )
@@ -966,4 +981,30 @@ ReactDOM.render(React.createElement(PgSerie, {
     nomeAbrangencia: nomeAbrangencia
     /*typeRegion={typeRegion}
     typeRegionSerie={typeRegionSerie}*/
+
+    , lang_map: lang_map,
+    lang_table: lang_table,
+    lang_graphics: lang_graphics,
+    lang_rates: lang_rates,
+    lang_metadata: lang_metadata,
+    lang_source: lang_source,
+    lang_information: lang_information,
+
+    lang_smallest_index: lang_smallest_index,
+    lang_higher_index: lang_higher_index,
+    lang_largest_drop: lang_largest_drop,
+    lang_increased_growth: lang_increased_growth,
+    lang_lower_growth: lang_lower_growth,
+    lang_lower_fall: lang_lower_fall,
+
+    lang_select_period: lang_select_period,
+    lang_unity: lang_unity,
+    lang_created: lang_created
+
+    /*lang_created={lang_created}
+    lang_created={lang_created}
+    lang_created={lang_created}
+    lang_created={lang_created}
+    lang_created={lang_created}*/
+
 }), document.getElementById('pgSerie'));

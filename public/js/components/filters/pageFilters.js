@@ -249,7 +249,7 @@ class PageFilters extends React.Component {
             React.createElement(
                 'h1',
                 null,
-                'Consultas'
+                this.props.lang_inquiries
             ),
             React.createElement('br', null),
             React.createElement(
@@ -264,14 +264,15 @@ class PageFilters extends React.Component {
                         React.createElement(
                             'legend',
                             null,
-                            'Temas'
+                            this.props.lang_themes
                         ),
                         React.createElement(
                             'div',
                             { style: { margin: '10px' } },
                             React.createElement(Temas, {
                                 tema_id: this.state.tema,
-                                setTema: this.setTema
+                                setTema: this.setTema,
+                                lang_select_themes: this.props.lang_select_themes
                             })
                         )
                     ),
@@ -281,14 +282,14 @@ class PageFilters extends React.Component {
                         React.createElement(
                             'legend',
                             null,
-                            'Indicadores'
+                            this.props.lang_documents
                         ),
                         React.createElement(
                             'div',
                             { style: { margin: '10px' } },
                             React.createElement(Filter, {
                                 url: 'get-indicadores',
-                                text: 'pesquise pelos indicadores',
+                                text: this.props.lang_search_indicators,
                                 conditions: {
                                     tema_id: this.state.tema
                                 },
@@ -300,7 +301,7 @@ class PageFilters extends React.Component {
                 React.createElement(
                     'div',
                     { className: 'col-md-9' },
-                    React.createElement('input', { className: 'form-control', onChange: this.handleSearch, type: 'text', placeholder: 'Pesquise pelo nome' }),
+                    React.createElement('input', { className: 'form-control', onChange: this.handleSearch, type: 'text', placeholder: this.props.lang_search_name }),
                     React.createElement('br', null),
                     React.createElement(
                         'div',
@@ -313,7 +314,7 @@ class PageFilters extends React.Component {
                         React.createElement(
                             'h4',
                             null,
-                            'Sem resultados para esta pesquisa. Verifique se selecionou todos os temas.'
+                            this.props.lang_no_results
                         )
                     ),
                     React.createElement(
@@ -321,7 +322,7 @@ class PageFilters extends React.Component {
                         { style: { display: items.data.length > 0 ? '' : 'none' } },
                         React.createElement(List, {
                             items: items,
-                            head: ['Série', 'Unidade', 'Periodicidade', '', ''],
+                            head: [this.props.lang_series, this.props.lang_unity, this.props.lang_frequency, '', ''],
                             showId: '0',
                             setCurrentPageListItems: this.setCurrentPageListItems,
                             currentPage: this.state.currentPageListItems,
@@ -379,7 +380,9 @@ class PageFilters extends React.Component {
                         'h1',
                         null,
                         React.createElement('i', { className: 'fa fa-spinner fa-spin' }),
-                        ' Aguarde ...'
+                        ' ',
+                        this.props.lang_wait,
+                        ' ...'
                     )
                 )
             ),
@@ -398,4 +401,17 @@ class PageFilters extends React.Component {
     }
 }
 
-ReactDOM.render(React.createElement(PageFilters, { tema_id: tema_id }), document.getElementById('filtros'));
+ReactDOM.render(React.createElement(PageFilters, {
+    tema_id: tema_id,
+    lang_inquiries: lang_inquiries,
+    lang_themes: lang_themes,
+    lang_series: lang_series,
+    lang_documents: lang_documents,
+    lang_search_indicators: lang_search_indicators,
+    lang_search_name: lang_search_name,
+    lang_unity: lang_unity,
+    lang_frequency: lang_frequency,
+    lang_no_results: lang_no_results,
+    lang_wait: lang_wait,
+    lang_select_themes: lang_select_themes
+}), document.getElementById('filtros'));

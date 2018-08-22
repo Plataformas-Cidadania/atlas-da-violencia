@@ -293,10 +293,31 @@
                 abrangencia="{{$abrangencia}}";
                 abrangenciasOk="{{$abrangenciasOk}}";
                 @foreach($abrangencias as $key => $abr)
-                        @if($abr['id']==$abrangencia)
-                    nomeAbrangencia="{!! $abr['title'] !!}";
-                @endif
+                    @if($abr['id']==$abrangencia)
+                        nomeAbrangencia="{!! $abr['title'] !!}";
+                    @endif
                 @endforeach
+
+                lang_map = "@lang('react.map')";
+                lang_table = "@lang('react.table')";
+                lang_graphics = "@lang('react.graphics')";
+                lang_rates = "@lang('react.rates')";
+                lang_metadata = "@lang('react.metadata')";
+                lang_source = "@lang('react.source')";
+                lang_information = "@lang('react.information')";
+
+                lang_smallest_index = "@lang('react.smallest-index')";
+                lang_higher_index = "@lang('react.higher-index')";
+                lang_largest_drop = "@lang('react.largest-drop')";
+                lang_increased_growth = "@lang('react.increased-growth')";
+                lang_lower_growth = "@lang('react.lower-growth')";
+                lang_lower_fall = "@lang('react.lower-fall')";
+
+                lang_select_period = "@lang('react.select-period')";
+
+                lang_unity = "@lang('react.unity')";
+                lang_created = "@lang('react.created')";
+
             </script>
             <?php
                 $series->descricao = preg_replace('/\s/',' ',$series->descricao);
@@ -335,22 +356,22 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Contato</h4>
+                    <h4 class="modal-title" id="myModalLabel">@lang('react.contact')</h4>
                 </div>
                 <div class="modal-body" ng-controller="contatoSerieCtrl" role="application">
-                    <span class="texto-obrigatorio" ng-show="frmContatoSerie.$invalid">* campos obrigatórios</span><br><br>
+                    <span class="texto-obrigatorio" ng-show="frmContatoSerie.$invalid">* @lang('react.required-fields')</span><br><br>
                     <form action="" name="frmContatoSerie">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="row">
                             <div class="col-md-4">
-                                <input type="text" ng-model="contatoSerie.nome" ng-required="true" class="form-control" placeholder="* Nome" ><br>
+                                <input type="text" ng-model="contatoSerie.nome" ng-required="true" class="form-control" placeholder="* @lang('react.name')" ><br>
                             </div>
                             <div class="col-md-4">
-                                <input type="email" name="email" ng-model="contatoSerie.email"  ng-required="true" class="form-control" placeholder="* E-mail" ><br>
+                                <input type="email" name="email" ng-model="contatoSerie.email"  ng-required="true" class="form-control" placeholder="* @lang('react.email')" ><br>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" ng-model="contatoSerie.telefone" class="form-control" placeholder="Telefone" mask-phone-dir><br>
+                                <input type="text" ng-model="contatoSerie.telefone" class="form-control" placeholder="@lang('react.telephone')" mask-phone-dir><br>
                             </div>
                         </div>
                         <div class="row">
@@ -360,13 +381,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <textarea name="" ng-model="contatoSerie.mensagem" ng-required="true" cols="30" rows="10" class="form-control" placeholder="* Mensagem" ></textarea>
+                                <textarea name="" ng-model="contatoSerie.mensagem" ng-required="true" cols="30" rows="10" class="form-control" placeholder="* @lang('react.message')" ></textarea>
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-2 col-xs-2">
-                                <button type="button" class="btn btn-primary" ng-click="inserir()" ng-disabled="frmContatoSerie.$invalid || enviandoContatoSerie">Enviar</button>
+                                <button type="button" class="btn btn-primary" ng-click="inserir()" ng-disabled="frmContatoSerie.$invalid || enviandoContatoSerie">@lang('react.submit')</button>
                             </div>
                             <div class="col-md-10 col-xs-10">
                                 <div class="text-primary" ng-show="enviandoContatoSerie" style="padding: 7px;"><i class="fa fa-spinner fa-pulse"></i> Enviando e-mail</div>

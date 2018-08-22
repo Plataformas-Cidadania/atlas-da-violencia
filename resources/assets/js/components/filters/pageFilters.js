@@ -275,26 +275,28 @@ class PageFilters extends React.Component{
         }
 
         return(
+
             <div className="container">
-                <h1>Consultas</h1>
+                <h1>{this.props.lang_inquiries}</h1>
                 <br/>
                 <div className="row">
                     <div className="col-md-3">
                         <fieldset style={{marginTop: '-15px'}}>
-                            <legend>Temas</legend>
+                            <legend>{this.props.lang_themes}</legend>
                             <div style={{margin: '10px'}}>
                                 <Temas
                                     tema_id={this.state.tema}
                                     setTema={this.setTema}
+                                    lang_select_themes={this.props.lang_select_themes}
                                 />
                             </div>
                         </fieldset>
                         <fieldset>
-                            <legend>Indicadores</legend>
+                            <legend>{this.props.lang_documents}</legend>
                             <div style={{margin: '10px'}}>
                                 <Filter
                                     url='get-indicadores'
-                                    text='pesquise pelos indicadores'
+                                    text={this.props.lang_search_indicators}
                                     conditions={{
                                         tema_id:this.state.tema,
                                     }}
@@ -317,14 +319,14 @@ class PageFilters extends React.Component{
                         </fieldset>*/}
                     </div>
                     <div className="col-md-9">
-                        <input className='form-control' onChange={this.handleSearch} type="text" placeholder="Pesquise pelo nome"/>
+                        <input className='form-control' onChange={this.handleSearch} type="text" placeholder={this.props.lang_search_name}/>
                         <br/>
                         <div className="text-center" style={{display: this.state.loadingItems ? '' : 'none'}}><i className="fa fa-spin fa-spinner fa-3x"/></div>
-                        <div style={{display: items.data.length > 0 || this.state.loadingItems ? 'none' : ''}}><h4>Sem resultados para esta pesquisa. Verifique se selecionou todos os temas.</h4></div>
+                        <div style={{display: items.data.length > 0 || this.state.loadingItems ? 'none' : ''}}><h4>{this.props.lang_no_results}</h4></div>
                         <div style={{display: items.data.length > 0 ? '' : 'none'}}>
                             <List
                                 items={items}
-                                head={['Série', 'Unidade', 'Periodicidade', '', '']}
+                                head={[this.props.lang_series, this.props.lang_unity, this.props.lang_frequency, '', '']}
                                 showId='0'
                                 setCurrentPageListItems = {this.setCurrentPageListItems}
                                 currentPage = {this.state.currentPageListItems}
@@ -373,7 +375,7 @@ class PageFilters extends React.Component{
                     }}
                     >
                         <h1>
-                            <i className="fa fa-spinner fa-spin"/> Aguarde ...
+                            <i className="fa fa-spinner fa-spin"/> {this.props.lang_wait} ...
                         </h1>
                     </div>
                 </div>
@@ -398,6 +400,20 @@ class PageFilters extends React.Component{
 }
 
 ReactDOM.render(
-    <PageFilters tema_id={tema_id}/>,
+    <PageFilters
+        tema_id={tema_id}
+        lang_inquiries={lang_inquiries}
+        lang_themes={lang_themes}
+        lang_series={lang_series}
+        lang_documents={lang_documents}
+        lang_search_indicators={lang_search_indicators}
+        lang_search_name={lang_search_name}
+        lang_unity={lang_unity}
+        lang_frequency={lang_frequency}
+        lang_no_results={lang_no_results}
+        lang_wait={lang_wait}
+        lang_select_themes={lang_select_themes}
+    />,
     document.getElementById('filtros')
 );
+

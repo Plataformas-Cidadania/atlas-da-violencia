@@ -298,7 +298,7 @@ class PgSerie extends React.Component{
             regions = (
                 <div style={{display: this.state.showRegions && this.state.abrangencia==3 ? 'block' : 'none'}}>
 
-                    <Topico icon="icon-group-rate" text="Taxas"/>
+                    <Topico icon="icon-group-rate" text={this.props.lang_rates}/>
                     <Regions
                         id={this.state.id}
                         periodicidade={this.props.periodicidade}
@@ -308,6 +308,13 @@ class PgSerie extends React.Component{
                         min={this.state.min}
                         max={this.state.max}
                         data={this.state.valoresRegioesPorPeriodo.max}
+
+                        lang_smallest_index={this.props.lang_smallest_index}
+                        lang_higher_index={this.props.lang_higher_index}
+                        lang_largest_drop={this.props.lang_largest_drop}
+                        lang_increased_growth={this.props.lang_increased_growth}
+                        lang_lower_growth={this.props.lang_lower_growth}
+                        lang_lower_fall={this.props.lang_lower_fall}
                     />
                     <br/><br/>
                 </div>
@@ -338,6 +345,8 @@ class PgSerie extends React.Component{
                                 abrangenciasOk={this.state.abrangenciasOk}
                                 setRegions={this.setRegions}
                                 setNomeAbrangencia={this.setNomeAbrangencia}
+
+
                             />
                         </div>
 
@@ -378,7 +387,7 @@ class PgSerie extends React.Component{
                                         </form>
                                     </li>
                                     <li>
-                                        <button className="btn-download" data-toggle="modal" data-target="#downloadModal"><i className="fa fa-download" aria-hidden="true"/> Personalizado</button>
+                                        <button className="btn-download" data-toggle="modal" data-target="#downloadModal"><i className="fa fa-download" aria-hidden="true"/> {this.props.lang_created}</button>
                                     </li>
 
                                     <li><a><h3 className="box-download-subtitle">.ODS</h3></a></li>
@@ -503,6 +512,8 @@ class PgSerie extends React.Component{
                             loading={this.loading}
                             from={this.props.from}
                             to={this.props.to}
+
+                            lang_select_period={this.props.lang_select_period}
                         />
                         <br/>
 
@@ -516,7 +527,7 @@ class PgSerie extends React.Component{
 
                     <div style={{display: this.state.showMap ? 'block' : 'none'}}>
 
-                        <Topico icon="icon-group-map" text="Mapa"/>
+                        <Topico icon="icon-group-map" text={this.props.lang_map} />
 
                         <div className="row col-md-12 text-center" style={{display: this.state.loadingMap ? 'block' : 'none'}}>
                             <i className="fa fa-spin fa-spinner fa-4x"/>
@@ -573,7 +584,7 @@ class PgSerie extends React.Component{
 
                     <div style={{display: this.state.showTable ? 'block' : 'none'}}>
 
-                        <Topico icon="icon-group-table" text="Tabela"/>
+                        <Topico icon="icon-group-table" text={this.props.lang_table}/>
 
                         {/*<div style={{textAlign: 'center', clear: 'both'}}>
                             <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{formatPeriodicidade(this.state.min, this.props.periodicidade)} - {formatPeriodicidade(this.state.max, this.props.periodicidade)}</button>
@@ -598,7 +609,7 @@ class PgSerie extends React.Component{
                                 /*dataMin={this.state.valoresRegioesPorPeriodo.min}
                                 dataMax={this.state.valoresRegioesPorPeriodo.max}*/
                             />
-                            <p style={{marginTop: '-50px'}}><strong>Unidade: </strong>{this.props.unidade}</p>
+                            <p style={{marginTop: '-50px'}}><strong>{this.props.lang_unity}: </strong>{this.props.unidade}</p>
                         </div>
 
                         <br/><br/>
@@ -609,7 +620,7 @@ class PgSerie extends React.Component{
 
                     <div style={{display: this.state.showCharts ? 'block' : 'none'}}>
 
-                        <Topico icon="icon-group-chart" text="Gráficos"/>
+                        <Topico icon="icon-group-chart" text={this.props.lang_graphics}/>
 
                         <div>
                             <div style={{textAlign: 'right'}}>
@@ -710,7 +721,7 @@ class PgSerie extends React.Component{
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="icons-groups icon-group-info" style={{float: 'left'}}>&nbsp;</div>
-                                <h4 className="icon-text">&nbsp;&nbsp;Metadados</h4>
+                                <h4 className="icon-text">&nbsp;&nbsp;{this.props.lang_metadata}</h4>
                             </div>
                         </div>
                         <hr style={{borderColor: '#3498DB'}}/>
@@ -719,12 +730,12 @@ class PgSerie extends React.Component{
                             <br/>
                             <div className="text-right">
                                 <a href={"downloads/"+this.props.id+"/"+this.props.serie} className="text-info h5">
-                                    <strong>+ informações</strong>
+                                    <strong>+ {this.props.lang_information}</strong>
                                 </a>
                             </div>
                         </div>
 
-                        <p><strong>Fonte: </strong>{this.props.fonte}</p>
+                        <p><strong>{this.props.lang_source}: </strong>{this.props.fonte}</p>
                        {/* <p><strong>Periodicidade: </strong>{this.props.periodicidade}</p>*/}
                     </div>
                 </div>
@@ -751,9 +762,35 @@ ReactDOM.render(
         nomeAbrangencia={nomeAbrangencia}
         /*typeRegion={typeRegion}
         typeRegionSerie={typeRegionSerie}*/
+
+        lang_map={lang_map}
+        lang_table={lang_table}
+        lang_graphics={lang_graphics}
+        lang_rates={lang_rates}
+        lang_metadata={lang_metadata}
+        lang_source={lang_source}
+        lang_information={lang_information}
+
+        lang_smallest_index={lang_smallest_index}
+        lang_higher_index={lang_higher_index}
+        lang_largest_drop={lang_largest_drop}
+        lang_increased_growth={lang_increased_growth}
+        lang_lower_growth={lang_lower_growth}
+        lang_lower_fall={lang_lower_fall}
+
+        lang_select_period={lang_select_period}
+        lang_unity={lang_unity}
+        lang_created={lang_created}
+
+        /*lang_created={lang_created}
+        lang_created={lang_created}
+        lang_created={lang_created}
+        lang_created={lang_created}
+        lang_created={lang_created}*/
+
+
     />,
     document.getElementById('pgSerie')
 );
-
 
 

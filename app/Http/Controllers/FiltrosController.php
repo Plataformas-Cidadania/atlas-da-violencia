@@ -33,7 +33,7 @@ class FiltrosController extends Controller
         //$lang =  "es";
 
         $todos->id = $tema_id;
-        $todos->titulo = "Todos";
+        $todos->titulo = trans('react.all');
         $todos->position = 0;
         array_push($temas, $todos);
 

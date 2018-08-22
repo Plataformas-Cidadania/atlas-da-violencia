@@ -130,21 +130,21 @@ class Regions extends React.Component{
 
        //console.log('###  REGIONS.RENDER  ###',this.state.maxDown);
 
-        let down = <p>Maior queda</p>;
+        let down = <p>{this.props.lang_largest_drop}</p>;
         let multiplicadorDown = -1;
         let iconDown = iconRedDown;
         if(this.state.maxDown.variacao >= 0){
-            down = <p>Menor crescimento</p>;
+            down = <p>{this.props.lang_lower_growth}</p>;
             multiplicadorDown = 1;
             iconDown = iconGreenUp;
         }
 
 
-        let up = <p>Maior crescimento</p>;
+        let up = <p>{this.props.lang_increased_growth}</p>;
         let multiplicadorUp = 1;
         let iconUp = iconGreenUp;
         if(this.state.maxUp.variacao < 0){
-            up = <p>Menor queda</p>;
+            up = <p>{this.props.lang_lower_fall}</p>;
             multiplicadorUp = 1;
             iconUp = iconRedDown;
         }
@@ -169,7 +169,7 @@ class Regions extends React.Component{
                         </div>
                         <div className="row">
                             <div className="col-md-6 text-center">
-                                <h4>Menor Índice</h4>
+                                <h4>{this.props.lang_smallest_index}</h4>
                                 <div className="line_title bg-pri"></div>
                                 <br/>
                                 <img src={"img/maps/png/"+this.state.minValue.sigla+".png"} alt=""/>
@@ -179,7 +179,7 @@ class Regions extends React.Component{
                                 <p style={this.state.styleNumber}>{formatNumber(this.state.minValue.valor, this.props.decimais, ',', '.')}</p>
                             </div>
                             <div className="col-md-6 text-center">
-                                <h4>Maior Índice</h4>
+                                <h4>{this.props.lang_higher_index}</h4>
                                 <div className="line_title bg-pri"></div>
                                 <br/>
                                 <img src={"img/maps/png/"+this.state.maxValue.sigla+".png"} alt=""/>

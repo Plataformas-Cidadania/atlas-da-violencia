@@ -79,7 +79,8 @@ class Temas extends React.Component {
             );
         }.bind(this));*/
 
-        let temaSelected = "Selecione um Tema";
+        //let temaSelected = "Selecione um Tema";
+        let temaSelected = this.props.lang_select_themes;
 
         let temas = this.state.temas.map(function (item) {
 

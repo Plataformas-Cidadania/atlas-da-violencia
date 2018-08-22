@@ -129,7 +129,7 @@ class Regions extends React.Component {
         let down = React.createElement(
             'p',
             null,
-            'Maior queda'
+            this.props.lang_largest_drop
         );
         let multiplicadorDown = -1;
         let iconDown = iconRedDown;
@@ -137,7 +137,7 @@ class Regions extends React.Component {
             down = React.createElement(
                 'p',
                 null,
-                'Menor crescimento'
+                this.props.lang_lower_growth
             );
             multiplicadorDown = 1;
             iconDown = iconGreenUp;
@@ -146,7 +146,7 @@ class Regions extends React.Component {
         let up = React.createElement(
             'p',
             null,
-            'Maior crescimento'
+            this.props.lang_increased_growth
         );
         let multiplicadorUp = 1;
         let iconUp = iconGreenUp;
@@ -154,7 +154,7 @@ class Regions extends React.Component {
             up = React.createElement(
                 'p',
                 null,
-                'Menor queda'
+                this.props.lang_lower_fall
             );
             multiplicadorUp = 1;
             iconUp = iconRedDown;
@@ -201,7 +201,7 @@ class Regions extends React.Component {
                             React.createElement(
                                 'h4',
                                 null,
-                                'Menor \xCDndice'
+                                this.props.lang_smallest_index
                             ),
                             React.createElement('div', { className: 'line_title bg-pri' }),
                             React.createElement('br', null),
@@ -227,7 +227,7 @@ class Regions extends React.Component {
                             React.createElement(
                                 'h4',
                                 null,
-                                'Maior \xCDndice'
+                                this.props.lang_higher_index
                             ),
                             React.createElement('div', { className: 'line_title bg-pri' }),
                             React.createElement('br', null),

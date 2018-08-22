@@ -198,7 +198,7 @@ class RangePeriodo extends React.Component {
             React.createElement(
                 "h4",
                 null,
-                "Selecione o per\xEDodo desejado"
+                this.props.lang_select_period
             ),
             React.createElement("input", { type: "text", id: "range", value: this.props.from + ';' + this.props.to, name: "range", onChange: this.change })
         );

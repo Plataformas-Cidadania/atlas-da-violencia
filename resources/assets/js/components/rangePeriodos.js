@@ -197,7 +197,7 @@ class RangePeriodo extends React.Component{
     render(){
         return(
             <div className="hidden-print" style={{display: this.state.periodos.length > 0 ? 'block' : 'none'}}>
-                <h4>Selecione o período desejado</h4>
+                <h4>{this.props.lang_select_period}</h4>
                 <input type="text" id="range" value={this.props.from+';'+this.props.to}  name="range" onChange={this.change} />
             </div>
         );
