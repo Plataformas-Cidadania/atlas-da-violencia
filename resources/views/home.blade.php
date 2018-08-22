@@ -46,7 +46,7 @@
                             @elseif($link->tipo==1)
                                 <a href="redirecionamento/{{$link->id}}/{{clean($link->titulo)}}">
                             @else
-                                <a href="em-construcao/">
+                                <a href="em-construcao">
                             @endif
 
 
