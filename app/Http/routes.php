@@ -22,6 +22,7 @@ Route::post('/', 'HomeController@newsletter');
 Route::get('quem/', 'QuemController@detalhar');
 Route::get('quem/{titulo}', 'QuemController@detalhar');
 Route::get('quem/{origem_id}/{titulo}', 'QuemController@detalhar');
+Route::get('em-construcao/', 'QuemController@construcao');
 
 
 Route::get('acessibilidade/', 'AcessibilidadeController@detalhar');

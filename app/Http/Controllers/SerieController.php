@@ -93,12 +93,13 @@ class SerieController extends Controller
 
     public function filtros($id, $titulo){
 
-        $idioma = 'pt_BR';
+        $lang =  App::getLocale();
+        //$idioma = 'pt_BR';
 
         $serie = \App\Serie::select('series.*', 'textos_series.titulo as titulo')
             ->join('textos_series', 'series.id', '=', 'textos_series.serie_id')
             ->where('series.id', $id)
-            ->where('textos_series.idioma_sigla', $idioma)->first();
+            ->where('textos_series.idioma_sigla', $lang)->first();
 
         //Log::info($serie);
 

@@ -93,7 +93,7 @@ class Subtema extends React.Component{
 
         let subtemas = this.state.subtemas.map(function(item){
             return (
-                <option key={"subtema_"+item.id} value={item.id}>{item.tema}</option>
+                <option key={"subtema_"+item.id} value={item.id}>{item.titulo}</option>
             );
         }.bind(this));
 

@@ -83,7 +83,7 @@ class Temas extends React.Component {
 
         let temas = this.state.temas.map(function (item) {
 
-            let tema = item.tema.substr(0, 25);
+            let tema = item.titulo.substr(0, 25);
 
             if (item.id == this.state.id) {
                 temaSelected = React.createElement(
@@ -102,7 +102,7 @@ class Temas extends React.Component {
                 { key: 'tema_' + item.id, style: { cursor: 'pointer', padding: '5px' }, onClick: () => this.select2(item.id) },
                 React.createElement('img', { src: item.imagem ? "imagens/temas/sm-" + item.imagem : "img/default64.png", className: this.state.id == item.id ? '' : 'img-disable', width: '16px' }),
                 '\xA0\xA0',
-                item.tema
+                item.titulo
             );
         }.bind(this));
 

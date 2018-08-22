@@ -59,6 +59,10 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/textoSerieCtrl.js', 'public/assets-cms/js/controllers/textoSerieCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTextoSerieCtrl.js', 'public/assets-cms/js/controllers/alterarTextoSerieCtrl.js');
 
+    //Idiomas Temas
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaTemaCtrl.js', 'public/assets-cms/js/controllers/idiomaTemaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaTemaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaTemaCtrl.js');
+
     //Temas Series
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/temaSerieCtrl.js', 'public/assets-cms/js/controllers/temaSerieCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTemaSerieCtrl.js', 'public/assets-cms/js/controllers/alterarTemaSerieCtrl.js');

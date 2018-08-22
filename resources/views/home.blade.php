@@ -43,8 +43,10 @@
                         <div>
                             @if($link->tipo==0)
                                 <a href="filtros-series/{{$link->link}}/{{clean($link->titulo)}}">
-                            @else
+                            @elseif($link->tipo==1)
                                 <a href="redirecionamento/{{$link->id}}/{{clean($link->titulo)}}">
+                            @else
+                                <a href="em-construcao/">
                             @endif
 
 

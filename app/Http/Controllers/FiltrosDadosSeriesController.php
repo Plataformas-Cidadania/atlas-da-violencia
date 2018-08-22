@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 class FiltrosDadosSeriesController extends Controller
@@ -65,13 +66,13 @@ class FiltrosDadosSeriesController extends Controller
 
     public function series(Request $request){
         $parameters = $request->parameters;
-
-        $idioma = "pt_BR";
+        $lang =  App::getLocale();
+        //$idioma = "pt_BR";
 
         $where = [];
 
-        if($idioma){
-            array_push($where, ['textos_series.idioma_sigla', $idioma]);
+        if($lang){
+            array_push($where, ['textos_series.idioma_sigla', $lang]);
         }
         if($parameters['tema_id']){
             array_push($where, ['temas_series.tema_id', $parameters['tema_id']]);

@@ -1,22 +1,22 @@
 @extends('cms::layouts.app')
 
 @section('content')
-    {!! Html::script('/assets-cms/js/controllers/temaCtrl.js') !!}
+    {!! Html::script('/assets-cms/js/controllers/idiomaTemaCtrl.js') !!}
 <script>
     $(function () {
         $('[data-toggle="popover"]').popover()
     })
 </script>
-    <div ng-controller="temaCtrl" ng-init="setTemaId({{$tema_id}})">
+    <div ng-controller="idiomaTemaCtrl" ng-init="setTemaId({{$tema_id}})">
         <div class="box-padrao">
-            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Temas @if($tema) - {{$tema->tema}} @endif</h1>
-            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Tema</button>
+            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Idiomas Temas</h1>
+            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Idioma</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>
             <div ng-show="mostrarForm">
-                <span class="texto-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>
+                <span class="idioma-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>
                 {!! Form::open(['name' =>'form']) !!}
-                <div style="display: block;">
+                <div style="display:none;">
                     <div class="container-thumb">
                         <div class="box-thumb" name="fileDrop" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
                              ng-show="!picFile" accept="image/*" ngf-max-size="2MB">Solte uma imagem aqui!</div>
@@ -31,10 +31,10 @@
                         Arquivo muito grande <% errorFile.size / 1000000|number:1 %>MB: máximo 2MB
                         <div class="btn btn-danger" ng-click="limparImagem()">Cancelar</div>
                     </i>
-                </div>
 
-                <br><br>
-                @include('cms::tema._form')
+                    <br><br>
+                </div>
+                @include('cms::idiomas_temas._form')
                 <div class="row">
                     <div class="col-md-1 col-lg-1 col-xs-3">
                         <button class="btn btn-info" type="button" ng-click="inserir(picFile)" ng-disabled="form.$invalid">Salvar</button>
@@ -67,7 +67,7 @@
                 <div class="box-padrao">
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></div>
-                        <input class="form-control" type="text" ng-model="dadoTema" placeholder="Faça sua busca"/>
+                        <input class="form-control" type="text" ng-model="dadoPesquisa" placeholder="Faça sua busca"/>
                     </div>
                     <br>
                     <div><% mensagemTemar %></div>
@@ -81,11 +81,11 @@
                                 <i ng-if="ordem=='id' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='id' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
-                            <th>Imagem</th>
-                            <th ng-click="ordernarPor('idiomas_temas.titulo')" style="temar:pointer;">
-                                Tema
-                                <i ng-if="ordem=='idiomas_temas.titulo' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
-                                <i ng-if="ordem=='idiomas_temas.titulo' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
+                            <th style="display:none;">Imagem</th>
+                            <th ng-click="ordernarPor('tema')" style="temar:pointer;">
+                                Titulo
+                                <i ng-if="ordem=='titulo' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
+                                <i ng-if="ordem=='titulo' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
                             <th></th>
                         </tr>
@@ -93,14 +93,12 @@
                         <tbody>
                         <tr ng-repeat="tema in temas">
                             <td><% tema.id %></td>
-                            <td><img ng-show="tema.imagem" ng-src="imagens/temas/xs-<% tema.imagem %>"  width="60"></td>
-                            <td><a href="cms/idiomas-temas/<% tema.id %>"><% tema.titulo %></a></td>
+                            <td style="display:none;"><img ng-show="tema.imagem" ng-src="imagens/idiomas_temas/xs-<% tema.imagem %>" width="60"></td>
+                            <td><a href="cms/idioma-tema/<% tema.id %>"><% tema.titulo %></a></td>
                             <td class="text-right">
                                 <div>
-                                    {{--<a href="cms/tema/<% tema.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;--}}
-                                    <a href="cms/idiomas-temas/<% tema.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
-                                    <a href="cms/temas/<% tema.id %>"><i class="fa fa-folder-open fa-2x" title="SubTemas"></i></a>&nbsp;&nbsp;
-                                    <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(tema.id, tema.tema, tema.imagem)"></i></a>
+                                    <a href="cms/idioma-tema/<% tema.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
+                                    <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(tema.id, tema.titulo, tema.imagem)"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -144,10 +142,10 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <img  ng-src="imagens/temas/xs-<% imagemExcluir %>" width="100">
+                                <img  ng-src="imagens/idiomas_temas/xs-<% imagemExcluir %>" width="100">
                             </div>
                             <div class="col-md-9">
-                                <p><% temaExcluir %></p>
+                                <p><% tituloExcluir %></p>
                             </div>
                         </div>
                         <div ng-show="processandoExcluir"><i class="fa fa-spinner fa-spin"></i> Processando...</div>

@@ -67,4 +67,8 @@ class QuemController extends Controller
         ]);
 
     }
+    public function construcao(){
+
+        return view('construcao.detalhar');
+    }
 }

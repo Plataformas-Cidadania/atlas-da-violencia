@@ -10,82 +10,48 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
-//use function MongoDB\BSON\toJSON;
+use Maatwebsite\Excel\Facades\Excel;
 
-class TemaController extends Controller
+class IdiomaTemaController extends Controller
 {
+    
+    
 
     public function __construct()
     {
-        $this->tema = new \App\Tema;
         $this->idiomaTema = new \App\IdiomaTema;
         $this->campos = [
-              'tema','cmsuser_id',
+            'imagem', 'titulo', 'idioma_sigla',
         ];
-        $this->pathImagem = public_path().'/imagens/temas';
+        $this->pathImagem = public_path().'/imagens/idiomas_temas';
         $this->sizesImagem = [
-            'xs' => ['width' => 32, 'height' => 32],
-            'sm' => ['width' => 64, 'height' => 64],
-            'md' => ['width' => 128, 'height' => 128],
-            'lg' => ['width' => 256, 'height' => 256]
+            'xs' => ['width' => 140, 'height' => 79],
+            'sm' => ['width' => 480, 'height' => 270],
+            'md' => ['width' => 580, 'height' => 326],
+            'lg' => ['width' => 1170, 'height' => 658]
         ];
         $this->widthOriginal = true;
     }
 
-    function index($tema_id)    {
-
-        $tema = \App\Tema::find($tema_id);
+    function index($tema_id)
+    {
+        $tema = \App\Tema::where('id', $tema_id)->first();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::tema.listar', ['tema' => $tema, 'tema_id' => $tema_id, 'idiomas' => $idiomas]);
-
-        //$temas = [];
-        //$temas = $this->mountListTemas($temas, 0, "");
-
-        //return view('cms::tema.listar', ['temas' => $temas]);
-
-        //$temas = $this->mountArrayTemas(0);
-        //return view('cms::teste-array', ['temas' => $temas]);
-
-    }
-
-    private function mountListTemas($arrayTemas, $tema_id, $nivel){
-        $temas = \App\Tema::select('id', 'tema')->where('tema_id', $tema_id)->orderBy('id')->get();
-        foreach($temas as $index => $tema){
-            $titulo = $nivel.' - '.$tema->tema;
-            if($nivel==""){
-                $titulo = $tema->tema;
-            }
-            $arrayTemas[$tema->id] = $titulo;
-            $arrayTemas = $this->mountListTemas($arrayTemas, $tema->id, $titulo);
-        }
-        return $arrayTemas;
-    }
-
-    private function mountArrayTemas($tema_id){
-        $temas = \App\Tema::select('id', 'tema')->where('tema_id', $tema_id)->orderBy('id')->get();
-        foreach($temas as $index => $tema){
-            $temas[$index]['subtemas'] = $this->mountArrayTemas($tema->id);
-        }
-        return $temas;
+        return view('cms::idiomas_temas.listar', ['tema_id' => $tema->id, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
     {
 
-        //Log::info('CAMPOS: '.$request->campos);
-
-        //Auth::loginUsingId(2);
-
         $campos = explode(", ", $request->campos);
 
-        $temas = DB::table('temas')
+        $temas = DB::table('idiomas_temas')
             ->select($campos)
-            ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
             ->where([
-                [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
-                ['temas.tema_id', '=', $request->tema_id],
+                [$request->campoPesquisa, 'ilike', "%$request->dadoPesquisa%"],
             ])
+            ->where('tema_id', $request->tema_id)
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
         return $temas;
@@ -97,23 +63,21 @@ class TemaController extends Controller
         $data = $request->all();
 
         $data['tema'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
-        $data['idioma'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+
+        /*if(empty($data['tema']['tema_id'])){
+            $data['tema']['tema_id'] = 0;
+        }*/
+
+        //$data['tema']['tipo_valores'] = 0;
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
-            if(!array_key_exists($campo, $data['tema'])){
+            if(!array_key_exists($campo, $data)){
                 $data['tema'] += [$campo => ''];
             }
         }
-        //$data['tema']['tema'] = '';
-
-
-        if($data['tema']['tema_id']==""){
-            $data['tema']['tema_id'] = 0;
-        }
 
         $file = $request->file('file');
-
 
         if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
@@ -122,33 +86,33 @@ class TemaController extends Controller
             
             if($success){
                 $data['tema']['imagem'] = $filename;
-                return $this->tema->create($data['tema']);
+                return $this->idiomaTema->create($data['tema']);
             }else{
                 return "erro";
             }
         }
 
-        $inserir = $this->tema->create($data['tema']);
-        $data['idioma']['tema_id'] = $inserir->id;
-        $inserir2 = $this->idiomaTema->create($data['idioma']);
-        return $inserir;
+        $tema = $this->idiomaTema->create($data['tema']);
+
+        return $tema;
 
     }
 
     public function detalhar($id)
     {
-
-        //$temas = \App\Tema::lists('tema', 'id')->all();
-        //$temas = [];
-        //$temas = $this->mountListTemas($temas, 0, "");
-
-        $tema = $this->tema->where([
+        $idioma_tema = $this->idiomaTema
+            ->where([
             ['id', '=', $id],
-        ])->firstOrFail();
+        ])->first();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        $tema_id = $tema->tema_id;
+        $tema_id = $idioma_tema->tema_id;
 
-        return view('cms::tema.detalhar', ['tema' => $tema, 'tema_id' => $tema_id]);
+        return view('cms::idiomas_temas.detalhar', [
+            'idioma_tema' => $idioma_tema,
+            'idiomas' => $idiomas,
+            'tema_id' => $tema_id
+        ]);
     }
 
     public function alterar(Request $request, $id)
@@ -164,10 +128,10 @@ class TemaController extends Controller
                 }
             }
         }
-        if($data['tema']['tema_id']==""){
-            $data['tema']['tema_id'] = 0;
-        }
-        $tema = $this->tema->where([
+
+	    $data['tema']['tipo_valores'] = 0;
+
+        $tema = $this->idiomaTema->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
@@ -202,7 +166,7 @@ class TemaController extends Controller
     {
         //Auth::loginUsingId(2);
 
-        $tema = $this->tema->where([
+        $tema = $this->idiomaTema->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
@@ -218,6 +182,7 @@ class TemaController extends Controller
 
     }
 
+    
     
 
 

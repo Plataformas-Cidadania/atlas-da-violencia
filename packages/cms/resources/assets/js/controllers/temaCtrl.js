@@ -7,11 +7,11 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, tema, imagem";
-    $scope.campoPesquisa = "tema";
+    $scope.campos = "temas.id, idiomas_temas.titulo, idiomas_temas.idioma_sigla, temas.imagem";
+    $scope.campoPesquisa = "idiomas_temas.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "tema";
+    $scope.ordem = "idiomas_temas.titulo";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 
@@ -67,6 +67,7 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
         });
     };
 
+
     /*$scope.loadMore = function() {
      $scope.currentPage +=1;
      $http({
@@ -87,7 +88,6 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
 
      });
      };*/
-
 
 
     $scope.ordernarPor = function(ordem){
@@ -126,7 +126,7 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
 
 
             //console.log($scope.tema);
-            $http.post("cms/inserir-tema", {tema: $scope.tema}).success(function (data){
+            $http.post("cms/inserir-tema", {tema: $scope.tema, idioma: $scope.idioma}).success(function (data){
                  listarTemas();
                  //delete $scope.tema;//limpa o form
                  delete $scope.tema.tema;

@@ -1,7 +1,9 @@
-
-<?php
-
-?>
+@if(empty($tema))
+    {!! Form::label('idioma_sigla', 'Idioma *') !!}<br>
+    {!! Form::select('idioma_sigla',
+            $idiomas,
+    null, ['class'=>"form-control width-medio <% validar(idioma.idioma_sigla) %>", 'ng-model'=>'idioma.idioma_sigla', 'ng-required'=>'true', 'init-model'=>'idioma.idioma_sigla', 'placeholder' => 'Selecione']) !!}<br>
+@endif
 {{--
 
 {!! Form::label('tema_id', 'Temas *') !!}<br>
@@ -13,7 +15,5 @@ null, ['class'=>"form-control width-medio <% validar(tema.tema_id) %>", 'ng-mode
 {!! Form::hidden('tema_id', $tema_id, ['class'=>"form-control width-grande <% validar(tema.tema_id) %>", 'ng-model'=>'tema.tema_id', 'ng-required'=>'true', 'init-model'=>'tema.tema_id', 'placeholder' => '']) !!}<br>
 
 
-
-
-{!! Form::label('tema', 'Tema *') !!}<br>
-{!! Form::text('tema', null, ['class'=>"form-control width-grande <% validar(tema.tema) %>", 'ng-model'=>'tema.tema', 'ng-required'=>'true', 'init-model'=>'tema.tema', 'placeholder' => '']) !!}<br>
+{!! Form::label('titulo', 'Tema *') !!}<br>
+{!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(idioma.titulo) %>", 'ng-model'=>'idioma.titulo', 'ng-required'=>'true', 'init-model'=>'idioma.titulo', 'placeholder' => '']) !!}<br>

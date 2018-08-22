@@ -10,7 +10,8 @@ null, ['class'=>"form-control width-medio <% validar(link.idioma_sigla) %>", 'ng
 {!! Form::select('tipo',
         array(
             '0' => 'Interno',
-            '1' => 'Externo'
+            '1' => 'Externo',
+            '2' => 'Inativo'
         ),
 null, ['class'=>"form-control width-medio <% validar(link.tipo) %>", 'ng-model'=>'link.tipo', 'ng-required'=>'true', 'init-model'=>'link.tipo', 'placeholder' => '']) !!}<br>
 

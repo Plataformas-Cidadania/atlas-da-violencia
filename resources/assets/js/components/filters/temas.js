@@ -68,7 +68,7 @@ class Temas extends React.Component{
                      onClick={() => this.select2(item.id)}
                 >
                         <img src={item.imagem ? "imagens/temas/sm-"+(item.imagem) : "img/default64.png"} className={(this.state.id==item.id ? '' : 'img-disable')}  />
-                        <p style={{textTransform: 'capitalize', marginTop: '5px', height: '25px'}} title={item.tema}>{item.tema.substr(0, maxTitle).toLowerCase()}</p>
+                        <p style={{textTransform: 'capitalize', marginTop: '5px', height: '25px'}} title={item.titulo}>{item.titulo.substr(0, maxTitle).toLowerCase()}</p>
                 </div>
             );
         }.bind(this));

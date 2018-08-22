@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -79,8 +80,8 @@ class FiltrosSeriesController extends Controller
         $parameters = $request->parameters;
 
         //return $parameters;
-
-        $idioma = "pt_BR";
+        $lang =  App::getLocale();
+        //$idioma = "pt_BR";
 
         $temas = [];
 
@@ -104,7 +105,7 @@ class FiltrosSeriesController extends Controller
         $str_indicadores = implode('-', $parameters['indicadores']);
         $str_abrangencias = implode('-', $parameters['abrangencias']);
 
-        $cacheKey = 'series-'.$parameters['tema_id'].'-'.$str_indicadores.'-'.$str_abrangencias.'-'.$idioma;
+        $cacheKey = 'series-'.$parameters['tema_id'].'-'.$str_indicadores.'-'.$str_abrangencias.'-'.$lang;
 
 
         //exclui o cache. Utilizar apenas para testes.
@@ -120,7 +121,7 @@ class FiltrosSeriesController extends Controller
                 ->join('temas_series', 'temas_series.serie_id', '=', 'series.id')
                 ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
                 ->where([
-                    ['textos_series.idioma_sigla', $idioma],
+                    ['textos_series.idioma_sigla', $lang],
                     ['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%']
                 ])
                 ->when(!empty($parameters['indicadores']), function($query) use ($parameters){

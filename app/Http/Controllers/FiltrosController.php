@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -28,15 +29,22 @@ class FiltrosController extends Controller
     public function temas($tema_id){
         $temas = [];
         $todos = new \stdClass();
+        $lang =  App::getLocale();
+        //$lang =  "es";
 
         $todos->id = $tema_id;
-        $todos->tema = "Todos";
+        $todos->titulo = "Todos";
         $todos->position = 0;
         array_push($temas, $todos);
 
-        $temasBd = \App\Tema::where('tema_id', $tema_id)->orderBy('tema')->get();
+        $temasBd = \App\Tema::select('temas.id', 'idiomas_temas.titulo')
+            ->where('temas.tema_id', $tema_id)
+            ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
+            ->where('idiomas_temas.idioma_sigla', $lang)
+            ->orderBy('idiomas_temas.titulo')
+            ->get();
 
-        Log::info($temasBd);
+
         if(count($temasBd)==0){
             return [];
         }
@@ -87,10 +95,11 @@ class FiltrosController extends Controller
         $parameters = $request->parameters;
 
         //return $parameters;
+        $lang =  App::getLocale();
 
-        $idioma = "pt_BR";
+        //$idioma = "pt_BR";
 
-        $cacheKey = 'series-'.$parameters['tema_id'].'-'.$parameters['indicador'].'-'.$parameters['abrangencia'].'-'.$idioma;
+        $cacheKey = 'series-'.$parameters['tema_id'].'-'.$parameters['indicador'].'-'.$parameters['abrangencia'].'-'.$lang;
 
         //exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKey);
@@ -106,7 +115,7 @@ class FiltrosController extends Controller
                 ->join('temas_series', 'temas_series.serie_id', '=', 'series.id')
                 ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
                 ->where([
-                    ['textos_series.idioma_sigla', $idioma],
+                    ['textos_series.idioma_sigla', $lang],
                     ['temas_series.tema_id', $parameters['tema_id']],
                     ['series.indicador', $parameters['indicador']],
                     ['valores_series.tipo_regiao', $parameters['abrangencia']]

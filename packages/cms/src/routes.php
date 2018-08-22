@@ -75,6 +75,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-texto-serie/{id}', 'Cms\Controllers\TextoSerieController@alterar');
         Route::get('/cms/excluir-texto-serie/{id}', 'Cms\Controllers\TextoSerieController@excluir');
 
+        //IDIOMAS TEMAS
+        Route::get('/cms/idiomas-temas/{tema_id}', 'Cms\Controllers\IdiomaTemaController@index');
+        Route::get('/cms/listar-idiomas-temas', 'Cms\Controllers\IdiomaTemaController@listar');
+        Route::post('/cms/inserir-idioma-tema', 'Cms\Controllers\IdiomaTemaController@inserir');
+        Route::get('/cms/idioma-tema/{id}', 'Cms\Controllers\IdiomaTemaController@detalhar');
+        Route::post('/cms/alterar-idioma-tema/{id}', 'Cms\Controllers\IdiomaTemaController@alterar');
+        Route::get('/cms/excluir-idioma-tema/{id}', 'Cms\Controllers\IdiomaTemaController@excluir');
+
         //TEMAS SERIES
         Route::get('/cms/temas-series/{serie_id}', 'Cms\Controllers\TemaSerieController@index');
         Route::get('/cms/listar-temas-series', 'Cms\Controllers\TemaSerieController@listar');

@@ -79,7 +79,7 @@
                     <a href="cms/idiomas"><i class="fa fa-language" aria-hidden="true"></i> Idiomas</a>
                 </li>
                 <li>
-                    <a href="cms/quemsomos"><i class="fa fa-fw fa-building"></i> Institucional</a>
+                    <a href="cms/quemsomos"><i class="fa fa-fw fa-building"></i> Modulos</a>
                 </li>
                 <li style="display:none;">
                     <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoor</a>

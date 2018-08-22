@@ -96,7 +96,7 @@ class Subtema extends React.Component {
             return React.createElement(
                 'option',
                 { key: "subtema_" + item.id, value: item.id },
-                item.tema
+                item.titulo
             );
         }.bind(this));
 
