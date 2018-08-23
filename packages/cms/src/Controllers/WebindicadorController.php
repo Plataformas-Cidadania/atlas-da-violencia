@@ -20,7 +20,7 @@ class WebindicadorController extends Controller
     {
         $this->webindicador = new \App\Webindicador;
         $this->campos = [
-            'imagem', 'titulo', 'url', 'cmsuser_id',
+            'imagem', 'titulo', 'url', 'idioma_sigla', 'cmsuser_id',
         ];
         $this->pathImagem = public_path().'/imagens/webindicadores';
         $this->sizesImagem = [
@@ -36,8 +36,9 @@ class WebindicadorController extends Controller
     {
 
         $webindicadores = \App\Webindicador::all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::webindicador.listar', ['webindicadores' => $webindicadores]);
+        return view('cms::webindicador.listar', ['webindicadores' => $webindicadores, 'idiomas' => $idiomas ]);
     }
 
     public function listar(Request $request)
@@ -97,7 +98,8 @@ class WebindicadorController extends Controller
         $webindicador = $this->webindicador->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        return view('cms::webindicador.detalhar', ['webindicador' => $webindicador]);
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
+        return view('cms::webindicador.detalhar', ['webindicador' => $webindicador, 'idiomas' => $idiomas]);
     }
 
     public function alterar(Request $request, $id)

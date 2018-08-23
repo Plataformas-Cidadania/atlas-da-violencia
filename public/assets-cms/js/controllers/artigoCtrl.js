@@ -7,7 +7,7 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo, imagem";
+    $scope.campos = "id, titulo, imagem, idioma_sigla";
     $scope.campoPesquisa = "titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -25,7 +25,7 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
             listarArtigos();
         }
     });
-    $scope.$watch('dadoArtigo', function(){
+    $scope.$watch('dadoPesquisa', function(){
         if($listar){
             listarArtigos();
         }

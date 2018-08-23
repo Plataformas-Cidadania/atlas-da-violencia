@@ -8,7 +8,7 @@ cmsApp.controller('webindicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', 
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo";
+    $scope.campos = "id, titulo, idioma_sigla";
     $scope.campoPesquisa = "titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -27,7 +27,7 @@ cmsApp.controller('webindicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', 
             listarWebindicadores();
         }
     });
-    $scope.$watch('dadoWebindicador', function(){
+    $scope.$watch('dadoPesquisa', function(){
         if($listar){
             listarWebindicadores();
         }

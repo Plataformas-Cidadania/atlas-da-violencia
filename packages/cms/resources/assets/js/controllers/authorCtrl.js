@@ -26,7 +26,7 @@ cmsApp.controller('authorCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
             listarAuthors();
         }
     });
-    $scope.$watch('dadoAuthor', function(){
+    $scope.$watch('dadoPesquisa', function(){
         if($listar){
             listarAuthors();
         }

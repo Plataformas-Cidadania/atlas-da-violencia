@@ -27,7 +27,7 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
             listarIndicadores();
         }
     });
-    $scope.$watch('dadoIndicador', function(){
+    $scope.$watch('dadoPesquisa', function(){
         if($listar){
             listarIndicadores();
         }

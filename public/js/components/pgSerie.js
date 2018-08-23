@@ -280,26 +280,36 @@ class PgSerie extends React.Component {
 
         let arrayYears = this.generateArrayYears(from, to);
 
-        let optionsDownloadPeriodosFrom = arrayYears.map(function (item, index) {
+        let optionsDownloadPeriodosFrom = React.createElement(
+            "option",
+            { value: "0" },
+            "\xA0"
+        );
+        optionsDownloadPeriodosFrom = arrayYears.map(function (item, index) {
             let selected = false;
             if (index == 0) {
                 selected = 'selected';
             }
             return React.createElement(
                 "option",
-                { selected: selected, value: item + '-01-' + '-01' },
+                { key: "opt-per-from" + index, selected: selected, value: item + '-01-' + '-01' },
                 item
             );
         });
 
-        let optionsDownloadPeriodosTo = arrayYears.map(function (item, index) {
+        let optionsDownloadPeriodosTo = React.createElement(
+            "option",
+            { value: "0" },
+            "\xA0"
+        );
+        optionsDownloadPeriodosTo = arrayYears.map(function (item, index) {
             let selected = false;
             if (index == arrayYears.length - 1) {
                 selected = 'selected';
             }
             return React.createElement(
                 "option",
-                { selected: selected, value: item + '-01-' + '-01' },
+                { key: "opt-per-to-" + index, selected: selected, value: item + '-01-' + '-01' },
                 item
             );
         }.bind(this));
@@ -609,7 +619,7 @@ class PgSerie extends React.Component {
                                                     ),
                                                     React.createElement(
                                                         "select",
-                                                        { name: "from", className: "form-control" },
+                                                        { name: "from", className: "form-control", defaultValue: "0" },
                                                         optionsDownloadPeriodosFrom
                                                     )
                                                 ),
@@ -623,7 +633,7 @@ class PgSerie extends React.Component {
                                                     ),
                                                     React.createElement(
                                                         "select",
-                                                        { name: "to", className: "form-control" },
+                                                        { name: "to", className: "form-control", defaultValue: "0" },
                                                         optionsDownloadPeriodosTo
                                                     )
                                                 ),

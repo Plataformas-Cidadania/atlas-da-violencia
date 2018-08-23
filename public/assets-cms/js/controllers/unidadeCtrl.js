@@ -26,7 +26,7 @@ cmsApp.controller('unidadeCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
             listarUnidades();
         }
     });
-    $scope.$watch('dadoUnidade', function(){
+    $scope.$watch('dadoPesquisa', function(){
         if($listar){
             listarUnidades();
         }

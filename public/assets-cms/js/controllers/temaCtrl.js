@@ -25,7 +25,7 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
             listarTemas();
         }
     });
-    $scope.$watch('dadoTema', function(){
+    $scope.$watch('dadoPesquisa', function(){
         if($listar){
             listarTemas();
         }

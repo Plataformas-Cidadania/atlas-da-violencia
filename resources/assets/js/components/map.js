@@ -61,7 +61,7 @@ class Map extends React.Component{
 
                 this._div.innerHTML =
                     '<h6 style="margin: 3px 0; font-weight: bold">'+_this.state.serie+'</h6>' +  (props ? '<b>' + sigla + props.nome + '</b><br />' + formatNumber(props.total, _this.props.decimais, ',', '.')
-                        : this.props.lang_mouse_over_region);
+                        : _this.props.lang_mouse_over_region);
             };
             this.state.info.addTo(this.state.mymap);
         });

@@ -125,7 +125,7 @@ class MapController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        DB::connection()->enableQueryLog();
+        //DB::connection()->enableQueryLog();
 
         //exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKeyValores);
@@ -189,8 +189,8 @@ class MapController extends Controller
 
         $area = $this->cache->get($cacheKeyArea);
 
-        Log::info("======================================================================");
-	Log::info(DB::getQueryLog());
+        //Log::info("======================================================================");
+	//Log::info(DB::getQueryLog());
 
         return $this->mountAreas($valores, $area);
     }

@@ -8,7 +8,7 @@ cmsApp.controller('indiceCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo, imagem";
+    $scope.campos = "id, titulo, imagem, idioma_sigla";
     $scope.campoPesquisa = "titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -26,7 +26,7 @@ cmsApp.controller('indiceCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
             listarIndices();
         }
     });
-    $scope.$watch('dadoIndice', function(){
+    $scope.$watch('dadoPesquisa', function(){
         if($listar){
             listarIndices();
         }

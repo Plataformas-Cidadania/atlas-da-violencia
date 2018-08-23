@@ -26,7 +26,7 @@ cmsApp.controller('fonteCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
             listarFontes();
         }
     });
-    $scope.$watch('dadoFonte', function(){
+    $scope.$watch('dadoPesquisa', function(){
         if($listar){
             listarFontes();
         }

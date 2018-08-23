@@ -171,12 +171,15 @@ class SerieController extends Controller
 //    }
 
     public function dataSeries($serie_id){
+        $lang =  App::getLocale();
+
 
         $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
             ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
             ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
             ->join('fontes', 'fontes.id', '=', 'series.fonte_id')
             ->join('unidades', 'unidades.id', '=', 'series.unidade')
+            ->where('textos_series.idioma_sigla', $lang)
             ->where('series.id', $serie_id)->first();
 
         //$regions = explode(',', $request->regions);

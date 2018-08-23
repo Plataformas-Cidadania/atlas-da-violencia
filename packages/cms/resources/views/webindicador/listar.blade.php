@@ -68,7 +68,7 @@
                 <div class="box-padrao">
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></div>
-                        <input class="form-control" type="text" ng-model="dadoWebindicador" placeholder="Faça sua busca"/>
+                        <input class="form-control" type="text" ng-model="dadoPesquisa" placeholder="Faça sua busca"/>
                     </div>
                     <br>
                     <div><% mensagemWebindicadorr %></div>
@@ -88,6 +88,11 @@
                                 <i ng-if="ordem=='webindicador' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='webindicador' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
+                            <th ng-click="ordernarPor('idioma_sigla')" style="webindicadorr:pointer;">
+                                Idioma
+                                <i ng-if="ordem=='idioma_sigla' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
+                                <i ng-if="ordem=='idioma_sigla' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
+                            </th>
                             <th></th>
                         </tr>
                         </thead>
@@ -96,6 +101,7 @@
                             <td><% webindicador.id %></td>
                             {{--<td><img ng-show="webindicador.imagem" ng-src="imagens/webindicadores/xs-<% webindicador.imagem %>" width="60"></td>--}}
                             <td><a href="cms/webindicador/<% webindicador.id %>"><% webindicador.titulo %></a></td>
+                            <td><a href="cms/webindicador/<% webindicador.id %>"><% webindicador.idioma_sigla %></a></td>
                             <td class="text-right">
                                 <div>
                                     <a href="cms/webindicador/<% webindicador.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;

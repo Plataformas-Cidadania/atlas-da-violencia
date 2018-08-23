@@ -1,12 +1,11 @@
 <?php
-    $setting = DB::table('settings')->orderBy('id', 'desc')->first();
-
-    $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
-        ->where('series.id', $setting->serie_id)
-        ->first();
+$setting = DB::table('settings')->orderBy('id', 'desc')->first();
+$lang =  App::getLocale();
+$series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+    ->where('series.id', $setting->serie_id)
+    ->where('textos_series.idioma_sigla', $lang)
+    ->first();
 ?>
-
-
 {{--<script src="/lib/jquery/jquery.min.js"></script>
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="/lib/angular/angular.min.js"></script>
@@ -37,6 +36,7 @@
     <script src="js/chart/utils.js"></script>
     <script src="js/chart/chartAnimate.js"></script>
 
+    @if(!empty($series))
     <script>
         $.ajax("home-chart/<?php echo $setting->serie_id;?>", {
             data: {},
@@ -57,6 +57,7 @@
         })
 
     </script>
+    @endif
 
 
     {{--<script>$('.block').smoove({offset:'10%'});</script>--}}

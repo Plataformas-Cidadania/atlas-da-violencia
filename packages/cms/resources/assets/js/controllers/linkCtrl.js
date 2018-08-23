@@ -8,7 +8,7 @@ cmsApp.controller('linkCtrl', ['$scope', '$http', 'Upload', '$timeout', function
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo, imagem";
+    $scope.campos = "id, titulo, imagem, idioma_sigla";
     $scope.campoPesquisa = "titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -26,7 +26,7 @@ cmsApp.controller('linkCtrl', ['$scope', '$http', 'Upload', '$timeout', function
             listarLinks();
         }
     });
-    $scope.$watch('dadoLink', function(){
+    $scope.$watch('dadoPesquisa', function(){
         if($listar){
             listarLinks();
         }

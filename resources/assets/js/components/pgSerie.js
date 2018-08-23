@@ -278,20 +278,22 @@ class PgSerie extends React.Component{
 
         let arrayYears = this.generateArrayYears(from, to)
 
-        let optionsDownloadPeriodosFrom = arrayYears.map(function(item, index){
+        let optionsDownloadPeriodosFrom = <option value="0">&nbsp;</option>;
+        optionsDownloadPeriodosFrom = arrayYears.map(function(item, index){
             let selected = false;
             if(index==0){
                 selected = 'selected';
             }
-            return <option selected={selected} value={item+'-01-'+'-01'}>{item}</option>
+            return <option key={"opt-per-from"+index} selected={selected} value={item+'-01-'+'-01'}>{item}</option>
         });
 
-        let optionsDownloadPeriodosTo = arrayYears.map(function(item, index){
+        let optionsDownloadPeriodosTo = <option value="0">&nbsp;</option>;
+        optionsDownloadPeriodosTo = arrayYears.map(function(item, index){
             let selected = false;
             if(index==arrayYears.length-1){
                 selected = 'selected';
             }
-            return <option selected={selected} value={item+'-01-'+'-01'}>{item}</option>
+            return <option key={"opt-per-to-"+index} selected={selected} value={item+'-01-'+'-01'}>{item}</option>
         }.bind(this));
 
         if(this.state.showRegions && this.state.abrangencia==3){
@@ -454,13 +456,13 @@ class PgSerie extends React.Component{
                                                     </div>
                                                     <div>
                                                         <label htmlFor="from">{this.props.lang_in}</label>
-                                                        <select name="from" className="form-control">
+                                                        <select name="from" className="form-control" defaultValue="0">
                                                             {optionsDownloadPeriodosFrom}
                                                         </select>
                                                     </div>
                                                     <div>
                                                         <label htmlFor="to">{this.props.lang_up_until}</label>
-                                                        <select name="to" className="form-control">
+                                                        <select name="to" className="form-control" defaultValue="0">
                                                             {optionsDownloadPeriodosTo}
                                                         </select>
                                                     </div>

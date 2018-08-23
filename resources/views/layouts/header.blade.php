@@ -1,3 +1,11 @@
+<?php
+$setting = DB::table('settings')->orderBy('id', 'desc')->first();
+$lang =  App::getLocale();
+$series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+    ->where('series.id', $setting->serie_id)
+    ->where('textos_series.idioma_sigla', $lang)
+    ->first();
+?>
 <div id="barra-brasil" class="hidden-print" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;" aria-hidden="true">
     <ul id="menu-barra-temp" style="list-style:none;">
         <li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED"><a href="http://brasil.gov.br" style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal do Governo Brasileiro</a></li>
@@ -141,7 +149,7 @@
                 <ol class="carousel-indicators">
                     <?php $cont_itens_wd=2;?>
                         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1" ></li>
                     @foreach($webdoors as $webdoor)
                         <li data-target="#carousel-example-generic" data-slide-to="<?php echo $cont_itens_wd;?>" @if($cont_itens_wd==0) class="active" @endif></li>
                         <?php /*?><li data-target="#carousel-example-generic" data-slide-to="<?php echo $cont_itens_wd;?>" @if($cont_itens_wd==0) class="active" @endif></li><?php */?>
@@ -153,13 +161,17 @@
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
+
                     {{--GRAFICO--}}
                     <a href="" class="item active" style="margin-top: -30px;">
                         <div style="width:100%;">
+                            @if(!empty($series))
                             <canvas id="canvas" height="160"></canvas>
+                            @endif
                         </div>
                     </a>
                     {{----}}
+
                     {{--TEXTO--}}
                     <a href="" class="item" style="background-color: #ececec;">
                         <h2 style="margin-top: 0;">{{$ultimaArtigo->titulo}}</h2>
