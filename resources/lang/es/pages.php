@@ -20,4 +20,8 @@ return [
     'publication' => 'Publicación',
 
     'show-more' => 'MOSTRAR MÁS',
+
+    'redirected ' => 'Usted será redirigido automáticamente a la página en:',
+    'or ' => 'o',
+    'click' => 'Haga clic aquí',
 ];

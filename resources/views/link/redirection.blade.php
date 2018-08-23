@@ -1,6 +1,7 @@
 @extends('.layout')
 @section('title', 'Redirecionamento')
 @section('content')
+
     <div class="container">
         <h1>{{$texto->titulo}}</h1>
         <div class="line_title bg-pri"></div>
@@ -17,12 +18,12 @@
         </script>
         <br />
         <div align="center" style="font-family: tahoma; font-size: 16px;">
-            Você será redirecionado automaticamente para a página em: <br />
+            @lang('pages.redirected') <br />
             <br />
             <br />
             <div id="timers" class="btn btn-default l" style="font-family: tahoma; font-size: 56px;">10</div>
-            ou
-            <a class="btn btn-primary btn-lg" href="link/{{$link->id}}/{{clean($link->titulo)}}">Clique Aqui</a>
+            @lang('pages.or')
+            <a class="btn btn-primary btn-lg" href="link/{{$link->id}}/{{clean($link->titulo)}}">@lang('pages.click')</a>
         </div>
 
 

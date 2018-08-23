@@ -20,4 +20,8 @@ return [
     'publication' => 'Publication',
 
     'show-more' => 'SHOW MORE',
+
+    'redirected ' => 'You will automatically be redirected to the: ',
+    'or ' => 'or',
+    'click' => 'Click here',
 ];
