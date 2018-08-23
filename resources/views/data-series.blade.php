@@ -316,7 +316,31 @@
                 lang_select_period = "@lang('react.select-period')";
 
                 lang_unity = "@lang('react.unity')";
-                lang_created = "@lang('react.created')";
+                lang_custom = "@lang('react.custom')";
+
+                lang_parents = "@lang('react.parents')";
+                lang_regions = "@lang('react.regions')";
+                lang_uf = "@lang('react.uf')";
+                lang_counties = "@lang('react.counties')";
+                lang_filter_uf = "@lang('react.filter-uf')";
+
+                lang_mouse_over_region = "@lang('react.mouse-over-region')";
+                lang_downloads = "@lang('react.downloads')";
+                lang_download = "@lang('react.download')";
+                lang_close = "@lang('react.close')";
+                lang_decimal_tab = "@lang('react.decimal-tab')";
+                lang_in = "@lang('react.in')";
+                lang_up_until = "@lang('react.up-until')";
+
+
+                lang_select_territories = "@lang('react.select-territories')";
+                lang_search = "@lang('react.search')";
+                lang_select_states = "@lang('react.select-states')";
+                lang_selected_items = "@lang('react.selected-items')";
+                lang_cancel = "@lang('react.cancel')";
+                lang_continue = "@lang('react.continue')";
+                lang_all = "@lang('react.all')";
+                lang_remove_all = "@lang('react.remove-all')";
 
             </script>
             <?php
@@ -390,10 +414,10 @@
                                 <button type="button" class="btn btn-primary" ng-click="inserir()" ng-disabled="frmContatoSerie.$invalid || enviandoContatoSerie">@lang('react.submit')</button>
                             </div>
                             <div class="col-md-10 col-xs-10">
-                                <div class="text-primary" ng-show="enviandoContatoSerie" style="padding: 7px;"><i class="fa fa-spinner fa-pulse"></i> Enviando e-mail</div>
-                                <div ng-show="erroContatoSerie" class="text-danger" style="padding: 7px;"><i class="fa fa-exclamation-triangle"></i> Ocorreu um erro. Tente novamente!</div>
-                                <div ng-show="enviadoContatoSerie" class="text-success" style="padding: 7px;"><i class="fa fa-check"></i> Enviado com sucesso!</div>
-                                <div ng-show="frmContatoSerie.email.$dirty && frmContatoSerie.email.$invalid" class="text-danger">E-mail inválido</div>
+                                <div class="text-primary" ng-show="enviandoContatoSerie" style="padding: 7px;"><i class="fa fa-spinner fa-pulse"></i> @lang('react.msg-email-sending')</div>
+                                <div ng-show="erroContatoSerie" class="text-danger" style="padding: 7px;"><i class="fa fa-exclamation-triangle"></i> @lang('react.msg-email-erro')</div>
+                                <div ng-show="enviadoContatoSerie" class="text-success" style="padding: 7px;"><i class="fa fa-check"></i> @lang('react.msg-email-send')</div>
+                                <div ng-show="frmContatoSerie.email.$dirty && frmContatoSerie.email.$invalid" class="text-danger"> @lang('react.msg-email-invalid')</div>
                             </div>
                         </div>
                     </form>

@@ -3,7 +3,7 @@ class AbrangenciaSerie extends React.Component {
         super(props);
 
         this.state = {
-            abrangencias: props.abrangencias ? props.abrangencias : [{ id: 1, titulo: 'País' }, { id: 2, titulo: 'Regiões' }, { id: 3, titulo: 'UF' }, { id: 4, titulo: 'Municípios' }],
+            abrangencias: props.abrangencias ? props.abrangencias : [{ id: 1, titulo: this.props.lang_parents }, { id: 2, titulo: this.props.lang_regions }, { id: 3, titulo: this.props.lang_uf }, { id: 4, titulo: this.props.lang_counties }],
             regionsId: [0],
             nomeAbrangencia: props.nomeAbrangencia,
             abrangencia: props.abrangencia,
@@ -117,13 +117,19 @@ class AbrangenciaSerie extends React.Component {
             conditions: { id: this.state.id },
             option: this.selectedAbrangencia(),
             options: this.state.optionsAbrangencia,
-            setItems: this.setRegions
+            setItems: this.setRegions,
+
+            lang_selected_items: this.props.lang_selected_items,
+            lang_search: this.props.lang_search,
+            lang_select_states: this.props.lang_select_states,
+            lang_all: this.props.lang_all,
+            lang_remove_all: this.props.lang_remove_all
         });
 
         let btnContinuar = React.createElement(
             'button',
             { className: 'btn btn-primary', onClick: this.loadWithRegions },
-            'Continuar'
+            this.props.lang_continue
         );
         /*let btnContinuar = <button type="button" className="btn btn-primary" onClick={() => this.submit()} disabled >Continuar</button>;
         if(this.state.regions.length > 0 && this.state.periodos.length > 0 && this.state.from && this.state.to && this.state.abrangencia && this.state.serieMarked){
@@ -137,7 +143,9 @@ class AbrangenciaSerie extends React.Component {
             'button',
             { className: 'btn btn-info', style: { marginLeft: '10px' }, onClick: this.showRegions },
             React.createElement('i', { className: 'fa fa-filter ' }),
-            ' Filtrar ',
+            ' ',
+            this.props.lang_filter_uf,
+            ' ',
             this.state.nomeAbrangencia
         );
         /*if(this.state.abrangencia!==3){
@@ -178,7 +186,7 @@ class AbrangenciaSerie extends React.Component {
             ),
             React.createElement(Modal, {
                 id: 'modalAbrangencias',
-                title: 'Selecione os Territ\xF3rios',
+                title: this.props.lang_select_territories,
                 body: selectItems,
                 buttons: React.createElement(
                     'div',
@@ -186,7 +194,7 @@ class AbrangenciaSerie extends React.Component {
                     React.createElement(
                         'button',
                         { type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
-                        'Cancelar'
+                        this.props.lang_cancel
                     ),
                     btnContinuar
                 )

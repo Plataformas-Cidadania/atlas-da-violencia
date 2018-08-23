@@ -19,10 +19,10 @@ return [
     'microregions' => 'Microrregiones',
     'meso-region' => 'Mesorregión',
     'capitals' => 'Capital',
-    'filter-uf' => 'Filtrar UF',
+    'filter-uf' => 'Filtrar',
     'select-territories' => 'Seleccione los Territorios',
     'search' => 'Búsqueda',
-    'select-states' => 'Seleccione los Estados',
+    'select-states' => 'Seleccione',
     'selected-items' => 'Artículos seleccionados',
     'cancel' => 'Cancelar',
     'continue' => 'Continuar',
@@ -44,7 +44,7 @@ return [
 
     'contact' => 'Contacto',
     'required-fields' => 'Campos obligatórios',
-    'created' => 'Criado',
+    'custom' => 'Costumbre',
     'mouse-over-region' => 'Pase el ratón en la región',
 
     'no-results' => 'No hay resultados para esta búsqueda. Compruebe que ha seleccionado todos los temas.',
@@ -55,4 +55,18 @@ return [
     'telephone' => 'Teléfono',
     'message' => 'Mensaje',
     'submit' => 'Enviar',
+
+    'msg-email-sending' => 'Enviando correo electrónico',
+    'msg-email-erro' => 'Ocurrio un error. ¡Inténtalo de nuevo!',
+    'msg-email-sent' => '¡Enviado con éxito!',
+    'msg-email-invalid' => 'E-mail inválido',
+
+    'downloads' => 'Descargas',
+    'download' => 'Download',
+    'close' => 'Cerca',
+    'decimal-tab' => 'Separador Decimal',
+    'in' => 'De',
+    'up-until' => 'Para',
+
+    'remove-all' => 'Eliminar todos',
 ];

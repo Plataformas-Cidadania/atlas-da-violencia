@@ -19,10 +19,10 @@ return [
     'microregions' => 'Microregions',
     'meso-region' => 'Meso-region',
     'capitals' => 'Capitals',
-    'filter-uf' => 'Filter UF',
+    'filter-uf' => 'Filter',
     'select-territories' => 'Select Territories',
     'search' => 'Search',
-    'select-states' => 'Select States',
+    'select-states' => 'Select',
     'selected-items' => 'Selected Items',
     'cancel' => 'Cancel',
     'continue' => 'Continue',
@@ -44,7 +44,7 @@ return [
 
     'contact' => 'Contact',
     'required-fields' => 'Required fields',
-    'created' => 'Created',
+    'custom' => 'Custom',
     'mouse-over-region' => 'Mouse over the region',
 
     'no-results' => 'No results for this search. Make sure you\'ve selected all themes.',
@@ -55,6 +55,20 @@ return [
     'telephone' => 'telephone',
     'message' => 'Message',
     'submit' => 'Submit',
+
+    'msg-email-sending' => 'Sending Email',
+    'msg-email-erro' => 'An error has occurred. Try again!',
+    'msg-email-sent' => 'Sent with success!',
+    'msg-email-invalid' => 'Invalid email',
+
+    'downloads' => 'Downloads',
+    'download' => 'Download',
+    'close' => 'Close',
+    'decimal-tab' => 'Decimal tab',
+    'in' => 'In',
+    'up-until' => 'Up until',
+
+    'remove-all' => 'Remove all',
 
 
 ];

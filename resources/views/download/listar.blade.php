@@ -22,7 +22,7 @@
                     <td>
                         <?php $serie = DB::table('textos_series')->where('serie_id', $download->origem_id)->first();?>
 
-                        <?php if(is_object($serie)){?>{{$serie->titulo}}<?php }else{?>Publicações Atlas<?php }?>
+                        <?php if(is_object($serie)){?>{{$serie->titulo}}<?php }else{?> @lang('pages.publications') Atlas<?php }?>
                     </td>
                     <td width="100" align="center">
                         <a href="arquivos/downloads/{{$download->arquivo}}" target="_blank">

@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class=" menu-box-rp">
-                        <h3>Assuntos</h3>
+                        <h3>@lang('pages.rp-collections')</h3>
                         <ul class="menu-rp">
                             @foreach($links as $link)
                                 <li>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class=" menu-box-rp">
-                        <h3>Serviços</h3>
+                        <h3>@lang('pages.rp-services')</h3>
                         <ul class="menu-rp">
                             <li><a href="contato">@lang('links.contact')</a></li>
                             <li><a href="noticias">@lang('links.news')</a></li>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class=" menu-box-rp">
-                        <h3>Redes sociais</h3>
+                        <h3>@lang('pages.rp-networks')</h3>
                         <ul class="menu-rp">
                             <li><a href="{{$setting->twitter}}" target="_blank">Twitter</a></li>
                             <li><a href="{{$setting->youtube}}" target="_blank">YouTube</a></li>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class=" menu-box-rp">
-                        <h3>Sobre o site</h3>
+                        <h3>@lang('pages.rp-about')</h3>
                         <ul class="menu-rp">
                             <li><a href="acessibilidade">@lang('links.accessibility')</a></li>
                         </ul>

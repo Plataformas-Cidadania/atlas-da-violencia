@@ -412,7 +412,7 @@ class SelectItems extends React.Component {
                 React.createElement(
                     'div',
                     { className: this.state.option.listAll ? "col-sm-12 col-md-12" : "col-sm-8 col-md-8" },
-                    React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Pesquisa', onChange: this.handleChange })
+                    React.createElement('input', { type: 'text', className: 'form-control', placeholder: this.props.lang_search, onChange: this.handleChange })
                 )
             ),
             React.createElement(
@@ -428,7 +428,9 @@ class SelectItems extends React.Component {
                             'h4',
                             null,
                             React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-                            ' Selecione ',
+                            ' ',
+                            this.props.lang_select_states,
+                            ' ',
                             this.plural(this.state.option)
                         ),
                         React.createElement('hr', null),
@@ -443,7 +445,8 @@ class SelectItems extends React.Component {
                                     null,
                                     React.createElement('i', { className: "fa " + (this.state.all ? "fa-check-square" : "fa-square-o"),
                                         style: this.state.all ? this.state.style.faOptionsActive : this.state.boxOptionsI, 'aria-hidden': 'true' }),
-                                    ' Todos'
+                                    ' ',
+                                    this.props.lang_all
                                 )
                             ),
                             items
@@ -460,7 +463,8 @@ class SelectItems extends React.Component {
                             'h4',
                             null,
                             React.createElement('i', { className: 'fa fa-check-square-o', style: this.state.style.boxOptionsI, 'aria-hidden': 'true' }),
-                            ' Itens Selecionados'
+                            ' ',
+                            this.props.lang_selected_items
                         ),
                         React.createElement('hr', null),
                         React.createElement(
@@ -473,7 +477,8 @@ class SelectItems extends React.Component {
                                     'strong',
                                     { style: { display: this.state.itemsSelected.length > 0 ? 'block' : 'none' } },
                                     React.createElement('i', { className: 'fa fa-remove', style: { color: '#8C0000' }, 'aria-hidden': 'true' }),
-                                    ' Remover Todos'
+                                    ' ',
+                                    this.props.lang_remove_all
                                 )
                             ),
                             itemsSelected

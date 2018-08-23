@@ -368,8 +368,22 @@ class PgSerie extends React.Component {
                             setAbrangencia: this.setAbrangencia,
                             abrangenciasOk: this.state.abrangenciasOk,
                             setRegions: this.setRegions,
-                            setNomeAbrangencia: this.setNomeAbrangencia
+                            setNomeAbrangencia: this.setNomeAbrangencia,
 
+                            lang_parents: this.props.lang_parents,
+                            lang_regions: this.props.lang_regions,
+                            lang_uf: this.props.lang_uf,
+                            lang_counties: this.props.lang_counties,
+                            lang_filter_uf: this.props.lang_filter_uf,
+
+                            lang_select_territories: this.props.lang_select_territories,
+                            lang_search: this.props.lang_search,
+                            lang_select_states: this.props.lang_select_states,
+                            lang_selected_items: this.props.lang_selected_items,
+                            lang_cancel: this.props.lang_cancel,
+                            lang_continue: this.props.lang_continue,
+                            lang_all: this.props.lang_all,
+                            lang_remove_all: this.props.lang_remove_all
                         })
                     ),
                     React.createElement(
@@ -393,7 +407,7 @@ class PgSerie extends React.Component {
                                     React.createElement(
                                         "a",
                                         { className: "bg-pri box-download-title" },
-                                        "Downloads"
+                                        this.props.lang_downloads
                                     )
                                 ),
                                 React.createElement(
@@ -463,7 +477,7 @@ class PgSerie extends React.Component {
                                         { className: "btn-download", "data-toggle": "modal", "data-target": "#downloadModal" },
                                         React.createElement("i", { className: "fa fa-download", "aria-hidden": "true" }),
                                         " ",
-                                        this.props.lang_created
+                                        this.props.lang_custom
                                     )
                                 ),
                                 React.createElement(
@@ -551,7 +565,8 @@ class PgSerie extends React.Component {
                                                     "h4",
                                                     { className: "modal-title" },
                                                     React.createElement("i", { className: "fa fa-download", "aria-hidden": "true" }),
-                                                    " Personalizar"
+                                                    " ",
+                                                    this.props.lang_custom
                                                 )
                                             ),
                                             React.createElement(
@@ -567,7 +582,7 @@ class PgSerie extends React.Component {
                                                     React.createElement(
                                                         "label",
                                                         { htmlFor: "decimal" },
-                                                        "Separador Decimal"
+                                                        this.props.lang_decimal_tab
                                                     ),
                                                     React.createElement(
                                                         "select",
@@ -590,7 +605,7 @@ class PgSerie extends React.Component {
                                                     React.createElement(
                                                         "label",
                                                         { htmlFor: "from" },
-                                                        "De"
+                                                        this.props.lang_in
                                                     ),
                                                     React.createElement(
                                                         "select",
@@ -604,7 +619,7 @@ class PgSerie extends React.Component {
                                                     React.createElement(
                                                         "label",
                                                         { htmlFor: "to" },
-                                                        "At\xE9"
+                                                        this.props.lang_up_until
                                                     ),
                                                     React.createElement(
                                                         "select",
@@ -622,12 +637,12 @@ class PgSerie extends React.Component {
                                                     "button",
                                                     { type: "button", className: "btn btn-default",
                                                         "data-dismiss": "modal" },
-                                                    "Fechar"
+                                                    this.props.lang_close
                                                 ),
                                                 React.createElement(
                                                     "button",
                                                     { className: "btn btn-primary" },
-                                                    "Download"
+                                                    this.props.lang_download
                                                 )
                                             )
                                         )
@@ -729,6 +744,8 @@ class PgSerie extends React.Component {
                                 //abrangencia={this.state.abrangencia}
                                 /*typeRegion={this.props.typeRegion}
                                  typeRegionSerie={this.props.typeRegionSerie}*/
+
+                                , lang_mouse_over_region: this.props.lang_mouse_over_region
                             })
                         ),
                         React.createElement(
@@ -752,6 +769,7 @@ class PgSerie extends React.Component {
                                 //abrangencia={this.state.abrangencia}
                                 /*typeRegion={this.props.typeRegion}
                                  typeRegionSerie={this.props.typeRegionSerie}*/
+                                , lang_mouse_over_region: this.props.lang_mouse_over_region
                             })
                         )
                     ),
@@ -999,12 +1017,31 @@ ReactDOM.render(React.createElement(PgSerie, {
 
     lang_select_period: lang_select_period,
     lang_unity: lang_unity,
-    lang_created: lang_created
+    lang_custom: lang_custom,
 
-    /*lang_created={lang_created}
-    lang_created={lang_created}
-    lang_created={lang_created}
-    lang_created={lang_created}
-    lang_created={lang_created}*/
+    lang_parents: lang_parents,
+    lang_regions: lang_regions,
+    lang_uf: lang_uf,
+    lang_counties: lang_counties,
+    lang_filter_uf: lang_filter_uf,
+
+    lang_mouse_over_region: lang_mouse_over_region,
+    lang_downloads: lang_downloads,
+    lang_download: lang_download,
+    lang_close: lang_close,
+
+    lang_decimal_tab: lang_decimal_tab,
+    lang_in: lang_in,
+    lang_up_until: lang_up_until,
+
+    lang_select_territories: lang_select_territories,
+
+    lang_search: lang_search,
+    lang_select_states: lang_select_states,
+    lang_selected_items: lang_selected_items,
+    lang_cancel: lang_cancel,
+    lang_continue: lang_continue,
+    lang_all: lang_all,
+    lang_remove_all: lang_remove_all
 
 }), document.getElementById('pgSerie'));

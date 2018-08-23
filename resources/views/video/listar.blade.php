@@ -42,7 +42,7 @@
                             </div>
                             <hr>
 
-                        <p style="font-size: 12px; font-weight: bold; text-align: center; cursor:pointer;" data-toggle="modal" data-target=".bs-example-modal-lg{{$video->id}}">MOSTRAS MAIS</p>
+                        <p style="font-size: 12px; font-weight: bold; text-align: center; cursor:pointer;" data-toggle="modal" data-target=".bs-example-modal-lg{{$video->id}}">@lang('pages.show-more')</p>
 
 
 

@@ -406,19 +406,19 @@ class SelectItems extends React.Component{
                         </select>
                     </div>
                     <div className={this.state.option.listAll ? "col-sm-12 col-md-12" : "col-sm-8 col-md-8"}>
-                        <input type="text" className="form-control" placeholder="Pesquisa" onChange={this.handleChange}/>
+                        <input type="text" className="form-control" placeholder={this.props.lang_search} onChange={this.handleChange}/>
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-sm-6 col-md-6">
                         <div className="box-options box-options-list" style={Object.assign({}, this.state.style.boxOptions, this.state.style.boxOptionsList)}>
-                            <h4><i className="fa fa-check" aria-hidden="true"/> Selecione {this.plural(this.state.option)}</h4><hr/>
+                            <h4><i className="fa fa-check" aria-hidden="true"/> {this.props.lang_select_states} {this.plural(this.state.option)}</h4><hr/>
                             <ul style={Object.assign({}, this.state.style.boxOptionsUl, {height: this.state.option.height})}>
                                 <li style={this.state.style.boxOptionsLi} onClick={() => this.selectAll()}>
                                     <strong>
                                         <i className={"fa " + (this.state.all ? "fa-check-square" : "fa-square-o")}
-                                           style={this.state.all ? this.state.style.faOptionsActive : this.state.boxOptionsI} aria-hidden="true"/> Todos
+                                           style={this.state.all ? this.state.style.faOptionsActive : this.state.boxOptionsI} aria-hidden="true"/> {this.props.lang_all}
                                     </strong>
                                 </li>
                                 {items}
@@ -427,11 +427,11 @@ class SelectItems extends React.Component{
                     </div>
                     <div className="col-sm-6 col-md-6">
                         <div className="box-options" style={Object.assign({}, this.state.style.boxOptions, this.state.style.boxOptionsSelect)}>
-                            <h4><i className="fa fa-check-square-o"  style={this.state.style.boxOptionsI} aria-hidden="true"/> Itens Selecionados</h4><hr/>
+                            <h4><i className="fa fa-check-square-o"  style={this.state.style.boxOptionsI} aria-hidden="true"/> {this.props.lang_selected_items}</h4><hr/>
                             <ul style={Object.assign({}, this.state.style.boxOptionsUl, {height: this.state.option.height})}>
                                 <li style={this.state.style.boxOptionsLi} onClick={() => this.removeAll()}>
                                     <strong style={{display: this.state.itemsSelected.length > 0 ? 'block' : 'none'}}>
-                                        <i className="fa fa-remove" style={{color:'#8C0000'}} aria-hidden="true"/> Remover Todos
+                                        <i className="fa fa-remove" style={{color:'#8C0000'}} aria-hidden="true"/> {this.props.lang_remove_all}
                                     </strong>
                                 </li>
                                 {itemsSelected}

@@ -65,7 +65,7 @@
                 <div class="box-padrao">
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></div>
-                        <input class="form-control" type="text" ng-model="dadoQuemsomo" placeholder="Faça sua busca"/>
+                        <input class="form-control" type="text" ng-model="dadoPesquisa" placeholder="Faça sua busca"/>
                     </div>
                     <br>
                     <div><% mensagemQuemsomor %></div>
@@ -81,9 +81,14 @@
                             </th>
                             <th>Imagem</th>
                             <th ng-click="ordernarPor('quemsomo')" style="quemsomor:pointer;">
-                                Quemsomo
+                                Modulo
                                 <i ng-if="ordem=='quemsomo' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='quemsomo' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
+                            </th>
+                            <th ng-click="ordernarPor('idioma_sigla')" style="quemsomor:pointer;">
+                                Idioma
+                                <i ng-if="ordem=='idioma_sigla' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
+                                <i ng-if="ordem=='idioma_sigla' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
                             <th></th>
                         </tr>
@@ -93,6 +98,7 @@
                             <td><% quemsomo.id %></td>
                             <td><img ng-show="quemsomo.imagem" ng-src="imagens/quemsomos/xs-<% quemsomo.imagem %>" width="60"></td>
                             <td><a href="cms/quemsomo/<% quemsomo.id %>"><% quemsomo.titulo %></a></td>
+                            <td><a href="cms/quemsomo/<% quemsomo.id %>"><% quemsomo.idioma_sigla %></a></td>
                             <td class="text-right">
                                 <div>
                                     <a href="cms/quemsomo/<% quemsomo.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;

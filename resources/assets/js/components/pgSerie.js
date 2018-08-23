@@ -346,7 +346,20 @@ class PgSerie extends React.Component{
                                 setRegions={this.setRegions}
                                 setNomeAbrangencia={this.setNomeAbrangencia}
 
+                                lang_parents={this.props.lang_parents}
+                                lang_regions={this.props.lang_regions}
+                                lang_uf={this.props.lang_uf}
+                                lang_counties={this.props.lang_counties}
+                                lang_filter_uf={this.props.lang_filter_uf}
 
+                                lang_select_territories={this.props.lang_select_territories}
+                                lang_search={this.props.lang_search}
+                                lang_select_states={this.props.lang_select_states}
+                                lang_selected_items={this.props.lang_selected_items}
+                                lang_cancel={this.props.lang_cancel}
+                                lang_continue={this.props.lang_continue}
+                                lang_all={this.props.lang_all}
+                                lang_remove_all={this.props.lang_remove_all}
                             />
                         </div>
 
@@ -359,7 +372,7 @@ class PgSerie extends React.Component{
                                      style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
 
                                 <ul className="dropdown-menu" aria-labelledby="dLabel" style={{left: 'inherit', right: '0', float: 'right', margin: '40px 0 0'}}>
-                                    <li><a className="bg-pri box-download-title">Downloads</a></li>
+                                    <li><a className="bg-pri box-download-title">{this.props.lang_downloads}</a></li>
                                     <li><a><h3 className="box-download-subtitle">.CSV</h3></a></li>
                                     <li>
                                         <form name="frmDownloadPeriodo" action="download-dados" target="_blank" method="POST">
@@ -387,7 +400,7 @@ class PgSerie extends React.Component{
                                         </form>
                                     </li>
                                     <li>
-                                        <button className="btn-download" data-toggle="modal" data-target="#downloadModal"><i className="fa fa-download" aria-hidden="true"/> {this.props.lang_created}</button>
+                                        <button className="btn-download" data-toggle="modal" data-target="#downloadModal"><i className="fa fa-download" aria-hidden="true"/> {this.props.lang_custom}</button>
                                     </li>
 
                                     <li><a><h3 className="box-download-subtitle">.ODS</h3></a></li>
@@ -425,7 +438,7 @@ class PgSerie extends React.Component{
                                                 <div className="modal-header">
                                                     <button type="button" className="close"
                                                             data-dismiss="modal">&times;</button>
-                                                    <h4 className="modal-title"><i className="fa fa-download" aria-hidden="true"/> Personalizar</h4>
+                                                    <h4 className="modal-title"><i className="fa fa-download" aria-hidden="true"/> {this.props.lang_custom}</h4>
                                                 </div>
                                                 <div className="modal-body">
                                                     <input type="hidden" name="_token" value={$('meta[name="csrf-token"]').attr('content')}/>
@@ -433,20 +446,20 @@ class PgSerie extends React.Component{
                                                     <input type="hidden" name="id" value={this.props.id}/>
                                                     <input type="hidden" name="serie" value={this.props.serie}/>
                                                     <div>
-                                                        <label htmlFor="decimal">Separador Decimal</label>
+                                                        <label htmlFor="decimal">{this.props.lang_decimal_tab}</label>
                                                         <select name="decimal" className="form-control">
                                                             <option value=",">,</option>
                                                             <option value=".">.</option>
                                                         </select>
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="from">De</label>
+                                                        <label htmlFor="from">{this.props.lang_in}</label>
                                                         <select name="from" className="form-control">
                                                             {optionsDownloadPeriodosFrom}
                                                         </select>
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="to">Até</label>
+                                                        <label htmlFor="to">{this.props.lang_up_until}</label>
                                                         <select name="to" className="form-control">
                                                             {optionsDownloadPeriodosTo}
                                                         </select>
@@ -456,9 +469,9 @@ class PgSerie extends React.Component{
                                                 </div>
                                                 <div className="modal-footer">
                                                     <button type="button" className="btn btn-default"
-                                                            data-dismiss="modal">Fechar
+                                                            data-dismiss="modal">{this.props.lang_close}
                                                     </button>
-                                                    <button className="btn btn-primary">Download</button>
+                                                    <button className="btn btn-primary">{this.props.lang_download}</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -553,6 +566,8 @@ class PgSerie extends React.Component{
                                     //abrangencia={this.state.abrangencia}
                                     /*typeRegion={this.props.typeRegion}
                                      typeRegionSerie={this.props.typeRegionSerie}*/
+
+                                    lang_mouse_over_region={this.props.lang_mouse_over_region}
                                 />
                             </div>
                             <div className="col-md-6 col-sm-12 print-map">
@@ -574,6 +589,7 @@ class PgSerie extends React.Component{
                                     //abrangencia={this.state.abrangencia}
                                     /*typeRegion={this.props.typeRegion}
                                      typeRegionSerie={this.props.typeRegionSerie}*/
+                                    lang_mouse_over_region={this.props.lang_mouse_over_region}
                                 />
                             </div>
                         </div>
@@ -780,13 +796,32 @@ ReactDOM.render(
 
         lang_select_period={lang_select_period}
         lang_unity={lang_unity}
-        lang_created={lang_created}
+        lang_custom={lang_custom}
 
-        /*lang_created={lang_created}
-        lang_created={lang_created}
-        lang_created={lang_created}
-        lang_created={lang_created}
-        lang_created={lang_created}*/
+        lang_parents={lang_parents}
+        lang_regions={lang_regions}
+        lang_uf={lang_uf}
+        lang_counties={lang_counties}
+        lang_filter_uf={lang_filter_uf}
+
+        lang_mouse_over_region={lang_mouse_over_region}
+        lang_downloads={lang_downloads}
+        lang_download={lang_download}
+        lang_close={lang_close}
+
+        lang_decimal_tab={lang_decimal_tab}
+        lang_in={lang_in}
+        lang_up_until={lang_up_until}
+
+        lang_select_territories={lang_select_territories}
+
+        lang_search={lang_search}
+        lang_select_states={lang_select_states}
+        lang_selected_items={lang_selected_items}
+        lang_cancel={lang_cancel}
+        lang_continue={lang_continue}
+        lang_all={lang_all}
+        lang_remove_all={lang_remove_all}
 
 
     />,

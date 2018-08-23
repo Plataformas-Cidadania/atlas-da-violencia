@@ -59,10 +59,10 @@
                                     </picture>
                                     <script type="text/javascript">
                                         function setSrc(e){
-                                            console.log('antes', e);
+                                            //console.log('antes', e);
                                             e.setAttribute('srcset', 'img/fallback.png');
                                             e.setAttribute('onerror', '');
-                                            console.log('depois', e);
+                                            //console.log('depois', e);
                                         }
                                     </script>
 

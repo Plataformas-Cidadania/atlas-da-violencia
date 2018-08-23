@@ -10,4 +10,14 @@ return [
     'series' => 'Séries',
 
     'construction' => 'Em construção',
+
+    'rp-collections' => 'Assuntos',
+    'rp-services' => 'Serviços',
+    'rp-networks' => 'Redes sociais',
+    'rp-about' => 'Sobre o site',
+
+    'publications' => 'Publicações',
+    'publication' => 'Publicação',
+
+    'show-more' => 'MOSTRAR MAIS',
 ];
