@@ -3,8 +3,7 @@
 @section('content')
 
 
-    <div class="container text-center" >
-
+    <div class="container text-center">
         <div class="row">
             <div class="col-md-12">
                 <img src="img/construcao.png" alt="" style="max-width: 300px;">

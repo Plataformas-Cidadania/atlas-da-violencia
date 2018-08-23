@@ -4,7 +4,6 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
-    {{--{{ Counter::count('contato') }}--}}
     <style>
         /*input.ng-invalid {
             border-color: #d43f3a;

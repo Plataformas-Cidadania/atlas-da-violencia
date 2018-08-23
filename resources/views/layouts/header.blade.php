@@ -13,34 +13,6 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     </ul>
 </div>
 
-<style>
-    .busca-select {
-        float: left;
-        margin: -32px 0 0 3px;
-        background-color: inherit;
-        border: 0;
-        width: 150px;
-        font-size: 14px;
-        padding: 5px;
-        color: inherit;
-        outline:none !important;
-        border: none;
-    }
-    .busca{
-        padding:0 35px 0 160px;
-    }
-    .busca-icon{
-        float: right;
-        margin: -30px 10px 0 0;
-        font-size: 25px;
-    }
-    .box-destaque{
-        padding: 25px;
-        background-color: #ececec;
-        min-height: 315px;
-    }
-
-</style>
 
 
 <header  id="iniciodoconteudo" class="  hidden-print" role="banner">
@@ -56,10 +28,6 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
             <ul id="botoes" class="col-md-6 col-sm-12 text-right">
                 <li><a href="acessibilidade" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-universal-access" aria-hidden="true"></i> @lang('links.accessibility') </a></li>
                 <li><a href="#" id="bt_contraste" ng-click="setAltoContraste()" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-adjust" aria-hidden="true"></i> @lang('links.high-contrast')</a></li>
-                {{--<li><a href="mapa.html" ng-class="{'alto-contraste': altoContrasteAtivo}"> Mapa do site </a></li>
-                <li><a href="lang/pt_BR"><img src="img/portugues.jpg" alt=""></a></li>
-                <li><a href="lang/en"><img src="img/ingles.jpg" alt=""></a></li>
-                --}}
 
                 @foreach($idiomas as $idioma)
                     <li><a href="lang/{{$idioma->sigla}}"><img src="imagens/idiomas/xs-{{$idioma->imagem}}" alt=""></a></li>
@@ -108,11 +76,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
             <nav class="menu-position collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation" >
                 <ul id="iniciodomenu" class="nav nav-pills nav-justified">
                     <li role="presentation"><a href="http://{{$base_href}}" accesskey="h" @if($rota=='/') class="corrente" @endif>@lang('links.home')</a></li>
-                   {{-- @foreach($menusQuem as $menuQuem)
-                        <li role="presentation"><a href="quem/{{$menuQuem->id}}/{{clean($menuQuem->titulo)}}" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
-                    @endforeach--}}
                     <li role="presentation"><a href="quem" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
-                    {{--<li role="presentation"><a href="series" accesskey="q" @if($rota=='series') class="corrente" @endif>@lang('links.researches')</a></li>--}}
                     <li role="presentation"><a href="filtros-series" accesskey="q" @if($rota=='filtros-series') class="corrente" @endif>@lang('links.researches')</a></li>
                     @if($indicadores)
                     <li role="presentation"><a href="indicadores" accesskey="n" @if($rota=='indicadores') class="corrente" @endif>@lang('links.indicators')</a></li>
@@ -132,17 +96,9 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" ng-init="showVideo=false">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif" frameborder="0" allowfullscreen></iframe>
 
-                    {{--<img ng-src='img/video.png' ng-show="!showVideo" ng-click="showVideo=true" style="cursor:pointer;">
-                    <video width="100%" controls ng-if="showVideo" autoplay>
-                        <source src="filevideos/institucional.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>--}}
+
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 box-destaque"   ng-class="{'alto-contraste': altoContrasteAtivo}">
-
-
-
-
 
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
@@ -223,13 +179,6 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 </a>
             </div>
 
-
-
-
-
-
-
-
                 </div>
             </div>
 
@@ -237,7 +186,6 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
         </div>
 
 
-        {{----}}
 
         <style>
             canvas{
@@ -246,11 +194,6 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 -ms-user-select: none;
             }
         </style>
-
-        {{----}}
-
-
-
 
     @endif
 </header>

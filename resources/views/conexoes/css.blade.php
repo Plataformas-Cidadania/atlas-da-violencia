@@ -1,28 +1,13 @@
-{{--<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">--}}
-
-{{--<link rel="stylesheet" href="/css/all.css">
-<link rel="stylesheet" href="/css/app.css">--}}
-
-{{--{!! Html::style('css/all.css') !!}
-{!! Html::style('css/app.css') !!}--}}
-
 <style>
 <?php
     $base_href = config('app.url');
 
     echo file_get_contents(public_path()."/css/all.css");
     echo file_get_contents(public_path()."/css/app.css");
-    // \Illuminate\Support\Facades\File::get(public_path()."/css/all.css");
-    //echo \Illuminate\Support\Facades\File::get(public_path()."/css/app.css");
-
 ?>
 </style>
 
 <style>
-
     /*RANGER*/
     .irs-line-mid,
     .irs-line-left,
@@ -127,7 +112,6 @@
 
 @if($rota=='acidentes-transito')
     <link rel="stylesheet" href="lib/leaflet/css/leaflet.css"/>
-
     <link rel="stylesheet" href="lib/leaflet/css/MarkerCluster.css" />
     <link rel="stylesheet" href="lib/leaflet/css/MarkerCluster.Default.css" />
 @endif

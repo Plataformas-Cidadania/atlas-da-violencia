@@ -3,28 +3,7 @@
 @section('content')
 
 
-
-    <style>
-        .filtros {
-            width: 20%;
-            float: left;
-            height: 200px;
-        }
-        @media (max-width: 800px) {
-            .filtros {
-                width: 50%;
-            }
-        }
-        @media (max-width: 480px) {
-            .filtros {
-                width: 100%;
-            }
-        }
-    </style>
-
     <article>
-
-
         <br><br>
         <div class="container block" data-move-x="500px">
             <div class="row">
@@ -48,8 +27,6 @@
                             @else
                                 <a href="em-construcao">
                             @endif
-
-
                                     <picture>
                                             {{--<source srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" media="(max-width: 468px)">
                                             <source srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" media="(max-width: 768px)">
@@ -145,9 +122,6 @@
             </div>
         </div>
 
-
-
-
         <br><br>
         <div class="bg-qui" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
@@ -157,30 +131,9 @@
             </div>
         </div>
         <br><br>
-
-
         <br><br>
         <div id="newsletter"></div>
         <br><br>
-
-
-<style>
-    .box-news h3{
-      color: #155077;
-    }
-    .box-news p{
-      color: #FFFFFF;
-    }
-    .box-news button{
-      font-size: 16px;
-        width: 80%;
-    }
-    .box-news button:hover{
-        background-color: #1E71A8;
-    }
-</style>
-
-
 
     </article>
 
