@@ -64,6 +64,7 @@ class SerieController extends Controller
             ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
             ->where([
                 [$request->campoPesquisa, 'ilike', "%$request->dadoPesquisa%"],
+		['textos_series.idioma_sigla', 'pt_BR'],
             ])
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);

@@ -4,6 +4,8 @@
     if(substr($base_href, 0,9)=='evbsb1052'){
         $base_href .= '/atlasviolencia/';
     }*/
+
+$setting = DB::table('settings')->orderBy('id', 'desc')->first();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -16,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CMS - Nome do site</title>
+    <title>CMS - {{$setting->titulo}}</title>
     <base href="http://{{$base_href}}@if($base_href=='10.0.52.46')/@endif">
 
     <!-- Bootstrap Core CSS -->
@@ -75,15 +77,9 @@
                 <li class="active">
                     <a href="cms"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
-                <li>
-                    <a href="cms/idiomas"><i class="fa fa-language" aria-hidden="true"></i> Idiomas</a>
-                </li>
-                <li>
-                    <a href="cms/quemsomos"><i class="fa fa-fw fa-building"></i> Modulos</a>
-                </li>
-                <li style="display:none;">
-                    <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoor</a>
-                </li>
+                
+                
+                
                 
                 
                 
@@ -97,23 +93,15 @@
                 <li>
                     <a href="cms/indicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores</a>
                 </li>
-                <li>
-                    <a href="cms/unidades"><i class="fa fa-indent" aria-hidden="true"></i> Unidades</a>
-                </li>
+                
                 <li>
                     <a href="cms/series"><i class="fa fa-cubes" aria-hidden="true"></i> Séries</a>
                 </li>
-                <li>
-                    <a href="cms/links"><i class="fa fa-fw fa-link"></i> Links</a>
-                </li>
-                <li>
-                    <a href="cms/indices"><i class="fa fa-indent" aria-hidden="true"></i> Índices</a>
-                </li>
                 
                 
-                <li>
-                    <a href="cms/webindicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores Site</a>
-                </li>
+                
+                
+                
 		<li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Conteudo <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo" class="collapse">
@@ -129,14 +117,14 @@
                         <li>
 		            <a href="cms/videos"><i class="fa fa-youtube" aria-hidden="true"></i> Vídeos</a>
 		        </li>
-		<li>
-                    <a href="cms/downloads"><i class="fa fa-download" aria-hidden="true"></i> Downloads</a>
-                </li>
+			<li>
+		            <a href="cms/downloads"><i class="fa fa-download" aria-hidden="true"></i> Downloads</a>
+		        </li>
                     </ul>
                 </li>
 
                 <li>
-                    <a href="javascript:;" data-toggle="collapse1" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo1" class="collapse">
                         <li>
                             <a href="cms/directives">Diretivas</a>
@@ -151,14 +139,41 @@
                 </li>
 
 		<li>
-                    <a href="javascript:;" data-toggle="collapse2" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> Layout <i class="fa fa-fw fa-caret-down"></i></a>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo0"><i class="fa fa-fw fa-arrows-v"></i> Admin <i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="demo0" class="collapse">
+			<li>
+		            <a href="cms/idiomas"><i class="fa fa-language" aria-hidden="true"></i> Idiomas</a>
+		        </li>
+			<li>
+                    	    <a href="cms/unidades"><i class="fa fa-indent" aria-hidden="true"></i> Unidades</a>
+                	</li>
+                        <li>
+		            <a href="cms/usuarios"><i class="fa fa-fw fa-users"></i> Usuários</a>
+		        </li>
+                    </ul>
+                </li>
+
+		<li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> Layout <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo2" class="collapse">
 			<li>
 		            <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoors</a>
 		        </li>
+			<li>
+                    	    <a href="cms/quemsomos"><i class="fa fa-fw fa-building"></i> Modulos</a>
+                	</li>
 		        <li>
 		            <a href="cms/apoios"><i class="fa fa-fw fa-anchor"></i> Apoio</a>
 		        </li>
+			<li>
+                    	    <a href="cms/links"><i class="fa fa-fw fa-link"></i> Links</a>
+                	</li>
+			<li>
+                    	    <a href="cms/indices"><i class="fa fa-indent" aria-hidden="true"></i> Índices</a>
+                	</li>
+			<li>
+                    	    <a href="cms/webindicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores Site</a>
+                	</li>
 		        <li>
 		            <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
 		        </li>
@@ -171,9 +186,7 @@
                 <!--<li>
                     <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
                 </li>-->
-                <li>
-                    <a href="cms/usuarios"><i class="fa fa-fw fa-users"></i> Usuários</a>
-                </li>
+                
             </ul>
         </div>
 
