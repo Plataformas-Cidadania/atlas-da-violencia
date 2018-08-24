@@ -139,7 +139,7 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
         }else{
             file.upload = Upload.upload({
                 url: 'cms/inserir-tema',
-                data: {tema: $scope.tema, file: file},
+                data: {tema: $scope.tema, idioma: $scope.idioma, file: file},
             });
 
             file.upload.then(function (response) {
