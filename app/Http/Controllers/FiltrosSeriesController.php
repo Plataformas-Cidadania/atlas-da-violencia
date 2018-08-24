@@ -131,6 +131,7 @@ class FiltrosSeriesController extends Controller
                     return $query->whereIn('tema_id', $temas);
                 })
                 ->orderBy('textos_series.titulo')
+		->distinct()
                 ->paginate($parameters['limit']),
                 60);
         }
