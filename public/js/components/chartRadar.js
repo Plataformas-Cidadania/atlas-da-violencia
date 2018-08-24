@@ -5,25 +5,35 @@ class ChartRadar extends React.Component {
         super(props);
         this.state = {
             serie: this.props.serie,
+	    abrangencia: this.props.abrangencia,
+	    min: this.props.min,
+	    max: this.props.max,
+	    id: this.props.id,
+	    regions: this.props.regions,
             periodo: 0
         };
         //this.loadData = this.loadData.bind(this);
         this.loadChart = this.loadChart.bind(this);
     }
 
+    componentDidMount(){
+	this.loadData();
+    }
+
     componentWillReceiveProps(props) {
-        if (this.state.periodo != props.data.periodo) {
+        if (this.state.min != props.min || this.state.max != props.max || this.state.abrangencia != props.abrangencia) {
             /*this.setState({min: props.min, max: props.max}, function(){
                 if(myChartRadar){
                     this.chartDestroy();
                 }
                 this.loadData();
             });*/
-            this.setState({ periodo: props.data.periodo, data: props.data.valores }, function () {
+            this.setState({ min: props.min, max: props.max, abrangencia: props.abrangencia, regions: props.regions }, function () {
                 if (myChartRadar) {
                     this.chartDestroy();
                 }
-                this.loadChart(this.state.data);
+                //this.loadChart(this.state.data);
+		this.loadData();
             });
         }
     }
@@ -42,8 +52,36 @@ class ChartRadar extends React.Component {
         })
     }*/
 
+    loadData() {
+
+        //console.log('MIN', this.state.min);
+        //console.log('MAX', this.state.max);
+
+        if (this.state.min && this.state.max) {
+
+            this.setState({ loadingItems: true });
+
+            //console.log(this.state.regions);
+            $.ajax({
+                method: 'GET',
+                url: "valores-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.state.regions + "/" + this.state.abrangencia,
+                cache: false,
+                success: function (data) {
+                    this.setState({ valoresRegioesPorPeriodo: data, periodo: data.max.periodo}, function(){
+			//console.log('CHART RADAR', this.state.valoresRegioesPorPeriodo);
+			this.loadChart(this.state.valoresRegioesPorPeriodo.max.valores);
+			
+		    });
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.log('erro');
+                }.bind(this)
+            });
+        }
+    }
+
     loadChart(data) {
-        //console.log(data);
+        //console.log('CHART RADAR LOAD CHART', data);
         let labels = [];
         let values = [];
         for (let i in data) {

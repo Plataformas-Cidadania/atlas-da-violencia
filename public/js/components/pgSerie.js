@@ -914,8 +914,12 @@ class PgSerie extends React.Component {
                             { style: { display: this.state.chartRadar ? 'block' : 'none' } },
                             React.createElement(ChartRadar, {
                                 serie: this.state.serie,
-                                periodicidade: this.props.periodicidade,
-                                data: this.state.valoresRegioesPorPeriodo.max
+				min: this.state.min,
+				max: this.state.max,
+				id: this.state.id,
+				regions: this.state.regions,
+                                periodicidade: this.props.periodicidade,                                
+				abrangencia: this.state.abrangencia
                             })
                         ),
                         React.createElement(

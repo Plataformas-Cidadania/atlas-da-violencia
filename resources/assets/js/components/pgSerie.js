@@ -102,7 +102,7 @@ class PgSerie extends React.Component{
     }
 
     setRegions(regions){
-        console.log(regions);
+        //console.log(regions);
         this.setState({regions: regions}, function(){
             this.loadData();
             this.loadDataPeriodo();
@@ -701,8 +701,12 @@ class PgSerie extends React.Component{
                             <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
                                 <ChartRadar
                                     serie={this.state.serie}
-                                    periodicidade={this.props.periodicidade}
-                                    data={this.state.valoresRegioesPorPeriodo.max}
+				    min={this.state.min}
+				    max={this.state.max}
+				    id={this.state.id}
+				    regions={this.state.regions}
+                                    periodicidade={this.props.periodicidade}                                    
+				    abrangencia={this.state.abrangencia}
                                 />
                             </div>
                             <div style={{display: this.state.chartPie ? 'block' : 'none'}}>

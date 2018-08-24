@@ -33,8 +33,8 @@ class ChartBar extends React.Component {
             });
         }*/
 
-        if (this.state.min != props.min || this.state.max != props.max) {
-            this.setState({ min: props.min, max: props.max }, function () {
+        if (this.state.min != props.min || this.state.max != props.max, this.state.abrangencia != props.abrangencia) {
+            this.setState({ min: props.min, max: props.max, abrangencia: props.abrangencia }, function () {
                 if (myChartBar[this.props.idBar]) {
                     this.chartDestroy();
                 }

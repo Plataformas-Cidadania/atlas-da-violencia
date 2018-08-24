@@ -136,7 +136,7 @@
                 </li>
 
                 <li>
-                    <a href="javascript:;" data-toggle="collapse1" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo1" class="collapse">
                         <li>
                             <a href="cms/directives">Diretivas</a>
@@ -151,7 +151,7 @@
                 </li>
 
 		<li>
-                    <a href="javascript:;" data-toggle="collapse2" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> Layout <i class="fa fa-fw fa-caret-down"></i></a>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> Layout <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo2" class="collapse">
 			<li>
 		            <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoors</a>
