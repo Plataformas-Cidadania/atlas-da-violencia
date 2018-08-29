@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Jenssegers\Date\Date;
 
 class HomeController extends Controller
@@ -22,7 +23,8 @@ class HomeController extends Controller
         $noticias = DB::table('noticias')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->skip(1)->take(2)->get();
         $menu = \App\Menu::where('menu_id', 0)->get();
         $video = \App\Video::orderBy('id', 'desc')->first();
-        $indices = \App\Indice::where('idioma_sigla', $lang)->orderBy('posicao')->where('status', 1)->take(4)->get();
+        $indices = \App\Indice::where('idioma_sigla', $lang)->where('status', 1)->orderBy('posicao')->take(4)->get();
+        Log::info(json_decode($indices));
         $downloads = DB::table('downloads')->where('idioma_sigla', $lang)->where('origem_id', 0)->orderBy('id', 'desc')->take(3)->get();
         $tituloLinhaTempo = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 4)->orderBy('id', 'desc')->take(1)->get();
 

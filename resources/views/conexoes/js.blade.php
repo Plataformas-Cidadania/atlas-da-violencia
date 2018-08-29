@@ -263,7 +263,16 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 data: {},
                 success: function(data){
                     //console.log(data);
-                    contadorIndices(0, '#contadorIndice1', data[0].valor);
+
+                    for(var i=0;i<data.length;i++){
+                        contadorIndices(0, '#contadorIndice'+(i+1), data[i].valor);
+                    }
+
+                    for(var i=0;i<data.length;i++){
+                        nomeIndices('#nomeIndice'+(i+1), data[i].titulo);
+                    }
+
+                    /*contadorIndices(0, '#contadorIndice1', data[0].valor);
                     contadorIndices(0, '#contadorIndice2', data[1].valor);
                     contadorIndices(0, '#contadorIndice3', data[2].valor);
                     contadorIndices(0, '#contadorIndice4', data[3].valor);
@@ -271,7 +280,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     nomeIndices('#nomeIndice1', data[0].titulo);
                     nomeIndices('#nomeIndice2', data[1].titulo);
                     nomeIndices('#nomeIndice3', data[2].titulo);
-                    nomeIndices('#nomeIndice4', data[3].titulo);
+                    nomeIndices('#nomeIndice4', data[3].titulo);*/
                 },
                 error: function(data){
                     console.log('erro');
@@ -294,6 +303,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
         }
 
         function nomeIndices(id, text) {
+            console.log(id, text);
             $(id).html(text);
         }
 
