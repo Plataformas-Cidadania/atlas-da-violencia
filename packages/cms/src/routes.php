@@ -14,6 +14,8 @@ Route::group(['middleware' => 'cms'], function () {
         
         //INSTITUCIONAL
         Route::get('/cms/quemsomos', 'Cms\Controllers\QuemsomoController@index');
+        Route::get('/cms/quemsomos/{tipo_id}', 'Cms\Controllers\QuemsomoController@index');
+        Route::get('/cms/quemsomos/{tipo_id}/{titulo}', 'Cms\Controllers\QuemsomoController@index');
         Route::get('/cms/listar-quemsomos', 'Cms\Controllers\QuemsomoController@listar');
         Route::post('/cms/inserir-quemsomo', 'Cms\Controllers\QuemsomoController@inserir');
         Route::get('/cms/quemsomo/{id}', 'Cms\Controllers\QuemsomoController@detalhar');

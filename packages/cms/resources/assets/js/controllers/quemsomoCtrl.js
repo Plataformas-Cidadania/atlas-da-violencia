@@ -1,6 +1,6 @@
 cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-    
 
+    $scope.tipo_id = 0;
     $scope.quemsomos = [];
     $scope.currentPage = 1;
     $scope.lastPage = 0;
@@ -31,6 +31,10 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
             listarQuemsomos();
         }
     });
+    $scope.$watch('tipo_id', function(){
+            listarQuemsomos();
+    });
+
 
     var listarQuemsomos = function(){
         $scope.processandoListagem = true;
@@ -44,7 +48,8 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
                 campos: $scope.campos,
                 campoPesquisa: $scope.campoPesquisa,
                 ordem: $scope.ordem,
-                sentido: $scope.sentidoOrdem
+                sentido: $scope.sentidoOrdem,
+                tipo_id: $scope.tipo_id
             }
         }).success(function(data, status, headers, config){
             $scope.quemsomos = data.data;
@@ -60,6 +65,7 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
             $scope.processandoListagem = false;
         });
     };
+
 
     /*$scope.loadMore = function() {
      $scope.currentPage +=1;
@@ -101,7 +107,7 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
     };
     
 
-    listarQuemsomos();
+    //listarQuemsomos();
 
     //INSERIR/////////////////////////////
 

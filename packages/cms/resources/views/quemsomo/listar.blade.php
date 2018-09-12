@@ -7,10 +7,10 @@
         $('[data-toggle="popover"]').popover()
     })
 </script>
-    <div ng-controller="quemsomoCtrl">
-        <div class="box-padrao">
-            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Institucional</h1>
-            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo institucional</button>
+    <div ng-controller="quemsomoCtrl" >
+        <div class="box-padrao" ng-init="tipo_id={{$tipo_id}}">
+            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Modulos</h1>
+            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Modulo</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>
             <div ng-show="mostrarForm">

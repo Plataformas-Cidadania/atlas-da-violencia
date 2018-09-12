@@ -45,7 +45,9 @@ class FiltrosSeriesController extends Controller
         $indicadores = \App\Indicador::select('indicadores.id', 'indicadores.titulo as title')
             ->join('series', 'series.indicador', '=', 'indicadores.id')
             ->join('temas_series', 'temas_series.serie_id', '=', 'series.id')
-            ->where('temas_series.tema_id', $tema_id)
+            ->when($tema_id>0, function($query) use ($tema_id){
+                return $query->where('temas_series.tema_id', $tema_id);
+            })
             ->where('indicadores.titulo', 'ilike', "$search%")
             ->get();
 

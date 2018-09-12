@@ -32,19 +32,21 @@ class QuemsomoController extends Controller
         $this->widthOriginal = true;
     }
 
-    function index()
+    function index($tipo_id)
     {
 
         $quemsomos = \App\Quemsomo::all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::quemsomo.listar', ['quemsomos' => $quemsomos, 'idiomas' => $idiomas]);
+        return view('cms::quemsomo.listar', ['quemsomos' => $quemsomos, 'idiomas' => $idiomas, 'tipo_id' => $tipo_id]);
     }
 
     public function listar(Request $request)
     {
 
-        //Log::info('CAMPOS: '.$request->campos);
+        $tipo_id = $request->tipo_id;
+
+        Log::info($tipo_id);
 
         //Auth::loginUsingId(2);
 
@@ -54,6 +56,7 @@ class QuemsomoController extends Controller
             ->select($campos)
             ->where([
                 [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
+                ['tipo', $tipo_id],
             ])
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
