@@ -94,7 +94,7 @@
                         <tr ng-repeat="tema in temas">
                             <td><% tema.id %></td>
                             <td style="display:none;"><img ng-show="tema.imagem" ng-src="imagens/temas_temas/xs-<% tema.imagem %>" width="60"></td>
-                            <td><a href="cms/tema-tema/<% tema.id %>"><% tema.tema %></a></td>
+                            <td><a href="cms/tema-tema/<% tema.id %>"><% tema.titulo %></a></td>
                             <td class="text-right">
                                 <div>
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(tema.id, tema.tema, tema.imagem)"></i></a>
