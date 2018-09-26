@@ -103,6 +103,7 @@ class TemaSerieController extends Controller
                 [$request->campoPesquisa, 'ilike', "%$request->dadoPesquisa%"],
             ])
             ->where('temas_series.serie_id', $request->serie_id)
+            ->where('idiomas_temas.idioma_sigla', 'pt_BR')
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
         return $series;
