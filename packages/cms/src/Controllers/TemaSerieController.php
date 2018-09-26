@@ -98,6 +98,7 @@ class TemaSerieController extends Controller
             ->select($campos)
             ->join('series', 'series.id', '=', 'temas_series.serie_id')
             ->join('temas', 'temas.id', '=', 'temas_series.tema_id')
+            ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
             ->where([
                 [$request->campoPesquisa, 'ilike', "%$request->dadoPesquisa%"],
             ])

@@ -9,11 +9,11 @@ cmsApp.controller('temaSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "temas_series.id, temas.tema";
-    $scope.campoPesquisa = "temas.tema";
+    $scope.campos = "temas_series.id, idiomas_temas.titulo";
+    $scope.campoPesquisa = "idiomas_temas.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "temas.tema";
+    $scope.ordem = "idiomas_temas.titulo";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 
