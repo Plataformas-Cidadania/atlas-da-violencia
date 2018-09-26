@@ -45,7 +45,12 @@ class TemaSerieController extends Controller
     }
 
     private function mountListSubTemas($arrayTemas, $tema_id, $nivel){
-        $temas = \App\Tema::select('id', 'tema')->where('tema_id', $tema_id)->orderBy('id')->get();
+        $temas = \App\Tema::select('temas.id', DB::Raw('idiomas_temas.titulo as tema'))
+            ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
+            ->where('temas.tema_id', $tema_id)
+            ->where('idiomas_temas.idioma_sigla', 'pt_BR')
+            ->orderBy('temas.id')
+            ->get();
         //monta um array apenas com os nós folhas (níveis que não possuem filhos)
         if(count($temas)===0){
             $pai = \App\Tema::find($tema_id);
@@ -63,7 +68,12 @@ class TemaSerieController extends Controller
     }
 
     private function mountListTemas($arrayTemas, $tema_id, $nivel){
-        $temas = \App\Tema::select('id', 'tema')->where('tema_id', $tema_id)->orderBy('id')->get();
+        $temas = \App\Tema::select('temas.id', DB::Raw('idiomas_temas.titulo as tema'))
+            ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
+            ->where('temas.tema_id', $tema_id)
+            ->where('idiomas_temas.idioma_sigla', 'pt_BR')
+            ->orderBy('temas.id')
+            ->get();
         //monta um array apenas com os nós folhas (níveis que não possuem filhos)
         if(count($temas)===0){
             array_push($this->subtemas, $nivel);
