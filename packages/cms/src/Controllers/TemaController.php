@@ -83,7 +83,7 @@ class TemaController extends Controller
             ->select($campos)
             ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
             ->where([
-                [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
+                [$request->campoPesquisa, 'ilike', "%$request->dadoPesquisa%"],
                 ['temas.tema_id', '=', $request->tema_id],
             ])
             ->orderBy($request->ordem, $request->sentido)

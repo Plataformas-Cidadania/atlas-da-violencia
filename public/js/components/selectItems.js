@@ -294,7 +294,7 @@ class SelectItems extends React.Component {
            //console.log(style);
             for(let i in style){
                //console.log(i+': '+style[i]);
-              }
+             }
         });
     }*/
 

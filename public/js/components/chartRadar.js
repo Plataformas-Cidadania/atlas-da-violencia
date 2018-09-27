@@ -5,19 +5,19 @@ class ChartRadar extends React.Component {
         super(props);
         this.state = {
             serie: this.props.serie,
-	    abrangencia: this.props.abrangencia,
-	    min: this.props.min,
-	    max: this.props.max,
-	    id: this.props.id,
-	    regions: this.props.regions,
+            abrangencia: this.props.abrangencia,
+            min: this.props.min,
+            max: this.props.max,
+            id: this.props.id,
+            regions: this.props.regions,
             periodo: 0
         };
         //this.loadData = this.loadData.bind(this);
         this.loadChart = this.loadChart.bind(this);
     }
 
-    componentDidMount(){
-	this.loadData();
+    componentDidMount() {
+        this.loadData();
     }
 
     componentWillReceiveProps(props) {
@@ -33,7 +33,7 @@ class ChartRadar extends React.Component {
                     this.chartDestroy();
                 }
                 //this.loadChart(this.state.data);
-		this.loadData();
+                this.loadData();
             });
         }
     }
@@ -67,11 +67,10 @@ class ChartRadar extends React.Component {
                 url: "valores-regiao/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.state.regions + "/" + this.state.abrangencia,
                 cache: false,
                 success: function (data) {
-                    this.setState({ valoresRegioesPorPeriodo: data, periodo: data.max.periodo}, function(){
-			//console.log('CHART RADAR', this.state.valoresRegioesPorPeriodo);
-			this.loadChart(this.state.valoresRegioesPorPeriodo.max.valores);
-			
-		    });
+                    this.setState({ valoresRegioesPorPeriodo: data, periodo: data.max.periodo }, function () {
+                        //console.log('CHART RADAR', this.state.valoresRegioesPorPeriodo);
+                        this.loadChart(this.state.valoresRegioesPorPeriodo.max.valores);
+                    });
                 }.bind(this),
                 error: function (xhr, status, err) {
                     console.log('erro');
