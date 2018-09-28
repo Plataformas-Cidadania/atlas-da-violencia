@@ -41,7 +41,7 @@ class ArtigoController extends Controller
 
 
 
-        $menus = DB::table('links')->get();
+        $menus = DB::table('links')->where('idioma_sigla', $lang)->get();
 
         if($origem_id==0){
             $authors = DB::table('authors')->orderBy('titulo')->get();
@@ -78,7 +78,7 @@ class ArtigoController extends Controller
     }
     public function buscar(Request $request, $origem_id){
 
-
+	$lang =  App::getLocale();
 
         $dados = $request->all();
 
@@ -104,7 +104,7 @@ class ArtigoController extends Controller
                 ->where('origem_id', '=', $origem_id )
                 ->paginate(15);
         }
-        $menus = DB::table('links')->get();
+        $menus = DB::table('links')->where('idioma_sigla', $lang)->get();
         $authors = DB::table('authors')->orderBy('titulo')->get();
 
         $origem_titulo = "";
