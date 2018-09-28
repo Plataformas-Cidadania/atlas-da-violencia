@@ -85,6 +85,7 @@ class TemaController extends Controller
             ->where([
                 [$request->campoPesquisa, 'ilike', "%$request->dadoPesquisa%"],
                 ['temas.tema_id', '=', $request->tema_id],
+		['idiomas_temas.idioma_sigla', 'pt_BR'],
             ])
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
