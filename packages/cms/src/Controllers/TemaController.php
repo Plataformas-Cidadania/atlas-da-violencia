@@ -121,8 +121,12 @@ class TemaController extends Controller
             $success = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
             
             if($success){
-                $data['tema']['imagem'] = $filename;
-                return $this->tema->create($data['tema']);
+                $data['tema']['imagem'] = $filename;                
+		$inserir = $this->tema->create($data['tema']);
+	        $data['idioma']['tema_id'] = $inserir->id;
+       		$inserir2 = $this->idiomaTema->create($data['idioma']);
+	        return $inserir;
+
             }else{
                 return "erro";
             }
