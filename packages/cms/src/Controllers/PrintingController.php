@@ -38,10 +38,10 @@ class PrintingController extends Controller
     {
 
         $printings = \App\Printing::all();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+        //$series = \App\Serie::lists('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::printing.listar', ['printings' => $printings, 'series' => $series, 'idiomas' => $idiomas]);
+        return view('cms::printing.listar', ['printings' => $printings, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
