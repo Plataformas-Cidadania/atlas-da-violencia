@@ -76,8 +76,12 @@
                                 <i class="fa fa-pencil-square" aria-hidden="true"></i>
                                 {{$author->titulo}}
                                 <?php
+				    $lang =  App::getLocale();
+
                                     $authorQtd = DB::table('author_artigo')
+					->join('artigos', 'artigos.id', '=', 'author_artigo.artigo_id')
                                         ->where('author_id', $author->id)
+					->where('artigos.idioma_sigla', $lang)
                                         ->count();
                                 ;?>
                                 <span style="float: right;">({{$authorQtd}})</span>
