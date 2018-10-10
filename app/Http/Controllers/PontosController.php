@@ -8,7 +8,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class TransitoController extends Controller
+class PontosController extends Controller
 {
 
     private $territorios = [
@@ -19,6 +19,15 @@ class TransitoController extends Controller
     ];
 
     private $months = [null, 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
+    public function filtrosSerie($serie_id){
+        $filtros = \App\Filtro::select('filtros.id', 'filtros.titulo')
+            ->join('filtros_series', 'filtros_series.filtro_id', '=', 'filtros.id')
+            ->where('filtros_series.serie_id', $serie_id)
+            ->get();
+
+        return $filtros;
+    }
 
     public function valoresMapa(Request $request){
 

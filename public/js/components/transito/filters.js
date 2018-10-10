@@ -2,6 +2,7 @@ class Filters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            filtros: [],
             types: [],
             typesAccident: [],
             genders: [],
@@ -11,6 +12,8 @@ class Filters extends React.Component {
             btnFilter: false,
             tipoTerritorioSelecionado: props.tipoTerritorioSelecionado
         };
+
+        this.load = this.load.bind(this);
 
         this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
@@ -24,10 +27,32 @@ class Filters extends React.Component {
         this.iconsType = this.iconsType.bind(this);
     }
 
+    componentDidMount() {
+        this.load();
+    }
+
     componentWillReceiveProps(props) {
         if (props.tipoTerritorioSelecionado != this.state.tipoTerritorioSelecionado) {
             this.setState({ tipoTerritorioSelecionado: props.tipoTerritorioSelecionado });
         }
+    }
+
+    load() {
+        $.ajax({
+            method: 'GET',
+            url: 'filtros-serie/' + serie_id,
+            data: {},
+            cache: false,
+            success: function (data) {
+                console.log(data);
+
+                this.setState({ filtros: data, loading: false });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(status, err.toString());
+                this.setState({ loading: false });
+            }.bind(this)
+        });
     }
 
     checkType(types) {
@@ -105,81 +130,81 @@ class Filters extends React.Component {
         //console.log('REGIONS', this.state.regions);
 
         return React.createElement(
-            "div",
+            'div',
             null,
             React.createElement(
-                "div",
-                { className: "row" },
+                'div',
+                { className: 'row' },
                 React.createElement(
-                    "div",
-                    { className: "col-md-6" },
+                    'div',
+                    { className: 'col-md-6' },
                     React.createElement(RangeYear, { id: this.props.id, checkYear: this.checkYear })
                 ),
-                React.createElement("br", { className: "hidden-lg hidden-md" }),
+                React.createElement('br', { className: 'hidden-lg hidden-md' }),
                 React.createElement(
-                    "div",
-                    { className: "col-md-1" },
-                    "\xA0"
+                    'div',
+                    { className: 'col-md-1' },
+                    '\xA0'
                 ),
                 React.createElement(
-                    "div",
-                    { className: "col-md-5" },
+                    'div',
+                    { className: 'col-md-5' },
                     React.createElement(RangeMonth, { id: this.props.id, checkMonth: this.checkMonth, year: this.state.year })
                 )
             ),
-            React.createElement("br", null),
+            React.createElement('br', null),
             React.createElement(
-                "div",
-                { className: "row" },
+                'div',
+                { className: 'row' },
                 React.createElement(
-                    "div",
-                    { className: "col-md-3" },
+                    'div',
+                    { className: 'col-md-3' },
                     React.createElement(
-                        "fieldset",
+                        'fieldset',
                         null,
                         React.createElement(
-                            "legend",
+                            'legend',
                             null,
-                            "Locomo\xE7\xE3o"
+                            'Locomo\xE7\xE3o'
                         ),
                         React.createElement(
-                            "div",
+                            'div',
                             { style: { margin: '10px' } },
                             React.createElement(Type, { checkType: this.checkType, iconsType: this.iconsType })
                         )
                     )
                 ),
                 React.createElement(
-                    "div",
-                    { className: "col-md-3" },
+                    'div',
+                    { className: 'col-md-3' },
                     React.createElement(
-                        "fieldset",
+                        'fieldset',
                         null,
                         React.createElement(
-                            "legend",
+                            'legend',
                             null,
-                            "Tipo de Acidente"
+                            'Tipo de Acidente'
                         ),
                         React.createElement(
-                            "div",
+                            'div',
                             { style: { margin: '10px' } },
                             React.createElement(TypeAccident, { checkTypeAccident: this.checkTypeAccident })
                         )
                     )
                 ),
                 React.createElement(
-                    "div",
-                    { className: "col-md-3" },
+                    'div',
+                    { className: 'col-md-3' },
                     React.createElement(
-                        "fieldset",
+                        'fieldset',
                         null,
                         React.createElement(
-                            "legend",
+                            'legend',
                             null,
-                            "Regi\xE3o"
+                            'Regi\xE3o'
                         ),
                         React.createElement(
-                            "div",
+                            'div',
                             { style: { margin: '10px' } },
                             React.createElement(Region, {
                                 checkRegion: this.checkRegion,
@@ -190,35 +215,35 @@ class Filters extends React.Component {
                     )
                 ),
                 React.createElement(
-                    "div",
-                    { className: "col-md-3" },
+                    'div',
+                    { className: 'col-md-3' },
                     React.createElement(
-                        "fieldset",
+                        'fieldset',
                         null,
                         React.createElement(
-                            "legend",
+                            'legend',
                             null,
-                            "Sexo"
+                            'Sexo'
                         ),
                         React.createElement(
-                            "div",
+                            'div',
                             { style: { margin: '10px' } },
                             React.createElement(Gender, { checkGender: this.checkGender })
                         )
                     )
                 )
             ),
-            React.createElement("br", null),
+            React.createElement('br', null),
             React.createElement(
-                "div",
-                { className: "row" },
+                'div',
+                { className: 'row' },
                 React.createElement(
-                    "div",
-                    { className: "col-md-12 text-center" },
+                    'div',
+                    { className: 'col-md-12 text-center' },
                     React.createElement(
-                        "button",
-                        { className: "btn btn-info", style: { width: "300px" }, disabled: !this.state.btnFilter, onClick: this.actionFilter },
-                        "Filtrar"
+                        'button',
+                        { className: 'btn btn-info', style: { width: "300px" }, disabled: !this.state.btnFilter, onClick: this.actionFilter },
+                        'Filtrar'
                     )
                 )
             )

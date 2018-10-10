@@ -165,26 +165,34 @@ Route::get('new-maps/', function () {
     return view('new-maps');
     //return view('new-mapsORIGINAL');
 });
+
+///////////SÉRIES POR PONTOS///////////////////////////////////////////////////
 Route::get('acidentes-transito/', function () {
     return view('transito');
 });
-Route::post('valores-transito/', 'TransitoController@valoresMapa');
-Route::post('total-transito-territorio/', 'TransitoController@totalPorTerritorio');
-Route::post('pontos-transito-territorio/', 'TransitoController@pontosPorTerritorio');
-Route::post('pontos-transito-pais/', 'TransitoController@pontosPorPais');
+Route::post('valores-transito/', 'PontosController@valoresMapa');
+Route::post('total-transito-territorio/', 'PontosController@totalPorTerritorio');
+Route::post('pontos-transito-territorio/', 'PontosController@pontosPorTerritorio');
+Route::post('pontos-transito-pais/', 'PontosController@pontosPorPais');
 
-Route::post('periodos-pontos/', 'TransitoController@periodosPontosAno');
-Route::post('types/', 'TransitoController@types');
-Route::post('types-accident/', 'TransitoController@typesAccident');
-Route::post('genders/', 'TransitoController@genders');
-Route::post('regions/', 'TransitoController@regions');
-Route::post('default-regions/', 'TransitoController@defaultRegions');
-Route::post('years/', 'TransitoController@years');
-Route::post('months/', 'TransitoController@months');
-Route::post('values-for-types/', 'TransitoController@valuesForTypes');
-Route::post('values-for-gender/', 'TransitoController@valuesForGender');
-Route::post('values-for-regions/', 'TransitoController@valuesForRegions');
-Route::post('arrays-transito/', 'TransitoController@arraysTransito');
+Route::post('periodos-pontos/', 'PontosController@periodosPontosAno');
+Route::post('types/', 'PontosController@types');
+Route::post('types-accident/', 'PontosController@typesAccident');
+Route::post('genders/', 'PontosController@genders');
+Route::post('regions/', 'PontosController@regions');
+Route::post('default-regions/', 'PontosController@defaultRegions');
+Route::post('years/', 'PontosController@years');
+Route::post('months/', 'PontosController@months');
+Route::post('values-for-types/', 'PontosController@valuesForTypes');
+Route::post('values-for-gender/', 'PontosController@valuesForGender');
+Route::post('values-for-regions/', 'PontosController@valuesForRegions');
+Route::post('arrays-transito/', 'PontosController@arraysTransito');
+
+//Filtros
+Route::get('filtros-serie/{serie_id}', 'PontosController@filtrosSerie');
+
+
+///////////////////////////////////////////////////////////////////////////////
 
 //////////NOVA PÁGINAS DE FILTROS/////////////////////////
 Route::get('filtros-series/{id}/{tema}', 'FiltrosSeriesController@index');

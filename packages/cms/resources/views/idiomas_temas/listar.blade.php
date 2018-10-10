@@ -87,7 +87,7 @@
                                 <i ng-if="ordem=='titulo' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='titulo' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
-			    <th>Idioma</th>
+			                <th>Idioma</th>
                             <th></th>
                         </tr>
                         </thead>

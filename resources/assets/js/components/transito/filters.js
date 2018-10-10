@@ -2,6 +2,7 @@ class Filters extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            filtros: [],
             types: [],
             typesAccident: [],
             genders: [],
@@ -11,6 +12,8 @@ class Filters extends React.Component{
             btnFilter: false,
             tipoTerritorioSelecionado: props.tipoTerritorioSelecionado,
         };
+
+        this.load = this.load.bind(this);
 
         this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
@@ -24,10 +27,35 @@ class Filters extends React.Component{
         this.iconsType = this.iconsType.bind(this);
     }
 
+    componentDidMount(){
+        this.load();
+    }
+
     componentWillReceiveProps(props){
         if(props.tipoTerritorioSelecionado != this.state.tipoTerritorioSelecionado){
             this.setState({tipoTerritorioSelecionado: props.tipoTerritorioSelecionado});
         }
+    }
+
+    load(){
+        $.ajax({
+            method:'GET',
+            url: 'filtros-serie/'+serie_id,
+            data:{
+
+            },
+            cache: false,
+            success: function(data) {
+                console.log(data);
+
+                this.setState({filtros: data, loading: false});
+
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(status, err.toString());
+                this.setState({loading: false});
+            }.bind(this)
+        });
     }
 
     checkType(types){

@@ -38,6 +38,7 @@ cmsApp.controller('idiomaTemaCtrl', ['$scope', '$http', 'Upload', '$timeout', fu
         listarTemas();
     };
 
+
     var listarTemas = function(){
         $scope.processandoListagem = true;
         $http({
