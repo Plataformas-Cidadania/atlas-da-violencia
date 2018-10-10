@@ -9,7 +9,7 @@ cmsApp.controller('idiomaTemaCtrl', ['$scope', '$http', 'Upload', '$timeout', fu
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo";
+    $scope.campos = "id, titulo, idioma_sigla";
     $scope.campoPesquisa = "titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;

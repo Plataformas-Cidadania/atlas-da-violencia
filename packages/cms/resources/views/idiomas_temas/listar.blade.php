@@ -87,6 +87,7 @@
                                 <i ng-if="ordem=='titulo' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='titulo' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
+			    <th>Idioma</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -95,6 +96,7 @@
                             <td><% tema.id %></td>
                             <td style="display:none;"><img ng-show="tema.imagem" ng-src="imagens/idiomas_temas/xs-<% tema.imagem %>" width="60"></td>
                             <td><a href="cms/idioma-tema/<% tema.id %>"><% tema.titulo %></a></td>
+			    <td><% tema.idioma_sigla %></td>
                             <td class="text-right">
                                 <div>
                                     <a href="cms/idioma-tema/<% tema.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
