@@ -36,6 +36,13 @@
                     <br><br>
                 </div>
 
+<span class="btn btn-primary btn-file" ng-show="!fileArquivo">
+                    Escolher Arquivo <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept="application/pdf,.html,.htm" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+                </span>
+                <a ng-show="fileArquivo"><% fileArquivo.name %></a>
+
+		<br><br>
+
 
                 @include('cms::webindicador._form')
                 <div class="row">

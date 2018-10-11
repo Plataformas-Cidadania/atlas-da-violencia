@@ -186,7 +186,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
             console.log('rounder', rounder);
             intervalo = Math.ceil(intervalo/rounder) * rounder;
             console.log('intervalo depois', intervalo);
-            intervalos[0] = 0;
+            intervalos[0] = min;
             intervalos[1] = minUtil;
             intervalos[9] = maxUtil;
             for(let i=2;i<qtdIntervalos;i++){

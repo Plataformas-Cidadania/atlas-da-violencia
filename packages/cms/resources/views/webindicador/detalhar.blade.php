@@ -26,6 +26,14 @@
                     <br><br>
                 </div>
 
+<span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
+                    Escolher Arquivo  <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept="application/pdf,.html,.htm" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+                </span>
+                <button class="btn btn-danger" ng-click="limparArquivo()" ng-show="fileArquivo || arquivoBD" type="button">Remover Arquivo</button>
+                <a href="arquivos/downloads/<% arquivoBD %>" target="_blank" ng-show="arquivoBD"><% arquivoBD %></a>
+                <a ng-show="fileArquivo"><% fileArquivo.name %></a>
+                <br><br>
+
                 @include('cms::webindicador._form')
                 <input type="hidden" name="id" ng-model="id" ng-init="id='{{$webindicador->id}}'"/>
                 <div class="row">

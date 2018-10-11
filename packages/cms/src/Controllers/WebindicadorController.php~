@@ -140,7 +140,7 @@ if($file!=null){
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
-                if($campo!='imagem' && $campo!='arquivo'){
+                if($campo!='imagem'){
                     $data['webindicador'] += [$campo => ''];
                 }
             }
@@ -150,9 +150,8 @@ if($file!=null){
         ])->firstOrFail();
 
         $file = $request->file('file');
-	$arquivo = $request->file('arquivo');
 
-        /*if($file!=null){
+        if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
             $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $webindicador);
@@ -163,48 +162,13 @@ if($file!=null){
             }else{
                 return "erro";
             }
-        }*/
-
-///
-	$successFile = true;
-        if($file!=null){
-            $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
-            $imagemCms = new ImagemCms();
-            $successFile = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $webindicador);
-            if($successFile){
-                $data['webindicador']['imagem'] = $filename;
-            }
         }
-	$successArquivo = true;
-        if($arquivo!=null){
-            $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
-            $successArquivo = $arquivo->move($this->pathArquivo, $filenameArquivo);
-            if($successArquivo){
-                $data['webindicador']['arquivo'] = $filenameArquivo;
-            }
-        }
-
-        if($successFile && $successArquivo){
-
-            $webindicador->update($data['webindicador']);
-            return $webindicador->imagem;
-        }else{
-            return "erro";
-        }
-///
 
         //remover imagem
         if($data['removerImagem']){
             $data['webindicador']['imagem'] = '';
             if(file_exists($this->pathImagem."/".$webindicador->imagem)) {
                 unlink($this->pathImagem . "/" . $webindicador->imagem);
-            }
-        }
-
-	if($data['removerArquivo']){
-            $data['webindicador']['arquivo'] = '';
-            if(file_exists($this->pathArquivo."/".$webindicador->arquivo)) {
-                unlink($this->pathArquivo . "/" . $webindicador->arquivo);
             }
         }
 
