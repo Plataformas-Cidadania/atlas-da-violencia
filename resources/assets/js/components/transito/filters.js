@@ -132,6 +132,19 @@ class Filters extends React.Component{
         //console.log('BTN FILTER', this.state.btnFilter);
         //console.log('REGIONS', this.state.regions);
 
+        let filters = this.state.filtros.map(function(item){
+            return (
+                <div className="col-md-3" key={'filtro-'+item.id}>
+                    <fieldset>
+                        <legend>{item.titulo}</legend>
+                        <div style={{margin: '10px'}}>
+                            <Filter filter_id={item.id}  checkFilter={this.checkFilter}/>
+                        </div>
+                    </fieldset>
+                </div>
+            );
+        }.bind(this));
+
         return(
             <div>
                 <div className="row">
@@ -187,6 +200,8 @@ class Filters extends React.Component{
                             </div>
                         </fieldset>
                     </div>
+
+                    {filters}
 
                 </div>
                 <br/>

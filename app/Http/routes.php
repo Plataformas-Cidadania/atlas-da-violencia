@@ -190,6 +190,7 @@ Route::post('arrays-transito/', 'PontosController@arraysTransito');
 
 //Filtros
 Route::get('filtros-serie/{serie_id}', 'PontosController@filtrosSerie');
+Route::post('valores-filtros', 'PontosController@valoresFiltros');
 
 
 ///////////////////////////////////////////////////////////////////////////////

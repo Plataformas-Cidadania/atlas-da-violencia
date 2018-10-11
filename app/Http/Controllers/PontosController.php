@@ -29,6 +29,15 @@ class PontosController extends Controller
         return $filtros;
     }
 
+    public function valoresFiltros(Request $request){
+        $valores = \App\ValorFiltro::select('id', 'titulo AS title')
+            ->where('filtro_id', $request->filtro_id)
+            ->where('titulo', 'ilike', "$request->search%")
+            ->get();
+
+        return $valores;
+    }
+
     public function valoresMapa(Request $request){
 
         $min = '2017-01-15';

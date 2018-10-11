@@ -362,6 +362,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="js/components/transito/chartDonutHtml5.js"></script>
     <script src="js/components/transito/chartGender.js"></script>
     <script src="js/components/transito/listItems.js"></script>
+    <script src="js/components/transito/filter.js"></script>
     <script src="js/components/transito/filters.js"></script>
     <script src="js/components/transito/page.js"></script>
 @endif

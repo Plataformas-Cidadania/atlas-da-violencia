@@ -129,6 +129,27 @@ class Filters extends React.Component {
         //console.log('BTN FILTER', this.state.btnFilter);
         //console.log('REGIONS', this.state.regions);
 
+        let filters = this.state.filtros.map(function (item) {
+            return React.createElement(
+                'div',
+                { className: 'col-md-3', key: 'filtro-' + item.id },
+                React.createElement(
+                    'fieldset',
+                    null,
+                    React.createElement(
+                        'legend',
+                        null,
+                        item.titulo
+                    ),
+                    React.createElement(
+                        'div',
+                        { style: { margin: '10px' } },
+                        React.createElement(Filter, { filter_id: item.id, checkFilter: this.checkFilter })
+                    )
+                )
+            );
+        }.bind(this));
+
         return React.createElement(
             'div',
             null,
@@ -231,7 +252,8 @@ class Filters extends React.Component {
                             React.createElement(Gender, { checkGender: this.checkGender })
                         )
                     )
-                )
+                ),
+                filters
             ),
             React.createElement('br', null),
             React.createElement(

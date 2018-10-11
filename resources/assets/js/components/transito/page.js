@@ -2,6 +2,7 @@ class Page extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            filters: [],
             idTypes: [],
             idTypesAccident: [],
             idGender: [],
@@ -26,6 +27,7 @@ class Page extends React.Component{
 
         };
 
+        this.checkFilter = this.checkFilter.bind(this);
         this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
         this.checkGender = this.checkGender.bind(this);
@@ -64,6 +66,10 @@ class Page extends React.Component{
         let months = this.state.months;
         //console.log(month);
         return arrayLastDay[months[month]];
+    }
+
+    checkFilter(){
+
     }
 
     checkType(types){
@@ -147,6 +153,7 @@ class Page extends React.Component{
                 start: this.state.start,
                 end: this.state.end,
                 typesAccident: this.state.idTypesAccident,
+                filters: this.state.filters,
                 genders: this.state.idGender,
                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado, // tipo de territorio selecionado
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado, //codigo do territorio, que pode ser codigo do país, regiao, uf, etc...
