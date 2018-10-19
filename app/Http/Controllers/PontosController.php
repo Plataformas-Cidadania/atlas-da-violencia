@@ -73,6 +73,7 @@ class PontosController extends Controller
     public function totalPorTerritorio(Request $request){
         $start = $request->start;
         $end = $request->end;
+        $filters = $request->filters;
         $types = $request->types;
         $typesAccident = $request->typesAccident;
         $genders = $request->genders;
@@ -101,6 +102,20 @@ class PontosController extends Controller
             ->join('series', 'series.id', '=', 'geovalores.serie_id')
             ->join("$tabelaTerritorioAgrupamento as agrupamento", DB::Raw("ST_Contains(agrupamento.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
             ->join("$tabelaTerritorioSelecionado as selecionado", DB::Raw("ST_Contains(selecionado.edterritorios_geometry, agrupamento.edterritorios_centroide)"), '=', DB::Raw("true"))
+            ->leftJoin('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')//trocar serie_id por geovalor_id
+            ->when(count($filters) > 0, function($query) use ($filters){
+                foreach ($filters as $filter) {
+                    if(array_key_exists('valores', $filter)){
+                        if(count($filter['valores']) > 0){
+                            foreach ($filter['valores'] as $valor) {
+                                $query->orWhere('geovalores_valores_filtros.valor_filtro_id', $valor['id']);
+                            }
+                        }
+                    }
+                }
+
+                return $query;
+            })
             ->where([
                 ['geovalores.serie_id', 1],
                 ['geovalores.data', '>=', $start],
@@ -109,7 +124,7 @@ class PontosController extends Controller
             ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
                 return $query->whereIn("selecionado.edterritorios_codigo", $codigoTerritorioSelecionado);
             })
-            ->when($types != null, function($query) use ($types){
+            /*->when($types != null, function($query) use ($types){
                 return $query->whereIn('geovalores.tipo', $types);
             })
             ->when($typesAccident != null, function($query) use ($typesAccident){
@@ -117,7 +132,7 @@ class PontosController extends Controller
             })
             ->when($genders != null, function($query) use ($genders){
                 return $query->whereIn('geovalores.sexo', $genders);
-            })
+            })*/
             ->groupBy(DB::Raw("
             ST_X(agrupamento.edterritorios_centroide), 
             ST_Y(agrupamento.edterritorios_centroide),
@@ -127,6 +142,9 @@ class PontosController extends Controller
             "))
             ->get();
 
+        Log::info($filters);
+        Log::info(DB::getQueryLog());
+
         return ['valores' => $valores];
     }
 
@@ -135,6 +153,7 @@ class PontosController extends Controller
 
         $start = $request->start;
         $end = $request->end;
+        $filters = $request->filters;
         $types = $request->types;
         $typesAccident = $request->typesAccident;
         $genders = $request->genders;
@@ -147,6 +166,8 @@ class PontosController extends Controller
         //Log::info($codigoTerritorioSelecionado);
         //Log::info($tabelaTerritorioSelecionado);
         //Log::info($tabelaTerritorioAgrupamento);
+
+        DB::connection()->enableQueryLog();
 
         $valores = DB::table("geovalores")
             ->select(DB::raw("
@@ -164,6 +185,20 @@ class PontosController extends Controller
             "))
             ->join('series', 'series.id', '=', 'geovalores.serie_id')
             ->join($tabelaTerritorioSelecionado, DB::Raw("ST_Contains($tabelaTerritorioSelecionado.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
+            ->leftJoin('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')//trocar serie_id por geovalor_id
+            ->when(count($filters) > 0, function($query) use ($filters){
+                foreach ($filters as $filter) {
+                    if(array_key_exists('valores', $filter)){
+                        if(count($filter['valores']) > 0){
+                            foreach ($filter['valores'] as $valor) {
+                                $query->orWhere('geovalores_valores_filtros.valor_filtro_id', $valor['id']);
+                            }
+                        }
+                    }
+                }
+
+                return $query;
+            })
             ->where([
                 ['geovalores.serie_id', 1],
                 ['geovalores.data', '>=', $start],
@@ -171,8 +206,8 @@ class PontosController extends Controller
             ])
             ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
                 return $query->whereIn($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
-            })
-            ->when($types != null, function($query) use ($types){
+            });
+            /*->when($types != null, function($query) use ($types){
                 return $query->whereIn('geovalores.tipo', $types);
             })
             ->when($typesAccident != null, function($query) use ($typesAccident){
@@ -180,7 +215,7 @@ class PontosController extends Controller
             })
             ->when($genders != null, function($query) use ($genders){
                 return $query->whereIn('geovalores.sexo', $genders);
-            });
+            });*/
 
         if(!$paginate){
             $valores = $valores->get();
@@ -189,6 +224,9 @@ class PontosController extends Controller
         if($paginate){
             $valores = $valores->paginate(30);
         }
+
+        //Log::info($filters);
+        //Log::info(DB::getQueryLog());
 
 
 

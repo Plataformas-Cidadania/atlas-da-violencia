@@ -48,9 +48,10 @@ class Filters extends React.Component{
             }
         });
 
-        console.log(console.log('FILTERS:', filters));
-
-        this.setState({filtros: filters});
+        console.log('FILTERS:', filters);
+        this.setState({filtros: filters}, function(){
+            this.props.checkFilter(this.state.filtros);
+        });
     }
 
     load(){

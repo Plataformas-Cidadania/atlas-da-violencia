@@ -67,7 +67,9 @@ class Page extends React.Component {
         return arrayLastDay[months[month]];
     }
 
-    checkFilter() {}
+    checkFilter(filters) {
+        this.setState({ filters: filters });
+    }
 
     checkType(types) {
         let ids = [];
@@ -273,6 +275,7 @@ class Page extends React.Component {
             data: {
                 start: this.state.start,
                 end: this.state.end,
+                filters: this.state.filters,
                 types: this.state.idTypes,
                 typesAccident: this.state.idTypesAccident,
                 genders: this.state.idGender,
@@ -294,7 +297,7 @@ class Page extends React.Component {
 
     render() {
 
-        //console.log('FILTER', this.state.filter);
+        console.log('FILTERS IN PAGE', this.state.filters);
 
         return React.createElement(
             'div',
@@ -312,6 +315,7 @@ class Page extends React.Component {
                 React.createElement('br', null),
                 React.createElement(Filters, {
                     id: this.props.id,
+                    checkFilter: this.checkFilter,
                     checkType: this.checkType,
                     iconsType: this.iconsType,
                     checkTypeAccident: this.checkTypeAccident,
@@ -327,6 +331,7 @@ class Page extends React.Component {
             React.createElement('br', null),
             React.createElement(Map, {
                 id: this.props.id,
+                filters: this.state.filters,
                 types: this.state.idTypes,
                 typesAccident: this.state.idTypesAccident,
                 genders: this.state.idGender,
