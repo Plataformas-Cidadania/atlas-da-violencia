@@ -6,7 +6,7 @@
         <div class="box-padrao">
             <h1><a href="cms/webindicadores"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Webindicadores</h1>
             <?php //print_r($webindicador);?>
-            <div ng-init="carregaImagem('{{$webindicador->imagem}}')">
+            <div ng-init="carregaImagem('{{$webindicador->imagem}}', '{{$webindicador->arquivo}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>
                 {!! Form::model($webindicador, ['name' =>'form']) !!}
                 <div style="display:none;">
@@ -26,7 +26,7 @@
                     <br><br>
                 </div>
 
-<span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
+                <span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
                     Escolher Arquivo  <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept="application/pdf,.html,.htm" ngf-max-size="100MB" ngf-model-invalid="errorFile">
                 </span>
                 <button class="btn btn-danger" ng-click="limparArquivo()" ng-show="fileArquivo || arquivoBD" type="button">Remover Arquivo</button>
@@ -38,7 +38,7 @@
                 <input type="hidden" name="id" ng-model="id" ng-init="id='{{$webindicador->id}}'"/>
                 <div class="row">
                     <div class="col-md-1 col-lg-1 col-xs-3">
-                        <button class="btn btn-info" type="button" ng-click="alterar(picFile)" ng-disabled="form.$invalid && form.webindicador.$dirty">Salvar</button>
+                        <button class="btn btn-info" type="button" ng-click="alterar(picFile, fileArquivo)" ng-disabled="form.$invalid && form.webindicador.$dirty">Salvar</button>
                     </div>
                     <div class="col-md-2 col-lg-2 col-xs-6">
                         <span class="progress" ng-show="picFile.progress >= 0">

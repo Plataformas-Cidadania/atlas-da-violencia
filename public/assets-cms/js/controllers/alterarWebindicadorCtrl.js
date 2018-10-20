@@ -9,18 +9,24 @@ cmsApp.controller('alterarWebindicadorCtrl', ['$scope', '$http', 'Upload', '$tim
 
     $scope.mostrarForm = false;
 
-    $scope.removerImagem = false;
+    $scope.removerImagem = 0;
+    $scope.removerArquivo = 0;
 
-    $scope.alterar = function (file){
+    $scope.alterar = function (file, arquivo){
+        $scope.processandoSalvar = true;
+        $scope.mensagemSalvar = "";
 
-        if(file==null){
+        if(file==null && arquivo==null){
 
-            $scope.processandoSalvar = true;
             //console.log($scope.webindicador);
-            $http.post("cms/alterar-webindicador/"+$scope.id, {'webindicador': $scope.webindicador, 'removerImagem': $scope.removerImagem}).success(function (data){
+            $http.post("cms/alterar-webindicador/"+$scope.id, {
+                'webindicador': $scope.webindicador,
+                'removerImagem': $scope.removerImagem,
+                'removerArquivo': $scope.removerArquivo
+            }).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
-                $scope.mensagemSalvar = data;
+                $scope.mensagemSalvar = "Gravado com Sucesso";
                 $scope.removerImagem = false;
             }).error(function(data){
                 //console.log(data);
@@ -30,28 +36,42 @@ cmsApp.controller('alterarWebindicadorCtrl', ['$scope', '$http', 'Upload', '$tim
 
         }else{
 
-            file.upload = Upload.upload({
-                url: 'cms/alterar-webindicador/'+$scope.id,
-                data: {webindicador: $scope.webindicador, file: file},
-            });
+            var data1 = {
+                webindicador: $scope.webindicador,
+                'removerImagem': $scope.removerImagem,
+                'removerArquivo': $scope.removerArquivo
+            };
 
-            file.upload.then(function (response) {
+            if(file!=null){
+                data1.file = file;
+            }
+            if(arquivo!=null){
+                data1.arquivo = arquivo;
+            }
+
+            Upload.upload({
+                url: 'cms/alterar-webindicador/'+$scope.id,
+                data: data1
+            }).then(function (response) {
                 $timeout(function () {
-                    file.result = response.data;
+                    $scope.result = response.data;
                 });
-                $scope.picFile = null;//limpa o form
+                $scope.picFile = null;//limpa o file
+                //$scope.fileArquivo = null;//limpa o file
                 $scope.mensagemSalvar =  "Gravado com sucesso!";
                 $scope.removerImagem = false;
                 $scope.imagemBD = '/imagens/webindicadores/'+response.data;
-                console.log($scope.imagemDB);
+                $scope.processandoSalvar = false;
+
             }, function (response) {
                 if (response.status > 0){
                     $scope.errorMsg = response.status + ': ' + response.data;
+                    $scope.processandoSalvar = false;
                 }
             }, function (evt) {
                 //console.log(evt);
                 // Math.min is to fix IE which reports 200% sometimes
-                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             });
 
         }
@@ -64,12 +84,24 @@ cmsApp.controller('alterarWebindicadorCtrl', ['$scope', '$http', 'Upload', '$tim
         $scope.removerImagem = true;
     };
 
-    $scope.carregaImagem  = function(img) {
+    $scope.limparArquivo= function(){
+        $scope.fileArquivo = null;
+        $scope.arquivoBD = null;
+        $scope.removerArquivo = 1;
+    };
+
+
+    $scope.carregaImagem  = function(img, arquivo) {
         if(img!=''){
             $scope.imagemBD = 'imagens/webindicadores/xs-'+img;
             //console.log($scope.imagemBD);
         }
+        if(arquivo!=''){
+            $scope.arquivoBD = arquivo;
+            console.log($scope.baseBD);
+        }
     };
+
 
     $scope.validar = function(valor) {
         if(valor===undefined && $scope.form.$dirty){

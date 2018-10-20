@@ -30,7 +30,7 @@ class WebindicadorController extends Controller
             'lg' => ['width' => 150, 'height' => 101]
         ];
         $this->widthOriginal = true;
-	$this->pathArquivo = public_path().'/arquivos/rmd';
+	    $this->pathArquivo = public_path().'/arquivos/rmd';
     }
 
     function index()
@@ -79,20 +79,7 @@ class WebindicadorController extends Controller
 	$arquivo = $request->file('arquivo');
 
 	$successFile = true;
-        /*if($file!=null){
-            $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
-            $imagemCms = new ImagemCms();
-            $success = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
-            
-            if($success){
-                $data['webindicador']['imagem'] = $filename;
-                return $this->webindicador->create($data['webindicador']);
-            }else{
-                return "erro";
-            }
-        }*/
 
-///
 if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
@@ -150,22 +137,23 @@ if($file!=null){
         ])->firstOrFail();
 
         $file = $request->file('file');
-	$arquivo = $request->file('arquivo');
+	    $arquivo = $request->file('arquivo');
 
-        /*if($file!=null){
-            $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
-            $imagemCms = new ImagemCms();
-            $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $webindicador);
-            if($success){
-                $data['webindicador']['imagem'] = $filename;
-                $webindicador->update($data['webindicador']);
-                return $webindicador->imagem;
-            }else{
-                return "erro";
+        //remover imagem
+        if($data['removerImagem']){
+            $data['webindicador']['imagem'] = '';
+            if(file_exists($this->pathImagem."/".$webindicador->imagem)) {
+                unlink($this->pathImagem . "/" . $webindicador->imagem);
             }
-        }*/
+        }
 
-///
+        if($data['removerArquivo']){
+            $data['webindicador']['arquivo'] = '';
+            if(file_exists($this->pathArquivo."/".$webindicador->arquivo)) {
+                unlink($this->pathArquivo . "/" . $webindicador->arquivo);
+            }
+        }
+
 	$successFile = true;
         if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
@@ -193,23 +181,16 @@ if($file!=null){
         }
 ///
 
-        //remover imagem
-        if($data['removerImagem']){
-            $data['webindicador']['imagem'] = '';
-            if(file_exists($this->pathImagem."/".$webindicador->imagem)) {
-                unlink($this->pathImagem . "/" . $webindicador->imagem);
-            }
+        if($successFile && $successArquivo){
+
+            $download->update($data['webindicador']);
+            return $download->imagem;
+        }else{
+            return "erro";
         }
 
-	if($data['removerArquivo']){
-            $data['webindicador']['arquivo'] = '';
-            if(file_exists($this->pathArquivo."/".$webindicador->arquivo)) {
-                unlink($this->pathArquivo . "/" . $webindicador->arquivo);
-            }
-        }
-
-        $webindicador->update($data['webindicador']);
-        return "Gravado com sucesso";
+        /*$webindicador->update($data['webindicador']);
+        return "Gravado com sucesso";*/
     }
 
     public function excluir($id)
@@ -226,7 +207,11 @@ if($file!=null){
             $imagemCms = new ImagemCms();
             $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $webindicador);
         }
-                
+        if(!empty($webindicador->arquivo)) {
+            if (file_exists($this->pathArquivo . "/" . $webindicador->arquivo)) {
+                unlink($this->pathArquivo . "/" . $webindicador->arquivo);
+            }
+        }
 
         $webindicador->delete();
 

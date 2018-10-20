@@ -1,5 +1,4 @@
 cmsApp.controller('webindicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-    
 
     $scope.webindicadores = [];
     $scope.currentPage = 1;
@@ -15,7 +14,6 @@ cmsApp.controller('webindicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', 
     $scope.ordem = "titulo";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
-
 
     $scope.$watch('currentPage', function(){
         if($listar){
@@ -62,28 +60,6 @@ cmsApp.controller('webindicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', 
         });
     };
 
-    /*$scope.loadMore = function() {
-     $scope.currentPage +=1;
-     $http({
-     url: '/api/webindicadores/'+$scope.itensPerPage,
-     method: 'GET',
-     params: {page:  $scope.currentPage}
-     }).success(function (data, status, headers, config) {
-     $scope.lastPage = data.last_page;
-     $scope.totalItens = data.total;
-
-     console.log("total: "+$scope.totalItens);
-     console.log("lastpage: "+$scope.lastPage);
-     console.log("currentpage: "+$scope.currentPage);
-
-     $scope.webindicadores = data.data;
-
-     //$scope.webindicadores = $scope.webindicadores.concat(data.data);
-
-     });
-     };*/
-
-
 
     $scope.ordernarPor = function(ordem){
         $scope.ordem = ordem;
@@ -106,17 +82,15 @@ cmsApp.controller('webindicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
     //INSERIR/////////////////////////////
 
-    $scope.tinymceOptions = tinymceOptions;    
-
+    $scope.tinymceOptions = tinymceOptions;
     $scope.mostrarForm = false;
-
     $scope.processandoInserir = false;
 
-    $scope.inserir = function (file){
+    $scope.inserir = function (file, arquivo){
 
         $scope.mensagemInserir = "";
 
-        if(file==null){
+        if(file==null && arquivo==null){
             $scope.processandoInserir = true;
 
             //console.log($scope.webindicador);
@@ -130,20 +104,21 @@ cmsApp.controller('webindicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', 
                 $scope.processandoInserir = false;
              });
         }else{
-            file.upload = Upload.upload({
+            Upload.upload({
                 url: 'cms/inserir-webindicador',
-                data: {webindicador: $scope.webindicador, file: file},
-            });
-
-            file.upload.then(function (response) {
-                $timeout(function () {
-                    file.result = response.data;
-                });
-                delete $scope.webindicador;//limpa o form
-                $scope.picFile = null;//limpa o file
-                listarWebindicadores();
-                $scope.mensagemInserir =  "Gravado com sucesso!";
+                data: {webindicador: $scope.webindicador, file: file, arquivo: arquivo},
+            }).then(function (response) {
+                    $timeout(function () {
+                        $scope.result = response.data;
+                    });
+                    console.log(response.data);
+                    delete $scope.webindicador;//limpa o form
+                    $scope.picFile = null;//limpa o file
+                    $scope.fileArquivo = null;//limpa o file
+                    listarWebindicadores();
+                    $scope.mensagemInserir =  "Gravado com sucesso!";
             }, function (response) {
+                console.log(response.data);
                 if (response.status > 0){
                     $scope.errorMsg = response.status + ': ' + response.data;
                 }
@@ -200,3 +175,4 @@ cmsApp.controller('webindicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
 
 }]);
+

@@ -26,8 +26,6 @@
                             <li role="presentation" @if($key==0) active @endif><a href="#aba-{{$key}}"  aria-controls="aba-{{$key}}" role="tab" data-toggle="tab" style="clear: both;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{$menuIndicador->titulo}}</a></li>
                         @endforeach
                     </ul>
-
-
             </div>
             <div class="col-md-8">
 
@@ -35,7 +33,15 @@
 
                 @foreach($indicadores  as $key => $indicador)
                     <div role="tabpanel" class="tab-pane fade in @if($key==0) active @endif" id="aba-{{$key}}" aria-labelledby="home-tab">
-                        <iframe src="{{$indicador->url}}" frameborder="0" width="100%" height="1200"></iframe>
+                        <iframe
+                                @if($indicador->url)
+                                    src="{{$indicador->url}}"
+                                @else
+                                    src="arquivos/rmd/{{$indicador->arquivo}}"
+                                @endif
+                                frameborder="0" width="100%" height="1200">
+
+                        </iframe>
                     </div>
                 @endforeach
                 </div>

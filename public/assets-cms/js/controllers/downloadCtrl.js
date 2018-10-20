@@ -105,8 +105,6 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
                 $scope.processandoInserir = false;
              });
         }else{
-
-
             Upload.upload({
                 url: 'cms/inserir-download',
                 data: {download: $scope.download, file: file, arquivo: arquivo},
