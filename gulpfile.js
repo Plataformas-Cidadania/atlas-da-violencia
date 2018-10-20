@@ -67,6 +67,10 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/temaSerieCtrl.js', 'public/assets-cms/js/controllers/temaSerieCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTemaSerieCtrl.js', 'public/assets-cms/js/controllers/alterarTemaSerieCtrl.js');
 
+    //Filtros Series
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/filtroSerieCtrl.js', 'public/assets-cms/js/controllers/filtroSerieCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFiltroSerieCtrl.js', 'public/assets-cms/js/controllers/alterarFiltroSerieCtrl.js');
+
 
     //Videos
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/videoCtrl.js', 'public/assets-cms/js/controllers/videoCtrl.js');
@@ -112,6 +116,10 @@ elixir(function(mix) {
     //Fontes
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/fonteCtrl.js', 'public/assets-cms/js/controllers/fonteCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFonteCtrl.js', 'public/assets-cms/js/controllers/alterarFonteCtrl.js');
+
+    //Filtros
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/filtroCtrl.js', 'public/assets-cms/js/controllers/filtroCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFiltroCtrl.js', 'public/assets-cms/js/controllers/alterarFiltroCtrl.js');
 
     //Temas
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/temaCtrl.js', 'public/assets-cms/js/controllers/temaCtrl.js');

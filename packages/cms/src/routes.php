@@ -97,6 +97,18 @@ Route::group(['middleware' => 'cms'], function () {
         //Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
         Route::get('/cms/teste-excel/{id}/{arquivo}', 'Cms\Controllers\SerieController@testeExcel');
 
+        //FILTROS SERIES
+        Route::get('/cms/filtros-series/{serie_id}', 'Cms\Controllers\FiltroSerieController@index');
+        Route::get('/cms/listar-filtros-series', 'Cms\Controllers\FiltroSerieController@listar');
+        Route::post('/cms/inserir-filtro-serie', 'Cms\Controllers\FiltroSerieController@inserir');
+        //Route::get('/cms/filtro-serie/{id}', 'Cms\Controllers\FiltroSerieController@detalhar');
+        //Route::post('/cms/alterar-filtro-serie/{id}', 'Cms\Controllers\FiltroSerieController@alterar');
+        Route::get('/cms/excluir-filtro-serie/{id}', 'Cms\Controllers\FiltroSerieController@excluir');
+
+        //Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
+        //Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
+        Route::get('/cms/teste-excel/{id}/{arquivo}', 'Cms\Controllers\SerieController@testeExcel');
+
         //VIDEOS
         Route::get('/cms/videos', 'Cms\Controllers\VideoController@index');
         Route::get('/cms/listar-videos', 'Cms\Controllers\VideoController@listar');
@@ -184,6 +196,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/fonte/{id}', 'Cms\Controllers\FonteController@detalhar');
         Route::post('/cms/alterar-fonte/{id}', 'Cms\Controllers\FonteController@alterar');
         Route::get('/cms/excluir-fonte/{id}', 'Cms\Controllers\FonteController@excluir');
+
+        //FILTROS
+        Route::get('/cms/filtros', 'Cms\Controllers\FiltroController@index');
+        Route::get('/cms/listar-filtros', 'Cms\Controllers\FiltroController@listar');
+        Route::post('/cms/inserir-filtro', 'Cms\Controllers\FiltroController@inserir');
+        Route::get('/cms/filtro/{id}', 'Cms\Controllers\FiltroController@detalhar');
+        Route::post('/cms/alterar-filtro/{id}', 'Cms\Controllers\FiltroController@alterar');
+        Route::get('/cms/excluir-filtro/{id}', 'Cms\Controllers\FiltroController@excluir');
 
         //TEMAS
         Route::get('/cms/temas/{tema_id}', 'Cms\Controllers\TemaController@index');
