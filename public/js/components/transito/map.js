@@ -694,7 +694,9 @@ class Map extends React.Component {
 
             let marker = L.marker(L.latLng(data[i].lat, data[i].lng), { icon: icon })
             //let marker = L.marker(L.latLng(data[i].lat, data[i].lng))
-            .bindPopup('' + '<img width="24" height="24" src="img/leaflet/' + this.state.tipoIcone[data[i].tipo] + '"/> <strong>' + _this.state.tipo[data[i].tipo] + '</strong><hr style="margin:5px 0; padding:0;">' + '<strong>Data:</strong> ' + data[i].data + '<br>' + '<strong>Turno:</strong> ' + _this.state.turno[data[i].turno] + ' <br>' + '<strong>Faixa Etária:</strong> ' + _this.state.faixaEtaria[data[i].faixa_etaria] + ' <br>' + '<strong>Sexo:</strong> ' + _this.state.sexo[data[i].sexo] + ' <br>' + '<strong>Tipo Acidente:</strong> ' + _this.state.tipoAcidente[data[i].tipo_acidente] + ' ').openPopup();
+            .bindPopup('' +
+            /*'<img width="24" height="24" src="img/leaflet/'+this.state.tipoIcone[data[i].tipo]+'"/> <strong>'+_this.state.tipo[data[i].tipo]+'</strong><hr style="margin:5px 0; padding:0;">' +*/
+            '<img width="24" height="24" src="img/leaflet/' + data[i].imagem + '"/> <strong>' + _this.state.tipo[data[i].tipo] + '</strong><hr style="margin:5px 0; padding:0;">' + '<strong>Data:</strong> ' + data[i].data + '<br>' + '<strong>Turno:</strong> ' + _this.state.turno[data[i].turno] + ' <br>' + '<strong>Faixa Etária:</strong> ' + _this.state.faixaEtaria[data[i].faixa_etaria] + ' <br>' + '<strong>Sexo:</strong> ' + _this.state.sexo[data[i].sexo] + ' <br>' + '<strong>Tipo Acidente:</strong> ' + _this.state.tipoAcidente[data[i].tipo_acidente] + ' ').openPopup();
 
             marker.on('mouseover', function (e) {
                 //this.openPopup();

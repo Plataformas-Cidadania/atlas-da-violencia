@@ -181,11 +181,11 @@ class PontosController extends Controller
             geovalores.turno, 
             geovalores.data, 
             geovalores.hora, 
-            geovalores.faixa_etaria
+            geovalores.faixa_etaria            
             "))
             ->join('series', 'series.id', '=', 'geovalores.serie_id')
             ->join($tabelaTerritorioSelecionado, DB::Raw("ST_Contains($tabelaTerritorioSelecionado.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
-            ->leftJoin('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')//trocar serie_id por geovalor_id
+            ->leftJoin('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
             ->when(count($filters) > 0, function($query) use ($filters){
                 foreach ($filters as $filter) {
                     if(array_key_exists('valores', $filter)){
@@ -216,6 +216,16 @@ class PontosController extends Controller
             ->when($genders != null, function($query) use ($genders){
                 return $query->whereIn('geovalores.sexo', $genders);
             });*/
+
+            $icones = DB::table('geovalores')
+                ->select('geovalores.id', 'valores_filtros.imagem', 'valores_filtros.titulo')
+                ->join('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
+                ->join('valores_filtros', 'geovalores_valores_filtros.valor_filtro_id', '=', 'valores_filtros.id')
+                ->join('filtros_series', 'valores_filtros.filtro_id', '=', 'filtros_series.id')
+                ->get();
+
+            Log::info([$icones]);
+
 
         if(!$paginate){
             $valores = $valores->get();
@@ -548,8 +558,8 @@ class PontosController extends Controller
         return $valores;
     }
 
-    public function arraysTransito(){
-        $types = $this->types();
+    public function arraysTransito(Request $request){
+        $types = $this->types($request);
         $typesAccident = $this->typesAccident();
         $genders = $this->genders();
 
