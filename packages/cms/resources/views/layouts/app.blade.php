@@ -157,9 +157,9 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
                             <li>
                                 <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoors</a>
                             </li>
-                            <li>
+                            {{--<li>
                                 <a href="cms/quemsomos"><i class="fa fa-fw fa-building"></i> Modulos</a>
-                            </li>
+                            </li>--}}
                             <li>
                                 <a href="cms/apoios"><i class="fa fa-fw fa-anchor"></i> Apoio</a>
                             </li>
