@@ -16,9 +16,9 @@ class Filters extends React.Component {
         this.load = this.load.bind(this);
 
         this.checkFilter = this.checkFilter.bind(this);
-        this.checkType = this.checkType.bind(this);
+        /*this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
-        this.checkGender = this.checkGender.bind(this);
+        this.checkGender = this.checkGender.bind(this);*/
         this.checkRegion = this.checkRegion.bind(this);
         this.checkYear = this.checkYear.bind(this);
         this.checkMonth = this.checkMonth.bind(this);
@@ -38,22 +38,6 @@ class Filters extends React.Component {
         }
     }
 
-    checkFilter(filterId, valuesFilterSelected) {
-        console.log(valuesFilterSelected);
-        let filters = this.state.filtros;
-
-        filters.map(function (item) {
-            if (item.id == filterId) {
-                item.valores = valuesFilterSelected;
-            }
-        });
-
-        console.log('FILTERS:', filters);
-        this.setState({ filtros: filters }, function () {
-            this.props.checkFilter(this.state.filtros);
-        });
-    }
-
     load() {
         $.ajax({
             method: 'GET',
@@ -61,7 +45,7 @@ class Filters extends React.Component {
             data: {},
             cache: false,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
 
                 this.setState({ filtros: data, loading: false });
             }.bind(this),
@@ -72,36 +56,24 @@ class Filters extends React.Component {
         });
     }
 
-    checkType(types) {
-        this.setState({ types: types }, function () {
+    /*checkType(types){
+        this.setState({types: types}, function(){
             this.props.checkType(this.state.types);
             this.enableBtnFilter();
         });
     }
-
-    checkTypeAccident(types) {
-        this.setState({ typesAccident: types }, function () {
+     checkTypeAccident(types){
+        this.setState({typesAccident: types}, function(){
             this.props.checkTypeAccident(this.state.typesAccident);
             this.enableBtnFilter();
         });
     }
-
-    checkGender(types) {
-        this.setState({ genders: types }, function () {
+     checkGender(types){
+        this.setState({genders: types}, function(){
             this.props.checkGender(this.state.genders);
             this.enableBtnFilter();
         });
-    }
-
-    checkRegion(types, enableBtnFilter) {
-        this.setState({ regions: types }, function () {
-            this.props.checkRegion(this.state.regions);
-            //console.log('BTN FILTER', enableBtnFilter);
-            if (enableBtnFilter) {
-                this.enableBtnFilter();
-            }
-        });
-    }
+    }*/
 
     checkYear(year, enableBtnFilter = true) {
         this.setState({ year: year }, function () {
@@ -120,6 +92,33 @@ class Filters extends React.Component {
             if (enableBtnFilter) {
                 this.enableBtnFilter();
             }
+        });
+    }
+
+    checkRegion(types, enableBtnFilter) {
+        this.setState({ regions: types }, function () {
+            this.props.checkRegion(this.state.regions);
+            //console.log('BTN FILTER', enableBtnFilter);
+            if (enableBtnFilter) {
+                this.enableBtnFilter();
+            }
+        });
+    }
+
+    checkFilter(filterId, valuesFilterSelected) {
+        //console.log(valuesFilterSelected);
+        let filters = this.state.filtros;
+
+        filters.map(function (item) {
+            if (item.id == filterId) {
+                item.valores = valuesFilterSelected;
+            }
+        });
+
+        //console.log('FILTERS:', filters);
+        this.setState({ filtros: filters }, function () {
+            this.props.checkFilter(this.state.filtros);
+            this.enableBtnFilter();
         });
     }
 
@@ -203,42 +202,6 @@ class Filters extends React.Component {
                         React.createElement(
                             'legend',
                             null,
-                            'Locomo\xE7\xE3o'
-                        ),
-                        React.createElement(
-                            'div',
-                            { style: { margin: '10px' } },
-                            React.createElement(Type, { checkType: this.checkType, iconsType: this.iconsType })
-                        )
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'col-md-3' },
-                    React.createElement(
-                        'fieldset',
-                        null,
-                        React.createElement(
-                            'legend',
-                            null,
-                            'Tipo de Acidente'
-                        ),
-                        React.createElement(
-                            'div',
-                            { style: { margin: '10px' } },
-                            React.createElement(TypeAccident, { checkTypeAccident: this.checkTypeAccident })
-                        )
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'col-md-3' },
-                    React.createElement(
-                        'fieldset',
-                        null,
-                        React.createElement(
-                            'legend',
-                            null,
                             'Regi\xE3o'
                         ),
                         React.createElement(
@@ -249,24 +212,6 @@ class Filters extends React.Component {
                                 tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado,
                                 codigoTerritorioSelecionado: this.props.codigoTerritorioSelecionado
                             })
-                        )
-                    )
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'col-md-3' },
-                    React.createElement(
-                        'fieldset',
-                        null,
-                        React.createElement(
-                            'legend',
-                            null,
-                            'Sexo'
-                        ),
-                        React.createElement(
-                            'div',
-                            { style: { margin: '10px' } },
-                            React.createElement(Gender, { checkGender: this.checkGender })
                         )
                     )
                 ),

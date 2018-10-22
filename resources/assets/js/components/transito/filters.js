@@ -16,9 +16,9 @@ class Filters extends React.Component{
         this.load = this.load.bind(this);
 
         this.checkFilter = this.checkFilter.bind(this);
-        this.checkType = this.checkType.bind(this);
+        /*this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
-        this.checkGender = this.checkGender.bind(this);
+        this.checkGender = this.checkGender.bind(this);*/
         this.checkRegion = this.checkRegion.bind(this);
         this.checkYear = this.checkYear.bind(this);
         this.checkMonth = this.checkMonth.bind(this);
@@ -38,21 +38,7 @@ class Filters extends React.Component{
         }
     }
 
-    checkFilter(filterId, valuesFilterSelected){
-        console.log(valuesFilterSelected);
-        let filters = this.state.filtros;
 
-        filters.map(function(item){
-            if(item.id == filterId){
-                item.valores = valuesFilterSelected;
-            }
-        });
-
-        console.log('FILTERS:', filters);
-        this.setState({filtros: filters}, function(){
-            this.props.checkFilter(this.state.filtros);
-        });
-    }
 
     load(){
         $.ajax({
@@ -63,7 +49,7 @@ class Filters extends React.Component{
             },
             cache: false,
             success: function(data) {
-                console.log(data);
+                //console.log(data);
 
                 this.setState({filtros: data, loading: false});
 
@@ -75,7 +61,7 @@ class Filters extends React.Component{
         });
     }
 
-    checkType(types){
+    /*checkType(types){
         this.setState({types: types}, function(){
             this.props.checkType(this.state.types);
             this.enableBtnFilter();
@@ -94,17 +80,7 @@ class Filters extends React.Component{
             this.props.checkGender(this.state.genders);
             this.enableBtnFilter();
         });
-    }
-
-    checkRegion(types, enableBtnFilter){
-        this.setState({regions: types}, function(){
-            this.props.checkRegion(this.state.regions);
-            //console.log('BTN FILTER', enableBtnFilter);
-            if(enableBtnFilter){
-                this.enableBtnFilter();
-            }
-        });
-    }
+    }*/
 
     checkYear(year, enableBtnFilter = true){
         this.setState({year: year}, function(){
@@ -123,6 +99,33 @@ class Filters extends React.Component{
             if(enableBtnFilter){
                 this.enableBtnFilter();
             }
+        });
+    }
+
+    checkRegion(types, enableBtnFilter){
+        this.setState({regions: types}, function(){
+            this.props.checkRegion(this.state.regions);
+            //console.log('BTN FILTER', enableBtnFilter);
+            if(enableBtnFilter){
+                this.enableBtnFilter();
+            }
+        });
+    }
+
+    checkFilter(filterId, valuesFilterSelected){
+        //console.log(valuesFilterSelected);
+        let filters = this.state.filtros;
+
+        filters.map(function(item){
+            if(item.id == filterId){
+                item.valores = valuesFilterSelected;
+            }
+        });
+
+        //console.log('FILTERS:', filters);
+        this.setState({filtros: filters}, function(){
+            this.props.checkFilter(this.state.filtros);
+            this.enableBtnFilter();
         });
     }
 
@@ -177,7 +180,7 @@ class Filters extends React.Component{
                 <br/>
                 <div className="row">
 
-                    <div className="col-md-3">
+                    {/*<div className="col-md-3">
                         <fieldset>
                             <legend>Locomoção</legend>
                             <div style={{margin: '10px'}}>
@@ -193,7 +196,7 @@ class Filters extends React.Component{
                                 <TypeAccident checkTypeAccident={this.checkTypeAccident}/>
                             </div>
                         </fieldset>
-                    </div>
+                    </div>*/}
 
                     <div className="col-md-3">
                         <fieldset>
@@ -209,14 +212,14 @@ class Filters extends React.Component{
                     </div>
 
 
-                    <div className="col-md-3">
+                    {/*<div className="col-md-3">
                         <fieldset>
                             <legend>Sexo</legend>
                             <div style={{margin: '10px'}}>
                                 <Gender checkGender={this.checkGender}/>
                             </div>
                         </fieldset>
-                    </div>
+                    </div>*/}
 
                     {filters}
 

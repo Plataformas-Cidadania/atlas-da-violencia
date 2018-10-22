@@ -529,6 +529,7 @@ class Map extends React.Component {
             data: {
                 start: this.state.start,
                 end: this.state.end,
+                filters: this.state.filters,
                 types: this.state.types,
                 typesAccident: this.state.typesAccident,
                 genders: this.state.genders,

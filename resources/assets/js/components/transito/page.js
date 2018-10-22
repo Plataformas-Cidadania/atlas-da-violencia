@@ -359,17 +359,18 @@ class Page extends React.Component{
                                 values={this.state.valuesForGender}
                             />
                         </div>
-                        <div className="col-md-6">
-                            <ChartBarHtml5
-                                chart='2'
-                                type='1'
-                                height='350px'
-                                show="3"
-                                title="Regiões"
-                                values={this.state.valuesForRegions}
-                            />
-                        </div>
                     </div>
+                </div>
+                <br/><br/><br/><br/>
+                <div className="container">
+                    <ChartBarHtml5
+                        chart='2'
+                        type='1'
+                        height='350px'
+                        show="3"
+                        title="Regiões"
+                        values={this.state.valuesForRegions}
+                    />
                 </div>
                 <br/><br/><br/><br/>
                 <div className="container">
