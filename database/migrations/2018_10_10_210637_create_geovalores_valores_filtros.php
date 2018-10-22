@@ -16,8 +16,8 @@ class CreateGeovaloresValoresFiltros extends Migration
             $table->increments('id');
             $table->integer('valor_filtro_id')->unsigned();
             $table->foreign('valor_filtro_id')->references('id')->on('valores_filtros')->onDelete('cascade');
-            $table->integer('serie_id')->unsigned();
-            $table->foreign('serie_id')->references('id')->on('series')->onDelete('cascade');
+            $table->integer('geovalor_id')->unsigned();
+            $table->foreign('geovalor_id')->references('id')->on('geovalores')->onDelete('cascade');
             $table->integer('cmsuser_id')->unsigned();
             $table->foreign('cmsuser_id')->references('id')->on('cms_users')->onDelete('restrict');
             $table->timestamps();

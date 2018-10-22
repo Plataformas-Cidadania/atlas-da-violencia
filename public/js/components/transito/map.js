@@ -15,6 +15,7 @@ class Map extends React.Component {
             //month:props.month,
             start: props.start,
             end: props.end,
+            filters: props.filters,
             pais: 203, //utilizado para o mapa de calor
             tipoTerritorioSelecionado: props.tipoTerritorioSelecionado,
             codigoTerritorioSelecionado: props.codigoTerritorioSelecionado,
@@ -101,7 +102,8 @@ class Map extends React.Component {
                 codigoTerritorioSelecionado: props.codigoTerritorioSelecionado,
                 tipoTerritorioAgrupamento: props.tipoTerritorioAgrupamento,
                 start: props.start,
-                end: props.end
+                end: props.end,
+                filters: props.filters
             }, function () {
                 //this.mountPer();
                 console.log(this.state.start, this.state.end);
@@ -499,6 +501,7 @@ class Map extends React.Component {
             data: {
                 start: this.state.start,
                 end: this.state.end,
+                filters: this.state.filters,
                 types: this.state.types,
                 typesAccident: this.state.typesAccident,
                 genders: this.state.genders,

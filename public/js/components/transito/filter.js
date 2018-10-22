@@ -94,7 +94,7 @@ class Filter extends React.Component {
             //console.log('addType - typesSelected', typesSelected);
             this.setState({ showtypes: false });
             this.setState({ typesSelected: typesSelected }, function () {
-                this.props.checkFilter(this.state.typesSelected);
+                this.props.checkFilter(this.state.filter_id, this.state.typesSelected);
             });
         }
     }

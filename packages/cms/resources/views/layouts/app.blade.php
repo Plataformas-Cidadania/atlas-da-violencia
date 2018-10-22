@@ -203,6 +203,18 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
                         </ul>
                     </li>
 
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i
+                                    class="fa fa-fw fa-arrows-v"></i> Pontos <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo4" class="collapse">
+                            <li>
+                                <a href="cms/filtros"><i class="fa fa-fw fa-desktop"></i> Filtros</a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+
 
                     <!--<li>
                         <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>

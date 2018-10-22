@@ -15,6 +15,7 @@ class Filters extends React.Component{
 
         this.load = this.load.bind(this);
 
+        this.checkFilter = this.checkFilter.bind(this);
         this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
         this.checkGender = this.checkGender.bind(this);
@@ -35,6 +36,22 @@ class Filters extends React.Component{
         if(props.tipoTerritorioSelecionado != this.state.tipoTerritorioSelecionado){
             this.setState({tipoTerritorioSelecionado: props.tipoTerritorioSelecionado});
         }
+    }
+
+    checkFilter(filterId, valuesFilterSelected){
+        console.log(valuesFilterSelected);
+        let filters = this.state.filtros;
+
+        filters.map(function(item){
+            if(item.id == filterId){
+                item.valores = valuesFilterSelected;
+            }
+        });
+
+        console.log('FILTERS:', filters);
+        this.setState({filtros: filters}, function(){
+            this.props.checkFilter(this.state.filtros);
+        });
     }
 
     load(){
