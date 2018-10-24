@@ -219,13 +219,37 @@ class PontosController extends Controller
                 return $query->whereIn('geovalores.sexo', $genders);
             });*/
 
-            $icones = DB::table('geovalores')
-                ->select('geovalores.id', 'valores_filtros.imagem', 'valores_filtros.titulo')
-                ->join('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
-                ->join('valores_filtros', 'geovalores_valores_filtros.valor_filtro_id', '=', 'valores_filtros.id')
-                ->join('filtros_series', 'valores_filtros.filtro_id', '=', 'filtros_series.id')
+            $icones = DB::table('filtros')
+                ->select('filtros.titulo', 'valores_filtros.titulo', 'valores_filtros.imagem', 'geovalores.id')
+                ->join('valores_filtros', 'valores_filtros.filtro_id', '=', 'filtros.id')
+                ->join('geovalores_valores_filtros', 'geovalores_valores_filtros.valor_filtro_id', '=', 'valores_filtros.id')
+                ->join('geovalores', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
+                ->where([
+                    ['geovalores.serie_id', 1],
+                    ['geovalores.data', '>=', $start],
+                    ['geovalores.data', '<=', $end]
+                ])
+                ->when(count($filters) > 0, function($query1) use ($filters){
+                    return $query1->where(function($query) use ($filters){
+                        foreach ($filters as $filter) {
+                            if(array_key_exists('valores', $filter)){
+                                if(count($filter['valores']) > 0){
+                                    foreach ($filter['valores'] as $valor) {
+                                        $query->orWhere('geovalores_valores_filtros.valor_filtro_id', $valor['id']);
+                                    }
+                                }
+                            }
+                        }
+
+                        return $query;
+                    });
+
+                })
                 ->get();
 
+
+
+            Log::info(DB::getQueryLog());
             Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             Log::info([$icones]);
