@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -219,6 +220,14 @@ class PontosController extends Controller
                 return $query->whereIn('geovalores.sexo', $genders);
             });*/
 
+            if(!$paginate){
+                $valores = $valores->get();
+            }
+
+            if($paginate){
+                $valores = $valores->paginate(30);
+            }
+
             $icones = DB::table('filtros')
                 ->select('filtros.titulo', 'valores_filtros.titulo', 'valores_filtros.imagem', 'geovalores.id')
                 ->join('valores_filtros', 'valores_filtros.filtro_id', '=', 'filtros.id')
@@ -249,6 +258,17 @@ class PontosController extends Controller
 
 
 
+            foreach ($valores as $valor) {
+                Log::info([$valor]);
+                $valor->dados = [];
+                foreach ($icones as $icone) {
+                    if($icone->id == $valor->id){
+                        array_push($valor->dados, $icone);
+                    }
+                }
+            }
+
+
             Log::info(DB::getQueryLog());
             Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -257,13 +277,7 @@ class PontosController extends Controller
             Log::info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
 
-        if(!$paginate){
-            $valores = $valores->get();
-        }
 
-        if($paginate){
-            $valores = $valores->paginate(30);
-        }
 
         //Log::info($filters);
         //Log::info(DB::getQueryLog());
