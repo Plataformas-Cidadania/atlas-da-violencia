@@ -97,7 +97,7 @@ class PontosController extends Controller
             agrupamento.edterritorios_nome as nome,
             agrupamento.edterritorios_codigo as codigo,
             '$tipoTerritorioAgrupamento' as tipo_territorio,
-            count(geovalores.id) as total
+            COUNT(DISTINCT geovalores.id) as total
             "))
             ->join('series', 'series.id', '=', 'geovalores.serie_id')
             ->join("$tabelaTerritorioAgrupamento as agrupamento", DB::Raw("ST_Contains(agrupamento.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
@@ -138,12 +138,13 @@ class PontosController extends Controller
             ST_Y(agrupamento.edterritorios_centroide),
             agrupamento.edterritorios_sigla,
             agrupamento.edterritorios_nome,
-            agrupamento.edterritorios_codigo
+            agrupamento.edterritorios_codigo,
+            geovalores_valores_filtros.geovalor_id
             "))
             ->get();
 
-        Log::info($filters);
-        Log::info(DB::getQueryLog());
+        //Log::info($filters);
+        //Log::info(DB::getQueryLog());
 
         return ['valores' => $valores];
     }
@@ -183,6 +184,7 @@ class PontosController extends Controller
             geovalores.hora, 
             geovalores.faixa_etaria            
             "))
+            ->distinct()
             ->join('series', 'series.id', '=', 'geovalores.serie_id')
             ->join($tabelaTerritorioSelecionado, DB::Raw("ST_Contains($tabelaTerritorioSelecionado.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
             ->leftJoin('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
@@ -224,7 +226,11 @@ class PontosController extends Controller
                 ->join('filtros_series', 'valores_filtros.filtro_id', '=', 'filtros_series.id')
                 ->get();
 
+            Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+            Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             Log::info([$icones]);
+            Log::info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            Log::info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
 
         if(!$paginate){
