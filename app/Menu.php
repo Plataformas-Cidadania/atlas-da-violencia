@@ -9,6 +9,6 @@ class Menu extends Model
     protected $table = 'menu';
 
     protected $fillable = [
-        'title', 'menu_id',
+        'imagem', 'title', 'url', 'status', 'posicao', 'idioma_sigla', 'accesskey',
     ];
 }

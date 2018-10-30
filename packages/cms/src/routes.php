@@ -46,6 +46,17 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-noticia/{id}', 'Cms\Controllers\NoticiaController@alterar');
         Route::get('/cms/excluir-noticia/{id}', 'Cms\Controllers\NoticiaController@excluir');
 
+        //MENUS
+        Route::get('/cms/menus', 'Cms\Controllers\MenuController@index');
+        Route::get('/cms/listar-menus', 'Cms\Controllers\MenuController@listar');
+        Route::post('/cms/inserir-menu', 'Cms\Controllers\MenuController@inserir');
+        Route::get('/cms/menu/{id}', 'Cms\Controllers\MenuController@detalhar');
+        Route::post('/cms/alterar-menu/{id}', 'Cms\Controllers\MenuController@alterar');
+        Route::get('/cms/excluir-menu/{id}', 'Cms\Controllers\MenuController@excluir');
+        Route::get('/cms/status-menu/{id}', 'Cms\Controllers\MenuController@status');
+        Route::get('/cms/positionUp-menu/{id}', 'Cms\Controllers\MenuController@positionUp');
+        Route::get('/cms/positionDown-menu/{id}', 'Cms\Controllers\MenuController@positionDown');
+
         //ARTIGOS
         Route::get('/cms/artigos', 'Cms\Controllers\ArtigoController@index');
         Route::get('/cms/listar-artigos', 'Cms\Controllers\ArtigoController@listar');

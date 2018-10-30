@@ -155,6 +155,9 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
                                     class="fa fa-fw fa-arrows-v"></i> Layout <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo2" class="collapse">
                             <li>
+                                <a href="cms/menus"><i class="fa fa-fw fa-bars"></i> Menu</a>
+                            </li>
+                            <li>
                                 <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoors</a>
                             </li>
                             {{--<li>

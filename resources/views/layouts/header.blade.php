@@ -1,4 +1,5 @@
 <?php
+$menus = DB::table('menu')->where('status', 1)->where('idioma_sigla', $lang)->orderBy('posicao')->get();
 $setting = DB::table('settings')->orderBy('id', 'desc')->first();
 $lang =  App::getLocale();
 $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
@@ -51,7 +52,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 </div>
                 <div class="col-md-5 col-sm-7 hidden-xs text-right col-md-offset-4 box-logo">
                     @foreach($apoios as $apoio)
-                    <a href="{{$apoio->url}}" target="_blank"><img srcset="imagens/apoios/{{$apoio->imagem}}" alt="ipea" title="ipea" height="51" style="margin-left: 50px;"></a>
+                        <a href="{{$apoio->url}}" target="_blank"><img srcset="imagens/apoios/{{$apoio->imagem}}" alt="ipea" title="ipea" height="51" style="margin-left: 50px;"></a>
                     @endforeach
                 </div>
             </div>
@@ -75,7 +76,12 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
             </div>
             <nav class="menu-position collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation" >
                 <ul id="iniciodomenu" class="nav nav-pills nav-justified">
-                    <li role="presentation"><a href="http://{{$base_href}}" accesskey="h" @if($rota=='/') class="corrente" @endif>@lang('links.home')</a></li>
+                    @foreach($menus as $menu)
+                        <li role="presentation"><a href="{{$menu->url}}" accesskey="h" @if($rota==$menu->url) class="corrente" @endif>{{$menu->title}}</a>
+                    @endforeach
+
+
+                    {{--<li role="presentation"><a href="http://{{$base_href}}" accesskey="h" @if($rota=='/') class="corrente" @endif>@lang('links.home')</a></li>
                     <li role="presentation"><a href="quem" accesskey="q" @if($rota=='quem') class="corrente" @endif>@lang('links.about')</a></li>
                     <li role="presentation"><a href="filtros-series" accesskey="q" @if($rota=='filtros-series') class="corrente" @endif>@lang('links.researches')</a></li>
                     @if($indicadores)
@@ -84,7 +90,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     <li role="presentation"><a href="artigos/0/todos" accesskey="n" @if($rota=='artigos/{origem_id}/{titulo}') class="corrente" @endif>@lang('links.articles')</a></li>
                     <li role="presentation"><a href="videos" accesskey="q" @if($rota=='videos') class="corrente" @endif>@lang('links.videos')</a></li>
                     <li role="presentation"><a href="downloads" accesskey="q" @if($rota=='downloads') class="corrente" @endif>@lang('links.downloads')</a></li>
-                    <li role="presentation"><a href="contato" accesskey="c" @if($rota=='contato') class="corrente" @endif>@lang('links.contact')</a></li>
+                    <li role="presentation"><a href="contato" accesskey="c" @if($rota=='contato') class="corrente" @endif>@lang('links.contact')</a></li>--}}
                 </ul>
             </nav>
         </nav>
