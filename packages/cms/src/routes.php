@@ -96,6 +96,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-idioma-tema/{id}', 'Cms\Controllers\IdiomaTemaController@alterar');
         Route::get('/cms/excluir-idioma-tema/{id}', 'Cms\Controllers\IdiomaTemaController@excluir');
 
+        //IDIOMAS CONSULTAS
+        Route::get('/cms/idiomas-consultas/{consulta_id}', 'Cms\Controllers\IdiomaConsultaController@index');
+        Route::get('/cms/listar-idiomas-consultas', 'Cms\Controllers\IdiomaConsultaController@listar');
+        Route::post('/cms/inserir-idioma-consulta', 'Cms\Controllers\IdiomaConsultaController@inserir');
+        Route::get('/cms/idioma-consulta/{id}', 'Cms\Controllers\IdiomaConsultaController@detalhar');
+        Route::post('/cms/alterar-idioma-consulta/{id}', 'Cms\Controllers\IdiomaConsultaController@alterar');
+        Route::get('/cms/excluir-idioma-consulta/{id}', 'Cms\Controllers\IdiomaConsultaController@excluir');
+
         //TEMAS SERIES
         Route::get('/cms/temas-series/{serie_id}', 'Cms\Controllers\TemaSerieController@index');
         Route::get('/cms/listar-temas-series', 'Cms\Controllers\TemaSerieController@listar');
@@ -248,6 +256,15 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/webindicador/{id}', 'Cms\Controllers\WebindicadorController@detalhar');
         Route::post('/cms/alterar-webindicador/{id}', 'Cms\Controllers\WebindicadorController@alterar');
         Route::get('/cms/excluir-webindicador/{id}', 'Cms\Controllers\WebindicadorController@excluir');
+        
+        //CONSULTAS
+        Route::get('/cms/consultas', 'Cms\Controllers\ConsultaController@index');
+        Route::get('/cms/listar-consultas', 'Cms\Controllers\ConsultaController@listar');
+        Route::post('/cms/inserir-consulta', 'Cms\Controllers\ConsultaController@inserir');
+        Route::get('/cms/consulta/{id}', 'Cms\Controllers\ConsultaController@detalhar');
+        Route::post('/cms/alterar-consulta/{id}', 'Cms\Controllers\ConsultaController@alterar');
+        Route::get('/cms/excluir-consulta/{id}', 'Cms\Controllers\ConsultaController@excluir');
+        Route::get('/cms/status-consulta/{id}', 'Cms\Controllers\ConsultaController@status');
         
 
         //APOIOS

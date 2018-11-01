@@ -67,6 +67,10 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaTemaCtrl.js', 'public/assets-cms/js/controllers/idiomaTemaCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaTemaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaTemaCtrl.js');
 
+    //Idiomas Consultas
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaConsultaCtrl.js', 'public/assets-cms/js/controllers/idiomaConsultaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaConsultaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaConsultaCtrl.js');
+
     //Temas Series
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/temaSerieCtrl.js', 'public/assets-cms/js/controllers/temaSerieCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTemaSerieCtrl.js', 'public/assets-cms/js/controllers/alterarTemaSerieCtrl.js');
@@ -137,9 +141,13 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/cmsUserCtrl.js', 'public/assets-cms/js/controllers/cmsUserCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarCmsUserCtrl.js', 'public/assets-cms/js/controllers/alterarCmsUserCtrl.js');
 
-
+    //Webindicador
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/webindicadorCtrl.js', 'public/assets-cms/js/controllers/webindicadorCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarWebindicadorCtrl.js', 'public/assets-cms/js/controllers/alterarWebindicadorCtrl.js');
+
+    //Consultas
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/consultaCtrl.js', 'public/assets-cms/js/controllers/consultaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarConsultaCtrl.js', 'public/assets-cms/js/controllers/alterarConsultaCtrl.js');
     
 
     //Apoios

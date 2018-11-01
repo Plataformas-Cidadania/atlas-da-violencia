@@ -85,7 +85,7 @@ class TemaController extends Controller
             ->where([
                 [$request->campoPesquisa, 'ilike', "%$request->dadoPesquisa%"],
                 ['temas.tema_id', '=', $request->tema_id],
-		['idiomas_temas.idioma_sigla', 'pt_BR'],
+		        ['idiomas_temas.idioma_sigla', 'pt_BR'],
             ])
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
@@ -123,10 +123,10 @@ class TemaController extends Controller
             
             if($success){
                 $data['tema']['imagem'] = $filename;                
-		$inserir = $this->tema->create($data['tema']);
-	        $data['idioma']['tema_id'] = $inserir->id;
-       		$inserir2 = $this->idiomaTema->create($data['idioma']);
-	        return $inserir;
+		        $inserir = $this->tema->create($data['tema']);
+	            $data['idioma']['tema_id'] = $inserir->id;
+       		    $inserir2 = $this->idiomaTema->create($data['idioma']);
+	            return $inserir;
 
             }else{
                 return "erro";

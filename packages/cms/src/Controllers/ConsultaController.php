@@ -11,18 +11,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 
-class WebindicadorController extends Controller
+class ConsultaController extends Controller
 {
     
     
 
     public function __construct()
     {
-        $this->webindicador = new \App\Webindicador;
+        $this->consulta = new \App\Consulta;
+        $this->idiomaConsulta = new \App\IdiomaConsulta;
         $this->campos = [
-            'imagem', 'titulo', 'url', 'idioma_sigla', 'arquivo', 'cmsuser_id',
+            'imagem', 'periodicidade_id', 'tema_id', 'unidade_id', 'arquivo', 'titulo', 'url', 'cmsuser_id',
         ];
-        $this->pathImagem = public_path().'/imagens/webindicadores';
+        $this->pathImagem = public_path().'/imagens/consultas';
         $this->sizesImagem = [
             'xs' => ['width' => 34, 'height' => 23],
             'sm' => ['width' => 50, 'height' => 34],
@@ -30,16 +31,25 @@ class WebindicadorController extends Controller
             'lg' => ['width' => 150, 'height' => 101]
         ];
         $this->widthOriginal = true;
-	    $this->pathArquivo = public_path().'/arquivos/rmd';
+	    $this->pathArquivo = public_path().'/arquivos/consultas';
     }
 
     function index()
     {
 
-        $webindicadores = \App\Webindicador::all();
+        $consultas = \App\Consulta::all();
+        $periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
+        $temas = \App\Tema::lists('tema', 'id')->all();
+        $unidades = \App\Unidade::lists('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::webindicador.listar', ['webindicadores' => $webindicadores, 'idiomas' => $idiomas ]);
+        return view('cms::consulta.listar', [
+            'consultas' => $consultas,
+            'periodicidades' => $periodicidades,
+            'temas' => $temas,
+            'unidades' => $unidades,
+            'idiomas' => $idiomas
+        ]);
     }
 
     public function listar(Request $request)
@@ -51,14 +61,18 @@ class WebindicadorController extends Controller
 
         $campos = explode(", ", $request->campos);
 
-        $webindicadores = DB::table('webindicadores')
+        $consultas = DB::table('consultas')
             ->select($campos)
+            ->join('idiomas_consultas', 'idiomas_consultas.consulta_id', '=', 'consultas.id')
             ->where([
                 [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
+                ['idiomas_consultas.idioma_sigla', 'pt_BR'],
             ])
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
-        return $webindicadores;
+
+
+        return $consultas;
     }
 
     public function inserir(Request $request)
@@ -66,26 +80,26 @@ class WebindicadorController extends Controller
 
         $data = $request->all();
 
-        $data['webindicador'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['consulta'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['idioma'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
-                $data['webindicador'] += [$campo => ''];
+                $data['consulta'] += [$campo => ''];
             }
         }
 
         $file = $request->file('file');
-	$arquivo = $request->file('arquivo');
+	    $arquivo = $request->file('arquivo');
 
-	$successFile = true;
-
-if($file!=null){
+	    $successFile = true;
+        if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
             $successFile = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
             if($successFile){
-                $data['webindicador']['imagem'] = $filename;
+                $data['consulta']['imagem'] = $filename;
             }
         }
 
@@ -94,42 +108,59 @@ if($file!=null){
             $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
             $successArquivo = $arquivo->move($this->pathArquivo, $filenameArquivo);
             if($successArquivo){
-                $data['webindicador']['arquivo'] = $filenameArquivo;
+                $data['consulta']['arquivo'] = $filenameArquivo;
             }
         }
 
-
         if($successFile && $successArquivo){
-            return $this->webindicador->create($data['webindicador']);
+            $inserir = $this->consulta->create($data['consulta']);
+            $data['idioma']['consulta_id'] = $inserir->id;
+            $inserir2 = $this->idiomaConsulta->create($data['idioma']);
         }else{
             return "erro";
         }
+
+
+        return $inserir;
+
+        //return $this->consulta->create($data['consulta']);
 
     }
 
     public function detalhar($id)
     {
-        $webindicador = $this->webindicador->where([
+        $consulta = $this->consulta->where([
             ['id', '=', $id],
         ])->firstOrFail();
+
+        $periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
+        $temas = \App\Tema::lists('tema', 'id')->all();
+        $unidades = \App\Unidade::lists('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
-        return view('cms::webindicador.detalhar', ['webindicador' => $webindicador, 'idiomas' => $idiomas]);
+
+        return view('cms::consulta.detalhar', [
+            'consulta' => $consulta,
+            'periodicidades' => $periodicidades,
+            'temas' => $temas,
+            'unidades' => $unidades,
+            'idiomas' => $idiomas
+        ]);
     }
 
     public function alterar(Request $request, $id)
     {
         $data = $request->all();
-        $data['webindicador'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['consulta'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
                 if($campo!='imagem' && $campo!='arquivo'){
-                    $data['webindicador'] += [$campo => ''];
+                    $data['consulta'] += [$campo => ''];
                 }
             }
         }
-        $webindicador = $this->webindicador->where([
+        $consulta = $this->consulta->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
@@ -138,16 +169,16 @@ if($file!=null){
 
         //remover imagem
         if($data['removerImagem']){
-            $data['webindicador']['imagem'] = '';
-            if(file_exists($this->pathImagem."/".$webindicador->imagem)) {
-                unlink($this->pathImagem . "/" . $webindicador->imagem);
+            $data['consulta']['imagem'] = '';
+            if(file_exists($this->pathImagem."/".$consulta->imagem)) {
+                unlink($this->pathImagem . "/" . $consulta->imagem);
             }
         }
 
         if($data['removerArquivo']){
-            $data['webindicador']['arquivo'] = '';
-            if(file_exists($this->pathArquivo."/".$webindicador->arquivo)) {
-                unlink($this->pathArquivo . "/" . $webindicador->arquivo);
+            $data['consulta']['arquivo'] = '';
+            if(file_exists($this->pathArquivo."/".$consulta->arquivo)) {
+                unlink($this->pathArquivo . "/" . $consulta->arquivo);
             }
         }
 
@@ -155,9 +186,9 @@ if($file!=null){
         if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
-            $successFile = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $webindicador);
+            $successFile = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $consulta);
             if($successFile){
-                $data['webindicador']['imagem'] = $filename;
+                $data['consulta']['imagem'] = $filename;
             }
         }
 	$successArquivo = true;
@@ -165,14 +196,14 @@ if($file!=null){
             $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
             $successArquivo = $arquivo->move($this->pathArquivo, $filenameArquivo);
             if($successArquivo){
-                $data['webindicador']['arquivo'] = $filenameArquivo;
+                $data['consulta']['arquivo'] = $filenameArquivo;
             }
         }
 
         if($successFile && $successArquivo){
 
-            $webindicador->update($data['webindicador']);
-            return $webindicador->imagem;
+            $consulta->update($data['consulta']);
+            return $consulta->imagem;
         }else{
             return "erro";
         }
@@ -180,13 +211,13 @@ if($file!=null){
 
         if($successFile && $successArquivo){
 
-            $download->update($data['webindicador']);
+            $download->update($data['consulta']);
             return $download->imagem;
         }else{
             return "erro";
         }
 
-        /*$webindicador->update($data['webindicador']);
+        /*$consulta->update($data['consulta']);
         return "Gravado com sucesso";*/
     }
 
@@ -194,23 +225,30 @@ if($file!=null){
     {
         //Auth::loginUsingId(2);
 
-        $webindicador = $this->webindicador->where([
+        $consulta = $this->consulta->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
         //remover imagens        
-        if(!empty($webindicador->imagem)){
+        if(!empty($consulta->imagem)){
             //remover imagens
             $imagemCms = new ImagemCms();
-            $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $webindicador);
+            $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $consulta);
         }
-        if(!empty($webindicador->arquivo)) {
-            if (file_exists($this->pathArquivo . "/" . $webindicador->arquivo)) {
-                unlink($this->pathArquivo . "/" . $webindicador->arquivo);
+        if(!empty($consulta->arquivo)) {
+            if (file_exists($this->pathArquivo . "/" . $consulta->arquivo)) {
+                unlink($this->pathArquivo . "/" . $consulta->arquivo);
             }
         }
 
-        $webindicador->delete();
+        $consulta->delete();
+
+    }
+    public function status($id)
+    {
+        $tipo_atual = DB::table('consultas')->where('id', $id)->first();
+        $status = $tipo_atual->status == 0 ? 1 : 0;
+        DB::table('consultas')->where('id', $id)->update(['status' => $status]);
 
     }
 

@@ -31,7 +31,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 <li><a href="#" id="bt_contraste" ng-click="setAltoContraste()" ng-class="{'alto-contraste': altoContrasteAtivo}"><i class="fa fa-adjust" aria-hidden="true"></i> @lang('links.high-contrast')</a></li>
 
                 @foreach($idiomas as $idioma)
-                    <li><a href="lang/{{$idioma->sigla}}"><img src="imagens/idiomas/xs-{{$idioma->imagem}}" alt=""></a></li>
+                    <li><a href="lang/{{$idioma->sigla}}"><img src="imagens/idiomas/xs-{{$idioma->imagem}}" alt="{{$idioma->sigla}}" title="{{$idioma->sigla}}"></a></li>
                 @endforeach
             </ul>
 
@@ -77,7 +77,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
             <nav class="menu-position collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation" >
                 <ul id="iniciodomenu" class="nav nav-pills nav-justified">
                     @foreach($menus as $menu)
-                        <li role="presentation"><a href="{{$menu->url}}" accesskey="h" @if($rota==$menu->url) class="corrente" @endif>{{$menu->title}}</a>
+                        <li role="presentation"><a href="{{$menu->url}}" accesskey="{{$menu->accesskey}}" @if($rota==$menu->url) class="corrente" @endif>{{$menu->title}}</a>
                     @endforeach
 
 

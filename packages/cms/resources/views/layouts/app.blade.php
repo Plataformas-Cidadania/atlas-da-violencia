@@ -94,11 +94,13 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
                         <a href="cms/series"><i class="fa fa-cubes" aria-hidden="true"></i> Séries</a>
                     </li>
 
+                    <li>
+                        <a href="cms/consultas"><i class="fa fa-cubes" aria-hidden="true"></i> Consultas</a>
+                    </li>
+
 
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i
-                                    class="fa fa-fw fa-arrows-v"></i> Conteudo <i
-                                    class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Conteudo <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
                                 <a href="cms/noticias"><i class="fa fa-fw fa-newspaper-o"></i> Notícias</a>
