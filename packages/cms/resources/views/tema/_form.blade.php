@@ -14,6 +14,7 @@ null, ['class'=>"form-control width-medio <% validar(tema.tema_id) %>", 'ng-mode
 
 {!! Form::hidden('tema_id', $tema_id, ['class'=>"form-control width-grande <% validar(tema.tema_id) %>", 'ng-model'=>'tema.tema_id', 'ng-required'=>'true', 'init-model'=>'tema.tema_id', 'placeholder' => '']) !!}<br>
 
-
+@if(empty($tema))
 {!! Form::label('titulo', 'Tema *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(idioma.titulo) %>", 'ng-model'=>'idioma.titulo', 'ng-required'=>'true', 'init-model'=>'idioma.titulo', 'placeholder' => '']) !!}<br>
+@endif

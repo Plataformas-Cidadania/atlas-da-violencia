@@ -304,10 +304,54 @@
                     </div>
                 @endif
 
+                <style>
+                    .img-user{
+                        border-radius: 50%;
+                        width: 40px;
+                        border: solid 2px #CCCCCC;
+                        margin-right: 10px;
+                    }
+                </style>
 
                 {{--////////////////////Equipe START////////////////////--}}
                     @foreach($versoes as $versao)
+                        <?php
+                        $cordenadores = DB::table('integrantes')
+                            ->select('integrantes.id', 'integrantes.titulo', 'integrantes.imagem', 'integrantes.url')
+                            ->join('items_versoes', 'integrantes.id', '=', 'items_versoes.integrante_id')
+                            ->where('items_versoes.versao_id', $versao->id)
+                            ->where('items_versoes.tipo_id', 1)
+                            ->get();
+                        $equipe = DB::table('integrantes')
+                            ->select('integrantes.id', 'integrantes.titulo', 'integrantes.imagem', 'integrantes.url')
+                            ->join('items_versoes', 'integrantes.id', '=', 'items_versoes.integrante_id')
+                            ->where('items_versoes.versao_id', $versao->id)
+                            ->where('items_versoes.tipo_id', 2)
+                            ->get();
+
+                        ?>
                         <h2>{{$versao->titulo}}</h2>
+
+
+                                <div><strong>Coordenadores:</strong>
+                                    @foreach($cordenadores as $cordenador)
+                                        <a href="{{$cordenador->url}}">
+                                            <p><img src="/imagens/integrantes/xs-{{$cordenador->imagem}}" alt="{{$cordenador->titulo}}" title="{{$cordenador->titulo}}" class="img-user">{{$cordenador->titulo}}</p>
+                                        </a>
+                                    @endforeach
+                                </div>
+
+
+
+                                <div><strong>Equipe Técnica:</strong>
+                                    @foreach($equipe as $integrante)
+                                        <a href="{{$cordenador->url}}">
+                                             <p>{{$integrante->titulo}}</p>
+                                        </a>
+                                    @endforeach
+                                </div>
+
+
                     @endforeach
                 {{--////////////////////Equipe END////////////////////--}}
 

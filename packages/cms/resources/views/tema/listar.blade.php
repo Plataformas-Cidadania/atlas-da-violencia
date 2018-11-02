@@ -103,7 +103,7 @@
                             <td><a href="cms/idiomas-temas/<% tema.id %>"><% tema.idioma_sigla %></a></td>
                             <td class="text-right">
                                 <div>
-                                    {{--<a href="cms/tema/<% tema.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;--}}
+                                    <a href="cms/tema/<% tema.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a href="cms/idiomas-temas/<% tema.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/temas/<% tema.id %>"><i class="fa fa-folder-open fa-2x" title="SubTemas"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(tema.id, tema.tema, tema.imagem)"></i></a>

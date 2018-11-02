@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarTemaCtrl.js') !!}
     <div ng-controller="alterarTemaCtrl">
         <div class="box-padrao">
-            <h1><a href="cms/temas"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Temas</h1>
+            <h1><a href="javascript:history.back();"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Temas</h1>
             <?php //print_r($tema);?>
             <div ng-init="carregaImagem('{{$tema->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>
