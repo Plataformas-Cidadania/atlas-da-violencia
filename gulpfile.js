@@ -157,6 +157,18 @@ elixir(function(mix) {
     //Settings
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarSettingCtrl.js', 'public/assets-cms/js/controllers/alterarSettingCtrl.js');
 
+    //Integrantes
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/integranteCtrl.js', 'public/assets-cms/js/controllers/integranteCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIntegranteCtrl.js', 'public/assets-cms/js/controllers/alterarIntegranteCtrl.js');
+
+    //Versoes
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/versaoCtrl.js', 'public/assets-cms/js/controllers/versaoCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarVersaoCtrl.js', 'public/assets-cms/js/controllers/alterarVersaoCtrl.js');
+
+    //Items Versao
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/itemVersaoCtrl.js', 'public/assets-cms/js/controllers/itemVersaoCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarItemVersaoCtrl.js', 'public/assets-cms/js/controllers/alterarItemVersaoCtrl.js');
+
     //FIM CMS///////////////////////////////////////////////////////////////////
     
 

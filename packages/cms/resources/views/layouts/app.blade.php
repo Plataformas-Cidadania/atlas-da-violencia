@@ -219,6 +219,20 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
 
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-user"></i> Equipe <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo5" class="collapse">
+                            <li>
+                                <a href="cms/quemsomos/1/institucional">Descrição Equipe</a>
+                            </li>
+                            <li>
+                                <a href="cms/integrantes">Integrantes</a>
+                            </li>
+                            <li>
+                                <a href="cms/versoes">Versões</a>
+                            </li>
+                        </ul>
+                    </li>
 
 
                     <!--<li>

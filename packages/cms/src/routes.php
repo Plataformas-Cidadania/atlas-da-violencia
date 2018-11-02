@@ -278,6 +278,34 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/positionUp-apoio/{id}', 'Cms\Controllers\ApoioController@positionUp');
         Route::get('/cms/positionDown-apoio/{id}', 'Cms\Controllers\ApoioController@positionDown');
 
+        //INTEGRANTES
+        Route::get('/cms/integrantes', 'Cms\Controllers\IntegranteController@index');
+        Route::get('/cms/listar-integrantes', 'Cms\Controllers\IntegranteController@listar');
+        Route::post('/cms/inserir-integrante', 'Cms\Controllers\IntegranteController@inserir');
+        Route::get('/cms/integrante/{id}', 'Cms\Controllers\IntegranteController@detalhar');
+        Route::post('/cms/alterar-integrante/{id}', 'Cms\Controllers\IntegranteController@alterar');
+        Route::get('/cms/excluir-integrante/{id}', 'Cms\Controllers\IntegranteController@excluir');
+
+        //VERSOES
+        Route::get('/cms/versoes', 'Cms\Controllers\VersaoController@index');
+        Route::get('/cms/listar-versoes', 'Cms\Controllers\VersaoController@listar');
+        Route::post('/cms/inserir-versao', 'Cms\Controllers\VersaoController@inserir');
+        Route::get('/cms/versao/{id}', 'Cms\Controllers\VersaoController@detalhar');
+        Route::post('/cms/alterar-versao/{id}', 'Cms\Controllers\VersaoController@alterar');
+        Route::get('/cms/excluir-versao/{id}', 'Cms\Controllers\VersaoController@excluir');
+        Route::get('/cms/status-versao/{id}', 'Cms\Controllers\VersaoController@status');
+        Route::get('/cms/positionUp-versao/{id}', 'Cms\Controllers\VersaoController@positionUp');
+        Route::get('/cms/positionDown-versao/{id}', 'Cms\Controllers\VersaoController@positionDown');
+
+        //ITEMS VERSAO
+        Route::get('/cms/items-versao/{versao_id}', 'Cms\Controllers\ItemVersaoController@index');
+        Route::get('/cms/listar-items-versao', 'Cms\Controllers\ItemVersaoController@listar');
+        Route::post('/cms/inserir-item-versao', 'Cms\Controllers\ItemVersaoController@inserir');
+        Route::get('/cms/item-versao/{id}', 'Cms\Controllers\ItemVersaoController@detalhar');
+        Route::post('/cms/alterar-item-versao/{id}', 'Cms\Controllers\ItemVersaoController@alterar');
+        Route::get('/cms/excluir-item-versao/{id}', 'Cms\Controllers\ItemVersaoController@excluir');
+        Route::get('/cms/status-item-versao/{id}', 'Cms\Controllers\ItemVersaoController@status');
+
         //Logs
         Route::get('/cms/logs', 'Cms\Controllers\LogController@index');
 

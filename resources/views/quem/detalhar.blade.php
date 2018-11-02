@@ -303,6 +303,16 @@
                         </div>
                     </div>
                 @endif
+
+
+                {{--////////////////////Equipe START////////////////////--}}
+                    @foreach($versoes as $versao)
+                        <h2>{{$versao->titulo}}</h2>
+                    @endforeach
+                {{--////////////////////Equipe END////////////////////--}}
+
+
+
     <style>
         .box-marca h5{
             font-weight: bold;

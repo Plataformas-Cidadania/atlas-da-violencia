@@ -29,6 +29,8 @@ class QuemController extends Controller
         $printingsManual = DB::table('printings')->where('type', 0)->first();
         $printings = DB::table('printings')->where('type','!=', 0)->get();
 
+        $versoes = DB::table('versoes')->where('idioma_sigla', $lang)->orderBy('posicao')->get();
+
         if($id){
             $quem = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('id', $id)->orderBy('titulo')->first();
             if(count($quem)==0){
@@ -45,7 +47,8 @@ class QuemController extends Controller
                 'artworkVertJpg' => $artworkVertJpg,
                 'directivesType' => $directivesType,
                 'printingsManual' => $printingsManual,
-                'printings' => $printings
+                'printings' => $printings,
+                'versoes' => $versoes
             ]);
 
         }
