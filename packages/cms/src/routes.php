@@ -96,6 +96,22 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-idioma-tema/{id}', 'Cms\Controllers\IdiomaTemaController@alterar');
         Route::get('/cms/excluir-idioma-tema/{id}', 'Cms\Controllers\IdiomaTemaController@excluir');
 
+        //IDIOMAS UNIDADES
+        Route::get('/cms/idiomas-unidades/{unidade_id}', 'Cms\Controllers\IdiomaUnidadeController@index');
+        Route::get('/cms/listar-idiomas-unidades', 'Cms\Controllers\IdiomaUnidadeController@listar');
+        Route::post('/cms/inserir-idioma-unidade', 'Cms\Controllers\IdiomaUnidadeController@inserir');
+        Route::get('/cms/idioma-unidade/{id}', 'Cms\Controllers\IdiomaUnidadeController@detalhar');
+        Route::post('/cms/alterar-idioma-unidade/{id}', 'Cms\Controllers\IdiomaUnidadeController@alterar');
+        Route::get('/cms/excluir-idioma-unidade/{id}', 'Cms\Controllers\IdiomaUnidadeController@excluir');
+
+        //IDIOMAS INDICADORES
+        Route::get('/cms/idiomas-indicadores/{indicador_id}', 'Cms\Controllers\IdiomaIndicadorController@index');
+        Route::get('/cms/listar-idiomas-indicadores', 'Cms\Controllers\IdiomaIndicadorController@listar');
+        Route::post('/cms/inserir-idioma-indicador', 'Cms\Controllers\IdiomaIndicadorController@inserir');
+        Route::get('/cms/idioma-indicador/{id}', 'Cms\Controllers\IdiomaIndicadorController@detalhar');
+        Route::post('/cms/alterar-idioma-indicador/{id}', 'Cms\Controllers\IdiomaIndicadorController@alterar');
+        Route::get('/cms/excluir-idioma-indicador/{id}', 'Cms\Controllers\IdiomaIndicadorController@excluir');
+
         //IDIOMAS CONSULTAS
         Route::get('/cms/idiomas-consultas/{consulta_id}', 'Cms\Controllers\IdiomaConsultaController@index');
         Route::get('/cms/listar-idiomas-consultas', 'Cms\Controllers\IdiomaConsultaController@listar');

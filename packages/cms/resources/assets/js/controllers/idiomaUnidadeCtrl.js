@@ -1,42 +1,48 @@
-cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
+cmsApp.controller('idiomaUnidadeCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
     
 
-    $scope.indicadores = [];
+    $scope.unidades = [];
+    $scope.unidade_id = 0;
     $scope.currentPage = 1;
     $scope.lastPage = 0;
     $scope.totalItens = 0;
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "indicadores.id, idiomas_indicadores.titulo, idiomas_indicadores.idioma_sigla";
-    $scope.campoPesquisa = "idiomas_indicadores.titulo";
+    $scope.campos = "id, titulo, idioma_sigla";
+    $scope.campoPesquisa = "titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "idiomas_indicadores.titulo";
+    $scope.ordem = "titulo";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 
-
     $scope.$watch('currentPage', function(){
         if($listar){
-            listarIndicadores();
+            listarUnidades();
         }
     });
     $scope.$watch('itensPerPage', function(){
         if($listar){
-            listarIndicadores();
+            listarUnidades();
         }
     });
     $scope.$watch('dadoPesquisa', function(){
         if($listar){
-            listarIndicadores();
+            listarUnidades();
         }
     });
 
-    var listarIndicadores = function(){
+    $scope.setUnidadeId = function(unidade_id){
+        $scope.unidade_id = unidade_id;
+        listarUnidades();
+    };
+
+
+    var listarUnidades = function(){
         $scope.processandoListagem = true;
         $http({
-            url: 'cms/listar-indicadores',
+            url: 'cms/listar-idiomas-unidades',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
@@ -45,10 +51,11 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
                 campos: $scope.campos,
                 campoPesquisa: $scope.campoPesquisa,
                 ordem: $scope.ordem,
-                sentido: $scope.sentidoOrdem
+                sentido: $scope.sentidoOrdem,
+                unidade_id: $scope.unidade_id
             }
         }).success(function(data, status, headers, config){
-            $scope.indicadores = data.data;
+            $scope.unidades = data.data;
             $scope.lastPage = data.last_page;
             $scope.totalItens = data.total;
             $scope.primeiroDaPagina = data.from;
@@ -65,7 +72,7 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
     /*$scope.loadMore = function() {
      $scope.currentPage +=1;
      $http({
-     url: '/api/indicadores/'+$scope.itensPerPage,
+     url: '/api/unidades/'+$scope.itensPerPage,
      method: 'GET',
      params: {page:  $scope.currentPage}
      }).success(function (data, status, headers, config) {
@@ -76,9 +83,9 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
      console.log("lastpage: "+$scope.lastPage);
      console.log("currentpage: "+$scope.currentPage);
 
-     $scope.indicadores = data.data;
+     $scope.unidades = data.data;
 
-     //$scope.indicadores = $scope.indicadores.concat(data.data);
+     //$scope.unidades = $scope.unidades.concat(data.data);
 
      });
      };*/
@@ -94,7 +101,7 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
             $scope.sentidoOrdem = "asc";
         }
 
-        listarIndicadores();
+        listarUnidades();
     };
 
     $scope.validar = function(){
@@ -102,7 +109,7 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
     };
     
 
-    listarIndicadores();
+    //listarUnidades();
 
     //INSERIR/////////////////////////////
 
@@ -119,10 +126,12 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
         if(file==null){
             $scope.processandoInserir = true;
 
-            //console.log($scope.indicador);
-            $http.post("cms/inserir-indicador", {indicador: $scope.indicador, idioma: $scope.idioma}).success(function (data){
-                 listarIndicadores();
-                 delete $scope.indicador;//limpa o form
+            //console.log($scope.unidade);
+            $http.post("cms/inserir-idioma-unidade", {unidade: $scope.unidade, idiomas: $scope.idiomas}).success(function (data){
+                 listarUnidades();
+                 //delete $scope.unidade;//limpa o form
+                delete $scope.unidade.titulo;
+                delete $scope.unidade.descricao;
                 $scope.mensagemInserir =  "Gravado com sucesso!";
                 $scope.processandoInserir = false;
              }).error(function(data){
@@ -131,17 +140,19 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
              });
         }else{
             file.upload = Upload.upload({
-                url: 'cms/inserir-indicador',
-                data: {indicador: $scope.indicador, idioma: $scope.idioma, file: file},
+                url: 'cms/inserir-idioma-unidade',
+                data: {unidade: $scope.unidade, idiomas: $scope.idiomas, file: file},
             });
 
             file.upload.then(function (response) {
                 $timeout(function () {
                     file.result = response.data;
                 });
-                delete $scope.indicador;//limpa o form
+                //delete $scope.unidade;//limpa o form
+                delete $scope.idiomas.titulo;
+                delete $scope.idiomas.descricao;
                 $scope.picFile = null;//limpa o file
-                listarIndicadores();
+                listarUnidades();
                 $scope.mensagemInserir =  "Gravado com sucesso!";
             }, function (response) {
                 if (response.status > 0){
@@ -155,6 +166,7 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
         }
 
     };
+
 
     $scope.limparImagem = function(){
         delete $scope.picFile;
@@ -182,14 +194,14 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: 'cms/excluir-indicador/'+id,
+            url: 'cms/excluir-idioma-unidade/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);
             $scope.processandoExcluir = false;
             $scope.excluido = true;
             $scope.mensagemExcluido = "Excluído com sucesso!";
-            listarIndicadores();
+            listarUnidades();
         }).error(function(data){
             $scope.message = "Ocorreu um erro: "+data;
             $scope.processandoExcluir = false;
@@ -197,6 +209,5 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
         });
     };
     //////////////////////////////////
-
 
 }]);

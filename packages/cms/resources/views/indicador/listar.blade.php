@@ -83,10 +83,15 @@
                                 <i ng-if="ordem=='id' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
                             {{--<th>Imagem</th>--}}
-                            <th ng-click="ordernarPor('indicador')" style="indicadorr:pointer;">
+                            <th ng-click="ordernarPor('idiomas_indicadores.indicador')" style="indicadorr:pointer;">
                                 Indicador
-                                <i ng-if="ordem=='indicador' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
-                                <i ng-if="ordem=='indicador' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
+                                <i ng-if="ordem=='idiomas_indicadores.indicador' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
+                                <i ng-if="ordem=='idiomas_indicadores.indicador' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
+                            </th>
+                            <th ng-click="ordernarPor('idiomas_indicadores.idioma_sigla')" style="cursor:pointer;">
+                                Idioma
+                                <i ng-if="ordem=='idiomas_indicadores.idioma_sigla' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
+                                <i ng-if="ordem=='idiomas_indicadores.idioma_sigla' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
                             <th></th>
                         </tr>
@@ -96,8 +101,10 @@
                             <td><% indicador.id %></td>
                             {{--<td><img ng-show="indicador.imagem" ng-src="imagens/indicadores/xs-<% indicador.imagem %>" width="60"></td>--}}
                             <td><a href="cms/indicador/<% indicador.id %>"><% indicador.titulo %></a></td>
+                            <td><a href="cms/indicador/<% indicador.id %>"><% indicador.idioma_sigla %></a></td>
                             <td class="text-right">
                                 <div>
+                                    <a href="cms/idiomas-indicadores/<% indicador.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/indicador/<% indicador.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(indicador.id, indicador.titulo, indicador.imagem)"></i></a>
                                 </div>

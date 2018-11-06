@@ -10,59 +10,50 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
+use Maatwebsite\Excel\Facades\Excel;
 
-class IndicadorController extends Controller
+class IdiomaIndicadorController extends Controller
 {
     
     
 
     public function __construct()
     {
-        $this->indicador = new \App\Indicador;
         $this->idiomaIndicador = new \App\IdiomaIndicador;
         $this->campos = [
-            'imagem', 'titulo', 'sigla', 'cmsuser_id',
+            'imagem', 'titulo', 'idioma_sigla',
         ];
-        $this->pathImagem = public_path().'/imagens/indicadores';
+        $this->pathImagem = public_path().'/imagens/idiomas_indicadores';
         $this->sizesImagem = [
-            'xs' => ['width' => 34, 'height' => 23],
-            'sm' => ['width' => 50, 'height' => 34],
-            'md' => ['width' => 100, 'height' => 68],
-            'lg' => ['width' => 150, 'height' => 101]
+            'xs' => ['width' => 140, 'height' => 79],
+            'sm' => ['width' => 480, 'height' => 270],
+            'md' => ['width' => 580, 'height' => 326],
+            'lg' => ['width' => 1170, 'height' => 658]
         ];
         $this->widthOriginal = true;
     }
 
-    function index()
+    function index($indicador_id)
     {
-
-        $indicadores = \App\Indicador::all();
+        $indicador = \App\Indicador::where('id', $indicador_id)->first();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::indicador.listar', ['indicadores' => $indicadores, 'idiomas' => $idiomas]);
+        return view('cms::idiomas_indicadores.listar', ['indicador_id' => $indicador->id, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
     {
 
-        //Log::info('CAMPOS: '.$request->campos);
-
-        //Auth::loginUsingId(2);
-
         $campos = explode(", ", $request->campos);
 
-        $indicadores = DB::table('indicadores')
+        $indicadores = DB::table('idiomas_indicadores')
             ->select($campos)
-            ->join('idiomas_indicadores', 'idiomas_indicadores.indicador_id', '=', 'indicadores.id')
             ->where([
-                [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
-                /*['indicadores.indicador_id', '=', $request->indicador_id],*/
-                ['idiomas_indicadores.idioma_sigla', 'pt_BR'],
+                [$request->campoPesquisa, 'ilike', "%$request->dadoPesquisa%"],
             ])
+            ->where('indicador_id', $request->indicador_id)
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
-        
-        
         return $indicadores;
     }
 
@@ -72,7 +63,12 @@ class IndicadorController extends Controller
         $data = $request->all();
 
         $data['indicador'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
-        $data['idioma'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+
+        /*if(empty($data['indicador']['indicador_id'])){
+            $data['indicador']['indicador_id'] = 0;
+        }*/
+
+        //$data['indicador']['tipo_valores'] = 0;
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
@@ -90,34 +86,33 @@ class IndicadorController extends Controller
             
             if($success){
                 $data['indicador']['imagem'] = $filename;
-                //return $this->indicador->create($data['indicador']);
-                
-                $inserir = $this->indicador->create($data['indicador']);
-                $data['idioma']['indicador_id'] = $inserir->id;
-                $inserir2 = $this->idiomaIndicador->create($data['idioma']);
-                return $inserir;
-                
-                
+                return $this->idiomaIndicador->create($data['indicador']);
             }else{
                 return "erro";
             }
         }
 
-        //return $this->indicador->create($data['indicador']);
+        $indicador = $this->idiomaIndicador->create($data['indicador']);
 
-        $inserir = $this->indicador->create($data['indicador']);
-        $data['idioma']['indicador_id'] = $inserir->id;
-        $inserir2 = $this->idiomaIndicador->create($data['idioma']);
-        return $inserir;
+        return $indicador;
 
     }
 
     public function detalhar($id)
     {
-        $indicador = $this->indicador->where([
+        $idioma_indicador = $this->idiomaIndicador
+            ->where([
             ['id', '=', $id],
-        ])->firstOrFail();
-        return view('cms::indicador.detalhar', ['indicador' => $indicador]);
+        ])->first();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
+
+        $indicador_id = $idioma_indicador->indicador_id;
+
+        return view('cms::idiomas_indicadores.detalhar', [
+            'idioma_indicador' => $idioma_indicador,
+            'idiomas' => $idiomas,
+            'indicador_id' => $indicador_id
+        ]);
     }
 
     public function alterar(Request $request, $id)
@@ -133,7 +128,10 @@ class IndicadorController extends Controller
                 }
             }
         }
-        $indicador = $this->indicador->where([
+
+	    $data['indicador']['tipo_valores'] = 0;
+
+        $indicador = $this->idiomaIndicador->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
@@ -168,7 +166,7 @@ class IndicadorController extends Controller
     {
         //Auth::loginUsingId(2);
 
-        $indicador = $this->indicador->where([
+        $indicador = $this->idiomaIndicador->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
@@ -184,6 +182,7 @@ class IndicadorController extends Controller
 
     }
 
+    
     
 
 

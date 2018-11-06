@@ -8,11 +8,11 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo";
-    $scope.campoPesquisa = "titulo";
+    $scope.campos = "indicadores.id, idiomas_indicadores.titulo, idiomas_indicadores.idioma_sigla";
+    $scope.campoPesquisa = "idiomas_indicadores.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "titulo";
+    $scope.ordem = "idiomas_indicadores.titulo";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 
@@ -120,7 +120,7 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
             $scope.processandoInserir = true;
 
             //console.log($scope.indicador);
-            $http.post("cms/inserir-indicador", {indicador: $scope.indicador}).success(function (data){
+            $http.post("cms/inserir-indicador", {indicador: $scope.indicador, idioma: $scope.idioma}).success(function (data){
                  listarIndicadores();
                  delete $scope.indicador;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -132,7 +132,7 @@ cmsApp.controller('indicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', fun
         }else{
             file.upload = Upload.upload({
                 url: 'cms/inserir-indicador',
-                data: {indicador: $scope.indicador, file: file},
+                data: {indicador: $scope.indicador, idioma: $scope.idioma, file: file},
             });
 
             file.upload.then(function (response) {
