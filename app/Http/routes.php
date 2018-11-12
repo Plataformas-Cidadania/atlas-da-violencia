@@ -204,3 +204,5 @@ Route::post('get-abrangencias', 'FiltrosSeriesController@abrangencias');
 Route::post('list-series', 'FiltrosSeriesController@series');
 Route::post('territorios-serie-abrangencia', 'FiltrosSeriesController@territoriosSerieAbrangencia');
 //////////////////////////////////////////////////////////
+Route::get('filtros-comparar-series/{id}/{tema}', 'FiltrosSeriesController@index');
+Route::get('filtros-comparar-series/', 'FiltrosSeriesController@index');

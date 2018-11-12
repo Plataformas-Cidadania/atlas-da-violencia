@@ -377,3 +377,14 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="js/components/selectItems.js"></script>
     <script src="js/components/filters/pageFilters.js"></script>
 @endif
+
+@if($rota=='filtros-comparar-series/{id}/{tema}' || $rota=='filtros-comparar-series')
+    <script src="js/components/pagination.js"></script>
+    <script src="js/components/filters-compare-series/modal.js"></script>
+    <script src="js/components/filters-compare-series/temasSelect.js"></script>
+    <script src="js/components/filters-compare-series/subtemas.js"></script>
+    <script src="js/components/filters-compare-series/filter.js"></script>
+    <script src="js/components/filters-compare-series/list.js"></script>
+    <script src="js/components/selectItems.js"></script>
+    <script src="js/components/filters-compare-series/pageFilters.js"></script>
+@endif
