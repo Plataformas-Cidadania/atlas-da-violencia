@@ -8,8 +8,9 @@ class PageFilters extends React.Component {
             indicadores: [],
             abrangencias: [],
             currentPageListItems: 1,
-            serieMarked: null,
+            serieMarked: null, //não parece ser mais utilizado
             abrangencia: null,
+            selectedItems: [], //seleção de multiplos items vindos do component list
             regions: [],
             periodos: [],
             from: null,
@@ -33,10 +34,15 @@ class PageFilters extends React.Component {
         this.loadPeriodos = this.loadPeriodos.bind(this);
         this.loadDefaultValues = this.loadDefaultValues.bind(this);
         this.loadRegions = this.loadRegions.bind(this);
+        this.selectedItems = this.selectedItems.bind(this);
     }
 
     componentDidMount() {
         this.loadItems();
+    }
+
+    selectedItems(items) {
+        this.setState({ selectedItems: items });
     }
 
     setTema(tema) {
@@ -328,7 +334,8 @@ class PageFilters extends React.Component {
                             currentPage: this.state.currentPageListItems,
                             perPage: '20',
                             select: this.selectSerie,
-                            abrangencias: this.state.optionsAbrangencia
+                            abrangencias: this.state.optionsAbrangencia,
+                            selectedItems: this.selectedItems
                         })
                     )
                 )

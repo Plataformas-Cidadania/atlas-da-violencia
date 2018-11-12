@@ -7,19 +7,21 @@ class List extends React.Component {
             showId: props.showId ? props.showId : 1,
             perPage: props.perPage ? props.perPage : 20,
             currentPage: props.currentPage ? props.currentPage : 1,
-            selecteditems: []
+            selectedItems: []
         };
 
         this.select = this.select.bind(this);
         this.getAbrangencia = this.getAbrangencia.bind(this);
         this.setCurrentPage = this.setCurrentPage.bind(this);
+        this.setAllItemsSelectedFalse = this.setAllItemsSelectedFalse.bind(this);
+        this.selectedItem = this.selectedItem.bind(this);
     }
 
     componentDidMount() {}
 
     componentWillReceiveProps(props) {
         if (this.state.items != props.items || this.state.currentPage != props.currentPage) {
-            this.setState({ items: props.items, currentPage: props.currentPage });
+            this.setState({ items: props.items, currentPage: props.currentPage }, function () {});
         }
     }
 
@@ -44,6 +46,36 @@ class List extends React.Component {
         return abrangencia;
     }
 
+    setAllItemsSelectedFalse() {
+        let items = this.state.items.data;
+        items.find(function (item) {
+            item.selected = false;
+        });
+        this.setState({ items: items });
+    }
+
+    selectedItem(id) {
+        let selectedItems = this.state.selectedItems;
+        let items = this.state.items;
+        items.data.find(function (item) {
+            if (item.id == id) {
+                item.selected = !item.selected;
+                if (item.selected) {
+                    selectedItems.push(item);
+                } else {
+                    selectedItems.find(function (it, index) {
+                        if (it.id == id) {
+                            selectedItems.splice(index, 1);
+                        }
+                    });
+                }
+            }
+        });
+        this.setState({ items: items, selectedItems: selectedItems }, function () {
+            this.props.selectedItems(this.state.selectedItems);
+        });
+    }
+
     render() {
 
         let head = [React.createElement(
@@ -53,7 +85,8 @@ class List extends React.Component {
         )];
         let rows = null;
 
-        //console.log(this.state.items);
+        console.log('items', this.state.items);
+        console.log('selectedItems', this.state.selectedItems);
 
         head.push(this.state.head.map(function (item, index) {
 
@@ -115,8 +148,7 @@ class List extends React.Component {
                 let columns = [React.createElement(
                     'td',
                     { key: 'checkboxList' + index },
-                    React.createElement('img', { src: 'img/checkbox_on.png', alt: '' }),
-                    React.createElement('img', { src: 'img/checkbox_off.png', alt: '' })
+                    React.createElement('img', { src: "img/checkbox_" + (item.selected ? 'on' : 'off') + ".png", alt: '', onClick: () => this.selectedItem(item.id) })
                 )];
                 columns.push(columnsNames.map(function (col, i) {
                     if (this.state.showId == 0 && col == 'id') {
@@ -155,6 +187,19 @@ class List extends React.Component {
         return React.createElement(
             'div',
             null,
+            React.createElement(
+                'div',
+                { style: { textAlign: 'right' } },
+                React.createElement(
+                    'button',
+                    { className: 'btn btnPrimary',
+                        disabled: this.state.selectedItems.length > 1 && this.state.selectedItems.length > 10,
+                        title: this.state.selectedItems.length < 2 ? 'Selecione pelo menos dois items' : this.state.selectedItems.length > 10 ? 'Permitido no máximo 10 items' : ''
+                    },
+                    'Comparar'
+                )
+            ),
+            React.createElement('br', null),
             React.createElement(
                 'table',
                 { className: 'table' },
