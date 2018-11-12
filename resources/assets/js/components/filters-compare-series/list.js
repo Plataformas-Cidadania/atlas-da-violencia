@@ -8,6 +8,7 @@ class List extends React.Component{
             perPage: props.perPage ? props.perPage : 20,
             currentPage: props.currentPage ? props.currentPage : 1,
             selectedItems: [],
+            processingSelectedItems: props.processingSelectedItems,
         };
 
         this.select = this.select.bind(this);
@@ -22,8 +23,8 @@ class List extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(this.state.items != props.items || this.state.currentPage != props.currentPage){
-            this.setState({items: props.items, currentPage: props.currentPage}, function(){
+        if(this.state.items != props.items || this.state.currentPage != props.currentPage || this.state.processingSelectedItems != props.processingSelectedItems){
+            this.setState({items: props.items, currentPage: props.currentPage, processingSelectedItems: props.processingSelectedItems}, function(){
 
             });
         }
@@ -87,8 +88,8 @@ class List extends React.Component{
         let head = [<th key="thCheckbox">&nbsp;</th>];
         let rows = null;
 
-        console.log('items', this.state.items);
-        console.log('selectedItems', this.state.selectedItems);
+        //console.log('items', this.state.items);
+        //console.log('selectedItems', this.state.selectedItems);
 
         head.push(this.state.head.map(function(item, index){
 
@@ -132,9 +133,11 @@ class List extends React.Component{
                         <button className='btn btn-primary' onClick={() => this.select(item, true)}><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button>
                     </td>
                 ];*/
-                let columns = [<td key={'checkboxList'+index}>
-                    <img src={"img/checkbox_"+(item.selected ? 'on' : 'off' )+".png"} alt="" onClick={() => this.selectedItem(item.id)}/>
-                </td>];
+                let columns = [
+                    <td key={'checkboxList'+index}>
+                        <img src={"img/checkbox_"+(item.selected ? 'on' : 'off' )+".png"} alt="" onClick={() => this.selectedItem(item.id)}/>
+                    </td>
+                ];
                 columns.push(columnsNames.map(function(col, i){
                     if(this.state.showId==0 && col=='id'){
                         return;
@@ -170,13 +173,16 @@ class List extends React.Component{
         return (
             <div>
                 <div style={{textAlign: 'right'}}>
-                    <button className="btn btnPrimary"
-                            disabled={this.state.selectedItems.length>1 && this.state.selectedItems.length>10}
+                    <button className="btn btn-primary"
+                            style={{display: this.state.processingComparated ? 'none' : ''}}
+                            disabled={this.state.selectedItems.length>1 && this.state.selectedItems.length<10 ? false : true}
                             title={this.state.selectedItems.length < 2 ? 'Selecione pelo menos dois items' :
                                 this.state.selectedItems.length > 10 ? 'Permitido no máximo 10 items' : ''}
+                            onClick={this.props.processingSelectedItems}
                     >
                         Comparar
                     </button>
+                    <div style={{display: this.state.processingComparated ? '' : 'none'}}><i className="fa fa-spin fa-spinner" /> Processando</div>
                 </div>
 
                 <br/>

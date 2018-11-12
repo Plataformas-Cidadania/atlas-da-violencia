@@ -7,7 +7,8 @@ class List extends React.Component {
             showId: props.showId ? props.showId : 1,
             perPage: props.perPage ? props.perPage : 20,
             currentPage: props.currentPage ? props.currentPage : 1,
-            selectedItems: []
+            selectedItems: [],
+            processingSelectedItems: props.processingSelectedItems
         };
 
         this.select = this.select.bind(this);
@@ -20,8 +21,8 @@ class List extends React.Component {
     componentDidMount() {}
 
     componentWillReceiveProps(props) {
-        if (this.state.items != props.items || this.state.currentPage != props.currentPage) {
-            this.setState({ items: props.items, currentPage: props.currentPage }, function () {});
+        if (this.state.items != props.items || this.state.currentPage != props.currentPage || this.state.processingSelectedItems != props.processingSelectedItems) {
+            this.setState({ items: props.items, currentPage: props.currentPage, processingSelectedItems: props.processingSelectedItems }, function () {});
         }
     }
 
@@ -85,8 +86,8 @@ class List extends React.Component {
         )];
         let rows = null;
 
-        console.log('items', this.state.items);
-        console.log('selectedItems', this.state.selectedItems);
+        //console.log('items', this.state.items);
+        //console.log('selectedItems', this.state.selectedItems);
 
         head.push(this.state.head.map(function (item, index) {
 
@@ -192,11 +193,19 @@ class List extends React.Component {
                 { style: { textAlign: 'right' } },
                 React.createElement(
                     'button',
-                    { className: 'btn btnPrimary',
-                        disabled: this.state.selectedItems.length > 1 && this.state.selectedItems.length > 10,
-                        title: this.state.selectedItems.length < 2 ? 'Selecione pelo menos dois items' : this.state.selectedItems.length > 10 ? 'Permitido no máximo 10 items' : ''
+                    { className: 'btn btn-primary',
+                        style: { display: this.state.processingComparated ? 'none' : '' },
+                        disabled: this.state.selectedItems.length > 1 && this.state.selectedItems.length < 10 ? false : true,
+                        title: this.state.selectedItems.length < 2 ? 'Selecione pelo menos dois items' : this.state.selectedItems.length > 10 ? 'Permitido no máximo 10 items' : '',
+                        onClick: this.props.processingSelectedItems
                     },
                     'Comparar'
+                ),
+                React.createElement(
+                    'div',
+                    { style: { display: this.state.processingComparated ? '' : 'none' } },
+                    React.createElement('i', { className: 'fa fa-spin fa-spinner' }),
+                    ' Processando'
                 )
             ),
             React.createElement('br', null),
