@@ -83,6 +83,27 @@ class PageFilters extends React.Component{
 
     processingSelectedItems(){
         console.log(this.state.selectedItems);
+        $.ajax({
+            method:'POST',
+            url: "validar-comparar-series",
+            data:{
+                parameters:{
+                    series: this.state.selectedItems
+                },
+                page: this.state.currentPageListItems,
+            },
+            cache: false,
+            success: function(data) {
+                //console.log('PAGEFILTER - ITEMS', data);
+                //let items = {data: data};
+                let items = data;
+
+                this.setState({items: items, loadingItems: false});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
     }
 
     setTema(tema){
