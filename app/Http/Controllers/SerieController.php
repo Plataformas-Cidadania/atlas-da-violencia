@@ -767,4 +767,126 @@ class SerieController extends Controller
 
         return $regions;
     }
+
+
+    ////////////////////////////////////////////////////////////////////
+    //////////////////////////COMPARAR SERIES///////////////////////////
+    ////////////////////////////////////////////////////////////////////
+
+    function compararValoresPeriodoRegioesSelecionadas($ids, $min, $max, $regions, $abrangencia){
+
+        //Log::info('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
+        $cacheKey = sha1('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
+
+        //Log::info('valoresPeriodoRegioesSelecionadas: '.$cacheKey);
+
+        $regions = explode(',', $regions);
+        $ids = explode(',', $ids);
+
+        //Log::info($abrangencia);
+
+        $tabelas = [
+            1 => 'spat.ed_territorios_paises',
+            2 => 'spat.ed_territorios_regioes',
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes',
+            7 => 'spat.ed_territorios_piaui_tds'
+        ];
+
+        $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
+        if($abrangencia == 4){
+            $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
+        }
+
+        //DB::enableQueryLog();
+
+        //exclui o cache. Utilizar apenas para testes.
+        $this->cache->forget($cacheKey);
+
+        $series = [];
+
+        foreach($ids as $id){
+            if(!$this->cache->has($cacheKey)){
+                $this->cache->put($cacheKey, DB::table('valores_series')
+                    ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
+                    ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+                    ->where([
+                        ['valores_series.serie_id', $id],
+                        ['valores_series.periodo', '>=', $min],
+                        ['valores_series.periodo', '<=', $max],
+                        ['valores_series.tipo_regiao', $abrangencia]
+                    ])
+                    ->when($regions[0]!=0, function($query) use ($regions, $tabelas, $abrangencia){
+                        return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions);
+                    })
+                    /*->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)*/
+                    ->orderBy(DB::Raw($tabelas[$abrangencia].'.edterritorios_codigo, valores_series.periodo'))
+                    ->get(), 720);
+            }
+
+            $rows = $this->cache->get($cacheKey);
+
+            $data = [];
+
+            foreach($rows as $row){
+                $data[$row->sigla][$row->periodo] = $row->valor;
+            }
+
+            array_push($serie, $data);
+        }
+
+        return $series;
+    }
+
+    public function dataSeriesComparadas($ids){
+        $lang =  App::getLocale();
+
+
+        $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+            ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
+            ->join('fontes', 'fontes.id', '=', 'series.fonte_id')
+            ->join('unidades', 'unidades.id', '=', 'series.unidade')
+            ->where('textos_series.idioma_sigla', $lang)
+            ->where('series.id', $serie_id)->first();
+
+        //$regions = explode(',', $request->regions);
+
+        $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+        $indiceAbrangencia = 0;
+        $abrangencia = $abrangencias[$indiceAbrangencia];
+
+
+        //alem de pegar os valores de from e to também serve para verificar se existem valores nesta abrangência
+        $fromTo = $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $serie_id);
+
+        //senão existe valores em nenhuma das abrangências pesquisadas.
+        if($fromTo==0){
+            $serie = null;
+        }
+
+        $from = $fromTo[0];
+        $to = $fromTo[1];
+        $abrangencia = $fromTo[2];
+
+        $regions = $this->getRegions($abrangencia);
+
+        $regions = implode(",", $regions);
+
+        $abrangenciasOk = $this->verifyExistsRegions($abrangencias, $serie_id);
+
+        return view('data-series', [
+            'id' => $serie_id,
+            'series' => $serie,
+            'from' => $from,
+            'to' => $to,
+            'regions' => $regions,
+            'abrangencia' => $abrangencia,
+            'abrangenciasOk' => $abrangenciasOk,
+        ]);
+    }
 }
+
+

@@ -206,3 +206,7 @@ Route::post('territorios-serie-abrangencia', 'FiltrosSeriesController@territorio
 //////////////////////////////////////////////////////////
 Route::get('filtros-comparar-series/{id}/{tema}', 'FiltrosSeriesController@index');
 Route::get('filtros-comparar-series/', 'FiltrosSeriesController@index');
+
+
+//////////SÉRIES COMPARADAS///////////////////////////////
+Route::get('dados-series-comparadas/ids', 'SerieController@dataSeriesComparadas');
