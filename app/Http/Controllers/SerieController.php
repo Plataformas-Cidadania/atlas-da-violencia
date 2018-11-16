@@ -776,11 +776,11 @@ class SerieController extends Controller
     function compararValoresPeriodoRegioesSelecionadas($ids, $min, $max, $regions, $abrangencia){
 
         //Log::info('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
-        $cacheKey = sha1('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
+
 
         //Log::info('valoresPeriodoRegioesSelecionadas: '.$cacheKey);
 
-        $regions = explode(',', $regions);
+        $arrayRegions = explode(',', $regions);
         $ids = explode(',', $ids);
 
         //Log::info($abrangencia);
@@ -802,12 +802,16 @@ class SerieController extends Controller
 
         //DB::enableQueryLog();
 
-        //exclui o cache. Utilizar apenas para testes.
-        $this->cache->forget($cacheKey);
+
 
         $series = [];
 
         foreach($ids as $id){
+
+            $cacheKey = sha1('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
+            //exclui o cache. Utilizar apenas para testes.
+            $this->cache->forget($cacheKey);
+
             if(!$this->cache->has($cacheKey)){
                 $this->cache->put($cacheKey, DB::table('valores_series')
                     ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
@@ -818,8 +822,8 @@ class SerieController extends Controller
                         ['valores_series.periodo', '<=', $max],
                         ['valores_series.tipo_regiao', $abrangencia]
                     ])
-                    ->when($regions[0]!=0, function($query) use ($regions, $tabelas, $abrangencia){
-                        return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions);
+                    ->when($regions[0]!=0, function($query) use ($arrayRegions, $tabelas, $abrangencia){
+                        return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $arrayRegions);
                     })
                     /*->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)*/
                     ->orderBy(DB::Raw($tabelas[$abrangencia].'.edterritorios_codigo, valores_series.periodo'))
@@ -834,7 +838,7 @@ class SerieController extends Controller
                 $data[$row->sigla][$row->periodo] = $row->valor;
             }
 
-            array_push($serie, $data);
+            array_push($series, $data);
         }
 
         return $series;
