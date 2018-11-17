@@ -773,7 +773,13 @@ class SerieController extends Controller
     //////////////////////////COMPARAR SERIES///////////////////////////
     ////////////////////////////////////////////////////////////////////
 
-    function compararValoresPeriodoRegioesSelecionadas($ids, $min, $max, $regions, $abrangencia){
+    public function validarCompararSeries(Request $request){
+        $ids = explode(',', $request->ids);
+
+        return 1;
+    }
+
+    public function compararValoresPeriodoRegioesSelecionadas($ids, $min, $max, $regions, $abrangencia){
 
         //Log::info('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
 
@@ -847,48 +853,53 @@ class SerieController extends Controller
     public function dataSeriesComparadas($ids){
         $lang =  App::getLocale();
 
+        $ids = explode(',', $ids);
 
-        $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
-            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
-            ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
-            ->join('fontes', 'fontes.id', '=', 'series.fonte_id')
-            ->join('unidades', 'unidades.id', '=', 'series.unidade')
-            ->where('textos_series.idioma_sigla', $lang)
-            ->where('series.id', $serie_id)->first();
+        $series = [];
 
-        //$regions = explode(',', $request->regions);
+        foreach ($ids as $id) {
+            $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
+                ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+                ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
+                ->join('fontes', 'fontes.id', '=', 'series.fonte_id')
+                ->join('unidades', 'unidades.id', '=', 'series.unidade')
+                ->where('textos_series.idioma_sigla', $lang)
+                ->where('series.id', $id)->first();
 
-        $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
-        $indiceAbrangencia = 0;
-        $abrangencia = $abrangencias[$indiceAbrangencia];
+            //$regions = explode(',', $request->regions);
+
+            $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+            $indiceAbrangencia = 0;
+            $abrangencia = $abrangencias[$indiceAbrangencia];
 
 
-        //alem de pegar os valores de from e to também serve para verificar se existem valores nesta abrangência
-        $fromTo = $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $serie_id);
+            //alem de pegar os valores de from e to também serve para verificar se existem valores nesta abrangência
+            $fromTo = $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $id);
 
-        //senão existe valores em nenhuma das abrangências pesquisadas.
-        if($fromTo==0){
-            $serie = null;
+            //senão existe valores em nenhuma das abrangências pesquisadas.
+            if($fromTo==0){
+                $serie = null;
+            }
+
+            $serie->from = $fromTo[0];
+            $serie->to = $fromTo[1];
+            $serie->abrangencia = $fromTo[2];
+
+
+            $regions = $this->getRegions($serie->abrangencia);
+
+            $serie->regions = implode(",", $regions);
+
+            $serie->abrangenciasOk = $this->verifyExistsRegions($abrangencias, $id);
+
+
+            array_push($series, $serie);
         }
 
-        $from = $fromTo[0];
-        $to = $fromTo[1];
-        $abrangencia = $fromTo[2];
 
-        $regions = $this->getRegions($abrangencia);
 
-        $regions = implode(",", $regions);
-
-        $abrangenciasOk = $this->verifyExistsRegions($abrangencias, $serie_id);
-
-        return view('data-series', [
-            'id' => $serie_id,
-            'series' => $serie,
-            'from' => $from,
-            'to' => $to,
-            'regions' => $regions,
-            'abrangencia' => $abrangencia,
-            'abrangenciasOk' => $abrangenciasOk,
+        return view('data-series-comparadas', [
+            'series' => $series
         ]);
     }
 }

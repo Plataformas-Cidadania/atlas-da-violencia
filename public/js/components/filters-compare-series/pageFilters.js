@@ -48,27 +48,33 @@ class PageFilters extends React.Component {
     }
 
     processingSelectedItems() {
+        let ids = "";
         console.log(this.state.selectedItems);
+        this.setState({ processingSelectedItems: true });
+        this.state.selectedItems.find(function (item) {
+            ids += item.id + ',';
+        });
+        ids = ids.substr(0, ids.length - 1);
         $.ajax({
             method: 'POST',
-            url: "validar-comparar-series",
+            url: "validar-comparar-series/",
             data: {
-                parameters: {
-                    series: this.state.selectedItems
-                },
-                page: this.state.currentPageListItems
+                ids: ids
             },
             cache: false,
             success: function (data) {
-                //console.log('PAGEFILTER - ITEMS', data);
-                //let items = {data: data};
-                let items = data;
+                if (data == 1) {
+                    location.href = "dados-series-comparadas/" + ids;
+                    this.setState({ items: items, processingSelectedItems: false });
+                    return;
+                }
 
-                this.setState({ items: items, loadingItems: false });
+                console.log('As séries selecionadas não possuem abrangência em comum');
             }.bind(this),
             error: function (xhr, status, err) {
                 console.log('erro');
-            }.bind(this)
+                this.setState({ items: items, processingSelectedItems: false });
+            }.bind(this, ids)
         });
     }
 

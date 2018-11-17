@@ -209,5 +209,6 @@ Route::get('filtros-comparar-series/', 'FiltrosSeriesController@index');
 
 
 //////////SÉRIES COMPARADAS///////////////////////////////
-Route::get('dados-series-comparadas/ids', 'SerieController@dataSeriesComparadas');
+Route::post('validar-comparar-series/', 'SerieController@validarCompararSeries');
+Route::get('dados-series-comparadas/{ids}', 'SerieController@dataSeriesComparadas');
 Route::get('periodo-series-comparadas/{ids}/{min}/{max}/{regions}/{abrangencia}', 'SerieController@compararValoresPeriodoRegioesSelecionadas');
