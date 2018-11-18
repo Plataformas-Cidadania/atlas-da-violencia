@@ -779,6 +779,111 @@ class SerieController extends Controller
         return 1;
     }
 
+    public function dataSeriesComparadas($ids){
+        $lang =  App::getLocale();
+
+        $ids = explode(',', $ids);
+
+        $series = [];
+
+        foreach ($ids as $id) {
+            $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
+                ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+                ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
+                ->join('fontes', 'fontes.id', '=', 'series.fonte_id')
+                ->join('unidades', 'unidades.id', '=', 'series.unidade')
+                ->where('textos_series.idioma_sigla', $lang)
+                ->where('series.id', $id)->first();
+
+            //$regions = explode(',', $request->regions);
+
+            $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+            $indiceAbrangencia = 0;
+            $abrangencia = $abrangencias[$indiceAbrangencia];
+
+
+            //alem de pegar os valores de from e to também serve para verificar se existem valores nesta abrangência
+            $fromTo = $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $id);
+
+            //senão existe valores em nenhuma das abrangências pesquisadas.
+            if($fromTo==0){
+                $serie = null;
+            }
+
+            $serie->from = $fromTo[0];
+            $serie->to = $fromTo[1];
+            $serie->abrangencia = $fromTo[2];
+
+
+            $regions = $this->getRegions($serie->abrangencia);
+
+            $serie->regions = implode(",", $regions);
+
+            $serie->abrangenciasOk = $this->verifyExistsRegions($abrangencias, $id);
+
+
+            array_push($series, $serie);
+        }
+
+        $ids = "";
+        $periodicidade = null;
+        $tipoValores = null;
+        $tipoUnidade = null;
+        $from = null;
+        $to = null;
+        $regions = null;
+        $abrangencia = null;
+        $abrangenciasOk = null;
+
+        $ids = $this->idsSeries($series);
+        $from = $this->fromSeries($series);
+        $to = $this->toSeries($series);
+
+        return [
+            'ids' => $ids,
+            'periodicidade' => $periodicidade,
+            'tipoValores'   => $tipoValores,
+            'tipoUnidade'   => $tipoUnidade,
+            'from'          => $from,
+            'to'            => $to,
+            'regions'       => $regions,
+            'abrangencia'   => $abrangencia,
+        ];
+
+        return view('data-series-comparadas', [
+            'ids' => $ids
+        ]);
+    }
+
+    private function idsSeries($series){
+        $ids = "";
+        foreach ($series as $serie) {
+            $ids .= $serie->id.',';
+        }
+        $ids = substr($ids, 0, -1);
+        return $ids;
+    }
+
+    private function fromSeries($series){
+        $minFrom = $series[0]->from;
+        foreach ($series as $serie) {
+            if($serie->from < $minFrom){
+                $minFrom = $serie->from;
+            }
+        }
+        return $minFrom;
+    }
+
+    private function toSeries($series){
+        $maxTo = $series[0]->to;
+        foreach ($series as $serie) {
+            if($serie->to < $maxTo){
+                $maxTo = $serie->to;
+            }
+        }
+        return $maxTo;
+    }
+
     public function compararValoresPeriodoRegioesSelecionadas($ids, $min, $max, $regions, $abrangencia){
 
         //Log::info('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
@@ -850,58 +955,7 @@ class SerieController extends Controller
         return $series;
     }
 
-    public function dataSeriesComparadas($ids){
-        $lang =  App::getLocale();
 
-        $ids = explode(',', $ids);
-
-        $series = [];
-
-        foreach ($ids as $id) {
-            $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
-                ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
-                ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
-                ->join('fontes', 'fontes.id', '=', 'series.fonte_id')
-                ->join('unidades', 'unidades.id', '=', 'series.unidade')
-                ->where('textos_series.idioma_sigla', $lang)
-                ->where('series.id', $id)->first();
-
-            //$regions = explode(',', $request->regions);
-
-            $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
-            $indiceAbrangencia = 0;
-            $abrangencia = $abrangencias[$indiceAbrangencia];
-
-
-            //alem de pegar os valores de from e to também serve para verificar se existem valores nesta abrangência
-            $fromTo = $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $id);
-
-            //senão existe valores em nenhuma das abrangências pesquisadas.
-            if($fromTo==0){
-                $serie = null;
-            }
-
-            $serie->from = $fromTo[0];
-            $serie->to = $fromTo[1];
-            $serie->abrangencia = $fromTo[2];
-
-
-            $regions = $this->getRegions($serie->abrangencia);
-
-            $serie->regions = implode(",", $regions);
-
-            $serie->abrangenciasOk = $this->verifyExistsRegions($abrangencias, $id);
-
-
-            array_push($series, $serie);
-        }
-
-
-
-        return view('data-series-comparadas', [
-            'series' => $series
-        ]);
-    }
 }
 
 

@@ -277,10 +277,10 @@
 
     <div class="container">
 
-        @if(!empty($series))
+        @if(!empty($ids))
             <?php $abrangencias = config('constants.abrangencias');?>
             <script>
-                serie_ids={{$ids}};
+                ids={{$ids}};
                 serie="{!! $series->titulo !!}";
                 periodicidade="{!! $series->periodicidade !!}";
                 tipoValores="{!! $series->tipo_valores !!}";
@@ -400,7 +400,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="text" ng-model="contatoSerie.serie" ng-required="true" class="form-control"  ng-init="contatoSerie.serie='{{$id}} - {!! $series->titulo !!}'" readonly="true"><br>
+                                <input type="text" ng-model="contatoSerie.serie" ng-required="true" class="form-control"  ng-init="contatoSerie.serie='{{$ids}}'" readonly="true"><br>
                             </div>
                         </div>
                         <div class="row">

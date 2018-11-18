@@ -97,13 +97,14 @@ class PageFilters extends React.Component{
             },
             cache: false,
             success: function(data) {
+                console.log(data);
                 if(data==1){
                     location.href = "dados-series-comparadas/"+ids;
-                    this.setState({items: items, processingSelectedItems: false});
                     return;
                 }
-
                 console.log('As séries selecionadas não possuem abrangência em comum');
+
+                this.setState({items: items, processingSelectedItems: false});
 
             }.bind(this),
             error: function(xhr, status, err) {
