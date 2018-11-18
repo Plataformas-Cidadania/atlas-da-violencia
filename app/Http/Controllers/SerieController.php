@@ -342,7 +342,7 @@ class SerieController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
 
         //exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKeyMin);
@@ -838,20 +838,19 @@ class SerieController extends Controller
         $ids = $this->idsSeries($series);
         $from = $this->fromSeries($series);
         $to = $this->toSeries($series);
+        $regions = $series[0]->regions;
+        $abrangencia = $series[0]->abrangencia;
+        $abrangenciasOk = $series[0]->abrangenciasOk;
 
-        return [
+
+
+        return view('data-series-comparadas', [
             'ids' => $ids,
-            'periodicidade' => $periodicidade,
-            'tipoValores'   => $tipoValores,
-            'tipoUnidade'   => $tipoUnidade,
             'from'          => $from,
             'to'            => $to,
             'regions'       => $regions,
             'abrangencia'   => $abrangencia,
-        ];
-
-        return view('data-series-comparadas', [
-            'ids' => $ids
+            'abrangenciasOk'   => $abrangenciasOk,
         ]);
     }
 

@@ -249,6 +249,10 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
 @endif
 
+@if($rota=='dados-series-comparadas/{ids}')
+    <script src="js/controllers/contatoSerieCtrl.js"></script>
+@endif
+
 
 
 

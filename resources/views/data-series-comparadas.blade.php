@@ -281,12 +281,6 @@
             <?php $abrangencias = config('constants.abrangencias');?>
             <script>
                 ids={{$ids}};
-                serie="{!! $series->titulo !!}";
-                periodicidade="{!! $series->periodicidade !!}";
-                tipoValores="{!! $series->tipo_valores !!}";
-                unidade="{!! $series->unidade !!}";
-                tipoUnidade="{!! $series->tipo_unidade !!}";
-                fonte="{!! $series->fonte !!}";
                 from="{!! $from !!}";
                 to="{!! $to !!}";
                 regions="{!! $regions !!}";
@@ -343,12 +337,7 @@
                 lang_remove_all = "@lang('react.remove-all')";
 
             </script>
-            <?php
-                $series->descricao = preg_replace('/\s/',' ',$series->descricao);
-            ?>
-            <script>
-                metadados="{!! $series->descricao !!}";
-            </script>
+
 
             <div id="pgSerie"></div>
 
