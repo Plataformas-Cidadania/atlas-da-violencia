@@ -86,3 +86,67 @@ function formatPeriodicidade(statePeriodo, periodicidade){
     }
     return periodo;
 }
+
+
+function gerarIntervalos2(valores){
+    let intervalos = [];
+    let max = parseInt(valores[valores.length-1]);
+    let maxUtil = parseInt(max - max * 10 / 100);
+    let qtdIntervalos = 10;
+    let intervalo = parseInt(maxUtil / qtdIntervalos);
+
+    let rounder =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
+    intervalo = Math.ceil(intervalo/rounder) * rounder;
+    //console.log(intervalo);
+    intervalos[0] = 0;
+    intervalos[9] = maxUtil;
+    for(let i=1;i<qtdIntervalos;i++){
+        //intervalos[i] = intervalos[i-1] + intervalo;
+        intervalos[i] = intervalos[i-1] + intervalo/qtdIntervalos*i;//intervalo/qtdIntervalos*i irá gerar um intervalo gradativo
+    }
+    return intervalos;
+}
+
+function gerarIntervalos(valores){
+    let intervalos = [];
+
+    let min = parseInt(valores[0]);
+    let minUtil = parseInt(min + min * 10 / 100);
+
+    let max = parseInt(valores[valores.length-1]);
+    console.log(max+'-'+max+' * 10 / 100');
+    let maxUtil = parseInt(max - max * 10 / 100);
+    let qtdIntervalos = 10;
+    let intervalo = maxUtil >= 10 ? parseInt(maxUtil / qtdIntervalos) : (maxUtil / qtdIntervalos);
+
+    console.log('maxUtil', intervalo);
+    //console.log(intervalo);
+    //console.log('resto', intervalo % 100);
+    let rounder =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
+    console.log('intervalo antes', intervalo);
+    console.log('rounder', rounder);
+    intervalo = Math.ceil(intervalo/rounder) * rounder;
+    console.log('intervalo depois', intervalo);
+    intervalos[0] = min;
+    intervalos[1] = minUtil;
+    intervalos[9] = maxUtil;
+    for(let i=2;i<qtdIntervalos;i++){
+        //intervalos[i] = intervalos[i-1] + intervalo;
+        intervalos[i] = intervalos[i-1] + intervalo/qtdIntervalos*i;//intervalo/qtdIntervalos*i irá gerar um intervalo gradativo
+    }
+    return intervalos;
+}
+
+function getColor(d, intervalos) {
+
+    var colors = ['#4285F4', '#689DF6', '#8EB6F8', '#B3CEFB', '#F6D473', '#F1B567', '#ED965B', '#E87850',  '#E45A45',  '#E0433C'];
+
+
+    var qtdIntervalos = intervalos.length;
+    for(var i=qtdIntervalos-1; i>=0; i--){
+        if(d > intervalos[i]){
+            //console.log(colors[i]);
+            return colors[i];
+        }
+    }
+}

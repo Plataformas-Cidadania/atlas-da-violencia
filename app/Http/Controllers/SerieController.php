@@ -910,7 +910,7 @@ class SerieController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        //DB::enableQueryLog();
+        DB::enableQueryLog();
 
 
 
@@ -941,6 +941,8 @@ class SerieController extends Controller
             }
 
             $rows = $this->cache->get($cacheKey);
+
+            Log::info(DB::getQueryLog());
 
             $data = [];
 

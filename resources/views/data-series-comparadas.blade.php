@@ -280,7 +280,7 @@
         @if(!empty($ids))
             <?php $abrangencias = config('constants.abrangencias');?>
             <script>
-                ids={{$ids}};
+                ids="{{$ids}}";
                 from="{!! $from !!}";
                 to="{!! $to !!}";
                 regions="{!! $regions !!}";
@@ -339,7 +339,7 @@
             </script>
 
 
-            <div id="pgSerie"></div>
+            <div id="pageComparatedData"></div>
 
 
         @else
