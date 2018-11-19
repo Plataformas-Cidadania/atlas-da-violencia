@@ -321,12 +321,14 @@
                             ->join('items_versoes', 'integrantes.id', '=', 'items_versoes.integrante_id')
                             ->where('items_versoes.versao_id', $versao->id)
                             ->where('items_versoes.tipo_id', 1)
+                            ->where('items_versoes.status', 1)
                             ->get();
                         $equipe = DB::table('integrantes')
                             ->select('integrantes.id', 'integrantes.titulo', 'integrantes.imagem', 'integrantes.url')
                             ->join('items_versoes', 'integrantes.id', '=', 'items_versoes.integrante_id')
                             ->where('items_versoes.versao_id', $versao->id)
                             ->where('items_versoes.tipo_id', 2)
+                            ->where('items_versoes.status', 1)
                             ->get();
 
                         ?>
@@ -336,23 +338,52 @@
                                 <div><strong>Coordenadores:</strong>
                                     @foreach($cordenadores as $cordenador)
                                         <a href="{{$cordenador->url}}">
-                                            <p><img src="/imagens/integrantes/xs-{{$cordenador->imagem}}" alt="{{$cordenador->titulo}}" title="{{$cordenador->titulo}}" class="img-user">{{$cordenador->titulo}}</p>
+                                            <div>
+                                                @if($cordenador->imagem)
+                                                <img src="imagens/integrantes/xs-{{$cordenador->imagem}}" alt="{{$cordenador->titulo}}" title="{{$cordenador->titulo}}" class="img-user">
+                                                @else
+                                                <img src="http://evbsb1052.ipea.gov.br/atlasviolencia/img/marker.png" class="img-user">
+                                                @endif
+                                                {{$cordenador->titulo}}
+                                            </div>
                                         </a>
                                     @endforeach
                                 </div>
 
 
-
-                                <div><strong>Equipe Técnica:</strong>
+                                <br>    
+                                <div>
+                                    <strong>Equipe Técnica:</strong>
+                                    <div style="clear: both;"></div>
                                     @foreach($equipe as $integrante)
-                                        <a href="{{$cordenador->url}}">
-                                             <p>{{$integrante->titulo}}</p>
+                                    <div class="box-integrante">
+                                        <a href="{{$integrante->url}}" target="_blank">
+                                            @if($integrante->imagem)
+                                                <img src="imagens/integrantes/xs-{{$integrante->imagem}}" alt="{{$integrante->titulo}}" title="{{$integrante->titulo}}" class="img-user">
+                                            @else
+                                                <img src="http://evbsb1052.ipea.gov.br/atlasviolencia/img/marker.png" class="img-user">
+                                            @endif
+                                            {{$integrante->titulo}}                                            
                                         </a>
+                                    </div>                                   
                                     @endforeach
+                                     <div style="clear: both;"></div>
                                 </div>
 
 
                     @endforeach
+                    <style type="text/css">
+                        .box-integrante{
+                            float: left;
+                            margin: 0 10px 0 0;
+                        }
+                        .img-user{
+                            width:50px;
+                            height: 50px;
+                            margin: 5px 10px;
+                            border: solid 2px #CCCCCC; 
+                        }
+                    </style>
                 {{--////////////////////Equipe END////////////////////--}}
 
 

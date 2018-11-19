@@ -286,6 +286,7 @@
                 regions="{!! $regions !!}";
                 abrangencia="{{$abrangencia}}";
                 abrangenciasOk="{{$abrangenciasOk}}";
+                periodicidade="{{$periodicidade}}";
                 @foreach($abrangencias as $key => $abr)
                     @if($abr['id']==$abrangencia)
                         nomeAbrangencia="{!! $abr['title'] !!}";

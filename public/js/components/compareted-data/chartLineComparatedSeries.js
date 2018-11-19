@@ -11,6 +11,7 @@ class ChartLineComparatedSeries extends React.Component {
             max: props.max,
             /*intervalos: this.props.intervalos,*/
             regions: this.props.regions,
+            region: this.props.region,
             abrangencia: this.props.abrangencia
         };
         this.loadData = this.loadData.bind(this);
@@ -27,9 +28,16 @@ class ChartLineComparatedSeries extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (this.state.min != props.min || this.state.max != props.max || this.state.intervalos != props.intervalos || this.state.regions != props.regions || this.state.abrangencia != props.abrangencia) {
-            this.setState({ min: props.min, max: props.max, intervalos: props.intervalos, regions: props.regions, abrangencia: props.abrangencia }, function () {
-                if (myChartBar) {
+        if (this.state.min != props.min || this.state.max != props.max || this.state.intervalos != props.intervalos || this.state.regions != props.regions || this.state.abrangencia != props.abrangencia || this.state.region != props.region) {
+            this.setState({
+                min: props.min,
+                max: props.max,
+                intervalos: props.intervalos,
+                regions: props.regions,
+                region: props.region,
+                abrangencia: props.abrangencia
+            }, function () {
+                if (myChartLine) {
                     this.chartDestroy();
                 }
                 if (this.state.min && this.state.max) {
@@ -43,8 +51,13 @@ class ChartLineComparatedSeries extends React.Component {
         if (this.state.regions) {
             this.setState({ loading: true });
             let _this = this;
-            let arrayRegions = this.state.regions.split(",");
-            let region = arrayRegions[0];
+            let region = this.state.region;
+            if (!region) {
+                let arrayRegions = this.state.regions.split(",");
+                region = arrayRegions[0];
+                this.props.selectRegion(region);
+            }
+
             $.ajax("periodo-series-comparadas/" + this.state.ids + "/" + this.state.min + "/" + this.state.max + "/" + region + "/" + this.state.abrangencia, {
                 data: {},
                 success: function (data) {
@@ -73,7 +86,7 @@ class ChartLineComparatedSeries extends React.Component {
         let labels = [];
         let values = [];
         for (let i in data) {
-            labels[i] = data[i].periodo;
+            labels[i] = data[i].periodo.substr(0, 7);
             values[i] = data[i].total;
         }
 
@@ -130,7 +143,7 @@ class ChartLineComparatedSeries extends React.Component {
             for (let periodo in data[region]) {
                 values.push(data[region][periodo]);
                 if (cont == 0) {
-                    labels[contLabel] = periodo;
+                    labels[contLabel] = formatPeriodicidade(periodo, this.props.periodicidade);
                     contLabel++;
                 }
             }

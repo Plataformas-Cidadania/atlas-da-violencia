@@ -841,6 +841,7 @@ class SerieController extends Controller
         $regions = $series[0]->regions;
         $abrangencia = $series[0]->abrangencia;
         $abrangenciasOk = $series[0]->abrangenciasOk;
+        $periodicidade = $series[0]->periodicidade;
 
 
 
@@ -851,6 +852,7 @@ class SerieController extends Controller
             'regions'       => $regions,
             'abrangencia'   => $abrangencia,
             'abrangenciasOk'   => $abrangenciasOk,
+            'periodicidade'   => $periodicidade,
         ]);
     }
 
@@ -982,23 +984,25 @@ class SerieController extends Controller
         }
 
         foreach ($series as $key => $serie) {
-            Log::info(ksort($serie));
-            usort($serie, function($a1, $a2) use($key) {
-               $v1 = strtotime($a1);
-               $v2[$key] = strtotime($a2);
-               return $v1 - $v2; // $v2 - $v1 to reverse direction
-
-            });
+            ksort($serie);
+            Log::info($serie);
+            $series[$key] = $serie;
         }
         
 
         return $series;
     }
 
+    public function getRegionsByIds(Request $request){
+        $ids = explode(',', $request->ids);
+        $abrangencia = $request->abrangencia;
+        $regions = DB::table($this->tabelas[$abrangencia])
+        ->select('edterritorios_codigo as id', 'edterritorios_nome as nome', 'edterritorios_sigla as sigla')
+        ->whereIn('edterritorios_codigo', $ids)
+        ->get();
 
-
-    
-
+        return $regions;
+    }
 
 }
 
