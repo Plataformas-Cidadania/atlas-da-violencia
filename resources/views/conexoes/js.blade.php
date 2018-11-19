@@ -201,6 +201,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
         ];
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
     <script src="js/components/compareted-data/chartLineComparatedSeries.js"></script>
     <script src="js/components/compareted-data/pageComparatedData.js"></script>
     <script src="js/controllers/contatoSerieCtrl.js"></script>

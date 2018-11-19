@@ -885,6 +885,8 @@ class SerieController extends Controller
 
     public function compararValoresPeriodoRegioesSelecionadas($ids, $min, $max, $regions, $abrangencia){
 
+        $lang =  App::getLocale();
+
         //Log::info('periodo-'.$id.'-'.$min.'-'.$max.'-'.str_replace(',', '', $regions).'-'.$abrangencia);
 
 
@@ -910,7 +912,7 @@ class SerieController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
 
 
 
@@ -924,13 +926,16 @@ class SerieController extends Controller
 
             if(!$this->cache->has($cacheKey)){
                 $this->cache->put($cacheKey, DB::table('valores_series')
-                    ->select(DB::raw("$select_sigla as sigla, valores_series.valor, valores_series.periodo"))
+                    ->select(DB::raw("series.id, textos_series.titulo, $select_sigla as sigla, valores_series.valor, valores_series.periodo"))
                     ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+                    ->join('series', 'valores_series.serie_id', '=', "series.id")
+                    ->join('textos_series', 'textos_series.serie_id', '=', "series.id")
                     ->where([
                         ['valores_series.serie_id', $id],
                         ['valores_series.periodo', '>=', $min],
                         ['valores_series.periodo', '<=', $max],
-                        ['valores_series.tipo_regiao', $abrangencia]
+                        ['valores_series.tipo_regiao', $abrangencia],
+                        ['textos_series.idioma_sigla', $lang]
                     ])
                     ->when($regions[0]!=0, function($query) use ($arrayRegions, $tabelas, $abrangencia){
                         return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $arrayRegions);
@@ -942,19 +947,57 @@ class SerieController extends Controller
 
             $rows = $this->cache->get($cacheKey);
 
-            Log::info(DB::getQueryLog());
+            //Log::info(DB::getQueryLog());
 
             $data = [];
 
             foreach($rows as $row){
-                $data[$row->sigla][$row->periodo] = $row->valor;
+                //$data[$row->sigla][$row->periodo] = $row->valor;
+                $data[$row->periodo] = $row->valor;
             }
 
-            array_push($series, $data);
+            //array_push($series, $data);
+            if(count($rows) > 0){
+                $series[$rows[0]->titulo] = $data;
+            }
+            
+
         }
+
+        $periodos = [];
+        foreach ($series as $serie) {
+            foreach ($data as $periodo => $valor) {
+                if(!array_key_exists($periodo, $periodos)){
+                    array_push($periodos, $periodo);
+                }
+            }            
+        }
+
+        foreach ($periodos as $periodo) {        
+            foreach ($series as $key => $serie) {
+                if(!array_key_exists($periodo, $series[$key])){
+                    $series[$key][$periodo] = null;
+                }
+            }
+        }
+
+        foreach ($series as $key => $serie) {
+            Log::info(ksort($serie));
+            usort($serie, function($a1, $a2) use($key) {
+               $v1 = strtotime($a1);
+               $v2[$key] = strtotime($a2);
+               return $v1 - $v2; // $v2 - $v1 to reverse direction
+
+            });
+        }
+        
 
         return $series;
     }
+
+
+
+    
 
 
 }

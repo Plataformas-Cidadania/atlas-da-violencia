@@ -19,6 +19,7 @@ class UnidadeController extends Controller
     public function __construct()
     {
         $this->unidade = new \App\Unidade;
+        $this->idiomaUnidade = new \App\IdiomaUnidade;
         $this->campos = [
             'imagem', 'titulo', 'sigla', 'cmsuser_id',
         ];
@@ -36,8 +37,9 @@ class UnidadeController extends Controller
     {
 
         $unidades = \App\Unidade::all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::unidade.listar', ['unidades' => $unidades]);
+        return view('cms::unidade.listar', ['unidades' => $unidades, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
@@ -49,13 +51,25 @@ class UnidadeController extends Controller
 
         $campos = explode(", ", $request->campos);
 
-        $unidades = DB::table('unidades')
+        /*$unidades = DB::table('unidades')
             ->select($campos)
             ->where([
                 [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
             ])
             ->orderBy($request->ordem, $request->sentido)
-            ->paginate($request->itensPorPagina);
+            ->paginate($request->itensPorPagina);*/
+
+        $unidades = DB::table('unidades')
+        ->select($campos)
+        ->join('idiomas_unidades', 'idiomas_unidades.unidade_id', '=', 'unidades.id')
+        ->where([
+            [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
+            ['idiomas_unidades.idioma_sigla', 'pt_BR'],
+        ])
+        ->orderBy($request->ordem, $request->sentido)
+        ->paginate($request->itensPorPagina);
+
+
         return $unidades;
     }
 
@@ -64,7 +78,10 @@ class UnidadeController extends Controller
 
         $data = $request->all();
 
+        $data['indicador'] = [];
+
         $data['unidade'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['idioma'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
@@ -82,13 +99,22 @@ class UnidadeController extends Controller
             
             if($success){
                 $data['unidade']['imagem'] = $filename;
+                $inserir = $this->unidade->create($data['unidade']);
+                $data['idioma']['unidade_id'] = $inserir->id;
+                $inserir2 = $this->idiomaUnidade->create($data['idioma']);
+
                 return $this->unidade->create($data['unidade']);
             }else{
                 return "erro";
             }
         }
 
-        return $this->unidade->create($data['unidade']);
+        //return $this->unidade->create($data['unidade']);
+
+        $inserir = $this->unidade->create($data['unidade']);
+        $data['idioma']['unidade_id'] = $inserir->id;
+        $inserir2 = $this->idiomaUnidade->create($data['idioma']);
+        return $inserir;
 
     }
 

@@ -14,7 +14,7 @@ use Intervention\Image\Facades\Image;
 class IndicadorController extends Controller
 {
     
-    
+
 
     public function __construct()
     {
