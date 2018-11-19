@@ -156,7 +156,7 @@ class Filter extends React.Component{
             });
 
             return (
-                <div key={'cat_'+item.id} style={{cursor:'pointer', color: color}} onClick={() => this.addType(item)}>
+                <div key={'cat_'+Math.floor(Math.random()*999999)+'_'+item.id} style={{cursor:'pointer', color: color}} onClick={() => this.addType(item)}>
                     <u>{firstPiece}</u>{lastPiece}
                 </div>
             )

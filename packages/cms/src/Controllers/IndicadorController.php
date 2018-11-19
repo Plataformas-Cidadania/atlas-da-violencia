@@ -71,6 +71,8 @@ class IndicadorController extends Controller
 
         $data = $request->all();
 
+        $data['indicador'] = [];
+
         $data['indicador'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
         $data['idioma'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 

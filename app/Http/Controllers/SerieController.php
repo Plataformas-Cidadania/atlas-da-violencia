@@ -787,7 +787,7 @@ class SerieController extends Controller
         $series = [];
 
         foreach ($ids as $id) {
-            $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
+            $serie = \App\Serie::select('series.id', 'textos_series.titulo', 'textos_series.idioma_sigla', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
                 ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
                 ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
                 ->join('fontes', 'fontes.id', '=', 'series.fonte_id')

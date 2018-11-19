@@ -156,7 +156,7 @@ class Filter extends React.Component {
 
             return React.createElement(
                 'div',
-                { key: 'cat_' + item.id, style: { cursor: 'pointer', color: color }, onClick: () => this.addType(item) },
+                { key: 'cat_' + Math.floor(Math.random() * 999999) + '_' + item.id, style: { cursor: 'pointer', color: color }, onClick: () => this.addType(item) },
                 React.createElement(
                     'u',
                     null,

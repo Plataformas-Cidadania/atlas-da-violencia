@@ -14,7 +14,7 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>",
             '2' => 'Acessibilidade',
             '3' => 'Redirecionamento',
             '4' => 'Home Publicações',
-            '5' => 'Indiocadores'
+            '5' => 'Indicadores'
         ),
 null, ['class'=>"form-control width-medio <% validar(quemsomo.tipo) %>", 'ng-model'=>'quemsomo.tipo', 'ng-required'=>'true', 'init-model'=>'quemsomo.tipo', 'placeholder' => '']) !!}<br>
 

@@ -40,22 +40,24 @@ class ChartLineComparatedSeries extends React.Component {
     }
 
     loadData() {
-        this.setState({ loading: true });
-        let _this = this;
-        let region = this.state.regions.substr(0, 1);
-        region = 33;
-        $.ajax("periodo-series-comparadas/" + this.state.ids + "/" + this.state.min + "/" + this.state.max + "/" + region + "/" + this.state.abrangencia, {
-            data: {},
-            success: function (data) {
-                //console.log('charline', data);
-                _this.setState({ loading: false }, function () {
-                    _this.loadChartLine(data);
-                });
-            },
-            error: function (data) {
-                console.log('erro');
-            }
-        });
+        if (this.state.regions) {
+            this.setState({ loading: true });
+            let _this = this;
+            let arrayRegions = this.state.regions.split(",");
+            let region = arrayRegions[0];
+            $.ajax("periodo-series-comparadas/" + this.state.ids + "/" + this.state.min + "/" + this.state.max + "/" + region + "/" + this.state.abrangencia, {
+                data: {},
+                success: function (data) {
+                    //console.log('charline', data);
+                    _this.setState({ loading: false }, function () {
+                        _this.loadChartLine(data);
+                    });
+                },
+                error: function (data) {
+                    console.log('erro');
+                }
+            });
+        }
     }
 
     loadChartLine(data) {

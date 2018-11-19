@@ -67,7 +67,8 @@ class QuemController extends Controller
             'artworkVertJpg' => $artworkVertJpg,
             'directivesType' => $directivesType,
             'printingsManual' => $printingsManual,
-            'printings' => $printings
+            'printings' => $printings,
+	    'versoes' => $versoes
         ]);
 
     }

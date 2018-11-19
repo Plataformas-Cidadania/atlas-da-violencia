@@ -91,7 +91,7 @@ class PageFilters extends React.Component{
         ids = ids.substr(0,ids.length-1);
         $.ajax({
             method:'POST',
-            url: "validar-comparar-series/",
+            url: "validar-comparar-series",
             data: {
               ids: ids,
             },
@@ -109,7 +109,7 @@ class PageFilters extends React.Component{
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log('erro');
-                this.setState({items: items, processingSelectedItems: false});
+                this.setState({processingSelectedItems: false});
             }.bind(this, ids)
         });
     }
