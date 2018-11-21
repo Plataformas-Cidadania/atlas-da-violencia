@@ -200,7 +200,9 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
             '#DDD203'
         ];
     </script>
-
+    <script src="js/components/selectItems.js"></script>
+    <script src="js/components/filters/modal.js"></script>
+    <script src="js/components/abrangenciaSerie.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
     <script src="js/components/compareted-data/regions.js"></script>
     <script src="js/components/compareted-data/chartLineComparatedSeries.js"></script>
