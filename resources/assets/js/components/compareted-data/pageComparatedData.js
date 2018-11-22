@@ -102,6 +102,21 @@ class PageComparatedData extends React.Component{
                     typeRegionSerie={this.props.typeRegionSerie}
                     intervalos={this.state.intervalos}*/
                 />
+                <br/><br/>
+                <ListValoresComparatedSeries
+                    ids={this.state.ids}
+                    periodicidade={this.props.periodicidade}
+                    min={this.state.min}
+                    max={this.state.max}
+                    periodos={this.state.periodos}
+                    regions={this.state.regions}
+                    region={this.state.region}
+                    abrangencia={this.state.abrangencia}
+                    selectRegion={this.selectRegion}
+                    /*typeRegion={this.props.typeRegion}
+                    typeRegionSerie={this.props.typeRegionSerie}
+                    intervalos={this.state.intervalos}*/
+                />
             </div>
         );
     }
