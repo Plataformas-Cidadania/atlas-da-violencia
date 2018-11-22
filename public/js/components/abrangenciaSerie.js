@@ -139,18 +139,20 @@ class AbrangenciaSerie extends React.Component {
         let tituloAbrangencia = null;
 
         let filterRegions = null;
-        filterRegions = React.createElement(
-            'button',
-            { className: 'btn btn-info', style: { marginLeft: '10px' }, onClick: this.showRegions },
-            React.createElement('i', { className: 'fa fa-filter ' }),
-            ' ',
-            this.props.lang_filter_uf,
-            ' ',
-            this.state.nomeAbrangencia
-        );
-        /*if(this.state.abrangencia!==3){
-            filterRegions = <button className="btn btn-info" style={{marginLeft: '10px'}} onClick={this.showRegions}><i className="fa fa-filter "/> Filtrar Regiões</button>;
-        }*/
+        if (this.props.filters) {
+            filterRegions = React.createElement(
+                'button',
+                { className: 'btn btn-info', style: { marginLeft: '10px' }, onClick: this.showRegions },
+                React.createElement('i', { className: 'fa fa-filter ' }),
+                ' ',
+                this.props.lang_filter_uf,
+                ' ',
+                this.state.nomeAbrangencia
+            );
+            /*if(this.state.abrangencia!==3){
+                filterRegions = <button className="btn btn-info" style={{marginLeft: '10px'}} onClick={this.showRegions}><i className="fa fa-filter "/> Filtrar Regiões</button>;
+            }*/
+        }
 
         let abrangencias = this.state.abrangencias.map(function (item) {
 

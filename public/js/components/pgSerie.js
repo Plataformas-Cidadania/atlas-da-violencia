@@ -379,6 +379,7 @@ class PgSerie extends React.Component {
                             abrangenciasOk: this.state.abrangenciasOk,
                             setRegions: this.setRegions,
                             setNomeAbrangencia: this.setNomeAbrangencia,
+                            filters: true,
 
                             lang_parents: this.props.lang_parents,
                             lang_regions: this.props.lang_regions,
