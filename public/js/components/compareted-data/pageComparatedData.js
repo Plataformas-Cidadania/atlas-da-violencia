@@ -85,9 +85,9 @@ class PageComparatedData extends React.Component {
                         lang_all: this.props.lang_all,
                         lang_remove_all: this.props.lang_remove_all
                     })
-                )
+                ),
+                React.createElement('br', null)
             ),
-            React.createElement('br', null),
             React.createElement(
                 'div',
                 { className: 'col-md-12' },
@@ -96,7 +96,8 @@ class PageComparatedData extends React.Component {
                     region: this.state.region,
                     selectRegion: this.selectRegion,
                     abrangencia: this.state.abrangencia
-                })
+                }),
+                React.createElement('br', null)
             ),
             React.createElement(
                 'div',
@@ -114,7 +115,8 @@ class PageComparatedData extends React.Component {
                     /*typeRegion={this.props.typeRegion}
                     typeRegionSerie={this.props.typeRegionSerie}
                     intervalos={this.state.intervalos}*/
-                })
+                }),
+                React.createElement('br', null)
             ),
             React.createElement(
                 'div',
@@ -132,7 +134,8 @@ class PageComparatedData extends React.Component {
                     /*typeRegion={this.props.typeRegion}
                     typeRegionSerie={this.props.typeRegionSerie}
                     intervalos={this.state.intervalos}*/
-                })
+                }),
+                React.createElement('br', null)
             )
         );
     }

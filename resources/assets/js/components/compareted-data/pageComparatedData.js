@@ -83,8 +83,8 @@ class PageComparatedData extends React.Component{
                             lang_remove_all={this.props.lang_remove_all}
                         />
                     </div>
+                    <br/>
                 </div>
-                <br/>
                 <div className="col-md-12">
                     <Regions
                         regions={this.state.regions}
@@ -92,6 +92,7 @@ class PageComparatedData extends React.Component{
                         selectRegion={this.selectRegion}
                         abrangencia={this.state.abrangencia}
                     />
+                    <br/>
                 </div>
                 <div className="col-md-12">
                     <ChartLineComparatedSeries
@@ -108,6 +109,7 @@ class PageComparatedData extends React.Component{
                         typeRegionSerie={this.props.typeRegionSerie}
                         intervalos={this.state.intervalos}*/
                     />
+                    <br/>
                 </div>
                 <div className="col-md-12">
                     <ListValoresComparatedSeries
@@ -124,6 +126,7 @@ class PageComparatedData extends React.Component{
                         typeRegionSerie={this.props.typeRegionSerie}
                         intervalos={this.state.intervalos}*/
                     />
+                    <br/>
                 </div>
             </div>
         );
