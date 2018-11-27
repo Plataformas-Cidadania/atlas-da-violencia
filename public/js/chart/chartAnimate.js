@@ -6,7 +6,6 @@ var labels = [];
 var intervalo = null;
 var ctx = null;
 
-
 var config = {};
 var values = [];
 function homeChart(data, titulo){
@@ -18,7 +17,6 @@ function homeChart(data, titulo){
         values[count] = data[i];
         count++;
     }
-
 
     config = {
         type: 'line',
