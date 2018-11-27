@@ -1,5 +1,6 @@
 <?php
 $menus = DB::table('menu')->where('status', 1)->where('idioma_sigla', $lang)->orderBy('posicao')->get();
+$modulos_menu = DB::table('menu')->where('idioma_sigla', $lang)->orderBy('posicao')->get();
 $setting = DB::table('settings')->orderBy('id', 'desc')->first();
 $lang =  App::getLocale();
 $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
@@ -34,7 +35,6 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     <li><a href="lang/{{$idioma->sigla}}"><img src="imagens/idiomas/xs-{{$idioma->imagem}}" alt="{{$idioma->sigla}}" title="{{$idioma->sigla}}"></a></li>
                 @endforeach
             </ul>
-
         </div>
     </div>
 
@@ -134,6 +134,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     </a>
                     {{----}}
 
+                    @if(count($ultimaArtigo)>0)
                     {{--TEXTO--}}
                     <a href="" class="item" style="background-color: #ececec;">
                         <h2 style="margin-top: 0;">{{$ultimaArtigo->titulo}}</h2>
@@ -142,6 +143,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                         <div href="artigo/{{$ultimaArtigo->id}}/{{clean($ultimaArtigo->titulo)}}" class="btn btn-info" >@lang('buttons.more-details')</div>
                     </a>
                     {{----}}
+                    @endif
                     {{--IMAGEM--}}
                     <?php $cont=2;?>
                     @foreach($webdoors as $webdoor)
