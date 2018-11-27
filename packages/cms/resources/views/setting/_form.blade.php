@@ -124,7 +124,7 @@
                         '0' => 'Todos os temas',
                         '1' => 'Último nivel dos temas',
                     ),
-            null, ['class'=>"form-control width-medio <% validar(quemsomo.consulta_por_temas) %>", 'ng-model'=>'quemsomo.consulta_por_temas', 'ng-required'=>'true', 'init-model'=>'quemsomo.consulta_por_temas', 'placeholder' => '']) !!}<br>
+            null, ['class'=>"form-control width-medio <% validar(setting.consulta_por_temas) %>", 'ng-model'=>'setting.consulta_por_temas', 'ng-required'=>'true', 'init-model'=>'setting.consulta_por_temas', 'placeholder' => '']) !!}<br>
 
 
             <br>
@@ -134,7 +134,7 @@
                         '0' => 'Não',
                         '1' => 'Sim',
                     ),
-            null, ['class'=>"form-control width-medio <% validar(quemsomo.consulta_filtros_indicadores) %>", 'ng-model'=>'quemsomo.consulta_filtros_indicadores', 'ng-required'=>'true', 'init-model'=>'quemsomo.consulta_filtros_indicadores', 'placeholder' => '']) !!}<br>
+            null, ['class'=>"form-control width-medio <% validar(setting.consulta_filtros_indicadores) %>", 'ng-model'=>'setting.consulta_filtros_indicadores', 'ng-required'=>'true', 'init-model'=>'setting.consulta_filtros_indicadores', 'placeholder' => '']) !!}<br>
 
         </div>
         <div role="tabpanel" class="tab-pane" id="emails">
