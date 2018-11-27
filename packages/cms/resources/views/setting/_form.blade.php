@@ -1,13 +1,12 @@
 
 <div>
-
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#site" aria-controls="site" role="tab" data-toggle="tab">Site</a></li>
         <li role="presentation"><a href="#contato" aria-controls="contato" role="tab" data-toggle="tab">Contato</a></li>
         <li role="presentation"><a href="#cor" aria-controls="cor" role="tab" data-toggle="tab">Cores</a></li>
         <li role="presentation"><a href="#redes" aria-controls="redes" role="tab" data-toggle="tab">Redes</a></li>
-        <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home Séries</a></li>
+        <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Séries</a></li>
         <li role="presentation"><a href="#emails" aria-controls="emails" role="tab" data-toggle="tab">E-mail</a></li>
     </ul>
 
@@ -112,10 +111,31 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="home">
             <br>
-            {!! Form::label('serie_id', 'Séries *') !!}<br>
+            {!! Form::label('serie_id', 'Séries home *') !!}<br>
             {!! Form::select('serie_id',
                     $series,
             null, ['class'=>"form-control width-grande <% validar(setting.serie_id) %>", 'ng-model'=>'setting.serie_id', 'ng-required'=>'true', 'init-model'=>'setting.serie_id', 'placeholder' => 'Selecione']) !!}<br>
+
+
+            <br>
+            {!! Form::label('consulta_por_temas', 'Consulta por temas *') !!}<br>
+            {!! Form::select('consulta_por_temas',
+                    array(
+                        '0' => 'Todos os temas',
+                        '1' => 'Último nivel dos temas',
+                    ),
+            null, ['class'=>"form-control width-medio <% validar(quemsomo.consulta_por_temas) %>", 'ng-model'=>'quemsomo.consulta_por_temas', 'ng-required'=>'true', 'init-model'=>'quemsomo.consulta_por_temas', 'placeholder' => '']) !!}<br>
+
+
+            <br>
+            {!! Form::label('consulta_filtros_indicadores', 'Consulta filtros indicadores *') !!}<br>
+            {!! Form::select('consulta_filtros_indicadores',
+                    array(
+                        '0' => 'Não',
+                        '1' => 'Sim',
+                    ),
+            null, ['class'=>"form-control width-medio <% validar(quemsomo.consulta_filtros_indicadores) %>", 'ng-model'=>'quemsomo.consulta_filtros_indicadores', 'ng-required'=>'true', 'init-model'=>'quemsomo.consulta_filtros_indicadores', 'placeholder' => '']) !!}<br>
+
         </div>
         <div role="tabpanel" class="tab-pane" id="emails">
             <br>
