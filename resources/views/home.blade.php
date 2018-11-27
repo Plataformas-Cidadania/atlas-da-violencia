@@ -5,6 +5,7 @@
 
     <article>
         <br><br>
+        @if(count($links)>0)
         <div class="container block" data-move-x="500px">
             <div class="row">
                 <br><br>
@@ -54,8 +55,9 @@
                 @endforeach
             </div>
         </div>
+        @endif
 
-
+        @if(count($downloads)>0)
         <div class="container">
             <div class="row text-center">
                 @foreach($tituloLinhaTempo as $titulo)
@@ -81,6 +83,7 @@
         </div>
 
         <br><br><br><br>
+        @endif
 
         {{--STRAT INDICE--}}
         @if(count($indices)>0)

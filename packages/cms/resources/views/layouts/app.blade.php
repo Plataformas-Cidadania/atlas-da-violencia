@@ -204,10 +204,12 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
                             <li>
                                 <a href="cms/quemsomos/4/publicações"><i class="fa fa-fw fa-building"></i> Home Publicações</a>
                             </li>
+                            <li>
+                                <a href="cms/quemsomos/6/menu"><i class="fa fa-fw fa-building"></i> Menu</a>
+                            </li>
 
                         </ul>
                     </li>
-
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i
                                     class="fa fa-fw fa-arrows-v"></i> Pontos <i class="fa fa-fw fa-caret-down"></i></a>
