@@ -68,7 +68,6 @@ class SettingController extends Controller
         $setting->update($data);
         return "Gravado com sucesso";*/
 
-
     $data = $request->all();
     $data['setting'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 

@@ -13,8 +13,8 @@ class AlterSettingsTable extends Migration
     public function up()
     {
         Schema::table('settings', function (Blueprint $table) {
-            $table->integer('consulta_por_temas')->default(0);
-            $table->integer('consulta_filtros_indicadores')->default(0);
+            $table->integer('consulta_por_temas')->default(0); // 0 - Todos os temas | 1- ultimo nivel do temas
+            $table->integer('consulta_filtros_indicadores')->default(0); // 0 - Não | 1 - Sim
         });
     }
 
