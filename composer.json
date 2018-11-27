@@ -39,7 +39,7 @@
             "tests/TestCase.php"
         ]
     },
-    "scripts": {
+    /*"scripts": {
         "pre-update-cmd": [
             "php artisan clear-compiled"
         ],
@@ -57,7 +57,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ]
-    },
+    },*/
     "config": {
         "preferred-install": "dist"
     }
