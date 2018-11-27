@@ -169,6 +169,9 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
                                 <a href="cms/apoios"><i class="fa fa-fw fa-anchor"></i> Apoio</a>
                             </li>
                             <li>
+                                <a href="cms/parceiros"><i class="fa fa-fw fa-anchor"></i> Parceiros</a>
+                            </li>
+                            <li>
                                 <a href="cms/links"><i class="fa fa-fw fa-link"></i> Links</a>
                             </li>
                             <li>

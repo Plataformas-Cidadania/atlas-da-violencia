@@ -293,6 +293,18 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/status-apoio/{id}', 'Cms\Controllers\ApoioController@status');
         Route::get('/cms/positionUp-apoio/{id}', 'Cms\Controllers\ApoioController@positionUp');
         Route::get('/cms/positionDown-apoio/{id}', 'Cms\Controllers\ApoioController@positionDown');
+ 
+
+        //PARCEIROS
+        Route::get('/cms/parceiros', 'Cms\Controllers\ParceiroController@index');
+        Route::get('/cms/listar-parceiros', 'Cms\Controllers\ParceiroController@listar');
+        Route::post('/cms/inserir-parceiro', 'Cms\Controllers\ParceiroController@inserir');
+        Route::get('/cms/parceiro/{id}', 'Cms\Controllers\ParceiroController@detalhar');
+        Route::post('/cms/alterar-parceiro/{id}', 'Cms\Controllers\ParceiroController@alterar');
+        Route::get('/cms/excluir-parceiro/{id}', 'Cms\Controllers\ParceiroController@excluir');
+        Route::get('/cms/status-parceiro/{id}', 'Cms\Controllers\ParceiroController@status');
+        Route::get('/cms/positionUp-parceiro/{id}', 'Cms\Controllers\ParceiroController@positionUp');
+        Route::get('/cms/positionDown-parceiro/{id}', 'Cms\Controllers\ParceiroController@positionDown');
 
         //INTEGRANTES
         Route::get('/cms/integrantes', 'Cms\Controllers\IntegranteController@index');

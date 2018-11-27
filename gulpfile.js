@@ -162,6 +162,10 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/apoioCtrl.js', 'public/assets-cms/js/controllers/apoioCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarApoioCtrl.js', 'public/assets-cms/js/controllers/alterarApoioCtrl.js');
 
+    //Parceiros
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/parceiroCtrl.js', 'public/assets-cms/js/controllers/parceiroCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarParceiroCtrl.js', 'public/assets-cms/js/controllers/alterarParceiroCtrl.js');
+
     //Settings
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarSettingCtrl.js', 'public/assets-cms/js/controllers/alterarSettingCtrl.js');
 

@@ -147,6 +147,27 @@
         @endif
         {{--END BEM VINDO--}}
 
+        {{--STRAT PARCEIROS--}}
+        @if(count($parceiros)>0)
+            <br><br>
+        <div class="container">
+            <div class="row">
+                @foreach($parceiros as $parceiro)
+                    <div class="col-md-3">
+                        <a href="{{$parceiro->url}}" aria-label="{{$parceiro->titulo}}">
+                            <picture>
+                                <source srcset="imagens/parceiros/sm-{{$parceiro->imagem}}" media="(max-width: 468px)">
+                                <source srcset="imagens/parceiros/sm-{{$parceiro->imagem}}" media="(max-width: 768px)">
+                                <source srcset="imagens/parceiros/sm-{{$parceiro->imagem}}" class="img-responsive">
+                                <img srcset="imagens/parceiros/sm-{{$parceiro->imagem}}" alt="Imagem sobre {{$parceiro->titulo}}" title="Imagem sobre {{$parceiro->titulo}}" width="100%">
+                            </picture>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+        {{--END PARCEIROS--}}
         <br><br>
         <br><br>
         <div id="newsletter"></div>

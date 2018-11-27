@@ -24,10 +24,9 @@ class HomeController extends Controller
         $menu = \App\Menu::where('menu_id', 0)->get();
         $video = \App\Video::orderBy('id', 'desc')->first();
         $indices = \App\Indice::where('idioma_sigla', $lang)->where('status', 1)->orderBy('posicao')->take(4)->get();
-        Log::info(json_decode($indices));
         $downloads = DB::table('downloads')->where('idioma_sigla', $lang)->where('origem_id', 0)->orderBy('id', 'desc')->take(3)->get();
         $tituloLinhaTempo = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 4)->orderBy('id', 'desc')->take(1)->get();
-
+        $parceiros = DB::table('parceiros')->orderBy('posicao')->where('status', 1)->take(4)->get();
 
 
         return view('home', [
@@ -42,6 +41,7 @@ class HomeController extends Controller
             'indices' => $indices,
             'downloads' => $downloads,
             'tituloLinhaTempo' => $tituloLinhaTempo,
+            'parceiros' => $parceiros,
         ]);
     }
 
