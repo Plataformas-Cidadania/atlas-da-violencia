@@ -82,6 +82,8 @@
 
         <br><br><br><br>
 
+        {{--STRAT INDICE--}}
+        @if(count($indices)>0)
         <br><br>
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
@@ -100,7 +102,12 @@
             </div>
         </div>
         <br><br>
+        @endif
+        {{--END INDICE--}}
 
+
+        {{--STRAT NOTICIAS--}}
+        @if(count($noticias)>0)
         <div class="container">
             <div class="row">
                 <h2 class="box-titulo">@lang('links.news')</h2>
@@ -121,7 +128,11 @@
                 </div>
             </div>
         </div>
+        @endif
+        {{--END NOTICIAS--}}
 
+        {{--STRAT BEM VINDO--}}
+        @if(count($bemvindo)>0)
         <br><br>
         <div class="bg-qui" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
@@ -130,6 +141,9 @@
                 <br><br>
             </div>
         </div>
+        @endif
+        {{--END BEM VINDO--}}
+
         <br><br>
         <br><br>
         <div id="newsletter"></div>

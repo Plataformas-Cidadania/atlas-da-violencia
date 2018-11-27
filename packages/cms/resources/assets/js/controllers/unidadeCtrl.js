@@ -8,7 +8,7 @@ cmsApp.controller('unidadeCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "unidades.id, unidades.titulo";
+    //$scope.campos = "unidades.id, unidades.titulo";
     $scope.campos = "unidades.id, idiomas_unidades.titulo, idiomas_unidades.idioma_sigla";
     $scope.campoPesquisa = "idiomas_unidades.titulo";
     $scope.processandoListagem = false;

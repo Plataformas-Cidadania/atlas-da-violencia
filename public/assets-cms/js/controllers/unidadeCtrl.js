@@ -8,11 +8,12 @@ cmsApp.controller('unidadeCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo";
-    $scope.campoPesquisa = "titulo";
+    //$scope.campos = "unidades.id, unidades.titulo";
+    $scope.campos = "unidades.id, idiomas_unidades.titulo, idiomas_unidades.idioma_sigla";
+    $scope.campoPesquisa = "idiomas_unidades.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "titulo";
+    $scope.ordem = "idiomas_unidades.titulo";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 
@@ -119,7 +120,7 @@ cmsApp.controller('unidadeCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
             $scope.processandoInserir = true;
 
             //console.log($scope.unidade);
-            $http.post("cms/inserir-unidade", {unidade: $scope.unidade}).success(function (data){
+            $http.post("cms/inserir-unidade", {unidade: $scope.unidade, idioma: $scope.idioma}).success(function (data){
                  listarUnidades();
                  delete $scope.unidade;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -131,7 +132,7 @@ cmsApp.controller('unidadeCtrl', ['$scope', '$http', 'Upload', '$timeout', funct
         }else{
             file.upload = Upload.upload({
                 url: 'cms/inserir-unidade',
-                data: {unidade: $scope.unidade, file: file},
+                data: {unidade: $scope.unidade, idioma: $scope.idioma, file: file},
             });
 
             file.upload.then(function (response) {
