@@ -61,7 +61,6 @@ class SettingController extends Controller
                 $data += [$campo => ''];
             }
         }
-
         $setting = $this->setting->where([
             ['id', '=', $id],
         ])->firstOrFail();
