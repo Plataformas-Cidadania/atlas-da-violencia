@@ -11,3 +11,4 @@ Homestead.json
 .env.bkp
 /.idea
 /storage
+package-lock.json
