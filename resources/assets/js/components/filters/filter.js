@@ -142,6 +142,8 @@ class Filter extends React.Component{
 
     render(){
 
+        let random = Math.floor((Math.random() * 99999) + 1);
+
         let types = this.state.types.map(function (item){
             let sizeSearch = this.state.search.length;
             let firstPiece = item.title.substr(0, sizeSearch);
@@ -156,7 +158,7 @@ class Filter extends React.Component{
             });
 
             return (
-                <div key={'cat_'+item.id} style={{cursor:'pointer', color: color}} onClick={() => this.addType(item)}>
+                <div key={random+_'cat_'+item.id} style={{cursor:'pointer', color: color}} onClick={() => this.addType(item)}>
                     <u>{firstPiece}</u>{lastPiece}
                 </div>
             )
@@ -164,7 +166,7 @@ class Filter extends React.Component{
 
         let typesSelected = this.state.typesSelected.map(function (item){
             return (
-                <button key={"btn_type_"+item.id} id={item.id} onClick={this.removeType} type="button" className="btn btn-success btn-xs btn-remove" style={{margin: "0 5px 5px 0"}}>
+                <button key={random+"_btn_type_"+item.id} id={item.id} onClick={this.removeType} type="button" className="btn btn-success btn-xs btn-remove" style={{margin: "0 5px 5px 0"}}>
                     {item.title} <i className="fa fa-remove"/>
                 </button>
             )
