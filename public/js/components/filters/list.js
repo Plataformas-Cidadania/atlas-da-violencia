@@ -48,6 +48,8 @@ class List extends React.Component {
         let head = null;
         let rows = null;
 
+        let random = Math.floor(Math.random() * 99999 + 1);
+
         //console.log(this.state.items);
 
         head = this.state.head.map(function (item, index) {
@@ -123,7 +125,7 @@ class List extends React.Component {
 
                     return React.createElement(
                         'td',
-                        { key: 'colum-serie-name' + i },
+                        { key: 'colum-serie-name' + i + random },
                         content
                     );
                 }.bind(this));
@@ -134,7 +136,7 @@ class List extends React.Component {
 
                 return React.createElement(
                     'tr',
-                    { key: 'item-serie' + index },
+                    { key: 'item-serie' + index + random },
                     columns
                 );
             }.bind(this));
