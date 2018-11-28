@@ -292,7 +292,7 @@ class PageFilters extends React.Component{
                             </div>
                         </fieldset>
 
-                            <fieldset style={{display: this.props.filtrosIndicadores === 0 ? 'none' : ''}}>
+                            <fieldset style={{display: this.props.filtroIndicadores == 0 ? 'none' : ''}}>
                                 <legend>{this.props.lang_documents}</legend>
                                 <div style={{margin: '10px'}}>
                                     <Filter

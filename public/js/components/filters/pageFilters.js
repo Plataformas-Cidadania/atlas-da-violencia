@@ -278,7 +278,7 @@ class PageFilters extends React.Component {
                     ),
                     React.createElement(
                         'fieldset',
-                        { style: { display: this.props.filtrosIndicadores === 0 ? 'none' : '' } },
+                        { style: { display: this.props.filtroIndicadores == 0 ? 'none' : '' } },
                         React.createElement(
                             'legend',
                             null,
