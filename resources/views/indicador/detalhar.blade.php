@@ -1,7 +1,7 @@
 @extends('layout')
 {{--@section('title', trans('links.about'))--}}
 @section('content')
-
+    @if(!empty($indicador))
     <div class="container">
         <h2 id="calendar" aria-label="{{--@lang('links.about')--}}">{{--@lang('links.about')--}}</h2>
         <div class="line_title bg-pri"></div>
@@ -48,5 +48,6 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection
 
