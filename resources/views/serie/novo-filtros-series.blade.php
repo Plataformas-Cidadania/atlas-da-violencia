@@ -67,17 +67,18 @@
         <script>
             tema_id = "{{$id}}";
             {{--titulo = "{!! $tema->titulo !!}";--}}
-                lang_inquiries = "@lang('react.inquiries')";
-                lang_themes = "@lang('react.themes')";
-                lang_documents = "@lang('react.documents')";
-                lang_search_indicators   = "@lang('react.search-indicators')";
-                lang_search_name   = "@lang('react.search-name')";
-                lang_series = "@lang('react.series')";
-                lang_unity = "@lang('react.unity')";
-                lang_frequency = "@lang('react.frequency')";
-                lang_no_results = "@lang('react.no-results')";
-                lang_wait = "@lang('react.wait')";
-                lang_select_themes = "@lang('react.select-themes')";
+            lang_inquiries = "@lang('react.inquiries')";
+            lang_themes = "@lang('react.themes')";
+            lang_documents = "@lang('react.documents')";
+            lang_search_indicators   = "@lang('react.search-indicators')";
+            lang_search_name   = "@lang('react.search-name')";
+            lang_series = "@lang('react.series')";
+            lang_unity = "@lang('react.unity')";
+            lang_frequency = "@lang('react.frequency')";
+            lang_no_results = "@lang('react.no-results')";
+            lang_wait = "@lang('react.wait')";
+            lang_select_themes = "@lang('react.select-themes')";
+            filtroIndicadores = 1;
         </script>
         <div id="filtros"></div>
     </div>

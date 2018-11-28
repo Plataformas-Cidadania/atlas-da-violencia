@@ -291,8 +291,8 @@ class PageFilters extends React.Component{
                                 />
                             </div>
                         </fieldset>
-                        <div style={{display:'none'}}>
-                            <fieldset>
+
+                            <fieldset style={{display: this.props.filtrosIndicadores === 0 ? 'none' : ''}}>
                                 <legend>{this.props.lang_documents}</legend>
                                 <div style={{margin: '10px'}}>
                                     <Filter
@@ -305,7 +305,7 @@ class PageFilters extends React.Component{
                                     />
                                 </div>
                             </fieldset>
-                        </div>
+
 
                         {/*<fieldset>
                             <legend>Abrangências</legend>

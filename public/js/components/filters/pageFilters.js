@@ -277,28 +277,24 @@ class PageFilters extends React.Component {
                         )
                     ),
                     React.createElement(
-                        'div',
-                        { style: { display: 'none' } },
+                        'fieldset',
+                        { style: { display: this.props.filtrosIndicadores === 0 ? 'none' : '' } },
                         React.createElement(
-                            'fieldset',
+                            'legend',
                             null,
-                            React.createElement(
-                                'legend',
-                                null,
-                                this.props.lang_documents
-                            ),
-                            React.createElement(
-                                'div',
-                                { style: { margin: '10px' } },
-                                React.createElement(Filter, {
-                                    url: 'get-indicadores',
-                                    text: this.props.lang_search_indicators,
-                                    conditions: {
-                                        tema_id: this.state.tema
-                                    },
-                                    checkType: this.checkIndicadores
-                                })
-                            )
+                            this.props.lang_documents
+                        ),
+                        React.createElement(
+                            'div',
+                            { style: { margin: '10px' } },
+                            React.createElement(Filter, {
+                                url: 'get-indicadores',
+                                text: this.props.lang_search_indicators,
+                                conditions: {
+                                    tema_id: this.state.tema
+                                },
+                                checkType: this.checkIndicadores
+                            })
                         )
                     )
                 ),
