@@ -37,7 +37,7 @@ class FiltrosController extends Controller
         $todos->position = 0;
         array_push($temas, $todos);
 
-        $temasBd = \App\Tema::select('temas.id', 'idiomas_temas.titulo')
+        $temasBd = \App\Tema::select('temas.id', 'idiomas_temas.titulo', 'temas.imagem')
             ->where('temas.tema_id', $tema_id)
             ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
             ->where('idiomas_temas.idioma_sigla', $lang)

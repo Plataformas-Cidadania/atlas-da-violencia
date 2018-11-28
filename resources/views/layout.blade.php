@@ -29,7 +29,9 @@ if(substr($base_href, 0,9)=='evbsb1052'){
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         @foreach(config('constants.FAVICONS_SIZES') as $size)
+            @if(count($favicons) > 0)
             <link rel="icon" href="imagens/favicons/{{$size}}-{{$favicons->imagem}}" sizes="{{$size}}">
+            @endif
         @endforeach
 
 
