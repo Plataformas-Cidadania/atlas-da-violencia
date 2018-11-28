@@ -141,7 +141,7 @@ class Filter extends React.Component {
 
     render() {
 
-        let random = Math.floor(Math.random() * 99999 + 1);
+        let random = Math.floor(Math.random() * 999999 + 1);
 
         let types = this.state.types.map(function (item) {
             let sizeSearch = this.state.search.length;
