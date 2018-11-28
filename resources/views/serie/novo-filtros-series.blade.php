@@ -78,7 +78,7 @@
             lang_no_results = "@lang('react.no-results')";
             lang_wait = "@lang('react.wait')";
             lang_select_themes = "@lang('react.select-themes')";
-            filtroIndicadores = 1;
+            filtroIndicadores = 0;
         </script>
         <div id="filtros"></div>
     </div>
