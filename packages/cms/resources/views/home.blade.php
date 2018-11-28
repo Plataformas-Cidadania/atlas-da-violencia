@@ -42,7 +42,7 @@
                 <div class="col-md-3">
                     <div class="col-md-12 bs-callout bs-callout-danger">
                         <p>Visitantes total</p>
-                        <h2><strong>{{\Cms\Models\Contador::visitas()}}</strong></h2>
+                        <h2><strong>{{--{{\Cms\Models\Contador::visitas()}}--}}</strong></h2>
                     </div>
                 </div>
             </div>
