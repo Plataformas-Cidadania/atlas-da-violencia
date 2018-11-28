@@ -156,6 +156,7 @@ class Filter extends React.Component {
                 }
             });
 
+            console.log('render');
             return React.createElement(
                 'div',
                 { key: random + '_cat_' + item.id, style: { cursor: 'pointer', color: color }, onClick: () => this.addType(item) },
