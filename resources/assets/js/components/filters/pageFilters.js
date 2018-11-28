@@ -291,10 +291,11 @@ class PageFilters extends React.Component{
                                 />
                             </div>
                         </fieldset>
-                        <fieldset>
+                        <fieldset style={{display:'none'}}>
                             <legend>{this.props.lang_documents}</legend>
                             <div style={{margin: '10px'}}>
                                 <Filter
+
                                     url='get-indicadores'
                                     text={this.props.lang_search_indicators}
                                     conditions={{
@@ -413,6 +414,7 @@ ReactDOM.render(
         lang_no_results={lang_no_results}
         lang_wait={lang_wait}
         lang_select_themes={lang_select_themes}
+        filtroIndicadores={filtroIndicadores}
     />,
     document.getElementById('filtros')
 );

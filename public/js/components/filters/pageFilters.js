@@ -278,7 +278,7 @@ class PageFilters extends React.Component {
                     ),
                     React.createElement(
                         'fieldset',
-                        null,
+                        { style: { display: 'none' } },
                         React.createElement(
                             'legend',
                             null,
@@ -288,6 +288,7 @@ class PageFilters extends React.Component {
                             'div',
                             { style: { margin: '10px' } },
                             React.createElement(Filter, {
+
                                 url: 'get-indicadores',
                                 text: this.props.lang_search_indicators,
                                 conditions: {
@@ -413,5 +414,6 @@ ReactDOM.render(React.createElement(PageFilters, {
     lang_frequency: lang_frequency,
     lang_no_results: lang_no_results,
     lang_wait: lang_wait,
-    lang_select_themes: lang_select_themes
+    lang_select_themes: lang_select_themes,
+    filtroIndicadores: filtroIndicadores
 }), document.getElementById('filtros'));
