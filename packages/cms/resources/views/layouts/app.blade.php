@@ -185,6 +185,10 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
                                 <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
                             </li>
 
+                            <li>
+                                <a href="cms/favicons"><i class="fa fa-fw fa-cog"></i> Favicons</a>
+                            </li>
+
                         </ul>
                     </li>
 

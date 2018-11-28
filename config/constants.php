@@ -42,7 +42,7 @@ return [
             ]
         ]
     ],
-    'PADRAO_ABRANGENCIA' => [3,2,1,4],//3 - UF | 4 - Municipios | 2 - Regiões | 1 - País
+    'PADRAO_ABRANGENCIA' => [3,2,1,4],//3 - UF | 4 - Municipios | 2 - Regiões | 1 - País | 7 - Territórios
     'PADRAO_TERRITORIOS' => [
         1 => [0],// 1076 (era 203) - Brasil
         2 => [0],//0 - Todos,
@@ -50,4 +50,5 @@ return [
         4 => [0],//Código do estado. Desta forma irá pegar todos os munínicios do estado | 0 para todos
         7 => [0],//0 - Todos | Territórios do Piauí
     ],
+    'FAVICONS_SIZES' => ['16x16', '32x32', '48x48', '64x64', '72x72', '96x96', '114x114', '114x114', '128x128', '144x144', '512x512']
 ];

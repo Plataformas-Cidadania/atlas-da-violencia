@@ -334,6 +334,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/excluir-item-versao/{id}', 'Cms\Controllers\ItemVersaoController@excluir');
         Route::get('/cms/status-item-versao/{id}', 'Cms\Controllers\ItemVersaoController@status');
 
+        //FAVICONS
+        Route::get('/cms/favicons', 'Cms\Controllers\FaviconController@index');
+        Route::get('/cms/listar-favicons', 'Cms\Controllers\FaviconController@listar');
+        Route::post('/cms/inserir-favicon', 'Cms\Controllers\FaviconController@inserir');
+        Route::get('/cms/favicon/{id}', 'Cms\Controllers\FaviconController@detalhar');
+        Route::post('/cms/alterar-favicon/{id}', 'Cms\Controllers\FaviconController@alterar');
+        Route::get('/cms/excluir-favicon/{id}', 'Cms\Controllers\FaviconController@excluir');
+
         //Logs
         Route::get('/cms/logs', 'Cms\Controllers\LogController@index');
 

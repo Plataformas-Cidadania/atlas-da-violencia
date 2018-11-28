@@ -166,6 +166,10 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/parceiroCtrl.js', 'public/assets-cms/js/controllers/parceiroCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarParceiroCtrl.js', 'public/assets-cms/js/controllers/alterarParceiroCtrl.js');
 
+    //Favicons
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/faviconCtrl.js', 'public/assets-cms/js/controllers/faviconCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFaviconCtrl.js', 'public/assets-cms/js/controllers/alterarFaviconCtrl.js');
+
     //Settings
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarSettingCtrl.js', 'public/assets-cms/js/controllers/alterarSettingCtrl.js');
 

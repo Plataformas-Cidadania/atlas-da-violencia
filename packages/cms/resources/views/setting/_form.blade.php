@@ -23,6 +23,17 @@
             {!! Form::label('rodape', 'Rodapé') !!}<br>
             {!! Form::text('rodape', null, ['class'=>"form-control width-grande <% validar(setting.rodape) %>", 'ng-model'=>'setting.rodape', 'ng-required'=>'true', 'init-model'=>'setting.rodape']) !!}<br>
 
+            {!! Form::label('qtd_temas_home', 'Quantidade itens Home *') !!}<br>
+            {!! Form::select('qtd_temas_home',
+                    array(
+                        '50' => '2 Itnes por linha',
+                        '33' => '3 Itnes por linha',
+                        '25' => '4 Itnes por linha',
+                        '20' => '5 Itnes por linha',
+                        '16' => '6 Itnes por linha',
+                    ),
+            null, ['class'=>"form-control width-medio <% validar(setting.qtd_temas_home) %>", 'ng-model'=>'setting.qtd_temas_home', 'ng-required'=>'true', 'init-model'=>'setting.qtd_temas_home', 'placeholder' => '']) !!}<br>
+
         </div>
         <div role="tabpanel" class="tab-pane" id="contato">
             <br>
@@ -135,6 +146,10 @@
                         '1' => 'Sim',
                     ),
             null, ['class'=>"form-control width-medio <% validar(setting.consulta_filtros_indicadores) %>", 'ng-model'=>'setting.consulta_filtros_indicadores', 'ng-required'=>'true', 'init-model'=>'setting.consulta_filtros_indicadores', 'placeholder' => '']) !!}<br>
+
+            {!! Form::label('padrao_abrangencia', 'padrao_abrangencia') !!}<br>
+            {!! Form::text('padrao_abrangencia', null, ['class'=>"form-control width-grande <% validar(setting.padrao_abrangencia) %>", 'ng-model'=>'setting.padrao_abrangencia', 'ng-required'=>'true', 'init-model'=>'setting.padrao_abrangencia']) !!}<br>
+
 
         </div>
         <div role="tabpanel" class="tab-pane" id="emails">

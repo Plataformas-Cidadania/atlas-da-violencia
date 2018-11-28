@@ -18,6 +18,9 @@
 
 
 </style>
+<?php
+$menus_sobre = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 1)->where('origem_id', 1)->orderBy('posicao')->get();
+?>
 <footer id="iniciodorodape" class="container-fluid  hidden-print" role="contentinfo" ng-class="{'alto-contraste': altoContrasteAtivo}">
     <div class="text-right"><a href="{{--/<?php echo $rota;?>/--}}#iniciodoconteudo"><i class="fa fa-chevron-circle-up" aria-hidden="true" accesskey="9"></i> @lang('links.back-top') </a><br><br></div>
 
@@ -68,6 +71,9 @@
                         <h3>@lang('pages.rp-about')</h3>
                         <ul class="menu-rp">
                             <li><a href="acessibilidade">@lang('links.accessibility')</a></li>
+                            @foreach($menus_sobre as $menu)
+                                <li role="presentation"><a href="quem/{{$menu->id}}/{{clean($menu->titulo)}}" style="clear: both;">{{$menu->titulo}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

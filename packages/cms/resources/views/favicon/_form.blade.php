@@ -1,0 +1,2 @@
+{!! Form::label('titulo', 'Título *') !!}<br>
+{!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(favicon.titulo) %>", 'ng-model'=>'favicon.titulo', 'ng-required'=>'true', 'init-model'=>'favicon.titulo', 'placeholder' => '']) !!}<br>

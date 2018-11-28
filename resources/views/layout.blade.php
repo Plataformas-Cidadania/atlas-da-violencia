@@ -7,6 +7,7 @@
     $links = DB::table('links')->where('idioma_sigla', $lang)->orderBy('posicao')->take(10)->get();
     $idiomas = DB::table('idiomas')->orderBy('id')->get();
     $apoios = DB::table('apoios')->orderBy('posicao')->get();
+    $favicons = DB::table('favicons')->first();
     $indicadores = DB::table('webindicadores')->get();
 
     $base_href = config('app.url');
@@ -27,16 +28,11 @@ if(substr($base_href, 0,9)=='evbsb1052'){
         <base href="http://{{$base_href}}@if($base_href=='10.0.52.46')/@endif">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="icon" href="img/favicons/icon_16x16.png" sizes="16x16">
-        <link rel="icon" href="img/favicons/icon_32x32.png" sizes="32x32">
-        <link rel="icon" href="img/favicons/icon_48x48.png" sizes="48x48">
-        <link rel="icon" href="img/favicons/icon_64x64.png" sizes="64x64">
-        <link rel="icon" href="img/favicons/icon_72x72.png" sizes="72x72">
-        <link rel="icon" href="img/favicons/icon_96x96.png" sizes="96x96">
-        <link rel="icon" href="img/favicons/icon_114x114.png" sizes="114x114">
-        <link rel="icon" href="img/favicons/icon_128x128.png" sizes="128x128">
-        <link rel="icon" href="img/favicons/icon_144x144.png" sizes="144x144">
-        <link rel="icon" href="img/favicons/icon_256x256.png" sizes="256x256">
+        @foreach(config('constants.FAVICONS_SIZES') as $size)
+            <link rel="icon" href="imagens/favicons/{{$size}}-{{$favicons->imagem}}" sizes="{{$size}}">
+        @endforeach
+
+
 
         @include('conexoes.css')
 
@@ -129,7 +125,9 @@ if(substr($base_href, 0,9)=='evbsb1052'){
             #footer-brasil {
                 background: none repeat scroll 0% 0% {{$setting->cor1}} !important;;
             }
-
+            .filtros {
+                width: {{$setting->qtd_temas_home}}%;
+            }
 
         </style>
 
