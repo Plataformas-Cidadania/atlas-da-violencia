@@ -291,20 +291,22 @@ class PageFilters extends React.Component{
                                 />
                             </div>
                         </fieldset>
-                        <fieldset style={{display:'none'}}>
-                            <legend>{this.props.lang_documents}</legend>
-                            <div style={{margin: '10px'}}>
-                                <Filter
+                        <div style={{display:'none'}}>
+                            <fieldset>
+                                <legend>{this.props.lang_documents}</legend>
+                                <div style={{margin: '10px'}}>
+                                    <Filter
+                                        url='get-indicadores'
+                                        text={this.props.lang_search_indicators}
+                                        conditions={{
+                                            tema_id:this.state.tema,
+                                        }}
+                                        checkType={this.checkIndicadores}
+                                    />
+                                </div>
+                            </fieldset>
+                        </div>
 
-                                    url='get-indicadores'
-                                    text={this.props.lang_search_indicators}
-                                    conditions={{
-                                        tema_id:this.state.tema,
-                                    }}
-                                    checkType={this.checkIndicadores}
-                                />
-                            </div>
-                        </fieldset>
                         {/*<fieldset>
                             <legend>Abrangências</legend>
                             <div style={{margin: '10px'}}>

@@ -277,25 +277,28 @@ class PageFilters extends React.Component {
                         )
                     ),
                     React.createElement(
-                        'fieldset',
+                        'div',
                         { style: { display: 'none' } },
                         React.createElement(
-                            'legend',
+                            'fieldset',
                             null,
-                            this.props.lang_documents
-                        ),
-                        React.createElement(
-                            'div',
-                            { style: { margin: '10px' } },
-                            React.createElement(Filter, {
-
-                                url: 'get-indicadores',
-                                text: this.props.lang_search_indicators,
-                                conditions: {
-                                    tema_id: this.state.tema
-                                },
-                                checkType: this.checkIndicadores
-                            })
+                            React.createElement(
+                                'legend',
+                                null,
+                                this.props.lang_documents
+                            ),
+                            React.createElement(
+                                'div',
+                                { style: { margin: '10px' } },
+                                React.createElement(Filter, {
+                                    url: 'get-indicadores',
+                                    text: this.props.lang_search_indicators,
+                                    conditions: {
+                                        tema_id: this.state.tema
+                                    },
+                                    checkType: this.checkIndicadores
+                                })
+                            )
                         )
                     )
                 ),
