@@ -154,8 +154,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         'GrahamCampbell\HTMLMin\HTMLMinServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
-        //'Phaza\LaravelPostgis\DatabaseServiceProvider',
-        //Cyberduck\LaravelExcel\ExcelServiceProvider::class,
+        'Phaza\LaravelPostgis\DatabaseServiceProvider',
+        Cyberduck\LaravelExcel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
