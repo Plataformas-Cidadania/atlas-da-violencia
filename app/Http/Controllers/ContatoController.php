@@ -66,4 +66,5 @@ class ContatoController extends Controller
         
         return json_encode($retorno);
     }
+
 }
