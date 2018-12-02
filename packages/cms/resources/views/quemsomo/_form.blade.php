@@ -1,32 +1,48 @@
 {{--É NECESSÁRIO RODAR O COMANDO composer require illuminate/html E ALTERAR ACRESCENTAR LINHA NO ARQUIVO config/app.php--}}
 
+<?php
+    if(!empty($tipo_id)){
+        $tipo_id = $tipo_id;
+    }else{
+        $tipo_id = null;
+    }
+
+    $origem_id = 0;
+
+    if($tipo_id==1){
+        $origem_id = 1;
+    }
+?>
 {!! Form::label('idioma_sigla', 'Idioma *') !!}<br>
 {!! Form::select('idioma_sigla',
         $idiomas,
 null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>", 'ng-model'=>'quemsomo.idioma_sigla', 'ng-required'=>'true', 'init-model'=>'quemsomo.idioma_sigla', 'placeholder' => 'Selecione']) !!}<br>
 
 
-{!! Form::label('tipo', 'Tipo *') !!}<br>
-{!! Form::select('tipo',
-        array(
-            '0' => 'Bem vindo',
-            '1' => 'Institucional',
-            '2' => 'Acessibilidade',
-            '3' => 'Redirecionamento',
-            '4' => 'Home Publicações',
-            '5' => 'Indicadores',
-            '6' => 'Menu',
-        ),
-null, ['class'=>"form-control width-medio <% validar(quemsomo.tipo) %>", 'ng-model'=>'quemsomo.tipo', 'ng-required'=>'true', 'init-model'=>'quemsomo.tipo', 'placeholder' => '']) !!}<br>
 
+<div style="display: none;">
+    {!! Form::label('tipo', 'Tipo *') !!}<br>
+    {!! Form::select('tipo',
+            array(
+                '0' => 'Bem vindo',
+                '1' => 'Institucional',
+                '2' => 'Acessibilidade',
+                '3' => 'Redirecionamento',
+                '4' => 'Home Publicações',
+                '5' => 'Indicadores',
+                '6' => 'Menu',
+                '7' => 'Equipe',
+            ), $tipo_id, ['class'=>"form-control width-medio <% validar(quemsomo.tipo) %>", 'ng-model'=>'quemsomo.tipo', 'ng-required'=>'true', 'init-model'=>'quemsomo.tipo', 'placeholder' => '']) !!}<br>
+</div>
+<div style="display: none;">
 {!! Form::label('origem_id', 'Origem *') !!}<br>
 {!! Form::select('origem_id',
         array(
             '0' => 'Principal',
-            '1' => 'Quem somos'
+            '1' => 'Institucional'
         ),
-null, ['class'=>"form-control width-medio <% validar(quemsomo.origem_id) %>", 'ng-model'=>'quemsomo.origem_id', 'ng-required'=>'true', 'init-model'=>'quemsomo.origem_id', 'placeholder' => '']) !!}<br>
-
+$origem_id, ['class'=>"form-control width-medio <% validar(quemsomo.origem_id) %>", 'ng-model'=>'quemsomo.origem_id', 'ng-required'=>'true', 'init-model'=>'quemsomo.origem_id', 'placeholder' => '']) !!}<br>
+</div>
 
 {!! Form::label('titulo', 'Título *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(quemsomo.titulo) %>", 'ng-model'=>'quemsomo.titulo', 'ng-required'=>'true', 'init-model'=>'quemsomo.titulo', 'placeholder' => '']) !!}<br>

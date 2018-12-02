@@ -6,6 +6,7 @@ if(substr($base_href, 0,9)=='evbsb1052'){
 }*/
 
 $setting = DB::table('settings')->orderBy('id', 'desc')->first();
+$favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
 ?>
         <!DOCTYPE html>
 <html lang="pt-br">
@@ -33,6 +34,18 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
 
     @include('cms::conexoes.css')
     @include('cms::conexoes.js')
+
+    <link rel="icon" href="/assets-cms/img/favicons/icon_16x16.png" sizes="16x16">
+    <link rel="icon" href="/assets-cms/img/favicons/icon_32x32.png" sizes="32x32">
+    <link rel="icon" href="/assets-cms/img/favicons/icon_48x48.png" sizes="48x48">
+    <link rel="icon" href="/assets-cms/img/favicons/icon_64x64.png" sizes="64x64">
+    <link rel="icon" href="/assets-cms/img/favicons/icon_72x72.png" sizes="72x72">
+    <link rel="icon" href="/assets-cms/img/favicons/icon_96x96.png" sizes="96x96">
+    <link rel="icon" href="/assets-cms/img/favicons/icon_114x114.png" sizes="114x114">
+    <link rel="icon" href="/assets-cms/img/favicons/icon_128x128.png" sizes="128x128">
+    <link rel="icon" href="/assets-cms/img/favicons/icon_144x144.png" sizes="144x144">
+    <link rel="icon" href="/assets-cms/img/favicons/icon_256x256.png" sizes="256x256">
+
 </head>
 
 <body ng-app="cmsApp" style="background-color: #FFF;">
@@ -50,7 +63,8 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="cms">
-                    <img src="assets-cms/img/logo-b-p.png" width="95" alt="">
+                    {{--<img src="assets-cms/img/logo-b-p.png" width="95" alt="">--}}
+                    <img src="assets-cms/img/logo-cms.png" width="110" alt="" style="margin-top: -5px;">
                 </a>
             </div>
             <!-- Top Menu Items -->
@@ -71,15 +85,30 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
                 </li>
 
             </ul>
-
+<style>
+    .icon-cms-user{
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        background-color: #FFFFFF;
+        padding: 10px;
+        margin: 20px auto;
+    }
+</style>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
+
+                        <div class="text-center icon-cms-user">
+                            @foreach($favicons as $favicon)
+                                <img src="imagens/favicons/{{$favicon->imagem}}" alt="" width="100%">
+                            @endforeach
+                        </div>
+                        <div class="text-center" style="height: 50px;"><strong style="color: #FFFFFF;">{{$setting->titulo}}</strong></div>
+
                     <li class="active">
                         <a href="cms"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-
-
                     <li>
                         <a href="cms/fontes"><i class="fa fa-university" aria-hidden="true"></i> Fontes</a>
                     </li>
@@ -212,7 +241,7 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
                                 <a href="cms/quemsomos/4/publicações"><i class="fa fa-fw fa-building"></i> Home Publicações</a>
                             </li>
                             <li>
-                                <a href="cms/quemsomos/6/menu"><i class="fa fa-fw fa-building"></i> Menu</a>
+                                <a href="cms/quemsomos/6/menu"><i class="fa fa-fw fa-building"></i> Páginas</a>
                             </li>
 
                         </ul>
@@ -277,3 +306,46 @@ $setting = DB::table('settings')->orderBy('id', 'desc')->first();
 </body>
 
 </html>
+
+<style>
+    .side-nav{
+        background-color: #1B559F!important;
+    }
+    .navbar-inverse .navbar-nav>li>a {
+        color: #D2E9FF!important;
+    }
+    .side-nav>li>ul>li>a {
+        color: #D2E9FF!important;
+    }
+    .side-nav li a:hover, .side-nav li a:focus {
+        outline: none;
+        background-color: #1E508F !important;
+    }
+    .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+        background-color: #1E508F !important;
+    }
+    .navbar-inverse {
+        background-color: #F3F4F6!important;
+        border-color: #F3F4F6!important
+    }
+    .top-nav>li>a:hover, .top-nav>li>a:focus, .top-nav>.open>a, .top-nav>.open>a:hover, .top-nav>.open>a:focus {
+        background-color: #1B559F !important;
+    }
+    .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+        background-color: #1B559F !important;
+    }
+    .navbar-inverse .navbar-toggle {
+        border-color: #1B559F !important;
+    }
+    .
+
+
+    /*.side-nav {
+        left: 60px;
+        width: 60px;
+        margin-left: -60px;
+    }
+    .side-nav li>a>i{
+        font-size: 25px!important;
+    }*/
+</style>

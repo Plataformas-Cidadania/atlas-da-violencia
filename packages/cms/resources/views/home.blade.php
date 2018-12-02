@@ -13,10 +13,21 @@
     $nomeMes2 = nomeMes(date('m')-2, 'mes_extenso');
     $nomeMes3 = nomeMes(date('m')-3, 'mes_extenso');
 
+    $seriesUltimas = DB::table('series')
+        ->select('textos_series.titulo', 'series.id')
+        ->join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+        /*->where('author_artigo.artigo_id', $id)*/
+        ->orderBy('series.id', 'desc')
+        ->take(10)
+        ->get();
+    $series = DB::table('series')->count();
+    $valoresSeries = DB::table('valores_series')->count();
+
     ?>
 
     {!! Html::script('assets-cms/js/controllers/alterarSettingCtrl.js') !!}
     <div ng-controller="alterarSettingCtrl">
+
         <div class="box-padrao">
             <h1><i class="fa fa-fw fa-dashboard"></i>&nbsp;Dashboard</h1>
             <br><br>
@@ -46,8 +57,57 @@
                     </div>
                 </div>
             </div>
-            <br><br><br>
-            <div class="row text-center bg-pri-gray" >
+            <br>
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <div class="col-md-12 bs-callout bs-callout-primary btn-primary">
+                        <p>Séries Cadastradas</p>
+                        <h2><strong>{{$series}}</strong></h2>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12 bs-callout bs-callout-success btn-success">
+                        <p>Registro de séries</p>
+                        <h2><strong>{{$valoresSeries}}</strong></h2>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12 bs-callout bs-callout-warning btn-warning">
+                        <p>Visitantes do ano</p>
+                        <h2><strong>?????</strong></h2>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12 bs-callout bs-callout-danger btn-danger">
+                        <p>Visitantes total</p>
+                        <h2><strong>??????</strong></h2>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <h3>Últimas series cadastradas</h3>
+                    <hr>
+                    @foreach($seriesUltimas as $key => $serieUltima)
+                        <div class="rol">
+                            <div class="col-md-8">{{$key}} {{$serieUltima->titulo}}</div>
+                            <div class="col-md-4 text-right">
+                                <a href="cms/textos-series/{{$serieUltima->id}}"><i class="fa fa-language " title="Idiomas"></i></a>&nbsp;&nbsp;
+                                <a href="cms/temas-series/{{$serieUltima->id}}"><i class="fa fa-folder-open " title="Temas"></i></a>&nbsp;&nbsp;
+                                <a href="cms/serie/{{$serieUltima->id}}"><i class="fa fa-edit " title="Editar"></i></a>&nbsp;&nbsp;
+                            </div>
+                            <div class="col-md-12">
+                                <hr style="margin: 5px;">
+                            </div>
+                        </div>
+                    @endforeach
+                    <br><br>
+
+                </div>
+            </div>
+            {{--<div class="row text-center bg-pri-gray" >
                 <br><br>
                 <h2>Comparação nos últimos 3 meses</h2>
                 <br><br><br>
@@ -120,7 +180,9 @@
                     <br>&nbsp;<br>&nbsp;<br>
                 </div>
 
-            </div>
+            </div>--}}
+            <br><br>
+            <br><br>
 
         </div>
     </div>
