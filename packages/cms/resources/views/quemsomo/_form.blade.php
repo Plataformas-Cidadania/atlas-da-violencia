@@ -1,5 +1,4 @@
-{{--É NECESSÁRIO RODAR O COMANDO composer require illuminate/html E ALTERAR ACRESCENTAR LINHA NO ARQUIVO config/app.php--}}
-
+<?php $rota = Route::getCurrentRoute()->getPath();?>
 <?php
     if(!empty($tipo_id)){
         $tipo_id = $tipo_id;
@@ -7,9 +6,12 @@
         $tipo_id = null;
     }
 
-    $origem_id = 0;
-
-    if($tipo_id==1){
+    if($rota == 'cms/quemsomo/{id}'){
+        $origem_id = null;
+    }else{
+        $origem_id = 0;
+    }
+    if($tipo_id==1||$tipo_id==7||$tipo_id==8){
         $origem_id = 1;
     }
 ?>
@@ -17,8 +19,6 @@
 {!! Form::select('idioma_sigla',
         $idiomas,
 null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>", 'ng-model'=>'quemsomo.idioma_sigla', 'ng-required'=>'true', 'init-model'=>'quemsomo.idioma_sigla', 'placeholder' => 'Selecione']) !!}<br>
-
-
 
 <div style="display: none;">
     {!! Form::label('tipo', 'Tipo *') !!}<br>
@@ -32,6 +32,7 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>",
                 '5' => 'Indicadores',
                 '6' => 'Menu',
                 '7' => 'Equipe',
+                '8' => 'Marca',
             ), $tipo_id, ['class'=>"form-control width-medio <% validar(quemsomo.tipo) %>", 'ng-model'=>'quemsomo.tipo', 'ng-required'=>'true', 'init-model'=>'quemsomo.tipo', 'placeholder' => '']) !!}<br>
 </div>
 <div style="display: none;">
@@ -40,8 +41,7 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>",
         array(
             '0' => 'Principal',
             '1' => 'Institucional'
-        ),
-$origem_id, ['class'=>"form-control width-medio <% validar(quemsomo.origem_id) %>", 'ng-model'=>'quemsomo.origem_id', 'ng-required'=>'true', 'init-model'=>'quemsomo.origem_id', 'placeholder' => '']) !!}<br>
+        ), $origem_id, ['class'=>"form-control width-medio <% validar(quemsomo.origem_id) %>", 'ng-model'=>'quemsomo.origem_id', 'ng-required'=>'true', 'init-model'=>'quemsomo.origem_id', 'placeholder' => '']) !!}<br>
 </div>
 
 {!! Form::label('titulo', 'Título *') !!}<br>

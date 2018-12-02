@@ -124,7 +124,15 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
                     </li>
 
                     <li>
-                        <a href="cms/consultas"><i class="fa fa-cubes" aria-hidden="true"></i> Consultas</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo6"><i class="fa fa-fw fa-user"></i> Consultas <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo6" class="collapse">
+                            <li>
+                                <a href="cms/quemsomos/5/consultas">Descrição</a>
+                            </li>
+                            <li>
+                                <a href="cms/consultas"><i class="fa fa-cubes" aria-hidden="true"></i> Consultas</a>
+                            </li>
+                        </ul>
                     </li>
 
 
@@ -153,6 +161,9 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i
                                     class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo1" class="collapse">
+                            <li>
+                                <a href="cms/quemsomos/8/marca">Descrição</a>
+                            </li>
                             <li>
                                 <a href="cms/directives">Diretivas</a>
                             </li>
@@ -261,7 +272,7 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-user"></i> Equipe <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo5" class="collapse">
                             <li>
-                                <a href="cms/quemsomos/1/institucional">Descrição Equipe</a>
+                                <a href="cms/quemsomos/7/equipe">Descrição</a>
                             </li>
                             <li>
                                 <a href="cms/integrantes">Integrantes</a>

@@ -92,7 +92,7 @@
                     <hr>
                     @foreach($seriesUltimas as $key => $serieUltima)
                         <div class="rol">
-                            <div class="col-md-8">{{$key}} {{$serieUltima->titulo}}</div>
+                            <div class="col-md-8">{{$key}} - {{$serieUltima->titulo}}</div>
                             <div class="col-md-4 text-right">
                                 <a href="cms/textos-series/{{$serieUltima->id}}"><i class="fa fa-language " title="Idiomas"></i></a>&nbsp;&nbsp;
                                 <a href="cms/temas-series/{{$serieUltima->id}}"><i class="fa fa-folder-open " title="Temas"></i></a>&nbsp;&nbsp;

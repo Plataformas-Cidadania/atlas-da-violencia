@@ -18,11 +18,12 @@
 
 
 </style>
+
 <?php
 $menus_sobre = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 1)->where('origem_id', 1)->orderBy('posicao')->get();
 ?>
 <footer id="iniciodorodape" class="container-fluid  hidden-print" role="contentinfo" ng-class="{'alto-contraste': altoContrasteAtivo}">
-    <div class="text-right"><a href="{{--/<?php echo $rota;?>/--}}#iniciodoconteudo"><i class="fa fa-chevron-circle-up" aria-hidden="true" accesskey="9"></i> @lang('links.back-top') </a><br><br></div>
+    <div class="text-right"><a href="<?php if($rota!='/'){?>{{$rota}}<?php }?>#iniciodoconteudo"><i class="fa fa-chevron-circle-up" aria-hidden="true" accesskey="9"></i> @lang('links.back-top') </a><br><br></div>
 
 
 
@@ -55,17 +56,20 @@ $menus_sobre = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo
                         </ul>
                     </div>
                 </div>
+                @if($setting->twitter!="" || $setting->youtube!="" || $setting->facebook!="" || $setting->pinterest!="" || $setting->google!="")
                 <div class="col-md-3">
                     <div class=" menu-box-rp">
                         <h3>@lang('pages.rp-networks')</h3>
                         <ul class="menu-rp">
-                            <li><a href="{{$setting->twitter}}" target="_blank">Twitter</a></li>
-                            <li><a href="{{$setting->youtube}}" target="_blank">YouTube</a></li>
-                            <li><a href="{{$setting->facebook}}" target="_blank">Facebook</a></li>
-                            <li><a href="{{$setting->pinterest}}" target="_blank">Google Plus</a></li>
+                            @if($setting->twitter!="")<li><a href="{{$setting->twitter}}" target="_blank">Twitter</a></li>@endif
+                            @if($setting->youtube!="")<li><a href="{{$setting->youtube}}" target="_blank">YouTube</a></li>@endif
+                            @if($setting->facebook!="")<li><a href="{{$setting->facebook}}" target="_blank">Facebook</a></li>@endif
+                            @if($setting->pinterest!="")<li><a href="{{$setting->pinterest}}" target="_blank">Pinterest</a></li>@endif
+                            @if($setting->google!="")<li><a href="{{$setting->google}}" target="_blank">Google Plus</a></li>@endif
                         </ul>
                     </div>
                 </div>
+                @endif
                 <div class="col-md-3">
                     <div class=" menu-box-rp">
                         <h3>@lang('pages.rp-about')</h3>

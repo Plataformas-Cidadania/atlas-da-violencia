@@ -15,7 +15,8 @@ class QuemController extends Controller
     public function detalhar($id=null){
 
         $lang =  App::getLocale();
-        $menus = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 1)->where('origem_id', 1)->orderBy('posicao')->get();
+        //$menus = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 1)->where('origem_id', 1)->orderBy('posicao')->get();
+        $menus = DB::table('quemsomos')->where('idioma_sigla', $lang)->whereIn('tipo', [1, 7, 8])->where('origem_id', 1)->orderBy('posicao')->get();
 
         $artwork = DB::table('artworks')->where('version', 0)->where('format', 'png')->first();
         $artworkJpg = DB::table('artworks')->where('version', 0)->where('format', 'jpg')->first();
@@ -68,7 +69,7 @@ class QuemController extends Controller
             'directivesType' => $directivesType,
             'printingsManual' => $printingsManual,
             'printings' => $printings,
-	    'versoes' => $versoes
+	        'versoes' => $versoes
         ]);
 
     }

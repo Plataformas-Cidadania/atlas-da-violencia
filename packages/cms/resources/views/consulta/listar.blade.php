@@ -12,8 +12,6 @@
             <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Consultas</h1>
             <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo consulta</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
-
-            <a href="cms/quemsomos/5/consultas"  class="btn btn-success"  ng-show="!mostrarForm">Descrição</a>
             <br><br>
             <div ng-show="mostrarForm">
                 <span class="texto-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>

@@ -19,26 +19,13 @@
         <h2>@lang('links.contact')</h2>
         <div class="line_title bg-pri"></div>
         <div class="row">
-            <address class="col-md-4">
-                <h3><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp;@lang('adresses.address')</h3>
-                <p>{{$setting->endereco}}, {{$setting->numero}}{{-- - {{$setting->complemento}}--}} - {{$setting->bairro}}</p>
-                <p>{{$setting->cidade}} - {{$setting->estado}}</p>
-                <p>CEP.: {{$setting->cep}}</p>
-                <br>
-                <h3><i class="fa fa-phone fa-fw" aria-hidden="true"></i>&nbsp;@lang('adresses.phone')</h3>
-                <abbr title="Phone">{{$setting->telefone}}</abbr><br>
-                <abbr title="Phone">{{$setting->telefone2}}</abbr><br>
-                <abbr title="Phone">{{$setting->telefone3}}</abbr>
-                <br>
-                <h3><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;@lang('forms.email')</h3>
-                <p><a href="mailto:{{$setting->email}}">{{$setting->email}}</a></p>
-            </address>
-            <div class="col-md-8">
+
+            <div class="col-md-12">
                     <br>
                 <div id="mapid" style="width: 100%; height: 400px;"></div>
                 <script>
 
-                    var mymap = L.map('mapid').setView([-22.9105075,-43.1719758], 16);
+                    var mymap = L.map('mapid').setView([{{$setting->latitude}},{{$setting->longitude}}], 16);
 
                     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJwYXNzb3MiLCJhIjoiY2l4N3l0bXF0MDFiczJ6cnNwODN3cHJidiJ9.qnfh8Jfn_be6gpo774j_nQ', {
                         maxZoom: 18,
@@ -60,16 +47,29 @@
                         popupAnchor:  [0, -40] // point from which the popup should open relative to the iconAnchor
                     });
 
-                    L.marker([-22.9105075,-43.1719758], {icon: atlasIcon}).addTo(mymap)
+                    L.marker([{{$setting->latitude}},{{$setting->longitude}}], {icon: atlasIcon}).addTo(mymap)
                         .bindPopup("<b><img src='img/ipea-p.png' alt=''></b><br />").openPopup();
 
                 </script>
-
+                <br><br><br>
             </div>
+            <address class="col-md-4">
+                <h3><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp;@lang('adresses.address')</h3>
+                <p>{{$setting->endereco}}, {{$setting->numero}} {{$setting->complemento}} - {{$setting->bairro}}</p>
+                <p>{{$setting->cidade}} - {{$setting->estado}}</p>
+                <p>CEP.: {{$setting->cep}}</p>
+                <br>
+                <h3><i class="fa fa-phone fa-fw" aria-hidden="true"></i>&nbsp;@lang('adresses.phone')</h3>
+                <abbr title="Phone">{{$setting->telefone}}</abbr><br>
+                <abbr title="Phone">{{$setting->telefone2}}</abbr><br>
+                <abbr title="Phone">{{$setting->telefone3}}</abbr>
+                <br>
+                <h3><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;@lang('forms.email')</h3>
+                <p><a href="mailto:{{$setting->email}}">{{$setting->email}}</a></p>
+            </address>
 
-
-            {{--<div class="col-md-8">
-                --}}{{--<h3>{{$setting->titulo_contato}}</h3>--}}{{--
+            <div class="col-md-8">
+                <h3>{{$setting->titulo_contato}}</h3>
                 <br>
                 <p>{{$setting->descricao_contato}}</p>
                 <br>
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                 </form>
-            </div>--}}
+            </div>
 
         </div>
     </div>

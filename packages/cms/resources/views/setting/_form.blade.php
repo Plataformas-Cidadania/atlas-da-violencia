@@ -79,6 +79,12 @@
             {!! Form::label('cep', 'CEP.') !!}<br>
             {!! Form::text('cep', null, ['class'=>"form-control width-grande <% validar(setting.cep) %>", 'ng-model'=>'setting.cep', 'ng-required'=>'true', 'init-model'=>'setting.cep']) !!}<br>
 
+            {!! Form::label('latitude', 'Latitude') !!}<br>
+            {!! Form::text('latitude', null, ['class'=>"form-control width-grande <% validar(setting.latitude) %>", 'ng-model'=>'setting.latitude', 'ng-required'=>'true', 'init-model'=>'setting.latitude']) !!}<br>
+
+            {!! Form::label('longitude', 'Longitude') !!}<br>
+            {!! Form::text('longitude', null, ['class'=>"form-control width-grande <% validar(setting.longitude) %>", 'ng-model'=>'setting.longitude', 'ng-required'=>'true', 'init-model'=>'setting.longitude']) !!}<br>
+
         </div>
         <div role="tabpanel" class="tab-pane" id="cor">
             <br>
@@ -118,6 +124,9 @@
 
             {!! Form::label('twitter', 'Twitter') !!}<br>
             {!! Form::text('twitter', null, ['class'=>"form-control width-grande <% validar(setting.twitter) %>", 'ng-model'=>'setting.twitter', 'ng-required'=>'true', 'init-model'=>'setting.twitter']) !!}<br>
+
+            {!! Form::label('google', 'Google') !!}<br>
+            {!! Form::text('google', null, ['class'=>"form-control width-grande <% validar(setting.google) %>", 'ng-model'=>'setting.google', 'ng-required'=>'true', 'init-model'=>'setting.google']) !!}<br>
 
         </div>
         <div role="tabpanel" class="tab-pane" id="home">
