@@ -52,7 +52,6 @@ class ContatoController extends Controller
             //$message->attach($pathToFile, array $options = []);
         });
         ////////////////////////////////////////////////////////////////////////////////////////////
-        
         //resposta para o remetente/////////////////////////////////////////////////////////////////
         Mail::send('emails.contato.resposta', ['dados' => $dados, 'settings' => $settings], function($message) use ($settings, $dados)
         {
