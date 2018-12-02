@@ -16,7 +16,6 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 </div>
 
 
-
 <header  id="iniciodoconteudo" class="  hidden-print" role="banner">
 
     <div class="container  hidden-print">
