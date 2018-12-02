@@ -143,8 +143,7 @@ Route::get('lang/{locale}', function ($locale) {
 //Route::get('serie/{id}/{titulo}', 'SerieController@detalhar');
 //Route::get('filtro/', 'SerieController@filtro');
 //Route::get('filtros/', 'SerieController@filtros');
-//Route::get('filtro/{titulo}', 'SerieController@filtro');
-//Route::post('enviar-contato', 'ContatoController@email');
+//Route::get('filtro/{titulo}', 'SerieController@filtro');//
 //Route::get('map/', 'MapController@index');
 //Route::get('map/{id}/{titulo}', 'MapController@index');
 //Route::get('get-data/', 'MapController@getData');
@@ -155,6 +154,7 @@ Route::get('lang/{locale}', function ($locale) {
 //Route::get('regioes/{id}', 'MapController@regioes');//usado no component filtroRegioes na página de filtros
 //Route::get('valores/{id}/{min}/{max}', 'MapController@valores');
 
+Route::post('enviar-contato', 'ContatoController@email');
 Route::post('enviar-contato-serie/', 'ContatoSerieController@email');
 
 

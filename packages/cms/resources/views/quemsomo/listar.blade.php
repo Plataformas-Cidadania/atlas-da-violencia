@@ -101,6 +101,9 @@
                             <td><a href="cms/quemsomo/<% quemsomo.id %>"><% quemsomo.idioma_sigla %></a></td>
                             <td class="text-right">
                                 <div>
+                                    @if($tipo_id==6)
+                                    <a href="cms/menus/<% quemsomo.id %>/<% quemsomo.titulo %>"><i class="fa fa-bars fa-2x" title="Menu"></i></a>&nbsp;&nbsp;
+                                    @endif
                                     <a href="cms/quemsomo/<% quemsomo.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(quemsomo.id, quemsomo.titulo, quemsomo.imagem)"></i></a>
                                 </div>

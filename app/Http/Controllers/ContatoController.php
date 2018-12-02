@@ -20,17 +20,19 @@ class ContatoController extends Controller
 
     public function email(Request $request){
 
-        /*Config::set('mail.host', 'smtp.gmail.com');
-        Config::set('mail.port', '587');
-        Config::set('mail.address', 'email@dominio.com');
-        Config::set('mail.name', 'Nome E-mail');
-        Config::set('mail.user', 'email@dominio.com');
-        Config::set('mail.password', '*********');*/
-        
         $dados = $request->all();
         $settings = DB::table('settings')->first();
 
-        //verifica se o index telefone existe no array. Senão existir irá criar um para evitar um erro.
+
+        Config::set('mail.host', $settings->email_host);
+        Config::set('mail.port', $settings->email_port);
+        Config::set('mail.address', $settings->email_address);
+        Config::set('mail.name', $settings->email_name);
+        Config::set('mail.username', $settings->email_user);
+        Config::set('mail.password', $settings->email_password);
+        Config::set('mail.encryption', 'tls');
+
+
         if (!array_key_exists("telefone", $dados)) {
             $dados += ['telefone' => ''];
         }

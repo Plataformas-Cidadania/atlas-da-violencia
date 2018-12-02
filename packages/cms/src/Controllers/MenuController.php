@@ -32,13 +32,13 @@ class MenuController extends Controller
         $this->widthOriginal = true;
     }
 
-    function index()
+    function index($origem_id='', $origem_titulo='')
     {
 
         $menus = \App\Menu::all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::menu.listar', ['menus' => $menus, 'idiomas' => $idiomas]);
+        return view('cms::menu.listar', ['menus' => $menus, 'idiomas' => $idiomas, 'origem_id' => $origem_id, 'origem_titulo' => $origem_titulo]);
     }
 
     public function listar(Request $request)

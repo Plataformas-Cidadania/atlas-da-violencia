@@ -48,6 +48,7 @@ Route::group(['middleware' => 'cms'], function () {
 
         //MENUS
         Route::get('/cms/menus', 'Cms\Controllers\MenuController@index');
+        Route::get('/cms/menus/{origem_id}/{origem_titulo}', 'Cms\Controllers\MenuController@index');
         Route::get('/cms/listar-menus', 'Cms\Controllers\MenuController@listar');
         Route::post('/cms/inserir-menu', 'Cms\Controllers\MenuController@inserir');
         Route::get('/cms/menu/{id}', 'Cms\Controllers\MenuController@detalhar');
