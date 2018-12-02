@@ -41,9 +41,9 @@ class ContatoController extends Controller
         //mensagem para o site///////////////////////////////////////////////////////////////////////
         Mail::send('emails.contato.mensagem', ['dados' => $dados, 'settings' => $settings], function($message) use ($settings, $dados)
         {
-            $message->from($settings->email, $settings->titulo);
-            $message->sender($settings->email, $settings->titulo);
-            $message->to($settings->email, $dados['nome']);
+            $message->from($settings->email_address, $settings->titulo);
+            $message->sender($settings->email_address, $settings->titulo);
+            $message->to($settings->email_address, $dados['nome']);
             //$message->cc($address, $name = null);
             //$message->bcc($address, $name = null);
             $message->replyTo($dados['email'], $dados['nome']);
@@ -56,8 +56,8 @@ class ContatoController extends Controller
         //resposta para o remetente/////////////////////////////////////////////////////////////////
         Mail::send('emails.contato.resposta', ['dados' => $dados, 'settings' => $settings], function($message) use ($settings, $dados)
         {
-            $message->from($settings->email, $settings->titulo);
-            $message->sender($settings->email, $settings->titulo);
+            $message->from($settings->email_address, $settings->titulo);
+            $message->sender($settings->email_address, $settings->titulo);
             $message->to($dados['email'], $dados['nome']);
             $message->subject('Contato - '.$settings->titulo);
         });        
