@@ -208,15 +208,7 @@ class ConsultaController extends Controller
             return "erro";
         }
 ///
-
-        if($successFile && $successArquivo){
-
-            $download->update($data['consulta']);
-            return $download->imagem;
-        }else{
-            return "erro";
-        }
-
+        
         /*$consulta->update($data['consulta']);
         return "Gravado com sucesso";*/
     }

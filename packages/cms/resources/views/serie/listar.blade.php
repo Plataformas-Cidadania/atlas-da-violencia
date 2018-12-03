@@ -9,7 +9,7 @@
 </script>
     <div ng-controller="serieCtrl">
         <div class="box-padrao">
-            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Series</h1>
+            <h1><i class="fa fa-fw fa-cubes"></i>&nbsp;Series</h1>
             <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Nova Serie</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <a class="btn btn-success" href="cms/importar-varias-series" style="float: right;"><i class="fa fa-upload " title="Importar"></i> Importar Dados</a>

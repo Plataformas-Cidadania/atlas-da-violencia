@@ -9,7 +9,7 @@
 </script>
     <div ng-controller="temaCtrl" ng-init="setTemaId({{$tema_id}})">
         <div class="box-padrao">
-            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Temas @if($tema) - {{$tema->tema}} @endif</h1>
+            <h1><i class="fa fa-fw fa-folder-open"></i>&nbsp;Temas @if($tema) - {{$tema->tema}} @endif</h1>
             <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Tema</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>

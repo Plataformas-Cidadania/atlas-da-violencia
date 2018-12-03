@@ -119,7 +119,9 @@ class IndicadorController extends Controller
         $indicador = $this->indicador->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        return view('cms::indicador.detalhar', ['indicador' => $indicador]);
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
+        
+        return view('cms::indicador.detalhar', ['indicador' => $indicador, 'idiomas' => $idiomas]);
     }
 
     public function alterar(Request $request, $id)

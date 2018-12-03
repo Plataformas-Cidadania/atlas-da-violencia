@@ -9,7 +9,7 @@
 </script>
     <div ng-controller="fonteCtrl">
         <div class="box-padrao">
-            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Fontes</h1>
+            <h1><i class="fa fa-fw fa-university"></i>&nbsp;Fontes</h1>
             <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Fonte</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>

@@ -9,7 +9,7 @@
 </script>
     <div ng-controller="idiomaIndicadorCtrl" ng-init="setIndicadorId({{$indicador_id}})">
         <div class="box-padrao">
-            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Idiomas Indicadores</h1>
+            <h1><i class="fa fa-fw fa-language"></i>&nbsp;Idiomas Indicadores</h1>
             <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Idioma</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>
