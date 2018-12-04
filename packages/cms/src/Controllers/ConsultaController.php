@@ -21,7 +21,7 @@ class ConsultaController extends Controller
         $this->consulta = new \App\Consulta;
         $this->idiomaConsulta = new \App\IdiomaConsulta;
         $this->campos = [
-            'imagem', 'periodicidade_id', 'tema_id', 'unidade_id', 'arquivo', 'titulo', 'url', 'cmsuser_id',
+            'imagem', 'periodicidade_id', 'unidade_id', 'arquivo', 'titulo', 'url', 'cmsuser_id',
         ];
         $this->pathImagem = public_path().'/imagens/consultas';
         $this->sizesImagem = [

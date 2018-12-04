@@ -5,10 +5,12 @@
     null, ['class'=>"form-control width-medio <% validar(idioma.idioma_sigla) %>", 'ng-model'=>'idioma.idioma_sigla', 'ng-required'=>'true', 'init-model'=>'idioma.idioma_sigla', 'placeholder' => 'Selecione']) !!}<br>
 @endif
 
+{{--
 {!! Form::label('tema_id', 'Temas *') !!}<br>
 {!! Form::select('tema_id',
         $temas,
 null, ['class'=>"form-control width-medio <% validar(consulta.tema) %>", 'ng-model'=>'consulta.tema_id', 'ng-required'=>'true', 'init-model'=>'consulta.tema_id', 'placeholder' => 'Selecione']) !!}<br>
+--}}
 
 {!! Form::label('periodicidade_id', 'Periodicidade *') !!}<br>
 {!! Form::select('periodicidade_id',

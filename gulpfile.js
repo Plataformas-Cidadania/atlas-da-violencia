@@ -83,6 +83,10 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/temaSerieCtrl.js', 'public/assets-cms/js/controllers/temaSerieCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTemaSerieCtrl.js', 'public/assets-cms/js/controllers/alterarTemaSerieCtrl.js');
 
+    //Temas Consultas
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/temaConsultaCtrl.js', 'public/assets-cms/js/controllers/temaConsultaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTemaConsultaCtrl.js', 'public/assets-cms/js/controllers/alterarTemaConsultaCtrl.js');
+
     //Filtros Series
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/filtroSerieCtrl.js', 'public/assets-cms/js/controllers/filtroSerieCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFiltroSerieCtrl.js', 'public/assets-cms/js/controllers/alterarFiltroSerieCtrl.js');

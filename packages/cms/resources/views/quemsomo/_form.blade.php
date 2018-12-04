@@ -33,6 +33,7 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>",
                 '6' => 'Menu',
                 '7' => 'Equipe',
                 '8' => 'Marca',
+                '9' => 'Consultas',
             ), $tipo_id, ['class'=>"form-control width-medio <% validar(quemsomo.tipo) %>", 'ng-model'=>'quemsomo.tipo', 'ng-required'=>'true', 'init-model'=>'quemsomo.tipo', 'placeholder' => '']) !!}<br>
 </div>
 <div style="display: none;">

@@ -328,7 +328,8 @@ class PageFilters extends React.Component {
                             currentPage: this.state.currentPageListItems,
                             perPage: '20',
                             select: this.selectSerie,
-                            abrangencias: this.state.optionsAbrangencia
+                            abrangencias: this.state.optionsAbrangencia,
+                            urlDetailItem: 'dados-series'
                         })
                     )
                 )

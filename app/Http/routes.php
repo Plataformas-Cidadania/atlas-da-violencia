@@ -213,3 +213,9 @@ Route::post('validar-comparar-series/', 'SerieController@validarCompararSeries')
 Route::get('dados-series-comparadas/{ids}', 'SerieController@dataSeriesComparadas');
 Route::get('periodo-series-comparadas/{ids}/{min}/{max}/{regions}/{abrangencia}', 'SerieController@compararValoresPeriodoRegioesSelecionadas');
 Route::get('get-regions-by-ids/', 'SerieController@getRegionsByIds');
+
+
+///////////////////CONSULTAS////////////////////////////////////////
+Route::get('consultas/', 'ConsultaController@index');
+Route::post('list-consultas/', 'ConsultaController@listing');
+Route::get('consulta/{id}', 'ConsultaController@detail');
