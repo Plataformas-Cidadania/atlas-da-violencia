@@ -26,9 +26,9 @@ class ConsultaController extends Controller
 
         $parameters = $request->parameters;
 
-        $consultas = \App\Consulta::select('consultas.id', 'idiomas_consultas.titulo as titulo', 'unidades.titulo as titulo_unidade', 'periodicidades.titulo as periodicidade')
-            ->join('unidades', 'consultas.unidade_id', '=', 'unidades.id')
-            ->join('periodicidades', 'consultas.periodicidade_id', '=', 'periodicidades.id')
+        $consultas = \App\Consulta::select('consultas.id', 'idiomas_consultas.titulo as titulo')
+            //->join('unidades', 'consultas.unidade_id', '=', 'unidades.id')
+            //->join('periodicidades', 'consultas.periodicidade_id', '=', 'periodicidades.id')
             ->join('idiomas_consultas', 'idiomas_consultas.consulta_id', '=', 'consultas.id')
             ->where([
                 ['idiomas_consultas.idioma_sigla', $lang],

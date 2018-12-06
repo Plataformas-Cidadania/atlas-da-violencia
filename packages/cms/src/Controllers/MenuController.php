@@ -66,6 +66,7 @@ class MenuController extends Controller
         $data = $request->all();
 
         $data['menu'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['menu']['menu_id'] = 0;
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){

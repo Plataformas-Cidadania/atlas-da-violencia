@@ -83,6 +83,9 @@ class ConsultaController extends Controller
         $data['consulta'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
         $data['idioma'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
+        $data['consulta']['unidade_id'] = 0;
+        $data['consulta']['periodicidade_id'] = 0;
+
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
