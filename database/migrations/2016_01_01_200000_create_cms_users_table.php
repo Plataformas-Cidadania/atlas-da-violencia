@@ -29,6 +29,6 @@ class CreateCmsUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cmsusers');
+        Schema::drop('cms_users');
     }
 }

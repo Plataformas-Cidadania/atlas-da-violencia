@@ -8,6 +8,6 @@ class Consulta extends Model
 {
     protected  $table = "consultas";
     protected $fillable = [
-        'periodicidade_id', 'tema_id', 'unidade_id', 'arquivo', 'titulo', 'url', 'cmsuser_id',
+        'periodicidade_id', 'unidade_id', 'arquivo', 'titulo', 'url', 'cmsuser_id',
     ];
 }

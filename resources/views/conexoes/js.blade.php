@@ -352,3 +352,13 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="js/components/selectItems.js"></script>
     <script src="js/components/filters-compare-series/pageFilters.js"></script>
 @endif
+@if($rota=='consultas')
+    <script src="js/components/pagination.js"></script>
+    {{--<script src="js/components/filters/modal.js"></script>--}}
+    <script src="js/components/filters/temasSelect.js"></script>
+    <script src="js/components/filters/subtemas.js"></script>
+    <script src="js/components/filters/filter.js"></script>
+    <script src="js/components/filters/list.js"></script>
+    {{--<script src="js/components/selectItems.js"></script>--}}
+    <script src="js/components/consultas/pageConsultas.js"></script>
+@endif

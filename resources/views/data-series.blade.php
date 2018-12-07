@@ -343,11 +343,9 @@
                 lang_remove_all = "@lang('react.remove-all')";
 
             </script>
-            <?php
-                $series->descricao = preg_replace('/\s/',' ',$series->descricao);
-            ?>
+
             <script>
-                metadados="{!! $series->descricao !!}";
+                metadados="{!! str_replace('"', '\"', preg_replace( "/\r|\n/", "", $series->descricao)) !!}";
             </script>
 
             <div id="pgSerie"></div>

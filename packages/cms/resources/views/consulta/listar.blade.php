@@ -10,7 +10,7 @@
     <div ng-controller="consultaCtrl">
         <div class="box-padrao">
             <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Consultas</h1>
-            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo consulta</button>
+            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Nova consulta</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>
             <div ng-show="mostrarForm">
@@ -112,6 +112,7 @@
                             <td class="text-right">
                                 <div>
                                     <a href="cms/idiomas-consultas/<% consulta.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
+                                    <a href="cms/temas-consultas/<% consulta.id %>"><i class="fa fa-folder-open fa-2x" title="Temas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/consulta/<% consulta.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a  ng-class="<% consulta.status %> == 1 ? 'color-success' : 'color-success-inactive'"  style="cursor: pointer;"><i class="fa fa-check-circle fa-2x" aria-hidden="true" ng-click="status(consulta.id);"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(consulta.id, consulta.titulo, consulta.imagem)"></i></a>

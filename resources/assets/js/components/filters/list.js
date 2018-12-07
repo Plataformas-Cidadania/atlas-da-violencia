@@ -7,6 +7,7 @@ class List extends React.Component{
             showId: props.showId ? props.showId : 1,
             perPage: props.perPage ? props.perPage : 20,
             currentPage: props.currentPage ? props.currentPage : 1,
+            urlDetailItem: props.urlDetailItem ? props.urlDetailItem : '#',
         };
 
         this.select = this.select.bind(this);
@@ -86,7 +87,7 @@ class List extends React.Component{
                 }*/
 
                 buttons[0] = <td>&nbsp;</td>;
-                buttons[1] = (<td key='btn-todos-os-territorios'><a className='btn btn-success' href={"dados-series/"+item.id} title="todos os territórios" target="_blank"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></a></td>);
+                buttons[1] = (<td key='btn-todos-os-territorios'><a className='btn btn-success' href={this.state.urlDetailItem+"/"+item.id} title="todos os territórios" target="_blank"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></a></td>);
 
                 /*let buttons = [
                     <td>

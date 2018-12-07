@@ -336,6 +336,7 @@ class PageFilters extends React.Component{
                                 perPage='20'
                                 select={this.selectSerie}
                                 abrangencias={this.state.optionsAbrangencia}
+                                urlDetailItem={'dados-series'}
                             />
                         </div>
                     </div>

@@ -6,7 +6,8 @@ class List extends React.Component {
             head: props.head ? props.head : [],
             showId: props.showId ? props.showId : 1,
             perPage: props.perPage ? props.perPage : 20,
-            currentPage: props.currentPage ? props.currentPage : 1
+            currentPage: props.currentPage ? props.currentPage : 1,
+            urlDetailItem: props.urlDetailItem ? props.urlDetailItem : '#'
         };
 
         this.select = this.select.bind(this);
@@ -96,7 +97,7 @@ class List extends React.Component {
                     { key: 'btn-todos-os-territorios' },
                     React.createElement(
                         'a',
-                        { className: 'btn btn-success', href: "dados-series/" + item.id, title: 'todos os territ\xF3rios', target: '_blank' },
+                        { className: 'btn btn-success', href: this.state.urlDetailItem + "/" + item.id, title: 'todos os territ\xF3rios', target: '_blank' },
                         React.createElement('i', { className: 'fa fa-arrow-circle-right', style: { fontSize: '1.5em' } })
                     )
                 );

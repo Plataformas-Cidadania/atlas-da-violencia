@@ -127,7 +127,7 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo6"><i class="fa fa-fw fa-user"></i> Consultas <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo6" class="collapse">
                             <li>
-                                <a href="cms/quemsomos/5/consultas">Descrição</a>
+                                <a href="cms/quemsomos/9/consultas">Descrição</a>
                             </li>
                             <li>
                                 <a href="cms/consultas"><i class="fa fa-cubes" aria-hidden="true"></i> Consultas</a>

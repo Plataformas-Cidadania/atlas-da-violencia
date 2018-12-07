@@ -129,6 +129,14 @@ Route::group(['middleware' => 'cms'], function () {
         //Route::post('/cms/alterar-tema-serie/{id}', 'Cms\Controllers\TemaSerieController@alterar');
         Route::get('/cms/excluir-tema-serie/{id}', 'Cms\Controllers\TemaSerieController@excluir');
 
+        //TEMAS CONSULTAS
+        Route::get('/cms/temas-consultas/{consulta_id}', 'Cms\Controllers\TemaConsultaController@index');
+        Route::get('/cms/listar-temas-consultas', 'Cms\Controllers\TemaConsultaController@listar');
+        Route::post('/cms/inserir-tema-consulta', 'Cms\Controllers\TemaConsultaController@inserir');
+        //Route::get('/cms/tema-consulta/{id}', 'Cms\Controllers\TemaConsultaController@detalhar');
+        //Route::post('/cms/alterar-tema-consulta/{id}', 'Cms\Controllers\TemaConsultaController@alterar');
+        Route::get('/cms/excluir-tema-consulta/{id}', 'Cms\Controllers\TemaConsultaController@excluir');
+
         //Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
         //Route::get('/cms/teste-excel', 'Cms\Controllers\SerieController@testeExcel');
         Route::get('/cms/teste-excel/{id}/{arquivo}', 'Cms\Controllers\SerieController@testeExcel');
