@@ -61,7 +61,7 @@ class AbrangenciaSerie extends React.Component {
                 //this.submit();
                 return;
             }
-             this.loadPeriodos();
+              this.loadPeriodos();
             $("#modalAbrangencias").modal();
         });*/
     }

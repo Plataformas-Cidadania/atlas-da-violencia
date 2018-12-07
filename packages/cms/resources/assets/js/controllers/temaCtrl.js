@@ -7,7 +7,7 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "temas.id, idiomas_temas.titulo, idiomas_temas.idioma_sigla, temas.imagem";
+    $scope.campos = "temas.id, idiomas_temas.titulo, idiomas_temas.idioma_sigla, temas.imagem, temas.status";
     $scope.campoPesquisa = "idiomas_temas.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -205,6 +205,24 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
         });
     };
     //////////////////////////////////
-
+    $scope.status = function(id){
+        //console.log(id);
+        $scope.mensagemStatus = '';
+        $scope.idStatus = '';
+        $scope.processandoStatus = true;
+        $http({
+            url: 'cms/status-tema/'+id,
+            method: 'GET'
+        }).success(function(data, status, headers, config){
+            $scope.processandoStatus = false;
+            $scope.mensagemStatus = 'color-success';
+            $scope.idStatus = id;
+            listarTemas();
+        }).error(function(data){
+            $scope.message = "Ocorreu um erro: "+data;
+            $scope.processandoStatus = false;
+            $scope.mensagemStatus = "Erro ao tentar status!";
+        });
+    };
 
 }]);

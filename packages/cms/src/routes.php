@@ -257,6 +257,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/tema/{id}', 'Cms\Controllers\TemaController@detalhar');
         Route::post('/cms/alterar-tema/{id}', 'Cms\Controllers\TemaController@alterar');
         Route::get('/cms/excluir-tema/{id}', 'Cms\Controllers\TemaController@excluir');
+        Route::get('/cms/status-tema/{id}', 'Cms\Controllers\TemaController@status');
 
 
         //Setting

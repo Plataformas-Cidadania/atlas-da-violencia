@@ -86,8 +86,8 @@ class List extends React.Component{
                     buttons[1] = (<td key='btn-todos-os-territorios'><a className='btn btn-success' href="dados-series/serie_id" title="todos os territórios"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></a></td>);
                 }*/
 
-                buttons[0] = <td>&nbsp;</td>;
-                buttons[1] = (<td key='btn-todos-os-territorios'><a className='btn btn-success' href={this.state.urlDetailItem+"/"+item.id} title="todos os territórios" target="_blank"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></a></td>);
+                //buttons[0] = <td>&nbsp;</td>;
+                buttons[1] = (<td key='btn-todos-os-territorios' className="text-right"><a className='btn btn-success' href={this.state.urlDetailItem+"/"+item.id} title="todos os territórios" target="_blank"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></a></td>);
 
                 /*let buttons = [
                     <td>

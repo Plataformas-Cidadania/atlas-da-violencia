@@ -41,6 +41,7 @@ class FiltrosController extends Controller
             ->where('temas.tema_id', $tema_id)
             ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
             ->where('idiomas_temas.idioma_sigla', $lang)
+            ->where('temas.status', 1)
             ->orderBy('idiomas_temas.titulo')
             ->get();
 

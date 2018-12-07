@@ -117,7 +117,7 @@ class PageFilters extends React.Component {
                         <div style={{display: items.data.length > 0 ? '' : 'none'}}>
                             <List
                                 items={items}
-                                head={[this.props.lang_series, this.props.lang_unity, this.props.lang_frequency, '', '']}
+                                head={[this.props.lang_series, '']}
                                 showId='0'
                                 setCurrentPageListItems = {this.setCurrentPageListItems}
                                 currentPage = {this.state.currentPageListItems}
