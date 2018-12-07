@@ -94,6 +94,9 @@ Route::post('get-series/', 'FiltrosController@series');
 //Component
 Route::post('territorios/', 'SerieController@territorios');
 
+//Component AbrangenciaSerie
+Route::get('get-options-abrangencia/', 'SerieController@getOptionsAbrangencia');
+
 //Component RangePeriodo nas pg filtros e series
 //Route::get('periodos/{id}', 'MapController@periodos');
 Route::get('periodos/{id}/{abrangencia}', 'MapController@periodos');

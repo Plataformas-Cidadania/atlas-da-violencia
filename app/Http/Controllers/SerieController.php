@@ -543,7 +543,11 @@ class SerieController extends Controller
         return view('serie.ipea-selecao');
     }
 
+    public function getOptionsAbrangencia(){
+        $options = Config::get('constants.abrangencias');
 
+        return $options;
+    }
 
     public function territorios(Request $request){
 

@@ -7,7 +7,7 @@ return [
         ['id' => '3', 'title' => 'Proporção', 'on' => false, 'enable' => false]
     ],
     'abrangencias' => [
-        ['id'=> 1, 'title'=> 'País', 'plural'=> ' os Países', 'on'=>false, 'enable'=>false, 'listAll'=>1, 'height'=> '250px'],
+        ['id'=> 1, 'title'=> 'País..', 'plural'=> ' os Países', 'on'=>false, 'enable'=>false, 'listAll'=>1, 'height'=> '250px'],
         ['id'=> 2, 'title'=> 'Região', 'plural'=> 'as Regiões', 'on'=>false, 'enable'=>false, 'listAll'=>1, 'height'=> '250px'],
         ['id'=> 3, 'title'=> 'UF', 'plural'=> 'os Estados', 'on'=>false, 'enable'=>false, 'listAll'=>1, 'height'=> '400px'],
         ['id'=> 4, 'title'=> 'Município', 'plural'=> 'os Municípios', 'on'=>false, 'enable'=>false, 'listAll'=>0, 'height'=> '400px',
@@ -46,7 +46,7 @@ return [
     'PADRAO_TERRITORIOS' => [
         1 => [0],// 1076 (era 203) - Brasil
         2 => [0],//0 - Todos,
-        3 => [0],//0 - Todos | colocar os códigos das ufs que deseja carregar por padrão
+        3 => [33],//0 - Todos | colocar os códigos das ufs que deseja carregar por padrão
         4 => [0],//Código do estado. Desta forma irá pegar todos os munínicios do estado | 0 para todos
         7 => [0],//0 - Todos | Territórios do Piauí
     ],
