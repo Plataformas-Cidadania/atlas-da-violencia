@@ -6,6 +6,7 @@ use Cms\Models\ImagemCms;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -35,10 +36,17 @@ class SerieController extends Controller
 
     function index()
     {
+        $lang =  App::getLocale();
 
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
-        $periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
+        //$periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
+        $periodicidades = \App\IdiomaPeriodicidade::lists('titulo', 'id')->where('idioma_sigla', $lang)->all();
+
+        /*$periodicidades = \App\Periodicidade::lists('idiomas_periodicidades.titulo', 'idiomas_periodicidades.id')
+            ->join('idiomas_periodicidades', 'idiomas_periodicidades.periodicidade_id', '=', 'periodicidades.id')
+            ->all();*/
+
         $indicadores = \App\Indicador::lists('titulo', 'id')->all();
         $unidades = \App\Unidade::lists('titulo', 'id')->all();
 

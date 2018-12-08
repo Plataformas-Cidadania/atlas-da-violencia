@@ -1,4 +1,4 @@
-var ipeaApp = angular.module('ipeaApp', [], ['$interpolateProvider', function ($interpolateProvider) {
+var ipeaApp = angular.module('ipeaApp', [] ,['$interpolateProvider', function($interpolateProvider) {
     $interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');
 }]);
@@ -6,22 +6,24 @@ var ipeaApp = angular.module('ipeaApp', [], ['$interpolateProvider', function ($
 //window.sessionStorage.setItem('alto-contraste', true);
 var altoContraste = window.sessionStorage.getItem('alto-contraste');
 
-ipeaApp.factory('altoContraste', function () {
+ipeaApp.factory('altoContraste', function() {
     return altoContraste;
 });
 
-ipeaApp.controller('appCtrl', ['$scope', 'altoContraste', function ($scope, altoContraste) {
+ipeaApp.controller('appCtrl', ['$scope', 'altoContraste', function($scope, altoContraste){
     $scope.altoContrasteAtivo = altoContraste;
 
-    $scope.setAltoContraste = function () {
+    
+    $scope.setAltoContraste = function(){
         $scope.altoContrasteAtivo = !$scope.altoContrasteAtivo;
         //console.log("scopo: "+$scope.altoContrasteAtivo);
 
         window.sessionStorage.removeItem('alto-contraste');
-        if ($scope.altoContrasteAtivo) {
+        if($scope.altoContrasteAtivo){
             window.sessionStorage.setItem('alto-contraste', $scope.altoContrasteAtivo);
         }
 
         //console.log("sessao: "+window.sessionStorage.getItem('alto-contraste'));
-    };
+    }
+
 }]);

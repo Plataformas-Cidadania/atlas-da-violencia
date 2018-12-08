@@ -105,6 +105,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-idioma-unidade/{id}', 'Cms\Controllers\IdiomaUnidadeController@alterar');
         Route::get('/cms/excluir-idioma-unidade/{id}', 'Cms\Controllers\IdiomaUnidadeController@excluir');
 
+        //IDIOMAS PERIODICIDADES
+        Route::get('/cms/idiomas-periodicidades/{periodicidade_id}', 'Cms\Controllers\IdiomaPeriodicidadeController@index');
+        Route::get('/cms/listar-idiomas-periodicidades', 'Cms\Controllers\IdiomaPeriodicidadeController@listar');
+        Route::post('/cms/inserir-idioma-periodicidade', 'Cms\Controllers\IdiomaPeriodicidadeController@inserir');
+        Route::get('/cms/idioma-periodicidade/{id}', 'Cms\Controllers\IdiomaPeriodicidadeController@detalhar');
+        Route::post('/cms/alterar-idioma-periodicidade/{id}', 'Cms\Controllers\IdiomaPeriodicidadeController@alterar');
+        Route::get('/cms/excluir-idioma-periodicidade/{id}', 'Cms\Controllers\IdiomaPeriodicidadeController@excluir');
+
         //IDIOMAS INDICADORES
         Route::get('/cms/idiomas-indicadores/{indicador_id}', 'Cms\Controllers\IdiomaIndicadorController@index');
         Route::get('/cms/listar-idiomas-indicadores', 'Cms\Controllers\IdiomaIndicadorController@listar');
@@ -224,6 +232,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/unidade/{id}', 'Cms\Controllers\UnidadeController@detalhar');
         Route::post('/cms/alterar-unidade/{id}', 'Cms\Controllers\UnidadeController@alterar');
         Route::get('/cms/excluir-unidade/{id}', 'Cms\Controllers\UnidadeController@excluir');
+
+        //PERIODICIDADES
+        Route::get('/cms/periodicidades', 'Cms\Controllers\PeriodicidadeController@index');
+        Route::get('/cms/listar-periodicidades', 'Cms\Controllers\PeriodicidadeController@listar');
+        Route::post('/cms/inserir-periodicidade', 'Cms\Controllers\PeriodicidadeController@inserir');
+        Route::get('/cms/periodicidade/{id}', 'Cms\Controllers\PeriodicidadeController@detalhar');
+        Route::post('/cms/alterar-periodicidade/{id}', 'Cms\Controllers\PeriodicidadeController@alterar');
+        Route::get('/cms/excluir-periodicidade/{id}', 'Cms\Controllers\PeriodicidadeController@excluir');
 
         //INDICADORES
         Route::get('/cms/indicadores', 'Cms\Controllers\IndicadorController@index');
