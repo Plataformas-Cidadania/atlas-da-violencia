@@ -374,7 +374,8 @@ Route::group(['middleware' => 'cms'], function () {
 
         Route::get('/cms/id-seq', 'Cms\Controllers\LogController@id_seq');
 
-
+        Route::get('/cms/script', 'Cms\Controllers\ScriptController@index');
+        Route::post('/cms/run-script', 'Cms\Controllers\ScriptController@run');
 
 
 
