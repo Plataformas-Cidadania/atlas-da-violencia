@@ -21,7 +21,7 @@ class LogController extends Controller
     public function download($log){
 
         $zip = Zip::create(base_path().'/storage/logs/'.$log.'.zip');
-        $zip->add(base_path().'/storage/logs/'.$log);
+        $zip->add(base_path().'/storage/logs/'.$log.'.log');
         $zip->close();
 
         return response()->download(base_path().'/storage/logs/'.$log.'.zip');
