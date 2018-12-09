@@ -167,6 +167,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Cms\Providers\CmsServiceProvider::class,
         'App\Providers\CarbonLanguageProvider',
+        ZanySoft\Zip\ZipServiceProvider::class,
         
 
 
@@ -221,6 +222,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'HTMLMin' => 'GrahamCampbell\HTMLMin\Facades\HTMLMin',
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
+        'Zip' => ZanySoft\Zip\ZipFacade::class,
 
     ],
 

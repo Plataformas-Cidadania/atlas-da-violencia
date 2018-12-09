@@ -13,7 +13,8 @@
         "maatwebsite/excel": "~2.1.0",
         "predis/predis": "^1.1",
         "phaza/laravel-postgis": "^3.3",
-        "cyber-duck/laravel-excel": "^1.2"
+        "cyber-duck/laravel-excel": "^1.2",
+        "zanysoft/laravel-zip": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

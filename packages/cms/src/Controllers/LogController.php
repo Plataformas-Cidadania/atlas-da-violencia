@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Zip;
 
 class LogController extends Controller
 {
@@ -19,7 +20,11 @@ class LogController extends Controller
 
     public function download($log){
 
-        return response()->download(base_path().'/storage/logs/'.$log);
+        $zip = Zip::create(base_path().'/storage/logs/'.$log.'.zip');
+        $zip->add(base_path().'/storage/logs/'.$log);
+        $zip->close();
+
+        return response()->download(base_path().'/storage/logs/'.$log.'.zip');
 
     }
 
