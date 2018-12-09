@@ -370,6 +370,7 @@ Route::group(['middleware' => 'cms'], function () {
 
         //Logs
         Route::get('/cms/logs', 'Cms\Controllers\LogController@index');
+        Route::get('/cms/download-log/{log}', 'Cms\Controllers\LogController@download');
 
 
         Route::get('/cms/id-seq', 'Cms\Controllers\LogController@id_seq');

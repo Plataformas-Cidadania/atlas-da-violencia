@@ -6,13 +6,21 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class LogController extends Controller
 {
     public function index(){
 
+        $logs = Storage::disk('logs')->files();
 
-        return view('cms:logs.listar');
+        return view('cms::logs.listar', ['logs' => $logs]);
+    }
+
+    public function download($log){
+
+        return response()->download(base_path().'/storage/logs/'.$log);
+
     }
 
     public function id_seq(){
