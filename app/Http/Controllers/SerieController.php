@@ -544,7 +544,16 @@ class SerieController extends Controller
     }
 
     public function getOptionsAbrangencia(){
-        $options = Config::get('constants.abrangencias');
+        //$options = Config::get('constants.abrangencias');
+
+        $options = \DB::table('options_abrangencias')->get();
+
+        foreach ($options as $option) {
+            $filters = DB::table('filters_options_abrangencias')->where('option_abrangencia_id', $option->id)->get();
+            if(count($filters) > 0){
+                $option->filter = $filters;
+            }
+        }
 
         return $options;
     }
