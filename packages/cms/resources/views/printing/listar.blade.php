@@ -87,9 +87,9 @@
                                 <i ng-if="ordem=='id' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='id' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
-                            <th>Imagem</th>
+                            {{--<th>Imagem</th>--}}
                             <th ng-click="ordernarPor('printing')" style="printingr:pointer;">
-                                Printing
+                                Título
                                 <i ng-if="ordem=='printing' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='printing' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
@@ -99,12 +99,12 @@
                         <tbody>
                         <tr ng-repeat="printing in printings">
                             <td><% printing.id %></td>
-                            <td><img ng-show="printing.imagem" ng-src="/imagens/printings/xs-<% printing.imagem %>" width="60"></td>
-                            <td><a href="cms/printing/<% printing.id %>"><% printing.titulo %></a></td>
+                            {{--<td><img ng-show="printing.imagem" ng-src="/imagens/printings/xs-<% printing.imagem %>" width="60"></td>--}}
+                            <td><a href="cms/printing/<% printing.id %>"><% printing.title %></a></td>
                             <td class="text-right">
                                 <div>
                                     <a href="cms/printing/<% printing.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
-                                    <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(printing.id, printing.titulo, printing.imagem)"></i></a>
+                                    <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(printing.id, printing.title, printing.imagem)"></i></a>
                                 </div>
                             </td>
                         </tr>

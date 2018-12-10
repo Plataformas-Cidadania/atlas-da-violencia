@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Printing extends Model
 {
     protected $fillable = [
-        'imagem', 'type', 'title', 'description', 'arquivo', 'cmsuser_id',/* 'idioma_sigla',*/
+        'imagem', 'type', 'title', 'description', 'arquivo', 'cmsuser_id',
     ];
 }

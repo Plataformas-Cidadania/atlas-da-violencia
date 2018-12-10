@@ -150,10 +150,10 @@ class PrintingController extends Controller
         $printing = $this->printing->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $series = \App\Serie::lists('titulo', 'id')->all();
+
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::printing.detalhar', ['printing' => $printing, 'series' => $series, 'idiomas' => $idiomas]);
+        return view('cms::printing.detalhar', ['printing' => $printing, 'idiomas' => $idiomas]);
     }
 
     /*public function alterar(Request $request, $id)
