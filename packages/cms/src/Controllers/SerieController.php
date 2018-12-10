@@ -137,6 +137,9 @@ class SerieController extends Controller
 
     public function detalhar($id)
     {
+
+        $lang =  App::getLocale();
+
         $serie = $this->serie
             ->select('textos_series.titulo', 'series.*')
             ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
@@ -144,13 +147,31 @@ class SerieController extends Controller
             ['series.id', '=', $id],
         ])->firstOrFail();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
-        $periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
+        //$periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
 
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
 
 
-        $indicadores = \App\Indicador::lists('titulo', 'id')->all();
-        $unidades = \App\Unidade::lists('titulo', 'id')->all();
+        //$indicadores = \App\Indicador::lists('titulo', 'id')->all();
+        //$unidades = \App\Unidade::lists('titulo', 'id')->all();
+
+        $periodicidades = \App\Periodicidade::
+        select('idiomas_periodicidades.titulo', 'periodicidades.id')
+            ->join('idiomas_periodicidades', 'idiomas_periodicidades.periodicidade_id', '=', 'periodicidades.id')
+            ->where('idiomas_periodicidades.idioma_sigla', $lang)
+            ->lists('idiomas_periodicidades.titulo', 'periodicidades.id');
+
+        $indicadores = \App\Indicador::
+        select('idiomas_indicadores.titulo', 'indicadores.id')
+            ->join('idiomas_indicadores', 'idiomas_indicadores.indicador_id', '=', 'indicadores.id')
+            ->where('idiomas_indicadores.idioma_sigla', $lang)
+            ->lists('idiomas_indicadores.titulo', 'indicadores.id');
+
+        $unidades = \App\Unidade::
+        select('idiomas_unidades.titulo', 'unidades.id')
+            ->join('idiomas_unidades', 'idiomas_unidades.unidade_id', '=', 'unidades.id')
+            ->where('idiomas_unidades.idioma_sigla', $lang)
+            ->lists('idiomas_unidades.titulo', 'unidades.id');
 
         return view('cms::serie.detalhar', [
             'serie' => $serie,
