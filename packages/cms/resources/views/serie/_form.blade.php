@@ -22,11 +22,13 @@ null, ['class'=>"form-control width-medio <% validar(textos.idioma_sigla) %>", '
         $series_relacionado,
 null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-model'=>'serie.serie_id', 'init-model'=>'serie.serie_id', 'placeholder' => 'Principal']) !!}<br>
 --}}
-
+{{--@foreach($periodicidades as $periodicidade)
+    {{$periodicidade->titulo}}
+@endforeach--}}
 
 {!! Form::label('periodicidade_id', 'Periodicidade *') !!}<br>
 {!! Form::select('periodicidade_id',
-        $periodicidades,
+$periodicidades,
 null, ['class'=>"form-control width-medio <% validar(serie.periodicidade) %>", 'ng-model'=>'serie.periodicidade_id', 'ng-required'=>'true', 'init-model'=>'serie.periodicidade_id', 'placeholder' => 'Selecione']) !!}<br>
 
 <?php 
