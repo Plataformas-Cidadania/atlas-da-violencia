@@ -113,6 +113,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-idioma-option-abrangencia/{id}', 'Cms\Controllers\IdiomaOptionAbrangenciaController@alterar');
         Route::get('/cms/excluir-idioma-option-abrangencia/{id}', 'Cms\Controllers\IdiomaOptionAbrangenciaController@excluir');
 
+        //FILTERS OPTIOSN ABRANGENCIAS
+        Route::get('/cms/filters-options-abrangencias/{option_abrangencia_id}', 'Cms\Controllers\FilterOptionAbrangenciaController@index');
+        Route::get('/cms/listar-filters-options-abrangencias', 'Cms\Controllers\FilterOptionAbrangenciaController@listar');
+        Route::post('/cms/inserir-filter-option-abrangencia', 'Cms\Controllers\FilterOptionAbrangenciaController@inserir');
+        Route::get('/cms/filter-option-abrangencia/{id}', 'Cms\Controllers\FilterOptionAbrangenciaController@detalhar');
+        Route::post('/cms/alterar-filter-option-abrangencia/{id}', 'Cms\Controllers\FilterOptionAbrangenciaController@alterar');
+        Route::get('/cms/excluir-filter-option-abrangencia/{id}', 'Cms\Controllers\FilterOptionAbrangenciaController@excluir');
+
         //IDIOMAS PERIODICIDADES
         Route::get('/cms/idiomas-periodicidades/{periodicidade_id}', 'Cms\Controllers\IdiomaPeriodicidadeController@index');
         Route::get('/cms/listar-idiomas-periodicidades', 'Cms\Controllers\IdiomaPeriodicidadeController@listar');

@@ -74,6 +74,10 @@ elixir(function(mix) {
     //Idiomas Options Abrangencias
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/idiomaOptionAbrangenciaCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaOptionAbrangenciaCtrl.js');
+    
+    //Filters Options Abrangencias
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/filterOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/filterOptionAbrangenciaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFilterOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/alterarFilterOptionAbrangenciaCtrl.js');
 
     //Idiomas Periodicidades
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaPeriodicidadeCtrl.js', 'public/assets-cms/js/controllers/idiomaPeriodicidadeCtrl.js');

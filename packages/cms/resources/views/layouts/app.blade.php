@@ -223,10 +223,10 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
                             <li>
                                 <a href="cms/indices"><i class="fa fa-indent" aria-hidden="true"></i> Índices</a>
                             </li>
-                            <li>
+                   {{--         <li>
                                 <a href="cms/webindicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores
                                     Site</a>
-                            </li>
+                            </li>--}}
                             <li>
                                 <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
                             </li>
@@ -285,6 +285,18 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
                             </li>
                             <li>
                                 <a href="cms/versoes">Versões</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo7"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores Site <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo7" class="collapse">
+                            <li>
+                                <a href="cms/quemsomos/7/webindicador">Descrição</a>
+                            </li>
+                            <li>
+                                <a href="cms/webindicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores</a>
                             </li>
                         </ul>
                     </li>
