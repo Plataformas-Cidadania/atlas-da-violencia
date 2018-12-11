@@ -185,6 +185,9 @@ class SerieController extends Controller
         //$regions = explode(',', $request->regions);
 
         $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+        $abrangenciasSettings = \App\Setting::find(1)->padrao_abrangencia;
+        $abrangencias = explode(',', $abrangenciasSettings);
+
         $indiceAbrangencia = 0;
         $abrangencia = $abrangencias[$indiceAbrangencia];
 
@@ -761,6 +764,7 @@ class SerieController extends Controller
         $table = $this->tabelas[$abrangencia];
 
         $padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+
         $uf = $padraoTerritorios[4];
 
         /*->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
@@ -822,7 +826,10 @@ class SerieController extends Controller
 
             //$regions = explode(',', $request->regions);
 
-            $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+            //$abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+            $abrangenciasSettings = \App\Setting::find(1)->padrao_abrangencia;
+            $abrangencias = explode(',', $abrangenciasSettings);
+
             $indiceAbrangencia = 0;
             $abrangencia = $abrangencias[$indiceAbrangencia];
 

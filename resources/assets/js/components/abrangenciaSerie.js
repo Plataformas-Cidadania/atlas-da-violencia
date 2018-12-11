@@ -3,12 +3,13 @@ class AbrangenciaSerie extends React.Component{
         super(props);
 
         this.state = {
-            abrangencias: props.abrangencias ? props.abrangencias : [
+            abrangencias: [],
+            /*abrangencias: props.abrangencias ? props.abrangencias : [
                 {id: 1, titulo: this.props.lang_parents},
                 {id: 2, titulo: this.props.lang_regions},
                 {id: 3, titulo: this.props.lang_uf},
                 {id: 4, titulo: this.props.lang_counties},
-            ],
+            ],*/
             regionsId: [0],
             nomeAbrangencia: props.nomeAbrangencia,
             abrangencia: props.abrangencia,
@@ -88,7 +89,14 @@ class AbrangenciaSerie extends React.Component{
             cache: false,
             success: function(data) {
                 console.log('OPTIONS ABRANGENCIA', data);
-                this.setState({optionsAbrangencia: data}, function(){
+                let abrangencias = [];
+                data.find(function(item){
+                    let abrangencia = {};
+                    abrangencia['id'] = item.id;
+                    abrangencia['titulo'] = item.title;
+                    abrangencias.push(abrangencia);
+                });
+                this.setState({optionsAbrangencia: data, abrangencias: abrangencias}, function(){
                     this.activateOptionsAbrangencia();
                 });
             }.bind(this),
