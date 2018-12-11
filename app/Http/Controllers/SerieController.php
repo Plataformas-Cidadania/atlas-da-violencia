@@ -546,7 +546,19 @@ class SerieController extends Controller
     public function getOptionsAbrangencia(){
         //$options = Config::get('constants.abrangencias');
 
-        $options = \DB::table('options_abrangencias')->get();
+        $lang =  App::getLocale();
+
+        $options = \DB::table('options_abrangencias')
+            ->select(
+                'options_abrangencias.id',
+                'idiomas_options_abrangencias.title',
+                'idiomas_options_abrangencias.plural',
+                'options_abrangencias.on',
+                'options_abrangencias.listAll',
+                'options_abrangencias.height'
+                )
+            ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
+            ->get();
 
         foreach ($options as $option) {
             $filters = DB::table('filters_options_abrangencias')->where('option_abrangencia_id', $option->id)->get();

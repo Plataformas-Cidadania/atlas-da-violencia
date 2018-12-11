@@ -15,8 +15,6 @@ class CreateOptionsAbrangenciasTable extends Migration
         Schema::create('options_abrangencias', function (Blueprint $table) {
             $table->integer('id')->unsigned();
             $table->primary('id');
-            $table->string('title');
-            $table->string('plural');
             $table->integer('on')->default(0);
             $table->integer('listAll')->default(0);
             $table->string('height');
