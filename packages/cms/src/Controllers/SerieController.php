@@ -122,16 +122,19 @@ class SerieController extends Controller
             $success = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
             
             if($success){
-                $data['serie']['imagem'] = $filename;
-                return $this->serie->create($data['serie']);
+                $inserir = $data['serie']['imagem'] = $filename;
+                $data['textos'] += ['serie_id' => $inserir->id];
+                $textos_serie = \App\TextoSerie::create($data['textos']);
+                return $inserir;
             }else{
                 return "erro";
             }
         }
 
-        $serie = $this->serie->create($data['serie']);
-        $data['textos'] += ['serie_id' => $serie->id];
+        $inserir = $this->serie->create($data['serie']);
+        $data['textos'] += ['serie_id' => $inserir->id];
         $textos_serie = \App\TextoSerie::create($data['textos']);
+        return $inserir;
 
     }
 

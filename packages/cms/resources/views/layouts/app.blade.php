@@ -190,6 +190,9 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
                                 <a href="cms/periodicidades"><i class="fa fa-indent" aria-hidden="true"></i> Periodicidade</a>
                             </li>
                             <li>
+                                <a href="cms/options-abrangencias"><i class="fa fa-indent" aria-hidden="true"></i> Options Abrangencias</a>
+                            </li>
+                            <li>
                                 <a href="cms/usuarios"><i class="fa fa-fw fa-users"></i> Usuários</a>
                             </li>
                         </ul>

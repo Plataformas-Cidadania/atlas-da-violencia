@@ -11,19 +11,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 
-class PeriodicidadeController extends Controller
+class OptionAbrangenciaController extends Controller
 {
     
     
 
     public function __construct()
     {
-        $this->periodicidade = new \App\Periodicidade;
-        $this->idiomaPeriodicidade = new \App\IdiomaPeriodicidade;
+        $this->optionAbrangencia = new \App\OptionAbrangencia;
+        $this->idiomaOptionAbrangencia = new \App\IdiomaOptionAbrangencia;
         $this->campos = [
-            'titulo', 'cmsuser_id', 'idioma_sigla',
+            'id', 'on', 'listAll', 'height', 'cmsuser_id',
         ];
-        $this->pathImagem = public_path().'/imagens/periodicidades';
+        $this->pathImagem = public_path().'/imagens/options-abrangencias';
         $this->sizesImagem = [
             'xs' => ['width' => 34, 'height' => 23],
             'sm' => ['width' => 50, 'height' => 34],
@@ -36,10 +36,10 @@ class PeriodicidadeController extends Controller
     function index()
     {
 
-        $periodicidades = \App\Periodicidade::all();
+        $optionAbrangencias = \App\OptionAbrangencia::all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::periodicidade.listar', ['periodicidades' => $periodicidades, 'idiomas' => $idiomas]);
+        return view('cms::option_abrangencia.listar', ['optionAbrangencias' => $optionAbrangencias, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
@@ -51,7 +51,7 @@ class PeriodicidadeController extends Controller
 
         $campos = explode(", ", $request->campos);
 
-        /*$periodicidades = DB::table('periodicidades')
+        /*$optionAbrangencias = DB::table('optionAbrangencias')
             ->select($campos)
             ->where([
                 [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
@@ -59,18 +59,18 @@ class PeriodicidadeController extends Controller
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);*/
 
-        $periodicidades = DB::table('periodicidades')
+        $optionAbrangencias = DB::table('options_abrangencias')
         ->select($campos)
-        ->join('idiomas_periodicidades', 'idiomas_periodicidades.periodicidade_id', '=', 'periodicidades.id')
+        ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
         ->where([
             [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
-            ['idiomas_periodicidades.idioma_sigla', 'pt_BR'],
+            ['idiomas_options_abrangencias.idioma_sigla', 'pt_BR'],
         ])
         ->orderBy($request->ordem, $request->sentido)
         ->paginate($request->itensPorPagina);
 
 
-        return $periodicidades;
+        return $optionAbrangencias;
     }
 
     public function inserir(Request $request)
@@ -78,15 +78,18 @@ class PeriodicidadeController extends Controller
 
         $data = $request->all();
 
-        $data['periodicidade'] = [];
+        $data['indicador'] = [];
 
-        $data['periodicidade'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['optionAbrangencia'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+
+
         $data['idioma'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['idioma'] += ['idioma_sigla' => 'pt_BR'];
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
-                $data['periodicidade'] += [$campo => ''];
+                $data['optionAbrangencia'] += [$campo => ''];
             }
         }
 
@@ -98,10 +101,10 @@ class PeriodicidadeController extends Controller
             $success = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
             
             if($success){
-                $data['periodicidade']['imagem'] = $filename;
-                $inserir = $this->periodicidade->create($data['periodicidade']);
-                $data['idioma']['periodicidade_id'] = $inserir->id;
-                $inserir2 = $this->idiomaPeriodicidade->create($data['idioma']);
+                $data['optionAbrangencia']['imagem'] = $filename;
+                $inserir = $this->optionAbrangencia->create($data['optionAbrangencia']);
+                $data['idioma']['option_abrangencia_id'] = $inserir->id;
+                $inserir2 = $this->idiomaOptionAbrangencia->create($data['idioma']);
 
                 return $inserir;
             }else{
@@ -109,37 +112,37 @@ class PeriodicidadeController extends Controller
             }
         }
 
-        //return $this->periodicidade->create($data['periodicidade']);
+        //return $this->optionAbrangencia->create($data['optionAbrangencia']);
 
-        $inserir = $this->periodicidade->create($data['periodicidade']);
-        $data['idioma']['periodicidade_id'] = $inserir->id;
-        $inserir2 = $this->idiomaPeriodicidade->create($data['idioma']);
+        $inserir = $this->optionAbrangencia->create($data['optionAbrangencia']);
+        $data['idioma']['option_abrangencia_id'] = $inserir->id;
+        $inserir2 = $this->idiomaOptionAbrangencia->create($data['idioma']);
         return $inserir;
 
     }
 
     public function detalhar($id)
     {
-        $periodicidade = $this->periodicidade->where([
+        $optionAbrangencia = $this->optionAbrangencia->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        return view('cms::periodicidade.detalhar', ['periodicidade' => $periodicidade]);
+        return view('cms::option_abrangencia.detalhar', ['optionAbrangencia' => $optionAbrangencia]);
     }
 
     public function alterar(Request $request, $id)
     {
         $data = $request->all();
-        $data['periodicidade'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+        $data['optionAbrangencia'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
             if(!array_key_exists($campo, $data)){
                 if($campo!='imagem'){
-                    $data['periodicidade'] += [$campo => ''];
+                    $data['optionAbrangencia'] += [$campo => ''];
                 }
             }
         }
-        $periodicidade = $this->periodicidade->where([
+        $optionAbrangencia = $this->optionAbrangencia->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
@@ -148,11 +151,11 @@ class PeriodicidadeController extends Controller
         if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
-            $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $periodicidade);
+            $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $optionAbrangencia);
             if($success){
-                $data['periodicidade']['imagem'] = $filename;
-                $periodicidade->update($data['periodicidade']);
-                return $periodicidade->imagem;
+                $data['optionAbrangencia']['imagem'] = $filename;
+                $optionAbrangencia->update($data['optionAbrangencia']);
+                return $optionAbrangencia->imagem;
             }else{
                 return "erro";
             }
@@ -160,13 +163,13 @@ class PeriodicidadeController extends Controller
 
         //remover imagem
         if($data['removerImagem']){
-            $data['periodicidade']['imagem'] = '';
-            if(file_exists($this->pathImagem."/".$periodicidade->imagem)) {
-                unlink($this->pathImagem . "/" . $periodicidade->imagem);
+            $data['optionAbrangencia']['imagem'] = '';
+            if(file_exists($this->pathImagem."/".$optionAbrangencia->imagem)) {
+                unlink($this->pathImagem . "/" . $optionAbrangencia->imagem);
             }
         }
 
-        $periodicidade->update($data['periodicidade']);
+        $optionAbrangencia->update($data['optionAbrangencia']);
         return "Gravado com sucesso";
     }
 
@@ -174,19 +177,19 @@ class PeriodicidadeController extends Controller
     {
         //Auth::loginUsingId(2);
 
-        $periodicidade = $this->periodicidade->where([
+        $optionAbrangencia = $this->optionAbrangencia->where([
             ['id', '=', $id],
         ])->firstOrFail();
 
         //remover imagens        
-        if(!empty($periodicidade->imagem)){
+        if(!empty($optionAbrangencia->imagem)){
             //remover imagens
             $imagemCms = new ImagemCms();
-            $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $periodicidade);
+            $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $optionAbrangencia);
         }
                 
 
-        $periodicidade->delete();
+        $optionAbrangencia->delete();
 
     }
 

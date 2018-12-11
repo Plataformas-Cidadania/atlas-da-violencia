@@ -71,6 +71,10 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaUnidadeCtrl.js', 'public/assets-cms/js/controllers/idiomaUnidadeCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaUnidadeCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaUnidadeCtrl.js');
 
+    //Idiomas Options Abrangencias
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/idiomaOptionAbrangenciaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaOptionAbrangenciaCtrl.js');
+
     //Idiomas Periodicidades
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaPeriodicidadeCtrl.js', 'public/assets-cms/js/controllers/idiomaPeriodicidadeCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaPeriodicidadeCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaPeriodicidadeCtrl.js');
@@ -131,6 +135,10 @@ elixir(function(mix) {
     //Unidades
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/unidadeCtrl.js', 'public/assets-cms/js/controllers/unidadeCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarUnidadeCtrl.js', 'public/assets-cms/js/controllers/alterarUnidadeCtrl.js');
+
+    //Options Abrangencias
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/optionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/optionAbrangenciaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/alterarOptionAbrangenciaCtrl.js');
 
     //Periodicidades
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/periodicidadeCtrl.js', 'public/assets-cms/js/controllers/periodicidadeCtrl.js');
