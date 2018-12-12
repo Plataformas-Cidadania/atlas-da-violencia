@@ -281,6 +281,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-fonte/{id}', 'Cms\Controllers\FonteController@alterar');
         Route::get('/cms/excluir-fonte/{id}', 'Cms\Controllers\FonteController@excluir');
 
+        //PADRAO TERRITORIOS
+        Route::get('/cms/padrao-territorios', 'Cms\Controllers\PadraoTerritorioController@index');
+        Route::get('/cms/listar-padrao-territorios', 'Cms\Controllers\PadraoTerritorioController@listar');
+        Route::post('/cms/inserir-padrao-territorio', 'Cms\Controllers\PadraoTerritorioController@inserir');
+        Route::get('/cms/padrao-territorio/{id}', 'Cms\Controllers\PadraoTerritorioController@detalhar');
+        Route::post('/cms/alterar-padrao-territorio/{id}', 'Cms\Controllers\PadraoTerritorioController@alterar');
+        Route::get('/cms/excluir-padrao-territorio/{id}', 'Cms\Controllers\PadraoTerritorioController@excluir');
+
         //FILTROS
         Route::get('/cms/filtros', 'Cms\Controllers\FiltroController@index');
         Route::get('/cms/listar-filtros', 'Cms\Controllers\FiltroController@listar');

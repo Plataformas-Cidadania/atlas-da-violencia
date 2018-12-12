@@ -153,9 +153,9 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIndicadorCtrl.js', 'public/assets-cms/js/controllers/alterarIndicadorCtrl.js');
 
 
-    //Fontes
-    mix.scripts('../../../packages/cms/resources/assets/js/controllers/fonteCtrl.js', 'public/assets-cms/js/controllers/fonteCtrl.js');
-    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFonteCtrl.js', 'public/assets-cms/js/controllers/alterarFonteCtrl.js');
+    //PadraoTerritorios
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/padraoTerritorioCtrl.js', 'public/assets-cms/js/controllers/padraoTerritorioCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarPadraoTerritorioCtrl.js', 'public/assets-cms/js/controllers/alterarPadraoTerritorioCtrl.js');
 
     //Filtros
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/filtroCtrl.js', 'public/assets-cms/js/controllers/filtroCtrl.js');
