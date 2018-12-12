@@ -21,7 +21,7 @@ class FilterOptionAbrangenciaController extends Controller
     {
         $this->filterOptionAbrangencia = new \App\FilterOptionAbrangencia;
         $this->campos = [
-            'imagem', 'title',
+            'title',
         ];
         $this->pathImagem = public_path().'/imagens/filters-options-abrangencias';
         $this->sizesImagem = [
