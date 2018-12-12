@@ -85,7 +85,7 @@ class AbrangenciaSerie extends React.Component{
     loadOptionAbrangencia(){
         $.ajax({
             method:'GET',
-            url: "get-options-abrangencia/",
+            url: "get-options-abrangencia",
             cache: false,
             success: function(data) {
                 console.log('OPTIONS ABRANGENCIA', data);
