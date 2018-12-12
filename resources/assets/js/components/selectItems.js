@@ -94,11 +94,11 @@ class SelectItems extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        if(this.state.option != props.option){
+        if(this.state.option != props.option || this.state.options != props.options){
             let parameters = this.state.parameters;
             parameters.option = props.option;
             this.removeAll();
-            this.setState({option:  props.option, parameters: parameters}, function(){
+            this.setState({option:  props.option, parameters: parameters, options: props.options}, function(){
                 this.loadData();
             });
         }
@@ -323,6 +323,7 @@ class SelectItems extends React.Component{
 
         //console.log(this.state.parameters);
 
+        console.log('OPTIONS', this.state.options);
 
         if(!this.state.option){
             return null;

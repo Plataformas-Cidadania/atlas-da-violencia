@@ -19,7 +19,35 @@ class SerieController extends Controller
 
     public function __construct(\Illuminate\Cache\Repository $cache){
         $this->indicadores = config('constants.indicadores');
-        $this->abrangencias = config('constants.abrangencias');
+
+        /*$this->abrangencias = config('constants.abrangencias');
+        Log::info('abrangencias CONSTANTS');
+        Log::info($this->abrangencias);*/
+
+        $lang =  App::getLocale();
+
+        $options = \DB::table('options_abrangencias')
+            ->select(
+                'options_abrangencias.id',
+                'idiomas_options_abrangencias.title',
+                'idiomas_options_abrangencias.plural',
+                'options_abrangencias.on',
+                'options_abrangencias.listAll',
+                'options_abrangencias.height'
+            )
+            ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
+            ->get();
+
+        foreach ($options as $option) {
+            $filters = DB::table('filters_options_abrangencias')->where('option_abrangencia_id', $option->id)->get();
+            if(count($filters) > 0){
+                $option->filter = $filters;
+            }
+        }
+
+        $this->abrangencias = json_decode(json_encode($options), true);
+
+
         $this->cache = $cache;
 
         $this->tabelas = [
@@ -184,7 +212,10 @@ class SerieController extends Controller
 
         //$regions = explode(',', $request->regions);
 
-        $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+        //$abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+        $abrangenciasSettings = \App\Setting::find(1)->padrao_abrangencia;
+        $abrangencias = explode(',', $abrangenciasSettings);
+
         $indiceAbrangencia = 0;
         $abrangencia = $abrangencias[$indiceAbrangencia];
 
@@ -215,6 +246,7 @@ class SerieController extends Controller
             'regions' => $regions,
             'abrangencia' => $abrangencia,
             'abrangenciasOk' => $abrangenciasOk,
+            'abrangencias' => $this->abrangencias,
         ]);
     }
 
@@ -265,11 +297,24 @@ class SerieController extends Controller
 
     }
 
+    private function getPadraoTerritorios(){
+
+        $padraoTerritoriosDB = DB::table('padrao_territorios')->get();
+
+        $padraoTerritorios = [];
+
+        foreach ($padraoTerritoriosDB as $padraoTerritorioDB) {
+            $padraoTerritorios[$padraoTerritorioDB->option_abrangencia_id] = explode(',', $padraoTerritorioDB->territorios);
+        }
+
+        return $padraoTerritorios;
+    }
+
     private function getRegions($abrangencia){
-        $padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+        //$padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+        $padraoTerritorios = $this->getPadraoTerritorios();
+
         $regions = $padraoTerritorios[$abrangencia];
-
-
 
         //se a abrangência for de municipio então irá pegar os municipios de um determinado estado se o codigo nao for 0
         if($abrangencia==4){
@@ -543,7 +588,32 @@ class SerieController extends Controller
         return view('serie.ipea-selecao');
     }
 
+    public function getOptionsAbrangencia(){
+        //$options = Config::get('constants.abrangencias');
 
+        $lang =  App::getLocale();
+
+        $options = \DB::table('options_abrangencias')
+            ->select(
+                'options_abrangencias.id',
+                'idiomas_options_abrangencias.title',
+                'idiomas_options_abrangencias.plural',
+                'options_abrangencias.on',
+                'options_abrangencias.listAll',
+                'options_abrangencias.height'
+                )
+            ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
+            ->get();
+
+        foreach ($options as $option) {
+            $filters = DB::table('filters_options_abrangencias')->where('option_abrangencia_id', $option->id)->get();
+            if(count($filters) > 0){
+                $option->filter = $filters;
+            }
+        }
+
+        return $options;
+    }
 
     public function territorios(Request $request){
 
@@ -735,7 +805,9 @@ class SerieController extends Controller
 
         $table = $this->tabelas[$abrangencia];
 
-        $padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+        //$padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+        $padraoTerritorios = $this->getPadraoTerritorios();
+
         $uf = $padraoTerritorios[4];
 
         /*->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
@@ -797,7 +869,10 @@ class SerieController extends Controller
 
             //$regions = explode(',', $request->regions);
 
-            $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+            //$abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+            $abrangenciasSettings = \App\Setting::find(1)->padrao_abrangencia;
+            $abrangencias = explode(',', $abrangenciasSettings);
+
             $indiceAbrangencia = 0;
             $abrangencia = $abrangencias[$indiceAbrangencia];
 

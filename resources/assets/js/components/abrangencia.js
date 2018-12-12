@@ -3,7 +3,7 @@ class Abrangencia extends React.Component{
         super (props);
         this.state = {
             options: [
-                {id: 1, title: 'País', plural: ' os Países', on:false, listAll:1, height: '250px'},
+                {id: 1, title: 'País...', plural: ' os Países', on:false, listAll:1, height: '250px'},
                 {id: 2, title: 'Região', plural: 'as Regiões', on:false, listAll:1, height: '250px'},
                 {id: 3, title: 'UF', plural: 'os Estados', on:false, listAll:1, height: '400px'},
                 {id: 4, title: 'Município', plural: 'os Municípios', on:false, listAll:0, height: '400px',

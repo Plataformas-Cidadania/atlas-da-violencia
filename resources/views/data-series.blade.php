@@ -278,7 +278,7 @@
     <div class="container">
 
         @if(!empty($series))
-            <?php $abrangencias = config('constants.abrangencias');?>
+            <?php //$abrangencias = config('constants.abrangencias');?>
             <script>
                 serie_id={{$id}};
                 serie="{!! $series->titulo !!}";
