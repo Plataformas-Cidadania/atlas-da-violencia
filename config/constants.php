@@ -6,7 +6,7 @@ return [
         ['id' => '2', 'title' => 'Taxa por 100 mil Habitantes', 'on' => false, 'enable' => false],
         ['id' => '3', 'title' => 'Proporção', 'on' => false, 'enable' => false]
     ],
-    'abrangencias' => [
+    /*'abrangencias' => [
         ['id'=> 1, 'title'=> 'País..', 'plural'=> ' os Países', 'on'=>false, 'enable'=>false, 'listAll'=>1, 'height'=> '250px'],
         ['id'=> 2, 'title'=> 'Região', 'plural'=> 'as Regiões', 'on'=>false, 'enable'=>false, 'listAll'=>1, 'height'=> '250px'],
         ['id'=> 3, 'title'=> 'UF', 'plural'=> 'os Estados', 'on'=>false, 'enable'=>false, 'listAll'=>1, 'height'=> '400px'],
@@ -41,14 +41,14 @@ return [
                     ['id'=> 17, 'title'=> 'Tocantins'],
             ]
         ]
-    ],
-    'PADRAO_ABRANGENCIA' => [3,2,1,4],//3 - UF | 4 - Municipios | 2 - Regiões | 1 - País | 7 - Territórios
-    'PADRAO_TERRITORIOS' => [
+    ],*/
+    //'PADRAO_ABRANGENCIA' => [3,2,1,4],//3 - UF | 4 - Municipios | 2 - Regiões | 1 - País | 7 - Territórios
+    /*'PADRAO_TERRITORIOS' => [
         1 => [0],// 1076 (era 203) - Brasil
         2 => [0],//0 - Todos,
         3 => [0],//0 - Todos | colocar os códigos das ufs que deseja carregar por padrão
         4 => [0],//Código do estado. Desta forma irá pegar todos os munínicios do estado | 0 para todos
         7 => [0],//0 - Todos | Territórios do Piauí
-    ],
+    ],*/
     'FAVICONS_SIZES' => ['16x16', '32x32', '48x48', '64x64', '72x72', '96x96', '114x114', '114x114', '128x128', '144x144', '512x512']
 ];
