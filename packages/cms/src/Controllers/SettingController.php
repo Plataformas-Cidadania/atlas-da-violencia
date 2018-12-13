@@ -46,6 +46,17 @@ class SettingController extends Controller
             ->all();
 
 
+        if(empty($series)){
+            $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+                ->join('valores_series', 'series.id', '=', 'valores_series.serie_id')
+                ->where('valores_series.tipo_regiao', 3)
+                ->orderBy('textos_series.titulo')
+                ->lists('textos_series.titulo', 'series.id')
+                ->all();
+        }
+
+
+
 
         return view('cms::setting.detalhar', ['setting' => $setting, 'series' => $series]);
     }

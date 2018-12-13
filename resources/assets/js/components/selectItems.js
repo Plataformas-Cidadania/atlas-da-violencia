@@ -323,7 +323,7 @@ class SelectItems extends React.Component{
 
         //console.log(this.state.parameters);
 
-        console.log('OPTIONS', this.state.options);
+        //console.log('OPTIONS', this.state.options);
 
         if(!this.state.option){
             return null;

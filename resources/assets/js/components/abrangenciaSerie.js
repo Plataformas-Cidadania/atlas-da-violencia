@@ -88,7 +88,7 @@ class AbrangenciaSerie extends React.Component{
             url: "get-options-abrangencia",
             cache: false,
             success: function(data) {
-                console.log('OPTIONS ABRANGENCIA', data);
+                //console.log('OPTIONS ABRANGENCIA', data);
                 let abrangencias = [];
                 data.find(function(item){
                     let abrangencia = {};
@@ -162,7 +162,7 @@ class AbrangenciaSerie extends React.Component{
             regionsId.push(regions[i].id)
         }
 
-        console.log(regionsId);
+        //console.log(regionsId);
 
         //this.setState({regions: regionsId});
 
