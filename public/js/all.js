@@ -580,7 +580,7 @@ function gerarIntervalos2(valores){
     return intervalos;
 }
 
-function gerarIntervalos(min,max){
+/*function gerarIntervalos(min,max){
     let intervalos = [];
 
     //let min = parseInt(valores[0]);
@@ -608,9 +608,9 @@ function gerarIntervalos(min,max){
         intervalos[i] = intervalos[i-1] + intervalo/qtdIntervalos*i;//intervalo/qtdIntervalos*i irá gerar um intervalo gradativo
     }
     return intervalos;
-}
+}*/
 
-/*function gerarIntervalos(valores){
+function gerarIntervalos(valores){
     let intervalos = [];
 
     let min = parseInt(valores[0]);
@@ -638,7 +638,7 @@ function gerarIntervalos(min,max){
         intervalos[i] = intervalos[i-1] + intervalo/qtdIntervalos*i;//intervalo/qtdIntervalos*i irá gerar um intervalo gradativo
     }
     return intervalos;
-}*/
+}
 
 function getColor(d, intervalos) {
 

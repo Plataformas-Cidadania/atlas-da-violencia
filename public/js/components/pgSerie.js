@@ -184,7 +184,7 @@ class PgSerie extends React.Component {
 
                             let valoresMapTo = this.getValoresMap(dataMapTo);
 
-                            let menorMaiorValor = this.menorMaiorValor(valoresMapFrom, valoresMapTo);
+                            //let menorMaiorValor = this.menorMaiorValor(valoresMapFrom, valoresMapTo);
 
                             let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
                             //console.log(dataMapFrom);
@@ -217,7 +217,8 @@ class PgSerie extends React.Component {
         let menor = 0;
         let maior = 0;
 
-        if (valores[0]) {}
+        /*if(valores[0]){
+         }*/
     }
 
     calcSmallLarge(minValores, maxValores) {
