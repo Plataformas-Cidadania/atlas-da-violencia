@@ -210,15 +210,6 @@ class PgSerie extends React.Component{
     }
 
     menorMaiorValor(valores1, valores2){
-
-        valores1.find(function(item){
-            console.log('valores1', item);
-        });
-
-        valores2.find(function(item){
-            console.log('valores2', item);
-        });
-
         let menor = valores1[0] <= valores2[0] ? valores1[0] : valores2[0];
         let maior = valores1[valores1.length-1] >= valores2[valores2.length-1] ? valores1[valores1.length-1] : valores2[valores2.length-1];
 
@@ -343,6 +334,226 @@ class PgSerie extends React.Component{
                 </div>
             );
         }
+
+
+        let mapa = (
+            <div style={{display: this.state.showMap ? 'block' : 'none'}}>
+
+            <Topico icon="icon-group-map" text={this.props.lang_map} />
+
+            <div className="row col-md-12 text-center" style={{display: this.state.loadingMap ? 'block' : 'none'}}>
+                <i className="fa fa-spin fa-spinner fa-4x"/>
+            </div>
+
+            <div className="row" style={{display: !this.state.loadingMap ? 'block' : 'none'}}>
+                <div className="col-md-6 col-sm-12">
+                    <Map
+                        mapId="map1"
+                        id={this.state.id}
+                        serie={this.props.serie}
+                        periodicidade={this.props.periodicidade}
+                        tipoValores={this.props.tipoValores}
+                        decimais={decimais}
+                        /*min={this.state.min}
+                        max={this.state.max}*/
+                        data={this.state.dataMapFrom}
+                        periodo={this.state.min}
+                        //tipoPeriodo="from"
+                        intervalos={this.state.intervalos}
+                        //setIntervalos={this.setIntervalos}
+                        //regions={this.state.regions}
+                        //abrangencia={this.state.abrangencia}
+                        /*typeRegion={this.props.typeRegion}
+                         typeRegionSerie={this.props.typeRegionSerie}*/
+
+                        lang_mouse_over_region={this.props.lang_mouse_over_region}
+                    />
+                </div>
+                <div className="col-md-6 col-sm-12 print-map">
+                    <Map
+                        mapId="map2"
+                        id={this.state.id}
+                        serie={this.props.serie}
+                        periodicidade={this.props.periodicidade}
+                        tipoValores={this.props.tipoValores}
+                        decimais={decimais}
+                        /*min={this.state.min}
+                         max={this.state.max}*/
+                        data={this.state.dataMapTo}
+                        periodo={this.state.max}
+                        //tipoPeriodo="to"
+                        intervalos={this.state.intervalos}
+                        //setIntervalos={this.setIntervalos}
+                        //regions={this.state.regions}
+                        //abrangencia={this.state.abrangencia}
+                        /*typeRegion={this.props.typeRegion}
+                         typeRegionSerie={this.props.typeRegionSerie}*/
+                        lang_mouse_over_region={this.props.lang_mouse_over_region}
+                    />
+                </div>
+            </div>
+
+            <br/><br/><br/>
+
+        </div>
+        );
+
+        let tabela = (
+            <div style={{display: this.state.showTable ? 'block' : 'none'}}>
+
+                <Topico icon="icon-group-table" text={this.props.lang_table}/>
+
+                {/*<div style={{textAlign: 'center', clear: 'both'}}>
+                                <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{formatPeriodicidade(this.state.min, this.props.periodicidade)} - {formatPeriodicidade(this.state.max, this.props.periodicidade)}</button>
+                                <div style={{marginTop:'-19px'}}>
+                                    <i className="fa fa-sort-down fa-2x ft-pri"  />
+                                </div>
+                            </div>
+                            <br/>*/}
+
+                <div style={{display: this.state.loadingItems ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>
+                <div style={{display: this.state.loadingItems ? 'none' : ''}}>
+                    <ListValoresSeries
+                        decimais={decimais}
+                        periodicidade={this.props.periodicidade}
+                        nomeAbrangencia={this.state.nomeAbrangencia}
+                        min={this.state.min}
+                        max={this.state.max}
+                        data={this.state.valoresPeriodo}
+                        tipoUnidade={this.props.tipoUnidade}
+                        abrangencia={this.state.abrangencia}
+                        /*data={this.state.valoresRegioesPorPeriodo.max}*/
+                        /*dataMin={this.state.valoresRegioesPorPeriodo.min}
+                        dataMax={this.state.valoresRegioesPorPeriodo.max}*/
+                    />
+                    <p style={{marginTop: '-50px'}}><strong>{this.props.lang_unity}: </strong>{this.props.unidade}</p>
+                </div>
+
+                <br/><br/>
+
+            </div>
+        );
+
+        let grafico = (
+            <div style={{display: this.state.showCharts ? 'block' : 'none'}}>
+
+                <Topico icon="icon-group-chart" text={this.props.lang_graphics}/>
+
+                <div>
+                    <div style={{textAlign: 'right'}}>
+                        <div className={"icons-charts" + (this.state.chartLine ? " icon-chart-line" : " icon-chart-line-disable")}
+                             style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartLine')} title="">&nbsp;</div>
+
+                        <div className={"icons-charts" + (this.state.chartBar ? " icon-chart-bar" : " icon-chart-bar-disable")}
+                             style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartBar')} title="">&nbsp;</div>
+
+                        <div className={"icons-charts" + (this.state.chartRadar ? " icon-chart-radar" : " icon-chart-radar-disable")}
+                             style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartRadar')} title="">&nbsp;</div>
+
+                        <div className={"icons-charts" + (this.state.chartPie ? " icon-chart-pie" : " icon-chart-pie-disable")}
+                             style={{marginLeft: '5px', display:'none'}} onClick={() => this.changeChart('chartPie')} title="">&nbsp;</div>
+                    </div>
+                    <div style={{clear:'both'}}><br/></div>
+                    <div style={{display: this.state.chartLine ? 'block' : 'none'}}>
+                        <ChartLine
+                            id={this.state.id}
+                            serie={this.state.serie}
+                            periodicidade={this.props.periodicidade}
+                            min={this.state.min}
+                            max={this.state.max}
+                            periodos={this.state.periodos}
+                            regions={this.state.regions}
+                            abrangencia={this.state.abrangencia}
+                            /*typeRegion={this.props.typeRegion}
+                            typeRegionSerie={this.props.typeRegionSerie}
+                            intervalos={this.state.intervalos}*/
+                        />
+                    </div>
+                    <div style={{display: this.state.chartBar ? 'block' : 'none'}}>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <ChartBar
+                                    id={this.state.id}
+                                    serie={this.state.serie}
+                                    periodicidade={this.props.periodicidade}
+                                    /*intervalos={this.state.intervalos}*/
+                                    min={this.state.min}
+                                    max={this.state.max}
+                                    regions={this.state.regions}
+                                    abrangencia={this.state.abrangencia}
+                                    /*data={this.state.valoresRegioesPorPeriodo}*/
+                                    /*smallLarge={this.state.smallLarge}*/
+                                    idBar="1"
+                                />
+                            </div>
+                            {/*<div className="col-md-6">
+                                        <ChartBar
+                                            serie={this.state.serie}
+                                            intervalos={this.state.intervalos}
+                                            data={this.state.valoresRegioesPorPeriodo.max}
+                                            smallLarge={this.state.smallLarge}
+                                            idBar="2"
+                                        />
+                                    </div>*/}
+                        </div>
+                    </div>
+                    <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
+                        <ChartRadar
+                            serie={this.state.serie}
+                            min={this.state.min}
+                            max={this.state.max}
+                            id={this.state.id}
+                            regions={this.state.regions}
+                            periodicidade={this.props.periodicidade}
+                            abrangencia={this.state.abrangencia}
+                        />
+                    </div>
+                    <div style={{display: this.state.chartPie ? 'block' : 'none'}}>
+                        <ChartPie
+                            intervalos={this.state.intervalos}
+                            periodicidade={this.props.periodicidade}
+                            data={this.state.valoresRegioesPorPeriodo.max}
+                        />
+                    </div>
+                </div>
+                <br/><br/>
+            </div>
+        );
+
+        let taxa = regions;
+
+        let metadados = (
+            <div className="hidden-print" style={{display: this.state.showInfo ? 'block' : 'none'}}>
+            <div className="row">
+                <div className="col-md-12">
+                    <div className="icons-groups icon-group-info" style={{float: 'left'}}>&nbsp;</div>
+                    <h4 className="icon-text">&nbsp;&nbsp;{this.props.lang_metadata}</h4>
+                </div>
+            </div>
+            <hr style={{borderColor: '#3498DB'}}/>
+            <div className="bs-callout" style={{borderLeftColor: '#3498DB'}}>
+                <div dangerouslySetInnerHTML={{__html: this.props.metadados}} />
+                <br/>
+                <div className="text-right">
+                    <a href={"downloads/"+this.props.id+"/"+this.props.serie} className="text-info h5">
+                        <strong>+ {this.props.lang_information}</strong>
+                    </a>
+                </div>
+            </div>
+
+            <p><strong>{this.props.lang_source}: </strong>{this.props.fonte}</p>
+            {/* <p><strong>Periodicidade: </strong>{this.props.periodicidade}</p>*/}
+        </div>
+        );
+
+        let pos = [];
+        pos[this.props.posicao_mapa] = mapa;
+        pos[this.props.posicao_tabela] = tabela;
+        pos[this.props.posicao_grafico] = grafico;
+        pos[this.props.posicao_taxa] = taxa;
+        pos[this.props.posicao_metadados] = metadados;
+
+        console.log(pos);
 
         return(
             <div>
@@ -562,189 +773,11 @@ class PgSerie extends React.Component{
                         <div style={{clear:'both'}}/>
                     </div>
 
-                    <div style={{display: this.state.showMap ? 'block' : 'none'}}>
-
-                        <Topico icon="icon-group-map" text={this.props.lang_map} />
-
-                        <div className="row col-md-12 text-center" style={{display: this.state.loadingMap ? 'block' : 'none'}}>
-                            <i className="fa fa-spin fa-spinner fa-4x"/>
-                        </div>
-
-                        <div className="row" style={{display: !this.state.loadingMap ? 'block' : 'none'}}>
-                            <div className="col-md-6 col-sm-12">
-                                <Map
-                                    mapId="map1"
-                                    id={this.state.id}
-                                    serie={this.props.serie}
-                                    periodicidade={this.props.periodicidade}
-                                    tipoValores={this.props.tipoValores}
-                                    decimais={decimais}
-                                    /*min={this.state.min}
-                                    max={this.state.max}*/
-                                    data={this.state.dataMapFrom}
-                                    periodo={this.state.min}
-                                    //tipoPeriodo="from"
-                                    intervalos={this.state.intervalos}
-                                    //setIntervalos={this.setIntervalos}
-                                    //regions={this.state.regions}
-                                    //abrangencia={this.state.abrangencia}
-                                    /*typeRegion={this.props.typeRegion}
-                                     typeRegionSerie={this.props.typeRegionSerie}*/
-
-                                    lang_mouse_over_region={this.props.lang_mouse_over_region}
-                                />
-                            </div>
-                            <div className="col-md-6 col-sm-12 print-map">
-                                <Map
-                                    mapId="map2"
-                                    id={this.state.id}
-                                    serie={this.props.serie}
-                                    periodicidade={this.props.periodicidade}
-                                    tipoValores={this.props.tipoValores}
-                                    decimais={decimais}
-                                    /*min={this.state.min}
-                                     max={this.state.max}*/
-                                    data={this.state.dataMapTo}
-                                    periodo={this.state.max}
-                                    //tipoPeriodo="to"
-                                    intervalos={this.state.intervalos}
-                                    //setIntervalos={this.setIntervalos}
-                                    //regions={this.state.regions}
-                                    //abrangencia={this.state.abrangencia}
-                                    /*typeRegion={this.props.typeRegion}
-                                     typeRegionSerie={this.props.typeRegionSerie}*/
-                                    lang_mouse_over_region={this.props.lang_mouse_over_region}
-                                />
-                            </div>
-                        </div>
-
-                        <br/><br/><br/>
-
-                    </div>
-
-                    <div style={{display: this.state.showTable ? 'block' : 'none'}}>
-
-                        <Topico icon="icon-group-table" text={this.props.lang_table}/>
-
-                        {/*<div style={{textAlign: 'center', clear: 'both'}}>
-                            <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{formatPeriodicidade(this.state.min, this.props.periodicidade)} - {formatPeriodicidade(this.state.max, this.props.periodicidade)}</button>
-                            <div style={{marginTop:'-19px'}}>
-                                <i className="fa fa-sort-down fa-2x ft-pri"  />
-                            </div>
-                        </div>
-                        <br/>*/}
-
-                        <div style={{display: this.state.loadingItems ? '' : 'none'}} className="text-center"><i className="fa fa-spin fa-spinner fa-4x"/></div>
-                        <div style={{display: this.state.loadingItems ? 'none' : ''}}>
-                            <ListValoresSeries
-                                decimais={decimais}
-                                periodicidade={this.props.periodicidade}
-                                nomeAbrangencia={this.state.nomeAbrangencia}
-                                min={this.state.min}
-                                max={this.state.max}
-                                data={this.state.valoresPeriodo}
-                                tipoUnidade={this.props.tipoUnidade}
-                                abrangencia={this.state.abrangencia}
-                                /*data={this.state.valoresRegioesPorPeriodo.max}*/
-                                /*dataMin={this.state.valoresRegioesPorPeriodo.min}
-                                dataMax={this.state.valoresRegioesPorPeriodo.max}*/
-                            />
-                            <p style={{marginTop: '-50px'}}><strong>{this.props.lang_unity}: </strong>{this.props.unidade}</p>
-                        </div>
-
-                        <br/><br/>
-
-                    </div>
-
-
-
-                    <div style={{display: this.state.showCharts ? 'block' : 'none'}}>
-
-                        <Topico icon="icon-group-chart" text={this.props.lang_graphics}/>
-
-                        <div>
-                            <div style={{textAlign: 'right'}}>
-                                <div className={"icons-charts" + (this.state.chartLine ? " icon-chart-line" : " icon-chart-line-disable")}
-                                     style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartLine')} title="">&nbsp;</div>
-
-                                <div className={"icons-charts" + (this.state.chartBar ? " icon-chart-bar" : " icon-chart-bar-disable")}
-                                     style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartBar')} title="">&nbsp;</div>
-
-                                <div className={"icons-charts" + (this.state.chartRadar ? " icon-chart-radar" : " icon-chart-radar-disable")}
-                                     style={{marginLeft: '5px'}} onClick={() => this.changeChart('chartRadar')} title="">&nbsp;</div>
-
-                                <div className={"icons-charts" + (this.state.chartPie ? " icon-chart-pie" : " icon-chart-pie-disable")}
-                                     style={{marginLeft: '5px', display:'none'}} onClick={() => this.changeChart('chartPie')} title="">&nbsp;</div>
-                            </div>
-                            <div style={{clear:'both'}}><br/></div>
-                            <div style={{display: this.state.chartLine ? 'block' : 'none'}}>
-                                <ChartLine
-                                    id={this.state.id}
-                                    serie={this.state.serie}
-                                    periodicidade={this.props.periodicidade}
-                                    min={this.state.min}
-                                    max={this.state.max}
-                                    periodos={this.state.periodos}
-                                    regions={this.state.regions}
-                                    abrangencia={this.state.abrangencia}
-                                    /*typeRegion={this.props.typeRegion}
-                                    typeRegionSerie={this.props.typeRegionSerie}
-                                    intervalos={this.state.intervalos}*/
-                                />
-                            </div>
-                            <div style={{display: this.state.chartBar ? 'block' : 'none'}}>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <ChartBar
-                                            id={this.state.id}
-                                            serie={this.state.serie}
-                                            periodicidade={this.props.periodicidade}
-                                            /*intervalos={this.state.intervalos}*/
-                                            min={this.state.min}
-                                            max={this.state.max}
-                                            regions={this.state.regions}
-                                            abrangencia={this.state.abrangencia}
-                                            /*data={this.state.valoresRegioesPorPeriodo}*/
-                                            /*smallLarge={this.state.smallLarge}*/
-                                            idBar="1"
-                                        />
-                                    </div>
-                                    {/*<div className="col-md-6">
-                                        <ChartBar
-                                            serie={this.state.serie}
-                                            intervalos={this.state.intervalos}
-                                            data={this.state.valoresRegioesPorPeriodo.max}
-                                            smallLarge={this.state.smallLarge}
-                                            idBar="2"
-                                        />
-                                    </div>*/}
-                                </div>
-                            </div>
-                            <div style={{display: this.state.chartRadar ? 'block' : 'none'}}>
-                                <ChartRadar
-                                    serie={this.state.serie}
-				    min={this.state.min}
-				    max={this.state.max}
-				    id={this.state.id}
-				    regions={this.state.regions}
-                                    periodicidade={this.props.periodicidade}                                    
-				    abrangencia={this.state.abrangencia}
-                                />
-                            </div>
-                            <div style={{display: this.state.chartPie ? 'block' : 'none'}}>
-                                <ChartPie
-                                    intervalos={this.state.intervalos}
-                                    periodicidade={this.props.periodicidade}
-                                    data={this.state.valoresRegioesPorPeriodo.max}
-                                />
-                            </div>
-                        </div>
-                        <br/><br/>
-                    </div>
-
-                    {regions}
-
-
+                    {pos[0]}
+                    {pos[1]}
+                    {pos[2]}
+                    {pos[3]}
+                    {pos[4]}
 
                     {/*<div className="hidden-print" style={{display: this.state.showCalcs ? 'block' : 'none'}}>
 
@@ -760,28 +793,6 @@ class PgSerie extends React.Component{
                     </div>*/}
 
 
-
-                    <div className="hidden-print" style={{display: this.state.showInfo ? 'block' : 'none'}}>
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="icons-groups icon-group-info" style={{float: 'left'}}>&nbsp;</div>
-                                <h4 className="icon-text">&nbsp;&nbsp;{this.props.lang_metadata}</h4>
-                            </div>
-                        </div>
-                        <hr style={{borderColor: '#3498DB'}}/>
-                        <div className="bs-callout" style={{borderLeftColor: '#3498DB'}}>
-                            <div dangerouslySetInnerHTML={{__html: this.props.metadados}} />
-                            <br/>
-                            <div className="text-right">
-                                <a href={"downloads/"+this.props.id+"/"+this.props.serie} className="text-info h5">
-                                    <strong>+ {this.props.lang_information}</strong>
-                                </a>
-                            </div>
-                        </div>
-
-                        <p><strong>{this.props.lang_source}: </strong>{this.props.fonte}</p>
-                       {/* <p><strong>Periodicidade: </strong>{this.props.periodicidade}</p>*/}
-                    </div>
                 </div>
             </div>
         );
@@ -806,6 +817,12 @@ ReactDOM.render(
         nomeAbrangencia={nomeAbrangencia}
         /*typeRegion={typeRegion}
         typeRegionSerie={typeRegionSerie}*/
+
+        posicao_mapa={posicao_mapa}
+        posicao_tabela={posicao_tabela}
+        posicao_grafico={posicao_grafico}
+        posicao_taxa={posicao_taxa}
+        posicao_metadados={posicao_metadados}
 
         lang_map={lang_map}
         lang_table={lang_table}

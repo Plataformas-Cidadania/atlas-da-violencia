@@ -216,15 +216,6 @@ class PgSerie extends React.Component {
     }
 
     menorMaiorValor(valores1, valores2) {
-
-        valores1.find(function (item) {
-            console.log('valores1', item);
-        });
-
-        valores2.find(function (item) {
-            console.log('valores2', item);
-        });
-
         let menor = valores1[0] <= valores2[0] ? valores1[0] : valores2[0];
         let maior = valores1[valores1.length - 1] >= valores2[valores2.length - 1] ? valores1[valores1.length - 1] : valores2[valores2.length - 1];
 
@@ -360,6 +351,290 @@ class PgSerie extends React.Component {
                 React.createElement("br", null)
             );
         }
+
+        let mapa = React.createElement(
+            "div",
+            { style: { display: this.state.showMap ? 'block' : 'none' } },
+            React.createElement(Topico, { icon: "icon-group-map", text: this.props.lang_map }),
+            React.createElement(
+                "div",
+                { className: "row col-md-12 text-center", style: { display: this.state.loadingMap ? 'block' : 'none' } },
+                React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
+            ),
+            React.createElement(
+                "div",
+                { className: "row", style: { display: !this.state.loadingMap ? 'block' : 'none' } },
+                React.createElement(
+                    "div",
+                    { className: "col-md-6 col-sm-12" },
+                    React.createElement(Map, {
+                        mapId: "map1",
+                        id: this.state.id,
+                        serie: this.props.serie,
+                        periodicidade: this.props.periodicidade,
+                        tipoValores: this.props.tipoValores,
+                        decimais: decimais
+                        /*min={this.state.min}
+                        max={this.state.max}*/
+                        , data: this.state.dataMapFrom,
+                        periodo: this.state.min
+                        //tipoPeriodo="from"
+                        , intervalos: this.state.intervalos
+                        //setIntervalos={this.setIntervalos}
+                        //regions={this.state.regions}
+                        //abrangencia={this.state.abrangencia}
+                        /*typeRegion={this.props.typeRegion}
+                         typeRegionSerie={this.props.typeRegionSerie}*/
+
+                        , lang_mouse_over_region: this.props.lang_mouse_over_region
+                    })
+                ),
+                React.createElement(
+                    "div",
+                    { className: "col-md-6 col-sm-12 print-map" },
+                    React.createElement(Map, {
+                        mapId: "map2",
+                        id: this.state.id,
+                        serie: this.props.serie,
+                        periodicidade: this.props.periodicidade,
+                        tipoValores: this.props.tipoValores,
+                        decimais: decimais
+                        /*min={this.state.min}
+                         max={this.state.max}*/
+                        , data: this.state.dataMapTo,
+                        periodo: this.state.max
+                        //tipoPeriodo="to"
+                        , intervalos: this.state.intervalos
+                        //setIntervalos={this.setIntervalos}
+                        //regions={this.state.regions}
+                        //abrangencia={this.state.abrangencia}
+                        /*typeRegion={this.props.typeRegion}
+                         typeRegionSerie={this.props.typeRegionSerie}*/
+                        , lang_mouse_over_region: this.props.lang_mouse_over_region
+                    })
+                )
+            ),
+            React.createElement("br", null),
+            React.createElement("br", null),
+            React.createElement("br", null)
+        );
+
+        let tabela = React.createElement(
+            "div",
+            { style: { display: this.state.showTable ? 'block' : 'none' } },
+            React.createElement(Topico, { icon: "icon-group-table", text: this.props.lang_table }),
+            React.createElement(
+                "div",
+                { style: { display: this.state.loadingItems ? '' : 'none' }, className: "text-center" },
+                React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
+            ),
+            React.createElement(
+                "div",
+                { style: { display: this.state.loadingItems ? 'none' : '' } },
+                React.createElement(ListValoresSeries, {
+                    decimais: decimais,
+                    periodicidade: this.props.periodicidade,
+                    nomeAbrangencia: this.state.nomeAbrangencia,
+                    min: this.state.min,
+                    max: this.state.max,
+                    data: this.state.valoresPeriodo,
+                    tipoUnidade: this.props.tipoUnidade,
+                    abrangencia: this.state.abrangencia
+                    /*data={this.state.valoresRegioesPorPeriodo.max}*/
+                    /*dataMin={this.state.valoresRegioesPorPeriodo.min}
+                    dataMax={this.state.valoresRegioesPorPeriodo.max}*/
+                }),
+                React.createElement(
+                    "p",
+                    { style: { marginTop: '-50px' } },
+                    React.createElement(
+                        "strong",
+                        null,
+                        this.props.lang_unity,
+                        ": "
+                    ),
+                    this.props.unidade
+                )
+            ),
+            React.createElement("br", null),
+            React.createElement("br", null)
+        );
+
+        let grafico = React.createElement(
+            "div",
+            { style: { display: this.state.showCharts ? 'block' : 'none' } },
+            React.createElement(Topico, { icon: "icon-group-chart", text: this.props.lang_graphics }),
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "div",
+                    { style: { textAlign: 'right' } },
+                    React.createElement(
+                        "div",
+                        { className: "icons-charts" + (this.state.chartLine ? " icon-chart-line" : " icon-chart-line-disable"),
+                            style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartLine'), title: "" },
+                        "\xA0"
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "icons-charts" + (this.state.chartBar ? " icon-chart-bar" : " icon-chart-bar-disable"),
+                            style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartBar'), title: "" },
+                        "\xA0"
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "icons-charts" + (this.state.chartRadar ? " icon-chart-radar" : " icon-chart-radar-disable"),
+                            style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartRadar'), title: "" },
+                        "\xA0"
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "icons-charts" + (this.state.chartPie ? " icon-chart-pie" : " icon-chart-pie-disable"),
+                            style: { marginLeft: '5px', display: 'none' }, onClick: () => this.changeChart('chartPie'), title: "" },
+                        "\xA0"
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { style: { clear: 'both' } },
+                    React.createElement("br", null)
+                ),
+                React.createElement(
+                    "div",
+                    { style: { display: this.state.chartLine ? 'block' : 'none' } },
+                    React.createElement(ChartLine, {
+                        id: this.state.id,
+                        serie: this.state.serie,
+                        periodicidade: this.props.periodicidade,
+                        min: this.state.min,
+                        max: this.state.max,
+                        periodos: this.state.periodos,
+                        regions: this.state.regions,
+                        abrangencia: this.state.abrangencia
+                        /*typeRegion={this.props.typeRegion}
+                        typeRegionSerie={this.props.typeRegionSerie}
+                        intervalos={this.state.intervalos}*/
+                    })
+                ),
+                React.createElement(
+                    "div",
+                    { style: { display: this.state.chartBar ? 'block' : 'none' } },
+                    React.createElement(
+                        "div",
+                        { className: "row" },
+                        React.createElement(
+                            "div",
+                            { className: "col-md-12" },
+                            React.createElement(ChartBar, {
+                                id: this.state.id,
+                                serie: this.state.serie,
+                                periodicidade: this.props.periodicidade
+                                /*intervalos={this.state.intervalos}*/
+                                , min: this.state.min,
+                                max: this.state.max,
+                                regions: this.state.regions,
+                                abrangencia: this.state.abrangencia
+                                /*data={this.state.valoresRegioesPorPeriodo}*/
+                                /*smallLarge={this.state.smallLarge}*/
+                                , idBar: "1"
+                            })
+                        )
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { style: { display: this.state.chartRadar ? 'block' : 'none' } },
+                    React.createElement(ChartRadar, {
+                        serie: this.state.serie,
+                        min: this.state.min,
+                        max: this.state.max,
+                        id: this.state.id,
+                        regions: this.state.regions,
+                        periodicidade: this.props.periodicidade,
+                        abrangencia: this.state.abrangencia
+                    })
+                ),
+                React.createElement(
+                    "div",
+                    { style: { display: this.state.chartPie ? 'block' : 'none' } },
+                    React.createElement(ChartPie, {
+                        intervalos: this.state.intervalos,
+                        periodicidade: this.props.periodicidade,
+                        data: this.state.valoresRegioesPorPeriodo.max
+                    })
+                )
+            ),
+            React.createElement("br", null),
+            React.createElement("br", null)
+        );
+
+        let taxa = regions;
+
+        let metadados = React.createElement(
+            "div",
+            { className: "hidden-print", style: { display: this.state.showInfo ? 'block' : 'none' } },
+            React.createElement(
+                "div",
+                { className: "row" },
+                React.createElement(
+                    "div",
+                    { className: "col-md-12" },
+                    React.createElement(
+                        "div",
+                        { className: "icons-groups icon-group-info", style: { float: 'left' } },
+                        "\xA0"
+                    ),
+                    React.createElement(
+                        "h4",
+                        { className: "icon-text" },
+                        "\xA0\xA0",
+                        this.props.lang_metadata
+                    )
+                )
+            ),
+            React.createElement("hr", { style: { borderColor: '#3498DB' } }),
+            React.createElement(
+                "div",
+                { className: "bs-callout", style: { borderLeftColor: '#3498DB' } },
+                React.createElement("div", { dangerouslySetInnerHTML: { __html: this.props.metadados } }),
+                React.createElement("br", null),
+                React.createElement(
+                    "div",
+                    { className: "text-right" },
+                    React.createElement(
+                        "a",
+                        { href: "downloads/" + this.props.id + "/" + this.props.serie, className: "text-info h5" },
+                        React.createElement(
+                            "strong",
+                            null,
+                            "+ ",
+                            this.props.lang_information
+                        )
+                    )
+                )
+            ),
+            React.createElement(
+                "p",
+                null,
+                React.createElement(
+                    "strong",
+                    null,
+                    this.props.lang_source,
+                    ": "
+                ),
+                this.props.fonte
+            )
+        );
+
+        let pos = [];
+        pos[this.props.posicao_mapa] = mapa;
+        pos[this.props.posicao_tabela] = tabela;
+        pos[this.props.posicao_grafico] = grafico;
+        pos[this.props.posicao_taxa] = taxa;
+        pos[this.props.posicao_metadados] = metadados;
+
+        console.log(pos);
 
         return React.createElement(
             "div",
@@ -742,276 +1017,11 @@ class PgSerie extends React.Component {
                     { style: { borderTop: 'solid 1px #ccc', padding: '10px 0' }, className: "text-right" },
                     React.createElement("div", { style: { clear: 'both' } })
                 ),
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.showMap ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-map", text: this.props.lang_map }),
-                    React.createElement(
-                        "div",
-                        { className: "row col-md-12 text-center", style: { display: this.state.loadingMap ? 'block' : 'none' } },
-                        React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "row", style: { display: !this.state.loadingMap ? 'block' : 'none' } },
-                        React.createElement(
-                            "div",
-                            { className: "col-md-6 col-sm-12" },
-                            React.createElement(Map, {
-                                mapId: "map1",
-                                id: this.state.id,
-                                serie: this.props.serie,
-                                periodicidade: this.props.periodicidade,
-                                tipoValores: this.props.tipoValores,
-                                decimais: decimais
-                                /*min={this.state.min}
-                                max={this.state.max}*/
-                                , data: this.state.dataMapFrom,
-                                periodo: this.state.min
-                                //tipoPeriodo="from"
-                                , intervalos: this.state.intervalos
-                                //setIntervalos={this.setIntervalos}
-                                //regions={this.state.regions}
-                                //abrangencia={this.state.abrangencia}
-                                /*typeRegion={this.props.typeRegion}
-                                 typeRegionSerie={this.props.typeRegionSerie}*/
-
-                                , lang_mouse_over_region: this.props.lang_mouse_over_region
-                            })
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "col-md-6 col-sm-12 print-map" },
-                            React.createElement(Map, {
-                                mapId: "map2",
-                                id: this.state.id,
-                                serie: this.props.serie,
-                                periodicidade: this.props.periodicidade,
-                                tipoValores: this.props.tipoValores,
-                                decimais: decimais
-                                /*min={this.state.min}
-                                 max={this.state.max}*/
-                                , data: this.state.dataMapTo,
-                                periodo: this.state.max
-                                //tipoPeriodo="to"
-                                , intervalos: this.state.intervalos
-                                //setIntervalos={this.setIntervalos}
-                                //regions={this.state.regions}
-                                //abrangencia={this.state.abrangencia}
-                                /*typeRegion={this.props.typeRegion}
-                                 typeRegionSerie={this.props.typeRegionSerie}*/
-                                , lang_mouse_over_region: this.props.lang_mouse_over_region
-                            })
-                        )
-                    ),
-                    React.createElement("br", null),
-                    React.createElement("br", null),
-                    React.createElement("br", null)
-                ),
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.showTable ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-table", text: this.props.lang_table }),
-                    React.createElement(
-                        "div",
-                        { style: { display: this.state.loadingItems ? '' : 'none' }, className: "text-center" },
-                        React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
-                    ),
-                    React.createElement(
-                        "div",
-                        { style: { display: this.state.loadingItems ? 'none' : '' } },
-                        React.createElement(ListValoresSeries, {
-                            decimais: decimais,
-                            periodicidade: this.props.periodicidade,
-                            nomeAbrangencia: this.state.nomeAbrangencia,
-                            min: this.state.min,
-                            max: this.state.max,
-                            data: this.state.valoresPeriodo,
-                            tipoUnidade: this.props.tipoUnidade,
-                            abrangencia: this.state.abrangencia
-                            /*data={this.state.valoresRegioesPorPeriodo.max}*/
-                            /*dataMin={this.state.valoresRegioesPorPeriodo.min}
-                            dataMax={this.state.valoresRegioesPorPeriodo.max}*/
-                        }),
-                        React.createElement(
-                            "p",
-                            { style: { marginTop: '-50px' } },
-                            React.createElement(
-                                "strong",
-                                null,
-                                this.props.lang_unity,
-                                ": "
-                            ),
-                            this.props.unidade
-                        )
-                    ),
-                    React.createElement("br", null),
-                    React.createElement("br", null)
-                ),
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.showCharts ? 'block' : 'none' } },
-                    React.createElement(Topico, { icon: "icon-group-chart", text: this.props.lang_graphics }),
-                    React.createElement(
-                        "div",
-                        null,
-                        React.createElement(
-                            "div",
-                            { style: { textAlign: 'right' } },
-                            React.createElement(
-                                "div",
-                                { className: "icons-charts" + (this.state.chartLine ? " icon-chart-line" : " icon-chart-line-disable"),
-                                    style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartLine'), title: "" },
-                                "\xA0"
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "icons-charts" + (this.state.chartBar ? " icon-chart-bar" : " icon-chart-bar-disable"),
-                                    style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartBar'), title: "" },
-                                "\xA0"
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "icons-charts" + (this.state.chartRadar ? " icon-chart-radar" : " icon-chart-radar-disable"),
-                                    style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartRadar'), title: "" },
-                                "\xA0"
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "icons-charts" + (this.state.chartPie ? " icon-chart-pie" : " icon-chart-pie-disable"),
-                                    style: { marginLeft: '5px', display: 'none' }, onClick: () => this.changeChart('chartPie'), title: "" },
-                                "\xA0"
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { style: { clear: 'both' } },
-                            React.createElement("br", null)
-                        ),
-                        React.createElement(
-                            "div",
-                            { style: { display: this.state.chartLine ? 'block' : 'none' } },
-                            React.createElement(ChartLine, {
-                                id: this.state.id,
-                                serie: this.state.serie,
-                                periodicidade: this.props.periodicidade,
-                                min: this.state.min,
-                                max: this.state.max,
-                                periodos: this.state.periodos,
-                                regions: this.state.regions,
-                                abrangencia: this.state.abrangencia
-                                /*typeRegion={this.props.typeRegion}
-                                typeRegionSerie={this.props.typeRegionSerie}
-                                intervalos={this.state.intervalos}*/
-                            })
-                        ),
-                        React.createElement(
-                            "div",
-                            { style: { display: this.state.chartBar ? 'block' : 'none' } },
-                            React.createElement(
-                                "div",
-                                { className: "row" },
-                                React.createElement(
-                                    "div",
-                                    { className: "col-md-12" },
-                                    React.createElement(ChartBar, {
-                                        id: this.state.id,
-                                        serie: this.state.serie,
-                                        periodicidade: this.props.periodicidade
-                                        /*intervalos={this.state.intervalos}*/
-                                        , min: this.state.min,
-                                        max: this.state.max,
-                                        regions: this.state.regions,
-                                        abrangencia: this.state.abrangencia
-                                        /*data={this.state.valoresRegioesPorPeriodo}*/
-                                        /*smallLarge={this.state.smallLarge}*/
-                                        , idBar: "1"
-                                    })
-                                )
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { style: { display: this.state.chartRadar ? 'block' : 'none' } },
-                            React.createElement(ChartRadar, {
-                                serie: this.state.serie,
-                                min: this.state.min,
-                                max: this.state.max,
-                                id: this.state.id,
-                                regions: this.state.regions,
-                                periodicidade: this.props.periodicidade,
-                                abrangencia: this.state.abrangencia
-                            })
-                        ),
-                        React.createElement(
-                            "div",
-                            { style: { display: this.state.chartPie ? 'block' : 'none' } },
-                            React.createElement(ChartPie, {
-                                intervalos: this.state.intervalos,
-                                periodicidade: this.props.periodicidade,
-                                data: this.state.valoresRegioesPorPeriodo.max
-                            })
-                        )
-                    ),
-                    React.createElement("br", null),
-                    React.createElement("br", null)
-                ),
-                regions,
-                React.createElement(
-                    "div",
-                    { className: "hidden-print", style: { display: this.state.showInfo ? 'block' : 'none' } },
-                    React.createElement(
-                        "div",
-                        { className: "row" },
-                        React.createElement(
-                            "div",
-                            { className: "col-md-12" },
-                            React.createElement(
-                                "div",
-                                { className: "icons-groups icon-group-info", style: { float: 'left' } },
-                                "\xA0"
-                            ),
-                            React.createElement(
-                                "h4",
-                                { className: "icon-text" },
-                                "\xA0\xA0",
-                                this.props.lang_metadata
-                            )
-                        )
-                    ),
-                    React.createElement("hr", { style: { borderColor: '#3498DB' } }),
-                    React.createElement(
-                        "div",
-                        { className: "bs-callout", style: { borderLeftColor: '#3498DB' } },
-                        React.createElement("div", { dangerouslySetInnerHTML: { __html: this.props.metadados } }),
-                        React.createElement("br", null),
-                        React.createElement(
-                            "div",
-                            { className: "text-right" },
-                            React.createElement(
-                                "a",
-                                { href: "downloads/" + this.props.id + "/" + this.props.serie, className: "text-info h5" },
-                                React.createElement(
-                                    "strong",
-                                    null,
-                                    "+ ",
-                                    this.props.lang_information
-                                )
-                            )
-                        )
-                    ),
-                    React.createElement(
-                        "p",
-                        null,
-                        React.createElement(
-                            "strong",
-                            null,
-                            this.props.lang_source,
-                            ": "
-                        ),
-                        this.props.fonte
-                    )
-                )
+                pos[0],
+                pos[1],
+                pos[2],
+                pos[3],
+                pos[4]
             )
         );
     }
@@ -1035,7 +1045,13 @@ ReactDOM.render(React.createElement(PgSerie, {
     /*typeRegion={typeRegion}
     typeRegionSerie={typeRegionSerie}*/
 
-    , lang_map: lang_map,
+    , posicao_mapa: posicao_mapa,
+    posicao_tabela: posicao_tabela,
+    posicao_grafico: posicao_grafico,
+    posicao_taxa: posicao_taxa,
+    posicao_metadados: posicao_metadados,
+
+    lang_map: lang_map,
     lang_table: lang_table,
     lang_graphics: lang_graphics,
     lang_rates: lang_rates,

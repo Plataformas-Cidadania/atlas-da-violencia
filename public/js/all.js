@@ -586,14 +586,14 @@ function gerarIntervalos(min,max){
     min = parseInt(min);
     let minUtil = parseInt(min + min * 10 / 100);
 
-    console.log('min', min);
-    console.log('minUtil', minUtil);
+    //console.log('min', min);
+    //console.log('minUtil', minUtil);
 
     max = parseInt(max);
     let maxUtil = parseInt(max - max * 10 / 100);
 
-    console.log('max', max);
-    console.log('maxUtil', maxUtil);
+    //console.log('max', max);
+    //console.log('maxUtil', maxUtil);
 
     let qtdIntervalos = 10;
     let intervalo = maxUtil >= 10 ? parseInt(maxUtil / qtdIntervalos) : (maxUtil / qtdIntervalos);
@@ -610,7 +610,7 @@ function gerarIntervalos(min,max){
     intervalos[0] = min;
     intervalos[1] = minUtil;
     intervalos[9] = maxUtil;
-    console.log('intervalor[9]', intervalos[9]);
+    //console.log('intervalor[9]', intervalos[9]);
     for(let i=2;i<qtdIntervalos-1;i++){
         //intervalos[i] = intervalos[i-1] + intervalo;
         intervalos[i] = intervalos[i-1] + intervalo/qtdIntervalos*i;//intervalo/qtdIntervalos*i irá gerar um intervalo gradativo
