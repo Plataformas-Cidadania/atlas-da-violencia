@@ -609,7 +609,7 @@ function gerarIntervalos(min,max, qtdIntervalos){
     //console.log('intervalo depois', intervalo);
     intervalos[0] = min;
     intervalos[1] = minUtil;
-    intervalos[9] = maxUtil;
+    intervalos[qtdIntervalos-1] = maxUtil;
     //console.log('intervalor[9]', intervalos[9]);
     for(let i=2;i<qtdIntervalos-1;i++){
         //intervalos[i] = intervalos[i-1] + intervalo;
