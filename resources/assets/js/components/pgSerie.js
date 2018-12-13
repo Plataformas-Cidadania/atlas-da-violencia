@@ -177,7 +177,13 @@ class PgSerie extends React.Component{
 
                             let menorMaiorValor = this.menorMaiorValor(valoresMapFrom, valoresMapTo);
 
-                            let intervalos = gerarIntervalos(menorMaiorValor[0], menorMaiorValor[1]);
+                            let qtdValores = valoresMapFrom.length + valoresMapTo.length;
+                            let qtdIntervalos = 10;
+                            if(qtdValores < 10){
+                                qtdIntervalos = qtdValores;
+                            }
+
+                            let intervalos = gerarIntervalos(menorMaiorValor[0], menorMaiorValor[1], qtdIntervalos);
 
                             //let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
                             //console.log(dataMapFrom);

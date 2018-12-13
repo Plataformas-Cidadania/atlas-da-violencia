@@ -580,7 +580,7 @@ function gerarIntervalos2(valores){
     return intervalos;
 }
 
-function gerarIntervalos(min,max){
+function gerarIntervalos(min,max, qtdIntervalos){
     let intervalos = [];
 
     min = parseInt(min);
@@ -595,7 +595,7 @@ function gerarIntervalos(min,max){
     //console.log('max', max);
     //console.log('maxUtil', maxUtil);
 
-    let qtdIntervalos = 10;
+    //let qtdIntervalos = 10;
     let intervalo = maxUtil >= 10 ? parseInt(maxUtil / qtdIntervalos) : (maxUtil / qtdIntervalos);
 
 
