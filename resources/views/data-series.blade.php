@@ -298,6 +298,12 @@
                     @endif
                 @endforeach
 
+                posicao_mapa={{$series->posicao_mapa}};
+                posicao_tabela={{$series->posicao_tabela}};
+                posicao_grafico={{$series->posicao_grafico}};
+                posicao_taxa={{$series->posicao_taxa}};
+                posicao_metadados={{$series->posicao_metadados}};
+
                 lang_map = "@lang('react.map')";
                 lang_table = "@lang('react.table')";
                 lang_graphics = "@lang('react.graphics')";

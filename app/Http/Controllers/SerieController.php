@@ -200,7 +200,7 @@ class SerieController extends Controller
 
     public function dataSeries($serie_id){
         $lang =  App::getLocale();
-
+        $setting = DB::table('settings')->orderBy('id', 'desc')->first();
 
         $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
             ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
@@ -247,6 +247,7 @@ class SerieController extends Controller
             'abrangencia' => $abrangencia,
             'abrangenciasOk' => $abrangenciasOk,
             'abrangencias' => $this->abrangencias,
+            'setting' => $setting,
         ]);
     }
 
