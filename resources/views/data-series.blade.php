@@ -24,7 +24,7 @@
             background: rgba(255,255,255,0.8);
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
-            width: 190px;
+            min-width: 150px;
         }
         .info h4 {
             margin: 0 0 5px;
