@@ -148,7 +148,7 @@ class SelectItems extends React.Component {
                 });
             }.bind(this),
             error: function (xhr, status, err) {
-                console.log('erro', err);
+                //console.log('erro', err);
             }.bind(this)
         });
     }

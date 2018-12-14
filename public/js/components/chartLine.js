@@ -128,7 +128,7 @@ class ChartLine extends React.Component {
             for (let periodo in data[region]) {
                 values.push(data[region][periodo]);
                 if (cont == 0) {
-                    labels[contLabel] = periodo;
+                    labels[contLabel] = formatPeriodicidade(periodo, this.props.periodicidade);
                     contLabel++;
                 }
             }

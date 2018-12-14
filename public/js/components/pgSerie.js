@@ -197,7 +197,7 @@ class PgSerie extends React.Component {
                             //let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
                             //console.log(dataMapFrom);
                             //console.log(dataMapTo);
-                            console.log(intervalos);
+                            //console.log(intervalos);
                             this.setState({ dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos, loadingMap: false });
                         }.bind(this),
                         error: function (data) {
@@ -640,7 +640,7 @@ class PgSerie extends React.Component {
         pos[this.props.posicao_taxa] = taxa;
         pos[this.props.posicao_metadados] = metadados;
 
-        console.log(pos);
+        //console.log(pos);
 
         return React.createElement(
             "div",

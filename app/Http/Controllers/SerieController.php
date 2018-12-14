@@ -621,6 +621,10 @@ class SerieController extends Controller
         //return $request->all();
         //return $request->parameters['option'];
 
+        if(!array_key_exists('option', $request->parameters)){
+            return [];
+        }
+
         $tipo = $request->parameters['option']['id'];
         $list = $request->parameters['option']['listAll'];
         $filter = $request->parameters['filter'];
