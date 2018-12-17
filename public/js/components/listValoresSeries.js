@@ -103,7 +103,7 @@ class ListValoresSeries extends React.Component {
         //columns[0] = null;
         //columns[1] = this.props.nomeAbrangencia;
 
-        array.unshift(null, this.props.nomeAbrangencia);
+        columns.unshift(null, this.props.nomeAbrangencia);
 
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
