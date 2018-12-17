@@ -147,7 +147,7 @@ class ChartLine extends React.Component {
         for (let region in data) {
             for (let i in labels) {
                 if (!data[region].hasOwnProperty(labels[i])) {
-                    data[region][labels[i]] = '';
+                    data[region][labels[i]] = null;
                 }
             }
         }
