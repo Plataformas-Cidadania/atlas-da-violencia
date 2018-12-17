@@ -37,6 +37,10 @@ elixir(function(mix) {
     //Quem Somos
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/quemsomoCtrl.js', 'public/assets-cms/js/controllers/quemsomoCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarQuemsomoCtrl.js', 'public/assets-cms/js/controllers/alterarQuemsomoCtrl.js');
+    
+    //Mensagens
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/mensagemCtrl.js', 'public/assets-cms/js/controllers/mensagemCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarMensagemCtrl.js', 'public/assets-cms/js/controllers/alterarMensagemCtrl.js');
 
     //Webdoor
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/webdoorCtrl.js', 'public/assets-cms/js/controllers/webdoorCtrl.js');

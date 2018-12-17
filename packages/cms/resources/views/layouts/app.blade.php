@@ -304,6 +304,18 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
                         </ul>
                     </li>
 
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo8"><i class="fa fa-envelope" aria-hidden="true"></i> Mensagens <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo8" class="collapse">
+                            <li>
+                                <a href="cms/mensagens/contato">Contato</a>
+                            </li>
+                            <li>
+                                <a href="cms/mensagens/series">Séries</a>
+                            </li>
+                        </ul>
+                    </li>
+
 
                     <!--<li>
                         <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>

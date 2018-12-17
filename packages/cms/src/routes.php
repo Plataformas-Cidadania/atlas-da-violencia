@@ -22,6 +22,16 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-quemsomo/{id}', 'Cms\Controllers\QuemsomoController@alterar');
         Route::get('/cms/excluir-quemsomo/{id}', 'Cms\Controllers\QuemsomoController@excluir');
 
+        //MENSAGEM
+        Route::get('/cms/mensagens', 'Cms\Controllers\MensagemController@index');
+        Route::get('/cms/mensagens/{origem}', 'Cms\Controllers\MensagemController@index');
+        Route::get('/cms/listar-mensagens', 'Cms\Controllers\MensagemController@listar');
+        Route::post('/cms/inserir-mensagem', 'Cms\Controllers\MensagemController@inserir');
+        Route::get('/cms/mensagem/{id}', 'Cms\Controllers\MensagemController@detalhar');
+        Route::post('/cms/alterar-mensagem/{id}', 'Cms\Controllers\MensagemController@alterar');
+        Route::get('/cms/excluir-mensagem/{id}', 'Cms\Controllers\MensagemController@excluir');
+        Route::get('/cms/status-mensagem/{id}', 'Cms\Controllers\MensagemController@status');
+
         //WEBDOORS
         Route::get('/cms/webdoors', 'Cms\Controllers\WebdoorController@index');
         Route::get('/cms/listar-webdoors', 'Cms\Controllers\WebdoorController@listar');
