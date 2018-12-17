@@ -131,7 +131,7 @@ class ChartLine extends React.Component {
                     contLabel++;
                 }
                 data[region] = { per: data[region][periodo] }; //grava um indice com o periodo formatado ex: 2000-01-15 para 2000
-                data[region].splice(data[region][periodo].indexOf(), 1); //remove o periodo não formatado
+                data[region].splice(periodo, 1); //remove o periodo não formatado
             }
         }
 
