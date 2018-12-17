@@ -89,6 +89,7 @@ class ListValoresSeries extends React.Component {
         ////////////////////////////////////////////////////////////////////////
 
         //Preencher labels com os períodos
+        contLabel = 2;
         for (let region in data) {
             for (let periodo in data[region]) {
                 let per = periodo;
@@ -103,6 +104,8 @@ class ListValoresSeries extends React.Component {
 
         //Ordenar os períodos
         columns.sort();
+
+        console.log(columns);
 
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
