@@ -130,10 +130,13 @@ class ChartLine extends React.Component {
                     labels[contLabel] = per;
                     contLabel++;
                 }
+                data[region] = { per: data[region][periodo] }; //grava um indice com o periodo formatado ex: 2000-01-15 para 2000
+                data[region].splice(data[region][periodo].indexOf(), 1); //remove o periodo não formatado
             }
         }
 
         console.log(labels);
+        console.log(data);
 
         //Ordenar os períodos
         labels.sort();
@@ -142,9 +145,9 @@ class ChartLine extends React.Component {
         }
 
         for (let region in data) {
-            for (let periodo in labels) {
-                if (!data[region].hasOwnProperty(periodo)) {
-                    data[region][periodo] = '';
+            for (let i in labels) {
+                if (!data[region].hasOwnProperty(labels[i])) {
+                    data[region][labels[i]] = '';
                 }
             }
         }
