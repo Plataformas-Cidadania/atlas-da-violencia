@@ -88,6 +88,33 @@ class ListValoresSeries extends React.Component{
         let values = [];
         let colors = this.getColors();
 
+
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+
+        //Preencher labels com os períodos
+        for(let region in data){
+            for(let periodo in data[region]){
+                let per = periodo;
+                if(!labels.includes(per)){
+                    columns[contLabel] = per;
+                    contLabel++;
+                }
+                data[region][per] = data[region][periodo];//grava um indice com o periodo formatado ex: 2000-01-15 para 2000
+                //delete data[region][periodo];//remove o periodo não formatado
+            }
+        }
+
+        //Ordenar os períodos
+        columns.sort();
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+
+
         for(let region in data){
 
             if(contColor > colors.length-1){
@@ -101,9 +128,9 @@ class ListValoresSeries extends React.Component{
             for(let periodo in data[region]){
                 //console.log('##########', periodo);
                 //console.log('>>>>>>>>', columns.indexOf(periodo));
-                if(columns.indexOf(periodo) == -1){
+                /*if(columns.indexOf(periodo) == -1){
                     columns.push(periodo);
-                }
+                }*/
                 register[periodo] = data[region][periodo];
             }
 

@@ -135,14 +135,8 @@ class ChartLine extends React.Component {
             }
         }
 
-        console.log(labels);
-        console.log(data);
-
         //Ordenar os períodos
         labels.sort();
-        for (let i in labels) {
-            console.log(labels[i]);
-        }
 
         for (let region in data) {
             for (let i in labels) {
@@ -152,23 +146,13 @@ class ChartLine extends React.Component {
             }
         }
 
-        console.log(data);
-
         for (let region in data) {
 
             let values = [];
 
             for (let periodo in data[region]) {
                 values.push(data[region][periodo]);
-                /*if(cont==0){
-                    labels[contLabel] = formatPeriodicidade(periodo, this.props.periodicidade);
-                    contLabel++;
-                }*/
             }
-
-            //console.log('values', values);
-
-            //let colors = this.getColors(values);
 
             let colors = this.getColors();
 
