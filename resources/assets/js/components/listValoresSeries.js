@@ -90,7 +90,7 @@ class ListValoresSeries extends React.Component{
         ////////////////////////////////////////////////////////////////////////
 
         //Preencher labels com os períodos
-        contLabel = 2;
+        //contLabel = 2;
         for(let region in data){
             for(let periodo in data[region]){
                 if(!columns.includes(periodo)){
@@ -103,12 +103,13 @@ class ListValoresSeries extends React.Component{
         //Ordenar os períodos
         columns.sort();
 
-        console.log(data);
         console.log(columns);
 
 
-        columns[0] = null;
-        columns[1] = this.props.nomeAbrangencia;
+        //columns[0] = null;
+        //columns[1] = this.props.nomeAbrangencia;
+
+        array.unshift(null, this.props.nomeAbrangencia);
 
 
         ////////////////////////////////////////////////////////////////////////
