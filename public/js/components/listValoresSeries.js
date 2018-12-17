@@ -76,6 +76,7 @@ class ListValoresSeries extends React.Component {
         let data = this.state.valores;
         let currentPer = null;
 
+        let columns = [];
         let values = [];
         let colors = this.getColors();
 
@@ -100,7 +101,6 @@ class ListValoresSeries extends React.Component {
         console.log(data);
         console.log(columns);
 
-        let columns = [];
         columns[0] = null;
         columns[1] = this.props.nomeAbrangencia;
 
