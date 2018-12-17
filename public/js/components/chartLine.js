@@ -121,6 +121,34 @@ class ChartLine extends React.Component {
         let cont = 0;
         let contLabel = 0;
         let contColor = 0;
+
+        //Preencher labels com os períodos
+        for (let region in data) {
+            for (let periodo in data[region]) {
+                let per = formatPeriodicidade(periodo, this.props.periodicidade);
+                if (!labels.includes(per)) {
+                    labels[contLabel] = per;
+                    contLabel++;
+                }
+            }
+        }
+
+        //Ordenar os períodos
+        labels.sort();
+        for (let periodo in labels) {
+            console.log(periodo);
+        }
+
+        for (let region in data) {
+            for (let periodo in labels) {
+                if (!region.hasOwnProperty(periodo)) {
+                    region[periodo] = '';
+                }
+            }
+        }
+
+        console.log(data);
+
         for (let region in data) {
 
             let values = [];
@@ -131,11 +159,6 @@ class ChartLine extends React.Component {
                     labels[contLabel] = formatPeriodicidade(periodo, this.props.periodicidade);
                     contLabel++;
                 }*/
-                let per = formatPeriodicidade(periodo, this.props.periodicidade);
-                if (!labels.includes(per)) {
-                    labels[contLabel] = per;
-                    contLabel++;
-                }
             }
 
             //console.log('values', values);
