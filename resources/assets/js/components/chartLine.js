@@ -148,15 +148,15 @@ class ChartLine extends React.Component{
 
         //Ordenar os períodos
         labels.sort();
-        for (let periodo in labels){
-            console.log(periodo);
+        for (let i in labels){
+            console.log(labels[i]);
         }
 
 
         for(let region in data){
             for(let periodo in labels){
-                if(!region.hasOwnProperty(periodo)){
-                    region[periodo] = '';
+                if(!data[region].hasOwnProperty(periodo)){
+                    data[region][periodo] = '';
                 }
             }
         }
