@@ -92,13 +92,10 @@ class ListValoresSeries extends React.Component {
         contLabel = 2;
         for (let region in data) {
             for (let periodo in data[region]) {
-                let per = periodo;
-                if (!labels.includes(per)) {
-                    columns[contLabel] = per;
+                if (!columns.includes(periodo)) {
+                    columns[contLabel] = periodo;
                     contLabel++;
                 }
-                data[region][per] = data[region][periodo]; //grava um indice com o periodo formatado ex: 2000-01-15 para 2000
-                //delete data[region][periodo];//remove o periodo não formatado
             }
         }
 
