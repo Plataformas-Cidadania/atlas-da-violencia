@@ -133,6 +133,8 @@ class ChartLine extends React.Component {
             }
         }
 
+        console.log(labels);
+
         //Ordenar os períodos
         labels.sort();
         for (let periodo in labels) {
