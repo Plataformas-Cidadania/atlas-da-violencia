@@ -205,7 +205,7 @@ class SerieController extends Controller
         $serie = \App\Serie::select('series.id', 'textos_series.*', 'idiomas_periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'idiomas_unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
             ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
             ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
-            ->join('idiomas_periodicidades', 'idiomas_periodicidades.id', '=', 'periodicidades.id')
+            ->join('idiomas_periodicidades', 'idiomas_periodicidades.periodicidade_id', '=', 'periodicidades.id')
             ->join('fontes', 'fontes.id', '=', 'series.fonte_id')
             ->join('unidades', 'unidades.id', '=', 'series.unidade')
             ->join('idiomas_unidades', 'idiomas_unidades.unidade_id', '=', 'unidades.id')
