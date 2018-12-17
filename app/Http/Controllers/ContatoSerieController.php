@@ -22,6 +22,9 @@ class ContatoSerieController extends Controller
         $dados = $request->all();
         $settings = DB::table('settings')->first();
 
+        $dados['titulo'] = $dados['serie'];
+        unset($dados['serie']);
+
         $dados['origem'] = 'serie';
         $dados['cmsuser_id'] = '1';
         $dados['created_at'] = date('Y-m-d H:i:s');

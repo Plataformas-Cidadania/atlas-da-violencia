@@ -7,6 +7,9 @@ if(substr($base_href, 0,9)=='evbsb1052'){
 
 $setting = DB::table('settings')->orderBy('id', 'desc')->first();
 $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
+
+$mensagensContato = DB::table('mensagens')->where('origem', 'contato')->count();
+$mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
 ?>
         <!DOCTYPE html>
 <html lang="pt-br">
@@ -305,13 +308,13 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
                     </li>
 
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo8"><i class="fa fa-envelope" aria-hidden="true"></i> Mensagens <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo8"><i class="fa fa-envelope" aria-hidden="true"></i> Mensagens <div class="qtd_emails">{{$mensagensContato+$mensagensSerie}}</div><i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo8" class="collapse">
                             <li>
-                                <a href="cms/mensagens/contato">Contato</a>
+                                <a href="cms/mensagens/contato">Contato <div class="qtd_emails">{{$mensagensContato}}</div></a>
                             </li>
                             <li>
-                                <a href="cms/mensagens/series">Séries</a>
+                                <a href="cms/mensagens/serie">Séries <div class="qtd_emails">{{$mensagensSerie}}</div></a>
                             </li>
                         </ul>
                     </li>
@@ -352,6 +355,16 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
 </html>
 
 <style>
+    .qtd_emails{
+        float: right;
+        background-color: #ff8800;
+        color: #FFFFFF;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        text-align: center;
+        margin-right: 10px;
+    }
     .side-nav{
         background-color: #1B559F!important;
     }
