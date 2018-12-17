@@ -105,6 +105,7 @@ class ListValoresSeries extends React.Component {
         //Ordenar os períodos
         columns.sort();
 
+        console.log(data);
         console.log(columns);
 
         ////////////////////////////////////////////////////////////////////////
