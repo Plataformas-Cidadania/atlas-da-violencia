@@ -377,7 +377,7 @@
         {{--<button onclick="getData()">Carregar</button>--}}
     </div>
 
-
+    @if(!empty($series))
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 9999999999999999999999999999;">
         <div class="modal-dialog" role="document">
@@ -430,6 +430,7 @@
             </div>
         </div>
     </div>
+    @endif
 
 
 @endsection
