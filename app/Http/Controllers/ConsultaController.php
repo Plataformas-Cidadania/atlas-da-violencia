@@ -30,12 +30,13 @@ class ConsultaController extends Controller
             //->join('unidades', 'consultas.unidade_id', '=', 'unidades.id')
             //->join('periodicidades', 'consultas.periodicidade_id', '=', 'periodicidades.id')
             ->join('idiomas_consultas', 'idiomas_consultas.consulta_id', '=', 'consultas.id')
+            ->join('temas_consultas', 'temas_consultas.consulta_id', '=', 'consultas.id')
             ->where([
                 ['idiomas_consultas.idioma_sigla', $lang],
                 ['idiomas_consultas.titulo', 'ilike', "%".$parameters['search']."%"],
             ])
             ->when($parameters['tema_id']!=0, function($query) use ($parameters){
-                return $query->where('tema_id', $parameters['tema_id']);
+                return $query->where('temas_consultas.tema_id', $parameters['tema_id']);
             })
             ->paginate($parameters['limit']);
 

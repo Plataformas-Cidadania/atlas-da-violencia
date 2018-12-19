@@ -46,6 +46,8 @@ class FiltrosController extends Controller
             ->get();
 
 
+
+
         if(count($temasBd)==0){
             return [];
         }
