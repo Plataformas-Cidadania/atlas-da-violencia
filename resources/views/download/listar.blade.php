@@ -7,7 +7,7 @@
         <h2>@lang('links.downloads')</h2>
         <div class="line_title bg-pri"></div>
 
-        <table class="table table-hover">
+        <table class="table table-hover" >
             <thead>
             <tr>
                 <th>@lang('forms.name')</th>

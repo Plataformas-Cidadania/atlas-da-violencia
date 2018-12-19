@@ -109,8 +109,6 @@ cmsApp.controller('alterarApoioCtrl', ['$scope', '$http', 'Upload', '$timeout', 
         return "";
     };
     /////////////////////////////////
-    
 
-    
 
 }]);
