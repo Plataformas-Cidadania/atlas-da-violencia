@@ -6,12 +6,21 @@ class ListValoresSeries extends React.Component {
             min: this.props.min,
             max: this.props.max,
             loading: true,
+            columns: [],
             columnsTd: null,
             dataTable: null,
-            abrangencia: null
+            abrangencia: null,
+            slider: {},
+            firstLoad: true,
+            maxShowColumns: 5,
+            showAllColumns: false,
+            columnFrom: null,
+            columnTo: null
         };
         //this.loadData = this.loadData.bind(this);
         this.generateTable = this.generateTable.bind(this);
+        this.loadRange = this.loadRange.bind(this);
+        this.updateRange = this.updateRange.bind(this);
     }
 
     componentDidMount() {
@@ -66,6 +75,66 @@ class ListValoresSeries extends React.Component {
         return colors;
     }
 
+    loadRange() {
+        let _this = this;
+
+        let columns = this.state.columns;
+
+        console.log('loadRange columns', columns);
+
+        //console.log(_this.props.from);
+        //console.log(_this.props.to);
+        $("#rangeTable").ionRangeSlider({
+            values: columns,
+            hide_min_max: true,
+            //keyboard: true,
+            //min: 0,
+            //max: 5000,
+            from: columns[2],
+            to: columns[columns.length - 1],
+            type: 'double',
+            //step: 1,
+            prefix: "",
+            //postfix: " million pounds",
+            grid: true,
+            onStart: function (data) {
+                //console.log('start');
+            },
+            onChange: function (data) {
+                //console.log('change');
+            },
+            onFinish: function (data) {
+                console.log('finish');
+            },
+            onUpdate: function (data) {
+                //console.log('update');
+            }
+
+        });
+
+        let slider = $("#rangeTable").data("ionRangeSlider");
+
+        this.setState({ slider: slider });
+    }
+
+    updateRange() {
+
+        let columns = this.state.columns;
+        columns.splice(0, 2);
+
+        console.log('updateRange', columns);
+
+        for (let i in columns) {
+            columns[i] = formatPeriodicidade(columns[i], this.props.periodicidade);
+        }
+
+        this.state.slider.update({
+            values: columns,
+            from: columns[2],
+            to: columns[columns.length - 1]
+        });
+    }
+
     generateTable() {
 
         let labels = [];
@@ -98,7 +167,7 @@ class ListValoresSeries extends React.Component {
         //Ordenar os períodos
         columns.sort();
 
-        console.log(columns);
+        console.log('generateTable columns', columns);
 
         //columns[0] = null;
         //columns[1] = this.props.nomeAbrangencia;
@@ -150,7 +219,30 @@ class ListValoresSeries extends React.Component {
             //console.log('DATASETS[REGISTER] DEPOIS', datasets[register]);
         }
 
+        let columnFrom = 1998;
+        let columnTo = 2008;
+
+        for (let i in columns) {
+            if (i >= 2 && (columns[i] < columnFrom || columns[i] > columnTo)) {
+                columns.splice(i, 1);
+            }
+        }
+
+        console.log(columns);
+
+        let qtdColumns = columns.length;
+        let maxColumns = this.state.maxShowColumns;
+
+        let intervalo = parseInt(qtdColumns / maxColumns);
+        let i = 3;
+
         let columnsTd = columns.map(function (column, index) {
+
+            let show = index == i || index < 3 || index == columns.length - 1;
+
+            if (show && index >= 3) {
+                i = i + intervalo;
+            }
 
             if (index >= 2) {
                 column = formatPeriodicidade(column, this.props.periodicidade);
@@ -158,7 +250,7 @@ class ListValoresSeries extends React.Component {
 
             return React.createElement(
                 'th',
-                { key: "col_list_" + index, style: { textAlign: 'right', fontWeight: 'bold' } },
+                { key: "col_list_" + index, style: { textAlign: 'right', fontWeight: 'bold', display: show ? '' : 'none' } },
                 column
             );
         }.bind(this));
@@ -223,7 +315,13 @@ class ListValoresSeries extends React.Component {
             );
         }.bind(this));
 
-        this.setState({ columnsTd: columnsTd, dataTable: dataTable, loading: false });
+        this.setState({ columns: columns, columnsTd: columnsTd, dataTable: dataTable, loading: false }, function () {
+            this.loadRange();
+            if (!this.state.firstLoad) {
+                this.updateRange();
+            }
+            this.setState({ firstLoad: false });
+        });
     }
 
     render() {
@@ -254,6 +352,12 @@ class ListValoresSeries extends React.Component {
                     React.createElement(
                         'div',
                         { className: 'Content', style: { overflowY: 'auto', maxHeight: '600px' } },
+                        React.createElement(
+                            'div',
+                            { style: { margin: '0 10px' } },
+                            React.createElement('input', { type: 'text', id: 'rangeTable', value: this.state.min + ';' + this.state.max, name: 'rangeTable', onChange: this.change }),
+                            React.createElement('br', null)
+                        ),
                         React.createElement(
                             'table',
                             { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
