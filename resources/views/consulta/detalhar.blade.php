@@ -3,6 +3,11 @@
 @section('content')
    <div class="container">
        <h1>{{$consulta->titulo}}</h1>
+
+       <br>
+       <a class="btn btn-info" href="downloads/2/{{$consulta->id}}">Downloads</a>
+       <br>
+
        <iframe
                @if($consulta->url)
                src="{{$consulta->url}}"

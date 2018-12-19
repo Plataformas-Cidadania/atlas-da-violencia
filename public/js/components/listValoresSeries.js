@@ -238,15 +238,16 @@ class ListValoresSeries extends React.Component {
 
         let columnsTd = columns.map(function (column, index) {
 
-            let show = index == i || index < 3 || index == columns.length - 1;
-
-            if (show && index >= 3) {
+            /*let show = index == i || index < 3 || index == columns.length-1;
+             if(show && index >= 3 ){
                 i = i + intervalo;
             }
-
-            if (index >= 2) {
+             if(index >= 2){
                 column = formatPeriodicidade(column, this.props.periodicidade);
-            }
+            }*/
+
+            let show = true;
+            column = formatPeriodicidade(column, this.props.periodicidade);
 
             return React.createElement(
                 'th',
@@ -354,7 +355,7 @@ class ListValoresSeries extends React.Component {
                         { className: 'Content', style: { overflowY: 'auto', maxHeight: '600px' } },
                         React.createElement(
                             'div',
-                            { style: { margin: '0 10px' } },
+                            { style: { margin: '0 10px', display: 'none' } },
                             React.createElement('input', { type: 'text', id: 'rangeTable', value: this.state.min + ';' + this.state.max, name: 'rangeTable', onChange: this.change }),
                             React.createElement('br', null)
                         ),

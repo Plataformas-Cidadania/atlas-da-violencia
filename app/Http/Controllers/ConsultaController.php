@@ -45,7 +45,7 @@ class ConsultaController extends Controller
     public function detail($id){
         $lang = \App::getLocale();
 
-        $consulta = \App\Consulta::select('idiomas_consultas.titulo', 'consultas.url', 'consultas.arquivo')
+        $consulta = \App\Consulta::select('consultas.id', 'idiomas_consultas.titulo', 'consultas.url', 'consultas.arquivo')
             ->join('idiomas_consultas', 'idiomas_consultas.consulta_id', '=', 'consultas.id')
             ->find($id);
 

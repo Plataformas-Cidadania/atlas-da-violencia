@@ -610,7 +610,7 @@ class PgSerie extends React.Component {
                     { className: "text-right" },
                     React.createElement(
                         "a",
-                        { href: "downloads/" + this.props.id + "/" + this.props.serie, className: "text-info h5" },
+                        { href: "downloads/1/" + this.props.id, className: "text-info h5" },
                         React.createElement(
                             "strong",
                             null,

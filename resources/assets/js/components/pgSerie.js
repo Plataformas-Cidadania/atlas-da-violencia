@@ -541,7 +541,7 @@ class PgSerie extends React.Component{
                 <div dangerouslySetInnerHTML={{__html: this.props.metadados}} />
                 <br/>
                 <div className="text-right">
-                    <a href={"downloads/"+this.props.id+"/"+this.props.serie} className="text-info h5">
+                    <a href={"downloads/1/"+this.props.id} className="text-info h5">
                         <strong>+ {this.props.lang_information}</strong>
                     </a>
                 </div>

@@ -9,10 +9,10 @@ use App\Http\Requests;
 
 class DownloadController extends Controller
 {
-    public function listar($serie_id = null){
+    public function listar($origem = null, $origem_id = null){
 
-        if($serie_id){
-            $downloads = \App\Download::where('origem_id', $serie_id)->orderBy('id', 'desc')->get();
+        if($origem_id){
+            $downloads = \App\Download::where('origem', $origem)->where('origem_id', $origem_id)->orderBy('titulo')->get();
             return view('download.listar', ['downloads' => $downloads]);
         }
 
