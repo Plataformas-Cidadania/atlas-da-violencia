@@ -99,6 +99,7 @@
                             <td class="text-right">
                                 <div>
                                     {{--<a href="cms/importar-serie/<% serie.id %>"><i class="fa fa-upload fa-2x" title="Importar"></i></a>--}}&nbsp;&nbsp;
+                                    <a href="cms/downloads/1/<% serie.id %>"><i class="fa fa-file fa-2x" title="Arquivos para Download"></i></a>&nbsp;&nbsp;
                                     <a href="cms/textos-series/<% serie.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/temas-series/<% serie.id %>"><i class="fa fa-folder-open fa-2x" title="Temas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/serie/<% serie.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;

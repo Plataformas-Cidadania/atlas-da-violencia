@@ -83,7 +83,7 @@ class ListValoresSeries extends React.Component{
 
         let columns = this.state.columns;
 
-        console.log('loadRange columns', columns);
+        //console.log('loadRange columns', columns);
 
         //console.log(_this.props.from);
         //console.log(_this.props.to);
@@ -107,7 +107,7 @@ class ListValoresSeries extends React.Component{
                 //console.log('change');
             },
             onFinish: function (data) {
-                console.log('finish');
+                //console.log('finish');
 
 
             },
@@ -127,7 +127,7 @@ class ListValoresSeries extends React.Component{
         let columns = this.state.columns;
         columns.splice(0, 2);
 
-        console.log('updateRange', columns);
+        //console.log('updateRange', columns);
 
         for(let i in columns){
             columns[i] = formatPeriodicidade(columns[i], this.props.periodicidade);
@@ -175,7 +175,7 @@ class ListValoresSeries extends React.Component{
         //Ordenar os períodos
         columns.sort();
 
-        console.log('generateTable columns', columns);
+        //console.log('generateTable columns', columns);
 
 
         //columns[0] = null;
@@ -240,7 +240,7 @@ class ListValoresSeries extends React.Component{
             }
         }
 
-        console.log(columns);
+        //console.log(columns);
 
         let qtdColumns = columns.length;
         let maxColumns = this.state.maxShowColumns;
@@ -252,7 +252,7 @@ class ListValoresSeries extends React.Component{
         let columnsTd = columns.map(function (column, index){
 
 
-            let show = index == i || index < 3 || index == columns.length-1;
+            /*let show = index == i || index < 3 || index == columns.length-1;
 
             if(show && index >= 3 ){
                 i = i + intervalo;
@@ -260,7 +260,10 @@ class ListValoresSeries extends React.Component{
 
             if(index >= 2){
                 column = formatPeriodicidade(column, this.props.periodicidade);
-            }
+            }*/
+
+            let show = true;
+            column = formatPeriodicidade(column, this.props.periodicidade);
 
             return(
                 <th key={"col_list_"+index} style={{textAlign: 'right', fontWeight: 'bold', display: show ? '' : 'none'}}>{column}</th>
@@ -337,7 +340,7 @@ class ListValoresSeries extends React.Component{
 
                         <div className="Container">
                             <div className="Content" style={{overflowY: 'auto', maxHeight: '600px'}}>
-                                <div style={{margin: '0 10px'}}>
+                                <div style={{margin: '0 10px', display: 'none'}}>
                                     <input type="text" id="rangeTable" value={this.state.min+';'+this.state.max}  name="rangeTable" onChange={this.change} /><br/>
                                 </div>
                                 <table className="table table-striped table-bordered" id="listValoresSeries">

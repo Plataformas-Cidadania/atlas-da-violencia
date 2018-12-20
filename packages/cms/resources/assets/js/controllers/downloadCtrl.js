@@ -1,6 +1,7 @@
 cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
     
     $scope.downloads = [];
+    $scope.download = {};
     $scope.currentPage = 1;
     $scope.lastPage = 0;
     $scope.totalItens = 0;
@@ -30,8 +31,11 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
             listarDownloads();
         }
     });
+    $scope.$watch('origem', function(){
+        listarDownloads();
+    });
 
-    var listarDownloads = function(){
+    listarDownloads = function(){
         $scope.processandoListagem = true;
         $http({
             url: 'cms/listar-downloads',
@@ -43,7 +47,9 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
                 campos: $scope.campos,
                 campoPesquisa: $scope.campoPesquisa,
                 ordem: $scope.ordem,
-                sentido: $scope.sentidoOrdem
+                sentido: $scope.sentidoOrdem,
+                origem: $scope.download.origem,
+                origem_id: $scope.download.origem_id
             }
         }).success(function(data, status, headers, config){
             $scope.downloads = data.data;
@@ -77,15 +83,16 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
     $scope.validar = function(){
 
     };
-    
 
-    listarDownloads();
+
+    //listarDownloads();
 
     //INSERIR/////////////////////////////
 
     $scope.tinymceOptions = tinymceOptions;
     $scope.mostrarForm = false;
     $scope.processandoInserir = false;
+
 
     $scope.inserir = function (file, arquivo){
 
@@ -97,7 +104,9 @@ cmsApp.controller('downloadCtrl', ['$scope', '$http', 'Upload', '$timeout', func
             //console.log($scope.download);
             $http.post("cms/inserir-download", {download: $scope.download}).success(function (data){
                  listarDownloads();
-                 delete $scope.download;//limpa o form
+                 //delete $scope.download;//limpa o form
+                delete $scope.download.titulo;
+                delete $scope.download.descricao;
                 $scope.mensagemInserir =  "Gravado com sucesso!";
                 $scope.processandoInserir = false;
              }).error(function(data){

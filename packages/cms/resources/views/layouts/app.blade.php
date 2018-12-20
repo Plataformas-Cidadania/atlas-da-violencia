@@ -299,7 +299,7 @@ $mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo7"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores Site <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo7" class="collapse">
                             <li>
-                                <a href="cms/quemsomos/7/webindicador">Descrição</a>
+                                <a href="cms/quemsomos/5/webindicador">Descrição</a>
                             </li>
                             <li>
                                 <a href="cms/webindicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores</a>

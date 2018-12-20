@@ -42,6 +42,7 @@ Route::group(['middleware' => 'cms'], function () {
 
         //DOWNLOADS
         Route::get('/cms/downloads', 'Cms\Controllers\DownloadController@index');
+        Route::get('/cms/downloads/{origem}/{origem_id}', 'Cms\Controllers\DownloadController@index');
         Route::get('/cms/listar-downloads', 'Cms\Controllers\DownloadController@listar');
         Route::post('/cms/inserir-download', 'Cms\Controllers\DownloadController@inserir');
         Route::get('/cms/download/{id}', 'Cms\Controllers\DownloadController@detalhar');

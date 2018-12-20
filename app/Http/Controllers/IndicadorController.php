@@ -16,8 +16,11 @@ class IndicadorController extends Controller
         $lang =  App::getLocale();
 
         $indicador = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 5)->first();
-        $menuIndicadores = DB::table('webindicadores')->where('idioma_sigla', $lang)->get();
+        $menuIndicadores = DB::table('webindicadores')->where('idioma_sigla', $lang)->orderby('titulo')->get();
         $indicadores = DB::table('webindicadores')->where('idioma_sigla', $lang)->get();
+
+        Log::info($menuIndicadores);
+
 
         return view('indicador.detalhar', ['indicador' => $indicador, 'menuIndicadores' => $menuIndicadores, 'indicadores' => $indicadores]);
 

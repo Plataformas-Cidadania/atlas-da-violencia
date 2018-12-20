@@ -11,19 +11,33 @@
             <thead>
             <tr>
                 <th>@lang('forms.name')</th>
-                <th>@lang('pages.serie')</th>
+                {{--<th>@lang('pages.serie')</th>--}}
+                <th>Origem</th>
                 <th>@lang('links.downloads')</th>
             </tr>
             </thead>
             <tbody>
+            <?php $lang = \Illuminate\Support\Facades\App::getLocale();?>
             @foreach($downloads as $download)
+
+                <?php
+                    if($download->origem == 0){
+                        $download->tituloOrigem = trans('pages.publications');
+                    }
+                    if($download->origem == 1){
+                        $serie = DB::table('textos_series')->where('serie_id', $download->origem_id)->where('idioma_sigla', $lang)->first();
+                        $download->tituloOrigem = $serie->titulo;
+                    }
+                    if($download->origem == 2){
+                        $consulta = DB::table('idiomas_consultas')->where('consulta_id', $download->origem_id)->where('idioma_sigla', $lang)->first();
+                        $download->tituloOrigem = $consulta->titulo;
+                    }
+
+
+                ?>
                 <tr>
                     <td>{{$download->titulo}}</td>
-                    <td>
-                        <?php $serie = DB::table('textos_series')->where('serie_id', $download->origem_id)->first();?>
-
-                        <?php if(is_object($serie)){?>{{$serie->titulo}}<?php }else{?> @lang('pages.publications') Atlas<?php }?>
-                    </td>
+                    <td>{{$download->tituloOrigem}}</td>
                     <td width="100" align="center">
                         <a href="arquivos/downloads/{{$download->arquivo}}" target="_blank">
                             <i class="fa fa-cloud-download fa-2x" aria-hidden="true"></i>

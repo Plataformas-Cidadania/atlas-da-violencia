@@ -20,7 +20,7 @@ class DownloadController extends Controller
     {
         $this->download = new \App\Download;
         $this->campos = [
-            'imagem', 'origem_id', 'titulo', 'descricao', 'arquivo', 'cmsuser_id', 'idioma_sigla',
+            'imagem', 'titulo', 'descricao', 'arquivo', 'cmsuser_id', 'idioma_sigla',
         ];
         $this->pathImagem = public_path().'/imagens/downloads';
         $this->sizesImagem = [
@@ -34,14 +34,32 @@ class DownloadController extends Controller
         $this->pathArquivo = public_path().'/arquivos/downloads';
     }
 
-    function index()
+    function index($origem = 0, $origem_id = 0)
     {
 
         $downloads = \App\Download::all();
-        $series = \App\Serie::join('textos_series', 'textos_series.serie_id', '=', 'series.id')->lists('textos_series.titulo', 'series.id')->all();
+        //$series = \App\Serie::join('textos_series', 'textos_series.serie_id', '=', 'series.id')->lists('textos_series.titulo', 'series.id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::download.listar', ['downloads' => $downloads, 'series' => $series, 'idiomas' => $idiomas]);
+        if($origem == 0){
+            $nomeOrigem = "Publicações";
+        }
+        if($origem == 1){
+            $serie = \App\Serie::select('series.id', 'textos_series.titulo')->join('textos_series', 'textos_series.serie_id', '=', 'series.id')->where('series.id', $origem_id)->first();
+            $nomeOrigem = $serie->titulo;
+        }
+        if($origem == 2){
+            $consulta = \App\Consulta::select('consultas.id', 'idiomas_consultas.titulo')->join('idiomas_consultas', 'idiomas_consultas.consulta_id', '=', 'consultas.id')->where('consultas.id', $origem_id)->first();
+            $nomeOrigem = $consulta->titulo;
+        }
+
+        return view('cms::download.listar', [
+            'downloads' => $downloads,
+            'idiomas' => $idiomas,
+            'origem' => $origem,
+            'origem_id' => $origem_id,
+            'nomeOrigem' => $nomeOrigem
+        ]);
     }
 
     public function listar(Request $request)
@@ -57,6 +75,8 @@ class DownloadController extends Controller
             ->select($campos)
             ->where([
                 [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
+                ['origem', $request->origem],
+                ['origem_id', $request->origem_id],
             ])
             ->orderBy($request->ordem, $request->sentido)
             ->paginate($request->itensPorPagina);
@@ -150,10 +170,10 @@ class DownloadController extends Controller
         $download = $this->download->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $series = \App\Serie::join('textos_series', 'textos_series.serie_id', '=', 'series.id')->lists('textos_series.titulo', 'series.id')->all();
+        //$series = \App\Serie::join('textos_series', 'textos_series.serie_id', '=', 'series.id')->lists('textos_series.titulo', 'series.id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::download.detalhar', ['download' => $download, 'series' => $series, 'idiomas' => $idiomas]);
+        return view('cms::download.detalhar', ['download' => $download, 'idiomas' => $idiomas]);
     }
 
     /*public function alterar(Request $request, $id)

@@ -80,7 +80,7 @@ class ListValoresSeries extends React.Component {
 
         let columns = this.state.columns;
 
-        console.log('loadRange columns', columns);
+        //console.log('loadRange columns', columns);
 
         //console.log(_this.props.from);
         //console.log(_this.props.to);
@@ -104,7 +104,9 @@ class ListValoresSeries extends React.Component {
                 //console.log('change');
             },
             onFinish: function (data) {
-                console.log('finish');
+                //console.log('finish');
+
+
             },
             onUpdate: function (data) {
                 //console.log('update');
@@ -122,7 +124,7 @@ class ListValoresSeries extends React.Component {
         let columns = this.state.columns;
         columns.splice(0, 2);
 
-        console.log('updateRange', columns);
+        //console.log('updateRange', columns);
 
         for (let i in columns) {
             columns[i] = formatPeriodicidade(columns[i], this.props.periodicidade);
@@ -167,7 +169,8 @@ class ListValoresSeries extends React.Component {
         //Ordenar os períodos
         columns.sort();
 
-        console.log('generateTable columns', columns);
+        //console.log('generateTable columns', columns);
+
 
         //columns[0] = null;
         //columns[1] = this.props.nomeAbrangencia;
@@ -228,7 +231,7 @@ class ListValoresSeries extends React.Component {
             }
         }
 
-        console.log(columns);
+        //console.log(columns);
 
         let qtdColumns = columns.length;
         let maxColumns = this.state.maxShowColumns;
@@ -238,18 +241,19 @@ class ListValoresSeries extends React.Component {
 
         let columnsTd = columns.map(function (column, index) {
 
-            let show = index == i || index < 3 || index == columns.length - 1;
-
-            if (show && index >= 3) {
+            /*let show = index == i || index < 3 || index == columns.length-1;
+             if(show && index >= 3 ){
                 i = i + intervalo;
             }
-
-            if (index >= 2) {
+             if(index >= 2){
                 column = formatPeriodicidade(column, this.props.periodicidade);
-            }
+            }*/
+
+            let show = true;
+            column = formatPeriodicidade(column, this.props.periodicidade);
 
             return React.createElement(
-                'th',
+                "th",
                 { key: "col_list_" + index, style: { textAlign: 'right', fontWeight: 'bold', display: show ? '' : 'none' } },
                 column
             );
@@ -280,26 +284,26 @@ class ListValoresSeries extends React.Component {
                 }
 
                 let td = React.createElement(
-                    'td',
+                    "td",
                     { key: "valor_tabela_" + index + '_' + column, className: classValor },
                     valor
                 );
 
                 if (i == 0) {
                     td = React.createElement(
-                        'th',
-                        { key: "valor_tabela_" + index + '_' + column, width: '10px' },
+                        "th",
+                        { key: "valor_tabela_" + index + '_' + column, width: "10px" },
                         React.createElement(
-                            'i',
-                            { className: 'fa fa-square', style: { color: item['legend'] } },
-                            ' '
+                            "i",
+                            { className: "fa fa-square", style: { color: item['legend'] } },
+                            " "
                         )
                     );
                 }
 
                 if (i == 1) {
                     td = React.createElement(
-                        'th',
+                        "th",
                         { key: "valor_tabela_" + index + '_' + column },
                         item['region']
                     );
@@ -309,7 +313,7 @@ class ListValoresSeries extends React.Component {
             }
 
             return React.createElement(
-                'tr',
+                "tr",
                 { key: "col_valores_" + index },
                 valores
             );
@@ -327,69 +331,69 @@ class ListValoresSeries extends React.Component {
     render() {
         if (!this.state.valores) {
             return React.createElement(
-                'h3',
+                "h3",
                 null,
-                'Sem Resultados'
+                "Sem Resultados"
             );
         }
 
         //console.log(this.state.columnsTd);
 
         return React.createElement(
-            'div',
+            "div",
             null,
             React.createElement(
-                'div',
-                { style: { display: this.state.loading || !this.state.dataTable ? '' : 'none' }, className: 'text-center' },
-                React.createElement('i', { className: 'fa fa-spin fa-spinner fa-4x' })
+                "div",
+                { style: { display: this.state.loading || !this.state.dataTable ? '' : 'none' }, className: "text-center" },
+                React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
             ),
             React.createElement(
-                'div',
+                "div",
                 { style: { display: this.state.loading || !this.state.dataTable ? 'none' : '' } },
                 React.createElement(
-                    'div',
-                    { className: 'Container' },
+                    "div",
+                    { className: "Container" },
                     React.createElement(
-                        'div',
-                        { className: 'Content', style: { overflowY: 'auto', maxHeight: '600px' } },
+                        "div",
+                        { className: "Content", style: { overflowY: 'auto', maxHeight: '600px' } },
                         React.createElement(
-                            'div',
-                            { style: { margin: '0 10px' } },
-                            React.createElement('input', { type: 'text', id: 'rangeTable', value: this.state.min + ';' + this.state.max, name: 'rangeTable', onChange: this.change }),
-                            React.createElement('br', null)
+                            "div",
+                            { style: { margin: '0 10px', display: 'none' } },
+                            React.createElement("input", { type: "text", id: "rangeTable", value: this.state.min + ';' + this.state.max, name: "rangeTable", onChange: this.change }),
+                            React.createElement("br", null)
                         ),
                         React.createElement(
-                            'table',
-                            { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
+                            "table",
+                            { className: "table table-striped table-bordered", id: "listValoresSeries" },
                             React.createElement(
-                                'thead',
+                                "thead",
                                 null,
                                 React.createElement(
-                                    'tr',
+                                    "tr",
                                     null,
                                     this.state.columnsTd
                                 )
                             ),
                             React.createElement(
-                                'tbody',
+                                "tbody",
                                 null,
                                 this.state.dataTable
                             )
                         )
                     )
                 ),
-                React.createElement('br', null),
+                React.createElement("br", null),
                 React.createElement(
-                    'div',
+                    "div",
                     { style: { float: 'right', marginLeft: '5px' } },
-                    React.createElement(Download, { btnDownload: 'downloadListValoresSeries', divDownload: 'listValoresSeries', arquivo: 'tabela.png' })
+                    React.createElement(Download, { btnDownload: "downloadListValoresSeries", divDownload: "listValoresSeries", arquivo: "tabela.png" })
                 ),
                 React.createElement(
-                    'div',
+                    "div",
                     { style: { float: 'right', marginLeft: '5px' } },
-                    React.createElement(Print, { divPrint: 'listValoresSeries', imgPrint: 'imgPrintList' })
+                    React.createElement(Print, { divPrint: "listValoresSeries", imgPrint: "imgPrintList" })
                 ),
-                React.createElement('div', { style: { clear: 'both' } })
+                React.createElement("div", { style: { clear: 'both' } })
             )
         );
     }

@@ -111,6 +111,7 @@
                             <td><a href="cms/consulta/<% consulta.id %>"><% consulta.idioma_sigla %></a></td>
                             <td class="text-right">
                                 <div>
+                                    <a href="cms/downloads/2/<% consulta.id %>"><i class="fa fa-file fa-2x" title="Arquivos para Download"></i></a>&nbsp;&nbsp;
                                     <a href="cms/idiomas-consultas/<% consulta.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/temas-consultas/<% consulta.id %>"><i class="fa fa-folder-open fa-2x" title="Temas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/consulta/<% consulta.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
