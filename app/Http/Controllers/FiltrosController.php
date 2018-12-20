@@ -45,9 +45,6 @@ class FiltrosController extends Controller
             ->orderBy('idiomas_temas.titulo')
             ->get();
 
-
-
-
         if(count($temasBd)==0){
             return [];
         }
