@@ -20,7 +20,7 @@ class WebindicadorController extends Controller
     {
         $this->webindicador = new \App\Webindicador;
         $this->campos = [
-            'imagem', 'titulo', 'url', 'idioma_sigla', 'arquivo', 'cmsuser_id',
+            'imagem', 'titulo', 'url', 'idioma_sigla', 'arquivo', 'posicao', 'cmsuser_id',
         ];
         $this->pathImagem = public_path().'/imagens/webindicadores';
         $this->sizesImagem = [
@@ -213,7 +213,36 @@ if($file!=null){
         $webindicador->delete();
 
     }
+    public function positionUp($id)
+    {
 
+        $posicao_atual = DB::table('webindicadores')->where('id', $id)->first();
+        $upPosicao = $posicao_atual->posicao-1;
+        $posicao = $posicao_atual->posicao;
+
+        //Coloca com a posicao do anterior
+        DB::table('webindicadores')->where('posicao', $upPosicao)->update(['posicao' => $posicao]);
+
+        //atualiza a posicao para o anterior
+        DB::table('webindicadores')->where('id', $id)->update(['posicao' => $upPosicao]);
+
+
+    }
+
+    public function positionDown($id)
+    {
+
+        $posicao_atual = DB::table('webindicadores')->where('id', $id)->first();
+        $upPosicao = $posicao_atual->posicao+1;
+        $posicao = $posicao_atual->posicao;
+
+        //Coloca com a posicao do anterior
+        DB::table('webindicadores')->where('posicao', $upPosicao)->update(['posicao' => $posicao]);
+
+        //atualiza a posicao para o anterior
+        DB::table('webindicadores')->where('id', $id)->update(['posicao' => $upPosicao]);
+
+    }
     
 
 

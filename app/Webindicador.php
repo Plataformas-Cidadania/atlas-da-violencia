@@ -8,6 +8,6 @@ class Webindicador extends Model
 {
     protected  $table = "webindicadores";
     protected $fillable = [
-        'titulo', 'url', 'idioma_sigla', 'arquivo', 'cmsuser_id',
+        'titulo', 'url', 'idioma_sigla', 'arquivo', 'posicao', 'cmsuser_id',
     ];
 }

@@ -251,6 +251,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/idioma/{id}', 'Cms\Controllers\IdiomaController@detalhar');
         Route::post('/cms/alterar-idioma/{id}', 'Cms\Controllers\IdiomaController@alterar');
         Route::get('/cms/excluir-idioma/{id}', 'Cms\Controllers\IdiomaController@excluir');
+        Route::get('/cms/status-idioma/{id}', 'Cms\Controllers\IdiomaController@status');
 
         //UNIDADES
         Route::get('/cms/unidades', 'Cms\Controllers\UnidadeController@index');
@@ -341,6 +342,8 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/webindicador/{id}', 'Cms\Controllers\WebindicadorController@detalhar');
         Route::post('/cms/alterar-webindicador/{id}', 'Cms\Controllers\WebindicadorController@alterar');
         Route::get('/cms/excluir-webindicador/{id}', 'Cms\Controllers\WebindicadorController@excluir');
+        Route::get('/cms/positionUp-webindicador/{id}', 'Cms\Controllers\WebindicadorController@positionUp');
+        Route::get('/cms/positionDown-webindicador/{id}', 'Cms\Controllers\WebindicadorController@positionDown');
         
         //CONSULTAS
         Route::get('/cms/consultas', 'Cms\Controllers\ConsultaController@index');
@@ -350,6 +353,8 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-consulta/{id}', 'Cms\Controllers\ConsultaController@alterar');
         Route::get('/cms/excluir-consulta/{id}', 'Cms\Controllers\ConsultaController@excluir');
         Route::get('/cms/status-consulta/{id}', 'Cms\Controllers\ConsultaController@status');
+        Route::get('/cms/positionUp-consulta/{id}', 'Cms\Controllers\ConsultaController@positionUp');
+        Route::get('/cms/positionDown-consulta/{id}', 'Cms\Controllers\ConsultaController@positionDown');
         
 
         //APOIOS

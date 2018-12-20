@@ -11,4 +11,6 @@ null, ['class'=>"form-control width-medio <% validar(webindicador.idioma_sigla) 
 {!! Form::label('url', 'Link ') !!}<br>
 {!! Form::text('url', null, ['class'=>"form-control width-grande <% validar(webindicador.url) %>", 'ng-model'=>'webindicador.url', 'init-model'=>'webindicador.url', 'placeholder' => '']) !!}<br>
 
+{!! Form::label('posicao', 'Posição *') !!}<br>
+{!! Form::text('posicao', null, ['class'=>"form-control width-pequeno <% validar(webindicador.posicao) %>", 'ng-model'=>'webindicador.posicao', 'ng-required'=>'true', 'init-model'=>'webindicador.posicao', 'placeholder' => '']) !!}<br>
 

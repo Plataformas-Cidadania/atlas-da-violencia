@@ -5,7 +5,7 @@
 
     $setting = DB::table('settings')->orderBy('id', 'desc')->first();
     $links = DB::table('links')->where('idioma_sigla', $lang)->orderBy('posicao')->take(10)->get();
-    $idiomas = DB::table('idiomas')->orderBy('id')->get();
+    $idiomas = DB::table('idiomas')->where('status', 1)->orderBy('id')->get();
     $apoios = DB::table('apoios')->orderBy('posicao')->get();
     $favicons = DB::table('favicons')->first();
     $indicadores = DB::table('webindicadores')->get();
@@ -131,6 +131,16 @@ if(substr($base_href, 0,9)=='evbsb1052'){
                 width: {{$setting->qtd_temas_home}}%;
             }
 
+            @media (max-width: 800px) {
+                .filtros {
+                    width: 33.33333333%;
+                }
+            }
+            @media (max-width: 480px) {
+                .filtros {
+                    width: 100%;
+                }
+            }
         </style>
 
     </head>

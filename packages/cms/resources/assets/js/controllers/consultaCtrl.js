@@ -7,11 +7,11 @@ cmsApp.controller('consultaCtrl', ['$scope', '$http', 'Upload', '$timeout', func
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "consultas.id, idiomas_consultas.titulo, idiomas_consultas.idioma_sigla, consultas.status";
+    $scope.campos = "consultas.id, idiomas_consultas.titulo, idiomas_consultas.idioma_sigla, consultas.status, consultas.posicao";
     $scope.campoPesquisa = "idiomas_consultas.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "idiomas_consultas.titulo";
+    $scope.ordem = "consultas.posicao";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 
@@ -195,6 +195,27 @@ cmsApp.controller('consultaCtrl', ['$scope', '$http', 'Upload', '$timeout', func
         });
     };
 
+    $scope.positionUp = function(id){
+        $scope.idPositionUp = '';
+        $http({
+            url: 'cms/positionUp-consulta/'+id,
+            method: 'GET'
+        }).success(function(data, positionUp, headers, config){
+            $scope.idPositionUp = id;
+            listarConsultas();
+        });
+    };
+    $scope.positionDown = function(id){
+        $scope.idPositionDown = '';
+        $http({
+            url: 'cms/positionDown-consulta/'+id,
+            method: 'GET'
+        }).success(function(data, positionDown, headers, config){
+            $scope.idPositionDown = id;
+            listarConsultas();
+        });
+    };
 
 }]);
+
 
