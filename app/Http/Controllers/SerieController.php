@@ -643,6 +643,10 @@ class SerieController extends Controller
         //return $request->all();
         //return $request->parameters['option'];
 
+        $padraoTerritorios = $this->getPadraoTerritorios();
+        $ufs = $padraoTerritorios[4];
+
+
         if(!array_key_exists('option', $request->parameters)){
             return [];
         }
@@ -699,6 +703,9 @@ class SerieController extends Controller
                     return $query->join('valores_series', 'valores_series.regiao_id', '=', $tabelas[$tipo].'.edterritorios_codigo')
                         ->where('valores_series.serie_id', $conditions['id'])
                         ->where('valores_series.tipo_regiao', $tipo);
+                })
+                ->when($tipo == 4, function($query) use ($ufs){
+                    return $query->whereIn('spat.ed_territorios_municipios.edterritorios_sigla', $ufs);
                 })
                 ->distinct()
                 ->get();
