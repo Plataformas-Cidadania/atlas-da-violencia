@@ -54,6 +54,7 @@ class PageFilters extends React.Component {
     loadItems(){
         //console.log(this.state);
         //console.log(this.state.currentPageListItems);
+        console.log(tipo);
         let emptyItems = {data: []};
         this.setState({items: emptyItems, loadingItems: true});
         $.ajax({
