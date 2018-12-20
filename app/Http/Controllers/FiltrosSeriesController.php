@@ -79,6 +79,10 @@ class FiltrosSeriesController extends Controller
     }
 
     public function series(Request $request){
+
+        $setting = DB::table('settings')->orderBy('id', 'desc')->first();
+        $consulta_por_temas = $setting->consulta_por_temas;
+
         $parameters = $request->parameters;
 
         //return $parameters;
@@ -92,7 +96,7 @@ class FiltrosSeriesController extends Controller
             $temas = [];
         }
 
-        if($parameters['tema_id'] > 0){
+        if($parameters['tema_id'] > 0 || $consulta_por_temas > 0){
             $temas = \App\Tema::select('id')->where('tema_id', $parameters['tema_id'])->orWhere('id', $parameters['tema_id'])->pluck('id');
         }
 
@@ -131,6 +135,9 @@ class FiltrosSeriesController extends Controller
                 })
                 ->when(!empty($temas), function($query) use ($temas){
                     return $query->whereIn('tema_id', $temas);
+                })
+                ->when($consulta_por_temas == 1, function($query) use ($consulta_por_temas){
+                    return $query->where('consulta_por_temas', $consulta_por_temas->consulta_por_temas);
                 })
                 ->orderBy('textos_series.titulo')
 		->distinct()
