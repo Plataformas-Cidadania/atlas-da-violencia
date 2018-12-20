@@ -222,8 +222,17 @@ class PgSerie extends React.Component {
     }
 
     menorMaiorValor(valores1, valores2) {
-        let menor = valores1[0] <= valores2[0] ? valores1[0] : valores2[0];
-        let maior = valores1[valores1.length - 1] >= valores2[valores2.length - 1] ? valores1[valores1.length - 1] : valores2[valores2.length - 1];
+
+        console.log(valores1[0], valores2[0]);
+
+        let menor1 = parseFloat(valores1[0]);
+        let menor2 = parseFloat(valores2[0]);
+
+        let maior1 = parseFloat(valores1[valores1.length - 1]);
+        let maior2 = parseFloat(valores2[valores2.length - 1]);
+
+        let menor = menor1 <= menor2 ? menor1 : menor2;
+        let maior = maior1 >= maior2 ? maior1 : maior2;
 
         return [menor, maior];
     }

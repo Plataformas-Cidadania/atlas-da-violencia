@@ -83,7 +83,7 @@ class ListValoresSeries extends React.Component{
 
         let columns = this.state.columns;
 
-        console.log('loadRange columns', columns);
+        //console.log('loadRange columns', columns);
 
         //console.log(_this.props.from);
         //console.log(_this.props.to);
@@ -107,7 +107,7 @@ class ListValoresSeries extends React.Component{
                 //console.log('change');
             },
             onFinish: function (data) {
-                console.log('finish');
+                //console.log('finish');
 
 
             },
@@ -127,7 +127,7 @@ class ListValoresSeries extends React.Component{
         let columns = this.state.columns;
         columns.splice(0, 2);
 
-        console.log('updateRange', columns);
+        //console.log('updateRange', columns);
 
         for(let i in columns){
             columns[i] = formatPeriodicidade(columns[i], this.props.periodicidade);
@@ -175,7 +175,7 @@ class ListValoresSeries extends React.Component{
         //Ordenar os períodos
         columns.sort();
 
-        console.log('generateTable columns', columns);
+        //console.log('generateTable columns', columns);
 
 
         //columns[0] = null;
@@ -240,7 +240,7 @@ class ListValoresSeries extends React.Component{
             }
         }
 
-        console.log(columns);
+        //console.log(columns);
 
         let qtdColumns = columns.length;
         let maxColumns = this.state.maxShowColumns;
