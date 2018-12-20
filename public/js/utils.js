@@ -102,35 +102,72 @@ function gerarIntervalos2(valores) {
     return intervalos;
 }
 
-function gerarIntervalos(valores) {
+function gerarIntervalos(min, max, qtdIntervalos) {
     let intervalos = [];
 
-    let min = parseInt(valores[0]);
+    min = parseInt(min);
     let minUtil = parseInt(min + min * 10 / 100);
 
-    let max = parseInt(valores[valores.length - 1]);
-    console.log(max + '-' + max + ' * 10 / 100');
+    //console.log('min', min);
+    //console.log('minUtil', minUtil);
+
+    max = parseInt(max);
     let maxUtil = parseInt(max - max * 10 / 100);
-    let qtdIntervalos = 10;
+
+    //console.log('max', max);
+    //console.log('maxUtil', maxUtil);
+
+    //let qtdIntervalos = 10;
     let intervalo = maxUtil >= 10 ? parseInt(maxUtil / qtdIntervalos) : maxUtil / qtdIntervalos;
 
-    console.log('maxUtil', intervalo);
+    //console.log('maxUtil', intervalo);
     //console.log(intervalo);
     //console.log('resto', intervalo % 100);
     let rounder = intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
-    console.log('intervalo antes', intervalo);
-    console.log('rounder', rounder);
+    //console.log('intervalo antes', intervalo);
+    //console.log('rounder', rounder);
     intervalo = Math.ceil(intervalo / rounder) * rounder;
-    console.log('intervalo depois', intervalo);
+    //console.log('intervalo depois', intervalo);
     intervalos[0] = min;
     intervalos[1] = minUtil;
-    intervalos[9] = maxUtil;
-    for (let i = 2; i < qtdIntervalos; i++) {
+    intervalos[qtdIntervalos - 1] = maxUtil;
+    //console.log('intervalor[9]', intervalos[9]);
+    for (let i = 2; i < qtdIntervalos - 1; i++) {
         //intervalos[i] = intervalos[i-1] + intervalo;
         intervalos[i] = intervalos[i - 1] + intervalo / qtdIntervalos * i; //intervalo/qtdIntervalos*i irá gerar um intervalo gradativo
     }
     return intervalos;
 }
+
+/*function gerarIntervalos(valores){
+    let intervalos = [];
+
+    let min = parseInt(valores[0]);
+    let minUtil = parseInt(min + min * 10 / 100);
+
+    let max = parseInt(valores[valores.length-1]);
+    console.log(max+'-'+max+' * 10 / 100');
+    let maxUtil = parseInt(max - max * 10 / 100);
+    let qtdIntervalos = 10;
+    let intervalo = maxUtil >= 10 ? parseInt(maxUtil / qtdIntervalos) : (maxUtil / qtdIntervalos);
+
+    console.log('maxUtil', intervalo);
+    //console.log(intervalo);
+    //console.log('resto', intervalo % 100);
+    let rounder =  intervalo % 1000 > 100 ? 100 : intervalo % 100 > 10 ? 10 : 1;
+    console.log('intervalo antes', intervalo);
+    console.log('rounder', rounder);
+    intervalo = Math.ceil(intervalo/rounder) * rounder;
+    console.log('intervalo depois', intervalo);
+    intervalos[0] = min;
+    intervalos[1] = minUtil;
+    intervalos[9] = maxUtil;
+    for(let i=2;i<qtdIntervalos;i++){
+        //intervalos[i] = intervalos[i-1] + intervalo;
+        intervalos[i] = intervalos[i-1] + intervalo/qtdIntervalos*i;//intervalo/qtdIntervalos*i irá gerar um intervalo gradativo
+    }
+    return intervalos;
+}*/
 
 function getColor(d, intervalos) {
 

@@ -52,7 +52,7 @@ class PageFilters extends React.Component {
 
     loadItems() {
         //console.log(this.state);
-        console.log(this.state.currentPageListItems);
+        //console.log(this.state.currentPageListItems);
         let emptyItems = { data: [] };
         this.setState({ items: emptyItems, loadingItems: true });
         $.ajax({
@@ -60,6 +60,7 @@ class PageFilters extends React.Component {
             url: "list-consultas",
             data: {
                 parameters: {
+                    tipo: tipo,
                     tema_id: this.state.tema,
                     search: this.state.search,
                     limit: this.state.limitItems
@@ -165,6 +166,7 @@ class PageFilters extends React.Component {
 }
 
 ReactDOM.render(React.createElement(PageFilters, {
+    tipo: tipo,
     tema_id: tema_id,
     title: title,
     description: description,

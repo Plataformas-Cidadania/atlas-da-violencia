@@ -65,6 +65,7 @@
     </style>
     <div class="container">
         <script>
+            tipo = 2;
             tema_id = "{{$id}}";
             {{--titulo = "{!! $tema->titulo !!}";--}}
             title="{{$content->titulo}}";

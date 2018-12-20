@@ -12,42 +12,29 @@ window.chartColors = {
 	grey: 'rgb(201, 203, 207)'
 };
 
-window.randomScalingFactor = function() {
+window.randomScalingFactor = function () {
 	return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
 };
 
-(function(global) {
-	var Months = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December'
-	];
+(function (global) {
+	var Months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	var Samples = global.Samples || (global.Samples = {});
 	Samples.utils = {
 		// Adapted from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
-		srand: function(seed) {
+		srand: function (seed) {
 			this._seed = seed;
 		},
 
-		rand: function(min, max) {
+		rand: function (min, max) {
 			var seed = this._seed;
-			min = min === undefined? 0 : min;
-			max = max === undefined? 1 : max;
+			min = min === undefined ? 0 : min;
+			max = max === undefined ? 1 : max;
 			this._seed = (seed * 9301 + 49297) % 233280;
-			return min + (this._seed / 233280) * (max - min);
+			return min + this._seed / 233280 * (max - min);
 		},
 
-		numbers: function(config) {
+		numbers: function (config) {
 			var cfg = config || {};
 			var min = cfg.min || 0;
 			var max = cfg.max || 1;
@@ -59,7 +46,7 @@ window.randomScalingFactor = function() {
 			var data = [];
 			var i, value;
 
-			for (i=0; i<count; ++i) {
+			for (i = 0; i < count; ++i) {
 				value = (from[i] || 0) + this.rand(min, max);
 				if (this.rand() <= continuity) {
 					data.push(Math.round(dfactor * value) / dfactor);
@@ -71,42 +58,42 @@ window.randomScalingFactor = function() {
 			return data;
 		},
 
-		labels: function(config) {
+		labels: function (config) {
 			var cfg = config || {};
 			var min = cfg.min || 0;
 			var max = cfg.max || 100;
 			var count = cfg.count || 8;
-			var step = (max-min) / count;
+			var step = (max - min) / count;
 			var decimals = cfg.decimals || 8;
 			var dfactor = Math.pow(10, decimals) || 0;
 			var prefix = cfg.prefix || '';
 			var values = [];
 			var i;
 
-			for (i=min; i<max; i+=step) {
+			for (i = min; i < max; i += step) {
 				values.push(prefix + Math.round(dfactor * i) / dfactor);
 			}
 
 			return values;
 		},
 
-		months: function(config) {
+		months: function (config) {
 			var cfg = config || {};
 			var count = cfg.count || 12;
 			var section = cfg.section;
 			var values = [];
 			var i, value;
 
-			for (i=0; i<count; ++i) {
-				value = Months[Math.ceil(i)%12];
+			for (i = 0; i < count; ++i) {
+				value = Months[Math.ceil(i) % 12];
 				values.push(value.substring(0, section));
 			}
 
 			return values;
 		},
 
-		transparentize: function(color, opacity) {
-			var alpha = opacity === undefined? 0.5 : 1 - opacity;
+		transparentize: function (color, opacity) {
+			var alpha = opacity === undefined ? 0.5 : 1 - opacity;
 			return Chart.helpers.color(color).alpha(alpha).rgbString();
 		},
 
@@ -114,6 +101,4 @@ window.randomScalingFactor = function() {
 	};
 
 	Samples.utils.srand(Date.now());
-
-}(this));
-
+})(this);

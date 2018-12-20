@@ -20,7 +20,7 @@ class TemaController extends Controller
         $this->tema = new \App\Tema;
         $this->idiomaTema = new \App\IdiomaTema;
         $this->campos = [
-              'tema','cmsuser_id',
+              'tema', 'tipo','cmsuser_id',
         ];
         $this->pathImagem = public_path().'/imagens/temas';
         $this->sizesImagem = [
