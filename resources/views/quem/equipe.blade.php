@@ -20,6 +20,7 @@
             ->where('items_versoes.versao_id', $versao->id)
             ->where('items_versoes.tipo_id', 2)
             ->where('items_versoes.status', 1)
+            ->orderBy('integrantes.titulo')
             ->get();
 
         ?>
