@@ -504,6 +504,7 @@ footer {
 .line-temp-font {
   font-size: 30px;
   font-weight: bold;
+  line-height: 35px;
 }
 .line-temp-barr {
   margin-bottom: -23px;
