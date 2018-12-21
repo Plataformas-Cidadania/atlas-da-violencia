@@ -65,6 +65,7 @@
     </style>
     <div class="container">
         <script>
+            tipo = 1;
             tema_id = "{{$id}}";
             {{--titulo = "{!! $tema->titulo !!}";--}}
             lang_inquiries = "@lang('react.inquiries')";

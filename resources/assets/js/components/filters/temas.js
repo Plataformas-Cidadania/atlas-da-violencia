@@ -4,7 +4,7 @@ class Temas extends React.Component{
         this.state = {
             temas: [],
             tema_id: 0,
-            id: this.props.tema_id
+            id: this.props.tema_id,
         };
 
         this.select = this.select.bind(this);
@@ -87,3 +87,4 @@ class Temas extends React.Component{
     }
 
 }
+

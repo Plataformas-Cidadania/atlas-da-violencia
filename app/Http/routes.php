@@ -88,6 +88,7 @@ Route::get('filtros-series2/', 'FiltrosController@index');
 
 //Component Temas em components/filtros/pgFiltros
 Route::get('get-temas/{id}', 'FiltrosController@temas');
+Route::get('get-temas/{id}/{tipo}', 'FiltrosController@temas');
 Route::get('get-indicadores/{tema_id}', 'FiltrosController@indicadores');
 Route::get('get-abrangencias/{tema_id}', 'FiltrosController@abrangencias');
 Route::post('get-series/', 'FiltrosController@series');

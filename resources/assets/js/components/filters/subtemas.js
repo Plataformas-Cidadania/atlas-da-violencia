@@ -8,6 +8,7 @@ class Subtema extends React.Component{
             componentSubtema: null,
             loading: false,
             loadingData: false,
+            tipo: props.tipo,
         };
 
         this.select = this.select.bind(this);
@@ -61,7 +62,7 @@ class Subtema extends React.Component{
         this.setState({loadingData: true});
         $.ajax({
             method: 'GET',
-            url: 'get-temas/'+this.state.tema_id,
+            url: 'get-temas/'+this.state.tema_id+'/'+this.state.tipo,
             cache: false,
             success: function(data){
                 //console.log('subtemas', data);

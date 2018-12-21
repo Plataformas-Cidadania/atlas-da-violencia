@@ -3,6 +3,7 @@ class PageFilters extends React.Component {
         super(props);
         this.state = {
             items: { data: [] },
+            tipo: props.tipo,
             tema: props.tema_id,
             search: '',
             currentPageListItems: 1,
@@ -54,7 +55,7 @@ class PageFilters extends React.Component {
     loadItems(){
         //console.log(this.state);
         //console.log(this.state.currentPageListItems);
-        console.log(tipo);
+        //console.log(tipo);
         let emptyItems = {data: []};
         this.setState({items: emptyItems, loadingItems: true});
         $.ajax({
@@ -62,7 +63,6 @@ class PageFilters extends React.Component {
             url: "list-consultas",
             data:{
                 parameters:{
-                    tipo: tipo,
                     tema_id: this.state.tema,
                     search: this.state.search,
                     limit: this.state.limitItems,
@@ -102,6 +102,7 @@ class PageFilters extends React.Component {
                             <legend>{this.props.lang_themes}</legend>
                             <div style={{margin: '10px'}}>
                                 <Temas
+                                    tipo={this.state.tipo}
                                     tema_id={this.state.tema}
                                     setTema={this.setTema}
                                     lang_select_themes={this.props.lang_select_themes}
