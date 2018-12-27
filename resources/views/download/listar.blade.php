@@ -26,12 +26,14 @@
                     }
                     if($download->origem == 1){
                         $serie = DB::table('textos_series')->where('serie_id', $download->origem_id)->where('idioma_sigla', $lang)->first();
+                        $download->tituloOrigem = "-------------";
                         if(!empty($serie)){
                             $download->tituloOrigem = $serie->titulo;
                         }
                     }
                     if($download->origem == 2){
                         $consulta = DB::table('idiomas_consultas')->where('consulta_id', $download->origem_id)->where('idioma_sigla', $lang)->first();
+                        $download->tituloOrigem = "-------------";
                         if(!empty($consulta)){
                             $download->tituloOrigem = $consulta->titulo;
                         }
