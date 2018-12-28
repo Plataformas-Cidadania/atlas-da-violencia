@@ -24,12 +24,12 @@ if(substr($base_href, 0,9)=='evbsb1052'){
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-        <title>@if(count($setting) > 0) {{$setting->titulo}} - @yield('title') @endif</title>
+        <title>@if(!empty($setting)) {{$setting->titulo}} - @yield('title') @endif</title>
         <base href="http://{{$base_href}}@if($base_href=='10.0.52.46')/@endif">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         @foreach(config('constants.FAVICONS_SIZES') as $size)
-            @if(count($favicons) > 0)
+            @if(!empty($favicons))
             <link rel="icon" href="imagens/favicons/{{$size}}-{{$favicons->imagem}}" sizes="{{$size}}">
             @endif
         @endforeach
