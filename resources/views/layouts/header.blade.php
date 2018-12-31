@@ -133,7 +133,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     </a>
                     {{----}}
 
-                    @if(count($ultimaArtigo)>0)
+                    @if(!empty($ultimaArtigo))
                     {{--TEXTO--}}
                     <a href="artigo/{{$ultimaArtigo->id}}/{{clean($ultimaArtigo->titulo)}}" class="item" style="background-color: #ececec;">
                         <h2 style="margin-top: 0;">{{$ultimaArtigo->titulo}}</h2>
