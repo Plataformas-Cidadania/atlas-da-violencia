@@ -29,3 +29,4 @@ class AlterWebindicadoresTable2 extends Migration
         });
     }
 }
+
