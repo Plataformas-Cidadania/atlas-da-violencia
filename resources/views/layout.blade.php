@@ -12,6 +12,15 @@
 
     $base_href = config('app.url');
 
+
+    $barra = null;
+    $ips = ["10.0.52.46", "181.191.91.55", "10.31.47.3"];
+    foreach($ips as $ip){
+        if($base_href==$ip){
+            $barra = "/";
+        }
+    }
+
     //echo $base_href;
 
 
@@ -26,7 +35,7 @@ if(substr($base_href, 0,9)=='evbsb1052'){
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <title>@if(!empty($setting)) {{$setting->titulo}} - @yield('title') @endif</title>
-        <base href="http://{{$base_href}}@if($base_href=='10.0.52.46')/@endif">
+        <base href="http://{{$base_href}}{{$barra}}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         @foreach(config('constants.FAVICONS_SIZES') as $size)
