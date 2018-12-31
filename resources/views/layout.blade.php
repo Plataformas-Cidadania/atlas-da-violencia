@@ -14,7 +14,6 @@
 
     //echo $base_href;
 
-
 /*$base_href = $_SERVER['HTTP_HOST'];
 if(substr($base_href, 0,9)=='evbsb1052'){
     $base_href .= '/atlasviolencia/';
