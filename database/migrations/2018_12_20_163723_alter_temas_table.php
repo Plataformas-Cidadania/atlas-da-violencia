@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTemasTable extends Migration
+class AlterTemasTable2 extends Migration
 {
     /**
      * Run the migrations.
