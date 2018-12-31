@@ -5,7 +5,7 @@
 
     <article>
         <br><br>
-        @if(count($links)>0)
+        @if(!empty($links))
         <div class="container block" data-move-x="500px">
             <div class="row">
                 <br><br>
@@ -57,7 +57,7 @@
         </div>
         @endif
 
-        @if(count($downloads)>0)
+        @if(!empty($downloads))
         <div class="container">
             <div class="row text-center">
                 @foreach($tituloLinhaTempo as $titulo)
@@ -86,7 +86,7 @@
         @endif
 
         {{--STRAT INDICE--}}
-        @if(count($indices)>0)
+        @if(!empty($indices))
         <br><br>
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
@@ -110,7 +110,7 @@
 
 
         {{--STRAT NOTICIAS--}}
-        @if(count($noticias)>0)
+        @if(!empty($noticias))
         <div class="container">
             <div class="row">
                 <h2 class="box-titulo">@lang('links.news')</h2>
@@ -135,7 +135,7 @@
         {{--END NOTICIAS--}}
 
         {{--STRAT BEM VINDO--}}
-        @if(count($bemvindo)>0)
+        @if(!empty($bemvindo))
         <br><br>
         <div class="bg-qui" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
@@ -148,7 +148,7 @@
         {{--END BEM VINDO--}}
 
         {{--STRAT PARCEIROS--}}
-        @if(count($parceiros)>0)
+        @if(!empty($parceiros))
             <br><br>
         <div class="container">
             <div class="row">

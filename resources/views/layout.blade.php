@@ -13,7 +13,7 @@
     $base_href = config('app.url');
 
 
-    $barra = null;
+    $barra = "";
     $ips = ["10.0.52.46", "181.191.91.55", "10.31.47.3"];
     foreach($ips as $ip){
         if($base_href==$ip){
