@@ -659,6 +659,7 @@ function getColor(d, intervalos) {
             //console.log(colors[i]);
             return colors[i];
         }
+        return colors[0];
     }
 }
 
