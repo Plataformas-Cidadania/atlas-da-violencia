@@ -116,7 +116,7 @@ $mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
                         <a href="cms/fontes"><i class="fa fa-university" aria-hidden="true"></i> Fontes</a>
                     </li>
                     <li>
-                        <a href="cms/temas/0"><i class="fa fa-folder-open" aria-hidden="true"></i> Temas</a>
+                        <a href="cms/temas"><i class="fa fa-folder-open" aria-hidden="true"></i> Temas</a>
                     </li>
                     <li>
                         <a href="cms/indicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores</a>

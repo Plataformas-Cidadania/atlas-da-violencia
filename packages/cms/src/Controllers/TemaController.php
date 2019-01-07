@@ -32,7 +32,7 @@ class TemaController extends Controller
         $this->widthOriginal = true;
     }
 
-    function index($tema_id)    {
+    function index($tema_id = 0)    {
 
         $tema = \App\Tema::find($tema_id);
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();

@@ -1,4 +1,5 @@
-@if(empty($tema))
+<?php $rota = Route::getCurrentRoute()->getPath();?>
+@if($rota == 'cms/temas' || $rota == 'cms/temas/{tema_id}')
     {!! Form::label('idioma_sigla', 'Idioma *') !!}<br>
     {!! Form::select('idioma_sigla',
             $idiomas,
@@ -24,7 +25,7 @@ null, ['class'=>"form-control width-medio <% validar(tema.tema_id) %>", 'ng-mode
 
 {!! Form::hidden('tema_id', $tema_id, ['class'=>"form-control width-grande <% validar(tema.tema_id) %>", 'ng-model'=>'tema.tema_id', 'ng-required'=>'true', 'init-model'=>'tema.tema_id', 'placeholder' => '']) !!}
 
-@if(empty($tema))
+@if($rota == 'cms/temas' || $rota == 'cms/temas/{tema_id}')
 {!! Form::label('titulo', 'Tema *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(idioma.titulo) %>", 'ng-model'=>'idioma.titulo', 'ng-required'=>'true', 'init-model'=>'idioma.titulo', 'placeholder' => '']) !!}<br>
 @endif
