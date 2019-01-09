@@ -11,6 +11,9 @@ $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
 $mensagensContato = DB::table('mensagens')->where('status', 0)->where('origem', 'contato')->count();
 $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 'serie')->count();
 ?>
+
+<?php $rota = Route::getCurrentRoute()->getPath();?>
+
         <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -89,6 +92,9 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
 
             </ul>
 <style>
+    
+
+
     .icon-cms-user{
         border-radius: 50%;
         width: 100px;
@@ -115,7 +121,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                     
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo8"><i class="fa fa-envelope" aria-hidden="true"></i> Mensagens <div class="qtd_emails">{{$mensagensContato+$mensagensSerie}}</div><i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo8" class="collapse">
+                        <ul id="demo8" class="collapse @if($rota=="cms/mensagens/{origem}") show @endif">
                             <li>
                                 <a href="cms/mensagens/contato">Contato <div class="qtd_emails">{{$mensagensContato}}</div></a>
                             </li>
@@ -136,7 +142,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
 
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo6"><i class="fa fa-fw fa-user"></i> Consultas <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo6" class="collapse">
+                        <ul id="demo6" class="collapse @if($rota=="cms/consultas") show @endif">
                             <li>
                                 <a href="cms/quemsomos/9/consultas">Descrição</a>
                             </li>
@@ -148,7 +154,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
 
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo7"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores Site <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo7" class="collapse">
+                        <ul id="demo7" class="collapse @if($rota=="cms/webindicadores") show @endif">
                             <li>
                                 <a href="cms/quemsomos/5/webindicador">Descrição</a>
                             </li>
@@ -161,7 +167,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i
                                     class="fa fa-fw fa-arrows-v"></i> Pontos <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo4" class="collapse">
+                        <ul id="demo4" class="collapse @if($rota=="cms/filtros") show @endif">
                             <li>
                                 <a href="cms/filtros"><i class="fa fa-fw fa-desktop"></i> Filtros</a>
                             </li>
@@ -173,7 +179,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
 
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Conteudo <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
+                        <ul id="demo" class="collapse  @if($rota=="cms/noticias" || $rota=="cms/authors" || $rota=="cms/artigos" || $rota=="cms/videos" || $rota=="cms/downloads" || $rota=="cms/webdoors" ) show @endif">
                             <li>
                                 <a href="cms/noticias"><i class="fa fa-fw fa-newspaper-o"></i> Notícias</a>
                             </li>
@@ -200,7 +206,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo0"><i
                                     class="fa fa-fw fa-arrows-v"></i> Admin <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo0" class="collapse">
+                        <ul id="demo0" class="collapse @if($rota=="cms/idiomas" || $rota=="cms/fontes" || $rota=="cms/unidades" || $rota=="cms/periodicidades" || $rota=="cms/indicadores" || $rota=="cms/options-abrangencias" || $rota=="cms/padrao-territorios" || $rota=="cms/directives" || $rota=="cms/artworks" || $rota=="cms/printings" || $rota=="cms/integrantes" || $rota=="cms/versoes") show @endif">
                             <li>
                                 <a href="cms/idiomas"><i class="fa fa-language" aria-hidden="true"></i> Idiomas</a>
                             </li>
@@ -226,7 +232,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
 
                             <li>
                                 <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-user"></i> Equipe <i class="fa fa-fw fa-caret-down"></i></a>
-                                <ul id="demo5" class="collapse">
+                                <ul id="demo5" class="collapse @if($rota=="cms/integrantes" || $rota=="cms/versoes") show @endif">
                                     <li>
                                         <a href="cms/quemsomos/7/equipe">Descrição</a>
                                     </li>
@@ -239,10 +245,31 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                                 </ul>
                             </li>
 
+                            <style>
+
+                            .side-nav>li>ul>li>ul {
+                                margin:0;
+                                padding: 0;                     
+                            }
+
+                            .side-nav>li>ul>li>ul>li {   
+                                text-decoration: none;
+                                list-style-type:none; 
+                            
+                            }
+
+                            .side-nav>li>ul>li>ul>li>a {
+                                padding: 10px 15px 10px 38px;
+                                color: #D2E9FF!important;
+                                display: block;
+                                text-decoration: none;
+                            }
+                        </style>
+
                             <li>
                                 <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i
                                             class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
-                                <ul id="demo1" class="collapse">
+                                <ul id="demo1" class="collapse @if($rota=="cms/directives" || $rota=="cms/artworks" || $rota=="cms/printings") show @endif">
                                     <li>
                                         <a href="cms/quemsomos/8/marca">Descrição</a>
                                     </li>
@@ -272,7 +299,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i
                                     class="fa fa-fw fa-arrows-v"></i> Layout <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo2" class="collapse">
+                        <ul id="demo2" class="collapse  @if($rota=="cms/menus" || $rota=="cms/apoios" || $rota=="cms/parceiros" || $rota=="cms/links" || $rota=="cms/indices" || $rota=="cms/setting" || $rota=="cms/favicons" ) show @endif">
                             <li>
                                 <a href="cms/menus"><i class="fa fa-fw fa-bars"></i> Menu</a>
                             </li> 
@@ -287,11 +314,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                             </li>
                             <li>
                                 <a href="cms/indices"><i class="fa fa-indent" aria-hidden="true"></i> Índices</a>
-                            </li>
-                   {{--         <li>
-                                <a href="cms/webindicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores
-                                    Site</a>
-                            </li>--}}
+                            </li>            
                             <li>
                                 <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
                             </li>
@@ -410,6 +433,9 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
     .navbar-inverse .navbar-toggle {
         border-color: #1B559F !important;
     }
+
+
+
     .
 
 
