@@ -38,6 +38,7 @@ class ConsultaController extends Controller
             ->when($parameters['tema_id']!=0, function($query) use ($parameters){
                 return $query->where('temas_consultas.tema_id', $parameters['tema_id']);
             })
+            ->distinct()
             ->paginate($parameters['limit']);
 
         return $consultas;

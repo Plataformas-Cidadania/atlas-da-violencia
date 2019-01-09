@@ -8,8 +8,8 @@ if(substr($base_href, 0,9)=='evbsb1052'){
 $setting = DB::table('settings')->orderBy('id', 'desc')->first();
 $favicons = DB::table('favicons')->orderBy('id', 'desc')->get();
 
-$mensagensContato = DB::table('mensagens')->where('origem', 'contato')->count();
-$mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
+$mensagensContato = DB::table('mensagens')->where('status', 0)->where('origem', 'contato')->count();
+$mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 'serie')->count();
 ?>
         <!DOCTYPE html>
 <html lang="pt-br">
@@ -112,15 +112,23 @@ $mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
                     <li class="active">
                         <a href="cms"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
+                    
                     <li>
-                        <a href="cms/fontes"><i class="fa fa-university" aria-hidden="true"></i> Fontes</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo8"><i class="fa fa-envelope" aria-hidden="true"></i> Mensagens <div class="qtd_emails">{{$mensagensContato+$mensagensSerie}}</div><i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo8" class="collapse">
+                            <li>
+                                <a href="cms/mensagens/contato">Contato <div class="qtd_emails">{{$mensagensContato}}</div></a>
+                            </li>
+                            <li>
+                                <a href="cms/mensagens/serie">Séries <div class="qtd_emails">{{$mensagensSerie}}</div></a>
+                            </li>
+                        </ul>
                     </li>
+
                     <li>
                         <a href="cms/temas"><i class="fa fa-folder-open" aria-hidden="true"></i> Temas</a>
                     </li>
-                    <li>
-                        <a href="cms/indicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores</a>
-                    </li>
+                    
 
                     <li>
                         <a href="cms/series"><i class="fa fa-cubes" aria-hidden="true"></i> Séries</a>
@@ -135,6 +143,30 @@ $mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
                             <li>
                                 <a href="cms/consultas"><i class="fa fa-cubes" aria-hidden="true"></i> Consultas</a>
                             </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo7"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores Site <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo7" class="collapse">
+                            <li>
+                                <a href="cms/quemsomos/5/webindicador">Descrição</a>
+                            </li>
+                            <li>
+                                <a href="cms/webindicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i
+                                    class="fa fa-fw fa-arrows-v"></i> Pontos <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo4" class="collapse">
+                            <li>
+                                <a href="cms/filtros"><i class="fa fa-fw fa-desktop"></i> Filtros</a>
+                            </li>
+
+
                         </ul>
                     </li>
 
@@ -157,27 +189,13 @@ $mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
                             <li>
                                 <a href="cms/downloads"><i class="fa fa-download" aria-hidden="true"></i> Downloads</a>
                             </li>
+                            <li>
+                                <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoors</a>
+                            </li>
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i
-                                    class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo1" class="collapse">
-                            <li>
-                                <a href="cms/quemsomos/8/marca">Descrição</a>
-                            </li>
-                            <li>
-                                <a href="cms/directives">Diretivas</a>
-                            </li>
-                            <li>
-                                <a href="cms/artworks">Artes</a>
-                            </li>
-                            <li>
-                                <a href="cms/printings">Impressões</a>
-                            </li>
-                        </ul>
-                    </li>
+                    
 
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo0"><i
@@ -187,10 +205,16 @@ $mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
                                 <a href="cms/idiomas"><i class="fa fa-language" aria-hidden="true"></i> Idiomas</a>
                             </li>
                             <li>
+                                <a href="cms/fontes"><i class="fa fa-university" aria-hidden="true"></i> Fontes</a>
+                            </li>
+                            <li>
                                 <a href="cms/unidades"><i class="fa fa-indent" aria-hidden="true"></i> Unidades</a>
                             </li>
                             <li>
                                 <a href="cms/periodicidades"><i class="fa fa-indent" aria-hidden="true"></i> Periodicidade</a>
+                            </li>
+                            <li>
+                                <a href="cms/indicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores</a>
                             </li>
                             <li>
                                 <a href="cms/options-abrangencias"><i class="fa fa-indent" aria-hidden="true"></i> Options Abrangencias</a>
@@ -198,9 +222,50 @@ $mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
                             <li>
                                 <a href="cms/padrao-territorios"><i class="fa fa-indent" aria-hidden="true"></i> Padrão Territorio</a>
                             </li>
+                            
+
+                            <li>
+                                <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-user"></i> Equipe <i class="fa fa-fw fa-caret-down"></i></a>
+                                <ul id="demo5" class="collapse">
+                                    <li>
+                                        <a href="cms/quemsomos/7/equipe">Descrição</a>
+                                    </li>
+                                    <li>
+                                        <a href="cms/integrantes">Integrantes</a>
+                                    </li>
+                                    <li>
+                                        <a href="cms/versoes">Versões</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i
+                                            class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
+                                <ul id="demo1" class="collapse">
+                                    <li>
+                                        <a href="cms/quemsomos/8/marca">Descrição</a>
+                                    </li>
+                                    <li>
+                                        <a href="cms/directives">Diretivas</a>
+                                    </li>
+                                    <li>
+                                        <a href="cms/artworks">Artes</a>
+                                    </li>
+                                    <li>
+                                        <a href="cms/printings">Impressões</a>
+                                    </li>
+                                </ul>
+                            </li>
+
                             <li>
                                 <a href="cms/usuarios"><i class="fa fa-fw fa-users"></i> Usuários</a>
                             </li>
+                            <li>
+                                <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
+                            </li>
+
+
                         </ul>
                     </li>
 
@@ -210,13 +275,7 @@ $mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
                         <ul id="demo2" class="collapse">
                             <li>
                                 <a href="cms/menus"><i class="fa fa-fw fa-bars"></i> Menu</a>
-                            </li>
-                            <li>
-                                <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoors</a>
-                            </li>
-                            {{--<li>
-                                <a href="cms/quemsomos"><i class="fa fa-fw fa-building"></i> Modulos</a>
-                            </li>--}}
+                            </li> 
                             <li>
                                 <a href="cms/apoios"><i class="fa fa-fw fa-anchor"></i> Apoio</a>
                             </li>
@@ -269,55 +328,12 @@ $mensagensSerie = DB::table('mensagens')->where('origem', 'serie')->count();
 
                         </ul>
                     </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo4"><i
-                                    class="fa fa-fw fa-arrows-v"></i> Pontos <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo4" class="collapse">
-                            <li>
-                                <a href="cms/filtros"><i class="fa fa-fw fa-desktop"></i> Filtros</a>
-                            </li>
+                    
+                    
 
+                    
 
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-user"></i> Equipe <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo5" class="collapse">
-                            <li>
-                                <a href="cms/quemsomos/7/equipe">Descrição</a>
-                            </li>
-                            <li>
-                                <a href="cms/integrantes">Integrantes</a>
-                            </li>
-                            <li>
-                                <a href="cms/versoes">Versões</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo7"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores Site <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo7" class="collapse">
-                            <li>
-                                <a href="cms/quemsomos/5/webindicador">Descrição</a>
-                            </li>
-                            <li>
-                                <a href="cms/webindicadores"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo8"><i class="fa fa-envelope" aria-hidden="true"></i> Mensagens <div class="qtd_emails">{{$mensagensContato+$mensagensSerie}}</div><i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo8" class="collapse">
-                            <li>
-                                <a href="cms/mensagens/contato">Contato <div class="qtd_emails">{{$mensagensContato}}</div></a>
-                            </li>
-                            <li>
-                                <a href="cms/mensagens/serie">Séries <div class="qtd_emails">{{$mensagensSerie}}</div></a>
-                            </li>
-                        </ul>
-                    </li>
+                    
 
 
                     <!--<li>

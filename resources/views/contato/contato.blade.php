@@ -69,7 +69,7 @@
             </address>
 
             <div class="col-md-8">
-                <h3>{{$setting->titulo_contato}}</h3>
+                {{-- <h3>{{$setting->titulo_contato}}</h3> --}}
                 <br>
                 <p>{{$setting->descricao_contato}}</p>
                 <br>
