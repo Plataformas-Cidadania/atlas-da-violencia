@@ -29,6 +29,7 @@ class ChartLine extends React.Component {
         if (this.state.min != props.min || this.state.max != props.max || this.state.intervalos != props.intervalos || this.state.regions != props.regions || this.state.abrangencia != props.abrangencia) {
             this.setState({ min: props.min, max: props.max, intervalos: props.intervalos, regions: props.regions, abrangencia: props.abrangencia }, function () {
                 if (myChartLine) {
+                    console.log(myChartLine);
                     this.chartDestroy();
                 }
                 if (this.state.min && this.state.max) {
