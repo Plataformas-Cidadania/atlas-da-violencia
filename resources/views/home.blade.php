@@ -108,7 +108,6 @@
         @endif
         {{--END INDICE--}}
 
-
         {{--STRAT NOTICIAS--}}
         @if(!empty($noticias))
         <div class="container">
