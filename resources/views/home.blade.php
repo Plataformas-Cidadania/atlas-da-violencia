@@ -86,8 +86,7 @@
         @endif
 
         {{--STRAT INDICE--}}
-        {{$indices}}
-        @if(!empty($indices))
+        @if(count($indices) > 0)
         <br><br>
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
