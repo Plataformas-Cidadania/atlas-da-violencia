@@ -216,6 +216,9 @@ class SerieController extends Controller
 
         //$regions = explode(',', $request->regions);
 
+
+        Log::info('lang: '.$lang);
+
         Log::info('SERIE_ID: '.$serie_id);
 
         Log::info('###SERIES##################################################');
