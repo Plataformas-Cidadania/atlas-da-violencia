@@ -148,6 +148,7 @@
         {{--END BEM VINDO--}}
 
         {{--STRAT PARCEIROS--}}
+        @if(!empty($parceiros))
             <br><br>
         <div class="container">
             <div class="row">
@@ -165,6 +166,7 @@
                 @endforeach
             </div>
         </div>
+        @endif
         {{--END PARCEIROS--}}
         <br><br>
         <br><br>
