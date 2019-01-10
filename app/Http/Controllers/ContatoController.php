@@ -15,8 +15,9 @@ class ContatoController extends Controller
 {
     public function listar(){
         $setting = DB::table('settings')->first();
+        $favicons = DB::table('favicons')->first();
 
-        return view('contato.contato', ['setting' => $setting]);
+        return view('contato.contato', ['setting' => $setting, 'favicons' => $favicons]);
     }
 
     public function email(Request $request){

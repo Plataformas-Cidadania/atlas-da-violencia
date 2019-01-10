@@ -48,7 +48,7 @@
                     });
 
                     L.marker([{{$setting->latitude}},{{$setting->longitude}}], {icon: atlasIcon}).addTo(mymap)
-                        .bindPopup("<b><img src='img/ipea-p.png' alt=''></b><br />").openPopup();
+                        .bindPopup("<b><img src='imagens/favicons/64x64-{{$favicons->imagem}}' alt=''></b><br />").openPopup();
 
                 </script>
                 <br><br><br>
