@@ -25,7 +25,6 @@ class Map extends React.Component{
 
     componentDidMount(){
         this.setState({mymap: L.map(this.props.mapId).setView([-14, -52], 4)}, function(){
-            //let tileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJwYXNzb3MiLCJhIjoiY2l4N3l0bXF0MDFiczJ6cnNwODN3cHJidiJ9.qnfh8Jfn_be6gpo774j_nQ', {
             let tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 18,
                 attribution: '<div class="print-off" style="float:right;">&nbsp;Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
