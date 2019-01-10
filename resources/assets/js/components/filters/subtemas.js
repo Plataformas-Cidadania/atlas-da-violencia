@@ -40,7 +40,7 @@ class Subtema extends React.Component{
         this.setState({id: id, loading: true});
         let promise = this.loadSubtemas(id).success(function(data){
             if(data.length && this.state.id != this.state.tema_id){//this.state.id != this.state.tema_id é para que ao selecionar todos no subtema não crie outro subtema repetido
-                let subtema = <Subtema setTema={this.props.setTema} tema_id={id}/>;
+                let subtema = <Subtema setTema={this.props.setTema} tema_id={id} tipo={this.state.tipo} />;
                 this.setState({componentSubtema: subtema});
             }else{
                 this.setState({componentSubtema: null});
