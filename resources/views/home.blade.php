@@ -125,7 +125,7 @@
                 <div class="row text-center">
                     <div class="col-md-12 space-top">
                         <a href="noticias/veja-todas-as-noticias" role="button">
-                            <button class="btn btn-sec btn-padding btn-base">@lang('buttons.view-more') @lang('links.news')</button>
+                            <button class="btn btn-sec btn-padding btn-base" style="font-size: 14px;">@lang('buttons.view-more') @lang('links.news')</button>
                         </a>
                     </div>
                 </div>
