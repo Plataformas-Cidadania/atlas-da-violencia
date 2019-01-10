@@ -37,7 +37,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
         $.ajax("home-chart/<?php echo $setting->serie_id;?>", {
             data: {},
             success: function(data){
-                //console.log(data);
+                console.log(data);
                 homeChart(data, '<?php echo $series->titulo;?>');
                 ctx = document.getElementById("canvas").getContext("2d");
                 window.myLine = new Chart(ctx, config);
