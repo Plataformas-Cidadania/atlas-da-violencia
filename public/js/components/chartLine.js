@@ -29,7 +29,6 @@ class ChartLine extends React.Component {
         if (this.state.min != props.min || this.state.max != props.max || this.state.intervalos != props.intervalos || this.state.regions != props.regions || this.state.abrangencia != props.abrangencia) {
             this.setState({ min: props.min, max: props.max, intervalos: props.intervalos, regions: props.regions, abrangencia: props.abrangencia }, function () {
                 if (myChartLine) {
-                    console.log("Teste: " + myChartLine);
                     this.chartDestroy();
                 }
                 if (this.state.min && this.state.max) {
@@ -237,6 +236,7 @@ class ChartLine extends React.Component {
             meta.hidden = meta.hidden === null ? !myChartLine.data.datasets[index].hidden : null;
 
             // We hid a dataset ... rerender the chart
+            myChartLine.destroy();
             myChartLine.update();
 
             //console.log(myChartLine.data.datasets[$(this).index()]);
