@@ -737,6 +737,19 @@ class SerieController extends Controller
             ->orderBy('valores_series.periodo')
             ->get();
 
+        //senão encontrar a abrangência países irá pesquisar na abrangência ufs.
+        if(count($rows) == 0){
+            $rows = DB::table('valores_series')
+                ->select(DB::raw("spat.ed_territorios_uf.edterritorios_nome, valores_series.valor, valores_series.periodo"))
+                ->join('spat.ed_territorios_uf', 'valores_series.regiao_id', '=', 'spat.ed_territorios_uf.edterritorios_codigo')
+                ->where([
+                    ['valores_series.serie_id', $id],
+                    ['valores_series.tipo_regiao', 3]
+                ])
+                ->orderBy('valores_series.periodo')
+                ->get();
+        }
+
         $data = [];
 
         foreach($rows as $row){
