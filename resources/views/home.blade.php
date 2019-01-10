@@ -175,4 +175,3 @@
     </article>
 
 @endsection
-
