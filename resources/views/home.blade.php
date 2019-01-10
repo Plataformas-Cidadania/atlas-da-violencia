@@ -148,6 +148,7 @@
         {{--END BEM VINDO--}}
 
         {{--STRAT PARCEIROS--}}
+        {{$parceiros}}
         @if(count($parceiros) > 0)
             <br><br>
         <div class="container">
