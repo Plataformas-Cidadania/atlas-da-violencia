@@ -78,7 +78,7 @@ class Subtema extends React.Component {
     loadSubtemas(id) {
         return $.ajax({
             method: 'GET',
-            url: 'get-temas/' + id,
+            url: 'get-temas/' + id + '/' + this.state.tipo,
             cache: false
         });
     }
