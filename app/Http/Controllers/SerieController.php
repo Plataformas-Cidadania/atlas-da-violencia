@@ -216,37 +216,36 @@ class SerieController extends Controller
 
         //$regions = explode(',', $request->regions);
 
+        //Log::info('lang: '.$lang);
 
-        Log::info('lang: '.$lang);
+        //Log::info('SERIE_ID: '.$serie_id);
 
-        Log::info('SERIE_ID: '.$serie_id);
-
-        Log::info('###SERIES##################################################');
-        Log::info($serie);
-        Log::info('###########################################################');
+        //Log::info('###SERIES##################################################');
+        //Log::info($serie);
+        //Log::info('###########################################################');
 
         //$abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
         $abrangenciasSettings = \App\Setting::find(1)->padrao_abrangencia;
         $abrangencias = explode(',', $abrangenciasSettings);
 
-        Log::info('###PADRÃO ABRANGENCIAS#####################################');
-        Log::info($abrangencias);
-        Log::info('###########################################################');
+        //Log::info('###PADRÃO ABRANGENCIAS#####################################');
+        //Log::info($abrangencias);
+        //Log::info('###########################################################');
 
         $indiceAbrangencia = 0;
         $abrangencia = $abrangencias[$indiceAbrangencia];
 
-        Log::info('###ABRANGÊNCIA#############################################');
-        Log::info($abrangencia);
-        Log::info('###########################################################');
+        //Log::info('###ABRANGÊNCIA#############################################');
+        //Log::info($abrangencia);
+        //Log::info('###########################################################');
 
 
         //alem de pegar os valores de from e to também serve para verificar se existem valores nesta abrangência
         $fromTo = $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $serie_id);
 
-        Log::info('###FROM TO#################################################');
-        Log::info($fromTo);
-        Log::info('###########################################################');
+        //Log::info('###FROM TO#################################################');
+        //Log::info($fromTo);
+        //Log::info('###########################################################');
 
         //senão existe valores em nenhuma das abrangências pesquisadas.
         if($fromTo==0){

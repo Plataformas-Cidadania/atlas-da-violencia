@@ -86,6 +86,7 @@
         @endif
 
         {{--STRAT INDICE--}}
+        {{$indeces}}
         @if(!empty($indices))
         <br><br>
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
@@ -115,7 +116,7 @@
             <div class="row">
                 <h2 class="box-titulo">@lang('links.news')</h2>
                 @foreach($noticias as $noticia)
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <a href="noticia/{{$noticia->id}}/{{clean($noticia->titulo)}}" aria-label="{{$noticia->titulo}}, {{str_limit(strip_tags($noticia->descricao), 180)}}, continue lendo a matéria">
                             <h3 class="h3-m">{{$noticia->titulo}}</h3>
                             <p>{{str_limit(strip_tags($noticia->descricao), 180)}}</p>
