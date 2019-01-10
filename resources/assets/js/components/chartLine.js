@@ -250,7 +250,6 @@ class ChartLine extends React.Component{
             meta.hidden = meta.hidden === null? !myChartLine.data.datasets[index].hidden : null;
 
             // We hid a dataset ... rerender the chart
-            myChartLine.destroy();
             myChartLine.update();
 
             //console.log(myChartLine.data.datasets[$(this).index()]);
@@ -263,6 +262,7 @@ class ChartLine extends React.Component{
 
     chartDestroy(){
         if(myChartLine){
+            console.log('teste'+myChartLine);
             myChartLine.destroy();
         }
 
