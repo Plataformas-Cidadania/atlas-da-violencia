@@ -247,7 +247,6 @@ class ChartLine extends React.Component {
 
     chartDestroy() {
         if (myChartLine) {
-            console.log('teste' + myChartLine);
             myChartLine.destroy();
         }
 
