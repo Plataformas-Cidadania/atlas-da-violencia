@@ -655,10 +655,12 @@ function getColor(d, intervalos) {
 
     var qtdIntervalos = intervalos.length;
     for(var i=qtdIntervalos-1; i>=0; i--){
+        console.log('d/intervalos', d, intervalos[i]);
         if(d > intervalos[i]){
-            //console.log(colors[i]);
+            console.log('dentro if', colors[i]);
             return colors[i];
         }
+        console.log('fora do if', colors[0]);
         return colors[0];
     }
 }
