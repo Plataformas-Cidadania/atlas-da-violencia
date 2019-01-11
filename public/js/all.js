@@ -652,17 +652,15 @@ function getColor(d, intervalos) {
 
     var colors = ['#4285F4', '#689DF6', '#8EB6F8', '#B3CEFB', '#F6D473', '#F1B567', '#ED965B', '#E87850',  '#E45A45',  '#E0433C'];
 
-    console.log(intervalos);
     var qtdIntervalos = intervalos.length;
-    for(let i=qtdIntervalos-1; i>=0; i--){
-        console.log('d/i/intervalos', i, d, intervalos[i]);
+    for(var i=qtdIntervalos-1; i>=0; i--){
         if(d > intervalos[i]){
-            console.log('dentro if', colors[i]);
             return colors[i];
         }
-        console.log('fora do if', colors[0]);
-        return colors[0];
     }
+
+    return colors[0];
+
 }
 
 // Ion.RangeSlider
