@@ -654,7 +654,7 @@ function getColor(d, intervalos) {
 
     console.log(intervalos);
     var qtdIntervalos = intervalos.length;
-    for(var i=qtdIntervalos-1; i>=0; i--){
+    for(let i=qtdIntervalos-1; i>=0; i--){
         console.log('d/i/intervalos', i, d, intervalos[i]);
         if(d > intervalos[i]){
             console.log('dentro if', colors[i]);
