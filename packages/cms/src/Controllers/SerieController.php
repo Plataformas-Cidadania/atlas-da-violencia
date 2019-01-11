@@ -455,7 +455,7 @@ class SerieController extends Controller
 
             $periodo = trim($row['periodo']);
             if($periodicidade==2 || $periodicidade==3 || $periodicidade==4){
-                $periodo = trim($row['periodo'])."-01";
+                $periodo = trim($row['periodo'])."-15";
             }
             if($periodicidade==1){//Anual
                 $periodo = trim($row['periodo'])."-01-15";
