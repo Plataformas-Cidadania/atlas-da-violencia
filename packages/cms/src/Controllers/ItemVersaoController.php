@@ -20,7 +20,7 @@ class ItemVersaoController extends Controller
     {
         $this->item = new \App\ItemVersao();
         $this->campos = [
-            'imagem', 'arquivo', 'tipo_id', 'integrante_id', 'versao_id', 'cmsuser_id',
+            'imagem', 'arquivo', 'tipo_id', 'integrante_id', 'funcao', 'versao_id', 'cmsuser_id',
         ];
         $this->pathImagem = public_path().'/imagens/items-versao';
         $this->sizesImagem = [

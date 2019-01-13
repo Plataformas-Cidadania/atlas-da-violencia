@@ -6,12 +6,21 @@ class ListValoresSeries extends React.Component {
             min: this.props.min,
             max: this.props.max,
             loading: true,
+            columns: [],
             columnsTd: null,
             dataTable: null,
-            abrangencia: null
+            abrangencia: null,
+            slider: {},
+            firstLoad: true,
+            maxShowColumns: 5,
+            showAllColumns: false,
+            columnFrom: null,
+            columnTo: null
         };
         //this.loadData = this.loadData.bind(this);
         this.generateTable = this.generateTable.bind(this);
+        this.loadRange = this.loadRange.bind(this);
+        this.updateRange = this.updateRange.bind(this);
     }
 
     componentDidMount() {
@@ -66,6 +75,68 @@ class ListValoresSeries extends React.Component {
         return colors;
     }
 
+    loadRange() {
+        let _this = this;
+
+        let columns = this.state.columns;
+
+        //console.log('loadRange columns', columns);
+
+        //console.log(_this.props.from);
+        //console.log(_this.props.to);
+        $("#rangeTable").ionRangeSlider({
+            values: columns,
+            hide_min_max: true,
+            //keyboard: true,
+            //min: 0,
+            //max: 5000,
+            from: columns[2],
+            to: columns[columns.length - 1],
+            type: 'double',
+            //step: 1,
+            prefix: "",
+            //postfix: " million pounds",
+            grid: true,
+            onStart: function (data) {
+                //console.log('start');
+            },
+            onChange: function (data) {
+                //console.log('change');
+            },
+            onFinish: function (data) {
+                //console.log('finish');
+
+
+            },
+            onUpdate: function (data) {
+                //console.log('update');
+            }
+
+        });
+
+        let slider = $("#rangeTable").data("ionRangeSlider");
+
+        this.setState({ slider: slider });
+    }
+
+    updateRange() {
+
+        let columns = this.state.columns;
+        columns.splice(0, 2);
+
+        //console.log('updateRange', columns);
+
+        for (let i in columns) {
+            columns[i] = formatPeriodicidade(columns[i], this.props.periodicidade);
+        }
+
+        this.state.slider.update({
+            values: columns,
+            from: columns[2],
+            to: columns[columns.length - 1]
+        });
+    }
+
     generateTable() {
 
         let labels = [];
@@ -76,13 +147,40 @@ class ListValoresSeries extends React.Component {
         let data = this.state.valores;
         let currentPer = null;
 
-        //////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////
         let columns = [];
-        columns.push(null);
-        columns.push(this.props.nomeAbrangencia);
         let values = [];
         let colors = this.getColors();
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+
+        //Preencher labels com os períodos
+        //contLabel = 2;
+        for (let region in data) {
+            for (let periodo in data[region]) {
+                if (!columns.includes(periodo)) {
+                    columns[contLabel] = periodo;
+                    contLabel++;
+                }
+            }
+        }
+
+        //Ordenar os períodos
+        columns.sort();
+
+        //console.log('generateTable columns', columns);
+
+
+        //columns[0] = null;
+        //columns[1] = this.props.nomeAbrangencia;
+
+        columns.unshift(null, this.props.nomeAbrangencia);
+
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+
 
         for (let region in data) {
 
@@ -97,9 +195,9 @@ class ListValoresSeries extends React.Component {
             for (let periodo in data[region]) {
                 //console.log('##########', periodo);
                 //console.log('>>>>>>>>', columns.indexOf(periodo));
-                if (columns.indexOf(periodo) == -1) {
+                /*if(columns.indexOf(periodo) == -1){
                     columns.push(periodo);
-                }
+                }*/
                 register[periodo] = data[region][periodo];
             }
 
@@ -124,15 +222,39 @@ class ListValoresSeries extends React.Component {
             //console.log('DATASETS[REGISTER] DEPOIS', datasets[register]);
         }
 
+        let columnFrom = 1998;
+        let columnTo = 2008;
+
+        for (let i in columns) {
+            if (i >= 2 && (columns[i] < columnFrom || columns[i] > columnTo)) {
+                columns.splice(i, 1);
+            }
+        }
+
+        //console.log(columns);
+
+        let qtdColumns = columns.length;
+        let maxColumns = this.state.maxShowColumns;
+
+        let intervalo = parseInt(qtdColumns / maxColumns);
+        let i = 3;
+
         let columnsTd = columns.map(function (column, index) {
 
-            if (index >= 2) {
-                column = formatPeriodicidade(column, this.props.periodicidade);
+            /*let show = index == i || index < 3 || index == columns.length-1;
+              if(show && index >= 3 ){
+                i = i + intervalo;
             }
+              if(index >= 2){
+                column = formatPeriodicidade(column, this.props.periodicidade);
+            }*/
+
+            let show = true;
+            column = formatPeriodicidade(column, this.props.periodicidade);
 
             return React.createElement(
-                'th',
-                { key: "col_list_" + index, style: { textAlign: 'right', fontWeight: 'bold' } },
+                "th",
+                { key: "col_list_" + index, style: { textAlign: 'right', fontWeight: 'bold', display: show ? '' : 'none' } },
                 column
             );
         }.bind(this));
@@ -162,26 +284,26 @@ class ListValoresSeries extends React.Component {
                 }
 
                 let td = React.createElement(
-                    'td',
+                    "td",
                     { key: "valor_tabela_" + index + '_' + column, className: classValor },
                     valor
                 );
 
                 if (i == 0) {
                     td = React.createElement(
-                        'th',
-                        { key: "valor_tabela_" + index + '_' + column, width: '10px' },
+                        "th",
+                        { key: "valor_tabela_" + index + '_' + column, width: "10px" },
                         React.createElement(
-                            'i',
-                            { className: 'fa fa-square', style: { color: item['legend'] } },
-                            ' '
+                            "i",
+                            { className: "fa fa-square", style: { color: item['legend'] } },
+                            " "
                         )
                     );
                 }
 
                 if (i == 1) {
                     td = React.createElement(
-                        'th',
+                        "th",
                         { key: "valor_tabela_" + index + '_' + column },
                         item['region']
                     );
@@ -191,75 +313,87 @@ class ListValoresSeries extends React.Component {
             }
 
             return React.createElement(
-                'tr',
+                "tr",
                 { key: "col_valores_" + index },
                 valores
             );
         }.bind(this));
 
-        this.setState({ columnsTd: columnsTd, dataTable: dataTable, loading: false });
+        this.setState({ columns: columns, columnsTd: columnsTd, dataTable: dataTable, loading: false }, function () {
+            this.loadRange();
+            if (!this.state.firstLoad) {
+                this.updateRange();
+            }
+            this.setState({ firstLoad: false });
+        });
     }
 
     render() {
         if (!this.state.valores) {
             return React.createElement(
-                'h3',
+                "h3",
                 null,
-                'Sem Resultados'
+                "Sem Resultados"
             );
         }
 
         //console.log(this.state.columnsTd);
 
         return React.createElement(
-            'div',
+            "div",
             null,
             React.createElement(
-                'div',
-                { style: { display: this.state.loading || !this.state.dataTable ? '' : 'none' }, className: 'text-center' },
-                React.createElement('i', { className: 'fa fa-spin fa-spinner fa-4x' })
+                "div",
+                { style: { display: this.state.loading || !this.state.dataTable ? '' : 'none' }, className: "text-center" },
+                React.createElement("i", { className: "fa fa-spin fa-spinner fa-4x" })
             ),
             React.createElement(
-                'div',
+                "div",
                 { style: { display: this.state.loading || !this.state.dataTable ? 'none' : '' } },
                 React.createElement(
-                    'div',
-                    { className: 'Container' },
+                    "div",
+                    { className: "Container" },
                     React.createElement(
-                        'div',
-                        { className: 'Content', style: { overflowY: 'auto', maxHeight: '600px' } },
+                        "div",
+                        { className: "Content", style: { overflowY: 'auto', maxHeight: '600px' } },
                         React.createElement(
-                            'table',
-                            { className: 'table table-striped table-bordered', id: 'listValoresSeries' },
+                            "div",
+                            { style: { margin: '0 10px', display: 'none' } },
+                            React.createElement("input", { type: "text", id: "rangeTable", value: this.state.min + ';' + this.state.max, name: "rangeTable", onChange: this.change }),
+                            React.createElement("br", null)
+                        ),
+                        React.createElement(
+                            "table",
+                            { className: "table table-striped table-bordered", id: "listValoresSeries" },
                             React.createElement(
-                                'thead',
+                                "thead",
                                 null,
                                 React.createElement(
-                                    'tr',
+                                    "tr",
                                     null,
                                     this.state.columnsTd
                                 )
                             ),
                             React.createElement(
-                                'tbody',
+                                "tbody",
                                 null,
                                 this.state.dataTable
                             )
                         )
                     )
                 ),
-                React.createElement('br', null),
+                React.createElement("br", null),
                 React.createElement(
-                    'div',
+                    "div",
                     { style: { float: 'right', marginLeft: '5px' } },
-                    React.createElement(Download, { btnDownload: 'downloadListValoresSeries', divDownload: 'listValoresSeries', arquivo: 'tabela.png' })
+                    React.createElement(Download, { btnDownload: "downloadListValoresSeries", divDownload: "listValoresSeries", arquivo: "tabela.png" })
                 ),
                 React.createElement(
-                    'div',
+                    "div",
                     { style: { float: 'right', marginLeft: '5px' } },
-                    React.createElement(Print, { divPrint: 'listValoresSeries', imgPrint: 'imgPrintList' })
+                    React.createElement(Print, { divPrint: "listValoresSeries", imgPrint: "imgPrintList" })
                 ),
-                React.createElement('div', { style: { clear: 'both' } })
+                React.createElement("div", { style: { clear: 'both' } })
             )
         );
     }

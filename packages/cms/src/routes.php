@@ -22,6 +22,16 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-quemsomo/{id}', 'Cms\Controllers\QuemsomoController@alterar');
         Route::get('/cms/excluir-quemsomo/{id}', 'Cms\Controllers\QuemsomoController@excluir');
 
+        //MENSAGEM
+        Route::get('/cms/mensagens', 'Cms\Controllers\MensagemController@index');
+        Route::get('/cms/mensagens/{origem}', 'Cms\Controllers\MensagemController@index');
+        Route::get('/cms/listar-mensagens', 'Cms\Controllers\MensagemController@listar');
+        Route::post('/cms/inserir-mensagem', 'Cms\Controllers\MensagemController@inserir');
+        Route::get('/cms/mensagem/{id}', 'Cms\Controllers\MensagemController@detalhar');
+        Route::post('/cms/alterar-mensagem/{id}', 'Cms\Controllers\MensagemController@alterar');
+        Route::get('/cms/excluir-mensagem/{id}', 'Cms\Controllers\MensagemController@excluir');
+        Route::get('/cms/status-mensagem/{id}', 'Cms\Controllers\MensagemController@status');
+
         //WEBDOORS
         Route::get('/cms/webdoors', 'Cms\Controllers\WebdoorController@index');
         Route::get('/cms/listar-webdoors', 'Cms\Controllers\WebdoorController@listar');
@@ -32,6 +42,7 @@ Route::group(['middleware' => 'cms'], function () {
 
         //DOWNLOADS
         Route::get('/cms/downloads', 'Cms\Controllers\DownloadController@index');
+        Route::get('/cms/downloads/{origem}/{origem_id}', 'Cms\Controllers\DownloadController@index');
         Route::get('/cms/listar-downloads', 'Cms\Controllers\DownloadController@listar');
         Route::post('/cms/inserir-download', 'Cms\Controllers\DownloadController@inserir');
         Route::get('/cms/download/{id}', 'Cms\Controllers\DownloadController@detalhar');
@@ -104,6 +115,22 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/idioma-unidade/{id}', 'Cms\Controllers\IdiomaUnidadeController@detalhar');
         Route::post('/cms/alterar-idioma-unidade/{id}', 'Cms\Controllers\IdiomaUnidadeController@alterar');
         Route::get('/cms/excluir-idioma-unidade/{id}', 'Cms\Controllers\IdiomaUnidadeController@excluir');
+
+        //IDIOMAS OPTIOSN ABRANGENCIAS
+        Route::get('/cms/idiomas-options-abrangencias/{option_abrangencia_id}', 'Cms\Controllers\IdiomaOptionAbrangenciaController@index');
+        Route::get('/cms/listar-idiomas-options-abrangencias', 'Cms\Controllers\IdiomaOptionAbrangenciaController@listar');
+        Route::post('/cms/inserir-idioma-option-abrangencia', 'Cms\Controllers\IdiomaOptionAbrangenciaController@inserir');
+        Route::get('/cms/idioma-option-abrangencia/{id}', 'Cms\Controllers\IdiomaOptionAbrangenciaController@detalhar');
+        Route::post('/cms/alterar-idioma-option-abrangencia/{id}', 'Cms\Controllers\IdiomaOptionAbrangenciaController@alterar');
+        Route::get('/cms/excluir-idioma-option-abrangencia/{id}', 'Cms\Controllers\IdiomaOptionAbrangenciaController@excluir');
+
+        //FILTERS OPTIOSN ABRANGENCIAS
+        Route::get('/cms/filters-options-abrangencias/{option_abrangencia_id}', 'Cms\Controllers\FilterOptionAbrangenciaController@index');
+        Route::get('/cms/listar-filters-options-abrangencias', 'Cms\Controllers\FilterOptionAbrangenciaController@listar');
+        Route::post('/cms/inserir-filter-option-abrangencia', 'Cms\Controllers\FilterOptionAbrangenciaController@inserir');
+        Route::get('/cms/filter-option-abrangencia/{id}', 'Cms\Controllers\FilterOptionAbrangenciaController@detalhar');
+        Route::post('/cms/alterar-filter-option-abrangencia/{id}', 'Cms\Controllers\FilterOptionAbrangenciaController@alterar');
+        Route::get('/cms/excluir-filter-option-abrangencia/{id}', 'Cms\Controllers\FilterOptionAbrangenciaController@excluir');
 
         //IDIOMAS PERIODICIDADES
         Route::get('/cms/idiomas-periodicidades/{periodicidade_id}', 'Cms\Controllers\IdiomaPeriodicidadeController@index');
@@ -224,6 +251,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/idioma/{id}', 'Cms\Controllers\IdiomaController@detalhar');
         Route::post('/cms/alterar-idioma/{id}', 'Cms\Controllers\IdiomaController@alterar');
         Route::get('/cms/excluir-idioma/{id}', 'Cms\Controllers\IdiomaController@excluir');
+        Route::get('/cms/status-idioma/{id}', 'Cms\Controllers\IdiomaController@status');
 
         //UNIDADES
         Route::get('/cms/unidades', 'Cms\Controllers\UnidadeController@index');
@@ -232,6 +260,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/unidade/{id}', 'Cms\Controllers\UnidadeController@detalhar');
         Route::post('/cms/alterar-unidade/{id}', 'Cms\Controllers\UnidadeController@alterar');
         Route::get('/cms/excluir-unidade/{id}', 'Cms\Controllers\UnidadeController@excluir');
+
+        //OPTIONS ABRANGENCIAS
+        Route::get('/cms/options-abrangencias', 'Cms\Controllers\OptionAbrangenciaController@index');
+        Route::get('/cms/listar-options-abrangencias', 'Cms\Controllers\OptionAbrangenciaController@listar');
+        Route::post('/cms/inserir-option-abrangencia', 'Cms\Controllers\OptionAbrangenciaController@inserir');
+        Route::get('/cms/option-abrangencia/{id}', 'Cms\Controllers\OptionAbrangenciaController@detalhar');
+        Route::post('/cms/alterar-option-abrangencia/{id}', 'Cms\Controllers\OptionAbrangenciaController@alterar');
+        Route::get('/cms/excluir-option-abrangencia/{id}', 'Cms\Controllers\OptionAbrangenciaController@excluir');
 
         //PERIODICIDADES
         Route::get('/cms/periodicidades', 'Cms\Controllers\PeriodicidadeController@index');
@@ -256,6 +292,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/fonte/{id}', 'Cms\Controllers\FonteController@detalhar');
         Route::post('/cms/alterar-fonte/{id}', 'Cms\Controllers\FonteController@alterar');
         Route::get('/cms/excluir-fonte/{id}', 'Cms\Controllers\FonteController@excluir');
+
+        //PADRAO TERRITORIOS
+        Route::get('/cms/padrao-territorios', 'Cms\Controllers\PadraoTerritorioController@index');
+        Route::get('/cms/listar-padrao-territorios', 'Cms\Controllers\PadraoTerritorioController@listar');
+        Route::post('/cms/inserir-padrao-territorio', 'Cms\Controllers\PadraoTerritorioController@inserir');
+        Route::get('/cms/padrao-territorio/{id}', 'Cms\Controllers\PadraoTerritorioController@detalhar');
+        Route::post('/cms/alterar-padrao-territorio/{id}', 'Cms\Controllers\PadraoTerritorioController@alterar');
+        Route::get('/cms/excluir-padrao-territorio/{id}', 'Cms\Controllers\PadraoTerritorioController@excluir');
 
         //FILTROS
         Route::get('/cms/filtros', 'Cms\Controllers\FiltroController@index');
@@ -298,6 +342,8 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/webindicador/{id}', 'Cms\Controllers\WebindicadorController@detalhar');
         Route::post('/cms/alterar-webindicador/{id}', 'Cms\Controllers\WebindicadorController@alterar');
         Route::get('/cms/excluir-webindicador/{id}', 'Cms\Controllers\WebindicadorController@excluir');
+        Route::get('/cms/positionUp-webindicador/{id}', 'Cms\Controllers\WebindicadorController@positionUp');
+        Route::get('/cms/positionDown-webindicador/{id}', 'Cms\Controllers\WebindicadorController@positionDown');
         
         //CONSULTAS
         Route::get('/cms/consultas', 'Cms\Controllers\ConsultaController@index');
@@ -307,6 +353,8 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-consulta/{id}', 'Cms\Controllers\ConsultaController@alterar');
         Route::get('/cms/excluir-consulta/{id}', 'Cms\Controllers\ConsultaController@excluir');
         Route::get('/cms/status-consulta/{id}', 'Cms\Controllers\ConsultaController@status');
+        Route::get('/cms/positionUp-consulta/{id}', 'Cms\Controllers\ConsultaController@positionUp');
+        Route::get('/cms/positionDown-consulta/{id}', 'Cms\Controllers\ConsultaController@positionDown');
         
 
         //APOIOS
@@ -370,11 +418,13 @@ Route::group(['middleware' => 'cms'], function () {
 
         //Logs
         Route::get('/cms/logs', 'Cms\Controllers\LogController@index');
+        Route::get('/cms/download-log/{log}', 'Cms\Controllers\LogController@download');
 
 
         Route::get('/cms/id-seq', 'Cms\Controllers\LogController@id_seq');
 
-
+        Route::get('/cms/script', 'Cms\Controllers\ScriptController@index');
+        Route::post('/cms/run-script', 'Cms\Controllers\ScriptController@run');
 
 
 

@@ -37,6 +37,10 @@ elixir(function(mix) {
     //Quem Somos
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/quemsomoCtrl.js', 'public/assets-cms/js/controllers/quemsomoCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarQuemsomoCtrl.js', 'public/assets-cms/js/controllers/alterarQuemsomoCtrl.js');
+    
+    //Mensagens
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/mensagemCtrl.js', 'public/assets-cms/js/controllers/mensagemCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarMensagemCtrl.js', 'public/assets-cms/js/controllers/alterarMensagemCtrl.js');
 
     //Webdoor
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/webdoorCtrl.js', 'public/assets-cms/js/controllers/webdoorCtrl.js');
@@ -70,6 +74,14 @@ elixir(function(mix) {
     //Idiomas Unidades
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaUnidadeCtrl.js', 'public/assets-cms/js/controllers/idiomaUnidadeCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaUnidadeCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaUnidadeCtrl.js');
+
+    //Idiomas Options Abrangencias
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/idiomaOptionAbrangenciaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaOptionAbrangenciaCtrl.js');
+    
+    //Filters Options Abrangencias
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/filterOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/filterOptionAbrangenciaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFilterOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/alterarFilterOptionAbrangenciaCtrl.js');
 
     //Idiomas Periodicidades
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaPeriodicidadeCtrl.js', 'public/assets-cms/js/controllers/idiomaPeriodicidadeCtrl.js');
@@ -132,6 +144,10 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/unidadeCtrl.js', 'public/assets-cms/js/controllers/unidadeCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarUnidadeCtrl.js', 'public/assets-cms/js/controllers/alterarUnidadeCtrl.js');
 
+    //Options Abrangencias
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/optionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/optionAbrangenciaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/alterarOptionAbrangenciaCtrl.js');
+
     //Periodicidades
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/periodicidadeCtrl.js', 'public/assets-cms/js/controllers/periodicidadeCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarPeriodicidadeCtrl.js', 'public/assets-cms/js/controllers/alterarPeriodicidadeCtrl.js');
@@ -141,9 +157,9 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIndicadorCtrl.js', 'public/assets-cms/js/controllers/alterarIndicadorCtrl.js');
 
 
-    //Fontes
-    mix.scripts('../../../packages/cms/resources/assets/js/controllers/fonteCtrl.js', 'public/assets-cms/js/controllers/fonteCtrl.js');
-    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarFonteCtrl.js', 'public/assets-cms/js/controllers/alterarFonteCtrl.js');
+    //PadraoTerritorios
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/padraoTerritorioCtrl.js', 'public/assets-cms/js/controllers/padraoTerritorioCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarPadraoTerritorioCtrl.js', 'public/assets-cms/js/controllers/alterarPadraoTerritorioCtrl.js');
 
     //Filtros
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/filtroCtrl.js', 'public/assets-cms/js/controllers/filtroCtrl.js');

@@ -59,6 +59,7 @@ Route::post('busca-artigos/{origem_id}/{titulo}', 'ArtigoController@buscar');
 Route::post('busca-downloads/', 'DownloadController@buscar');
 Route::get('downloads/', 'DownloadController@listar');
 Route::get('downloads/{serie_id}/{titulo}', 'DownloadController@listar');
+Route::get('downloads/{origem}/{origem_id}', 'DownloadController@listar');
 Route::get('download/{id}', 'DownloadController@detalhar');
 Route::get('download/{id}/{titulo}', 'DownloadController@detalhar');
 
@@ -88,12 +89,16 @@ Route::get('filtros-series2/', 'FiltrosController@index');
 
 //Component Temas em components/filtros/pgFiltros
 Route::get('get-temas/{id}', 'FiltrosController@temas');
+Route::get('get-temas/{id}/{tipo}', 'FiltrosController@temas');
 Route::get('get-indicadores/{tema_id}', 'FiltrosController@indicadores');
 Route::get('get-abrangencias/{tema_id}', 'FiltrosController@abrangencias');
 Route::post('get-series/', 'FiltrosController@series');
 
 //Component
 Route::post('territorios/', 'SerieController@territorios');
+
+//Component AbrangenciaSerie
+Route::get('get-options-abrangencia/', 'SerieController@getOptionsAbrangencia');
 
 //Component RangePeriodo nas pg filtros e series
 //Route::get('periodos/{id}', 'MapController@periodos');

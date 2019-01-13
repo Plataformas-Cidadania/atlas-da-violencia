@@ -19,7 +19,35 @@ class SerieController extends Controller
 
     public function __construct(\Illuminate\Cache\Repository $cache){
         $this->indicadores = config('constants.indicadores');
-        $this->abrangencias = config('constants.abrangencias');
+
+        /*$this->abrangencias = config('constants.abrangencias');
+        Log::info('abrangencias CONSTANTS');
+        Log::info($this->abrangencias);*/
+
+        $lang =  App::getLocale();
+
+        $options = \DB::table('options_abrangencias')
+            ->select(
+                'options_abrangencias.id',
+                'idiomas_options_abrangencias.title',
+                'idiomas_options_abrangencias.plural',
+                'options_abrangencias.on',
+                'options_abrangencias.listAll',
+                'options_abrangencias.height'
+            )
+            ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
+            ->get();
+
+        foreach ($options as $option) {
+            $filters = DB::table('filters_options_abrangencias')->where('option_abrangencia_id', $option->id)->get();
+            if(count($filters) > 0){
+                $option->filter = $filters;
+            }
+        }
+
+        $this->abrangencias = json_decode(json_encode($options), true);
+
+
         $this->cache = $cache;
 
         $this->tabelas = [
@@ -172,25 +200,52 @@ class SerieController extends Controller
 
     public function dataSeries($serie_id){
         $lang =  App::getLocale();
+        $setting = DB::table('settings')->orderBy('id', 'desc')->first();
 
-
-        $serie = \App\Serie::select('series.id', 'textos_series.*', 'periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
+        $serie = \App\Serie::select('series.id', 'textos_series.*', 'idiomas_periodicidades.titulo as periodicidade', 'fontes.titulo as fonte', 'idiomas_unidades.titulo as unidade', 'unidades.tipo as tipo_unidade')
             ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
             ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
+            ->join('idiomas_periodicidades', 'idiomas_periodicidades.periodicidade_id', '=', 'periodicidades.id')
             ->join('fontes', 'fontes.id', '=', 'series.fonte_id')
             ->join('unidades', 'unidades.id', '=', 'series.unidade')
+            ->join('idiomas_unidades', 'idiomas_unidades.unidade_id', '=', 'unidades.id')
             ->where('textos_series.idioma_sigla', $lang)
+            ->where('idiomas_periodicidades.idioma_sigla', $lang)
+            ->where('idiomas_unidades.idioma_sigla', $lang)
             ->where('series.id', $serie_id)->first();
 
         //$regions = explode(',', $request->regions);
 
-        $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+        //Log::info('lang: '.$lang);
+
+        //Log::info('SERIE_ID: '.$serie_id);
+
+        //Log::info('###SERIES##################################################');
+        //Log::info($serie);
+        //Log::info('###########################################################');
+
+        //$abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+        $abrangenciasSettings = \App\Setting::find(1)->padrao_abrangencia;
+        $abrangencias = explode(',', $abrangenciasSettings);
+
+        //Log::info('###PADRÃO ABRANGENCIAS#####################################');
+        //Log::info($abrangencias);
+        //Log::info('###########################################################');
+
         $indiceAbrangencia = 0;
         $abrangencia = $abrangencias[$indiceAbrangencia];
+
+        //Log::info('###ABRANGÊNCIA#############################################');
+        //Log::info($abrangencia);
+        //Log::info('###########################################################');
 
 
         //alem de pegar os valores de from e to também serve para verificar se existem valores nesta abrangência
         $fromTo = $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $serie_id);
+
+        //Log::info('###FROM TO#################################################');
+        //Log::info($fromTo);
+        //Log::info('###########################################################');
 
         //senão existe valores em nenhuma das abrangências pesquisadas.
         if($fromTo==0){
@@ -215,6 +270,8 @@ class SerieController extends Controller
             'regions' => $regions,
             'abrangencia' => $abrangencia,
             'abrangenciasOk' => $abrangenciasOk,
+            'abrangencias' => $this->abrangencias,
+            'setting' => $setting,
         ]);
     }
 
@@ -265,11 +322,24 @@ class SerieController extends Controller
 
     }
 
+    private function getPadraoTerritorios(){
+
+        $padraoTerritoriosDB = DB::table('padrao_territorios')->get();
+
+        $padraoTerritorios = [];
+
+        foreach ($padraoTerritoriosDB as $padraoTerritorioDB) {
+            $padraoTerritorios[$padraoTerritorioDB->option_abrangencia_id] = explode(',', $padraoTerritorioDB->territorios);
+        }
+
+        return $padraoTerritorios;
+    }
+
     private function getRegions($abrangencia){
-        $padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+        //$padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+        $padraoTerritorios = $this->getPadraoTerritorios();
+
         $regions = $padraoTerritorios[$abrangencia];
-
-
 
         //se a abrangência for de municipio então irá pegar os municipios de um determinado estado se o codigo nao for 0
         if($abrangencia==4){
@@ -543,12 +613,45 @@ class SerieController extends Controller
         return view('serie.ipea-selecao');
     }
 
+    public function getOptionsAbrangencia(){
+        //$options = Config::get('constants.abrangencias');
 
+        $lang =  App::getLocale();
+
+        $options = \DB::table('options_abrangencias')
+            ->select(
+                'options_abrangencias.id',
+                'idiomas_options_abrangencias.title',
+                'idiomas_options_abrangencias.plural',
+                'options_abrangencias.on',
+                'options_abrangencias.listAll',
+                'options_abrangencias.height'
+                )
+            ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
+            ->get();
+
+        foreach ($options as $option) {
+            $filters = DB::table('filters_options_abrangencias')->where('option_abrangencia_id', $option->id)->get();
+            if(count($filters) > 0){
+                $option->filter = $filters;
+            }
+        }
+
+        return $options;
+    }
 
     public function territorios(Request $request){
 
         //return $request->all();
         //return $request->parameters['option'];
+
+        $padraoTerritorios = $this->getPadraoTerritorios();
+        $ufs = $padraoTerritorios[4];
+
+
+        if(!array_key_exists('option', $request->parameters)){
+            return [];
+        }
 
         $tipo = $request->parameters['option']['id'];
         $list = $request->parameters['option']['listAll'];
@@ -603,6 +706,9 @@ class SerieController extends Controller
                         ->where('valores_series.serie_id', $conditions['id'])
                         ->where('valores_series.tipo_regiao', $tipo);
                 })
+                ->when($tipo == 4, function($query) use ($ufs){
+                    return $query->whereIn('spat.ed_territorios_municipios.edterritorios_sigla', $ufs);
+                })
                 ->distinct()
                 ->get();
             //Log::info(DB::getQueryLog());
@@ -630,6 +736,19 @@ class SerieController extends Controller
             ])
             ->orderBy('valores_series.periodo')
             ->get();
+
+        //senão encontrar a abrangência países irá pesquisar na abrangência ufs.
+        if(count($rows) == 0){
+            $rows = DB::table('valores_series')
+                ->select(DB::raw("spat.ed_territorios_uf.edterritorios_nome, valores_series.valor, valores_series.periodo"))
+                ->join('spat.ed_territorios_uf', 'valores_series.regiao_id', '=', 'spat.ed_territorios_uf.edterritorios_codigo')
+                ->where([
+                    ['valores_series.serie_id', $id],
+                    ['valores_series.tipo_regiao', 3]
+                ])
+                ->orderBy('valores_series.periodo')
+                ->get();
+        }
 
         $data = [];
 
@@ -735,7 +854,9 @@ class SerieController extends Controller
 
         $table = $this->tabelas[$abrangencia];
 
-        $padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+        //$padraoTerritorios = Config::get('constants.PADRAO_TERRITORIOS');
+        $padraoTerritorios = $this->getPadraoTerritorios();
+
         $uf = $padraoTerritorios[4];
 
         /*->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
@@ -797,7 +918,10 @@ class SerieController extends Controller
 
             //$regions = explode(',', $request->regions);
 
-            $abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+            //$abrangencias = Config::get('constants.PADRAO_ABRANGENCIA');
+            $abrangenciasSettings = \App\Setting::find(1)->padrao_abrangencia;
+            $abrangencias = explode(',', $abrangenciasSettings);
+
             $indiceAbrangencia = 0;
             $abrangencia = $abrangencias[$indiceAbrangencia];
 

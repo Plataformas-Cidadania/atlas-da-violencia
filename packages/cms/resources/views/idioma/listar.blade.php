@@ -97,6 +97,7 @@
                             <td><a href="cms/idioma/<% idioma.id %>"><% idioma.titulo %></a></td>
                             <td class="text-right">
                                 <div>
+                                    <a ng-class="<% idioma.status %> == 1 ? 'color-success' : 'color-success-inactive'"  style="cursor: pointer;"><i class="fa fa-check-circle fa-2x" aria-hidden="true" ng-click="status(idioma.id);"></i></a>
                                     <a href="cms/idioma/<% idioma.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(idioma.id, idioma.titulo, idioma.imagem)"></i></a>
                                 </div>

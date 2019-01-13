@@ -133,13 +133,13 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     </a>
                     {{----}}
 
-                    @if(count($ultimaArtigo)>0)
+                    @if(!empty($ultimaPostagem))
                     {{--TEXTO--}}
-                    <a href="" class="item" style="background-color: #ececec;">
-                        <h2 style="margin-top: 0;">{{$ultimaArtigo->titulo}}</h2>
-                        <div style="height: 100px; overflow: hidden;">{!! substr(strip_tags($ultimaArtigo->descricao), 0, 600)."..." !!}</div>
+                    <a href="artigo/{{$ultimaPostagem->id}}/{{clean($ultimaPostagem->titulo)}}" class="item" style="background-color: #ececec;">
+                        <h2 style="margin-top: 0;">{{$ultimaPostagem->titulo}}</h2>
+                        <div style="height: 100px; overflow: hidden;">{!! substr(strip_tags($ultimaPostagem->descricao), 0, 600)."..." !!}</div>
                         <br>
-                        <div href="artigo/{{$ultimaArtigo->id}}/{{clean($ultimaArtigo->titulo)}}" class="btn btn-info" >@lang('buttons.more-details')</div>
+                        <div class="btn btn-info" >@lang('buttons.more-details')</div>
                     </a>
                     {{----}}
                     @endif

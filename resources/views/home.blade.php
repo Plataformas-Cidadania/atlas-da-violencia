@@ -5,7 +5,7 @@
 
     <article>
         <br><br>
-        @if(count($links)>0)
+        @if(!empty($links))
         <div class="container block" data-move-x="500px">
             <div class="row">
                 <br><br>
@@ -57,7 +57,7 @@
         </div>
         @endif
 
-        @if(count($downloads)>0)
+        @if(!empty($downloads))
         <div class="container">
             <div class="row text-center">
                 @foreach($tituloLinhaTempo as $titulo)
@@ -86,7 +86,7 @@
         @endif
 
         {{--STRAT INDICE--}}
-        @if(count($indices)>0)
+        @if(count($indices) > 0)
         <br><br>
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
@@ -108,14 +108,13 @@
         @endif
         {{--END INDICE--}}
 
-
         {{--STRAT NOTICIAS--}}
-        @if(count($noticias)>0)
+        @if(!empty($noticias))
         <div class="container">
             <div class="row">
                 <h2 class="box-titulo">@lang('links.news')</h2>
                 @foreach($noticias as $noticia)
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <a href="noticia/{{$noticia->id}}/{{clean($noticia->titulo)}}" aria-label="{{$noticia->titulo}}, {{str_limit(strip_tags($noticia->descricao), 180)}}, continue lendo a matéria">
                             <h3 class="h3-m">{{$noticia->titulo}}</h3>
                             <p>{{str_limit(strip_tags($noticia->descricao), 180)}}</p>
@@ -125,7 +124,7 @@
                 <div class="row text-center">
                     <div class="col-md-12 space-top">
                         <a href="noticias/veja-todas-as-noticias" role="button">
-                            <button class="btn btn-sec btn-padding btn-base">@lang('buttons.view-more') @lang('links.news')</button>
+                            <button class="btn btn-sec btn-padding btn-base" style="font-size: 14px;">@lang('buttons.view-more') @lang('links.news')</button>
                         </a>
                     </div>
                 </div>
@@ -135,7 +134,7 @@
         {{--END NOTICIAS--}}
 
         {{--STRAT BEM VINDO--}}
-        @if(count($bemvindo)>0)
+        @if(!empty($bemvindo))
         <br><br>
         <div class="bg-qui" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
@@ -148,7 +147,7 @@
         {{--END BEM VINDO--}}
 
         {{--STRAT PARCEIROS--}}
-        @if(count($parceiros)>0)
+        @if(!empty($parceiros))
             <br><br>
         <div class="container">
             <div class="row">
@@ -176,5 +175,3 @@
     </article>
 
 @endsection
-
-

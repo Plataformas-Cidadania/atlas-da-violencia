@@ -24,7 +24,7 @@
             background: rgba(255,255,255,0.8);
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
-            width: 150px;
+            min-width: 150px;
         }
         .info h4 {
             margin: 0 0 5px;
@@ -278,7 +278,7 @@
     <div class="container">
 
         @if(!empty($series))
-            <?php $abrangencias = config('constants.abrangencias');?>
+            <?php //$abrangencias = config('constants.abrangencias');?>
             <script>
                 serie_id={{$id}};
                 serie="{!! $series->titulo !!}";
@@ -297,6 +297,12 @@
                         nomeAbrangencia="{!! $abr['title'] !!}";
                     @endif
                 @endforeach
+
+                posicao_mapa={{$setting->posicao_mapa}};
+                posicao_tabela={{$setting->posicao_tabela}};
+                posicao_grafico={{$setting->posicao_grafico}};
+                posicao_taxa={{$setting->posicao_taxa}};
+                posicao_metadados={{$setting->posicao_metadados}};
 
                 lang_map = "@lang('react.map')";
                 lang_table = "@lang('react.table')";
@@ -371,7 +377,7 @@
         {{--<button onclick="getData()">Carregar</button>--}}
     </div>
 
-
+    @if(!empty($series))
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 9999999999999999999999999999;">
         <div class="modal-dialog" role="document">
@@ -424,6 +430,7 @@
             </div>
         </div>
     </div>
+    @endif
 
 
 @endsection

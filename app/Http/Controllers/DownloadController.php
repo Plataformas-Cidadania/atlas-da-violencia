@@ -11,10 +11,15 @@ use Illuminate\Support\Facades\DB;
 
 class DownloadController extends Controller
 {
-    public function listar($serie_id = null){
+    public function listar($origem = null, $origem_id = null){
 
-        if($serie_id){
-            $downloads = \App\Download::where('origem_id', $serie_id)->orderBy('id', 'desc')->paginate(25);
+
+        /*if($serie_id){
+            $downloads = \App\Download::where('origem_id', $serie_id)->orderBy('id', 'desc')->paginate(25);*/
+
+        if($origem_id){
+            $downloads = \App\Download::where('origem', $origem)->where('origem_id', $origem_id)->orderBy('titulo')->paginate(25);
+
             return view('download.listar', ['downloads' => $downloads]);
         }
 

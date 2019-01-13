@@ -3,6 +3,7 @@ class PageFilters extends React.Component {
         super(props);
         this.state = {
             items: { data: [] },
+            tipo: props.tipo,
             tema: props.tema_id,
             search: '',
             currentPageListItems: 1,
@@ -52,7 +53,8 @@ class PageFilters extends React.Component {
 
     loadItems() {
         //console.log(this.state);
-        console.log(this.state.currentPageListItems);
+        //console.log(this.state.currentPageListItems);
+        //console.log(tipo);
         let emptyItems = { data: [] };
         this.setState({ items: emptyItems, loadingItems: true });
         $.ajax({
@@ -116,6 +118,7 @@ class PageFilters extends React.Component {
                             'div',
                             { style: { margin: '10px' } },
                             React.createElement(Temas, {
+                                tipo: this.state.tipo,
                                 tema_id: this.state.tema,
                                 setTema: this.setTema,
                                 lang_select_themes: this.props.lang_select_themes
@@ -165,6 +168,7 @@ class PageFilters extends React.Component {
 }
 
 ReactDOM.render(React.createElement(PageFilters, {
+    tipo: tipo,
     tema_id: tema_id,
     title: title,
     description: description,

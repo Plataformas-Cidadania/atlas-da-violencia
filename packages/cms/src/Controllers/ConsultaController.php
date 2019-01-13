@@ -21,7 +21,7 @@ class ConsultaController extends Controller
         $this->consulta = new \App\Consulta;
         $this->idiomaConsulta = new \App\IdiomaConsulta;
         $this->campos = [
-            'imagem', 'periodicidade_id', 'unidade_id', 'arquivo', 'titulo', 'url', 'cmsuser_id',
+            'imagem', 'periodicidade_id', 'unidade_id', 'arquivo', 'titulo', 'url', 'posicao', 'cmsuser_id',
         ];
         $this->pathImagem = public_path().'/imagens/consultas';
         $this->sizesImagem = [
@@ -85,6 +85,7 @@ class ConsultaController extends Controller
 
         $data['consulta']['unidade_id'] = 0;
         $data['consulta']['periodicidade_id'] = 0;
+        $data['consulta']['posicao'] = 0;
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
@@ -154,6 +155,10 @@ class ConsultaController extends Controller
     {
         $data = $request->all();
         $data['consulta'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
+
+        $data['consulta']['unidade_id'] = 0;
+        $data['consulta']['periodicidade_id'] = 0;
+        $data['consulta']['posicao'] = 0;
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
@@ -247,7 +252,37 @@ class ConsultaController extends Controller
 
     }
 
-    
+    public function positionUp($id)
+    {
+
+        $posicao_atual = DB::table('consultas')->where('id', $id)->first();
+        $upPosicao = $posicao_atual->posicao-1;
+        $posicao = $posicao_atual->posicao;
+
+        //Coloca com a posicao do anterior
+        DB::table('consultas')->where('posicao', $upPosicao)->update(['posicao' => $posicao]);
+
+        //atualiza a posicao para o anterior
+        DB::table('consultas')->where('id', $id)->update(['posicao' => $upPosicao]);
+
+
+    }
+
+    public function positionDown($id)
+    {
+
+        $posicao_atual = DB::table('consultas')->where('id', $id)->first();
+        $upPosicao = $posicao_atual->posicao+1;
+        $posicao = $posicao_atual->posicao;
+
+        //Coloca com a posicao do anterior
+        DB::table('consultas')->where('posicao', $upPosicao)->update(['posicao' => $posicao]);
+
+        //atualiza a posicao para o anterior
+        DB::table('consultas')->where('id', $id)->update(['posicao' => $upPosicao]);
+
+    }
+
 
 
 }

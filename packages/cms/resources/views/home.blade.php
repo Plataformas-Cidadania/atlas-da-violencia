@@ -23,6 +23,8 @@
     $series = DB::table('series')->count();
     $valoresSeries = DB::table('valores_series')->count();
 
+    $mensagensUltimas = DB::table('mensagens')->orderBy('id', 'desc')->take(10)->get();
+
     ?>
 
     {!! Html::script('assets-cms/js/controllers/alterarSettingCtrl.js') !!}
@@ -91,12 +93,32 @@
                     <h3>Últimas series cadastradas</h3>
                     <hr>
                     @foreach($seriesUltimas as $key => $serieUltima)
-                        <div class="rol">
+                        <div class="row">
                             <div class="col-md-8">{{$key}} - {{$serieUltima->titulo}}</div>
                             <div class="col-md-4 text-right">
                                 <a href="cms/textos-series/{{$serieUltima->id}}"><i class="fa fa-language " title="Idiomas"></i></a>&nbsp;&nbsp;
                                 <a href="cms/temas-series/{{$serieUltima->id}}"><i class="fa fa-folder-open " title="Temas"></i></a>&nbsp;&nbsp;
                                 <a href="cms/serie/{{$serieUltima->id}}"><i class="fa fa-edit " title="Editar"></i></a>&nbsp;&nbsp;
+                            </div>
+                            <div class="col-md-12">
+                                <hr style="margin: 5px;">
+                            </div>
+                        </div>
+                    @endforeach
+                    <br><br>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h3>Últimas mensagens</h3>
+                    <hr>
+
+                    @foreach($mensagensUltimas as $key => $mensagemUltima)
+                        <div class="row">
+                            <div class="col-md-8">{{$mensagemUltima->id}} - {{$mensagemUltima->origem}} - {{$mensagemUltima->nome}}</div>
+                            <div class="col-md-4 text-right">
+                                <a href="cms/mensagem/{{$mensagemUltima->id}}"><i class="fa fa-edit " title="Editar"></i></a>&nbsp;&nbsp;
                             </div>
                             <div class="col-md-12">
                                 <hr style="margin: 5px;">

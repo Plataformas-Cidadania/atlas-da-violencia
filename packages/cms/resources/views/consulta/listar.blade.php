@@ -100,6 +100,11 @@
                                 <i ng-if="ordem=='idiomas_consultas.idioma_sigla' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='idiomas_consultas.idioma_sigla' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
+                            {{--<th ng-click="ordernarPor('posicao')" style="parceiror:pointer;">
+                                Posição
+                                <i ng-if="ordem=='posicao' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
+                                <i ng-if="ordem=='posicao' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
+                            </th>--}}
                             <th></th>
                         </tr>
                         </thead>
@@ -109,8 +114,16 @@
                             {{--<td><img ng-show="consulta.imagem" ng-src="imagens/consultas/xs-<% consulta.imagem %>" width="60"></td>--}}
                             <td><a href="cms/consulta/<% consulta.id %>"><% consulta.titulo %></a></td>
                             <td><a href="cms/consulta/<% consulta.id %>"><% consulta.idioma_sigla %></a></td>
+                            {{--<td><a href="cms/parceiro/<% consulta.id %>"><% consulta.posicao %></a></td>--}}
                             <td class="text-right">
                                 <div>
+                                    {{--<a><i class="fa fa-arrow-circle-up fa-2x" title="Posição" ng-click="positionUp(consulta.id);" style="cursor: pointer;" ng-hide="<% $first %>"></i></a>
+                                    <a><i class="fa fa-minus-circle fa-2x" title="Posição"   ng-show="<% $first %>" style="color: #CCCCCC; margin-right: 5px;"></i></a>&nbsp;&nbsp;
+
+                                    <a><i class="fa fa-arrow-circle-down fa-2x" title="Posição" ng-click="positionDown(consulta.id);"  style="cursor: pointer;" ng-hide="<% $last %>"></i></a>
+                                    <a><i class="fa fa-minus-circle fa-2x" title="Posição"   ng-show="<% $last %>" style="color: #CCCCCC; margin-right: 5px;"></i></a>--}}
+                                    
+                                    <a href="cms/downloads/2/<% consulta.id %>"><i class="fa fa-file fa-2x" title="Arquivos para Download"></i></a>&nbsp;&nbsp;
                                     <a href="cms/idiomas-consultas/<% consulta.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/temas-consultas/<% consulta.id %>"><i class="fa fa-folder-open fa-2x" title="Temas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/consulta/<% consulta.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;

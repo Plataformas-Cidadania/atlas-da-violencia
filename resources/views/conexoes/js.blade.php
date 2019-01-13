@@ -37,7 +37,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
         $.ajax("home-chart/<?php echo $setting->serie_id;?>", {
             data: {},
             success: function(data){
-                //console.log(data);
+                console.log(data);
                 homeChart(data, '<?php echo $series->titulo;?>');
                 ctx = document.getElementById("canvas").getContext("2d");
                 window.myLine = new Chart(ctx, config);
@@ -137,6 +137,8 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
+
+    {{--<script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>--}}
 
 
     <script>

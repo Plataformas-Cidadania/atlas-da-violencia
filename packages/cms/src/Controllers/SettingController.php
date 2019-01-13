@@ -21,6 +21,7 @@ class SettingController extends Controller
             'descricao_contato', 'telefone', 'telefone2', 'telefone3', 'facebook', 'youtube', 'pinterest', 'twitter', 'cor1', 'cor2', 'cor3', 'cor4', 'cor5',
             'serie_id', 'email_host', 'email_port', 'email_address', 'email_name', 'email_user', 'email_password',
             'consulta_por_temas', 'consulta_filtros_indicadores', 'qtd_temas_home', 'google', 'latitude', 'longitude',
+            'posicao_mapa', 'posicao_tabela', 'posicao_grafico', 'posicao_taxa', 'posicao_metadados',
         ];
         $this->pathImagem = public_path().'/imagens/settings';
         $this->sizesImagem = [
@@ -44,6 +45,17 @@ class SettingController extends Controller
             ->orderBy('textos_series.titulo')
             ->lists('textos_series.titulo', 'series.id')
             ->all();
+
+
+        if(empty($series)){
+            $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.serie_id')
+                ->join('valores_series', 'series.id', '=', 'valores_series.serie_id')
+                ->where('valores_series.tipo_regiao', 3)
+                ->orderBy('textos_series.titulo')
+                ->lists('textos_series.titulo', 'series.id')
+                ->all();
+        }
+
 
 
 

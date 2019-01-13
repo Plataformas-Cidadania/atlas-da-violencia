@@ -79,10 +79,15 @@ class FiltrosSeriesController extends Controller
     }
 
     public function series(Request $request){
+
+        $setting = DB::table('settings')->orderBy('id', 'desc')->first();
+        $consulta_por_temas = $setting->consulta_por_temas;
+
         $parameters = $request->parameters;
 
         //return $parameters;
         $lang =  App::getLocale();
+
         //$idioma = "pt_BR";
 
         $temas = [];
@@ -92,7 +97,7 @@ class FiltrosSeriesController extends Controller
             $temas = [];
         }
 
-        if($parameters['tema_id'] > 0){
+        if($parameters['tema_id'] > 0 && $consulta_por_temas > 0){
             $temas = \App\Tema::select('id')->where('tema_id', $parameters['tema_id'])->orWhere('id', $parameters['tema_id'])->pluck('id');
         }
 
@@ -117,23 +122,30 @@ class FiltrosSeriesController extends Controller
 
         if(!$this->cache->has($cacheKey)){
             $this->cache->put($cacheKey, DB::table('series')
-                ->select('series.id', 'textos_series.titulo as titulo', 'unidades.titulo as titulo_unidade', 'periodicidades.titulo as periodicidade')
-                ->join('unidades', 'series.unidade', '=', 'unidades.id')
-                ->join('periodicidades', 'series.periodicidade_id', '=', 'periodicidades.id')
+                ->select('series.id', 'textos_series.titulo as titulo', 'idiomas_unidades.titulo as titulo_unidade', 'idiomas_periodicidades.titulo as periodicidade')
+                ->join('unidades', 'unidades.id', '=', 'series.unidade')
+                ->join('idiomas_unidades', 'idiomas_unidades.unidade_id', '=', 'unidades.id')
+                ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
+                ->join('idiomas_periodicidades', 'idiomas_periodicidades.periodicidade_id', '=', 'periodicidades.id')
                 ->join('temas_series', 'temas_series.serie_id', '=', 'series.id')
                 ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
                 ->where([
                     ['textos_series.idioma_sigla', $lang],
                     ['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%']
                 ])
+                ->where('idiomas_periodicidades.idioma_sigla', $lang)
+                ->where('idiomas_unidades.idioma_sigla', $lang)
                 ->when(!empty($parameters['indicadores']), function($query) use ($parameters){
                     return $query->whereIn('series.indicador', $parameters['indicadores']);
                 })
                 ->when(!empty($temas), function($query) use ($temas){
                     return $query->whereIn('tema_id', $temas);
                 })
+                ->when($consulta_por_temas == 1, function($query) use ($parameters){
+                    return $query->where('tema_id', $parameters['tema_id']);
+                })
                 ->orderBy('textos_series.titulo')
-		->distinct()
+		        ->distinct()
                 ->paginate($parameters['limit']),
                 60);
         }

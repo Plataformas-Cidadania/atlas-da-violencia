@@ -1,5 +1,3 @@
-
-
 myChartLine = undefined;
 class ChartLine extends React.Component {
     constructor(props) {
@@ -30,7 +28,7 @@ class ChartLine extends React.Component {
     componentWillReceiveProps(props) {
         if (this.state.min != props.min || this.state.max != props.max || this.state.intervalos != props.intervalos || this.state.regions != props.regions || this.state.abrangencia != props.abrangencia) {
             this.setState({ min: props.min, max: props.max, intervalos: props.intervalos, regions: props.regions, abrangencia: props.abrangencia }, function () {
-                if (myChartBar) {
+                if (myChartLine) {
                     this.chartDestroy();
                 }
                 if (this.state.min && this.state.max) {
@@ -121,21 +119,38 @@ class ChartLine extends React.Component {
         let cont = 0;
         let contLabel = 0;
         let contColor = 0;
+
+        //Preencher labels com os períodos
+        for (let region in data) {
+            for (let periodo in data[region]) {
+                let per = formatPeriodicidade(periodo, this.props.periodicidade);
+                if (!labels.includes(per)) {
+                    labels[contLabel] = per;
+                    contLabel++;
+                }
+                data[region][per] = data[region][periodo]; //grava um indice com o periodo formatado ex: 2000-01-15 para 2000
+                delete data[region][periodo]; //remove o periodo não formatado
+            }
+        }
+
+        //Ordenar os períodos
+        labels.sort();
+
+        for (let region in data) {
+            for (let i in labels) {
+                if (!data[region].hasOwnProperty(labels[i])) {
+                    data[region][labels[i]] = null;
+                }
+            }
+        }
+
         for (let region in data) {
 
             let values = [];
 
             for (let periodo in data[region]) {
                 values.push(data[region][periodo]);
-                if (cont == 0) {
-                    labels[contLabel] = periodo;
-                    contLabel++;
-                }
             }
-
-            //console.log('values', values);
-
-            //let colors = this.getColors(values);
 
             let colors = this.getColors();
 
@@ -233,6 +248,7 @@ class ChartLine extends React.Component {
     chartDestroy() {
         if (myChartLine) {
             myChartLine.destroy();
+            //delete myChartLine;
         }
 
         //myChartLine.update();

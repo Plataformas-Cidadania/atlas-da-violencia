@@ -156,9 +156,23 @@
                     ),
             null, ['class'=>"form-control width-medio <% validar(setting.consulta_filtros_indicadores) %>", 'ng-model'=>'setting.consulta_filtros_indicadores', 'ng-required'=>'true', 'init-model'=>'setting.consulta_filtros_indicadores', 'placeholder' => '']) !!}<br>
 
-            {!! Form::label('padrao_abrangencia', 'padrao_abrangencia') !!}<br>
+            {!! Form::label('padrao_abrangencia', 'Padrao abrangencia') !!}<br>
             {!! Form::text('padrao_abrangencia', null, ['class'=>"form-control width-grande <% validar(setting.padrao_abrangencia) %>", 'ng-model'=>'setting.padrao_abrangencia', 'ng-required'=>'true', 'init-model'=>'setting.padrao_abrangencia']) !!}<br>
 
+            {!! Form::label('posicao_mapa', 'Posição mapa') !!}<br>
+            {!! Form::text('posicao_mapa', null, ['class'=>"form-control width-grande <% validar(setting.posicao_mapa) %>", 'ng-model'=>'setting.posicao_mapa', 'ng-required'=>'true', 'init-model'=>'setting.posicao_mapa']) !!}<br>
+
+            {!! Form::label('posicao_tabela', 'Posição tabela') !!}<br>
+            {!! Form::text('posicao_tabela', null, ['class'=>"form-control width-grande <% validar(setting.posicao_tabela) %>", 'ng-model'=>'setting.posicao_tabela', 'ng-required'=>'true', 'init-model'=>'setting.posicao_tabela']) !!}<br>
+
+            {!! Form::label('posicao_grafico', 'Posição gráfico') !!}<br>
+            {!! Form::text('posicao_grafico', null, ['class'=>"form-control width-grande <% validar(setting.posicao_grafico) %>", 'ng-model'=>'setting.posicao_grafico', 'ng-required'=>'true', 'init-model'=>'setting.posicao_grafico']) !!}<br>
+
+            {!! Form::label('posicao_taxa', 'Posição taxa') !!}<br>
+            {!! Form::text('posicao_taxa', null, ['class'=>"form-control width-grande <% validar(setting.posicao_taxa) %>", 'ng-model'=>'setting.posicao_taxa', 'ng-required'=>'true', 'init-model'=>'setting.posicao_taxa']) !!}<br>
+
+            {!! Form::label('posicao_metadados', 'Posição metadados') !!}<br>
+            {!! Form::text('posicao_metadados', null, ['class'=>"form-control width-grande <% validar(setting.posicao_metadados) %>", 'ng-model'=>'setting.posicao_metadados', 'ng-required'=>'true', 'init-model'=>'setting.posicao_metadados']) !!}<br>
 
         </div>
         <div role="tabpanel" class="tab-pane" id="emails">

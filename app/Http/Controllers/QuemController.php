@@ -34,7 +34,7 @@ class QuemController extends Controller
 
         if($id){
             $quem = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('id', $id)->orderBy('titulo')->first();
-            if(count($quem)==0){
+            if(empty($quem)){
                 return redirect("quem/");
             }
 

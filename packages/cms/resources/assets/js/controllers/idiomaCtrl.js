@@ -8,7 +8,7 @@ cmsApp.controller('idiomaCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo";
+    $scope.campos = "id, titulo, status";
     $scope.campoPesquisa = "titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -196,6 +196,25 @@ cmsApp.controller('idiomaCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
         });
     };
     //////////////////////////////////
-
-
+    $scope.status = function(id){
+        //console.log(id);
+        $scope.mensagemStatus = '';
+        $scope.idStatus = '';
+        $scope.processandoStatus = true;
+        $http({
+            url: 'cms/status-idioma/'+id,
+            method: 'GET'
+        }).success(function(data, status, headers, config){
+            $scope.processandoStatus = false;
+            $scope.mensagemStatus = 'color-success';
+            $scope.idStatus = id;
+            listarIdiomas();
+        }).error(function(data){
+            $scope.message = "Ocorreu um erro: "+data;
+            $scope.processandoStatus = false;
+            $scope.mensagemStatus = "Erro ao tentar status!";
+        });
+    };
+    
 }]);
+

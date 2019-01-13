@@ -22,7 +22,7 @@
             <div class="col-md-4">
                 <?php $id = 1;?>
                     <ul class="menu-vertical">
-                        @foreach($menuIndicadores  as $key => $menuIndicador)
+                        @foreach($indicadores  as $key => $menuIndicador)
                             <li role="presentation" @if($key==0) active @endif><a href="#aba-{{$key}}"  aria-controls="aba-{{$key}}" role="tab" data-toggle="tab" style="clear: both;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{$menuIndicador->titulo}}</a></li>
                         @endforeach
                     </ul>

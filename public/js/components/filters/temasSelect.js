@@ -5,7 +5,8 @@ class Temas extends React.Component {
             temas: [],
             tema_id: 0,
             id: this.props.tema_id,
-            showItems: false
+            showItems: false,
+            tipo: props.tipo
         };
 
         this.select = this.select.bind(this);
@@ -42,7 +43,7 @@ class Temas extends React.Component {
         console.log(this.props.tema_id);
         $.ajax({
             method: 'GET',
-            url: 'get-temas/' + this.state.tema_id,
+            url: 'get-temas/' + this.state.tema_id + '/' + this.state.tipo,
             cache: false,
             success: function (data) {
                 console.log('temas', data);
@@ -63,7 +64,7 @@ class Temas extends React.Component {
         let subtema = null;
 
         if (this.state.id) {
-            subtema = React.createElement(Subtema, { setTema: this.props.setTema, tema_id: this.state.id });
+            subtema = React.createElement(Subtema, { setTema: this.props.setTema, tema_id: this.state.id, tipo: this.state.tipo });
         }
 
         /*let temas = this.state.temas.map(function(item){

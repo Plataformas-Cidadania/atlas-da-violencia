@@ -7,6 +7,10 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
 
     $scope.importar = function (arquivo){
 
+        $scope.errorMsg = '';
+        $scope.mensagemSalvar = '';
+
+
         $scope.processandoSalvar = true;
         var data1 = {
             id: $scope.id,

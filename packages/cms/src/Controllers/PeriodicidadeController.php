@@ -103,7 +103,7 @@ class PeriodicidadeController extends Controller
                 $data['idioma']['periodicidade_id'] = $inserir->id;
                 $inserir2 = $this->idiomaPeriodicidade->create($data['idioma']);
 
-                return $this->periodicidade->create($data['periodicidade']);
+                return $inserir;
             }else{
                 return "erro";
             }

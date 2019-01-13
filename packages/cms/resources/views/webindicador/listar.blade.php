@@ -13,7 +13,7 @@
             <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Indicador</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
 
-            <a href="cms/quemsomos/5/webindicadores"  class="btn btn-success"  ng-show="!mostrarForm">Descrição</a>
+            {{--<a href="cms/quemsomos/5/webindicadores"  class="btn btn-success"  ng-show="!mostrarForm">Descrição</a>--}}
             <br><br>
             <div ng-show="mostrarForm">
                 <span class="texto-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>
@@ -102,6 +102,11 @@
                                 <i ng-if="ordem=='idioma_sigla' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='idioma_sigla' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
+                            <th ng-click="ordernarPor('posicao')" style="parceiror:pointer;">
+                                Posição
+                                <i ng-if="ordem=='posicao' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
+                                <i ng-if="ordem=='posicao' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
+                            </th>
                             <th></th>
                         </tr>
                         </thead>
@@ -111,8 +116,15 @@
                             {{--<td><img ng-show="webindicador.imagem" ng-src="imagens/webindicadores/xs-<% webindicador.imagem %>" width="60"></td>--}}
                             <td><a href="cms/webindicador/<% webindicador.id %>"><% webindicador.titulo %></a></td>
                             <td><a href="cms/webindicador/<% webindicador.id %>"><% webindicador.idioma_sigla %></a></td>
+                            <td><a href="cms/webindicador/<% webindicador.id %>"><% webindicador.posicao %></a></td>
                             <td class="text-right">
                                 <div>
+                                    <a><i class="fa fa-arrow-circle-up fa-2x" title="Posição" ng-click="positionUp(webindicador.id);" style="cursor: pointer;" ng-hide="<% $first %>"></i></a>
+                                    <a><i class="fa fa-minus-circle fa-2x" title="Posição"   ng-show="<% $first %>" style="color: #CCCCCC; margin-right: 5px;"></i></a>&nbsp;&nbsp;
+
+                                    <a><i class="fa fa-arrow-circle-down fa-2x" title="Posição" ng-click="positionDown(webindicador.id);"  style="cursor: pointer;" ng-hide="<% $last %>"></i></a>
+                                    <a><i class="fa fa-minus-circle fa-2x" title="Posição"   ng-show="<% $last %>" style="color: #CCCCCC; margin-right: 5px;"></i></a>
+                                    
                                     <a href="cms/webindicador/<% webindicador.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(webindicador.id, webindicador.titulo, webindicador.imagem)"></i></a>
                                 </div>

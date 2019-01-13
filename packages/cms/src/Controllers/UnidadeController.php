@@ -100,10 +100,11 @@ class UnidadeController extends Controller
             if($success){
                 $data['unidade']['imagem'] = $filename;
                 $inserir = $this->unidade->create($data['unidade']);
+
                 $data['idioma']['unidade_id'] = $inserir->id;
                 $inserir2 = $this->idiomaUnidade->create($data['idioma']);
 
-                return $this->unidade->create($data['unidade']);
+                return $inserir;
             }else{
                 return "erro";
             }

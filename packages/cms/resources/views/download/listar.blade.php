@@ -8,13 +8,17 @@
     })
 </script>
     <div ng-controller="downloadCtrl">
+        <div ng-init="download['origem']={{$origem}}"></div>
+        <div ng-init="download['origem_id']={{$origem_id}}"></div>
         <div class="box-padrao">
-            <h1><i class="fa fa-download" aria-hidden="true"></i>&nbsp;Downloads</h1>
+            <h1><i class="fa fa-download" aria-hidden="true"></i>&nbsp;Downloads - {{$nomeOrigem}}</h1>
             <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Download</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>
             <div ng-show="mostrarForm">
                 <span class="texto-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>
+                <input type="hidden" name="origem" id="origem" ng-model="download.origem">
+                <input type="hidden" name="origem_id" id="origem_id" ng-model="download.origem_id">
                 {!! Form::open(['name' =>'form']) !!}
                 <div class="container-thumb">
                     <div class="box-thumb" name="fileDrop" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"

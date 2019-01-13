@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Sao_Paulo',
 
     /*
     |--------------------------------------------------------------------------
@@ -111,7 +111,8 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
+    'log_max_files' => 90,
 
     /*
     |--------------------------------------------------------------------------
@@ -166,6 +167,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Cms\Providers\CmsServiceProvider::class,
         'App\Providers\CarbonLanguageProvider',
+        ZanySoft\Zip\ZipServiceProvider::class,
         
 
 
@@ -220,6 +222,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'HTMLMin' => 'GrahamCampbell\HTMLMin\Facades\HTMLMin',
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
+        'Zip' => ZanySoft\Zip\ZipFacade::class,
 
     ],
 

@@ -6,13 +6,26 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Zip;
 
 class LogController extends Controller
 {
     public function index(){
 
+        $logs = Storage::disk('logs')->files();
 
-        return view('cms:logs.listar');
+        return view('cms::logs.listar', ['logs' => $logs]);
+    }
+
+    public function download($log){
+
+        $zip = Zip::create(base_path().'/storage/logs/'.$log.'.zip');
+        $zip->add(base_path().'/storage/logs/'.$log.'.log');
+        $zip->close();
+
+        return response()->download(base_path().'/storage/logs/'.$log.'.zip');
+
     }
 
     public function id_seq(){

@@ -35,8 +35,16 @@ class LinkController extends Controller
     function index()
     {
 
+        $lang =  \App::getLocale();
+
         $links = \App\Link::all();
-        $temas = \App\Tema::where('tema_id', 0)->lists('tema', 'id')->all();
+        //$temas = \App\Tema::where('tema_id', 0)->lists('tema', 'id')->all();
+        $temas = \App\Tema::
+        select('idiomas_temas.titulo', 'temas.id')
+            ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
+            ->where('idiomas_temas.idioma_sigla', $lang)
+            ->where('temas.tema_id', 0)
+            ->lists('idiomas_temas.titulo', 'temas.id');
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::link.listar', ['links' => $links, 'temas' => $temas, 'idiomas' => $idiomas]);
@@ -96,10 +104,19 @@ class LinkController extends Controller
 
     public function detalhar($id)
     {
+
+        $lang =  \App::getLocale();
+
         $link = $this->link->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $temas = \App\Tema::where('tema_id', 0)->lists('tema', 'id')->all();
+        //$temas = \App\Tema::where('tema_id', 0)->lists('tema', 'id')->all();
+        $temas = \App\Tema::
+        select('idiomas_temas.titulo', 'temas.id')
+            ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
+            ->where('idiomas_temas.idioma_sigla', $lang)
+            ->where('temas.tema_id', 0)
+            ->lists('idiomas_temas.titulo', 'temas.id');
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::link.detalhar', ['link' => $link, 'temas' => $temas, 'idiomas' => $idiomas]);

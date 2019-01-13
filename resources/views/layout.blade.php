@@ -5,12 +5,21 @@
 
     $setting = DB::table('settings')->orderBy('id', 'desc')->first();
     $links = DB::table('links')->where('idioma_sigla', $lang)->orderBy('posicao')->take(10)->get();
-    $idiomas = DB::table('idiomas')->orderBy('id')->get();
+    $idiomas = DB::table('idiomas')->where('status', 1)->orderBy('id')->get();
     $apoios = DB::table('apoios')->orderBy('posicao')->get();
     $favicons = DB::table('favicons')->first();
     $indicadores = DB::table('webindicadores')->get();
 
     $base_href = config('app.url');
+
+
+    $barra = "";
+    $ips = ["10.0.52.46", "181.191.91.55", "10.31.47.3"];
+    foreach($ips as $ip){
+        if($base_href==$ip){
+            $barra = "/";
+        }
+    }
 
     //echo $base_href;
 
@@ -24,12 +33,12 @@ if(substr($base_href, 0,9)=='evbsb1052'){
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-        <title>@if(count($setting) > 0) {{$setting->titulo}} - @yield('title') @endif</title>
-        <base href="http://{{$base_href}}@if($base_href=='10.0.52.46')/@endif">
+        <title>@if(!empty($setting)) {{$setting->titulo}} - @yield('title') @endif</title>
+        <base href="http://{{$base_href}}{{$barra}}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         @foreach(config('constants.FAVICONS_SIZES') as $size)
-            @if(count($favicons) > 0)
+            @if(!empty($favicons))
             <link rel="icon" href="imagens/favicons/{{$size}}-{{$favicons->imagem}}" sizes="{{$size}}">
             @endif
         @endforeach
@@ -131,6 +140,16 @@ if(substr($base_href, 0,9)=='evbsb1052'){
                 width: {{$setting->qtd_temas_home}}%;
             }
 
+            @media (max-width: 800px) {
+                .filtros {
+                    width: 33.33333333%;
+                }
+            }
+            @media (max-width: 480px) {
+                .filtros {
+                    width: 100%;
+                }
+            }
         </style>
 
     </head>

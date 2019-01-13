@@ -37,7 +37,7 @@ $menus_sobre = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo
                         <ul class="menu-rp">
                             @foreach($links as $link)
                                 <li>
-                                    <a href="filtros/{{$link->link}}/{{clean($link->titulo)}}">
+                                    <a href="filtros-series/{{$link->link}}/{{clean($link->titulo)}}">
                                         {{$link->titulo}}
                                     </a>
                                 </li>

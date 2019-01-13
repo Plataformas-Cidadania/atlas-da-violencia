@@ -3,18 +3,20 @@ class AbrangenciaSerie extends React.Component{
         super(props);
 
         this.state = {
-            abrangencias: props.abrangencias ? props.abrangencias : [
+            abrangencias: [],
+            /*abrangencias: props.abrangencias ? props.abrangencias : [
                 {id: 1, titulo: this.props.lang_parents},
                 {id: 2, titulo: this.props.lang_regions},
                 {id: 3, titulo: this.props.lang_uf},
                 {id: 4, titulo: this.props.lang_counties},
-            ],
+            ],*/
             regionsId: [0],
             nomeAbrangencia: props.nomeAbrangencia,
             abrangencia: props.abrangencia,
             abrangenciasOk: props.abrangenciasOk,
-            optionsAbrangencia: [
-                {id: 1, title: 'País', plural: ' os Países', on:false, listAll:1, height: '250px'},
+            optionsAbrangencia: [],
+            /*optionsAbrangencia: [
+                {id: 1, title: 'País.', plural: ' os Países', on:false, listAll:1, height: '250px'},
                 {id: 2, title: 'Região', plural: 'as Regiões', on:false, listAll:1, height: '250px'},
                 {id: 3, title: 'UF', plural: 'os Estados', on:false, listAll:1, height: '400px'},
                 {id: 7, title: 'Território', plural: 'os Estados', on:false, listAll:1, height: '400px'},
@@ -50,11 +52,12 @@ class AbrangenciaSerie extends React.Component{
                     ]
 
                 }
-            ],
+            ],*/
         };
 
         this.setAbrangencia = this.setAbrangencia.bind(this);
         this.showRegions = this.showRegions.bind(this);
+        this.loadOptionAbrangencia = this.loadOptionAbrangencia.bind(this);
         this.activateOptionsAbrangencia = this.activateOptionsAbrangencia.bind(this);
         this.setRegions = this.setRegions.bind(this);
         this.loadWithRegions = this.loadWithRegions.bind(this);
@@ -63,7 +66,7 @@ class AbrangenciaSerie extends React.Component{
     }
 
     componentDidMount(){
-        this.activateOptionsAbrangencia();
+        this.loadOptionAbrangencia();
     }
 
     componentWillReceiveProps(props){
@@ -77,6 +80,30 @@ class AbrangenciaSerie extends React.Component{
                 this.activateOptionsAbrangencia();
             });
         }
+    }
+
+    loadOptionAbrangencia(){
+        $.ajax({
+            method:'GET',
+            url: "get-options-abrangencia",
+            cache: false,
+            success: function(data) {
+                //console.log('OPTIONS ABRANGENCIA', data);
+                let abrangencias = [];
+                data.find(function(item){
+                    let abrangencia = {};
+                    abrangencia['id'] = item.id;
+                    abrangencia['titulo'] = item.title;
+                    abrangencias.push(abrangencia);
+                });
+                this.setState({optionsAbrangencia: data, abrangencias: abrangencias}, function(){
+                    this.activateOptionsAbrangencia();
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
     }
 
     activateOptionsAbrangencia(){
@@ -135,7 +162,7 @@ class AbrangenciaSerie extends React.Component{
             regionsId.push(regions[i].id)
         }
 
-        console.log(regionsId);
+        //console.log(regionsId);
 
         //this.setState({regions: regionsId});
 

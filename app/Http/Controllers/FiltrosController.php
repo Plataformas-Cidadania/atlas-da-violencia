@@ -26,11 +26,13 @@ class FiltrosController extends Controller
 
     }
 
-    public function temas($tema_id){
+    public function temas($tema_id, $tipo){
         $temas = [];
         $todos = new \stdClass();
         $lang =  App::getLocale();
         //$lang =  "es";
+
+
 
         $todos->id = $tema_id;
         $todos->titulo = trans('react.all');
@@ -41,10 +43,13 @@ class FiltrosController extends Controller
             ->where('temas.tema_id', $tema_id)
             ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
             ->where('idiomas_temas.idioma_sigla', $lang)
+            ->where(function ($query) use ($tipo) {
+                $query->where('temas.tipo', 0)
+                    ->orWhere('temas.tipo', $tipo);
+            })
             ->where('temas.status', 1)
             ->orderBy('idiomas_temas.titulo')
             ->get();
-
 
         if(count($temasBd)==0){
             return [];

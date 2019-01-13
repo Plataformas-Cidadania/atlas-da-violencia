@@ -4,6 +4,7 @@ class PageFilters extends React.Component {
         this.state = {
             items: { data: [] },
             tema: props.tema_id,
+            tipo: props.tipo,
             search: '',
             indicadores: [],
             abrangencias: [],
@@ -270,6 +271,7 @@ class PageFilters extends React.Component {
                             'div',
                             { style: { margin: '10px' } },
                             React.createElement(Temas, {
+                                tipo: this.state.tipo,
                                 tema_id: this.state.tema,
                                 setTema: this.setTema,
                                 lang_select_themes: this.props.lang_select_themes
@@ -403,6 +405,7 @@ class PageFilters extends React.Component {
 }
 
 ReactDOM.render(React.createElement(PageFilters, {
+    tipo: tipo,
     tema_id: tema_id,
     lang_inquiries: lang_inquiries,
     lang_themes: lang_themes,

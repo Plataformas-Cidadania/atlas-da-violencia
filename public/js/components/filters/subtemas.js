@@ -7,7 +7,8 @@ class Subtema extends React.Component {
             id: 0,
             componentSubtema: null,
             loading: false,
-            loadingData: false
+            loadingData: false,
+            tipo: props.tipo
         };
 
         this.select = this.select.bind(this);
@@ -40,7 +41,7 @@ class Subtema extends React.Component {
         let promise = this.loadSubtemas(id).success(function (data) {
             if (data.length && this.state.id != this.state.tema_id) {
                 //this.state.id != this.state.tema_id é para que ao selecionar todos no subtema não crie outro subtema repetido
-                let subtema = React.createElement(Subtema, { setTema: this.props.setTema, tema_id: id });
+                let subtema = React.createElement(Subtema, { setTema: this.props.setTema, tema_id: id, tipo: this.state.tipo });
                 this.setState({ componentSubtema: subtema });
             } else {
                 this.setState({ componentSubtema: null });
@@ -62,7 +63,7 @@ class Subtema extends React.Component {
         this.setState({ loadingData: true });
         $.ajax({
             method: 'GET',
-            url: 'get-temas/' + this.state.tema_id,
+            url: 'get-temas/' + this.state.tema_id + '/' + this.state.tipo,
             cache: false,
             success: function (data) {
                 //console.log('subtemas', data);
@@ -77,7 +78,7 @@ class Subtema extends React.Component {
     loadSubtemas(id) {
         return $.ajax({
             method: 'GET',
-            url: 'get-temas/' + id,
+            url: 'get-temas/' + id + '/' + this.state.tipo,
             cache: false
         });
     }
