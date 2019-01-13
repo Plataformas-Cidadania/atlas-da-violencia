@@ -62,7 +62,6 @@ class SerieController extends Controller
             ->where('idiomas_unidades.idioma_sigla', $lang)
             ->lists('idiomas_unidades.titulo', 'unidades.id');
 
-        
 
         return view('cms::serie.listar', [
             'fontes' => $fontes,

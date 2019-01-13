@@ -56,6 +56,7 @@ Route::get('artigo/{id}/{titulo}', 'ArtigoController@detalhar');
 Route::post('busca-artigos/{origem_id}/{titulo}', 'ArtigoController@buscar');
 
 //DOWNLOADS
+Route::post('busca-downloads/', 'DownloadController@buscar');
 Route::get('downloads/', 'DownloadController@listar');
 Route::get('downloads/{serie_id}/{titulo}', 'DownloadController@listar');
 Route::get('download/{id}', 'DownloadController@detalhar');
