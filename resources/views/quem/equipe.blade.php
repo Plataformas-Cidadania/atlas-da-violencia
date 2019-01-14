@@ -13,6 +13,7 @@
             ->where('items_versoes.versao_id', $versao->id)
             ->where('items_versoes.tipo_id', 1)
             ->where('items_versoes.status', 1)
+            ->orderBy('integrantes.titulo')
             ->get();
         $equipe = DB::table('integrantes')
             ->select('integrantes.id', 'integrantes.titulo', 'integrantes.imagem', 'integrantes.url', 'items_versoes.funcao', 'items_versoes.instituicao')
