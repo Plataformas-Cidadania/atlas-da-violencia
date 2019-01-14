@@ -23,3 +23,7 @@ null, ['class'=>"form-control width-medio <% validar(item.integrante_id) %>", 'n
 <div ng-show="item.tipo_id==1 || item.tipo_id==2 || item.tipo_id==3">
 {!! Form::text('funcao', null, ['class'=>"form-control width-grande <% validar(item.funcao) %>", 'ng-model'=>'item.funcao', 'ng-required'=>'true', 'init-model'=>'item.funcao', 'placeholder' => '']) !!}<br>
 </div>
+
+
+{!! Form::label('instituicao', 'Instituição') !!}<br>
+{!! Form::text('instituicao', null, ['class'=>"form-control width-grande <% validar(item.instituicao) %>", 'ng-model'=>'item.instituicao', 'ng-required'=>'true', 'init-model'=>'item.instituicao', 'placeholder' => '']) !!}<br>

@@ -8,14 +8,14 @@
     @foreach($versoes as $versao)
         <?php
         $cordenadores = DB::table('integrantes')
-            ->select('integrantes.id', 'integrantes.titulo', 'integrantes.imagem', 'integrantes.url', 'items_versoes.funcao')
+            ->select('integrantes.id', 'integrantes.titulo', 'integrantes.imagem', 'integrantes.url', 'items_versoes.funcao', 'items_versoes.instituicao')
             ->join('items_versoes', 'integrantes.id', '=', 'items_versoes.integrante_id')
             ->where('items_versoes.versao_id', $versao->id)
             ->where('items_versoes.tipo_id', 1)
             ->where('items_versoes.status', 1)
             ->get();
         $equipe = DB::table('integrantes')
-            ->select('integrantes.id', 'integrantes.titulo', 'integrantes.imagem', 'integrantes.url', 'items_versoes.funcao')
+            ->select('integrantes.id', 'integrantes.titulo', 'integrantes.imagem', 'integrantes.url', 'items_versoes.funcao', 'items_versoes.instituicao')
             ->join('items_versoes', 'integrantes.id', '=', 'items_versoes.integrante_id')
             ->where('items_versoes.versao_id', $versao->id)
             ->where('items_versoes.tipo_id', 2)
@@ -42,7 +42,7 @@
                                 </div>
                                 <div style="float: left;">
                                     <h4 class="title-equipe">{{$cordenador->titulo}}</h4>
-                                    <div class="funcao-equipe">{{$cordenador->funcao}}</div>
+                                    <div class="funcao-equipe">{{$cordenador->funcao}} <strong>{{$cordenador->instituicao}}</strong></div>
                                 </div>
                             </div>
                         </a>
@@ -69,7 +69,7 @@
                                 </div>
                                 <div style="float: left;">
                                     <h4 class="title-equipe">{{$integrante->titulo}}</h4>
-                                    <div class="funcao-equipe">{{$integrante->funcao}}</div>
+                                    <div class="funcao-equipe">{{$integrante->funcao}} <strong>{{$cordenador->instituicao}}</strong></div>
                                 </div>
                             </a>
                         </div>
