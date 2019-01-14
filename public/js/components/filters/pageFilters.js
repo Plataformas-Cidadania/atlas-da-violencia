@@ -273,6 +273,7 @@ class PageFilters extends React.Component {
                             React.createElement(Temas, {
                                 tipo: this.state.tipo,
                                 tema_id: this.state.tema,
+                                consulta_por_temas: this.props.consulta_por_temas,
                                 setTema: this.setTema,
                                 lang_select_themes: this.props.lang_select_themes
                             })
@@ -312,11 +313,16 @@ class PageFilters extends React.Component {
                     ),
                     React.createElement(
                         'div',
-                        { style: { display: items.data.length > 0 || this.state.loadingItems ? 'none' : '' } },
+                        { style: { display: items.data.length > 0 || this.state.loadingItems ? 'none' : '' }, className: 'no-results' },
                         React.createElement(
                             'h4',
                             null,
-                            this.props.lang_no_results
+                            this.props.lang_no_results_title
+                        ),
+                        React.createElement(
+                            'h5',
+                            { style: { display: this.props.consulta_por_temas == 1 ? '' : 'none' } },
+                            this.props.lang_no_results_subtitle
                         )
                     ),
                     React.createElement(
@@ -407,6 +413,7 @@ class PageFilters extends React.Component {
 ReactDOM.render(React.createElement(PageFilters, {
     tipo: tipo,
     tema_id: tema_id,
+    consulta_por_temas: consulta_por_temas,
     lang_inquiries: lang_inquiries,
     lang_themes: lang_themes,
     lang_series: lang_series,
@@ -415,7 +422,8 @@ ReactDOM.render(React.createElement(PageFilters, {
     lang_search_name: lang_search_name,
     lang_unity: lang_unity,
     lang_frequency: lang_frequency,
-    lang_no_results: lang_no_results,
+    lang_no_results_title: lang_no_results_title,
+    lang_no_results_subtitle: lang_no_results_subtitle,
     lang_wait: lang_wait,
     lang_select_themes: lang_select_themes,
     filtroIndicadores: filtroIndicadores

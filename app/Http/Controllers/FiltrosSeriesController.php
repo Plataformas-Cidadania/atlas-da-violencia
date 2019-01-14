@@ -27,7 +27,10 @@ class FiltrosSeriesController extends Controller
             $id = $tema->id;
         }*/
 
-        return view('serie.novo-filtros-series', ['id' => $id]);
+        $setting = DB::table('settings')->orderBy('id', 'desc')->first();
+        $consulta_por_temas = $setting->consulta_por_temas;
+
+        return view('serie.novo-filtros-series', ['id' => $id, 'consulta_por_temas' => $consulta_por_temas]);
 
     }
 
@@ -101,11 +104,11 @@ class FiltrosSeriesController extends Controller
             $temas = [];
         }
 
-        if($parameters['tema_id'] > 0 && $consulta_por_temas > 0){
+        if($parameters['tema_id'] > 0 && $consulta_por_temas == 0){
             $temas = \App\Tema::select('id')->where('tema_id', $parameters['tema_id'])->orWhere('id', $parameters['tema_id'])->pluck('id');
         }
 
-        Log::info([$temas]);
+        //Log::info([$temas]);
 
         if(!array_key_exists('indicadores', $parameters)){
             $parameters['indicadores'] = [];

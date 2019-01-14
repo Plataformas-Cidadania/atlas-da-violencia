@@ -62,11 +62,20 @@
             float:right;
         }
 
+        .no-results{
+            padding: 20px;
+            background-color: #eeeeee;
+            color: #333;
+            border: solid 1px #ccc;
+            text-align: center;
+        }
+
     </style>
     <div class="container">
         <script>
             tipo = 1;
             tema_id = "{{$id}}";
+            consulta_por_temas = {{$consulta_por_temas}}
             {{--titulo = "{!! $tema->titulo !!}";--}}
             lang_inquiries = "@lang('react.inquiries')";
             lang_themes = "@lang('react.themes')";
@@ -76,7 +85,8 @@
             lang_series = "@lang('react.series')";
             lang_unity = "@lang('react.unity')";
             lang_frequency = "@lang('react.frequency')";
-            lang_no_results = "@lang('react.no-results')";
+            lang_no_results_title = "@lang('react.no-results-title')";
+            lang_no_results_subtitle = "@lang('react.no-results-subtitle')";
             lang_wait = "@lang('react.wait')";
             lang_select_themes = "@lang('react.select-themes')";
             filtroIndicadores = 0;

@@ -288,6 +288,7 @@ class PageFilters extends React.Component{
                                 <Temas
                                     tipo={this.state.tipo}
                                     tema_id={this.state.tema}
+                                    consulta_por_temas={this.props.consulta_por_temas}
                                     setTema={this.setTema}
                                     lang_select_themes={this.props.lang_select_themes}
                                 />
@@ -327,7 +328,10 @@ class PageFilters extends React.Component{
                         <input className='form-control' onChange={this.handleSearch} type="text" placeholder={this.props.lang_search_name}/>
                         <br/>
                         <div className="text-center" style={{display: this.state.loadingItems ? '' : 'none'}}><i className="fa fa-spin fa-spinner fa-3x"/></div>
-                        <div style={{display: items.data.length > 0 || this.state.loadingItems ? 'none' : ''}}><h4>{this.props.lang_no_results}</h4></div>
+                        <div style={{display: items.data.length > 0 || this.state.loadingItems ? 'none' : ''}} className="no-results">
+                            <h4>{this.props.lang_no_results_title}</h4>
+                            <h5 style={{display: this.props.consulta_por_temas == 1 ? '' : 'none'}}>{this.props.lang_no_results_subtitle}</h5>
+                        </div>
                         <div style={{display: items.data.length > 0 ? '' : 'none'}}>
                             <List
                                 items={items}
@@ -409,6 +413,7 @@ ReactDOM.render(
     <PageFilters
         tipo={tipo}
         tema_id={tema_id}
+        consulta_por_temas={consulta_por_temas}
         lang_inquiries={lang_inquiries}
         lang_themes={lang_themes}
         lang_series={lang_series}
@@ -417,7 +422,8 @@ ReactDOM.render(
         lang_search_name={lang_search_name}
         lang_unity={lang_unity}
         lang_frequency={lang_frequency}
-        lang_no_results={lang_no_results}
+        lang_no_results_title={lang_no_results_title}
+        lang_no_results_subtitle={lang_no_results_subtitle}
         lang_wait={lang_wait}
         lang_select_themes={lang_select_themes}
         filtroIndicadores={filtroIndicadores}

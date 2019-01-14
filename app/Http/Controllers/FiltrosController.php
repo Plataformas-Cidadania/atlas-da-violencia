@@ -34,8 +34,13 @@ class FiltrosController extends Controller
 
 
 
+        $consulta_por_temas = DB::table('settings')->orderBy('id', 'desc')->first()->consulta_por_temas;
+
         $todos->id = $tema_id;
         $todos->titulo = trans('react.all');
+        if($consulta_por_temas == 1){
+            $todos->titulo = trans('react.select-themes');
+        }
         $todos->position = 0;
         array_push($temas, $todos);
 
