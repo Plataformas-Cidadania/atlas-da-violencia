@@ -62,13 +62,13 @@ class Filters extends React.Component {
             this.enableBtnFilter();
         });
     }
-      checkTypeAccident(types){
+     checkTypeAccident(types){
         this.setState({typesAccident: types}, function(){
             this.props.checkTypeAccident(this.state.typesAccident);
             this.enableBtnFilter();
         });
     }
-      checkGender(types){
+     checkGender(types){
         this.setState({genders: types}, function(){
             this.props.checkGender(this.state.genders);
             this.enableBtnFilter();

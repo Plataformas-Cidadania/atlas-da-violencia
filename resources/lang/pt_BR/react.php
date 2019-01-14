@@ -48,7 +48,8 @@ return [
     'custom' => 'Personalizado',
     'mouse-over-region' => 'Passe o mouse na região',
 
-    'no-results' => 'Sem resultados para esta pesquisa. Verifique se selecionou todos os temas.',
+    'no-results-title' => 'Não foram encontrados resultados para esta pesquisa',
+    'no-results-subtitle' => 'Verifique se você selecionou todos os temas',
     'wait' => 'Aguarde',
 
     'name' => 'Nome',
