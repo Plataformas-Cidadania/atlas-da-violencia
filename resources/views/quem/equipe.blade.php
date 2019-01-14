@@ -33,7 +33,7 @@
 
                     @foreach($cordenadores as $cordenador)
                         <a href="{{$cordenador->url}}">
-                            <div>
+                            <div style="float: left;">
                                 <div style="float: left;">
                                     @if($cordenador->imagem)
                                         <img src="imagens/integrantes/xs-{{$cordenador->imagem}}" alt="{{$cordenador->titulo}}" title="{{$cordenador->titulo}}" class="img-user">
@@ -59,7 +59,7 @@
 
                     <div style="clear: both;"></div>
                     @foreach($equipe as $integrante)
-                        <div class="box-integrante">
+                        <div class="box-integrante" style="float: left;">
                             <a href="{{$integrante->url}}" target="_blank">
                                 <div style="float: left;">
                                     @if($integrante->imagem)
