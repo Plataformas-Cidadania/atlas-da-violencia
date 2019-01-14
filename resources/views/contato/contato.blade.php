@@ -47,8 +47,14 @@
                         popupAnchor:  [0, -40] // point from which the popup should open relative to the iconAnchor
                     });
 
-                    L.marker([{{$setting->latitude}},{{$setting->longitude}}], {icon: atlasIcon}).addTo(mymap)
-                        .bindPopup("<b><img src='imagens/favicons/64x64-{{$favicons->imagem}}' alt=''></b><br />").openPopup();
+
+                    L.marker([{{$setting->latitude}},{{$setting->longitude}}], {icon: atlasIcon})
+                        .addTo(mymap)
+                        @if(count($favicons) > 0).bindPopup("<b><img src='imagens/favicons/64x64-{{$favicons->imagem}}' alt=''></b><br />")@endif
+                        .openPopup()
+
+                    ;
+
 
                 </script>
                 <br><br><br>
