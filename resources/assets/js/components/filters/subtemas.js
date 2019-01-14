@@ -104,7 +104,7 @@ class Subtema extends React.Component{
                     <br/>
                     <div>
                         <select className="form-control" onChange={this.select}>
-                            <option value={this.state.tema_id}>Selecione</option>
+                            {/*<option value={this.state.tema_id}>Selecione</option>*/}
                             {subtemas}
                         </select>
                     </div>

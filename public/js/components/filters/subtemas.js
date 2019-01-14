@@ -114,11 +114,6 @@ class Subtema extends React.Component {
                     React.createElement(
                         'select',
                         { className: 'form-control', onChange: this.select },
-                        React.createElement(
-                            'option',
-                            { value: this.state.tema_id },
-                            'Selecione'
-                        ),
                         subtemas
                     )
                 ),
