@@ -90,7 +90,11 @@ class FiltrosSeriesController extends Controller
 
         //$idioma = "pt_BR";
 
+
+
         $temas = [];
+
+
 
         if(!array_key_exists('tema_id', $parameters)){
             $parameters['tema_id'] = 0;
@@ -101,6 +105,7 @@ class FiltrosSeriesController extends Controller
             $temas = \App\Tema::select('id')->where('tema_id', $parameters['tema_id'])->orWhere('id', $parameters['tema_id'])->pluck('id');
         }
 
+        Log::info([$temas]);
 
         if(!array_key_exists('indicadores', $parameters)){
             $parameters['indicadores'] = [];
@@ -119,6 +124,8 @@ class FiltrosSeriesController extends Controller
         $this->cache->forget($cacheKey);
 
         //DB::connection()->enableQueryLog();
+
+
 
         if(!$this->cache->has($cacheKey)){
             $this->cache->put($cacheKey, DB::table('series')
@@ -149,6 +156,8 @@ class FiltrosSeriesController extends Controller
                 ->paginate($parameters['limit']),
                 60);
         }
+
+
 
         $series = $this->cache->get($cacheKey);
 
