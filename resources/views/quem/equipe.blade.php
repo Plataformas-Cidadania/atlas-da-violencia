@@ -69,7 +69,7 @@
                                 </div>
                                 <div style="float: left;">
                                     <h4 class="title-equipe">{{$integrante->titulo}}</h4>
-                                    <div class="funcao-equipe">{{$integrante->funcao}} - <strong>{{$cordenador->instituicao}}</strong></div>
+                                    <div class="funcao-equipe">{{$integrante->funcao}} - <strong>{{$integrante->instituicao}}</strong></div>
                                 </div>
                             </a>
                         </div>
