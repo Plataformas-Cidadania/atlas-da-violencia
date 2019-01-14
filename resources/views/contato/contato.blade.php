@@ -50,7 +50,7 @@
 
                     L.marker([{{$setting->latitude}},{{$setting->longitude}}], {icon: atlasIcon})
                         .addTo(mymap)
-                        @if(count($favicons) > 0).bindPopup("<b><img src='imagens/favicons/64x64-{{$favicons->imagem}}' alt=''></b><br />")@endif
+                        @if(!empty($favicons)).bindPopup("<b><img src='imagens/favicons/64x64-{{$favicons->imagem}}' alt=''></b><br />")@endif
                         .openPopup()
 
                     ;
