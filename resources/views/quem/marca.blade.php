@@ -92,6 +92,8 @@
             {{--///////////////--}}
 
         </div>
+
+        @if(!empty($artwork))
         <div role="tabpanel" class="tab-pane" id="horizontal">
             <div class="text-center">
                 <br><br><br>
@@ -173,6 +175,10 @@
 
             </div>
         </div>
+
+        @endif
+
+        @if(!empty($artworkVert))
         <div role="tabpanel" class="tab-pane text-center" id="vertical">
             {{--//////////--}}
             <br><br><br>
@@ -250,6 +256,8 @@
             </div>
             {{--//////////--}}
         </div>
+        @endif
+
         <div role="tabpanel" class="tab-pane" id="impressao">
             <div class="row">
                 @foreach($printings as $printing)
