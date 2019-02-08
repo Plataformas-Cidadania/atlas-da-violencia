@@ -225,3 +225,17 @@ Route::get('get-regions-by-ids/', 'SerieController@getRegionsByIds');
 Route::get('consultas/', 'ConsultaController@index');
 Route::post('list-consultas/', 'ConsultaController@listing');
 Route::get('consulta/{id}', 'ConsultaController@detail');
+
+
+///////////////////////////////WEBSERVICE///////////////////////////
+////////////////////////////////////////////////////////////////////
+///
+Route::get('api/v1', 'ApiController@index');
+Route::get('api/v1/fontes', 'ApiController@fontes');
+Route::get('api/v1/fontes/{order}', 'ApiController@fontes');
+
+Route::get('api/v1/temas', 'ApiController@temas');
+Route::get('api/v1/temas/{order}', 'ApiController@temas');
+
+
+Route::get('api/v1/fonte/{id}', 'ApiController@fonte');
