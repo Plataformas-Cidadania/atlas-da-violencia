@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -15,9 +16,11 @@ class ApiController extends Controller
     public function index(){
 
         $lang =  App::getLocale();
-        $apis = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 10)->orderBy('posicao')->get();
+        $textoApi = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 10)->orderBy('posicao')->first();
 
-        return view('api.listar', ['apis' => $apis]);
+        //return $textoApi;
+
+        return view('api.listar', ['textoApi' => $textoApi]);
     }
 
     public function fontes($order='titulo'){
