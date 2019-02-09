@@ -14,6 +14,9 @@
             </picture>
         @endif
         <p ng-class="{'alto-contraste': altoContrasteAtivo}">{!!$quem->descricao!!}</p>
+        @if(!empty($quem->url))
+            <iframe src="{{$quem->url}}" frameborder="0" width="100%" height="1200"></iframe>
+        @endif
     </div>
 @endsection
 

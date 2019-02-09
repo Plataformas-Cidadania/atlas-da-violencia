@@ -20,7 +20,7 @@ class QuemsomoController extends Controller
     {
         $this->quemsomo = new \App\Quemsomo;
         $this->campos = [
-            'imagem', 'origem_id', 'titulo', 'descricao', 'tipo', 'cmsuser_id', 'idioma_sigla', 'posicao',
+            'imagem', 'origem_id', 'titulo', 'descricao', 'tipo', 'url', 'cmsuser_id', 'idioma_sigla', 'posicao',
         ];
         $this->pathImagem = public_path().'/imagens/quemsomos';
         $this->sizesImagem = [

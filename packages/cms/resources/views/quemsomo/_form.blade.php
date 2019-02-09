@@ -1,8 +1,8 @@
 <?php $rota = Route::getCurrentRoute()->getPath();?>
+
 <?php
-    if(!empty($tipo_id)){
-        $tipo_id = $tipo_id;
-    }else{
+
+    if(empty($tipo_id)){
         $tipo_id = null;
     }
 
@@ -15,6 +15,7 @@
         $origem_id = 1;
     }
 ?>
+
 {!! Form::label('idioma_sigla', 'Idioma *') !!}<br>
 {!! Form::select('idioma_sigla',
         $idiomas,
@@ -35,7 +36,7 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>",
                 '8' => 'Marca',
                 '9' => 'Consultas',
                 '10' => 'Api',
-            ), $tipo_id, ['class'=>"form-control width-medio <% validar(quemsomo.tipo) %>", 'ng-model'=>'quemsomo.tipo', 'ng-required'=>'true', 'init-model'=>'quemsomo.tipo', 'placeholder' => '']) !!}<br>
+            ), $tipo_id, ['class'=>"form-control width-medio <% validar(quemsomo.tipo) %>", 'ng-model'=>'quemsomo.tipo', /*'ng-required'=>'true',*/ 'init-model'=>'quemsomo.tipo', 'placeholder' => '']) !!}<br>
 </div>
 <div style="display: none;">
 {!! Form::label('origem_id', 'Origem *') !!}<br>
@@ -43,7 +44,7 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>",
         array(
             '0' => 'Principal',
             '1' => 'Institucional'
-        ), $origem_id, ['class'=>"form-control width-medio <% validar(quemsomo.origem_id) %>", 'ng-model'=>'quemsomo.origem_id', 'ng-required'=>'true', 'init-model'=>'quemsomo.origem_id', 'placeholder' => '']) !!}<br>
+        ), $origem_id, ['class'=>"form-control width-medio <% validar(quemsomo.origem_id) %>", 'ng-model'=>'quemsomo.origem_id', /*'ng-required'=>'true',*/ 'init-model'=>'quemsomo.origem_id', 'placeholder' => '']) !!}<br>
 </div>
 
 {!! Form::label('titulo', 'Título *') !!}<br>
@@ -54,5 +55,8 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>",
 
 {!! Form::label('posicao', 'Posição *') !!}<br>
 {!! Form::text('posicao', null, ['class'=>"form-control width-grande <% validar(quemsomo.posicao) %>", 'ng-model'=>'quemsomo.posicao', 'ng-required'=>'true', 'init-model'=>'quemsomo.posicao', 'placeholder' => '']) !!}<br>
+
+{!! Form::label('url', 'Url do Iframe ') !!}<br>
+{!! Form::text('url', null, ['class'=>"form-control width-grande <% validar(quemsomo.url) %>", 'ng-model'=>'quemsomo.url', 'init-model'=>'quemsomo.url', 'placeholder' => '']) !!}<br>
 
 
