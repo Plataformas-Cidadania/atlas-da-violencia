@@ -3,6 +3,8 @@
 
 @section('content')
 
+
+
     <?php
     $mes1 = \Cms\Models\Contador::comparaMes(date('m')-1);
     $mes2 = \Cms\Models\Contador::comparaMes(date('m')-2);

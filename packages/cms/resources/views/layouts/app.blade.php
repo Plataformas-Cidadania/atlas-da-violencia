@@ -12,7 +12,12 @@ $mensagensContato = DB::table('mensagens')->where('status', 0)->where('origem', 
 $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 'serie')->count();
 ?>
 
+
+
 <?php $rota = Route::getCurrentRoute()->getPath();?>
+
+
+
 
         <!DOCTYPE html>
 <html lang="pt-br">
@@ -243,6 +248,10 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                                         <a href="cms/versoes">Versões</a>
                                     </li>
                                 </ul>
+                            </li>
+
+                            <li>
+                                <a href="cms/apis"><i class="fa fa-indent" aria-hidden="true"></i> Api</a>
                             </li>
 
                             <style>

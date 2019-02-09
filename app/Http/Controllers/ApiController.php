@@ -17,10 +17,14 @@ class ApiController extends Controller
 
         $lang =  App::getLocale();
         $textoApi = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 10)->orderBy('posicao')->first();
+        $apis = DB::table('apis')
+            ->select('idiomas_apis.titulo', 'idiomas_apis.descricao', 'apis.tipo', 'apis.url', 'apis.resposta')
+            ->join('idiomas_apis', 'idiomas_apis.api_id', '=', 'apis.id')
+            ->where('idiomas_apis.idioma_sigla', $lang)
+            ->orderBy('versao')
+            ->get();
 
-        //return $textoApi;
-
-        return view('api.listar', ['textoApi' => $textoApi]);
+        return view('api.listar', ['apis' => $apis, 'textoApi' => $textoApi]);
     }
 
     public function fontes($order='titulo'){

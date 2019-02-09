@@ -75,6 +75,10 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaUnidadeCtrl.js', 'public/assets-cms/js/controllers/idiomaUnidadeCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaUnidadeCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaUnidadeCtrl.js');
 
+    //Idiomas Apis
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaApiCtrl.js', 'public/assets-cms/js/controllers/idiomaApiCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaApiCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaApiCtrl.js');
+
     //Idiomas Options Abrangencias
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/idiomaOptionAbrangenciaCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaOptionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaOptionAbrangenciaCtrl.js');
@@ -143,6 +147,10 @@ elixir(function(mix) {
     //Unidades
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/unidadeCtrl.js', 'public/assets-cms/js/controllers/unidadeCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarUnidadeCtrl.js', 'public/assets-cms/js/controllers/alterarUnidadeCtrl.js');
+    
+    //Apis
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/apiCtrl.js', 'public/assets-cms/js/controllers/apiCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarApiCtrl.js', 'public/assets-cms/js/controllers/alterarApiCtrl.js');
 
     //Options Abrangencias
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/optionAbrangenciaCtrl.js', 'public/assets-cms/js/controllers/optionAbrangenciaCtrl.js');

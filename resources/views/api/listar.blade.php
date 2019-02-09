@@ -45,61 +45,40 @@
                                 background-color: white;
                                 overflow: hidden;
                             }
+                            .table-api table{
+                                width: 100%;
+                            }
+                            .table-api td{
+                                border: solid 1px #CCCCCC;
+                                padding: 5px;
+                            }
                         </style>
                         </head>
                         <body>
 
 
-
-                        <div class="accordion"> <button class="btn btn-primary">GET</button> /api/v1/fontes/id <span style="float: right; margin: 5px 5px 0 0;">Busca lista das fontes. </span></div>
-                        <div class="panel">
-                            <h2>Notas de Implementação</h2>
-                            <p>Obtém listas das fontes. Veja notas sobre parâmetros individuais abaixo.</p>
-                            <pre>
-                                {
-  "code": "int",
-  "status": "string",
-  "copyright": "string",
-  "attributionText": "string",
-  "attributionHTML": "string",
-  "data": {
-    "offset": "int",
-    "limit": "int",
-    "total": "int",
-    "count": "int",
-    "results": [
-      {
-        "id": "int",
-        "name": "string",
-        "description": "string",
-        "modified": "Date",
-        "resourceURI": "string",
-        "urls": [
-          {
-            "type": "string",
-            "url": "string"
-          }
-        ],
-        "series": {
-          "available": "int",
-          "returned": "int",
-          "collectionURI": "string",
-          "items": [
-            {
-              "resourceURI": "string",
-              "name": "string"
-            }
-          ]
-        }
-      }
-    ]
-  },
-  "etag": "string"
-}
-                            </pre>
+                        @foreach($apis as $api)
+                        <div class="accordion">
+                            <button class="btn btn-primary">GET</button> {{$api->url}}<span style="float: right; margin: 5px 5px 0 0;">{{$api->titulo}} </span>
                         </div>
+                        <div class="panel">
+                            <div style="float: right;">
+                                <p>
+                                    <textarea class="js-copytextarea" style="position: absolute; margin-top: -50000px;">{{$api->url}}</textarea>
+                                <p class="js-textareacopybtn btn btn-primary" style="cursor: pointer;"><i class="fa fa-clone fa"></i> Copiar rota</p>
+                                </p>
+                            </div>
+                            <br>
+                            <h4>Notas de Implementação</h4>
+                            <div class="table-api">{!! $api->descricao !!}</div>
+                            <br> <br>
+                            <h4>Resposta</h4>
+                            {!! $api->resposta !!}
 
-                        <div class="accordion">Section 2</div>
+                        </div>
+                        @endforeach
+
+                        {{--<div class="accordion">Section 2</div>
                         <div class="panel">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         </div>
@@ -107,7 +86,7 @@
                         <div class="accordion">Section 3</div>
                         <div class="panel">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        </div>
+                        </div>--}}
 
                         <script>
                             var acc = document.getElementsByClassName("accordion");
@@ -122,6 +101,28 @@
                                     } else {
                                         panel.style.display = "block";
                                     }
+                                });
+                            }
+                        </script>
+
+                        <script>
+                            window.onload = function() {
+                                // Pega todos os elementos correspondentes
+                                var copyTextareaBtn = Array.prototype.slice.
+                                call(document.querySelectorAll('.js-textareacopybtn'));
+                                var copyTextarea = Array.prototype.slice.
+                                call(document.querySelectorAll('.js-copytextarea'));
+
+                                // Laço para percorrer todos os elementos
+                                copyTextareaBtn.forEach(function(btn, idx) {
+                                    btn.addEventListener("click", function() {
+                                        // Copia o conteudo do textarea
+                                        copyTextarea[idx].select();
+                                        var msg = document.execCommand('copy')
+                                            ? 'funcionou' : 'deu erro';
+                                        console.log('Compando para copiar texto ' + msg);
+                                    });
+
                                 });
                             }
                         </script>

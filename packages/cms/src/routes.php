@@ -116,6 +116,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-idioma-unidade/{id}', 'Cms\Controllers\IdiomaUnidadeController@alterar');
         Route::get('/cms/excluir-idioma-unidade/{id}', 'Cms\Controllers\IdiomaUnidadeController@excluir');
 
+        //IDIOMAS APIS
+        Route::get('/cms/idiomas-apis/{api_id}', 'Cms\Controllers\IdiomaApiController@index');
+        Route::get('/cms/listar-idiomas-apis', 'Cms\Controllers\IdiomaApiController@listar');
+        Route::post('/cms/inserir-idioma-api', 'Cms\Controllers\IdiomaApiController@inserir');
+        Route::get('/cms/idioma-api/{id}', 'Cms\Controllers\IdiomaApiController@detalhar');
+        Route::post('/cms/alterar-idioma-api/{id}', 'Cms\Controllers\IdiomaApiController@alterar');
+        Route::get('/cms/excluir-idioma-api/{id}', 'Cms\Controllers\IdiomaApiController@excluir');
+
         //IDIOMAS OPTIOSN ABRANGENCIAS
         Route::get('/cms/idiomas-options-abrangencias/{option_abrangencia_id}', 'Cms\Controllers\IdiomaOptionAbrangenciaController@index');
         Route::get('/cms/listar-idiomas-options-abrangencias', 'Cms\Controllers\IdiomaOptionAbrangenciaController@listar');
@@ -260,6 +268,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/unidade/{id}', 'Cms\Controllers\UnidadeController@detalhar');
         Route::post('/cms/alterar-unidade/{id}', 'Cms\Controllers\UnidadeController@alterar');
         Route::get('/cms/excluir-unidade/{id}', 'Cms\Controllers\UnidadeController@excluir');
+
+        //APIS
+        Route::get('/cms/apis', 'Cms\Controllers\ApiController@index');
+        Route::get('/cms/listar-apis', 'Cms\Controllers\ApiController@listar');
+        Route::post('/cms/inserir-api', 'Cms\Controllers\ApiController@inserir');
+        Route::get('/cms/api/{id}', 'Cms\Controllers\ApiController@detalhar');
+        Route::post('/cms/alterar-api/{id}', 'Cms\Controllers\ApiController@alterar');
+        Route::get('/cms/excluir-api/{id}', 'Cms\Controllers\ApiController@excluir');
 
         //OPTIONS ABRANGENCIAS
         Route::get('/cms/options-abrangencias', 'Cms\Controllers\OptionAbrangenciaController@index');
