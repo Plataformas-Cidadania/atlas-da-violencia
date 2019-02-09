@@ -231,11 +231,24 @@ Route::get('consulta/{id}', 'ConsultaController@detail');
 ////////////////////////////////////////////////////////////////////
 ///
 Route::get('api/v1', 'ApiController@index');
+
 Route::get('api/v1/fontes', 'ApiController@fontes');
 Route::get('api/v1/fontes/{order}', 'ApiController@fontes');
+Route::get('api/v1/fonte/{id}', 'ApiController@fonte');
+
+Route::get('api/v1/unidades', 'ApiController@unidades');
+Route::get('api/v1/unidade/{id}', 'ApiController@unidade');
+
+Route::get('api/v1/periodicidades', 'ApiController@periodicidades');
+Route::get('api/v1/periodicidade/{id}', 'ApiController@periodicidade');
+
+Route::get('api/v1/indicadores', 'ApiController@indicadores');
+Route::get('api/v1/indicador/{id}', 'ApiController@indicadore');
+
+Route::get('api/v1/unidades', 'ApiController@unidades');
+Route::get('api/v1/unidade/{id}', 'ApiController@unidade');
 
 Route::get('api/v1/temas', 'ApiController@temas');
 Route::get('api/v1/temas/{order}', 'ApiController@temas');
 
 
-Route::get('api/v1/fonte/{id}', 'ApiController@fonte');

@@ -26,7 +26,7 @@ class ApiController extends Controller
 
         return view('api.listar', ['apis' => $apis, 'textoApi' => $textoApi]);
     }
-
+    /////////////////////FONTES/////////////////////
     public function fontes($order='titulo'){
         $fontes = \App\Fonte::select('id', 'titulo')
             ->orderBy($order)
@@ -35,33 +35,80 @@ class ApiController extends Controller
         return $fontes;
     }
     public function fonte($id){
-        $fontes = \App\Fonte::select('id as cd_webdoor', 'titulo as tx_titulo_webdoor', 'descricao as tx_descricao_webdoor', 'imagem as tx_imagem_webdoor', 'link as tx_link_webdoor', 'legenda as tx_legenda_webdoor')
-            ->where('status', 1)
+        $fontes = \App\Fonte::select('id', 'titulo')
             ->where('id', $id)
-            ->orderBy('posicao')
-            ->get();
+            ->first();
 
         return $fontes;
     }
-
-
-
-    public function temas($order='tema'){
-        /*$fontes = \App\Tema::select('id', 'tema', 'tema_id', 'imagem', 'tipo')
-            ->orderBy($order)
+    ////////////////////////////////////////////////
+    /////////////////UNIDADES///////////////////////
+    public function unidades(){
+        $unidades = \App\Unidade::select('id', 'titulo')
+            ->orderBy('titulo')
             ->get();
 
-        return $fontes;*/
+        return $unidades;
+    }
+    public function unidade($id){
+        $unidades = \App\Unidade::select('id', 'titulo')
+            ->where('id', $id)
+            ->first();
 
-        $temas = \App\Tema::select('id', 'tema', 'tema_id', 'imagem', 'tipo')->where('status', 1)->orderBy($order)->get();
+        return $unidades;
+    }
+    ////////////////////////////////////////////////
+    //////////////PERIODICIDADES////////////////////
+    public function periodicidades(){
+        $periodicidades = \App\Periodicidade::select('id', 'titulo')
+            ->orderBy('titulo')
+            ->get();
 
+        return $periodicidades;
+    }
+    public function periodicidade($id){
+        $periodicidades = \App\Periodicidade::select('id', 'titulo')
+            ->where('id', $id)
+            ->first();
+
+        return $periodicidades;
+    }
+    ////////////////////////////////////////////////
+    /////////////////INDICADORES////////////////////
+    public function indicadores(){
+        $indicadores = \App\Indicador::select('id', 'titulo')
+            ->orderBy('titulo')
+            ->get();
+
+        return $indicadores;
+    }
+    public function indicadore($id){
+        $indicadores = \App\Indicador::select('id', 'titulo')
+            ->where('id', $id)
+            ->first();
+
+        return $indicadores;
+    }
+    ////////////////////////////////////////////////
+
+
+    public function temas(){
+
+
+        $temas = \App\Tema::select('id', 'tema', 'tema_id', 'imagem', 'tipo')->where('status', 1)->where('tema_id', 0)->orderBy('tema')->get();
 
         foreach ($temas as $tema){
-            $subTema = \App\Tema::select('id', 'tema', 'tema_id', 'imagem', 'tipo')->where('status', 1)->where('tema_id', $tema->id)->get();
+            $subTemas = \App\Tema::select('id', 'tema', 'tema_id', 'imagem', 'tipo')->where('status', 1)->where('tema_id', $tema->id)->get();
         }
 
+        $return = [
+            'temas' => $temas,
+            'subTemas' => $subTemas,
+        ];
 
-        return $temas;
+        return [$return];
+
+        //return $temas;
     }
 
 }
