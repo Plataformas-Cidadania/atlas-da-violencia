@@ -251,4 +251,9 @@ Route::get('api/v1/unidade/{id}', 'ApiController@unidade');
 Route::get('api/v1/temas', 'ApiController@temas');
 Route::get('api/v1/temas/{order}', 'ApiController@temas');
 
+Route::get('api/v1/valores-series/{serie_id}/{abrangencia}', 'ApiController@todosValores');
+Route::get('api/v1/valores-series/{serie_id}/{abrangencia}/{inical}/{final}', 'ApiController@todosValores');
+Route::get('api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}', 'ApiController@valoresPorRegiao');
+Route::get('api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}/{inical}/{final}', 'ApiController@valoresPorRegiao');
+
 

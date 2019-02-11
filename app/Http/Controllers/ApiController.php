@@ -98,17 +98,99 @@ class ApiController extends Controller
         $temas = \App\Tema::select('id', 'tema', 'tema_id', 'imagem', 'tipo')->where('status', 1)->where('tema_id', 0)->orderBy('tema')->get();
 
         foreach ($temas as $tema){
-            $subTemas = \App\Tema::select('id', 'tema', 'tema_id', 'imagem', 'tipo')->where('status', 1)->where('tema_id', $tema->id)->get();
+
+            $subTemas = $this->subtemas($tema->id);
+
+            $tema->subTemas = $subTemas;
         }
 
-        $return = [
-            'temas' => $temas,
-            'subTemas' => $subTemas,
+
+        return $temas;
+
+    }
+
+    private function subtemas($tema_id){
+
+        $subTemas = \App\Tema::select('id', 'tema', 'tema_id', 'imagem', 'tipo')->where('status', 1)->where('tema_id', $tema_id)->get();
+
+
+        foreach ($subTemas as $subTema){
+
+
+            $subTemasB = $this->subtemas($subTema->id);
+
+            $subTema->subTemas = $subTemasB;
+        }
+
+        return $subTemas;
+
+    }
+
+    public function todosValores($serie_id, $abrangencia, $inicial = null, $final = null){
+        return $this->valores($serie_id, $abrangencia, 0, $inicial, $final);
+    }
+
+    public function valoresPorRegiao($serie_id, $abrangencia, $regions, $inicial = null, $final = null){
+        return $this->valores($serie_id, $abrangencia, $regions, $inicial, $final);
+    }
+
+    private function valores($serie_id, $abrangencia, $regions, $inicial, $final){
+
+        $tabelas = [
+            1 => 'spat.ed_territorios_paises',
+            2 => 'spat.ed_territorios_regioes',
+            3 => 'spat.ed_territorios_uf',
+            4 => 'spat.ed_territorios_municipios',
+            5 => 'spat.ed_territorios_microrregioes',
+            6 => 'spat.ed_territorios_mesoregioes',
+            7 => 'spat.ed_territorios_piaui_tds'
         ];
 
-        return [$return];
+        $regions = explode(',', $regions);
 
-        //return $temas;
+        $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
+        if($abrangencia == 4){
+            $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
+        }
+
+        $periodicidade = \App\Serie::select('periodicidades.titulo')
+            ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
+            ->find($serie_id)
+            ->titulo;
+
+        if($periodicidade=="Anual"){
+            $inicial = $inicial.'-01-15';
+            $final = $final.'-01-15';
+        }
+
+        if($periodicidade=="Mensal" || $periodicidade=="Trimestral" || $periodicidade=="Semestral"){
+            $inicial = $inicial.'-15';
+            $final = $final.'-15';
+        }
+
+        $where = [['valores_series.serie_id', $serie_id]];
+        if(!empty($inicial)){
+            array_push($where, ['valores_series.periodo', '>=', $inicial]);
+            array_push($where, ['valores_series.periodo', '<=', $final]);
+        }
+
+        DB::enableQueryLog();
+
+        $rows = DB::table('valores_series')
+            ->select(DB::raw("$tabelas[$abrangencia].edterritorios_codigo as cod, $select_sigla as sigla, valores_series.valor, valores_series.periodo"))
+            ->join($tabelas[$abrangencia], 'valores_series.regiao_id', '=', "$tabelas[$abrangencia].edterritorios_codigo")
+            ->where($where)
+            ->where("valores_series.tipo_regiao", $abrangencia)
+            ->when($regions[0]!=0, function($query) use ($regions, $tabelas, $abrangencia){
+                return $query->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions);
+            })
+            //->whereIn("$tabelas[$abrangencia].edterritorios_codigo", $regions)
+            ->orderBy('valores_series.periodo')
+            ->get();
+
+        Log::info(DB::getQueryLog());
+
+        return $rows;
     }
 
 }
