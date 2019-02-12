@@ -11,7 +11,7 @@
     }else{
         $origem_id = 0;
     }
-    if($tipo_id==1||$tipo_id==7||$tipo_id==8){
+    if($tipo_id==1||$tipo_id==7||$tipo_id==8||$tipo_id==10){
         $origem_id = 1;
     }
 ?>

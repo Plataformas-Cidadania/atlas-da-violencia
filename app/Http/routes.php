@@ -230,7 +230,7 @@ Route::get('consulta/{id}', 'ConsultaController@detail');
 ///////////////////////////////WEBSERVICE///////////////////////////
 ////////////////////////////////////////////////////////////////////
 ///
-Route::get('api/v1', 'ApiController@index');
+Route::get('api/', 'ApiController@index');
 
 Route::get('api/v1/fontes', 'ApiController@fontes');
 Route::get('api/v1/fontes/{order}', 'ApiController@fontes');
