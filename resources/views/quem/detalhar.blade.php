@@ -10,7 +10,7 @@
             <div class="col-md-3">
                 <ul class="menu-vertical">
                 @foreach($menus as $menu)
-                    <li role="presentation"><a href="@if($menu->id==10)api/ @else quem/{{$menu->id}}/{{clean($menu->titulo)}}@endif" accesskey="q"@if($menu->id==$id) class="corrente" @endif style="clear: both;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{$menu->titulo}}</a></li>
+                    <li role="presentation"><a href="@if($menu->tipo==10)api/ @else quem/{{$menu->id}}/{{clean($menu->titulo)}}@endif" accesskey="q"@if($menu->id==$id) class="corrente" @endif style="clear: both;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{$menu->titulo}}</a></li>
                 @endforeach
                 </ul>
             </div>
