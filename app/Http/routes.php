@@ -243,13 +243,10 @@ Route::get('api/v1/periodicidades', 'ApiController@periodicidades');
 Route::get('api/v1/periodicidade/{id}', 'ApiController@periodicidade');
 
 Route::get('api/v1/indicadores', 'ApiController@indicadores');
-Route::get('api/v1/indicador/{id}', 'ApiController@indicadore');
-
-Route::get('api/v1/unidades', 'ApiController@unidades');
-Route::get('api/v1/unidade/{id}', 'ApiController@unidade');
+Route::get('api/v1/indicador/{id}', 'ApiController@indicador');
 
 Route::get('api/v1/temas', 'ApiController@temas');
-Route::get('api/v1/temas/{order}', 'ApiController@temas');
+Route::get('api/v1/tema/{id}', 'ApiController@tema');
 
 Route::get('api/v1/valores-series/{serie_id}/{abrangencia}', 'ApiController@todosValores');
 Route::get('api/v1/valores-series/{serie_id}/{abrangencia}/{inical}/{final}', 'ApiController@todosValores');
