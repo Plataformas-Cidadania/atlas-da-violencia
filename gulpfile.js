@@ -220,6 +220,10 @@ elixir(function(mix) {
     //Items Versao
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/itemVersaoCtrl.js', 'public/assets-cms/js/controllers/itemVersaoCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarItemVersaoCtrl.js', 'public/assets-cms/js/controllers/alterarItemVersaoCtrl.js');
+    
+    //Valores Filtro
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/valorFiltroCtrl.js', 'public/assets-cms/js/controllers/valorFiltroCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarValorFiltroCtrl.js', 'public/assets-cms/js/controllers/alterarValorFiltroCtrl.js');
 
     //FIM CMS///////////////////////////////////////////////////////////////////
     

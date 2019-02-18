@@ -424,6 +424,15 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/excluir-item-versao/{id}', 'Cms\Controllers\ItemVersaoController@excluir');
         Route::get('/cms/status-item-versao/{id}', 'Cms\Controllers\ItemVersaoController@status');
 
+        //VALORES FILTRO
+        Route::get('/cms/valores-filtro/{filtro_id}', 'Cms\Controllers\ValorFiltroController@index');
+        Route::get('/cms/listar-valores-filtro', 'Cms\Controllers\ValorFiltroController@listar');
+        Route::post('/cms/inserir-valor-filtro', 'Cms\Controllers\ValorFiltroController@inserir');
+        Route::get('/cms/valor-filtro/{id}', 'Cms\Controllers\ValorFiltroController@detalhar');
+        Route::post('/cms/alterar-valor-filtro/{id}', 'Cms\Controllers\ValorFiltroController@alterar');
+        Route::get('/cms/excluir-valor-filtro/{id}', 'Cms\Controllers\ValorFiltroController@excluir');
+        Route::get('/cms/status-valor-filtro/{id}', 'Cms\Controllers\ValorFiltroController@status');
+
         //FAVICONS
         Route::get('/cms/favicons', 'Cms\Controllers\FaviconController@index');
         Route::get('/cms/listar-favicons', 'Cms\Controllers\FaviconController@listar');

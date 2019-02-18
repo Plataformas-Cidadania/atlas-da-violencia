@@ -21,7 +21,7 @@ class ApiController extends Controller
             ->select('idiomas_apis.titulo', 'idiomas_apis.descricao', 'apis.tipo', 'apis.url', 'apis.resposta')
             ->join('idiomas_apis', 'idiomas_apis.api_id', '=', 'apis.id')
             ->where('idiomas_apis.idioma_sigla', $lang)
-            ->orderBy('versao')
+            ->orderBy('idiomas_apis.id')
             ->get();
 
         return view('api.listar', ['apis' => $apis, 'textoApi' => $textoApi]);
