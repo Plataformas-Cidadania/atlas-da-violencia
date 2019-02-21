@@ -7,7 +7,7 @@ class Page extends React.Component{
             idTypesAccident: [],
             idGender: [],
             tipoTerritorioSelecionado: 2,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
-            codigoTerritorioSelecionado: [11,12,13,14,15], //203 - Brasil 13 - SE
+            codigoTerritorioSelecionado: props.default_regions, //203 - Brasil 13 - SE
             tipoTerritorioAgrupamento: 2,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
             typeIcons: ['outros.png', 'automovel.png', 'motocicleta.png', 'pedestre.png', 'onibus.png', 'caminhao.png', 'bicicleta.png', 'outros.png'],
             iconsType: [],
@@ -27,6 +27,7 @@ class Page extends React.Component{
 
         };
 
+        //this.convertToArrayDefaultRegions = this.convertToArrayDefaultRegions.bind(this);
         this.checkFilter = this.checkFilter.bind(this);
         this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
@@ -46,6 +47,21 @@ class Page extends React.Component{
         this.loadValuesForUfs = this.loadValuesForUfs.bind(this);
     }
 
+    componentDidMount(){
+        //this.convertToArrayDefaultRegions();
+        console.log('CODIGO TERRITORIO SELECIONADO', this.state.codigoTerritorioSelecionado);
+    }
+
+    /*convertToArrayDefaultRegions(){
+        let default_regions = this.props.default_regions.split(',');
+        let codigoTerritorioSelecionado = this.state.codigoTerritorioSelecionado;
+        default_regions.find(function(item){
+            codigoTerritorioSelecionado.push(item)
+        }.bind(this));
+        this.setState({codigoTerritorioSelecionado: codigoTerritorioSelecionado}, function(){
+            console.log('CODIGO TERRITORIO SELECIONADO', this.state.codigoTerritorioSelecionado);
+        });
+    }*/
 
     mountPer(){
         let start = this.state.year+'-'+this.state.months[this.state.month]+'-01';
@@ -397,7 +413,7 @@ class Page extends React.Component{
 }
 
 ReactDOM.render(
-    <Page id={serie_id}/>,
+    <Page id={serie_id} default_regions={default_regions}/>,
     document.getElementById('page')
 );
 

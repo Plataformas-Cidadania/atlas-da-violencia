@@ -7,6 +7,7 @@ class Region extends React.Component{
             showtypes: false,
             typesSelected: [],
             tipoTerritorioSelecionado: props.tipoTerritorioSelecionado,
+            codigoTerritorioSelecionado: props.codigoTerritorioSelecionado,
             tiposTerritorios: ['', 'Países', 'Regiões', 'Estados', 'Municípios']
         };
 
@@ -26,12 +27,19 @@ class Region extends React.Component{
 
     }
 
+    /*componentWillReceiveProps(props){
+        if(this.state.tipoTerritorioSelecionado != props.tipoTerritorioSelecionado){
+            this.defaultTypes();
+        }
+    }*/
+
+
     defaultTypes(){
         $.ajax({
             method:'POST',
             url: 'default-regions',
             data:{
-                ids: this.props.codigoTerritorioSelecionado,
+                ids: this.state.codigoTerritorioSelecionado,
                 tipo_territorio: this.props.tipoTerritorioSelecionado,
             },
             cache: false,

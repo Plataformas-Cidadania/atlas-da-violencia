@@ -130,6 +130,7 @@
 
     <script>
         serie_id = 1;//
+        default_regions = "{{$setting->pontos_default_regions}}".split(',');
 
     </script>
     <div id="page"></div>

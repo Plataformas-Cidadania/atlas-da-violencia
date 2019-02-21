@@ -173,9 +173,7 @@ Route::get('new-maps/', function () {
 });
 
 ///////////SÉRIES POR PONTOS///////////////////////////////////////////////////
-Route::get('acidentes-transito/', function () {
-    return view('transito');
-});
+Route::get('pontos/', 'PontosController@index');
 Route::post('valores-transito/', 'PontosController@valoresMapa');
 Route::post('total-transito-territorio/', 'PontosController@totalPorTerritorio');
 Route::post('pontos-transito-territorio/', 'PontosController@pontosPorTerritorio');

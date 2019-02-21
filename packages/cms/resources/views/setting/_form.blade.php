@@ -7,6 +7,7 @@
         <li role="presentation"><a href="#cor" aria-controls="cor" role="tab" data-toggle="tab">Cores</a></li>
         <li role="presentation"><a href="#redes" aria-controls="redes" role="tab" data-toggle="tab">Redes</a></li>
         <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Séries</a></li>
+        <li role="presentation"><a href="#pontos" aria-controls="pontos" role="tab" data-toggle="tab">Pontos</a></li>
         <li role="presentation"><a href="#emails" aria-controls="emails" role="tab" data-toggle="tab">E-mail</a></li>
     </ul>
 
@@ -173,6 +174,13 @@
 
             {!! Form::label('posicao_metadados', 'Posição metadados') !!}<br>
             {!! Form::text('posicao_metadados', null, ['class'=>"form-control width-grande <% validar(setting.posicao_metadados) %>", 'ng-model'=>'setting.posicao_metadados', 'ng-required'=>'true', 'init-model'=>'setting.posicao_metadados']) !!}<br>
+
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="pontos">
+            <br>
+            {!! Form::label('pontos_default_regions', 'Regiões') !!}<br>
+            {!! Form::text('pontos_default_regions', null, ['class'=>"form-control width-grande <% validar(setting.pontos_default_regions) %>", 'ng-model'=>'setting.pontos_default_regions', 'ng-required'=>'true', 'init-model'=>'setting.pontos_default_regions']) !!}<br>
+
 
         </div>
         <div role="tabpanel" class="tab-pane" id="emails">

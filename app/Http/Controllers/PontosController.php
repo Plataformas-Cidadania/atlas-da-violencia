@@ -21,6 +21,13 @@ class PontosController extends Controller
 
     private $months = [null, 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
+    public function index(){
+
+        $setting = \App\Setting::firstOrFail();
+
+        return view('pontos', ['setting' => $setting]);
+    }
+
     public function filtrosSerie($serie_id){
         $filtros = \App\Filtro::select('filtros.id', 'filtros.titulo')
             ->join('filtros_series', 'filtros_series.filtro_id', '=', 'filtros.id')

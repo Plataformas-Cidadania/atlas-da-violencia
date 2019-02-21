@@ -303,7 +303,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
 @endif
 
-@if($rota=='acidentes-transito')
+@if($rota=='pontos')
     <link rel="stylesheet" href="lib/rslider/rSlider.min.css">
     <script src="lib/rslider/rSlider.js"></script>
 
@@ -315,22 +315,22 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="lib/leaflet/js/Control.FullScreen.js"></script>
 
     <script src="js/components/pagination.js"></script>
-    <script src="js/components/transito/range-year.js"></script>
-    <script src="js/components/transito/range-month.js"></script>
-    <script src="js/components/transito/territories.js"></script>
-    <script src="js/components/transito/types.js"></script>
-    <script src="js/components/transito/type.js"></script>
-    <script src="js/components/transito/typeAccident.js"></script>
-    <script src="js/components/transito/gender.js"></script>
-    <script src="js/components/transito/region.js"></script>
-    <script src="js/components/transito/map.js"></script>
-    <script src="js/components/transito/chartBarHtml5.js"></script>
-    <script src="js/components/transito/chartDonutHtml5.js"></script>
-    <script src="js/components/transito/chartGender.js"></script>
-    <script src="js/components/transito/listItems.js"></script>
-    <script src="js/components/transito/filter.js"></script>
-    <script src="js/components/transito/filters.js"></script>
-    <script src="js/components/transito/page.js"></script>
+    <script src="js/components/pontos/range-year.js"></script>
+    <script src="js/components/pontos/range-month.js"></script>
+    <script src="js/components/pontos/territories.js"></script>
+    <script src="js/components/pontos/types.js"></script>
+    <script src="js/components/pontos/type.js"></script>
+    <script src="js/components/pontos/typeAccident.js"></script>
+    <script src="js/components/pontos/gender.js"></script>
+    <script src="js/components/pontos/region.js"></script>
+    <script src="js/components/pontos/map.js"></script>
+    <script src="js/components/pontos/chartBarHtml5.js"></script>
+    <script src="js/components/pontos/chartDonutHtml5.js"></script>
+    <script src="js/components/pontos/chartGender.js"></script>
+    <script src="js/components/pontos/listItems.js"></script>
+    <script src="js/components/pontos/filter.js"></script>
+    <script src="js/components/pontos/filters.js"></script>
+    <script src="js/components/pontos/page.js"></script>
 @endif
 
 @if($rota=='filtros-series/{id}/{tema}' || $rota=='filtros-series')
