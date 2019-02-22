@@ -181,6 +181,11 @@
             {!! Form::label('pontos_default_regions', 'Regiões') !!}<br>
             {!! Form::text('pontos_default_regions', null, ['class'=>"form-control width-grande <% validar(setting.pontos_default_regions) %>", 'ng-model'=>'setting.pontos_default_regions', 'ng-required'=>'true', 'init-model'=>'setting.pontos_default_regions']) !!}<br>
 
+            {!! Form::label('pontos_tipo_default_regions', 'Tipo de Região *') !!}<br>
+            {!! Form::select('pontos_tipo_default_regions',
+                    $optionsAbrangencias,
+            null, ['class'=>"form-control <% validar(setting.pontos_tipo_default_regions) %> width-medio", 'ng-model'=>'setting.pontos_tipo_default_regions', 'ng-change' => '', 'ng-required'=>'true', 'init-model'=>'setting.pontos_tipo_default_regions', 'placeholder' => 'Selecione']) !!}<br>
+
 
         </div>
         <div role="tabpanel" class="tab-pane" id="emails">
