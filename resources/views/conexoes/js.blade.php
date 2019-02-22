@@ -330,6 +330,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="js/components/pontos/listItems.js"></script>
     <script src="js/components/pontos/filter.js"></script>
     <script src="js/components/pontos/filters.js"></script>
+    <script src="js/components/cards.js"></script>
     <script src="js/components/pontos/page.js"></script>
 @endif
 

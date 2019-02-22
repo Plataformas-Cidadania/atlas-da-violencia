@@ -22,6 +22,7 @@ class Page extends React.Component {
             valuesForGender: [],
             valuesForRegions: [],
             valuesForUfs: [],
+            valuesForChartFilters: [],
             values: [],
             currentPageListItems: 1
 
@@ -45,6 +46,7 @@ class Page extends React.Component {
         this.loadValues = this.loadValues.bind(this);
         this.loadValuesForRegions = this.loadValuesForRegions.bind(this);
         this.loadValuesForUfs = this.loadValuesForUfs.bind(this);
+        this.loadValuesChartFilters = this.loadValuesChartFilters.bind(this);
     }
 
     componentDidMount() {
@@ -74,6 +76,7 @@ class Page extends React.Component {
             this.loadValuesForRegions();
             this.loadValuesForUfs();
             this.loadValues();
+            this.loadValuesChartFilters();
         });
     }
 
@@ -146,12 +149,33 @@ class Page extends React.Component {
             this.loadValuesForRegions();
             this.loadValuesForUfs();
             this.loadValues();
+            this.loadValuesChartFilters();
         });
     }
 
     iconsType(icons) {
         //console.log(icons);
         this.setState({ iconsType: icons });
+    }
+
+    loadValuesChartFilters() {
+        $.ajax({
+            method: 'POST',
+            url: 'values-chart-filters/',
+            data: {
+                serie_id: this.props.id
+            },
+            cache: false,
+            success: function (data) {
+                //console.log(data);
+
+                this.setState({ valuesForChartFilters: data, loading: false });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(status, err.toString());
+                this.setState({ loading: false });
+            }.bind(this)
+        });
     }
 
     loadValuesForTypes() {
@@ -290,6 +314,7 @@ class Page extends React.Component {
             method: 'POST',
             url: "pontos-transito-territorio",
             data: {
+                serie_id: this.props.id,
                 start: this.state.start,
                 end: this.state.end,
                 filters: this.state.filters,
@@ -314,7 +339,35 @@ class Page extends React.Component {
 
     render() {
 
-        console.log('FILTERS IN PAGE', this.state.filters);
+        //console.log('VALUES CHART FILTERS IN PAGE', this.state.valuesForChartFilters);
+
+        let cards = this.state.valuesForChartFilters.map(function (item) {
+            //console.log(item.values);
+
+            return React.createElement(ChartBarHtml5, {
+                chart: '1',
+                type: '2',
+                values: item.values,
+                valuesSelected: '',
+                icons: '',
+                title: item.titulo
+            });
+        });
+
+        /*cards = [
+            <div>
+                <p>aaaaaa</p>
+                <p>aaaaaa</p>
+                <p>aaaaaa</p>
+                <p>aaaaaa</p>
+                <p>aaaaaa</p>
+                <p>aaaaaa</p>
+            </div>,
+            <div>bbbbbbbbb</div>,
+            <div>ccccccccc</div>
+        ];*/
+
+        //console.log('CARDS', cards);
 
         return React.createElement(
             'div',
@@ -367,14 +420,13 @@ class Page extends React.Component {
             React.createElement('br', null),
             React.createElement('br', null),
             React.createElement('br', null),
-            React.createElement(ChartBarHtml5, {
-                chart: '1',
-                type: '2',
-                values: this.state.valuesForTypes,
-                valuesSelected: this.state.typesSelected,
-                icons: this.state.iconsType,
-                title: 'Locomo\xE7\xE3o'
-            }),
+            React.createElement(
+                'div',
+                { className: 'container' },
+                React.createElement(Cards, {
+                    cards: cards
+                })
+            ),
             React.createElement('br', null),
             React.createElement('br', null),
             React.createElement('br', null),

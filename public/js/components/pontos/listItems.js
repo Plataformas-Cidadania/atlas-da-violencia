@@ -199,7 +199,7 @@ class ListItems extends React.Component {
             React.createElement(
                 'h2',
                 null,
-                'Acidentes'
+                'Dados'
             ),
             React.createElement('div', { className: 'line-title-sm bg-pri' }),
             React.createElement('hr', { className: 'line-hr-sm' }),

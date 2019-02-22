@@ -45,6 +45,8 @@ class ChartBarHtml5 extends React.Component {
 
     render() {
 
+        console.log(this.state.values);
+
         let total = this.total(this.state.values);
         let max = this.max(this.state.values);
 
@@ -117,11 +119,10 @@ class ChartBarHtml5 extends React.Component {
                             React.createElement(
                                 'div',
                                 { className: 'col-md-6' },
-                                item.titulo,
                                 React.createElement(
                                     'p',
                                     { className: 'txt-bar' },
-                                    'Titulo'
+                                    item.titulo
                                 )
                             ),
                             React.createElement(
@@ -152,56 +153,14 @@ class ChartBarHtml5 extends React.Component {
 
             return React.createElement(
                 'div',
-                { className: 'container' },
+                null,
                 React.createElement(
-                    'h2',
+                    'h4',
                     null,
                     this.state.title
                 ),
-                React.createElement('div', { className: 'line-title-sm bg-pri' }),
-                React.createElement('hr', { className: 'line-hr-sm' }),
-                React.createElement(
-                    'div',
-                    { className: 'card-columns' },
-                    React.createElement(
-                        'div',
-                        { className: 'card' },
-                        React.createElement(
-                            'div',
-                            { className: 'card-body' },
-                            bars
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'card p-3' },
-                        React.createElement(
-                            'div',
-                            { className: 'card-body' },
-                            '11'
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'card' },
-                        React.createElement(
-                            'div',
-                            { className: 'card-body' },
-                            '11'
-                        )
-                    )
-                )
-            )
-            /*<div className="container">
-                <h2>{this.state.title}</h2>
-                <div className="line-title-sm bg-pri"/><hr className="line-hr-sm"/>
-                <br/>
-                <br/>
-                <br/>
-                {bars}
-            </div>*/
-
-            ;
+                bars
+            );
         }
 
         return React.createElement(

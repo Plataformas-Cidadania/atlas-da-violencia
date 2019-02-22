@@ -192,6 +192,8 @@ Route::post('values-for-gender/', 'PontosController@valuesForGender');
 Route::post('values-for-regions/', 'PontosController@valuesForRegions');
 Route::post('arrays-transito/', 'PontosController@arraysTransito');
 
+Route::post('values-chart-filters/', 'PontosController@valuesChartFilters');
+
 //Filtros
 Route::get('filtros-serie/{serie_id}', 'PontosController@filtrosSerie');
 Route::post('valores-filtros', 'PontosController@valoresFiltros');

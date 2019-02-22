@@ -48,6 +48,8 @@ class ChartBarHtml5 extends React.Component{
 
     render(){
 
+        console.log(this.state.values);
+
 
         let total = this.total(this.state.values);
         let max = this.max(this.state.values);
@@ -105,8 +107,7 @@ class ChartBarHtml5 extends React.Component{
                             <hr className="hr-bar"/>
                             <div className="row">
                                 <div className="col-md-6">
-                                    {item.titulo}
-                                    <p className="txt-bar">Titulo</p>
+                                    <p className="txt-bar">{item.titulo}</p>
                                 </div>
                                 <div className="col-md-6 text-right">
                                     <p className="txt-bar">{item.value} ({formatNumber(item.value*100/total, 2, ',', '.')+"%"})</p>
@@ -121,45 +122,18 @@ class ChartBarHtml5 extends React.Component{
             }.bind(this));
 
             return(
-                <div className="container">
-                    <h2>{this.state.title}</h2>
-                    <div className="line-title-sm bg-pri"/><hr className="line-hr-sm"/>
-                    <div className="card-columns">
-                        <div className="card">
-                            <div className="card-body">
-                                {bars}
-                            </div>
-                        </div>
-                        <div className="card p-3">
-                            <div className="card-body">
-                                11
-                            </div>
-                        </div>
-                        <div className="card">
-                            <div className="card-body">
-                                11
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                /*<div className="container">
-                    <h2>{this.state.title}</h2>
-                    <div className="line-title-sm bg-pri"/><hr className="line-hr-sm"/>
-                    <br/>
-                    <br/>
-                    <br/>
+                <div>
+                    <h4>{this.state.title}</h4>
+                    {/*<div className="line-title-sm bg-pri"/><hr className="line-hr-sm"/>*/}
                     {bars}
-                </div>*/
-
-
-
+                </div>
 
             );
 
         }
 
         return(<div>Defina um tipo!</div>);
-        
+
 
     }
 }

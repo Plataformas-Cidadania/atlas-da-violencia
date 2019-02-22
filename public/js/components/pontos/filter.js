@@ -32,7 +32,7 @@ class Filter extends React.Component {
             },
             cache: false,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
 
                 //importar categorias passadas pela url//////////////
                 let typesUrl = this.props.typesUrl;
