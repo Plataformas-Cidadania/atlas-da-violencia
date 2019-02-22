@@ -121,7 +121,7 @@ class Series extends React.Component {
                 );
             }
             /*if(this.props.select == 'mark-several'){
-             }*/
+              }*/
             return React.createElement(
                 'tr',
                 { key: "serie_" + item.id, style: item.id == this.state.markedId ? this.state.style.marked : this.state.style.unmarked },

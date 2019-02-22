@@ -382,25 +382,6 @@ class Page extends React.Component {
             React.createElement(
                 'div',
                 { className: 'container' },
-                React.createElement(
-                    'div',
-                    { className: 'row', style: { paddingBottom: 0 } },
-                    React.createElement(
-                        'div',
-                        { className: 'col-md-6' },
-                        React.createElement(ChartGender, {
-                            values: this.state.valuesForGender
-                        })
-                    )
-                )
-            ),
-            React.createElement('br', null),
-            React.createElement('br', null),
-            React.createElement('br', null),
-            React.createElement('br', null),
-            React.createElement(
-                'div',
-                { className: 'container' },
                 React.createElement(ChartBarHtml5, {
                     chart: '2',
                     type: '1',

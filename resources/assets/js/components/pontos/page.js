@@ -367,7 +367,7 @@ class Page extends React.Component{
                     icons={this.state.iconsType}
                     title="Locomoção"
                 />
-                <br/><br/><br/><br/>
+                {/*<br/><br/><br/><br/>
                 <div className="container">
                     <div className="row" style={{paddingBottom: 0}}>
                         <div className="col-md-6">
@@ -376,7 +376,7 @@ class Page extends React.Component{
                             />
                         </div>
                     </div>
-                </div>
+                </div>*/}
                 <br/><br/><br/><br/>
                 <div className="container">
                     <ChartBarHtml5
