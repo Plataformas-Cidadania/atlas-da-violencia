@@ -110,9 +110,8 @@
             margin: 2px 0;
         }
         .txt-bar{
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 6px;
+            font-size: 12px;
+            margin: 0!important;
         }
 
         .bg-pri{
@@ -124,6 +123,11 @@
             position: relative;
             margin: 10px 2px 2px 2px;
             font-size: 25px;
+            line-height: 12px!important;
+        }
+        .hr-bar{
+            margin: 10px 0 10px 0!important;
+            padding: 0!important;
         }
     </style>
 
@@ -134,5 +138,131 @@
 
     </script>
     <div id="page"></div>
+
+
+
+   {{-- <div class="container">
+
+    <div class="card-columns">
+        <div class="card">
+            <img class="card-img-top" src=".../100px160/" alt="Imagem de capa do card">
+            <div class="card-body">
+                <h5 class="card-title">Título do card que quebra em uma nova linha</h5>
+                <p class="card-text">Este é um card mais longo com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional. Este conteúdo é um pouco maior.</p>
+            </div>
+        </div>
+        <div class="card p-3">
+            <blockquote class="blockquote mb-0 card-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <footer class="blockquote-footer">
+                    <small class="text-muted">
+                        Alguém famoso em <cite title="Título da fonte">Título da fonte222
+
+                        </cite>
+                    </small>
+                </footer>
+            </blockquote>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src=".../100px160/" alt="Imagem de capa do card">
+            <div class="card-body">
+                <h5 class="card-title">Título do card333333</h5>
+                <p class="card-text">Este é um card com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional.</p>
+                <p class="card-text"><small class="text-muted">Atualizados 3 minutos atrás</small></p>
+            </div>
+        </div>
+        <div class="card bg-primary text-white text-center p-3">
+            <blockquote class="blockquote mb-0">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.444444</p>
+                <footer class="blockquote-footer">
+                    <small>
+                        Alguém famoso em <cite title="Título da fonte">Título da fonte</cite>
+                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                    </small>
+                </footer>
+            </blockquote>
+        </div>
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Título do card</h5>
+                <p class="card-text">Este é um card com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional.</p>
+                <p class="card-text"><small class="text-muted">Atualizados 3 minutos atrás</small></p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img" src=".../100px260/" alt="Imagem do card">
+        </div>
+        <div class="card p-3 text-right">
+            <blockquote class="blockquote mb-0">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.111111111111</p>
+                <footer class="blockquote-footer">
+                    <small class="text-muted">
+                        Alguém famoso em <cite title="Título da fonte">Título da fonte</cite>
+                    </small>
+                </footer>
+            </blockquote>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Título do card</h5>
+                <p class="card-text">Este é um card maior com suporte a texto embaixo, que funciona como uma introdução a um conteúdo adicional. Este card tem o conteúdo ainda maior que o primeiro, para mostrar a altura igual, em ação.</p>
+                <p class="card-text"><small class="text-muted">Atualizados 3 minutos atrás</small></p>
+            </div>
+        </div>
+    </div>
+
+    </div>--}}
+
+    <style>
+        @media (min-width: 576px){
+            .card-columns {
+                -webkit-column-count: 3;
+                -moz-column-count: 3;
+                column-count: 3;
+                -webkit-column-gap: 1.25rem;
+                -moz-column-gap: 1.25rem;
+                column-gap: 1.25rem;
+                orphans: 1;
+                widows: 1;
+            }
+        }
+        @media (min-width: 576px) {
+            .card-columns .card {
+                display: inline-block;
+                width: 100%;
+            }
+
+            .card-columns .card {
+                margin-bottom: 0.75rem;
+            }
+
+            .card {
+                position: relative;
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                min-width: 0;
+                word-wrap: break-word;
+                background-color: #fff;
+                background-clip: border-box;
+                border: 1px solid rgba(0, 0, 0, 0.125);
+                border-radius: 0.25rem;
+            }
+        }
+        .card-body {
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            padding: 1.25rem;
+        }
+        .p-3 {
+            padding: 1rem !important;
+        }
+        .card-img-top {
+            width: 100%;
+            border-top-left-radius: calc(0.25rem - 1px);
+            border-top-right-radius: calc(0.25rem - 1px);
+        }
+    </style>
 
 @endsection
