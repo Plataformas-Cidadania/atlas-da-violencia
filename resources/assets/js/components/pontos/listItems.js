@@ -131,7 +131,7 @@ class ListItems extends React.Component{
 
         return(
             <div>
-                <h2>Acidentes</h2>
+                <h2>Dados</h2>
                 <div className="line-title-sm bg-pri"/><hr className="line-hr-sm"/>
                 <br/>
                 <table className="table">

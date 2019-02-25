@@ -110,7 +110,7 @@
 
 </style>
 
-@if($rota=='acidentes-transito')
+@if($rota=='pontos')
     <link rel="stylesheet" href="lib/leaflet/css/leaflet.css"/>
     <link rel="stylesheet" href="lib/leaflet/css/MarkerCluster.css" />
     <link rel="stylesheet" href="lib/leaflet/css/MarkerCluster.Default.css" />

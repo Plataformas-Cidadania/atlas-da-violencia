@@ -1,7 +1,7 @@
 class Map extends React.Component{
     constructor(props){
         super(props);
-        console.log(props);
+        //console.log(props);
         this.state = {
             firstTimeLoad: true,
             regioes: [],
@@ -108,7 +108,7 @@ class Map extends React.Component{
                 filters: props.filters
             }, function(){
                 //this.mountPer();
-                console.log(this.state.start, this.state.end);
+                //console.log(this.state.start, this.state.end);
                 this.loadMap();
                 this.loadDataTotalPorTerritorio();
             });
@@ -514,6 +514,7 @@ class Map extends React.Component{
             method:'POST',
             url: "total-transito-territorio",
             data:{
+                serie_id: this.props.id,
                 start: this.state.start,
                 end: this.state.end,
                 filters: this.state.filters,
@@ -526,7 +527,7 @@ class Map extends React.Component{
             },
             cache: false,
             success: function(data) {
-                console.log(data);
+                //console.log(data);
                 this.setState({data: data.valores}, function(){
                     this.populateMap();
                 });
@@ -542,6 +543,7 @@ class Map extends React.Component{
             method:'POST',
             url: "pontos-transito-territorio",
             data:{
+                serie_id: this.props.id,
                 start: this.state.start,
                 end: this.state.end,
                 filters: this.state.filters,
@@ -569,6 +571,7 @@ class Map extends React.Component{
             method:'POST',
             url: "pontos-transito-pais",
             data:{
+                serie_id: this.props.id,
                 start: this.state.start,
                 end: this.state.end,
                 pais: this.state.pais,
@@ -598,7 +601,7 @@ class Map extends React.Component{
             return item.total;
         });
 
-        console.log(valores);
+        //console.log(valores);
         let min = Math.min.apply(null, valores);
         let minUtil = parseInt(min + min * 10/100);
         let max = Math.max.apply(null, valores);
@@ -607,8 +610,8 @@ class Map extends React.Component{
         let qtdIntervalos = 5;
         let intervalo = parseInt(maxUtil / qtdIntervalos);
 
-        console.log('minUtil', minUtil);
-        console.log('intervalo', intervalo);
+        //console.log('minUtil', minUtil);
+        //console.log('intervalo', intervalo);
 
         let intervalos = [];
         intervalos.push(minUtil);
@@ -618,7 +621,7 @@ class Map extends React.Component{
             intervalos.push(anterior);
         }
 
-        console.log(intervalos);
+        //console.log(intervalos);
 
         return intervalos;
     }
@@ -656,7 +659,7 @@ class Map extends React.Component{
 
             let cor = this.defineCor(data[i].total, intervalos);
             let classMarker = _this.state.classMarker[data[i].tipo_territorio];
-            console.log(classMarker);
+            //console.log(classMarker);
 
             let icon = L.divIcon({
                 className: classMarker+' markerCor'+cor,

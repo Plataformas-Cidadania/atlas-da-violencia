@@ -250,8 +250,19 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                                 </ul>
                             </li>
 
+
+
                             <li>
-                                <a href="cms/apis"><i class="fa fa-indent" aria-hidden="true"></i> Api</a>
+                                <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i
+                                            class="fa fa-fw fa-arrows-v"></i> Webservice  <i class="fa fa-fw fa-caret-down"></i></a>
+                                <ul id="demo1" class="collapse @if($rota=="cms/directives" || $rota=="cms/artworks" || $rota=="cms/printings") show @endif">
+                                    <li>
+                                        <a href="cms/quemsomos/10/api">Descricao</a>
+                                    </li>
+                                    <li>
+                                        <a href="cms/apis"><i class="fa fa-indent" aria-hidden="true"></i> Api</a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <style>

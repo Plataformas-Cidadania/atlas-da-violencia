@@ -8,6 +8,6 @@ null, ['class'=>"form-control width-medio <% validar(api.idioma_sigla) %>", 'ng-
 {!! Form::label('titulo', 'Título *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(api.titulo) %>", 'ng-model'=>'api.titulo', 'ng-required'=>'true', 'init-model'=>'api.titulo', 'placeholder' => '']) !!}<br>
 
-{!! Form::label('descricao', 'Título *') !!}<br>
+{!! Form::label('descricao', 'Parâmetros *') !!}<br>
 {!! Form::text('descricao', null, ['class'=>"form-control width-grande <% validar(api.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'api.descricao', 'ng-required'=>'true', 'init-model'=>'api.descricao', 'placeholder' => '']) !!}<br>
 

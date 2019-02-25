@@ -21,6 +21,13 @@ class PontosController extends Controller
 
     private $months = [null, 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
+    public function index(){
+
+        $setting = \App\Setting::firstOrFail();
+
+        return view('pontos', ['setting' => $setting]);
+    }
+
     public function filtrosSerie($serie_id){
         $filtros = \App\Filtro::select('filtros.id', 'filtros.titulo')
             ->join('filtros_series', 'filtros_series.filtro_id', '=', 'filtros.id')
@@ -61,7 +68,7 @@ class PontosController extends Controller
             ->join('spat.ed_territorios_regioes', 'spat.territorio.terid', '=', 'spat.ed_territorios_regioes.edterritorios_terid')
             ->join('series', 'series.id', '=', 'valores_series.serie_id')
             ->where([
-                ['valores_series.serie_id', 1],
+                ['valores_series.serie_id', $request->serie_id],
                 ['valores_series.periodo', '>=', $min],
                 ['valores_series.periodo', '<=', $max]
             ])
@@ -118,7 +125,7 @@ class PontosController extends Controller
                 return $query;
             })
             ->where([
-                ['geovalores.serie_id', 1],
+                ['geovalores.serie_id', $request->serie_id],
                 ['geovalores.data', '>=', $start],
                 ['geovalores.data', '<=', $end]
             ])
@@ -203,7 +210,7 @@ class PontosController extends Controller
                 return $query;
             })
             ->where([
-                ['geovalores.serie_id', 1],
+                ['geovalores.serie_id', $request->serie_id],
                 ['geovalores.data', '>=', $start],
                 ['geovalores.data', '<=', $end]
             ])
@@ -234,7 +241,7 @@ class PontosController extends Controller
                 ->join('geovalores_valores_filtros', 'geovalores_valores_filtros.valor_filtro_id', '=', 'valores_filtros.id')
                 ->join('geovalores', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
                 ->where([
-                    ['geovalores.serie_id', 1],
+                    ['geovalores.serie_id', $request->serie_id],
                     ['geovalores.data', '>=', $start],
                     ['geovalores.data', '<=', $end]
                 ])
@@ -257,24 +264,30 @@ class PontosController extends Controller
                 ->get();
 
 
+            $filtros = \App\Filtro::select('filtros.id', 'filtros.titulo')
+                ->join('filtros_series', 'filtros_series.filtro_id', '=', 'filtros.id')
+                ->where('filtros_series.serie_id', $request->serie_id)
+                ->get();
 
-            foreach ($valores as $valor) {
-                Log::info([$valor]);
+
+
+            /*foreach ($valores as $valor) {
+                //Log::info([$valor]);
                 $valor->dados = [];
                 foreach ($icones as $icone) {
                     if($icone->id == $valor->id){
                         array_push($valor->dados, $icone);
                     }
                 }
-            }
+            }*/
 
 
-            Log::info(DB::getQueryLog());
+            /*Log::info(DB::getQueryLog());
             Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             Log::info([$icones]);
             Log::info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-            Log::info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            Log::info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");*/
 
 
 
@@ -284,7 +297,7 @@ class PontosController extends Controller
 
 
 
-        return ['valores' => $valores];
+        return ['valores' => $valores, 'filtros' => $filtros];
     }
 
     public function pontosPorPais(Request $request){
@@ -316,7 +329,7 @@ class PontosController extends Controller
             ->join('series', 'series.id', '=', 'geovalores.serie_id')
             ->join('spat.ed_territorios_paises', DB::Raw("ST_Contains(spat.ed_territorios_paises.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
             ->where([
-                ['geovalores.serie_id', 1],
+                ['geovalores.serie_id', $request->serie_id],
                 ['geovalores.data', '>=', $start],
                 ['geovalores.data', '<=', $end],
                 ['spat.ed_territorios_paises.edterritorios_codigo', $pais]
@@ -352,7 +365,7 @@ class PontosController extends Controller
             ->join('spat.ed_territorios_regioes', 'spat.territorio.terid', '=', 'spat.ed_territorios_regioes.edterritorios_terid')
             ->join('series', 'series.id', '=', 'valores_series.serie_id')
             ->where([
-                ['valores_series.serie_id', 1],
+                ['valores_series.serie_id', $request->serie_id],
                 ['valores_series.periodo', '>=', $min],
                 ['valores_series.periodo', '<=', $max]
             ])
@@ -608,5 +621,31 @@ class PontosController extends Controller
         $genders = $this->genders();
 
         return ['types'=>$types, 'typesAccident'=>$typesAccident, 'genders'=>$genders];
+    }
+
+    public function valuesChartFilters(Request $request){
+        $filters = \App\Filtro::select('filtros.*', DB::Raw('count(valores_filtros.filtro_id) as qtd'))
+            ->join('valores_filtros', 'filtros.id', '=', 'valores_filtros.filtro_id')
+            ->join('filtros_series', 'filtros.id', '=', 'filtros_series.filtro_id')
+            ->where('serie_id', $request->serie_id)
+            ->groupBy('valores_filtros.filtro_id', 'filtros.id')
+            ->orderBy(DB::Raw('count(valores_filtros.filtro_id)'), 'desc')
+            ->distinct()
+            ->get();
+
+        foreach($filters as $filter){
+            $values = \App\GeoValor::select('valores_filtros.titulo', DB::Raw('count(valores_filtros.id) as value'))
+                ->join('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
+                ->join('valores_filtros', 'valores_filtros.id', '=', 'geovalores_valores_filtros.valor_filtro_id')
+                ->join('filtros', 'filtros.id', '=', 'valores_filtros.filtro_id')
+                ->where('geovalores.serie_id', $request->serie_id)
+                ->where('filtros.id', $filter->id)
+                ->groupBy('valores_filtros.id')
+                ->get();
+
+            $filter->values = $values;
+        }
+
+        return $filters;
     }
 }

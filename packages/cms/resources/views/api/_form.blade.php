@@ -35,8 +35,8 @@ null, ['class'=>"form-control width-medio <% validar(api.tipo) %>", 'ng-model'=>
 {!! Form::label('titulo', 'Título *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(idioma.titulo) %>", 'ng-model'=>'idioma.titulo', 'ng-required'=>'true', 'init-model'=>'idioma.titulo', 'placeholder' => '']) !!}<br>
 
-{!! Form::label('descricao', 'Descrição *') !!}<br>
-{!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(idioma.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'idioma.descricao', 'ng-required'=>'true', 'init-model'=>'idioma.descricao', 'placeholder' => '']) !!}<br>
+{!! Form::label('descricao', 'Parâmetros *') !!}<br>
+{!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(idioma.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'idioma.descricao', 'init-model'=>'idioma.descricao', 'placeholder' => '']) !!}<br>
 @endif
 
 {!! Form::label('url', 'Rota *') !!}<br>

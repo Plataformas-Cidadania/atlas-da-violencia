@@ -1,13 +1,12 @@
-class Region extends React.Component{
+class Filter extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             types:[],
+            filter_id: this.props.filter_id,
             search:'',
             showtypes: false,
             typesSelected: [],
-            tipoTerritorioSelecionado: props.tipoTerritorioSelecionado,
-            tiposTerritorios: ['', 'Países', 'Regiões', 'Estados', 'Municípios']
         };
 
         this.load = this.load.bind(this);
@@ -15,58 +14,21 @@ class Region extends React.Component{
         this.handleSearch = this.handleSearch.bind(this);
         this.addType = this.addType.bind(this);
         this.removeType = this.removeType.bind(this);
-        this.defaultTypes = this.defaultTypes.bind(this);
     }
 
     componentDidMount(){
         //this.setState({typesSelected: this.props.typesUrl});
 
         this.load();
-        this.defaultTypes();
-
-    }
-
-    defaultTypes(){
-        $.ajax({
-            method:'POST',
-            url: 'default-regions',
-            data:{
-                ids: this.props.codigoTerritorioSelecionado,
-                tipo_territorio: this.props.tipoTerritorioSelecionado,
-            },
-            cache: false,
-            success: function(data) {
-                //console.log('DEFAULT REGIONS', data);
-
-                data.find(function(item){
-                    //console.log(item);
-                    this.addType(item, false);//btnFilter = false -> assim não irá habilitar o botão de filter para os filtros default
-                }.bind(this));
-
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(status, err.toString());
-                this.setState({loading: false});
-            }.bind(this)
-        })
-    }
-
-    componentWillReceiveProps(props){
-        if(props.tipoTerritorioSelecionado != this.state.tipoTerritorioSelecionado){
-            this.setState({tipoTerritorioSelecionado: props.tipoTerritorioSelecionado});
-        }
     }
 
     load(){
-        if(this.state.search.length === 0){
-            return;
-        }
         $.ajax({
             method:'POST',
-            url: 'regions',
+            url: 'valores-filtros',
             data:{
                 search:this.state.search,
-                tipo_territorio: this.state.tipoTerritorioSelecionado,
+                filtro_id: this.state.filter_id,
             },
             cache: false,
             success: function(data) {
@@ -118,7 +80,7 @@ class Region extends React.Component{
         });
     }
 
-    addType(item, enableBtnFilter = true){
+    addType(item){
         //console.log('addType', item);
         let add = true;
         this.state.typesSelected.find(function(cat){
@@ -132,7 +94,7 @@ class Region extends React.Component{
             //console.log('addType - typesSelected', typesSelected);
             this.setState({showtypes: false});
             this.setState({typesSelected: typesSelected}, function(){
-                this.props.checkRegion(this.state.typesSelected, enableBtnFilter);
+                this.props.checkFilter(this.state.filter_id, this.state.typesSelected);
             });
         }
 
@@ -150,7 +112,7 @@ class Region extends React.Component{
         let index = typesSelected.indexOf(type);
         typesSelected.splice(index, 1);
         this.setState({typesSelected: typesSelected}, function(){
-            this.props.checkRegion(this.state.typesSelected, true);
+            this.props.checkFilter(this.state.typesSelected);
         });
     }
 
@@ -169,16 +131,9 @@ class Region extends React.Component{
                 }
             });
 
-
-            let sigla_uf = null;
-            //console.log(item.tipo_territorio);
-            if(item.tipo_territorio=="4"){
-                sigla_uf = "("+item.sigla+")";
-            }
-
             return (
-                <div key={'region_'+item.id+Math.floor((Math.random() * 1000) + 1)} style={{cursor:'pointer', color: color}} onClick={() => this.addType(item)}>
-                    <u>{firstPiece}</u>{lastPiece} {sigla_uf}
+                <div key={'cat_'+item.id} style={{cursor:'pointer', color: color}} onClick={() => this.addType(item)}>
+                    <u>{firstPiece}</u>{lastPiece}
                 </div>
             )
         }.bind(this));
@@ -197,24 +152,14 @@ class Region extends React.Component{
             typesSelected = "";
         }
 
-        let aviso_territorios_pesquisa = null;
-        if(this.state.tipoTerritorioSelecionado){
-            aviso_territorios_pesquisa = (
-                <div className="text-warning">Pesquisando por {this.state.tiposTerritorios[this.state.tipoTerritorioSelecionado]}</div>
-            );
-        }
-
         return(
             <div>
 
-
-                <input type="text" name="titleType" className="form-control input-sm" onClick={this.clickSearch} onChange={this.handleSearch} placeholder="Pesquise por regiões"/>
+                <input type="text" name="titleType" className="form-control input-sm" onClick={this.clickSearch} onChange={this.handleSearch} placeholder="Pesquise pelo tipo de Sexo"/>
                 <div className="div-info" style={{border: "solid 1px #CCC", display: this.state.showtypes ? 'block' : 'none'}}>
-                    {aviso_territorios_pesquisa}
                     {types}
                 </div>
                 <hr style={{margin: '10px 0'}}/>
-
                 <div style={{overflowX: "auto", width: "100%", height: "45px"}}>
                     <div style={{width: "1000px"}}>{typesSelected}</div>
                 </div>

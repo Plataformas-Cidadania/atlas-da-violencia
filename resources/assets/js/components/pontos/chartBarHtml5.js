@@ -48,6 +48,8 @@ class ChartBarHtml5 extends React.Component{
 
     render(){
 
+        console.log(this.state.values);
+
 
         let total = this.total(this.state.values);
         let max = this.max(this.state.values);
@@ -95,31 +97,34 @@ class ChartBarHtml5 extends React.Component{
 
                 return (
                     <div className="row" key={'itemChartBar'+this.state.chart+"_"+index}>
-                        <div className="col-xs-2 col-sm-1 col-md-1">
+                        {/*<div className="col-xs-2 col-sm-1 col-md-1">
                             <div className="icon-bar">
-                                {/*<i className="fa fa-car"/>*/}
+                                <i className="fa fa-car"/>
                                 <img src={"img/leaflet/"+this.state.icons[item.type]} alt=""/>
                             </div>
-                        </div>
-                        <div className="col-xs-10 col-sm-8 col-md-8">
+                        </div>*/}
+                        <div className="col-xs-12">
+                            <hr className="hr-bar"/>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <p className="txt-bar">{item.titulo}</p>
+                                </div>
+                                <div className="col-md-6 text-right">
+                                    <p className="txt-bar">{item.value} ({formatNumber(item.value*100/total, 2, ',', '.')+"%"})</p>
+                                </div>
+                            </div>
                             <div style={{backgroundColor: "#F4F4F4"}}>
                                 <div className="width-bar" style={{width: (item.value*100/total)+"%"}} title={formatNumber(item.value*100/total, 2, ',', '.')+"%"}>&nbsp;</div>
                             </div>
-                        </div>
-                        <div className="col-xs-10 col-sm-3 col-md-3">
-                            <p className="txt-bar">{item.value} ({formatNumber(item.value*100/total, 2, ',', '.')+"%"})</p>
                         </div>
                     </div>
                 );
             }.bind(this));
 
             return(
-                <div className="container">
-                    <h2>{this.state.title}</h2>
-                    <div className="line-title-sm bg-pri"/><hr className="line-hr-sm"/>
-                    <br/>
-                    <br/>
-                    <br/>
+                <div>
+                    <h4>{this.state.title}</h4>
+                    {/*<div className="line-title-sm bg-pri"/><hr className="line-hr-sm"/>*/}
                     {bars}
                 </div>
 
@@ -128,7 +133,7 @@ class ChartBarHtml5 extends React.Component{
         }
 
         return(<div>Defina um tipo!</div>);
-        
+
 
     }
 }

@@ -21,7 +21,7 @@ class ApiController extends Controller
             ->select('idiomas_apis.titulo', 'idiomas_apis.descricao', 'apis.tipo', 'apis.url', 'apis.resposta')
             ->join('idiomas_apis', 'idiomas_apis.api_id', '=', 'apis.id')
             ->where('idiomas_apis.idioma_sigla', $lang)
-            ->orderBy('versao')
+            ->orderBy('idiomas_apis.id')
             ->get();
 
         return view('api.listar', ['apis' => $apis, 'textoApi' => $textoApi]);
@@ -35,11 +35,11 @@ class ApiController extends Controller
         return $fontes;
     }
     public function fonte($id){
-        $fontes = \App\Fonte::select('id', 'titulo')
+        $fonte = \App\Fonte::select('id', 'titulo')
             ->where('id', $id)
             ->first();
 
-        return $fontes;
+        return $fonte;
     }
     ////////////////////////////////////////////////
     /////////////////UNIDADES///////////////////////
@@ -51,11 +51,11 @@ class ApiController extends Controller
         return $unidades;
     }
     public function unidade($id){
-        $unidades = \App\Unidade::select('id', 'titulo')
+        $unidade = \App\Unidade::select('id', 'titulo')
             ->where('id', $id)
             ->first();
 
-        return $unidades;
+        return $unidade;
     }
     ////////////////////////////////////////////////
     //////////////PERIODICIDADES////////////////////
@@ -67,11 +67,11 @@ class ApiController extends Controller
         return $periodicidades;
     }
     public function periodicidade($id){
-        $periodicidades = \App\Periodicidade::select('id', 'titulo')
+        $periodicidade = \App\Periodicidade::select('id', 'titulo')
             ->where('id', $id)
             ->first();
 
-        return $periodicidades;
+        return $periodicidade;
     }
     ////////////////////////////////////////////////
     /////////////////INDICADORES////////////////////
@@ -82,12 +82,12 @@ class ApiController extends Controller
 
         return $indicadores;
     }
-    public function indicadore($id){
-        $indicadores = \App\Indicador::select('id', 'titulo')
+    public function indicador($id){
+        $indicador = \App\Indicador::select('id', 'titulo')
             ->where('id', $id)
             ->first();
 
-        return $indicadores;
+        return $indicador;
     }
     ////////////////////////////////////////////////
 
@@ -107,6 +107,14 @@ class ApiController extends Controller
 
         return $temas;
 
+    }
+
+    public function tema($id){
+        $tema = \App\Tema::select('id', 'tema')
+            ->where('id', $id)
+            ->first();
+
+        return $tema;
     }
 
     private function subtemas($tema_id){

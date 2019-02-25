@@ -74,7 +74,7 @@ class List extends React.Component {
                         <button className='btn btn-primary' style={{float: 'right'}} onClick={() => this.select(item, false)} title="selecionar territórios"><i className="fa fa-edit" style={{fontSize: '1.5em'}}/></button>
                     </td>,
                     <td key='btn-todos-os-territorios'><button className='btn btn-primary' onClick={() => this.select(item, true)} title="todos os territórios"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button></td>
-                  ];*/
+                 ];*/
 
                 let buttons = [];
                 /*buttons[0] = (

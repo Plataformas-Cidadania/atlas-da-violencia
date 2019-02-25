@@ -56,10 +56,15 @@ class SettingController extends Controller
                 ->all();
         }
 
+        $lang =  \App::getLocale();
 
+        $optionsAbrangencias = \App\OptionAbrangencia::
+        select('idiomas_options_abrangencias.title', 'options_abrangencias.id')
+            ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
+            ->where('idiomas_options_abrangencias.idioma_sigla', $lang)
+            ->lists('idiomas_options_abrangencias.title', 'options_abrangencias.id');
 
-
-        return view('cms::setting.detalhar', ['setting' => $setting, 'series' => $series]);
+        return view('cms::setting.detalhar', ['setting' => $setting, 'series' => $series, 'optionsAbrangencias' => $optionsAbrangencias]);
     }
 
     public function alterar(Request $request)

@@ -69,7 +69,9 @@
                                 </p>
                             </div>
                             <br>
-                            <h4>Notas de Implementação</h4>
+                            @if(!empty($api->descricao))
+                            <h4>Parâmetros</h4>
+                            @endif
                             <div class="table-api">{!! $api->descricao !!}</div>
                             <br> <br>
                             <h4>Resposta</h4>

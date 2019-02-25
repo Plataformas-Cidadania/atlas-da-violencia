@@ -173,9 +173,7 @@ Route::get('new-maps/', function () {
 });
 
 ///////////SÉRIES POR PONTOS///////////////////////////////////////////////////
-Route::get('acidentes-transito/', function () {
-    return view('transito');
-});
+Route::get('pontos/', 'PontosController@index');
 Route::post('valores-transito/', 'PontosController@valoresMapa');
 Route::post('total-transito-territorio/', 'PontosController@totalPorTerritorio');
 Route::post('pontos-transito-territorio/', 'PontosController@pontosPorTerritorio');
@@ -193,6 +191,8 @@ Route::post('values-for-types/', 'PontosController@valuesForTypes');
 Route::post('values-for-gender/', 'PontosController@valuesForGender');
 Route::post('values-for-regions/', 'PontosController@valuesForRegions');
 Route::post('arrays-transito/', 'PontosController@arraysTransito');
+
+Route::post('values-chart-filters/', 'PontosController@valuesChartFilters');
 
 //Filtros
 Route::get('filtros-serie/{serie_id}', 'PontosController@filtrosSerie');
@@ -230,7 +230,7 @@ Route::get('consulta/{id}', 'ConsultaController@detail');
 ///////////////////////////////WEBSERVICE///////////////////////////
 ////////////////////////////////////////////////////////////////////
 ///
-Route::get('api/v1', 'ApiController@index');
+Route::get('api/', 'ApiController@index');
 
 Route::get('api/v1/fontes', 'ApiController@fontes');
 Route::get('api/v1/fontes/{order}', 'ApiController@fontes');
@@ -243,13 +243,10 @@ Route::get('api/v1/periodicidades', 'ApiController@periodicidades');
 Route::get('api/v1/periodicidade/{id}', 'ApiController@periodicidade');
 
 Route::get('api/v1/indicadores', 'ApiController@indicadores');
-Route::get('api/v1/indicador/{id}', 'ApiController@indicadore');
-
-Route::get('api/v1/unidades', 'ApiController@unidades');
-Route::get('api/v1/unidade/{id}', 'ApiController@unidade');
+Route::get('api/v1/indicador/{id}', 'ApiController@indicador');
 
 Route::get('api/v1/temas', 'ApiController@temas');
-Route::get('api/v1/temas/{order}', 'ApiController@temas');
+Route::get('api/v1/tema/{id}', 'ApiController@tema');
 
 Route::get('api/v1/valores-series/{serie_id}/{abrangencia}', 'ApiController@todosValores');
 Route::get('api/v1/valores-series/{serie_id}/{abrangencia}/{inical}/{final}', 'ApiController@todosValores');

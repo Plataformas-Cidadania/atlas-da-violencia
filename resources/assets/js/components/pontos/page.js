@@ -7,7 +7,7 @@ class Page extends React.Component{
             idTypesAccident: [],
             idGender: [],
             tipoTerritorioSelecionado: 2,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
-            codigoTerritorioSelecionado: [11,12,13,14,15], //203 - Brasil 13 - SE
+            codigoTerritorioSelecionado: props.default_regions, //203 - Brasil 13 - SE
             tipoTerritorioAgrupamento: 2,//1 - país, 2 - regiao, 3 - uf, 4 - municipio
             typeIcons: ['outros.png', 'automovel.png', 'motocicleta.png', 'pedestre.png', 'onibus.png', 'caminhao.png', 'bicicleta.png', 'outros.png'],
             iconsType: [],
@@ -22,11 +22,13 @@ class Page extends React.Component{
             valuesForGender: [],
             valuesForRegions: [],
             valuesForUfs: [],
+            valuesForChartFilters: [],
             values: [],
             currentPageListItems: 1,
 
         };
 
+        //this.convertToArrayDefaultRegions = this.convertToArrayDefaultRegions.bind(this);
         this.checkFilter = this.checkFilter.bind(this);
         this.checkType = this.checkType.bind(this);
         this.checkTypeAccident = this.checkTypeAccident.bind(this);
@@ -44,8 +46,24 @@ class Page extends React.Component{
         this.loadValues = this.loadValues.bind(this);
         this.loadValuesForRegions = this.loadValuesForRegions.bind(this);
         this.loadValuesForUfs = this.loadValuesForUfs.bind(this);
+        this.loadValuesChartFilters = this.loadValuesChartFilters.bind(this);
     }
 
+    componentDidMount(){
+        //this.convertToArrayDefaultRegions();
+        console.log('CODIGO TERRITORIO SELECIONADO', this.state.codigoTerritorioSelecionado);
+    }
+
+    /*convertToArrayDefaultRegions(){
+        let default_regions = this.props.default_regions.split(',');
+        let codigoTerritorioSelecionado = this.state.codigoTerritorioSelecionado;
+        default_regions.find(function(item){
+            codigoTerritorioSelecionado.push(item)
+        }.bind(this));
+        this.setState({codigoTerritorioSelecionado: codigoTerritorioSelecionado}, function(){
+            console.log('CODIGO TERRITORIO SELECIONADO', this.state.codigoTerritorioSelecionado);
+        });
+    }*/
 
     mountPer(){
         let start = this.state.year+'-'+this.state.months[this.state.month]+'-01';
@@ -58,6 +76,7 @@ class Page extends React.Component{
             this.loadValuesForRegions();
             this.loadValuesForUfs();
             this.loadValues();
+            this.loadValuesChartFilters();
         });
     }
 
@@ -130,12 +149,34 @@ class Page extends React.Component{
             this.loadValuesForRegions();
             this.loadValuesForUfs();
             this.loadValues();
+            this.loadValuesChartFilters();
         });
     }
 
     iconsType(icons){
         //console.log(icons);
         this.setState({iconsType: icons});
+    }
+
+    loadValuesChartFilters(){
+        $.ajax({
+            method:'POST',
+            url: 'values-chart-filters/',
+            data:{
+                serie_id: this.props.id
+            },
+            cache: false,
+            success: function(data) {
+                //console.log(data);
+
+                this.setState({valuesForChartFilters: data, loading: false});
+
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(status, err.toString());
+                this.setState({loading: false});
+            }.bind(this)
+        });
     }
 
     loadValuesForTypes(){
@@ -275,6 +316,7 @@ class Page extends React.Component{
             method:'POST',
             url: "pontos-transito-territorio",
             data:{
+                serie_id: this.props.id,
                 start: this.state.start,
                 end: this.state.end,
                 filters: this.state.filters,
@@ -299,7 +341,37 @@ class Page extends React.Component{
 
     render(){
 
-        console.log('FILTERS IN PAGE', this.state.filters);
+        //console.log('VALUES CHART FILTERS IN PAGE', this.state.valuesForChartFilters);
+
+        let cards = this.state.valuesForChartFilters.map(function(item){
+            //console.log(item.values);
+
+            return (
+                <ChartBarHtml5
+                    chart='1'
+                    type='2'
+                    values={item.values}
+                    valuesSelected=""
+                    icons=""
+                    title={item.titulo}
+                />
+            );
+        });
+
+        /*cards = [
+            <div>
+                <p>aaaaaa</p>
+                <p>aaaaaa</p>
+                <p>aaaaaa</p>
+                <p>aaaaaa</p>
+                <p>aaaaaa</p>
+                <p>aaaaaa</p>
+            </div>,
+            <div>bbbbbbbbb</div>,
+            <div>ccccccccc</div>
+        ];*/
+
+        //console.log('CARDS', cards);
 
         return(
             <div>
@@ -343,6 +415,12 @@ class Page extends React.Component{
                      //month={this.state.month}
                 />
                 <br/><br/><br/><br/>
+                <div className="container">
+                    <Cards
+                        cards={cards}
+                    />
+                </div>
+                {/*<br/><br/><br/><br/>
                 <ChartBarHtml5
                     chart='1'
                     type='2'
@@ -350,8 +428,8 @@ class Page extends React.Component{
                     valuesSelected={this.state.typesSelected}
                     icons={this.state.iconsType}
                     title="Locomoção"
-                />
-                <br/><br/><br/><br/>
+                />*/}
+                {/*<br/><br/><br/><br/>
                 <div className="container">
                     <div className="row" style={{paddingBottom: 0}}>
                         <div className="col-md-6">
@@ -360,7 +438,7 @@ class Page extends React.Component{
                             />
                         </div>
                     </div>
-                </div>
+                </div>*/}
                 <br/><br/><br/><br/>
                 <div className="container">
                     <ChartBarHtml5
@@ -397,7 +475,7 @@ class Page extends React.Component{
 }
 
 ReactDOM.render(
-    <Page id={serie_id}/>,
+    <Page id={serie_id} default_regions={default_regions}/>,
     document.getElementById('page')
 );
 
