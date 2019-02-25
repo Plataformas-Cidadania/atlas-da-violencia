@@ -161,9 +161,12 @@ class Page extends React.Component{
     loadValuesChartFilters(){
         $.ajax({
             method:'POST',
-            url: 'values-chart-filters/',
+            url: 'values-chart-filters',
             data:{
-                serie_id: this.props.id
+                serie_id: this.props.id,
+                start: this.state.start,
+                end: this.state.end,
+                filters: this.state.filters,
             },
             cache: false,
             success: function(data) {
