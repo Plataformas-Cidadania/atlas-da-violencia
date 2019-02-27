@@ -624,6 +624,7 @@ class PontosController extends Controller
 
     public function valuesChartFilters(Request $request){
 
+        $serie_id = $request->serie_id;
         $start = $request->start;
         $end = $request->end;
         $filters = $request->filters;
@@ -660,7 +661,38 @@ class PontosController extends Controller
             ->distinct()
             ->get();
 
-        DB::connection()->enableQueryLog();
+        //DB::connection()->enableQueryLog();
+
+        $geovaloresArray = [];
+
+        if($whereFilters){
+            $geovalores = \App\GeoValor::select('geovalores_valores_filtros.geovalor_id')
+                ->join('geovalores_valores_filtros', 'geovalores.id', '=', 'geovalores_valores_filtros.geovalor_id')
+                ->where('geovalores.serie_id', $serie_id)
+                ->where(function($query) use ($filters){
+                    foreach ($filters as $filter) {
+                        if(array_key_exists('valores', $filter)){
+                            if(count($filter['valores']) > 0){
+                                foreach ($filter['valores'] as $valor) {
+                                    //Log::info([$valor]);
+                                    $query->orWhere('geovalores_valores_filtros.valor_filtro_id', $valor['id']);
+                                }
+
+                            }
+                        }
+                    }
+                    return $query;
+                })
+                ->get();
+
+            foreach ($geovalores as $geovalor) {
+                array_push($geovaloresArray, $geovalor->geovalor_id);
+            }
+
+            Log::info($geovaloresArray);
+
+        }
+
 
         foreach($filtersDB as $filterDB){
                      
@@ -669,17 +701,20 @@ class PontosController extends Controller
                 ->join('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
                 ->join('valores_filtros', 'valores_filtros.id', '=', 'geovalores_valores_filtros.valor_filtro_id')
                 ->join('filtros', 'filtros.id', '=', 'valores_filtros.filtro_id')
-                ->where('geovalores.serie_id', $request->serie_id)
+                ->where('geovalores.serie_id', $serie_id)
                 ->where('filtros.id', $filterDB->id)
                 ->where([
-                    ['geovalores.serie_id', $request->serie_id],
+                    ['geovalores.serie_id', $serie_id],
                     ['geovalores.data', '>=', $start],
                     ['geovalores.data', '<=', $end]
                 ])
-                ->when($whereFilters, function($query) use ($filters){                     
+                ->when($whereFilters, function($query) use ($filters, $geovaloresArray){
+                    return $query->whereIn('geovalores_valores_filtros.geovalor_id', $geovaloresArray);
+                })
+                /*->when($whereFilters, function($query) use ($filters){
                     foreach ($filters as $filter) {
                         $query->where(function($query) use ($filter){
-                            if(array_key_exists('valores', $filter)){ 
+                            if(array_key_exists('valores', $filter)){
                                 if(count($filter['valores']) > 0){
                                     foreach ($filter['valores'] as $valor) {
                                         //Log::info([$valor]);
@@ -688,12 +723,12 @@ class PontosController extends Controller
                                     return $query;
                                 }
                             }
-                        }); 
-                        
-                    }
-                    return $query;                    
+                        });
 
-                })
+                    }
+                    return $query;
+
+                })*/
                 ->groupBy('valores_filtros.id')
                 ->orderBy('valores_filtros.id')
                 ->get();
@@ -701,7 +736,7 @@ class PontosController extends Controller
             $filterDB->values = $values;
         }
 
-        Log::info(DB::getQueryLog());
+        //Log::info(DB::getQueryLog());
 
         return $filtersDB;
 
