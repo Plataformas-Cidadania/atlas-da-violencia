@@ -21,6 +21,8 @@ class PontosController extends Controller
 
     private $months = [null, 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
+    private $aliasFilter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
     public function index(){
 
         $setting = \App\Setting::firstOrFail();
@@ -82,9 +84,26 @@ class PontosController extends Controller
         $start = $request->start;
         $end = $request->end;
         $filters = $request->filters;
-        $types = $request->types;
-        $typesAccident = $request->typesAccident;
-        $genders = $request->genders;
+        $whereFilters = false;
+        if(count($filters) > 0){
+            foreach($filters as $filter){
+                if(array_key_exists('valores', $filter)){
+                    $whereFilters = true;
+                }
+            }
+        }
+
+        //se houver filtros com valores ira preencher os outros com todos os valores dos mesmos
+        if($whereFilters){
+            foreach($filters as $index => $filter){
+                if(!array_key_exists('valores', $filter)){
+                    //$filter->valores = [];
+                    $valores = \App\ValorFiltro::where('filtro_id', $filter['id'])->get()->toArray();
+                    $filters[$index]['valores'] = $valores;
+                    //log::info($filter['valores']);
+                }
+            }
+        }
 
 
         $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
@@ -96,6 +115,8 @@ class PontosController extends Controller
         //Log::info($codigoTerritorioSelecionado);
         //Log::info($tabelaTerritorioSelecionado);
         //Log::info($tabelaTerritorioAgrupamento);
+
+        $aliasFilter = $this->aliasFilter;
 
         $valores = DB::table("geovalores")
             ->select(DB::raw("
@@ -111,18 +132,29 @@ class PontosController extends Controller
             ->join("$tabelaTerritorioAgrupamento as agrupamento", DB::Raw("ST_Contains(agrupamento.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
             ->join("$tabelaTerritorioSelecionado as selecionado", DB::Raw("ST_Contains(selecionado.edterritorios_geometry, agrupamento.edterritorios_centroide)"), '=', DB::Raw("true"))
             ->leftJoin('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')//trocar serie_id por geovalor_id
-            ->when(count($filters) > 0, function($query) use ($filters){
-                foreach ($filters as $filter) {
-                    if(array_key_exists('valores', $filter)){
-                        if(count($filter['valores']) > 0){
-                            foreach ($filter['valores'] as $valor) {
-                                $query->orWhere('geovalores_valores_filtros.valor_filtro_id', $valor['id']);
+            ->when($whereFilters, function($query) use ($filters, $aliasFilter){
+                foreach ($filters as $index => $filter){
+                    $query->join("geovalores_valores_filtros as $aliasFilter[$index]", "$aliasFilter[$index].geovalor_id", '=', 'geovalores.id');
+                }
+                return $query;
+            })
+            ->when($whereFilters, function($query) use ($filters, $aliasFilter){
+                foreach ($filters as $index => $filter) {
+                    $query->where(function($query) use ($filter, $aliasFilter, $index){
+                        if(array_key_exists('valores', $filter)){
+                            if(count($filter['valores']) > 0){
+                                foreach ($filter['valores'] as $valor) {
+                                    //Log::info([$valor]);
+                                    $query->orWhere("$aliasFilter[$index].valor_filtro_id", $valor['id']);
+                                }
+                                return $query;
                             }
                         }
-                    }
-                }
+                    });
 
+                }
                 return $query;
+
             })
             ->where([
                 ['geovalores.serie_id', $request->serie_id],
@@ -142,7 +174,7 @@ class PontosController extends Controller
                 return $query->whereIn('geovalores.sexo', $genders);
             })*/
             ->groupBy(DB::Raw("
-            ST_X(agrupamento.edterritorios_centroide), 
+            ST_X(agrupamento.edterritorios_centroide),
             ST_Y(agrupamento.edterritorios_centroide),
             agrupamento.edterritorios_sigla,
             agrupamento.edterritorios_nome,
@@ -162,9 +194,28 @@ class PontosController extends Controller
         $start = $request->start;
         $end = $request->end;
         $filters = $request->filters;
-        $types = $request->types;
-        $typesAccident = $request->typesAccident;
-        $genders = $request->genders;
+        $whereFilters = false;
+        if(count($filters) > 0){
+            foreach($filters as $filter){
+                if(array_key_exists('valores', $filter)){
+                    $whereFilters = true;
+                }
+            }
+        }
+
+        //se houver filtros com valores ira preencher os outros com todos os valores dos mesmos
+        if($whereFilters){
+            foreach($filters as $index => $filter){
+                if(!array_key_exists('valores', $filter)){
+                    //$filter->valores = [];
+                    $valores = \App\ValorFiltro::where('filtro_id', $filter['id'])->get()->toArray();
+                    $filters[$index]['valores'] = $valores;
+                    //log::info($filter['valores']);
+                }
+            }
+        }
+
+
         $paginate = $request->paginate;
 
         $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
@@ -176,6 +227,8 @@ class PontosController extends Controller
         //Log::info($tabelaTerritorioAgrupamento);
 
         DB::connection()->enableQueryLog();
+
+        $aliasFilter = $this->aliasFilter;
 
         $valores = DB::table("geovalores")
             ->select(DB::raw("
@@ -195,18 +248,29 @@ class PontosController extends Controller
             ->join('series', 'series.id', '=', 'geovalores.serie_id')
             ->join($tabelaTerritorioSelecionado, DB::Raw("ST_Contains($tabelaTerritorioSelecionado.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
             ->leftJoin('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
-            ->when(count($filters) > 0, function($query) use ($filters){
-                foreach ($filters as $filter) {
-                    if(array_key_exists('valores', $filter)){
-                        if(count($filter['valores']) > 0){
-                            foreach ($filter['valores'] as $valor) {
-                                $query->orWhere('geovalores_valores_filtros.valor_filtro_id', $valor['id']);
+            ->when($whereFilters, function($query) use ($filters, $aliasFilter){
+                foreach ($filters as $index => $filter){
+                    $query->join("geovalores_valores_filtros as $aliasFilter[$index]", "$aliasFilter[$index].geovalor_id", '=', 'geovalores.id');
+                }
+                return $query;
+            })
+            ->when($whereFilters, function($query) use ($filters, $aliasFilter){
+                foreach ($filters as $index => $filter) {
+                    $query->where(function($query) use ($filter, $aliasFilter, $index){
+                        if(array_key_exists('valores', $filter)){
+                            if(count($filter['valores']) > 0){
+                                foreach ($filter['valores'] as $valor) {
+                                    //Log::info([$valor]);
+                                    $query->orWhere("$aliasFilter[$index].valor_filtro_id", $valor['id']);
+                                }
+                                return $query;
                             }
                         }
-                    }
-                }
+                    });
 
+                }
                 return $query;
+
             })
             ->where([
                 ['geovalores.serie_id', $request->serie_id],
@@ -649,7 +713,10 @@ class PontosController extends Controller
             }
         }   
 
-        //log::info($filters);   
+        //log::info($filters);
+        //
+
+        $aliasFilter = $this->aliasFilter;
 
 
         $filtersDB = \App\Filtro::select('filtros.*', DB::Raw('count(valores_filtros.filtro_id) as qtd'))
@@ -663,42 +730,18 @@ class PontosController extends Controller
 
         //DB::connection()->enableQueryLog();
 
-        $geovaloresArray = [];
-
-        if($whereFilters){
-            $geovalores = \App\GeoValor::select('geovalores_valores_filtros.geovalor_id')
-                ->join('geovalores_valores_filtros', 'geovalores.id', '=', 'geovalores_valores_filtros.geovalor_id')
-                ->where('geovalores.serie_id', $serie_id)
-                ->where(function($query) use ($filters){
-                    foreach ($filters as $filter) {
-                        if(array_key_exists('valores', $filter)){
-                            if(count($filter['valores']) > 0){
-                                foreach ($filter['valores'] as $valor) {
-                                    //Log::info([$valor]);
-                                    $query->orWhere('geovalores_valores_filtros.valor_filtro_id', $valor['id']);
-                                }
-
-                            }
-                        }
-                    }
-                    return $query;
-                })
-                ->get();
-
-            foreach ($geovalores as $geovalor) {
-                array_push($geovaloresArray, $geovalor->geovalor_id);
-            }
-
-            Log::info($geovaloresArray);
-
-        }
-
 
         foreach($filtersDB as $filterDB){
                      
 
             $values = \App\GeoValor::select('valores_filtros.titulo', DB::Raw('count(valores_filtros.id) as value'))
                 ->join('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
+                ->when($whereFilters, function($query) use ($filters, $aliasFilter){
+                    foreach ($filters as $index => $filter){
+                        $query->join("geovalores_valores_filtros as $aliasFilter[$index]", "$aliasFilter[$index].geovalor_id", '=', 'geovalores.id');
+                    }
+                    return $query;
+                })
                 ->join('valores_filtros', 'valores_filtros.id', '=', 'geovalores_valores_filtros.valor_filtro_id')
                 ->join('filtros', 'filtros.id', '=', 'valores_filtros.filtro_id')
                 ->where('geovalores.serie_id', $serie_id)
@@ -708,17 +751,17 @@ class PontosController extends Controller
                     ['geovalores.data', '>=', $start],
                     ['geovalores.data', '<=', $end]
                 ])
-                ->when($whereFilters, function($query) use ($filters, $geovaloresArray){
-                    return $query->whereIn('geovalores_valores_filtros.geovalor_id', $geovaloresArray);
-                })
                 /*->when($whereFilters, function($query) use ($filters){
-                    foreach ($filters as $filter) {
-                        $query->where(function($query) use ($filter){
+                    return $query->whereIn('geovalores_valores_filtros.geovalor_id', $geovaloresArray);
+                })*/
+                ->when($whereFilters, function($query) use ($filters, $aliasFilter){
+                    foreach ($filters as $index => $filter) {
+                        $query->where(function($query) use ($filter, $aliasFilter, $index){
                             if(array_key_exists('valores', $filter)){
                                 if(count($filter['valores']) > 0){
                                     foreach ($filter['valores'] as $valor) {
                                         //Log::info([$valor]);
-                                        $query->orWhere('geovalores_valores_filtros.valor_filtro_id', $valor['id']);
+                                        $query->orWhere("$aliasFilter[$index].valor_filtro_id", $valor['id']);
                                     }
                                     return $query;
                                 }
@@ -728,7 +771,7 @@ class PontosController extends Controller
                     }
                     return $query;
 
-                })*/
+                })
                 ->groupBy('valores_filtros.id')
                 ->orderBy('valores_filtros.id')
                 ->get();
@@ -740,22 +783,5 @@ class PontosController extends Controller
 
         return $filtersDB;
 
-
-
-        /*->when($whereFilters, function($query) use ($filters){ 
-                    return $query->where(function($query) use ($filters){
-                        foreach ($filters as $filter) {
-                            if(array_key_exists('valores', $filter)){ 
-                                if(count($filter['valores']) > 0){
-                                    foreach ($filter['valores'] as $valor) {
-                                        $query->orWhere('geovalores_valores_filtros.valor_filtro_id', $valor['id']);
-                                    }
-                                }
-                            }
-                        }
-                        return $query;
-                    });
-
-                })*/
     }
 }
