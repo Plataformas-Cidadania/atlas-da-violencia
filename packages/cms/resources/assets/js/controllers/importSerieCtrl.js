@@ -15,7 +15,8 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
         var data1 = {
             id: $scope.id,
             serie: $scope.serie,
-            modelo: $scope.modelo
+            modelo: $scope.modelo,
+            tipo_dados: $scope.tipo_dados,
         };
 
         if(arquivo!=null){

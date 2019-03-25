@@ -1,6 +1,11 @@
 <?php
 
-return [    
+return [
+    'TIPOS_DADOS_SERIES' => [
+      0 => 'Territórios',
+      1 => 'Pontos',
+      2 => 'Territórios e Pontos'
+    ],
     'indicadores' => [
         ['id' => '1', 'title' => 'Quantidade', 'on' => false, 'enable' => false],
         ['id' => '2', 'title' => 'Taxa por 100 mil Habitantes', 'on' => false, 'enable' => false],

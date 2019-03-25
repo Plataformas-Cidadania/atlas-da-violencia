@@ -62,6 +62,7 @@ class SerieController extends Controller
             ->where('idiomas_unidades.idioma_sigla', $lang)
             ->lists('idiomas_unidades.titulo', 'unidades.id');
 
+        $tipos_dados_series = config("constants.TIPOS_DADOS_SERIES");
 
         return view('cms::serie.listar', [
             'fontes' => $fontes,
@@ -69,6 +70,7 @@ class SerieController extends Controller
             'periodicidades' => $periodicidades,
             'indicadores' => $indicadores,
             'unidades' => $unidades,
+            'tipos_dados_series' => $tipos_dados_series,
         ]);
     }
 
@@ -175,6 +177,9 @@ class SerieController extends Controller
             ->where('idiomas_unidades.idioma_sigla', $lang)
             ->lists('idiomas_unidades.titulo', 'unidades.id');
 
+        $tipos_dados_series = config("constants.TIPOS_DADOS_SERIES");
+
+
         return view('cms::serie.detalhar', [
             'serie' => $serie,
             'fontes' => $fontes,
@@ -182,6 +187,7 @@ class SerieController extends Controller
             'periodicidades' => $periodicidades,
             'indicadores' => $indicadores,
             'unidades' => $unidades,
+            'tipos_dados_series' => $tipos_dados_series,
         ]);
     }
 
@@ -259,7 +265,11 @@ class SerieController extends Controller
     }
 
     public function viewImportarVarias(){
-        return view('cms::serie.import-varias');
+
+        $tipos_dados_series = config("constants.TIPOS_DADOS_SERIES");
+
+
+        return view('cms::serie.import-varias', ['tipos_dados_series' => $tipos_dados_series]);
     }
 
     private function validarArquivoCsv($arquivo){
@@ -325,6 +335,10 @@ class SerieController extends Controller
         }
 
         $csv = $this->lerCsv($filenameArquivo);
+
+        if($data['tipo_dados'] == 1){
+            return $this->importarPontos($csv);
+        }
 
         if(!array_key_exists('id', $data)){
             $data['id'] = 0;
@@ -557,6 +571,10 @@ class SerieController extends Controller
                 $cont++;
             }
         }
+    }
+
+    private function importarPontos($csv){
+
     }
 
     private function calcula_dv_municipio($codigo_municipio){

@@ -26,6 +26,13 @@ null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-mo
     {{$periodicidade->titulo}}
 @endforeach--}}
 
+
+{!! Form::label('tipo_dados', 'Tipo de Dados *') !!}<br>
+{!! Form::select('tipo_dados',
+        $tipos_dados_series,
+null, ['class'=>"form-control width-medio <% validar(serie.tipo_dados) %>", 'ng-model'=>'serie.tipo_dados', 'ng-required'=>'true', 'init-model'=>'serie.tipo_dados', 'placeholder' => 'Selecione']) !!}<br>
+
+
 {!! Form::label('periodicidade_id', 'Periodicidade *') !!}<br>
 {!! Form::select('periodicidade_id',
 $periodicidades,
