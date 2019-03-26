@@ -23,6 +23,8 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
             data1.arquivo = arquivo;
         }
 
+        console.log(data1);
+
         Upload.upload({
             url: 'cms/importar-serie',
             data: data1,

@@ -84,13 +84,23 @@
 
                 <div ng-if="tipo_dados==1">
                     <div id="modelo1">
+                        <div>Da coluna <strong>serie</strong> até <strong>hora</strong> são opções padrões do sistema.</div>
+                        <div>As demais colunas são dinâmicas e devem ser cadastradas no menu <strong>Pontos - Filtros</strong></div>
+                        <div>Após a coluna <strong>hora</strong> deverão ser colocados na primeira linha os slugs de cada filtro</div>
+                        <div>Nas demais linhas os valores das colunas dinâmicas deverão ser os <strong>ids</strong> das opções de filtros</div>
+                        <div>Para facilitar a criação do csv você pode consultar os ids das opções de filtros de uma série em:</div>
+                        <br>
+                        <div><?php echo $_SERVER['HTTP_HOST']?>/cms/valores-filtros-serie/{id} </div>
+                        <br>
                         <div><strong>Exemplo: series.csv</strong></div>
-                        <div style="padding: 10px; background-color: #ccc; color:#333; width:400px;">
-                            <div>serie;abrangencia;cod;nome;valor;periodoaaaaaaaaa</div>
-                            <div>1;3;RJ;Rio de Janeiro;21;2018</div>
-                            <div>1;3;SP;São Paulo;11;2018</div>
-                            <div>2;3;RJ;Rio de Janeiro;12;2018</div>
-                            <div>2;3;SP;São Paulo;25;2018</div>
+                        <div style="padding: 10px; background-color: #ccc; color:#333; width:450px;">
+                            <div>serie;lat,lon;endereco;data;hora;faixa_etaria;locomocao;sexo;turno</div>
+                            <div>1;-22.8128022;-43.014031;2008-01-01;13:16:10;17;1;8;27</div>
+                            <div>1;-22.8121022;-43.011631;2008-01-02;14:25:10;17;1;8;27</div>
+                            <div>1;-22.8118022;-43.012631;2008-01-03;15:34:10;17;1;8;28</div>
+                            <div>1;-22.8128022;-43.013631;2008-01-04;16:43:10;16;2;8;27</div>
+                            <div>1;-22.8138022;-43.014631;2008-01-05;17:52:10;19;5;9;27</div>
+                            <div>1;-22.8148022;-43.015631;2008-01-06;18:21:10;19;5;9;27</div>
                         </div>
                         <br>
                     </div>

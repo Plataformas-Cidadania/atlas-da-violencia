@@ -87,6 +87,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/importar-serie/{id}', 'Cms\Controllers\SerieController@viewImportar');
         Route::post('/cms/importar-serie', 'Cms\Controllers\SerieController@importar');
         Route::get('/cms/importar-varias-series', 'Cms\Controllers\SerieController@viewImportarVarias');
+        Route::get('/cms/valores-filtros-serie/{id}', 'Cms\Controllers\SerieController@valoresFiltrosSerie');
 
         //VALORES SERIES
         Route::get('/cms/valores-serie/{serie_id}', 'Cms\Controllers\ValoresSerieController@index');
