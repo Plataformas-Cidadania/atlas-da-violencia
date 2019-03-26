@@ -188,6 +188,7 @@ function replaceAll(string, token, newtoken) {
         string = string.replace(token, newtoken);
     }
     return string;
+
 }
 
 function retira_acentos(str)

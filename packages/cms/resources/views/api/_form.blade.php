@@ -31,6 +31,28 @@ $tipos = [
         $tipos,
 null, ['class'=>"form-control width-medio <% validar(api.tipo) %>", 'ng-model'=>'api.tipo', 'ng-required'=>'true', 'init-model'=>'api.tipo', 'placeholder' => 'Selecione']) !!}<br>
 
+{!! Form::label('url', 'Rota *') !!}<br>
+{!! Form::select('url',
+        array(
+            'api/v1/fontes' => 'api/v1/fontes',
+            'api/v1/fontes/{order}' => 'api/v1/fontes/{order}',
+            'api/v1/fonte/{id}' => 'api/v1/fonte/{id}',
+            'api/v1/unidades' => 'api/v1/unidades',
+            'api/v1/unidade/{id}' => 'api/v1/unidade/{id}',
+            'api/v1/periodicidades' => 'api/v1/periodicidades',
+            'api/v1/periodicidade/{id}' => 'api/v1/periodicidade/{id}',
+            'api/v1/indicadores' => 'api/v1/indicadores',
+            'api/v1/indicador/{id}' => 'api/v1/indicador/{id}',
+            'api/v1/temas' => 'api/v1/temas',
+            'api/v1/tema/{id}' => 'api/v1/tema/{id}',
+            'api/v1/valores-series/{serie_id}/{abrangencia}' => 'api/v1/valores-series/{serie_id}/{abrangencia}',
+            'api/v1/valores-series/{serie_id}/{abrangencia}/{inical}/{final}' => 'api/v1/valores-series/{serie_id}/{abrangencia}/{inical}/{final}',
+            'api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}' => 'api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}',
+            'api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}/{inical}/{final}' => 'api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}/{inical}/{final}',
+        ), null, ['class'=>"form-control width-medio <% validar(api.url) %>", 'ng-model'=>'api.url', 'ng-required'=>'true', 'init-model'=>'api.url', 'placeholder' => '', 'ng-change' => 'routeToTitle()']) !!}<br>
+
+
+
 @if($rota=='cms/apis')
 {!! Form::label('titulo', 'Título *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(idioma.titulo) %>", 'ng-model'=>'idioma.titulo', 'ng-required'=>'true', 'init-model'=>'idioma.titulo', 'placeholder' => '']) !!}<br>
@@ -39,8 +61,13 @@ null, ['class'=>"form-control width-medio <% validar(api.tipo) %>", 'ng-model'=>
 {!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(idioma.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'idioma.descricao', 'init-model'=>'idioma.descricao', 'placeholder' => '']) !!}<br>
 @endif
 
+{{--
 {!! Form::label('url', 'Rota *') !!}<br>
 {!! Form::text('url', null, ['class'=>"form-control width-grande <% validar(api.url) %>", 'ng-model'=>'api.url', 'ng-required'=>'true', 'init-model'=>'api.url', 'placeholder' => '']) !!}<br>
+--}}
+
+
+
 
 {!! Form::label('resposta', 'Resposta *') !!}<br>
 {!! Form::textarea('resposta', null, ['class'=>"form-control width-grande <% validar(api.resposta) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'api.resposta', 'ng-required'=>'true', 'init-model'=>'api.resposta', 'placeholder' => '']) !!}<br>
