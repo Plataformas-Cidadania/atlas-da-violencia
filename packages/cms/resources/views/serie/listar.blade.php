@@ -184,7 +184,21 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p><% idLimparValores %> - <% tituloLimparValores %></p>
+                                    <h4><strong><% idLimparValores %> - <% tituloLimparValores %></strong></h4>
+                                </div>
+
+                                <div class="col-md-12">
+                                    {!! Form::label('tipo_dados', 'Tipo de Dados *') !!}<br>
+                                    {!! Form::select('tipo_dados',
+                                            [
+                                                0 => 'Territórios',
+                                                1 => 'Pontos',
+                                            ],
+                                    null, ['class'=>"form-control width-medio <% validar(tipo_dados) %>", 'ng-model'=>'tipo_dados', 'ng-required'=>'true', 'init-model'=>'tipo_dados']) !!}<br>
+                                </div>
+
+
+                                <div class="col-md-12" ng-if="tipo_dados==0">
                                     <p>
                                         <?php
                                         $abrangencias = [
@@ -205,6 +219,12 @@
                                             'placeholder' => 'Selecione'
                                         ]) !!}<br>
                                     </p>
+                                </div>
+
+                                <div class="col-md-12" ng-if="tipo_dados==1">
+
+                                    <label for="ano_pontos">Ano</label>
+                                    <input class="form-control" type="text" id="ano_pontos" name="ano_pontos" ng-model="ano_pontos"> 0 para todos
                                 </div>
                             </div>
                             <div ng-show="processandoLimparValores"><i class="fa fa-spinner fa-spin"></i> Processando...</div>

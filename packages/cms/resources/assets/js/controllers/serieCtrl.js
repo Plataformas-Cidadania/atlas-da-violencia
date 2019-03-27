@@ -1,5 +1,8 @@
 cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-    
+
+
+    $scope.tipo_dados = 0;
+    $scope.ano_pontos = 0;
 
     $scope.series = [];
     $scope.currentPage = 1;
