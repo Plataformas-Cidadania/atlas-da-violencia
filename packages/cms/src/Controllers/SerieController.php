@@ -378,7 +378,7 @@ class SerieController extends Controller
             $values = explode(';', $linha);
             if($cont==0){
                 foreach($values as $key => $value){
-                    $values[$key] = somenteLetrasNumeros(clean($value));
+                    $values[$key] = somenteLetrasNumeros(clean($value, "_"), "_");
                 }
                 $columns = $values;
                 //Log::info($columns);
@@ -580,19 +580,20 @@ class SerieController extends Controller
 
         foreach ($csv as $item) {
             Log::info($item);
-            $ponto = new Point($item['lat'], $item['lon']);
-            Log::info($ponto);
+
 
             //break;
 
             //testa se chegou no fim do csv
-            if(!array_key_exists('serie', $item)) {
+            if(empty($item['serie'])) {
                 break;
             }
 
+            $ponto = new Point($item['lat'], $item['lon']);
+
             $geovalor = [
                 'serie_id' => $item['serie'],
-                'ponto' => new Point($item['lat'], $item['lon']),
+                'ponto' => $ponto,
                 'endereco' => $item['endereco'],
                 'data' => $item['data'],
                 'hora' => $item['hora'],
@@ -603,19 +604,19 @@ class SerieController extends Controller
 
             $insertValorGeo = \App\GeoValor::create($geovalor);
 
-            $insertValorGeo = new \App\GeoValor();
+            /*$insertValorGeo = new \App\GeoValor();
             $insertValorGeo->serie_id = $item['serie'];
             $insertValorGeo->ponto = new Point($item['lat'], $item['lon']);
             $insertValorGeo->endereco = $item['endereco'];
             $insertValorGeo->data = $item['data'];
             $insertValorGeo->hora = $item['hora'];
             $insertValorGeo->cmsuser_id = $cms_user_id;
-            $insertValorGeo->save();
+            $insertValorGeo->save();*/
 
             Log::info('geovalor_id: '.$insertValorGeo->id);
 
             foreach ($item as $col => $valor) {
-                Log::info($col.': '.$valor);
+                //Log::info($col.': '.$valor);
                 $filtro = \App\Filtro::select('id')->where('slug', $col)->first();
 
                 if(!empty($filtro)){

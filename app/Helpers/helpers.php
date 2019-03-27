@@ -63,7 +63,7 @@ if ( ! function_exists('nomeMes') ){
 }
 
 if ( ! function_exists('clean') ) {
-    function clean($string) {
+    function clean($string, $permitir = null) {
 
         $string = str_replace(' ', '-', $string); // troca espaços por hífens.
 
@@ -77,7 +77,7 @@ if ( ! function_exists('clean') ) {
         $string = preg_replace("/[úùü]/u", "u", $string);
         $string = preg_replace("/[ç]/u", "c", $string);
         
-        $string = preg_replace('/[^A-Za-z0-9\-.]/', '', $string); // remove caracteres especiais.
+        $string = preg_replace("/[^A-Za-z0-9\-.$permitir]/", '', $string); // remove caracteres especiais.
 
         $string = preg_replace('/-+/', '-', $string); // trocas multiplos hífens por apenas um.
 
@@ -88,9 +88,9 @@ if ( ! function_exists('clean') ) {
 }
 
 if ( ! function_exists('somenteLetrasNumeros') ) {
-    function somenteLetrasNumeros($string) {
+    function somenteLetrasNumeros($string, $permitir = null) {
 
-        $string = preg_replace('/[^A-Za-z0-9]/', '', $string); // remove caracteres especiais.
+        $string = preg_replace("/[^A-Za-z0-9$permitir]/", '', $string); // remove caracteres especiais.
 
         //\Illuminate\Support\Facades\Log::info($string);
 
