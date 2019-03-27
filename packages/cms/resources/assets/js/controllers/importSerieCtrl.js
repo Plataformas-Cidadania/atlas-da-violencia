@@ -4,6 +4,7 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
     $scope.tinymceOptions = tinymceOptions;
     $scope.mostrarForm = false;
     $scope.removerArquivo = 0;
+    $scope.modelo = '1';
 
     $scope.importar = function (arquivo){
 

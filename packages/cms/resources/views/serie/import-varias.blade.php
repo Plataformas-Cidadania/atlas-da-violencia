@@ -25,7 +25,7 @@
                                 0 => 'Territórios',
                                 1 => 'Pontos',
                             ],
-                    null, ['class'=>"form-control width-medio <% validar(tipo_dados) %>", 'ng-model'=>'tipo_dados', 'ng-required'=>'true', 'init-model'=>'tipo_dados', 'placeholder' => 'Selecione']) !!}<br>
+                    null, ['class'=>"form-control width-medio <% validar(tipo_dados) %>", 'ng-model'=>'tipo_dados', 'ng-required'=>'true', 'init-model'=>'tipo_dados']) !!}<br>
                 </div>
 
                 <div class="row" ng-if="tipo_dados">
