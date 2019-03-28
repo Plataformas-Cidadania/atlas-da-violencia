@@ -379,7 +379,7 @@ class Page extends React.Component{
         return(
             <div>
                 <div className="container">
-                    <h1>Acidentes de Transito</h1>
+                    <h1>{this.props.titulo}</h1>
                     <div className="line_title bg-pri"/>
                     <br/><br/>
                     <Filters
@@ -478,7 +478,7 @@ class Page extends React.Component{
 }
 
 ReactDOM.render(
-    <Page id={serie_id} default_regions={default_regions}/>,
+    <Page id={serie_id} titulo={titulo} default_regions={default_regions}/>,
     document.getElementById('page')
 );
 

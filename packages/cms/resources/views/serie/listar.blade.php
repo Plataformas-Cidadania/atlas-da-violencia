@@ -188,17 +188,17 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    {!! Form::label('tipo_dados', 'Tipo de Dados *') !!}<br>
-                                    {!! Form::select('tipo_dados',
+                                    {!! Form::label('tipoDados', 'Tipo de Dados *') !!}<br>
+                                    {!! Form::select('tipoDados',
                                             [
                                                 0 => 'Territórios',
                                                 1 => 'Pontos',
                                             ],
-                                    null, ['class'=>"form-control width-medio <% validar(tipo_dados) %>", 'ng-model'=>'tipo_dados', 'ng-required'=>'true', 'init-model'=>'tipo_dados']) !!}<br>
+                                    null, ['class'=>"form-control width-medio <% validar(tipoDados) %>", 'ng-model'=>'tipoDados', 'ng-required'=>'true', 'init-model'=>'tipoDados']) !!}<br>
                                 </div>
 
 
-                                <div class="col-md-12" ng-if="tipo_dados==0">
+                                <div class="col-md-12" ng-if="tipoDados==0">
                                     <p>
                                         <?php
                                         $abrangencias = [
@@ -221,7 +221,7 @@
                                     </p>
                                 </div>
 
-                                <div class="col-md-12" ng-if="tipo_dados==1">
+                                <div class="col-md-12" ng-if="tipoDados==1">
 
                                     <label for="ano_pontos">Ano</label>
                                     <input class="form-control" type="text" id="ano_pontos" name="ano_pontos" ng-model="ano_pontos"> 0 para todos

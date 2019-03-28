@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -23,11 +24,19 @@ class PontosController extends Controller
 
     private $aliasFilter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-    public function index(){
+    public function index($serie_id){
+
+        $lang =  App::getLocale();
 
         $setting = \App\Setting::firstOrFail();
 
-        return view('pontos', ['setting' => $setting]);
+        $serie = \App\Serie::select('series.id','textos_series.titulo')
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+            ->where('textos_series.idioma_sigla', $lang)
+            ->where('series.id', $serie_id)
+            ->first();
+
+        return view('pontos', ['setting' => $setting, 'serie' => $serie]);
     }
 
     public function filtrosSerie($serie_id){

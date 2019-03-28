@@ -9,11 +9,11 @@ cmsApp.controller('filtroSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "filtros_series.id, idiomas_filtros.titulo";
-    $scope.campoPesquisa = "idiomas_filtros.titulo";
+    $scope.campos = "filtros_series.id, filtros.titulo";
+    $scope.campoPesquisa = "filtros.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "idiomas_filtros.titulo";
+    $scope.ordem = "filtros.titulo";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 

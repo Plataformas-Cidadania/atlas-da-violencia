@@ -173,7 +173,7 @@ Route::get('new-maps/', function () {
 });
 
 ///////////SÉRIES POR PONTOS///////////////////////////////////////////////////
-Route::get('pontos/', 'PontosController@index');
+Route::get('pontos/{serie_id}', 'PontosController@index');
 Route::post('valores-transito/', 'PontosController@valoresMapa');
 Route::post('total-transito-territorio/', 'PontosController@totalPorTerritorio');
 Route::post('pontos-transito-territorio/', 'PontosController@pontosPorTerritorio');

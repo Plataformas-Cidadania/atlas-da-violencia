@@ -381,7 +381,7 @@ class Page extends React.Component {
                 React.createElement(
                     'h1',
                     null,
-                    'Acidentes de Transito'
+                    this.props.titulo
                 ),
                 React.createElement('div', { className: 'line_title bg-pri' }),
                 React.createElement('br', null),
@@ -479,4 +479,4 @@ class Page extends React.Component {
     }
 }
 
-ReactDOM.render(React.createElement(Page, { id: serie_id, default_regions: default_regions }), document.getElementById('page'));
+ReactDOM.render(React.createElement(Page, { id: serie_id, titulo: titulo, default_regions: default_regions }), document.getElementById('page'));
