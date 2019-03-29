@@ -3,6 +3,7 @@ class Page extends React.Component{
         super(props);
         this.state = {
             filters: [],
+            serieFilters: [],
             idTypes: [],
             idTypesAccident: [],
             idGender: [],
@@ -47,11 +48,12 @@ class Page extends React.Component{
         this.loadValuesForRegions = this.loadValuesForRegions.bind(this);
         this.loadValuesForUfs = this.loadValuesForUfs.bind(this);
         this.loadValuesChartFilters = this.loadValuesChartFilters.bind(this);
+        this.setSerieFilters = this.setSerieFilters.bind(this);
     }
 
     componentDidMount(){
         //this.convertToArrayDefaultRegions();
-        console.log('CODIGO TERRITORIO SELECIONADO', this.state.codigoTerritorioSelecionado);
+        //console.log('CODIGO TERRITORIO SELECIONADO', this.state.codigoTerritorioSelecionado);
     }
 
     /*convertToArrayDefaultRegions(){
@@ -85,6 +87,10 @@ class Page extends React.Component{
         let months = this.state.months;
         //console.log(month);
         return arrayLastDay[months[month]];
+    }
+
+    setSerieFilters(filters){
+        this.setState({serieFilters: filters})
     }
 
     checkFilter(filters){
@@ -395,6 +401,7 @@ class Page extends React.Component{
                         actionFilter={this.actionFilter}
                         tipoTerritorioSelecionado = {this.state.tipoTerritorioSelecionado}
                         codigoTerritorioSelecionado = {this.state.codigoTerritorioSelecionado}
+                        setSerieFilters = {this.setSerieFilters}
                     />
                     {/*<br/><br/>
                     <Types checkType={this.checkType}/>*/}
@@ -470,6 +477,7 @@ class Page extends React.Component{
                         type="1"
                         items={this.state.values}
                         setCurrentPageListItems = {this.setCurrentPageListItems}
+                        filters={this.state.serieFilters}
                     />
                 </div>
             </div>

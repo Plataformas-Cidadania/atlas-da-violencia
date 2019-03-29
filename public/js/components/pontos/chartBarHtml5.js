@@ -45,7 +45,8 @@ class ChartBarHtml5 extends React.Component {
 
     render() {
 
-        console.log(this.state.values);
+        //console.log(this.state.values);
+
 
         let total = this.total(this.state.values);
         let max = this.max(this.state.values);

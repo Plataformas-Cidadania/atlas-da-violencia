@@ -4,6 +4,7 @@ class ListItems extends React.Component{
         this.state = {
             type: props.type,
             items: props.items,
+            filters: this.props.filters,
             types: [],
             typesAccident: [],
             genders: [],
@@ -11,20 +12,23 @@ class ListItems extends React.Component{
             perPage: props.perPage ? props.perPage : 20,
         };
 
-        this.loadArrays = this.loadArrays.bind(this);
+        //this.loadArrays = this.loadArrays.bind(this);
         this.setCurrentPage = this.setCurrentPage.bind(this);
     }
 
     componentDidMount(){
-        this.loadArrays();
+        //this.loadArrays();
     }
 
     componentWillReceiveProps(props){
         if(props.items != this.state.items){
             this.setState({items: props.items});
         }
-        if(props.tipo != this.state.type){
+        /*if(props.tipo != this.state.type){
             this.setState({type: props.type});
+        }*/
+        if(props.filters != this.state.filters){
+            this.setState({filters: props.filters});
         }
     }
 
@@ -34,7 +38,7 @@ class ListItems extends React.Component{
         });
     }
 
-    loadArrays(){
+    /*loadArrays(){
         $.ajax({
             method:'POST',
             url: "arrays-transito",
@@ -50,7 +54,7 @@ class ListItems extends React.Component{
                 console.log('erro');
             }.bind(this)
         });
-    }
+    }*/
 
     render(){
 
@@ -59,20 +63,26 @@ class ListItems extends React.Component{
 
         //console.log('ITEMS ########', this.state.items);
 
+        let colsFilters = this.state.filters.map(function (item, index){
+            //console.log(item);
+            return (<th key={'col-filter-'+index}>{item.titulo}</th>);
+        });
+
         if(this.state.type == 1){
             head = (
                 <tr>
                     <th>Local</th>
-                    <th>Locomoção</th>
-                    <th>Tipo de Acidente</th>
-                    <th>Sexo</th>
+                    {colsFilters}
                     <th>Data</th>
                     <th>Hora</th>
                 </tr>
             );
             if(this.state.items.data != undefined){
                 items = this.state.items.data.map(function(item){
-                    let type = null;
+
+                    console.log(item);
+
+                    /*let type = null;
                     this.state.types.find(function(it){
                         if(it.id==item.tipo){
                             type = it.title;
@@ -89,15 +99,13 @@ class ListItems extends React.Component{
                         if(it.id==item.sexo){
                             gender = it.title;
                         }
-                    });
+                    });*/
 
 
                     return (
                         <tr key={"item_"+item.id}>
                             <td>{item.endereco}</td>
-                            <td>{type}</td>
-                            <td>{typeAccident}</td>
-                            <td>{gender}</td>
+
                             <td><i className="fa fa-calendar"/> {item.data}</td>
                             <td><i className="fa fa-clock-o"/> {item.hora}</td>
                         </tr>

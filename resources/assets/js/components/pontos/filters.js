@@ -51,7 +51,9 @@ class Filters extends React.Component{
             success: function(data) {
                 //console.log(data);
 
-                this.setState({filtros: data, loading: false});
+                this.setState({filtros: data, loading: false}, function(){
+                    this.props.setSerieFilters(this.state.filtros);
+                });
 
             }.bind(this),
             error: function(xhr, status, err) {

@@ -239,6 +239,12 @@ class PontosController extends Controller
 
         $aliasFilter = $this->aliasFilter;
 
+        //Para trazer os filtros com seus respectivos valores
+        $selectFilters = " ";
+        foreach($filters as $index => $filter){
+            
+        }
+
         $valores = DB::table("geovalores")
             ->select(DB::raw("
             geovalores.id, 
@@ -355,11 +361,11 @@ class PontosController extends Controller
 
 
             /*Log::info(DB::getQueryLog());
-            Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            Log::info([$icones]);
-            Log::info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-            Log::info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");*/
+           //Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+           //Log::info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+           //Log::info([$icones]);
+           //Log::info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+           //Log::info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");*/
 
 
 
@@ -549,10 +555,12 @@ class PontosController extends Controller
 
     public function months(Request $request){
 
-        $id = 1;
+        $id = $request->id;
         $year = $request->year;
 
         //return $year;
+
+        DB::enableQueryLog();
 
         $months = [];
 
@@ -563,14 +571,23 @@ class PontosController extends Controller
             ->distinct()
             ->get();
 
+       //Log::info(DB::getQueryLog());
+
+       //Log::info($rows);
+
         $rows = collect($rows)->sortBy('month')->toArray();
 
         //return $rows;
+
+       //Log::info($rows);
 
 
         foreach($rows as $row){
             array_push($months, $this->months[$row->month]);
         }
+
+       //Log::info($months);
+
 
         return $months;
     }
