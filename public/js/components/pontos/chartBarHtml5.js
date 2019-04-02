@@ -64,7 +64,7 @@ class ChartBarHtml5 extends React.Component {
                     { key: 'itemChartBar' + this.state.chart + "_" + index, style: { height: item.value * 100 / max + '%' } },
                     React.createElement(
                         'span',
-                        { style: { height: item.value * 100 / max + '%', maxWidth: '30px' }, className: 'bg-pri' },
+                        { style: { height: item.value * 100 / max + '%', maxWidth: '50px' }, className: 'bg-pri' },
                         React.createElement(
                             'strong',
                             { className: 'hidden-xs' },
