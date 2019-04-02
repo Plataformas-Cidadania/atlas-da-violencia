@@ -65,7 +65,7 @@ class ListItems extends React.Component {
         let colsFilters = this.state.filters.map(function (item, index) {
             //console.log(item);
             return React.createElement(
-                "th",
+                'th',
                 { key: 'col-filter-' + index },
                 item.titulo
             );
@@ -73,29 +73,37 @@ class ListItems extends React.Component {
 
         if (this.state.type == 1) {
             head = React.createElement(
-                "tr",
+                'tr',
                 null,
                 React.createElement(
-                    "th",
+                    'th',
                     null,
-                    "Local"
+                    'Local'
                 ),
                 colsFilters,
                 React.createElement(
-                    "th",
+                    'th',
                     null,
-                    "Data"
+                    'Data'
                 ),
                 React.createElement(
-                    "th",
+                    'th',
                     null,
-                    "Hora"
+                    'Hora'
                 )
             );
             if (this.state.items.data != undefined) {
                 items = this.state.items.data.map(function (item) {
 
                     console.log(item);
+
+                    let tdsFilters = this.state.filters.map(function (filter, index) {
+                        return React.createElement(
+                            'td',
+                            { key: 'value-filter-' + index },
+                            item[filter.slug]
+                        );
+                    });
 
                     /*let type = null;
                     this.state.types.find(function(it){
@@ -117,25 +125,26 @@ class ListItems extends React.Component {
                     });*/
 
                     return React.createElement(
-                        "tr",
+                        'tr',
                         { key: "item_" + item.id },
                         React.createElement(
-                            "td",
+                            'td',
                             null,
                             item.endereco
                         ),
+                        tdsFilters,
                         React.createElement(
-                            "td",
+                            'td',
                             null,
-                            React.createElement("i", { className: "fa fa-calendar" }),
-                            " ",
+                            React.createElement('i', { className: 'fa fa-calendar' }),
+                            ' ',
                             item.data
                         ),
                         React.createElement(
-                            "td",
+                            'td',
                             null,
-                            React.createElement("i", { className: "fa fa-clock-o" }),
-                            " ",
+                            React.createElement('i', { className: 'fa fa-clock-o' }),
+                            ' ',
                             item.hora
                         )
                     );
@@ -147,30 +156,30 @@ class ListItems extends React.Component {
 
         if (this.state.type == 2) {
             head = React.createElement(
-                "tr",
+                'tr',
                 null,
                 React.createElement(
-                    "th",
+                    'th',
                     null,
-                    "Territ\xF3rio"
+                    'Territ\xF3rio'
                 ),
                 React.createElement(
-                    "th",
+                    'th',
                     null,
-                    "Total"
+                    'Total'
                 )
             );
             items = this.state.items.map(function (item) {
                 return React.createElement(
-                    "tr",
+                    'tr',
                     null,
                     React.createElement(
-                        "td",
+                        'td',
                         null,
                         item.territorio
                     ),
                     React.createElement(
-                        "td",
+                        'td',
                         null,
                         item.total
                     )
@@ -182,26 +191,26 @@ class ListItems extends React.Component {
         let next = '';
 
         return React.createElement(
-            "div",
+            'div',
             null,
             React.createElement(
-                "h2",
+                'h2',
                 null,
-                "Dados"
+                'Dados'
             ),
-            React.createElement("div", { className: "line-title-sm bg-pri" }),
-            React.createElement("hr", { className: "line-hr-sm" }),
-            React.createElement("br", null),
+            React.createElement('div', { className: 'line-title-sm bg-pri' }),
+            React.createElement('hr', { className: 'line-hr-sm' }),
+            React.createElement('br', null),
             React.createElement(
-                "table",
-                { className: "table" },
+                'table',
+                { className: 'table' },
                 React.createElement(
-                    "thead",
+                    'thead',
                     null,
                     head
                 ),
                 React.createElement(
-                    "tbody",
+                    'tbody',
                     null,
                     items
                 )

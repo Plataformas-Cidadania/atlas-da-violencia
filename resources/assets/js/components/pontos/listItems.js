@@ -82,6 +82,12 @@ class ListItems extends React.Component{
 
                     console.log(item);
 
+                    let tdsFilters = this.state.filters.map(function(filter, index){
+                        return (
+                            <td key={'value-filter-'+index}>{item[filter.slug]}</td>
+                        );
+                    });
+
                     /*let type = null;
                     this.state.types.find(function(it){
                         if(it.id==item.tipo){
@@ -105,7 +111,7 @@ class ListItems extends React.Component{
                     return (
                         <tr key={"item_"+item.id}>
                             <td>{item.endereco}</td>
-
+                            {tdsFilters}
                             <td><i className="fa fa-calendar"/> {item.data}</td>
                             <td><i className="fa fa-clock-o"/> {item.hora}</td>
                         </tr>

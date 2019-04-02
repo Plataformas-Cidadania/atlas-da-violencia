@@ -9,7 +9,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use function MongoDB\BSON\toJSON;
 
 class PontosController extends Controller
 {
@@ -275,23 +274,6 @@ class PontosController extends Controller
             ->leftJoin('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')
             ->leftJoin('valores_filtros', 'valores_filtros.id', '=', 'geovalores_valores_filtros.valor_filtro_id')
             ->leftJoin('filtros', 'filtros.id', '=', 'valores_filtros.filtro_id')
-            /*->when($allFilters, function($query) use ($allFilters, $aliasFilter){
-                foreach ($allFilters as $index => $filter){
-                    //$query->join("geovalores_valores_filtros as $aliasFilter[$index]", "$aliasFilter[$index].geovalor_id", '=', 'geovalores.id');
-                    $slug_geovalor_valor_filtro = $filter->slug;
-                    $query->join("geovalores_valores_filtros as $slug_geovalor_valor_filtro", "$slug_geovalor_valor_filtro.geovalor_id", '=', 'geovalores.id');
-                }
-                return $query;
-            })*/
-            /*->when($allFilters, function($query) use ($allFilters, $aliasFilter){
-                foreach ($allFilters as $index => $filter){
-                    //$query->join("geovalores_valores_filtros as $aliasFilter[$index]", "$aliasFilter[$index].geovalor_id", '=', 'geovalores.id');
-                    $slug_geovalor_valor_filtro = $filter->slug;
-                    $slug_valor_filtro = $filter->slug.'_v';
-                    $query->join("valores_filtros as $slug_valor_filtro", "$slug_valor_filtro.id", '=', "$slug_geovalor_valor_filtro.valor_filtro_id");
-                }
-                return $query;
-            })*/
             ->when($whereFilters, function($query) use ($filters, $aliasFilter){
                 foreach ($filters as $index => $filter){
                     //$query->join("geovalores_valores_filtros as $aliasFilter[$index]", "$aliasFilter[$index].geovalor_id", '=', 'geovalores.id');
@@ -348,44 +330,56 @@ class PontosController extends Controller
                 $valores = $valores->paginate(30);
                 //Log::info($valores->items());
                 $vals = $valores->items();
-                $last_id = $vals[0]->id;
             }
 
-            $array_valores = [];
-            $novo_valor = new \stdClass();
-            foreach($vals as $index => $valor){
-                $novo_valor->data = $valor->data;
-                $novo_valor->endereco = $valor->endereco;
-                $novo_valor->hora = $valor->hora;
-                $novo_valor->id = $valor->id;
-                $novo_valor->lat = $valor->lat;
-                $novo_valor->lng = $valor->lng;
-                if($last_id == $valor->id){
+            //Pega os filtros de cada registro de um mesmo id e cria um registro do id com todos os filtros
+            if(!empty($vals)){
+
+                $last_id = $vals[0]->id;
+                $array_valores = [];
+                $novo_valor = new \stdClass();
+                //Log::info($vals);
+                foreach($vals as $index => $valor){
+
+                    if($last_id != $valor->id){
+                        array_push($array_valores, $novo_valor);
+                        $novo_valor = new \stdClass();
+                        $last_id = $valor->id;
+                    }
+
+                    $novo_valor->data = $valor->data;
+                    $novo_valor->endereco = $valor->endereco;
+                    $novo_valor->hora = $valor->hora;
+                    $novo_valor->id = $valor->id;
+                    $novo_valor->lat = $valor->lat;
+                    $novo_valor->lng = $valor->lng;
                     $novo_valor->{$valor->filtro} = $valor->valor_filtro;
-                    continue;
+
+                    if($index == count($vals)-1){
+                        array_push($array_valores, $novo_valor);
+                    }
+
+                }
+                //Log::info($array_valores);
+
+                if($paginate) {
+                    //recria os items paginados com os novos valores
+                    $valores = new \Illuminate\Pagination\LengthAwarePaginator(
+                        $array_valores,
+                        $valores->total(),
+                        $valores->perPage(),
+                        $valores->currentPage(), [
+                            'path' => \Request::url(),
+                            'query' => [
+                                'page' => $valores->currentPage()
+                            ]
+                        ]
+                    );
+                }else{
+                    //apenas substitui os valores
+                    $valores = $array_valores;
                 }
 
-                $novo_valor = new \stdClass();
-                array_push($array_valores, $novo_valor);
-                $last_id = $valor->id;
-            }
-
-            if($paginate) {
-                //recria os items paginados com os novos valores
-                $valores = new \Illuminate\Pagination\LengthAwarePaginator(
-                    $array_valores,
-                    $valores->total(),
-                    $valores->perPage(),
-                    $valores->currentPage(), [
-                        'path' => \Request::url(),
-                        'query' => [
-                            'page' => $valores->currentPage()
-                        ]
-                    ]
-                );
-            }else{
-                //apenas substitui os valores
-                $valores = $array_valores;
             }
 
 
