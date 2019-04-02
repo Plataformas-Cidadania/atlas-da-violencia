@@ -110,7 +110,7 @@
 
 </style>
 
-@if($rota=='pontos')
+@if($rota=='pontos/{serie_id}')
     <link rel="stylesheet" href="lib/leaflet/css/leaflet.css"/>
     <link rel="stylesheet" href="lib/leaflet/css/MarkerCluster.css" />
     <link rel="stylesheet" href="lib/leaflet/css/MarkerCluster.Default.css" />
