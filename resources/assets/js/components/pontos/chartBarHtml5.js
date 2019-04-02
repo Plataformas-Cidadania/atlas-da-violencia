@@ -64,7 +64,7 @@ class ChartBarHtml5 extends React.Component{
 
                 return (
                     <li key={'itemChartBar'+this.state.chart+"_"+index} style={{height:(item.value*100/max)+'%'}}>
-                        <span style={{height:(item.value*100/max)+'%', maxWidth: '50px'}} className='bg-pri'><strong className="hidden-xs">{value} {parenteseAberto}{percent}{parenteseFechado}</strong></span>
+                        <span style={{height:(item.value*100/max)+'%', maxWidth: '70px'}} className='bg-pri'><strong className="hidden-xs">{value} {parenteseAberto}{percent}{parenteseFechado}</strong></span>
                         <div className="hidden-xs hidden-sm">{item.type}</div>
                         {/*<div className="hidden-md hidden-lg">E</div>*/}
                     </li>
