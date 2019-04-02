@@ -604,7 +604,7 @@ class PontosController extends Controller
 
     public function years(Request $request){
 
-        $id = 1;
+        $id = $request->id;
 
         $years = [];
 
