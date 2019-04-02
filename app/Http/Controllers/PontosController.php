@@ -309,16 +309,8 @@ class PontosController extends Controller
             ])
             ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
                 return $query->whereIn($tabelaTerritorioSelecionado.".edterritorios_codigo", $codigoTerritorioSelecionado);
-            });
-            /*->when($types != null, function($query) use ($types){
-                return $query->whereIn('geovalores.tipo', $types);
             })
-            ->when($typesAccident != null, function($query) use ($typesAccident){
-                return $query->whereIn('geovalores.tipo_acidente', $typesAccident);
-            })
-            ->when($genders != null, function($query) use ($genders){
-                return $query->whereIn('geovalores.sexo', $genders);
-            });*/
+            ->orderBy('geovalores.id');
 
             if(!$paginate){
                 $valores = $valores->get();
