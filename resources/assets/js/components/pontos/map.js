@@ -709,7 +709,7 @@ class Map extends React.Component{
         for(let i in data){
 
             let icon = L.icon({
-                iconUrl: 'img/leaflet/'+this.state.tipoIcone[data[i].tipo],
+                iconUrl: 'img/leaflet/controls/marker.png',
                 iconSize:     [32, 32], // size of the icon
                 iconAnchor:   [16, 16], // point of the icon which will correspond to marker's location
                 popupAnchor:  [-3, -30] // point from which the popup should open relative to the iconAnchor
