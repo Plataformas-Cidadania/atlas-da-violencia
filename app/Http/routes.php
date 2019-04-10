@@ -249,7 +249,7 @@ Route::get('api/v1/temas', 'ApiController@temas');
 Route::get('api/v1/tema/{id}', 'ApiController@tema');
 
 Route::get('api/v1/series', 'ApiController@series');
-Route::get('api/v1/series/tema/{tema_id}', 'ApiController@series');
+Route::get('api/v1/series/{tema_id}', 'ApiController@series');
 Route::get('api/v1/serie/{id}', 'ApiController@serie');
 
 Route::get('api/v1/valores-series/{serie_id}/{abrangencia}', 'ApiController@todosValores');

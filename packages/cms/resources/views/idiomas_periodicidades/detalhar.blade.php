@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarIdiomaPeriodicidadeCtrl.js') !!}
     <div ng-controller="alterarIdiomaPeriodicidadeCtrl">
         <div class="box-padrao">
-            <h1><a href="cms/idiomas_idioma_periodicidades"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Idioma Periodicidade</h1>
+            <h1><a href="javascript:history.back();"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Idioma Periodicidade</h1>
             <?php //print_r($idioma_periodicidade);?>
             <div ng-init="carregaImagem('{{$idioma_periodicidade->imagem}}')">
                 <span class="idioma-obrigatorio">* campos obrigatórios</span><br><br>

@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarIdiomaUnidadeCtrl.js') !!}
     <div ng-controller="alterarIdiomaUnidadeCtrl">
         <div class="box-padrao">
-            <h1><a href="cms/idiomas_idioma_unidades"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Idioma Unidade</h1>
+            <h1><a href="javascript:history.back();"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Idioma Unidade</h1>
             <?php //print_r($idioma_unidade);?>
             <div ng-init="carregaImagem('{{$idioma_unidade->imagem}}')">
                 <span class="idioma-obrigatorio">* campos obrigatórios</span><br><br>
