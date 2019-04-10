@@ -3,6 +3,7 @@ class Page extends React.Component {
         super(props);
         this.state = {
             filters: [],
+            serieFilters: [],
             idTypes: [],
             idTypesAccident: [],
             idGender: [],
@@ -47,12 +48,13 @@ class Page extends React.Component {
         this.loadValuesForRegions = this.loadValuesForRegions.bind(this);
         this.loadValuesForUfs = this.loadValuesForUfs.bind(this);
         this.loadValuesChartFilters = this.loadValuesChartFilters.bind(this);
+        this.setSerieFilters = this.setSerieFilters.bind(this);
     }
 
-    componentDidMount() {
-        //this.convertToArrayDefaultRegions();
-        console.log('CODIGO TERRITORIO SELECIONADO', this.state.codigoTerritorioSelecionado);
-    }
+    componentDidMount() {}
+    //this.convertToArrayDefaultRegions();
+    //console.log('CODIGO TERRITORIO SELECIONADO', this.state.codigoTerritorioSelecionado);
+
 
     /*convertToArrayDefaultRegions(){
         let default_regions = this.props.default_regions.split(',');
@@ -85,6 +87,10 @@ class Page extends React.Component {
         let months = this.state.months;
         //console.log(month);
         return arrayLastDay[months[month]];
+    }
+
+    setSerieFilters(filters) {
+        this.setState({ serieFilters: filters });
     }
 
     checkFilter(filters) {
@@ -381,7 +387,7 @@ class Page extends React.Component {
                 React.createElement(
                     'h1',
                     null,
-                    'Acidentes de Transito'
+                    this.props.titulo
                 ),
                 React.createElement('div', { className: 'line_title bg-pri' }),
                 React.createElement('br', null),
@@ -398,7 +404,8 @@ class Page extends React.Component {
                     checkMonth: this.checkMonth,
                     actionFilter: this.actionFilter,
                     tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado,
-                    codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado
+                    codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado,
+                    setSerieFilters: this.setSerieFilters
                 })
             ),
             React.createElement('br', null),
@@ -472,11 +479,12 @@ class Page extends React.Component {
                 React.createElement(ListItems, {
                     type: '1',
                     items: this.state.values,
-                    setCurrentPageListItems: this.setCurrentPageListItems
+                    setCurrentPageListItems: this.setCurrentPageListItems,
+                    filters: this.state.serieFilters
                 })
             )
         );
     }
 }
 
-ReactDOM.render(React.createElement(Page, { id: serie_id, default_regions: default_regions }), document.getElementById('page'));
+ReactDOM.render(React.createElement(Page, { id: serie_id, titulo: titulo, default_regions: default_regions }), document.getElementById('page'));

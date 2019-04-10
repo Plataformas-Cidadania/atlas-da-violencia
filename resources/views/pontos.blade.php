@@ -133,7 +133,8 @@
 
 
     <script>
-        serie_id = 1;//
+        serie_id = {{$serie->id}};
+        titulo = "{!! $serie->titulo !!}";
         default_regions = "{{$setting->pontos_default_regions}}".split(',');
 
     </script>

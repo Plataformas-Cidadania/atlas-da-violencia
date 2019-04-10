@@ -99,6 +99,7 @@
                             <td class="text-right">
                                 <div>
                                     {{--<a href="cms/importar-serie/<% serie.id %>"><i class="fa fa-upload fa-2x" title="Importar"></i></a>--}}&nbsp;&nbsp;
+                                    <a href="cms/filtros-series/<% serie.id %>"><i class="fa fa-filter fa-2x" title="Filtros Séries"></i></a>&nbsp;&nbsp;
                                     <a href="cms/downloads/1/<% serie.id %>"><i class="fa fa-file fa-2x" title="Arquivos para Download"></i></a>&nbsp;&nbsp;
                                     <a href="cms/textos-series/<% serie.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/temas-series/<% serie.id %>"><i class="fa fa-folder-open fa-2x" title="Temas"></i></a>&nbsp;&nbsp;
@@ -184,7 +185,21 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p><% idLimparValores %> - <% tituloLimparValores %></p>
+                                    <h4><strong><% idLimparValores %> - <% tituloLimparValores %></strong></h4>
+                                </div>
+
+                                <div class="col-md-12">
+                                    {!! Form::label('tipoDados', 'Tipo de Dados *') !!}<br>
+                                    {!! Form::select('tipoDados',
+                                            [
+                                                0 => 'Territórios',
+                                                1 => 'Pontos',
+                                            ],
+                                    null, ['class'=>"form-control width-medio <% validar(tipoDados) %>", 'ng-model'=>'tipoDados', 'ng-required'=>'true', 'init-model'=>'tipoDados']) !!}<br>
+                                </div>
+
+
+                                <div class="col-md-12" ng-if="tipoDados==0">
                                     <p>
                                         <?php
                                         $abrangencias = [
@@ -205,6 +220,12 @@
                                             'placeholder' => 'Selecione'
                                         ]) !!}<br>
                                     </p>
+                                </div>
+
+                                <div class="col-md-12" ng-if="tipoDados==1">
+
+                                    <label for="ano_pontos">Ano</label>
+                                    <input class="form-control" type="text" id="ano_pontos" name="ano_pontos" ng-model="ano_pontos"> 0 para todos
                                 </div>
                             </div>
                             <div ng-show="processandoLimparValores"><i class="fa fa-spinner fa-spin"></i> Processando...</div>

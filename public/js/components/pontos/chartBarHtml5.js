@@ -45,7 +45,8 @@ class ChartBarHtml5 extends React.Component {
 
     render() {
 
-        console.log(this.state.values);
+        //console.log(this.state.values);
+
 
         let total = this.total(this.state.values);
         let max = this.max(this.state.values);
@@ -63,7 +64,7 @@ class ChartBarHtml5 extends React.Component {
                     { key: 'itemChartBar' + this.state.chart + "_" + index, style: { height: item.value * 100 / max + '%' } },
                     React.createElement(
                         'span',
-                        { style: { height: item.value * 100 / max + '%' }, className: 'bg-pri' },
+                        { style: { height: item.value * 100 / max + '%', maxWidth: '70px' }, className: 'bg-pri' },
                         React.createElement(
                             'strong',
                             { className: 'hidden-xs' },

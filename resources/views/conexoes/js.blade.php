@@ -303,7 +303,8 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
 @endif
 
-@if($rota=='pontos')
+@if($rota=='pontos/{serie_id}')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <link rel="stylesheet" href="lib/rslider/rSlider.min.css">
     <script src="lib/rslider/rSlider.js"></script>
 

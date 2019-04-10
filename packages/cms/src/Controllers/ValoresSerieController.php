@@ -28,12 +28,23 @@ class ValoresSerieController extends Controller
 
     }
 
-    public function limparValoresSerie($serie_id, $abrangencia) {
+    public function limparValoresSerie($serie_id, $abrangencia, $tipo_dados, $ano_pontos) {
 
-        DB::table('valores_series')->where('serie_id', $serie_id)
-            ->when($abrangencia > 0, function($query) use ($abrangencia){
-                return $query->where('tipo_regiao', $abrangencia);
-            })->delete();
+        if($tipo_dados == 0){
+            DB::table('valores_series')->where('serie_id', $serie_id)
+                ->when($abrangencia > 0, function($query) use ($abrangencia){
+                    return $query->where('tipo_regiao', $abrangencia);
+                })->delete();
+        }
+
+        if($tipo_dados == 1){
+            DB::table('geovalores')->where('serie_id', $serie_id)
+                ->when($ano_pontos > 0, function($query) use ($ano_pontos){
+                    return $query->whereRaw("EXTRACT(YEAR FROM data) = $ano_pontos");
+                })->delete();
+        }
+
+
     }
 
 

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
+use Phaza\LaravelPostgis\Geometries\Point;
 
 class SerieController extends Controller
 {
@@ -377,7 +378,7 @@ class SerieController extends Controller
             $values = explode(';', $linha);
             if($cont==0){
                 foreach($values as $key => $value){
-                    $values[$key] = somenteLetrasNumeros(clean($value));
+                    $values[$key] = somenteLetrasNumeros(clean($value, "_"), "_");
                 }
                 $columns = $values;
                 //Log::info($columns);
@@ -574,7 +575,66 @@ class SerieController extends Controller
     }
 
     private function importarPontos($csv){
+        $cms_user_id = auth()->guard('cms')->user()->id;
 
+
+        foreach ($csv as $item) {
+            Log::info($item);
+
+
+            //break;
+
+            //testa se chegou no fim do csv
+            if(empty($item['serie'])) {
+                break;
+            }
+
+            $ponto = new Point($item['lat'], $item['lon']);
+
+            $geovalor = [
+                'serie_id' => $item['serie'],
+                'ponto' => $ponto,
+                'endereco' => $item['endereco'],
+                'data' => $item['data'],
+                'hora' => $item['hora'],
+                'cmsuser_id' => $cms_user_id
+            ];
+
+            Log::info($geovalor);
+
+            $insertValorGeo = \App\GeoValor::create($geovalor);
+
+            /*$insertValorGeo = new \App\GeoValor();
+            $insertValorGeo->serie_id = $item['serie'];
+            $insertValorGeo->ponto = new Point($item['lat'], $item['lon']);
+            $insertValorGeo->endereco = $item['endereco'];
+            $insertValorGeo->data = $item['data'];
+            $insertValorGeo->hora = $item['hora'];
+            $insertValorGeo->cmsuser_id = $cms_user_id;
+            $insertValorGeo->save();*/
+
+            Log::info('geovalor_id: '.$insertValorGeo->id);
+
+            foreach ($item as $col => $valor) {
+                //Log::info($col.': '.$valor);
+                $filtro = \App\Filtro::select('id')->where('slug', $col)->first();
+
+                if(!empty($filtro)){
+
+                    $valorFiltroGeo = [
+                        'valor_filtro_id' => $valor,
+                        'geovalor_id' => $insertValorGeo->id,
+                        'cmsuser_id' => $cms_user_id,
+                    ];
+
+                    Log::info($valorFiltroGeo);
+
+                    $insertValorFiltroGeo = \App\GeoValorFiltro::create($valorFiltroGeo);
+                }
+            }
+        }
+
+        return 0;
     }
 
     private function calcula_dv_municipio($codigo_municipio){
@@ -605,6 +665,26 @@ class SerieController extends Controller
 
         return $tabelas;
     }
+
+
+    public function valoresFiltrosSerie($id){
+        $serie = \App\TextoSerie::select('titulo')
+            ->where('serie_id', $id)
+            ->where('idioma_sigla', 'pt_BR')
+            ->first();
+
+        $valores = \App\ValorFiltro::select('filtros.titulo as filtro', 'filtros.slug', 'valores_filtros.titulo as valor', 'valores_filtros.id as valor_id')
+            ->join('filtros', 'filtros.id', '=', 'valores_filtros.filtro_id')
+            ->join('filtros_series', 'filtros_series.filtro_id', '=', 'filtros.id')
+            ->where('filtros_series.serie_id', $id)
+            ->orderBy('filtros.titulo')
+            ->orderBy('valores_filtros.id')
+            ->get();
+
+        return view('cms::serie.valores-filtros-serie', ['serie' => $serie, 'valores' => $valores]);
+    }
+
+
 
     /*private function importarMunicipios($csv, $serie_id, $abrangencia){
         $cms_user_id = auth()->guard('cms')->user()->id;
