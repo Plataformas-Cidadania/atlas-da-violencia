@@ -10,6 +10,7 @@
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>
                 {!! Form::model($webdoor, ['name' =>'form']) !!}
                 <div class="container-thumb">
+                    <div>Tamanho imagem: 535 x 260 px</div>
                     <div class="box-thumb" name="fileDrop" ngf-dimensions="$width == 535 && $height == 260" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
                          ng-show="!picFile && !imagemBD" accept="image/*" ngf-max-size="2MB">Solte uma imagem aqui!</div>
                     <img ng-show="picFile" ngf-thumbnail="picFile" class="thumb">

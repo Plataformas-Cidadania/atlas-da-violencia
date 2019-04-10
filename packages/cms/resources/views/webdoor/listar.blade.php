@@ -16,6 +16,7 @@
             <div ng-show="mostrarForm">
                 <span class="texto-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>
                 {!! Form::open(['name' =>'form']) !!}
+                <div>Tamanho imagem: 535 x 260 px</div>
                 <div class="container-thumb">
                     <div class="box-thumb" name="fileDrop" ngf-dimensions="$width == 535 && $height == 260" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
                          ng-show="!picFile" accept="image/*" ngf-max-size="2MB">Solte uma imagem aqui!</div>

@@ -35,7 +35,6 @@ null, ['class'=>"form-control width-medio <% validar(api.tipo) %>", 'ng-model'=>
 {!! Form::select('url',
         array(
             'api/v1/fontes' => 'api/v1/fontes',
-            'api/v1/fontes/{order}' => 'api/v1/fontes/{order}',
             'api/v1/fonte/{id}' => 'api/v1/fonte/{id}',
             'api/v1/unidades' => 'api/v1/unidades',
             'api/v1/unidade/{id}' => 'api/v1/unidade/{id}',
@@ -45,13 +44,14 @@ null, ['class'=>"form-control width-medio <% validar(api.tipo) %>", 'ng-model'=>
             'api/v1/indicador/{id}' => 'api/v1/indicador/{id}',
             'api/v1/temas' => 'api/v1/temas',
             'api/v1/tema/{id}' => 'api/v1/tema/{id}',
+            'api/v1/series' => 'api/v1/series',
+            'api/v1/series/{tema}/{tema_id}' => 'api/v1/tema/{tema_id}',
+            'api/v1/serie/{id}' => 'api/v1/series/{id}',
             'api/v1/valores-series/{serie_id}/{abrangencia}' => 'api/v1/valores-series/{serie_id}/{abrangencia}',
             'api/v1/valores-series/{serie_id}/{abrangencia}/{inical}/{final}' => 'api/v1/valores-series/{serie_id}/{abrangencia}/{inical}/{final}',
             'api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}' => 'api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}',
             'api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}/{inical}/{final}' => 'api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}/{inical}/{final}',
         ), null, ['class'=>"form-control width-medio <% validar(api.url) %>", 'ng-model'=>'api.url', 'ng-required'=>'true', 'init-model'=>'api.url', 'placeholder' => '', 'ng-change' => 'routeToTitle()']) !!}<br>
-
-
 
 @if($rota=='cms/apis')
 {!! Form::label('titulo', 'Título *') !!}<br>
