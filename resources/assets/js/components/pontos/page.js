@@ -410,9 +410,10 @@ class Page extends React.Component{
                 <Map
                      id={this.props.id}
                      filters={this.state.filters}
-                     types={this.state.idTypes}
+                     allFilters={this.state.serieFilters}
+                     /*types={this.state.idTypes}
                      typesAccident={this.state.idTypesAccident}
-                     genders={this.state.idGender}
+                     genders={this.state.idGender}*/
                      tipoTerritorioSelecionado = {this.state.tipoTerritorioSelecionado}
                      codigoTerritorioSelecionado = {this.state.codigoTerritorioSelecionado}
                      tipoTerritorioAgrupamento = {this.state.tipoTerritorioAgrupamento}

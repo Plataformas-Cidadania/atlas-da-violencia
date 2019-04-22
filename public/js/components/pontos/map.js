@@ -695,11 +695,18 @@ class Map extends React.Component {
                 popupAnchor: [-3, -30] // point from which the popup should open relative to the iconAnchor
             });
 
+            console.log(data[i]);
+            console.log(this.props.allFilters);
+
+            let allFilters = this.props.allFilters;
+            let filterInfo = "";
+            for (let j in allFilters) {
+                filterInfo += '<strong>' + allFilters[j]['titulo'] + ':</strong> ' + data[i][allFilters[j]['slug']] + '<br>';
+            }
+
             let marker = L.marker(L.latLng(data[i].lat, data[i].lng), { icon: icon })
             //let marker = L.marker(L.latLng(data[i].lat, data[i].lng))
-            .bindPopup('' +
-            /*'<img width="24" height="24" src="img/leaflet/'+this.state.tipoIcone[data[i].tipo]+'"/> <strong>'+_this.state.tipo[data[i].tipo]+'</strong><hr style="margin:5px 0; padding:0;">' +*/
-            '<img width="24" height="24" src="img/leaflet/' + data[i].imagem + '"/> <strong>' + _this.state.tipo[data[i].tipo] + '</strong><hr style="margin:5px 0; padding:0;">' + '<strong>Data:</strong> ' + data[i].data + '<br>' + '<strong>Turno:</strong> ' + _this.state.turno[data[i].turno] + ' <br>' + '<strong>Faixa Etária:</strong> ' + _this.state.faixaEtaria[data[i].faixa_etaria] + ' <br>' + '<strong>Sexo:</strong> ' + _this.state.sexo[data[i].sexo] + ' <br>' + '<strong>Tipo Acidente:</strong> ' + _this.state.tipoAcidente[data[i].tipo_acidente] + ' ').openPopup();
+            .bindPopup('' + '<strong>' + data[i].lat + ', ' + data[i].lng + '</strong><hr style="margin:5px 0; padding:0;">' + '<strong>Data:</strong> ' + data[i].data + '<br>' + filterInfo).openPopup();
 
             marker.on('mouseover', function (e) {
                 //this.openPopup();

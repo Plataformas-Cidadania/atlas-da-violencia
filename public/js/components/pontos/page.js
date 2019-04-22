@@ -412,10 +412,11 @@ class Page extends React.Component {
             React.createElement(Map, {
                 id: this.props.id,
                 filters: this.state.filters,
-                types: this.state.idTypes,
-                typesAccident: this.state.idTypesAccident,
-                genders: this.state.idGender,
-                tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado,
+                allFilters: this.state.serieFilters
+                /*types={this.state.idTypes}
+                typesAccident={this.state.idTypesAccident}
+                genders={this.state.idGender}*/
+                , tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado,
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado,
                 tipoTerritorioAgrupamento: this.state.tipoTerritorioAgrupamento,
                 typeIcons: this.state.typeIcons,

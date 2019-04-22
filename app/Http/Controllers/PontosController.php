@@ -94,7 +94,7 @@ class PontosController extends Controller
         $end = $request->end;
         $filters = $request->filters;
         $whereFilters = false;
-        if(count($filters) > 0){
+        if(!empty($filters)){
             foreach($filters as $filter){
                 if(array_key_exists('valores', $filter)){
                     $whereFilters = true;
@@ -208,7 +208,7 @@ class PontosController extends Controller
         $end = $request->end;
         $filters = $request->filters;
         $whereFilters = false;
-        if(count($filters) > 0){
+        if(!empty($filters)){
             foreach($filters as $filter){
                 if(array_key_exists('valores', $filter)){
                     $whereFilters = true;
@@ -388,7 +388,7 @@ class PontosController extends Controller
                     ['geovalores.data', '>=', $start],
                     ['geovalores.data', '<=', $end]
                 ])
-                ->when(count($filters) > 0, function($query1) use ($filters){
+                ->when(!empty($filters), function($query1) use ($filters){
                     return $query1->where(function($query) use ($filters){
                         foreach ($filters as $filter) {
                             if(array_key_exists('valores', $filter)){
@@ -781,7 +781,7 @@ class PontosController extends Controller
         $end = $request->end;
         $filters = $request->filters;
         $whereFilters = false;
-        if(count($filters) > 0){
+        if(!empty($filters)){
             foreach($filters as $filter){
                 if(array_key_exists('valores', $filter)){
                     $whereFilters = true;
