@@ -131,12 +131,20 @@
         }
     </style>
 
-
+    <?php
+        $regioes = \Illuminate\Support\Facades\DB::table('spat.ed_territorios_regioes')->select('edterritorios_codigo')->get();
+        $ufs = \Illuminate\Support\Facades\DB::table('spat.ed_territorios_uf')->select('edterritorios_codigo')->get();
+        $regioesArray = json_decode(json_encode($regioes), true);
+        $ufsArray = json_decode(json_encode($ufs), true);
+        $regioesString = implode(",", array_flatten($regioesArray));
+        $ufsString = implode(",", array_flatten($ufsArray));
+    ?>
     <script>
         serie_id = {{$serie->id}};
         titulo = "{!! $serie->titulo !!}";
         default_regions = "{{$setting->pontos_default_regions}}".split(',');
-
+        regioes = "{{$regioesString}}";
+        ufs = "{{$ufsString}}";
     </script>
     <div id="page"></div>
 

@@ -252,6 +252,8 @@ class Page extends React.Component {
             return;
         }
 
+        let codigoTerritorioSelecionado = this.props.regioes.split(',');
+
         $.ajax({
             method: 'POST',
             url: "values-for-regions",
@@ -263,7 +265,8 @@ class Page extends React.Component {
                 typesAccident: this.state.idTypesAccident,
                 genders: this.state.idGender,
                 tipoTerritorioSelecionado: 2,
-                codigoTerritorioSelecionado: [11, 12, 13, 14, 15],
+                // codigoTerritorioSelecionado: [11,12,13,14,15],
+                codigoTerritorioSelecionado: codigoTerritorioSelecionado,
                 tipoTerritorioAgrupamento: 2
             },
             cache: false,
@@ -283,6 +286,8 @@ class Page extends React.Component {
             return;
         }
 
+        let codigoTerritorioSelecionado = this.props.ufs.split(',');
+
         $.ajax({
             method: 'POST',
             url: "values-for-regions",
@@ -294,7 +299,8 @@ class Page extends React.Component {
                 typesAccident: this.state.idTypesAccident,
                 genders: this.state.idGender,
                 tipoTerritorioSelecionado: 3,
-                codigoTerritorioSelecionado: [11, 12, 13, 14, 15, 16, 17, 23, 27, 29, 33, 35, 53, 21, 22, 24, 25, 26, 28, 31, 32, 41, 42, 43, 50, 51, 52],
+                // codigoTerritorioSelecionado: [11,12,13,14,15,16,17,23,27,29,33,35,53,21,22,24,25,26,28,31,32,41,42,43,50,51,52],
+                codigoTerritorioSelecionado: codigoTerritorioSelecionado,
                 tipoTerritorioAgrupamento: 3
             },
             cache: false,
@@ -488,4 +494,4 @@ class Page extends React.Component {
     }
 }
 
-ReactDOM.render(React.createElement(Page, { id: serie_id, titulo: titulo, default_regions: default_regions }), document.getElementById('page'));
+ReactDOM.render(React.createElement(Page, { id: serie_id, titulo: titulo, default_regions: default_regions, regioes: regioes, ufs: ufs }), document.getElementById('page'));
