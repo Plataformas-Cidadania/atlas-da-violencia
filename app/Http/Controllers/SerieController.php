@@ -319,7 +319,6 @@ class SerieController extends Controller
             return $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $serie_id);
         }
 
-
     }
 
     private function getPadraoTerritorios(){
