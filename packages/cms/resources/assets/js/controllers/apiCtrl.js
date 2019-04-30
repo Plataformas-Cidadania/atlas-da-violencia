@@ -196,6 +196,10 @@ cmsApp.controller('apiCtrl', ['$scope', '$http', 'Upload', '$timeout', function(
         });
     };
     //////////////////////////////////
-
+    $scope.routeToTitle = function(){
+        let array = $scope.api.url.split('/');
+        $scope.idioma.titulo = replaceAll(array[2], '-', ' ');
+        $scope.idioma.titulo = $scope.idioma.titulo.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+    };
 
 }]);

@@ -173,7 +173,7 @@ Route::get('new-maps/', function () {
 });
 
 ///////////SÉRIES POR PONTOS///////////////////////////////////////////////////
-Route::get('pontos/', 'PontosController@index');
+Route::get('pontos/{serie_id}', 'PontosController@index');
 Route::post('valores-transito/', 'PontosController@valoresMapa');
 Route::post('total-transito-territorio/', 'PontosController@totalPorTerritorio');
 Route::post('pontos-transito-territorio/', 'PontosController@pontosPorTerritorio');
@@ -247,6 +247,10 @@ Route::get('api/v1/indicador/{id}', 'ApiController@indicador');
 
 Route::get('api/v1/temas', 'ApiController@temas');
 Route::get('api/v1/tema/{id}', 'ApiController@tema');
+
+Route::get('api/v1/series', 'ApiController@series');
+Route::get('api/v1/series/{tema_id}', 'ApiController@series');
+Route::get('api/v1/serie/{id}', 'ApiController@serie');
 
 Route::get('api/v1/valores-series/{serie_id}/{abrangencia}', 'ApiController@todosValores');
 Route::get('api/v1/valores-series/{serie_id}/{abrangencia}/{inical}/{final}', 'ApiController@todosValores');

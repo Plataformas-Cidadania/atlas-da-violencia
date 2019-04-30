@@ -13,14 +13,20 @@ use Illuminate\Support\Facades\Log;
 class ApiController extends Controller
 {
 
+    private $lang = null;
+
+    public function __construct(){
+        $this->lang =  App::getLocale();
+    }
+
     public function index(){
 
-        $lang =  App::getLocale();
-        $textoApi = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 10)->orderBy('posicao')->first();
+
+        $textoApi = DB::table('quemsomos')->where('idioma_sigla', $this->lang)->where('tipo', 10)->orderBy('posicao')->first();
         $apis = DB::table('apis')
             ->select('idiomas_apis.titulo', 'idiomas_apis.descricao', 'apis.tipo', 'apis.url', 'apis.resposta')
             ->join('idiomas_apis', 'idiomas_apis.api_id', '=', 'apis.id')
-            ->where('idiomas_apis.idioma_sigla', $lang)
+            ->where('idiomas_apis.idioma_sigla', $this->lang)
             ->orderBy('idiomas_apis.id')
             ->get();
 
@@ -44,15 +50,19 @@ class ApiController extends Controller
     ////////////////////////////////////////////////
     /////////////////UNIDADES///////////////////////
     public function unidades(){
-        $unidades = \App\Unidade::select('id', 'titulo')
+        $unidades = \App\Unidade::select('unidades.id', 'idiomas_unidades.titulo')
+            ->join('idiomas_unidades', 'idiomas_unidades.unidade_id', '=', 'unidades.id')
+            ->where('idiomas_unidades.idioma_sigla', $this->lang)
             ->orderBy('titulo')
             ->get();
 
         return $unidades;
     }
     public function unidade($id){
-        $unidade = \App\Unidade::select('id', 'titulo')
-            ->where('id', $id)
+        $unidade = \App\Unidade::select('unidades.id', 'idiomas_unidades.titulo')
+            ->join('idiomas_unidades', 'idiomas_unidades.unidade_id', '=', 'unidades.id')
+            ->where('idiomas_unidades.idioma_sigla', $this->lang)
+            ->where('unidades.id', $id)
             ->first();
 
         return $unidade;
@@ -60,15 +70,19 @@ class ApiController extends Controller
     ////////////////////////////////////////////////
     //////////////PERIODICIDADES////////////////////
     public function periodicidades(){
-        $periodicidades = \App\Periodicidade::select('id', 'titulo')
+        $periodicidades = \App\Periodicidade::select('periodicidades.id', 'idiomas_periodicidades.titulo')
+            ->join('idiomas_periodicidades', 'idiomas_periodicidades.periodicidade_id', '=', 'periodicidades.id')
+            ->where('idiomas_periodicidades.idioma_sigla', $this->lang)
             ->orderBy('titulo')
             ->get();
 
         return $periodicidades;
     }
     public function periodicidade($id){
-        $periodicidade = \App\Periodicidade::select('id', 'titulo')
-            ->where('id', $id)
+        $periodicidade = \App\Periodicidade::select('periodicidades.id', 'idiomas_periodicidades.titulo')
+            ->join('idiomas_periodicidades', 'idiomas_periodicidades.periodicidade_id', '=', 'periodicidades.id')
+            ->where('idiomas_periodicidades.idioma_sigla', $this->lang)
+            ->where('periodicidades.id', $id)
             ->first();
 
         return $periodicidade;
@@ -76,15 +90,19 @@ class ApiController extends Controller
     ////////////////////////////////////////////////
     /////////////////INDICADORES////////////////////
     public function indicadores(){
-        $indicadores = \App\Indicador::select('id', 'titulo')
+        $indicadores = \App\Indicador::select('indicadores.id', 'idiomas_indicadores.titulo')
+            ->join('idiomas_indicadores', 'idiomas_indicadores.periodicidade_id', '=', 'indicadores.id')
+            ->where('idiomas_indicadores.idioma_sigla', $this->lang)
             ->orderBy('titulo')
             ->get();
 
         return $indicadores;
     }
     public function indicador($id){
-        $indicador = \App\Indicador::select('id', 'titulo')
-            ->where('id', $id)
+        $indicador = \App\Indicador::select('indicadores.id', 'idiomas_indicadores.titulo')
+            ->join('idiomas_indicadores', 'idiomas_indicadores.periodicidade_id', '=', 'indicadores.id')
+            ->where('idiomas_indicadores.idioma_sigla', $this->lang)
+            ->where('indicadores.id', $id)
             ->first();
 
         return $indicador;
@@ -95,7 +113,13 @@ class ApiController extends Controller
     public function temas(){
 
 
-        $temas = \App\Tema::select('id', 'tema', 'tema_id', 'imagem', 'tipo')->where('status', 1)->where('tema_id', 0)->orderBy('tema')->get();
+        $temas = \App\Tema::select('temas.id', 'idiomas_temas.titulo', 'temas.tema_id', 'temas.imagem', 'temas.tipo')
+            ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
+            ->where('idiomas_temas.idioma_sigla', $this->lang)
+            ->where('temas.status', 1)
+            ->where('temas.tema_id', 0)
+            ->orderBy('idiomas_temas.titulo')
+            ->get();
 
         foreach ($temas as $tema){
 
@@ -110,8 +134,11 @@ class ApiController extends Controller
     }
 
     public function tema($id){
-        $tema = \App\Tema::select('id', 'tema')
-            ->where('id', $id)
+        $tema = \App\Tema::select('temas.id', 'idiomas_temas.titulo', 'temas.imagem', 'temas.tipo')
+            ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
+            ->where('idiomas_temas.idioma_sigla', $this->lang)
+            ->where('temas.status', 1)
+            ->where('temas.id', $id)
             ->first();
 
         return $tema;
@@ -119,7 +146,13 @@ class ApiController extends Controller
 
     private function subtemas($tema_id){
 
-        $subTemas = \App\Tema::select('id', 'tema', 'tema_id', 'imagem', 'tipo')->where('status', 1)->where('tema_id', $tema_id)->get();
+        $subTemas = \App\Tema::select('temas.id', 'idiomas_temas.titulo', 'temas.tema_id', 'temas.imagem', 'temas.tipo')
+            ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
+            ->where('idiomas_temas.idioma_sigla', $this->lang)
+            ->where('temas.status', 1)
+            ->where('temas.tema_id', $tema_id)
+            ->orderBy('idiomas_temas.titulo')
+            ->get();
 
 
         foreach ($subTemas as $subTema){
@@ -133,7 +166,36 @@ class ApiController extends Controller
         return $subTemas;
 
     }
+    //////////////SERIES////////////////////
+    public function series($tema_id = 0){
 
+        //DB::enableQueryLog();
+
+        $series = \App\Serie::select('series.id', 'textos_series.titulo')
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+            ->where('textos_series.idioma_sigla', $this->lang)
+            ->when($tema_id > 0, function($query) use ($tema_id){
+                $query->join('temas_series', 'temas_series.serie_id', '=', 'series.id');
+                $query->where('temas_series.tema_id', $tema_id);
+                return $query;
+            })
+            ->orderBy('textos_series.titulo')
+            ->get();
+
+        //Log::info(DB::getQueryLog());
+
+        return $series;
+    }
+    public function serie($id){
+        $serie = \App\Serie::select('series.id', 'textos_series.titulo')
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+            ->where('textos_series.idioma_sigla', $this->lang)
+            ->where('series.id', $id)
+            ->first();
+
+        return $serie;
+    }
+    ////////////////////////////////////////////////
     public function todosValores($serie_id, $abrangencia, $inicial = null, $final = null){
         return $this->valores($serie_id, $abrangencia, 0, $inicial, $final);
     }
@@ -182,7 +244,7 @@ class ApiController extends Controller
             array_push($where, ['valores_series.periodo', '<=', $final]);
         }
 
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
 
         $rows = DB::table('valores_series')
             ->select(DB::raw("$tabelas[$abrangencia].edterritorios_codigo as cod, $select_sigla as sigla, valores_series.valor, valores_series.periodo"))
@@ -196,7 +258,7 @@ class ApiController extends Controller
             ->orderBy('valores_series.periodo')
             ->get();
 
-        Log::info(DB::getQueryLog());
+        //Log::info(DB::getQueryLog());
 
         return $rows;
     }

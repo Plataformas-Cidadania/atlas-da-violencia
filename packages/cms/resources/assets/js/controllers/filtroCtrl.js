@@ -197,5 +197,11 @@ cmsApp.controller('filtroCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
     };
     //////////////////////////////////
 
+    $scope.titleToSlug = function(){
+        let slug = $scope.filtro.titulo.toLowerCase();
+        slug = replaceAll(slug, ' ', '_');
+        slug = retira_acentos(slug);
+        $scope.filtro.slug = slug;
+    }
 
 }]);

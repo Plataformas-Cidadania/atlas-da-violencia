@@ -3,6 +3,7 @@ class Page extends React.Component {
         super(props);
         this.state = {
             filters: [],
+            serieFilters: [],
             idTypes: [],
             idTypesAccident: [],
             idGender: [],
@@ -47,12 +48,13 @@ class Page extends React.Component {
         this.loadValuesForRegions = this.loadValuesForRegions.bind(this);
         this.loadValuesForUfs = this.loadValuesForUfs.bind(this);
         this.loadValuesChartFilters = this.loadValuesChartFilters.bind(this);
+        this.setSerieFilters = this.setSerieFilters.bind(this);
     }
 
-    componentDidMount() {
-        //this.convertToArrayDefaultRegions();
-        console.log('CODIGO TERRITORIO SELECIONADO', this.state.codigoTerritorioSelecionado);
-    }
+    componentDidMount() {}
+    //this.convertToArrayDefaultRegions();
+    //console.log('CODIGO TERRITORIO SELECIONADO', this.state.codigoTerritorioSelecionado);
+
 
     /*convertToArrayDefaultRegions(){
         let default_regions = this.props.default_regions.split(',');
@@ -85,6 +87,10 @@ class Page extends React.Component {
         let months = this.state.months;
         //console.log(month);
         return arrayLastDay[months[month]];
+    }
+
+    setSerieFilters(filters) {
+        this.setState({ serieFilters: filters });
     }
 
     checkFilter(filters) {
@@ -246,6 +252,8 @@ class Page extends React.Component {
             return;
         }
 
+        let codigoTerritorioSelecionado = this.props.regioes.split(',');
+
         $.ajax({
             method: 'POST',
             url: "values-for-regions",
@@ -257,7 +265,8 @@ class Page extends React.Component {
                 typesAccident: this.state.idTypesAccident,
                 genders: this.state.idGender,
                 tipoTerritorioSelecionado: 2,
-                codigoTerritorioSelecionado: [11, 12, 13, 14, 15],
+                // codigoTerritorioSelecionado: [11,12,13,14,15],
+                codigoTerritorioSelecionado: codigoTerritorioSelecionado,
                 tipoTerritorioAgrupamento: 2
             },
             cache: false,
@@ -277,6 +286,8 @@ class Page extends React.Component {
             return;
         }
 
+        let codigoTerritorioSelecionado = this.props.ufs.split(',');
+
         $.ajax({
             method: 'POST',
             url: "values-for-regions",
@@ -288,7 +299,8 @@ class Page extends React.Component {
                 typesAccident: this.state.idTypesAccident,
                 genders: this.state.idGender,
                 tipoTerritorioSelecionado: 3,
-                codigoTerritorioSelecionado: [11, 12, 13, 14, 15, 16, 17, 23, 27, 29, 33, 35, 53, 21, 22, 24, 25, 26, 28, 31, 32, 41, 42, 43, 50, 51, 52],
+                // codigoTerritorioSelecionado: [11,12,13,14,15,16,17,23,27,29,33,35,53,21,22,24,25,26,28,31,32,41,42,43,50,51,52],
+                codigoTerritorioSelecionado: codigoTerritorioSelecionado,
                 tipoTerritorioAgrupamento: 3
             },
             cache: false,
@@ -381,7 +393,7 @@ class Page extends React.Component {
                 React.createElement(
                     'h1',
                     null,
-                    'Acidentes de Transito'
+                    this.props.titulo
                 ),
                 React.createElement('div', { className: 'line_title bg-pri' }),
                 React.createElement('br', null),
@@ -398,17 +410,19 @@ class Page extends React.Component {
                     checkMonth: this.checkMonth,
                     actionFilter: this.actionFilter,
                     tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado,
-                    codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado
+                    codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado,
+                    setSerieFilters: this.setSerieFilters
                 })
             ),
             React.createElement('br', null),
             React.createElement(Map, {
                 id: this.props.id,
                 filters: this.state.filters,
-                types: this.state.idTypes,
-                typesAccident: this.state.idTypesAccident,
-                genders: this.state.idGender,
-                tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado,
+                allFilters: this.state.serieFilters
+                /*types={this.state.idTypes}
+                typesAccident={this.state.idTypesAccident}
+                genders={this.state.idGender}*/
+                , tipoTerritorioSelecionado: this.state.tipoTerritorioSelecionado,
                 codigoTerritorioSelecionado: this.state.codigoTerritorioSelecionado,
                 tipoTerritorioAgrupamento: this.state.tipoTerritorioAgrupamento,
                 typeIcons: this.state.typeIcons,
@@ -472,11 +486,12 @@ class Page extends React.Component {
                 React.createElement(ListItems, {
                     type: '1',
                     items: this.state.values,
-                    setCurrentPageListItems: this.setCurrentPageListItems
+                    setCurrentPageListItems: this.setCurrentPageListItems,
+                    filters: this.state.serieFilters
                 })
             )
         );
     }
 }
 
-ReactDOM.render(React.createElement(Page, { id: serie_id, default_regions: default_regions }), document.getElementById('page'));
+ReactDOM.render(React.createElement(Page, { id: serie_id, titulo: titulo, default_regions: default_regions, regioes: regioes, ufs: ufs }), document.getElementById('page'));

@@ -88,15 +88,38 @@ class List extends React.Component {
                 }*/
 
                 //buttons[0] = <td>&nbsp;</td>;
-                buttons[1] = React.createElement(
+                buttons[0] = React.createElement(
                     'td',
-                    { key: 'btn-todos-os-territorios', className: 'text-right' },
+                    { key: 'btn-pontos' + index, className: 'text-right' },
                     React.createElement(
                         'a',
-                        { className: 'btn btn-success', href: this.state.urlDetailItem + "/" + item.id, title: 'todos os territ\xF3rios', target: '_blank' },
+                        { className: 'btn btn-success', href: "pontos/" + item.id, title: 'Pontos', target: '_blank' },
+                        React.createElement('i', { className: 'fa fa-map-marker', style: { fontSize: '1.5em' } })
+                    )
+                );
+                buttons[1] = React.createElement(
+                    'td',
+                    { key: 'btn-todos-os-territorios' + index, className: 'text-right' },
+                    React.createElement(
+                        'a',
+                        { className: 'btn btn-success', href: this.state.urlDetailItem + "/" + item.id, title: 'Territ\xF3rios', target: '_blank' },
                         React.createElement('i', { className: 'fa fa-arrow-circle-right', style: { fontSize: '1.5em' } })
                     )
                 );
+                if (item.tipo_dados == 0) {
+                    buttons[0] = React.createElement(
+                        'td',
+                        null,
+                        '\xA0'
+                    );
+                }
+                if (item.tipo_dados == 1) {
+                    buttons[1] = React.createElement(
+                        'td',
+                        null,
+                        '\xA0'
+                    );
+                }
 
                 /*let buttons = [
                     <td>

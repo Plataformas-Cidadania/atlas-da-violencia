@@ -4,6 +4,7 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
     $scope.tinymceOptions = tinymceOptions;
     $scope.mostrarForm = false;
     $scope.removerArquivo = 0;
+    $scope.modelo = '1';
 
     $scope.importar = function (arquivo){
 
@@ -15,12 +16,15 @@ cmsApp.controller('importSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', f
         var data1 = {
             id: $scope.id,
             serie: $scope.serie,
-            modelo: $scope.modelo
+            modelo: $scope.modelo,
+            tipo_dados: $scope.tipo_dados,
         };
 
         if(arquivo!=null){
             data1.arquivo = arquivo;
         }
+
+        console.log(data1);
 
         Upload.upload({
             url: 'cms/importar-serie',

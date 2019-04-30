@@ -4,6 +4,7 @@ class ListItems extends React.Component {
         this.state = {
             type: props.type,
             items: props.items,
+            filters: this.props.filters,
             types: [],
             typesAccident: [],
             genders: [],
@@ -11,20 +12,23 @@ class ListItems extends React.Component {
             perPage: props.perPage ? props.perPage : 20
         };
 
-        this.loadArrays = this.loadArrays.bind(this);
+        //this.loadArrays = this.loadArrays.bind(this);
         this.setCurrentPage = this.setCurrentPage.bind(this);
     }
 
     componentDidMount() {
-        this.loadArrays();
+        //this.loadArrays();
     }
 
     componentWillReceiveProps(props) {
         if (props.items != this.state.items) {
             this.setState({ items: props.items });
         }
-        if (props.tipo != this.state.type) {
-            this.setState({ type: props.type });
+        /*if(props.tipo != this.state.type){
+            this.setState({type: props.type});
+        }*/
+        if (props.filters != this.state.filters) {
+            this.setState({ filters: props.filters });
         }
     }
 
@@ -34,21 +38,22 @@ class ListItems extends React.Component {
         });
     }
 
-    loadArrays() {
+    /*loadArrays(){
         $.ajax({
-            method: 'POST',
+            method:'POST',
             url: "arrays-transito",
-            data: {},
+            data:{
+             },
             cache: false,
-            success: function (data) {
+            success: function(data) {
                 //console.log('values-for-types', data);
-                this.setState({ types: data.types, typesAccident: data.typesAccident, genders: data.genders });
+                this.setState({types: data.types, typesAccident: data.typesAccident, genders: data.genders});
             }.bind(this),
-            error: function (xhr, status, err) {
+            error: function(xhr, status, err) {
                 console.log('erro');
             }.bind(this)
         });
-    }
+    }*/
 
     render() {
 
@@ -56,6 +61,15 @@ class ListItems extends React.Component {
         let items = null;
 
         //console.log('ITEMS ########', this.state.items);
+
+        let colsFilters = this.state.filters.map(function (item, index) {
+            //console.log(item);
+            return React.createElement(
+                'th',
+                { key: 'col-filter-' + index },
+                item.titulo
+            );
+        });
 
         if (this.state.type == 1) {
             head = React.createElement(
@@ -66,21 +80,7 @@ class ListItems extends React.Component {
                     null,
                     'Local'
                 ),
-                React.createElement(
-                    'th',
-                    null,
-                    'Locomo\xE7\xE3o'
-                ),
-                React.createElement(
-                    'th',
-                    null,
-                    'Tipo de Acidente'
-                ),
-                React.createElement(
-                    'th',
-                    null,
-                    'Sexo'
-                ),
+                colsFilters,
                 React.createElement(
                     'th',
                     null,
@@ -94,24 +94,35 @@ class ListItems extends React.Component {
             );
             if (this.state.items.data != undefined) {
                 items = this.state.items.data.map(function (item) {
-                    let type = null;
-                    this.state.types.find(function (it) {
-                        if (it.id == item.tipo) {
+
+                    console.log(item);
+
+                    let tdsFilters = this.state.filters.map(function (filter, index) {
+                        return React.createElement(
+                            'td',
+                            { key: 'value-filter-' + index },
+                            item[filter.slug]
+                        );
+                    });
+
+                    /*let type = null;
+                    this.state.types.find(function(it){
+                        if(it.id==item.tipo){
                             type = it.title;
                         }
                     });
                     let typeAccident = null;
-                    this.state.typesAccident.find(function (it) {
-                        if (it.id == item.tipo_acidente) {
+                    this.state.typesAccident.find(function(it){
+                        if(it.id==item.tipo_acidente){
                             typeAccident = it.title;
                         }
                     });
                     let gender = null;
-                    this.state.genders.find(function (it) {
-                        if (it.id == item.sexo) {
+                    this.state.genders.find(function(it){
+                        if(it.id==item.sexo){
                             gender = it.title;
                         }
-                    });
+                    });*/
 
                     return React.createElement(
                         'tr',
@@ -121,21 +132,7 @@ class ListItems extends React.Component {
                             null,
                             item.endereco
                         ),
-                        React.createElement(
-                            'td',
-                            null,
-                            type
-                        ),
-                        React.createElement(
-                            'td',
-                            null,
-                            typeAccident
-                        ),
-                        React.createElement(
-                            'td',
-                            null,
-                            gender
-                        ),
+                        tdsFilters,
                         React.createElement(
                             'td',
                             null,

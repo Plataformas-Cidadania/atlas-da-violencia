@@ -15,9 +15,9 @@ class Cards extends React.Component{
 
     render(){
 
-        let cards = this.state.cards.map(function(item){
+        let cards = this.state.cards.map(function(item, index){
             return (
-                <div className="card">
+                <div key={"cart"+index} className="card">
                     <div className="card-body">
                         {item}
                     </div>

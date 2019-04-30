@@ -14,10 +14,10 @@ class Cards extends React.Component {
 
     render() {
 
-        let cards = this.state.cards.map(function (item) {
+        let cards = this.state.cards.map(function (item, index) {
             return React.createElement(
                 "div",
-                { className: "card" },
+                { key: "cart" + index, className: "card" },
                 React.createElement(
                     "div",
                     { className: "card-body" },

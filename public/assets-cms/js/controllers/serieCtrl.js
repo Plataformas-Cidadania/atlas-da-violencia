@@ -1,5 +1,9 @@
 cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-    
+
+
+    $scope.tipoDados = 0;
+    $scope.abrangenciaLimpar = 0;
+    $scope.ano_pontos = 0;
 
     $scope.series = [];
     $scope.currentPage = 1;
@@ -213,7 +217,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     $scope.limpar = function(id){
         $scope.processandoLimparValores = true;
         $http({
-            url: 'cms/limpar-valores-serie/'+id+'/'+$scope.abrangenciaLimpar,
+            url: 'cms/limpar-valores-serie/'+id+'/'+$scope.abrangenciaLimpar+'/'+$scope.tipoDados+'/'+$scope.ano_pontos,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);
@@ -227,6 +231,5 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
         });
     };
     ////////////////////////////////////////////
-
 
 }]);

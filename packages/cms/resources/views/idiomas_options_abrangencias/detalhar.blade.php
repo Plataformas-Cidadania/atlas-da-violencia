@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarIdiomaOptionAbrangenciaCtrl.js') !!}
     <div ng-controller="alterarIdiomaOptionAbrangenciaCtrl">
         <div class="box-padrao">
-            <h1><a href="cms/idiomas_options_abrangencias"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Idioma Option Abrangencia</h1>
+            <h1><a href="javascript:history.back();"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Idioma Option Abrangencia</h1>
             <?php //print_r($idioma_optionAbrangencia);?>
             <div ng-init="carregaImagem('{{$idioma_optionAbrangencia->imagem}}')">
                 <span class="idioma-obrigatorio">* campos obrigatórios</span><br><br>

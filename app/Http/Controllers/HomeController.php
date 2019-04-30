@@ -28,7 +28,9 @@ class HomeController extends Controller
 
         $noticias = DB::table('noticias')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->take(3)->get();
         $ultimaPostagem = DB::table('artigos')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->take(1)->first();
-        if(!empty($ultimaPostagem)){
+        $rotaUltimaPostagem = "artigo";
+        if(empty($ultimaPostagem)){
+            $moduloULtimaPostagem = "noticia";
             $ultimaPostagem = DB::table('noticias')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->take(1)->first();
             $noticias = DB::table('noticias')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->skip(1)->take(3)->get();
         }
@@ -36,6 +38,7 @@ class HomeController extends Controller
         return view('home', [
             'bemvindo' => $bemvindo,
             'ultimaPostagem' => $ultimaPostagem,
+            'rotaUltimaPostagem' => $rotaUltimaPostagem,
             'noticias' => $noticias,
             'links' => $links,
             'tags' => $tags,

@@ -29,7 +29,9 @@
                         @if(!empty($artigo->link))
                             <iframe src="{{$artigo->link}}" height="1000" width="100%"  frameborder="0"></iframe>
                         @else
+                            @if(!empty($artigo->arquivo))
                             <iframe src="arquivos/artigos/{{$artigo->arquivo}}" height="1000" width="100%"  frameborder="0"></iframe>
+                            @endif
                         @endif
 
                     </div>

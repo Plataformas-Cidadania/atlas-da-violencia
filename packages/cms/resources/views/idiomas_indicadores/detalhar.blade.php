@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarIdiomaIndicadorCtrl.js') !!}
     <div ng-controller="alterarIdiomaIndicadorCtrl">
         <div class="box-padrao">
-            <h1><a href="cms/idiomas_idioma_indicadores"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Idioma Indicador</h1>
+            <h1><a href="javascript:history.back();"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Idioma Indicador</h1>
             <?php //print_r($idioma_indicador);?>
             <div ng-init="carregaImagem('{{$idioma_indicador->imagem}}')">
                 <span class="idioma-obrigatorio">* campos obrigatórios</span><br><br>

@@ -135,7 +135,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
                     @if(!empty($ultimaPostagem))
                     {{--TEXTO--}}
-                    <a href="artigo/{{$ultimaPostagem->id}}/{{clean($ultimaPostagem->titulo)}}" class="item" style="background-color: #ececec;">
+                    <a href="{{$rotaUltimaPostagem}}/{{$ultimaPostagem->id}}/{{clean($ultimaPostagem->titulo)}}" class="item" style="background-color: #ececec;">
                         <h2 style="margin-top: 0;">{{$ultimaPostagem->titulo}}</h2>
                         <div style="height: 100px; overflow: hidden;">{!! substr(strip_tags($ultimaPostagem->descricao), 0, 600)."..." !!}</div>
                         <br>

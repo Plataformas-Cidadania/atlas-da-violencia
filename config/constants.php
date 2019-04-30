@@ -1,11 +1,25 @@
 <?php
 
-return [    
+return [
+    'TIPOS_DADOS_SERIES' => [
+      0 => 'Territórios',
+      1 => 'Pontos',
+      2 => 'Territórios e Pontos'
+    ],
     'indicadores' => [
         ['id' => '1', 'title' => 'Quantidade', 'on' => false, 'enable' => false],
         ['id' => '2', 'title' => 'Taxa por 100 mil Habitantes', 'on' => false, 'enable' => false],
         ['id' => '3', 'title' => 'Proporção', 'on' => false, 'enable' => false]
     ],
+    //As tabelas de ED_TERRITORIOS possuem uma coluna EDTERRITORIOS_TNIVID que define o tipo do território. Como no sistema
+    //os tipos de territorios são definidos de uma forma e nessa tabela de outra, então essa constante serve para converter
+    //o tipo de territorio informado pelo sistema para o tnivid desta coluna afim de
+    /*'TIPO_TERRITORIO_TO_EDTERRITORIOS_TNIVID' => [
+        1 => 98,//País
+        2 => 1,//Região
+        3 => 2,//UF
+        4 => 5,//Município
+    ],*/
     /*'abrangencias' => [
         ['id'=> 1, 'title'=> 'País..', 'plural'=> ' os Países', 'on'=>false, 'enable'=>false, 'listAll'=>1, 'height'=> '250px'],
         ['id'=> 2, 'title'=> 'Região', 'plural'=> 'as Regiões', 'on'=>false, 'enable'=>false, 'listAll'=>1, 'height'=> '250px'],

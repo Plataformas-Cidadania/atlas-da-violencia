@@ -317,8 +317,8 @@ class SerieController extends Controller
             }
             $abrangencia = $abrangencias[$indiceAbrangencia];
             return $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $serie_id);
-        }
-
+        }   
+             
 
     }
 
