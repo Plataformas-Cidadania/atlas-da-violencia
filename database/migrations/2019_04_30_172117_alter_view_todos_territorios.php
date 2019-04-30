@@ -12,6 +12,7 @@ class AlterViewTodosTerritorios extends Migration
      */
     public function up()
     {
+        DB::statement("drop view todos_territorios");
         DB::statement(
             "
             CREATE OR REPLACE VIEW public.todos_territorios as
@@ -28,8 +29,7 @@ class AlterViewTodosTerritorios extends Migration
                        when t.edterritorios_tnivid=2 then 3            
                        when t.edterritorios_tnivid=5 then 4            
                 end  as tipo_territorio            
-               FROM spat.ed_territorios t            
-               where t.edterritorios_tnivid=5                            
+               FROM spat.ed_territorios t                          
             "
         );
     }
@@ -41,9 +41,10 @@ class AlterViewTodosTerritorios extends Migration
      */
     public function down()
     {
+        DB::statement("drop view todos_territorios");
         DB::statement(
             "
-            create or replace todos_territorios as
+            create view public.todos_territorios as
             select edterritorios_codigo, edterritorios_nome, edterritorios_sigla, edterritorios_sigla as sigla, '1' as tipo_territorio  from spat.ed_territorios_paises
             UNION
             select edterritorios_codigo, edterritorios_nome, edterritorios_sigla, edterritorios_sigla as sigla, '2' as tipo_territorio  from spat.ed_territorios_regioes
