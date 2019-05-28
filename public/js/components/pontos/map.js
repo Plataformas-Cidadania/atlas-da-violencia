@@ -127,7 +127,7 @@ class Map extends React.Component {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
 
-        var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        let satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             maxZoom: 17,
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         });
@@ -724,7 +724,7 @@ class Map extends React.Component {
         this.setState({ mapElements: mapElements });
     }
 
-    heatMap() {
+    heatMapAntigo() {
         let cfg = {
             // radius should be small ONLY if scaleRadius is true (or small radius is intended)
             // if scaleRadius is false it will be the constant radius used in pixels
@@ -760,6 +760,25 @@ class Map extends React.Component {
         //L.control.layers(null, {'Mapa de Calor': heatmapLayer}, {collapsed: false}).addTo(mapElements.map);
 
         this.setState({ mapElements: mapElements });
+    }
+
+    heatMap() {
+
+        let addressPoints = this.state.dataCalor.map(function (p) {
+            return [parseFloat(p.lat), parseFloat(p.lng)];
+        });
+
+        //console.log('addressPoints', addressPoints);
+
+        let mapElements = this.state.mapElements;
+
+        mapElements.heatmapLayer = L.heatLayer(addressPoints);
+
+        mapElements.map.addLayer(mapElements.heatmapLayer);
+
+        //console.log('map', mapElements);
+
+        this.setState({ mapElement: mapElements });
     }
 
     removeMarkersGroup() {

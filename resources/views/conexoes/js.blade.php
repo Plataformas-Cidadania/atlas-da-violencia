@@ -313,6 +313,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="lib/leaflet/js/leaflet.markercluster-src.js"></script>
     <script src="lib/leaflet/js/heatmap.js"></script>
     <script src="lib/leaflet/js/leaflet-heatmap-overlay.js"></script>
+    <script src="lib/leaflet/js/leaflet-heat.js"></script>
     <script src="lib/leaflet/js/Control.FullScreen.js"></script>
 
     <script src="js/components/pagination.js"></script>
