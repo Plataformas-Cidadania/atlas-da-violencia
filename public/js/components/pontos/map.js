@@ -764,9 +764,68 @@ class Map extends React.Component {
 
     heatMap() {
 
-        let addressPoints = this.state.dataCalor.map(function (p) {
-            return [parseFloat(p.lat), parseFloat(p.lng)];
+        let intensidades = {
+            100: 20,
+            500: 10,
+            1000: 5,
+            5000: 2
+        };
+
+        let points = [];
+        for (let i in this.state.dataCalor) {
+            points.push(this.state.dataCalor[i]);
+            points.push(this.state.dataCalor[i]);
+            points.push(this.state.dataCalor[i]);
+            points.push(this.state.dataCalor[i]);
+        }
+
+        //let points = this.state.dataCalor.length;
+
+        let qtd = points.length;
+        let intensidade = 1;
+
+        for (let i in intensidades) {
+            if (qtd <= i) {
+                intensidade = intensidades[i];
+                break;
+            }
+        }
+
+        console.log('QTD:', qtd, 'INTENSIDADE:', intensidade);
+
+        let addressPoints = points.map(function (p) {
+            return [parseFloat(p.lat), parseFloat(p.lng), intensidade];
         });
+
+        /*let addressPoints2 = [];
+         for(let i in addressPoints){
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+            addressPoints2.push(addressPoints[i]);
+        }*/
 
         //console.log('addressPoints', addressPoints);
 
