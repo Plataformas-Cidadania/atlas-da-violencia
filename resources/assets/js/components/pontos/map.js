@@ -807,7 +807,7 @@ class Map extends React.Component{
             points.push(this.state.dataCalor[i]);
         }*/
 
-        let points = this.state.dataCalor.length;
+        let points = this.state.dataCalor;
 
         let qtd = points.length;
         let intensidade = 1;
