@@ -799,15 +799,15 @@ class Map extends React.Component{
             5000: 2,
         };
 
-        let points = [];
+        /*let points = [];
         for(let i in this.state.dataCalor){
             points.push(this.state.dataCalor[i]);
             points.push(this.state.dataCalor[i]);
             points.push(this.state.dataCalor[i]);
             points.push(this.state.dataCalor[i]);
-        }
+        }*/
 
-        //let points = this.state.dataCalor.length;
+        let points = this.state.dataCalor.length;
 
         let qtd = points.length;
         let intensidade = 1;
