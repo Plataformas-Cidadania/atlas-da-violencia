@@ -791,7 +791,7 @@ class Map extends React.Component {
             }
         }
 
-        console.log('QTD:', qtd, 'INTENSIDADE:', intensidade);
+        //console.log('QTD:', qtd, 'INTENSIDADE:', intensidade);
 
         let addressPoints = points.map(function (p) {
             return [parseFloat(p.lat), parseFloat(p.lng), intensidade];
