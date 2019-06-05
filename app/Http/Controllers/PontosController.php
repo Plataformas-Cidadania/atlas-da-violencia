@@ -468,12 +468,12 @@ class PontosController extends Controller
             geovalores.faixa_etaria
             "))
             ->join('series', 'series.id', '=', 'geovalores.serie_id')
-            ->join('spat.ed_territorios_paises', DB::Raw("ST_Contains(spat.ed_territorios_paises.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
+            //->join('spat.ed_territorios_paises', DB::Raw("ST_Contains(spat.ed_territorios_paises.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
             ->where([
                 ['geovalores.serie_id', $request->serie_id],
                 ['geovalores.data', '>=', $start],
-                ['geovalores.data', '<=', $end],
-                ['spat.ed_territorios_paises.edterritorios_sigla', $pais]
+                ['geovalores.data', '<=', $end]
+                //['spat.ed_territorios_paises.edterritorios_sigla', $pais]
             ])
             ->when($type > 0, function($query) use ($type){
                 return $query->where('geovalores.tipo', $type);
