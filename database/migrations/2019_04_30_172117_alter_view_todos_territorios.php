@@ -12,7 +12,7 @@ class AlterViewTodosTerritorios extends Migration
      */
     public function up()
     {
-        DB::statement("drop view todos_territorios");
+     
         DB::statement(
             "
             CREATE OR REPLACE VIEW public.todos_territorios as
