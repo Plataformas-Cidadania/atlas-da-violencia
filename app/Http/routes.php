@@ -198,6 +198,9 @@ Route::post('values-chart-filters/', 'PontosController@valuesChartFilters');
 Route::get('filtros-serie/{serie_id}', 'PontosController@filtrosSerie');
 Route::post('valores-filtros', 'PontosController@valoresFiltros');
 
+Route::get('gerar-csv-exemplo-pontos/', 'PontosController@gerarCsvExemplo');
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 

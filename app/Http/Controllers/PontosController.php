@@ -15,10 +15,10 @@ class PontosController extends Controller
 {
 
     private $territorios = [
-        1 => ['nome' => "País", 'tabela' => "spat.ed_territorios_paises"],
-        2 => ['nome' => "Região", 'tabela' => "spat.ed_territorios_regioes"],
-        3 => ['nome' => "UF", 'tabela' => "spat.ed_territorios_uf"],
-        4 => ['nome' => "Município", 'tabela' => "spat.ed_territorios_municipios"],
+        1 => ['nome' => "País", 'tabela' => "spat.ed_territorios_paises", 'view' => ""],
+        2 => ['nome' => "Região", 'tabela' => "spat.ed_territorios_regioes", 'view' => "mvw_series_points_by_region"],
+        3 => ['nome' => "UF", 'tabela' => "spat.ed_territorios_uf", 'view' => "mvw_series_points_by_uf"],
+        4 => ['nome' => "Município", 'tabela' => "spat.ed_territorios_municipios", 'view' => ""],
     ];
 
     private $months = [null, 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
@@ -118,6 +118,8 @@ class PontosController extends Controller
 
         $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
         $tabelaTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['tabela'];
+        $viewTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['view'];
+
 
         $tipoTerritorioAgrupamento = $request->tipoTerritorioAgrupamento;
         $tabelaTerritorioAgrupamento = $this->territorios[$request->tipoTerritorioAgrupamento]['tabela'];
@@ -128,7 +130,68 @@ class PontosController extends Controller
 
         $aliasFilter = $this->aliasFilter;
 
-        $valores = DB::table("geovalores")
+        DB::connection()->enableQueryLog();
+
+       $valores = DB::table("$viewTerritorioSelecionado")
+            ->select(DB::raw("
+            ST_X($viewTerritorioSelecionado.centroide_territorio) as lng, 
+            ST_Y($viewTerritorioSelecionado.centroide_territorio) as lat,
+            $viewTerritorioSelecionado.edterritorios_sigla as sigla,
+            $viewTerritorioSelecionado.edterritorios_nome as nome,
+            $viewTerritorioSelecionado.edterritorios_codigo as codigo,
+            '$tipoTerritorioAgrupamento' as tipo_territorio,
+            COUNT(*) as total
+            "))
+            /*->where('series', 'series.id', '=', 'geovalores.serie_id')*/
+            /*->join("$tabelaTerritorioAgrupamento as agrupamento", DB::Raw("ST_Contains(agrupamento.edterritorios_geometry, geovalores.ponto)"), '=', DB::Raw("true"))
+            ->join("$tabelaTerritorioSelecionado as selecionado", DB::Raw("ST_Contains(selecionado.edterritorios_geometry, agrupamento.edterritorios_centroide)"), '=', DB::Raw("true"))*/
+            /*->leftJoin('geovalores_valores_filtros', 'geovalores_valores_filtros.geovalor_id', '=', 'geovalores.id')//trocar serie_id por geovalor_id*/
+            ->when($whereFilters, function($query) use ($filters, $aliasFilter){
+                foreach ($filters as $index => $filter){
+                    //$query->join("geovalores_valores_filtros as $aliasFilter[$index]", "$aliasFilter[$index].geovalor_id", '=', 'geovalores.id');
+                    $slug = $filter['slug'];
+                    $query->join("geovalores_valores_filtros as $slug", "$slug.geovalor_id", '=', 'geovalores.id');
+                }
+                return $query;
+            })
+            ->when($whereFilters, function($query) use ($filters, $aliasFilter){
+                foreach ($filters as $index => $filter) {
+                    $query->where(function($query) use ($filter, $aliasFilter, $index){
+                        if(array_key_exists('valores', $filter)){
+                            if(count($filter['valores']) > 0){
+                                foreach ($filter['valores'] as $valor) {
+                                    //Log::info([$valor]);
+                                    //$query->orWhere("$aliasFilter[$index].valor_filtro_id", $valor['id']);
+                                    $slug = $filter['slug'];
+                                    $query->orWhere("$slug.valor_filtro_id", $valor['id']);
+                                }
+                                return $query;
+                            }
+                        }
+                    });
+
+                }
+                return $query;
+
+            })
+            ->where([
+                ["$viewTerritorioSelecionado.serie_id", $request->serie_id],
+                ["$viewTerritorioSelecionado.data_ponto", '>=', $start],
+                ["$viewTerritorioSelecionado.data_ponto", '<=', $end]
+            ])
+            ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado, $viewTerritorioSelecionado){
+                return $query->whereIn("$viewTerritorioSelecionado.edterritorios_codigo", $codigoTerritorioSelecionado);
+            })            
+            ->groupBy(DB::Raw("
+            ST_X($viewTerritorioSelecionado.centroide_territorio), 
+            ST_Y($viewTerritorioSelecionado.centroide_territorio),
+            $viewTerritorioSelecionado.edterritorios_sigla,
+            $viewTerritorioSelecionado.edterritorios_nome,
+            $viewTerritorioSelecionado.edterritorios_codigo
+            "))
+            ->get();
+
+        $valores2 = DB::table("geovalores")
             ->select(DB::raw("
             ST_X(agrupamento.edterritorios_centroide) as lng, 
             ST_Y(agrupamento.edterritorios_centroide) as lat,
@@ -177,16 +240,7 @@ class PontosController extends Controller
             ])
             ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado){
                 return $query->whereIn("selecionado.edterritorios_codigo", $codigoTerritorioSelecionado);
-            })
-            /*->when($types != null, function($query) use ($types){
-                return $query->whereIn('geovalores.tipo', $types);
-            })
-            ->when($typesAccident != null, function($query) use ($typesAccident){
-                return $query->whereIn('geovalores.tipo_acidente', $typesAccident);
-            })
-            ->when($genders != null, function($query) use ($genders){
-                return $query->whereIn('geovalores.sexo', $genders);
-            })*/
+            })            
             ->groupBy(DB::Raw("
             ST_X(agrupamento.edterritorios_centroide),
             ST_Y(agrupamento.edterritorios_centroide),
@@ -197,7 +251,8 @@ class PontosController extends Controller
             ->get();
 
         //Log::info($filters);
-        //Log::info(DB::getQueryLog());
+        Log::info("========================================================");
+        Log::info(DB::getQueryLog());
 
         return ['valores' => $valores];
     }
@@ -871,6 +926,32 @@ class PontosController extends Controller
         //Log::info(DB::getQueryLog());
 
         return $filtersDB;
+
+    }
+
+    public function gerarCsvExemplo(){
+        $csv = "";
+
+        for($i=0;$i<1000;$i++){
+
+            $ramdom = rand(123, 999);
+            $csv .= "1;-22.8128$ramdom ;-43.014$ramdom ;rua a;2019-01-01;13:16:10;17;1;8;27".PHP_EOL;
+            $ramdom = rand(123, 999);
+            $csv .= "1;-22.8121$ramdom ;-43.011$ramdom ;rua b;2019-01-02;14:25:10;17;1;8;27".PHP_EOL;
+            $ramdom = rand(123, 999);
+            $csv .= "1;-22.8118$ramdom ;-43.012$ramdom ;rua c;2019-01-03;15:34:10;17;1;8;28".PHP_EOL;
+            $ramdom = rand(123, 999);
+            $csv .= "1;-22.812$ramdom 2;-43.01$ramdom 1;rua d;2019-01-04;16:43:10;16;2;8;27".PHP_EOL;
+            $ramdom = rand(123, 999);
+            $csv .= "1;-22.813$ramdom 2;-43.01$ramdom 1;rua e;2019-01-05;17:52:10;19;5;9;27".PHP_EOL;
+            $ramdom = rand(123, 999);
+            $csv .= "1;-22.814$ramdom 2;-43.01$ramdom 1;rua f;2019-01-06;18:21:10;19;5;9;27".PHP_EOL;
+            
+        }
+
+
+
+        return $csv;
 
     }
 }
