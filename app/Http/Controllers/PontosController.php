@@ -473,7 +473,7 @@ class PontosController extends Controller
                 ['geovalores.serie_id', $request->serie_id],
                 ['geovalores.data', '>=', $start],
                 ['geovalores.data', '<=', $end],
-                ['spat.ed_territorios_paises.edterritorios_codigo', $pais]
+                ['spat.ed_territorios_paises.edterritorios_sigla', $pais]
             ])
             ->when($type > 0, function($query) use ($type){
                 return $query->where('geovalores.tipo', $type);

@@ -16,7 +16,7 @@ class Map extends React.Component{
             start: props.start,
             end: props.end,
             filters: props.filters,
-            pais: 203, //utilizado para o mapa de calor
+            pais: 'BRA', //utilizado para o mapa de calor
             tipoTerritorioSelecionado: props.tipoTerritorioSelecionado,
             codigoTerritorioSelecionado: props.codigoTerritorioSelecionado,
             tipoTerritorioAgrupamento: props.tipoTerritorioAgrupamento,
