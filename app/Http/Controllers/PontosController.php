@@ -118,11 +118,13 @@ class PontosController extends Controller
 
         $codigoTerritorioSelecionado = $request->codigoTerritorioSelecionado;
         $tabelaTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['tabela'];
-        $viewTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['view'];
 
+        //$viewTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['view'];
 
         $tipoTerritorioAgrupamento = $request->tipoTerritorioAgrupamento;
         $tabelaTerritorioAgrupamento = $this->territorios[$request->tipoTerritorioAgrupamento]['tabela'];
+
+        $viewTerritorioSelecionado = $this->territorios[$request->tipoTerritorioAgrupamento]['view'];
 
         //Log::info($codigoTerritorioSelecionado);
         //Log::info($tabelaTerritorioSelecionado);
@@ -191,7 +193,7 @@ class PontosController extends Controller
             "))
             ->get();
 
-        $valores2 = DB::table("geovalores")
+        /*$valores2 = DB::table("geovalores")
             ->select(DB::raw("
             ST_X(agrupamento.edterritorios_centroide) as lng, 
             ST_Y(agrupamento.edterritorios_centroide) as lat,
@@ -248,7 +250,7 @@ class PontosController extends Controller
             agrupamento.edterritorios_nome,
             agrupamento.edterritorios_codigo
             "))
-            ->get();
+            ->get();*/
 
         //Log::info($filters);
         Log::info("========================================================");
