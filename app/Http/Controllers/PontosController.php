@@ -124,24 +124,25 @@ class PontosController extends Controller
         $tipoTerritorioAgrupamento = $request->tipoTerritorioAgrupamento;
         $tabelaTerritorioAgrupamento = $this->territorios[$request->tipoTerritorioAgrupamento]['tabela'];
 
-        $viewTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['view'];
+        $viewTerritorioAgrupamento = $this->territorios[$request->tipoTerritorioAgrupamento]['view'];
 
         //Log::info($codigoTerritorioSelecionado);
         //Log::info($tabelaTerritorioSelecionado);
         //Log::info($tabelaTerritorioAgrupamento);
+        Log::info($viewTerritorioAgrupamento);
 
         $aliasFilter = $this->aliasFilter;
 
         DB::connection()->enableQueryLog();
 
-       $valores = DB::table("$viewTerritorioSelecionado")
+       $valores = DB::table("$viewTerritorioAgrupamento")
             ->select(DB::raw("
-            ST_X($viewTerritorioSelecionado.centroide_territorio) as lng, 
-            ST_Y($viewTerritorioSelecionado.centroide_territorio) as lat,
-            $viewTerritorioSelecionado.edterritorios_sigla as sigla,
-            $viewTerritorioSelecionado.edterritorios_nome as nome,
-            $viewTerritorioSelecionado.edterritorios_codigo as codigo,
-            '$tipoTerritorioAgrupamento' as tipo_territorio,
+            ST_X($viewTerritorioAgrupamento.centroide_territorio) as lng, 
+            ST_Y($viewTerritorioAgrupamento.centroide_territorio) as lat,
+            $viewTerritorioAgrupamento.edterritorios_sigla as sigla,
+            $viewTerritorioAgrupamento.edterritorios_nome as nome,
+            $viewTerritorioAgrupamento.edterritorios_codigo as codigo,
+            '$viewTerritorioAgrupamento' as tipo_territorio,
             COUNT(*) as total
             "))
             /*->where('series', 'series.id', '=', 'geovalores.serie_id')*/
@@ -177,19 +178,19 @@ class PontosController extends Controller
 
             })
             ->where([
-                ["$viewTerritorioSelecionado.serie_id", $request->serie_id],
-                ["$viewTerritorioSelecionado.data_ponto", '>=', $start],
-                ["$viewTerritorioSelecionado.data_ponto", '<=', $end]
+                ["$viewTerritorioAgrupamento.serie_id", $request->serie_id],
+                ["$viewTerritorioAgrupamento.data_ponto", '>=', $start],
+                ["$viewTerritorioAgrupamento.data_ponto", '<=', $end]
             ])
-            ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado, $viewTerritorioSelecionado){
-                return $query->whereIn("$viewTerritorioSelecionado.edterritorios_codigo", $codigoTerritorioSelecionado);
+            ->when(!empty($codigoTerritorioSelecionado), function($query) use ($tabelaTerritorioSelecionado, $codigoTerritorioSelecionado, $viewTerritorioAgrupamento){
+                return $query->whereIn("$viewTerritorioAgrupamento.edterritorios_codigo", $codigoTerritorioSelecionado);
             })            
             ->groupBy(DB::Raw("
-            ST_X($viewTerritorioSelecionado.centroide_territorio), 
-            ST_Y($viewTerritorioSelecionado.centroide_territorio),
-            $viewTerritorioSelecionado.edterritorios_sigla,
-            $viewTerritorioSelecionado.edterritorios_nome,
-            $viewTerritorioSelecionado.edterritorios_codigo
+            ST_X($viewTerritorioAgrupamento.centroide_territorio), 
+            ST_Y($viewTerritorioAgrupamento.centroide_territorio),
+            $viewTerritorioAgrupamento.edterritorios_sigla,
+            $viewTerritorioAgrupamento.edterritorios_nome,
+            $viewTerritorioAgrupamento.edterritorios_codigo
             "))
             ->get();
 
