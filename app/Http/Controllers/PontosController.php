@@ -124,7 +124,7 @@ class PontosController extends Controller
         $tipoTerritorioAgrupamento = $request->tipoTerritorioAgrupamento;
         $tabelaTerritorioAgrupamento = $this->territorios[$request->tipoTerritorioAgrupamento]['tabela'];
 
-        $viewTerritorioSelecionado = $this->territorios[$request->tipoTerritorioAgrupamento]['view'];
+        $viewTerritorioSelecionado = $this->territorios[$request->tipoTerritorioSelecionado]['view'];
 
         //Log::info($codigoTerritorioSelecionado);
         //Log::info($tabelaTerritorioSelecionado);
