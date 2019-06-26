@@ -35,33 +35,7 @@
         <div class="box-padrao">
             <h1><i class="fa fa-fw fa-dashboard"></i>&nbsp;Dashboard</h1>
             <br><br>
-            <div class="row text-center">
-                <div class="col-md-3">
-                    <div class="col-md-12 bs-callout bs-callout-primary">
-                        <p>Visitantes hoje</p>
-                        <h2><strong>{{\Cms\Models\Contador::visitasHoje()}}</strong></h2>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="col-md-12 bs-callout bs-callout-success">
-                        <p>Visitantes do mês</p>
-                        <h2><strong>{{\Cms\Models\Contador::visitasMes()}}</strong></h2>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="col-md-12 bs-callout bs-callout-warning">
-                        <p>Visitantes do ano</p>
-                        <h2><strong>{{\Cms\Models\Contador::visitasAno()}}</strong></h2>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="col-md-12 bs-callout bs-callout-danger">
-                        <p>Visitantes total</p>
-                        <h2><strong>{{--{{\Cms\Models\Contador::visitas()}}--}}</strong></h2>
-                    </div>
-                </div>
-            </div>
-            <br>
+            
             <div class="row text-center">
                 <div class="col-md-3">
                     <div class="col-md-12 bs-callout bs-callout-primary btn-primary">
@@ -74,19 +48,7 @@
                         <p>Registro de séries</p>
                         <h2><strong>{{$valoresSeries}}</strong></h2>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="col-md-12 bs-callout bs-callout-warning btn-warning">
-                        <p>Visitantes do ano</p>
-                        <h2><strong>?????</strong></h2>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="col-md-12 bs-callout bs-callout-danger btn-danger">
-                        <p>Visitantes total</p>
-                        <h2><strong>??????</strong></h2>
-                    </div>
-                </div>
+                </div>                
             </div>
             <br>
             <div class="row">
