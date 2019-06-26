@@ -689,50 +689,9 @@ class SerieController extends Controller
     public function atualizarViewsMaterializadasPontos(){
         set_time_limit(1800); // 30 minutos
 
-        DB::statement("DROP MATERIALIZED VIEW IF EXISTS mvw_series_points_by_region;");
-        DB::statement("DROP MATERIALIZED VIEW IF EXISTS mvw_series_points_by_uf;");
-        DB::statement(
-            "                       
-            CREATE MATERIALIZED VIEW mvw_series_points_by_region AS
-            SELECT geovalores.id,
-                   geovalores.serie_id,
-                   paises.edterritorios_codigo as codigo_territorio_nivel_acima,
-                   regioes.edterritorios_codigo,
-                   regioes.edterritorios_nome,
-                   regioes.edterritorios_sigla,
-                   regioes.edterritorios_centroide AS centroide_territorio,
-                   st_x(geovalores.ponto) AS longitude,
-                   st_y(geovalores.ponto) AS latitude,
-                   geovalores.data AS data_ponto
-            FROM geovalores geovalores
-                     JOIN spat.ed_territorios_regioes regioes ON st_contains(regioes.edterritorios_geometry, geovalores.ponto)
-                     JOIN spat.ed_territorios_paises paises ON st_contains(paises.edterritorios_geometry, regioes.edterritorios_centroide)
-                     LEFT JOIN geovalores_valores_filtros ON geovalores_valores_filtros.geovalor_id = geovalores.id
-                WITH DATA;   
-            "
-        );
-
-        DB::statement(
-            "  
-            CREATE MATERIALIZED VIEW mvw_series_points_by_uf AS
-            SELECT geovalores.id,
-                   geovalores.serie_id,
-                   regioes.edterritorios_codigo as codigo_territorio_nivel_acima,
-                   ufs.edterritorios_codigo,
-                   ufs.edterritorios_nome,
-                   ufs.edterritorios_sigla,
-                   ufs.edterritorios_centroide AS centroide_territorio,
-            
-                   st_x(geovalores.ponto) AS longitude,
-                   st_y(geovalores.ponto) AS latitude,
-                   geovalores.data AS data_ponto
-            FROM geovalores geovalores
-                     JOIN spat.ed_territorios_uf ufs ON st_contains(ufs.edterritorios_geometry, geovalores.ponto)
-                     JOIN spat.ed_territorios_regioes regioes ON st_contains(regioes.edterritorios_geometry, ufs.edterritorios_centroide)
-                     LEFT JOIN geovalores_valores_filtros ON geovalores_valores_filtros.geovalor_id = geovalores.id
-                WITH DATA;                                        
-            "
-        );
+        DB::statement("REFRESH MATERIALIZED VIEW mvw_series_points_by_region;");
+        DB::statement("REFRESH MATERIALIZED VIEW mvw_series_points_by_uf;");        
+        
 
         return view('cms::serie.views-materializadas-pontos');
 

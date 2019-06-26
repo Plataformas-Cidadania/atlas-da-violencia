@@ -992,17 +992,17 @@ class PontosController extends Controller
         for($i=0;$i<1000;$i++){
 
             $ramdom = rand(123, 999);
-            $csv .= "1;-22.8128$ramdom ;-43.014$ramdom ;rua a;2019-01-01;13:16:10;17;1;8;27".PHP_EOL;
+            $csv .= "149;-22.8128".$ramdom.";-43.014".$ramdom."2;aaa;rua a;2019-01-01;13:16:10;17;1;8;27"."<br>";
             $ramdom = rand(123, 999);
-            $csv .= "1;-22.8121$ramdom ;-43.011$ramdom ;rua b;2019-01-02;14:25:10;17;1;8;27".PHP_EOL;
+            $csv .= "149;-22.8121".$ramdom.";-43.011".$ramdom."2;bbb;rua b;2019-01-02;14:25:10;17;1;8;27"."<br>";
             $ramdom = rand(123, 999);
-            $csv .= "1;-22.8118$ramdom ;-43.012$ramdom ;rua c;2019-01-03;15:34:10;17;1;8;28".PHP_EOL;
+            $csv .= "149;-22.8118".$ramdom.";-43.012".$ramdom."2;ccc;rua c;2019-01-03;15:34:10;17;1;8;28"."<br>";
             $ramdom = rand(123, 999);
-            $csv .= "1;-22.812$ramdom 2;-43.01$ramdom 1;rua d;2019-01-04;16:43:10;16;2;8;27".PHP_EOL;
+            $csv .= "149;-22.812".$ramdom."2;-43.012".$ramdom."1;ddd;rua d;2019-01-04;16:43:10;16;2;8;27"."<br>";
             $ramdom = rand(123, 999);
-            $csv .= "1;-22.813$ramdom 2;-43.01$ramdom 1;rua e;2019-01-05;17:52:10;19;5;9;27".PHP_EOL;
+            $csv .= "149;-22.813".$ramdom."2;-43.012".$ramdom."1;eee;rua e;2019-01-05;17:52:10;19;5;9;27"."<br>";
             $ramdom = rand(123, 999);
-            $csv .= "1;-22.814$ramdom 2;-43.01$ramdom 1;rua f;2019-01-06;18:21:10;19;5;9;27".PHP_EOL;
+            $csv .= "149;-22.814".$ramdom."2;-43.012".$ramdom."1;fff;rua f;2019-01-06;18:21:10;19;5;9;27"."<br>";
             
         }
 
