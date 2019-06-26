@@ -326,7 +326,7 @@ class SerieController extends Controller
             $data['serie']['arquivo'] = $filenameArquivo;
         }
 
-        ini_set('max_execution_time', 360);
+        ini_set('max_execution_time', 1800);
 
 
 
