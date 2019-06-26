@@ -105,6 +105,9 @@
                         </div>
                         <br>
                     </div>
+
+                    <div><a href="/cms/atualizar-views-materializadas-pontos">Atualizar Views Materializadas</a></div>
+                    <br><br><br>
                 </div>
 
 

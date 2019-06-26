@@ -21,6 +21,7 @@ class SerieController extends Controller
 
     public function __construct()
     {
+        set_time_limit(600); // 10 minutos
         $this->serie = new \App\Serie;
         $this->campos = [
             'fonte_id', 'cmsuser_id', 'periodicidade_id', 'unidade', 'indicador'
@@ -492,7 +493,7 @@ class SerieController extends Controller
                     ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
                 );
 
-                Log::info([$registro]);
+                //Log::info([$registro]);
             }
 
             //Log::info(DB::getQueryLog());
@@ -579,7 +580,7 @@ class SerieController extends Controller
 
 
         foreach ($csv as $item) {
-            Log::info($item);
+            //Log::info($item);
 
 
             //break;
@@ -595,12 +596,13 @@ class SerieController extends Controller
                 'serie_id' => $item['serie'],
                 'ponto' => $ponto,
                 'endereco' => $item['endereco'],
+                'titulo' => $item['titulo'],
                 'data' => $item['data'],
                 'hora' => $item['hora'],
                 'cmsuser_id' => $cms_user_id
             ];
 
-            Log::info($geovalor);
+            //Log::info($geovalor);
 
             $insertValorGeo = \App\GeoValor::create($geovalor);
 
@@ -613,7 +615,7 @@ class SerieController extends Controller
             $insertValorGeo->cmsuser_id = $cms_user_id;
             $insertValorGeo->save();*/
 
-            Log::info('geovalor_id: '.$insertValorGeo->id);
+            //Log::info('geovalor_id: '.$insertValorGeo->id);
 
             foreach ($item as $col => $valor) {
                 //Log::info($col.': '.$valor);
@@ -627,7 +629,7 @@ class SerieController extends Controller
                         'cmsuser_id' => $cms_user_id,
                     ];
 
-                    Log::info($valorFiltroGeo);
+                    //Log::info($valorFiltroGeo);
 
                     $insertValorFiltroGeo = \App\GeoValorFiltro::create($valorFiltroGeo);
                 }
@@ -684,434 +686,57 @@ class SerieController extends Controller
         return view('cms::serie.valores-filtros-serie', ['serie' => $serie, 'valores' => $valores]);
     }
 
+    public function atualizarViewsMaterializadasPontos(){
+        set_time_limit(1800); // 30 minutos
 
+        DB::statement("DROP MATERIALIZED VIEW IF EXISTS mvw_series_points_by_region;");
+        DB::statement("DROP MATERIALIZED VIEW IF EXISTS mvw_series_points_by_uf;");
+        DB::statement(
+            "                       
+            CREATE MATERIALIZED VIEW mvw_series_points_by_region AS
+            SELECT geovalores.id,
+                   geovalores.serie_id,
+                   paises.edterritorios_codigo as codigo_territorio_nivel_acima,
+                   regioes.edterritorios_codigo,
+                   regioes.edterritorios_nome,
+                   regioes.edterritorios_sigla,
+                   regioes.edterritorios_centroide AS centroide_territorio,
+                   st_x(geovalores.ponto) AS longitude,
+                   st_y(geovalores.ponto) AS latitude,
+                   geovalores.data AS data_ponto
+            FROM geovalores geovalores
+                     JOIN spat.ed_territorios_regioes regioes ON st_contains(regioes.edterritorios_geometry, geovalores.ponto)
+                     JOIN spat.ed_territorios_paises paises ON st_contains(paises.edterritorios_geometry, regioes.edterritorios_centroide)
+                     LEFT JOIN geovalores_valores_filtros ON geovalores_valores_filtros.geovalor_id = geovalores.id
+                WITH DATA;   
+            "
+        );
 
-    /*private function importarMunicipios($csv, $serie_id, $abrangencia){
-        $cms_user_id = auth()->guard('cms')->user()->id;
-        $tipo_regiao = $abrangencia;
+        DB::statement(
+            "  
+            CREATE MATERIALIZED VIEW mvw_series_points_by_uf AS
+            SELECT geovalores.id,
+                   geovalores.serie_id,
+                   regioes.edterritorios_codigo as codigo_territorio_nivel_acima,
+                   ufs.edterritorios_codigo,
+                   ufs.edterritorios_nome,
+                   ufs.edterritorios_sigla,
+                   ufs.edterritorios_centroide AS centroide_territorio,
+            
+                   st_x(geovalores.ponto) AS longitude,
+                   st_y(geovalores.ponto) AS latitude,
+                   geovalores.data AS data_ponto
+            FROM geovalores geovalores
+                     JOIN spat.ed_territorios_uf ufs ON st_contains(ufs.edterritorios_geometry, geovalores.ponto)
+                     JOIN spat.ed_territorios_regioes regioes ON st_contains(regioes.edterritorios_geometry, ufs.edterritorios_centroide)
+                     LEFT JOIN geovalores_valores_filtros ON geovalores_valores_filtros.geovalor_id = geovalores.id
+                WITH DATA;                                        
+            "
+        );
 
-        foreach($csv as $row){
-            if($row['cod']==''){
-                break;
-            }
+        return view('cms::serie.views-materializadas-pontos');
 
-            $cod = $row['cod'];
-            $cod = $row['cod'].$this->calcula_dv_municipio($row['cod']);
-
-            $valor = "";
-            $valor = $row['valor'];
-
-            $reg =[
-                'periodo' => $row['periodo'],
-                'tipo_regiao' => $tipo_regiao,
-                'regiao_id' => $cod,
-                'serie_id' => $serie_id,
-                'valor' => $valor
-            ];
-
-            if($cod != null && $cod != "" && $valor != null & $valor != ""){
-                $registro = \App\ValorSerie::updateOrCreate(
-                    $reg,
-                    ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
-                );
-            }
-        }
-    }*/
-
-    /*private function importarPaisUfRegiao($excel, $serie_id, $abrangencia){
-        //Log::info('abrangencia: '.$abrangencia);
-        $registros = [];
-        $uf = '';
-        $municipio = '';
-        $bairro = '';
-        $cms_user_id = auth()->guard('cms')->user()->id;
-
-        $tabelas = $this->getTabelas();
-        $abrangencias = $this->getAbrangencias();
-
-        $coluna_edterritorios = 'edterritorios_nome';
-        if($abrangencia==3){
-            $coluna_edterritorios = 'edterritorios_sigla';
-        }
-
-        $territorio = '';
-        foreach($excel as $row){
-            foreach($row as $index => $cel){
-                if(!empty($index)){
-                    //Log::info('titulo abrangência: '.$abrangencias[$abrangencia]);
-                    //Log::info('index: '.$index);
-                    if($index==$abrangencias[$abrangencia]){
-                        $territorio = str_replace('-', ' ', $cel);
-                    }else{
-                        array_push($registros, ['ano' => $index, 'value' => $cel]);
-                        $valor = $cel;
-                        $periodo = $index;
-
-                        //Log::info('territorio: '.$territorio);
-
-                        DB::connection()->enableQueryLog();
-
-                        $tipo_regiao = $abrangencia;
-                        $regiao = DB::table($tabelas[$abrangencia])
-                            ->select('edterritorios_codigo as regiao_id')
-                            ->where($coluna_edterritorios, 'ilike', $territorio)
-                            ->first();
-
-                        //Log::info(DB::getQueryLog());
-
-                        $regiao_id = $regiao->regiao_id;
-
-                        $reg =[
-                            'periodo' => $periodo,
-                            'uf' => $uf,
-                            'tipo_regiao' => $tipo_regiao,
-                            'regiao_id' => $regiao_id,
-                            'municipio' => $municipio,
-                            'bairro' => $bairro,
-                            'serie_id' => $serie_id
-                        ];
-
-                        //Log::info($valor);
-
-                        if($valor==null){
-                            $valor = 0;
-                        }
-
-
-                        if($regiao_id != null && $periodo != null){
-                            $registro = \App\ValorSerie::updateOrCreate(
-                                $reg,
-                                ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
-                            );
-                        }
-
-                    }
-                }
-            }
-        }
-    }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    public function importar2(Request $request){
-//
-//        $data = $request->all();
-//
-//        //return $data;
-//
-//        $arquivo = $request->file('arquivo');
-//
-//        $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
-//        $successArquivo = $arquivo->move(public_path()."/import", $filenameArquivo);
-//        if($successArquivo){
-//            $data['serie']['arquivo'] = $filenameArquivo;
-//        }
-//
-//        ini_set('max_execution_time', 360);
-//
-//        $serie = \App\Serie::select('abrangencia', 'indicador')->where('id', $data['id'])->first();
-//
-//
-//        $validation = $this->validarArquivo($serie, $arquivo);
-//
-//        if(!$validation['result']){
-//            return ['erro' => 1, 'msg' => $validation['msg']];
-//        }
-//
-//
-//        if($serie->abrangencia==1 || $serie->abrangencia==2 || $serie->abrangencia==3){
-//            $excel = Excel::load(public_path()."/import/$filenameArquivo", function($reader) {})->get();
-//            $this->importarPaisUfRegiao2($excel, $data['id'], $serie->abrangencia);
-//            return;
-//        }
-//
-//        /*if($data['serie']['abrangencia']==1 || $data['serie']['abrangencia']==2 || $data['serie']['abrangencia']==3){
-//            $excel = Excel::load(public_path()."/import/$filenameArquivo", function($reader) {})->get();
-//            $this->importarPaisUfRegiao($excel, $data['id'], $serie->abrangencia);
-//            return;
-//        }*/
-//
-//        if($serie->abrangencia==4){
-//
-//            $csv = [];
-//
-//            $file = fopen(public_path()."/import/$filenameArquivo", "r");
-//
-//            $cont = 0;
-//            $columns = [];
-//            while(!feof($file)){
-//                $linha = fgets($file, 4096);
-//                $values = explode(';', $linha);
-//                if($cont==0){
-//                    foreach($values as $key => $value){
-//                        $values[$key] = somenteLetrasNumeros(clean($value));
-//                    }
-//                    $columns = $values;
-//                    //Log::info($columns);
-//                }else{
-//                    $row = [];
-//                    foreach($values as $key => $value){
-//                        $row[$columns[$key]] = $value;
-//                    }
-//                    array_push($csv, $row);
-//                }
-//
-//                $cont++;
-//            }
-//
-//            //Log::info($csv);
-//
-//            //return $csv;
-//
-//            $this->importarMunicipios2($csv, $data['id'], $serie->abrangencia, $serie->indicador, $data['serie']['periodo']);
-//            return;
-//        }
-//
-//    }
-//
-//    private function importarMunicipios2($csv, $serie_id, $abrangencia, $indicador, $periodo){
-//        //Log::info('abrangencia: '.$abrangencia);
-//        $registros = [];
-//        $uf = '';
-//        $municipio = '';
-//        $bairro = '';
-//        $cms_user_id = auth()->guard('cms')->user()->id;
-//        $tipo_regiao = $abrangencia;
-//
-//        //Log::info($csv);
-//
-//        $tabelas = $this->getTabelas();
-//
-//        /*$abrangencias = [
-//            1 => 'pais',
-//            2 => 'regiao',
-//            3 => 'uf',
-//            4 => 'micro-regiao',
-//        ];*/
-//
-//
-//
-//        $indicadores = [
-//            '1' => 'Quantidade',
-//            '2' => 'Taxa por 100 mil Habitantes',
-//            '3' => 'Proporção',
-//            '4' => 'Taxa Bayesiana'
-//        ];
-//
-//        $coluna_edterritorios = 'edterritorios_nome';
-//
-//        $cont = 0;
-//        foreach($csv as $row){
-//            /*if($row['codmun']==''){
-//                break;
-//            }*/
-//            if($row['nome']==''){
-//                break;
-//            }
-//            //Log::info($row);
-//            //Log::info('indicador: '.$indicador);
-//            //Log::info($row['codmun'].": ".$this->calcula_dv_municipio($row['codmun']));
-//
-//            $cod = $row['codmun'].$this->calcula_dv_municipio($row['codmun']);
-//
-//            $valor = 0;
-//            if($indicador==1){
-//                $valor = $row['homicidios'];
-//            }
-//            if($indicador==2){
-//                $valor = $row['taxa'];//txhomicidio
-//            }
-//            /*if($indicador==2){
-//                $valor = $row['txeb'];
-//            }*/
-//
-//            /*$reg =[
-//                'valor' => $valor,
-//                'periodo' => $periodo,
-//                'uf' => $uf,
-//                'tipo_regiao' => $tipo_regiao,
-//                'regiao_id' => $cod,
-//                'municipio' => $municipio,
-//                'bairro' => $bairro,
-//                'serie_id' => $serie_id,
-//                'cmsuser_id' => $cms_user_id
-//            ];
-//
-//            Log::info($reg['periodo'].' / '.$reg['valor']);
-//
-//            $registro = \App\ValorSerie::create($reg);*/
-//
-//            $reg =[
-//                'periodo' => $periodo,
-//                'uf' => $uf,
-//                'tipo_regiao' => $tipo_regiao,
-//                'regiao_id' => $cod,
-//                'municipio' => $municipio,
-//                'bairro' => $bairro,
-//                'serie_id' => $serie_id,
-//            ];
-//
-//
-//            //Log::info('valor antes: '.$valor.'----');
-//            //Log::info('tipo: '.gettype($valor));
-//
-//           /* if(preg_match('/\\d/', $valor) > 0){
-//                Log::info('contém numero');
-//            }else{
-//                Log::info('não contém numero');
-//            }*/
-//
-//            //$valor = str_replace('<br/>', '', $valor);
-//
-//            if($valor==null || empty($valor) || !preg_match('/\\d/', $valor) > 0){
-//                $valor = 0;
-//            }
-//
-//            //Log::info('cod '.$cod.' valor: '.$valor);
-//
-//            if($cod != null && $periodo != null){
-//                $registro = \App\ValorSerie::updateOrCreate(
-//                    $reg,
-//                    ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
-//                );
-//            }
-//
-//        }
-//
-//    }
-//
-//    private function importarPaisUfRegiao2($excel, $serie_id, $abrangencia){
-//        //Log::info('abrangencia: '.$abrangencia);
-//        $registros = [];
-//        $uf = '';
-//        $municipio = '';
-//        $bairro = '';
-//        $cms_user_id = auth()->guard('cms')->user()->id;
-//
-//        $tabelas = $this->getTabelas();
-//        $abrangencias = $this->getAbrangencias();
-//
-//        $coluna_edterritorios = 'edterritorios_nome';
-//        if($abrangencia==3){
-//            $coluna_edterritorios = 'edterritorios_sigla';
-//        }
-//
-//        $territorio = '';
-//        foreach($excel as $row){
-//            foreach($row as $index => $cel){
-//                if(!empty($index)){
-//                    //Log::info('titulo abrangência: '.$abrangencias[$abrangencia]);
-//                    //Log::info('index: '.$index);
-//                    if($index==$abrangencias[$abrangencia]){
-//                        $territorio = str_replace('-', ' ', $cel);
-//                    }else{
-//                        array_push($registros, ['ano' => $index, 'value' => $cel]);
-//                        $valor = $cel;
-//                        $periodo = $index;
-//
-//                        //Log::info('territorio: '.$territorio);
-//
-//                        DB::connection()->enableQueryLog();
-//
-//                        $tipo_regiao = $abrangencia;
-//                        $regiao = DB::table($tabelas[$abrangencia])
-//                            ->select('edterritorios_codigo as regiao_id')
-//                            ->where($coluna_edterritorios, 'ilike', $territorio)
-//                            ->first();
-//
-//                        //Log::info(DB::getQueryLog());
-//
-//                        $regiao_id = $regiao->regiao_id;
-//
-//                        //Log::info($regiao->regiao_id);
-//
-//                        /*$reg =[
-//                            'valor' => $valor,
-//                            'periodo' => $periodo,
-//                            'uf' => $uf,
-//                            'tipo_regiao' => $tipo_regiao,
-//                            'regiao_id' => $regiao_id,
-//                            'municipio' => $municipio,
-//                            'bairro' => $bairro,
-//                            'serie_id' => $serie_id,
-//                            'cmsuser_id' => $cms_user_id
-//                        ];
-//
-//                        $registro = \App\ValorSerie::create($reg);*/
-//
-//                        $reg =[
-//                            'periodo' => $periodo,
-//                            'uf' => $uf,
-//                            'tipo_regiao' => $tipo_regiao,
-//                            'regiao_id' => $regiao_id,
-//                            'municipio' => $municipio,
-//                            'bairro' => $bairro,
-//                            'serie_id' => $serie_id
-//                        ];
-//
-//                        //Log::info($valor);
-//
-//			if($valor==null){
-//				$valor = 0;
-//			}
-//
-//
-//                        if($regiao_id != null && $periodo != null){
-//                            $registro = \App\ValorSerie::updateOrCreate(
-//                                $reg,
-//                                ['valor' => $valor, 'cmsuser_id' => $cms_user_id]
-//                            );
-//                        }
-//
-//
-//
-//
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-
-
-    /*private function getAbrangencias(){
-        $abrangencias = [
-            1 => 'pais',
-            2 => 'regiao',
-            3 => 'uf',
-            //4 => 'micro-regiao',
-            4 => 'municipio',
-            5 => 'micro-regiao',
-            6 => 'meso-regiao',
-        ];
-
-        return $abrangencias;
-    }*/
-
+    }
 
 
 

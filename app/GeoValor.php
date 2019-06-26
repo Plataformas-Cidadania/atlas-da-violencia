@@ -14,7 +14,7 @@ class GeoValor extends Model
     protected $table = 'geovalores';
 
     protected $fillable = [
-        'endereco', 'data', 'hora', 'ponto', 'serie_id', 'cmsuser_id',
+        'titulo', 'endereco', 'data', 'hora', 'ponto', 'serie_id', 'cmsuser_id',
     ];
 
     protected $postgisFields = [
