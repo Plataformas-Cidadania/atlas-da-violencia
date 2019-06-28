@@ -987,23 +987,40 @@ class PontosController extends Controller
     }
 
     public function gerarCsvExemplo(){
-        $csv = "";
+        $csv = "serie;lat;lon;titulo;endereco;data;hora;faixa_etaria;locomocao;sexo;turno"."<br>";
 
-        for($i=0;$i<1000;$i++){
+        for($i=0;$i<2000;$i++){
+            $ramdom1 = rand(5, 30);
+            $ramdom2 = rand(1234567, 7654321);
+            $ramdom3 = rand(39, 60);
+            $ramdom4 = rand(1234567, 7654321);
+            $csv .= "10;-$ramdom1.".$ramdom2.";-$ramdom3.".$ramdom4.";aaaaaa;rua a;2019-01-01;13:16:10;17;1;8;27"."<br>";
+        }
 
-            $ramdom = rand(123, 999);
-            $csv .= "149;-22.8128".$ramdom.";-43.014".$ramdom."2;aaa;rua a;2019-01-01;13:16:10;17;1;8;27"."<br>";
-            $ramdom = rand(123, 999);
-            $csv .= "149;-22.8121".$ramdom.";-43.011".$ramdom."2;bbb;rua b;2019-01-02;14:25:10;17;1;8;27"."<br>";
-            $ramdom = rand(123, 999);
-            $csv .= "149;-22.8118".$ramdom.";-43.012".$ramdom."2;ccc;rua c;2019-01-03;15:34:10;17;1;8;28"."<br>";
-            $ramdom = rand(123, 999);
-            $csv .= "149;-22.812".$ramdom."2;-43.012".$ramdom."1;ddd;rua d;2019-01-04;16:43:10;16;2;8;27"."<br>";
-            $ramdom = rand(123, 999);
-            $csv .= "149;-22.813".$ramdom."2;-43.012".$ramdom."1;eee;rua e;2019-01-05;17:52:10;19;5;9;27"."<br>";
-            $ramdom = rand(123, 999);
-            $csv .= "149;-22.814".$ramdom."2;-43.012".$ramdom."1;fff;rua f;2019-01-06;18:21:10;19;5;9;27"."<br>";
-            
+        for($i=0;$i<5500;$i++) {
+            $ramdom1 = rand(5, 30);
+            $ramdom2 = rand(1524786, 9853214);
+            $ramdom3 = rand(39, 60);
+            $ramdom4 = rand(1245037, 6478103);
+            $csv .= "10;-$ramdom1." . $ramdom2 . ";-$ramdom3." . $ramdom4 . ";bbbbbb;rua a;2019-01-01;13:16:10;17;1;8;27" . "<br>";
+        }
+
+        for($i=0;$i<800;$i++) {
+            $ramdom1 = rand(5, 30);
+            $ramdom2 = rand(6478134, 1795432);
+            $ramdom3 = rand(39, 60);
+            $ramdom4 = rand(1392475, 3412547);
+            $csv .= "10;-$ramdom1." . $ramdom2 . ";-$ramdom3." . $ramdom4 . ";cccccc;rua a;2019-01-01;13:16:10;17;1;8;27" . "<br>";
+
+        }
+
+        for($i=0;$i<200;$i++){
+            $ramdom1 = rand(5, 30);
+            $ramdom2 = rand(7123547, 2344736);
+            $ramdom3 = rand(39, 60);
+            $ramdom4 = rand(3458714, 9632147);
+            $csv .= "10;-$ramdom1.".$ramdom2.";-$ramdom3.".$ramdom4.";ddddddd;rua a;2019-01-01;13:16:10;17;1;8;27"."<br>";
+
         }
 
 
