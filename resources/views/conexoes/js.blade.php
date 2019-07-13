@@ -137,7 +137,9 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.min.js"></script>
+    <script src="lib/apexcharts/prop-types.min.js"></script>
     <script src="lib/apexcharts/apexcharts.min.js"></script>
+    <script src="lib/apexcharts/react-apexcharts.iife.min.js"></script>
 
     {{--<script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>--}}
 
@@ -175,6 +177,8 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="js/components/abrangenciaSerie.js"></script>
     <script src="js/components/rangePeriodos.js"></script>
     <script src="js/components/chartLine.js"></script>
+    <script src="js/components/chartLineApex.js"></script>
+    <script src="js/components/chartBarApex.js"></script>
     <script src="js/components/chartBar.js"></script>
     <script src="js/components/chartRadar.js"></script>
     <script src="js/components/chartPie.js"></script>

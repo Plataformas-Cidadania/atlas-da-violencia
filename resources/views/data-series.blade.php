@@ -2,6 +2,16 @@
 @section('title', 'Mapa')
 @section('content')
     <style>
+
+        foreignObject{
+            overflow-x: auto !important;
+        }
+
+        .apexcharts-legend{
+            top: 20px !important;
+        }
+
+
         .map { width: 100%; height: 600px; }
 
         .legend {

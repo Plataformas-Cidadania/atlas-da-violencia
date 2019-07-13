@@ -518,7 +518,8 @@ class PgSerie extends React.Component {
                 React.createElement(
                     "div",
                     { style: { display: this.state.chartLine ? 'block' : 'none' } },
-                    React.createElement(ChartLine, {
+                    React.createElement(ChartLineApex, {
+                        chartId: "chartLine",
                         id: this.state.id,
                         serie: this.state.serie,
                         periodicidade: this.props.periodicidade,
@@ -527,9 +528,6 @@ class PgSerie extends React.Component {
                         periodos: this.state.periodos,
                         regions: this.state.regions,
                         abrangencia: this.state.abrangencia
-                        /*typeRegion={this.props.typeRegion}
-                        typeRegionSerie={this.props.typeRegionSerie}
-                        intervalos={this.state.intervalos}*/
                     })
                 ),
                 React.createElement(

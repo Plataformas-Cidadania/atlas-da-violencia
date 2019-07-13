@@ -470,7 +470,7 @@ class PgSerie extends React.Component{
                     </div>
                     <div style={{clear:'both'}}><br/></div>
                     <div style={{display: this.state.chartLine ? 'block' : 'none'}}>
-                        <ChartLine
+                        {/*<ChartLine
                             id={this.state.id}
                             serie={this.state.serie}
                             periodicidade={this.props.periodicidade}
@@ -479,10 +479,21 @@ class PgSerie extends React.Component{
                             periodos={this.state.periodos}
                             regions={this.state.regions}
                             abrangencia={this.state.abrangencia}
-                            /*typeRegion={this.props.typeRegion}
-                            typeRegionSerie={this.props.typeRegionSerie}
-                            intervalos={this.state.intervalos}*/
+                        />*/}
+
+                        <ChartLineApex
+                            chartId="chartLine"
+                            id={this.state.id}
+                            serie={this.state.serie}
+                            periodicidade={this.props.periodicidade}
+                            min={this.state.min}
+                            max={this.state.max}
+                            periodos={this.state.periodos}
+                            regions={this.state.regions}
+                            abrangencia={this.state.abrangencia}
                         />
+
+
                     </div>
                     <div style={{display: this.state.chartBar ? 'block' : 'none'}}>
                         <div className="row">
