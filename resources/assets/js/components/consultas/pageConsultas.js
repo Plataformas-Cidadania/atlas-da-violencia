@@ -85,7 +85,7 @@ class PageFilters extends React.Component {
 
     render(){
 
-        console.log('ITEMS', this.state.items);
+        //console.log('ITEMS', this.state.items);
         let items = this.state.items;
         if (!this.state.items.data) {
             items = { data: [] };

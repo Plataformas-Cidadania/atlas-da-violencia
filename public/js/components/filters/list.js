@@ -106,7 +106,7 @@ class List extends React.Component {
                         React.createElement('i', { className: 'fa fa-arrow-circle-right', style: { fontSize: '1.5em' } })
                     )
                 );
-                if (item.tipo_dados == 0) {
+                if (item.tipo_dados == 0 || !item.tipo_dados) {
                     buttons[0] = React.createElement(
                         'td',
                         null,
