@@ -26,11 +26,21 @@ null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-mo
     {{$periodicidade->titulo}}
 @endforeach--}}
 
+{{--OS CHECKBOX DE TIPOS SÃO USADOS PARA DEFINIR A COMBINAÇÃO DE TIPOS DO SELECT *TIPO_DADOS* DE FORMA AUTOMÁTICA--}}
+<div class="checkbox-inline">
+    {!! Form::checkbox('tipo_territorios', true, null, ['class'=>"checkbox-inline width-grande", 'ng-model'=>"tipo_territorios", 'init-model'=>"tipo_territorios", 'style'=>"width: 30px; height: 30px;"]) !!}
+    {!! Form::label('territorios', $tipo_territorios, ['style'=>"padding: 8px 20px 0 20px;"]) !!}
+    {!! Form::checkbox('tipo_pontos', true, null, ['class'=>"checkbox-inline width-grande", 'ng-model'=>"tipo_pontos", 'init-model'=>"tipo_pontos", 'style'=>"width: 30px; height: 30px;"]) !!}
+    {!! Form::label('tipo_pontos', $tipo_territorios, ['style'=>"padding: 8px 20px 0 20px;"]) !!}
+    {!! Form::checkbox('tipo_arquivo', true, null, ['class'=>"checkbox-inline width-grande", 'ng-model'=>"tipo_arquivo", 'init-model'=>"tipo_arquivo", 'style'=>"width: 30px; height: 30px;"]) !!}
+    {!! Form::label('tipo_arquivo', $tipo_territorios, ['style'=>"padding: 8px 20px 0 20px;"]) !!}
+</div>
 
 {!! Form::label('tipo_dados', 'Tipo de Dados *') !!}<br>
 {!! Form::select('tipo_dados',
         $tipos_dados_series,
 null, ['class'=>"form-control width-medio <% validar(serie.tipo_dados) %>", 'ng-model'=>'serie.tipo_dados', 'ng-required'=>'true', 'init-model'=>'serie.tipo_dados', 'placeholder' => 'Selecione']) !!}<br>
+
 
 
 {!! Form::label('periodicidade_id', 'Periodicidade *') !!}<br>

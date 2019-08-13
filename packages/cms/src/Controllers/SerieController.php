@@ -66,6 +66,8 @@ class SerieController extends Controller
 
         $tipos_dados_series = config("constants.TIPOS_DADOS_SERIES");
 
+
+
         return view('cms::serie.listar', [
             'fontes' => $fontes,
             'idiomas' => $idiomas,
@@ -73,6 +75,9 @@ class SerieController extends Controller
             'indicadores' => $indicadores,
             'unidades' => $unidades,
             'tipos_dados_series' => $tipos_dados_series,
+            'tipo_territorios' => 0,
+            'tipo_pontos' => 0,
+            'tipo_arquivo' => 0,
         ]);
     }
 

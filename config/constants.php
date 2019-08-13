@@ -2,9 +2,16 @@
 
 return [
     'TIPOS_DADOS_SERIES' => [
-      0 => 'Territórios',
-      1 => 'Pontos',
-      2 => 'Territórios e Pontos'
+        0 => 'Territórios',
+        1 => 'Pontos',
+        3 => 'Arquivo',
+        2 => 'Territórios e Pontos',
+        4 => 'Territórios e Arquivo',
+        5 => 'Pontos e Arquivo',
+        6 => 'Territorios, Pontos e Arquivo',
+    ],
+    'CHECK_TIPOS_DADOS_SERIES' => [
+
     ],
     'indicadores' => [
         ['id' => '1', 'title' => 'Quantidade', 'on' => false, 'enable' => false],
