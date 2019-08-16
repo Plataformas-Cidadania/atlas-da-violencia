@@ -119,6 +119,14 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
 
         $scope.mensagemInserir = "";
 
+        let tipos = {
+            tipo_territorios: $scope.tipo_territorios,
+            tipo_pontos: $scope.tipo_pontos,
+            tipo_arquivo: $scope.tipo_arquivo,
+        };
+
+        $scope.serie.tipo_dados = $scope.getTipoDados(tipos);
+
         if(file==null){
             $scope.processandoInserir = true;
 
@@ -163,6 +171,31 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
 
     };
 
+    $scope.getTipoDados = function(tipos){
+        if(tipos.tipo_territorios && !tipos.tipo_pontos && !tipos.tipo_arquivo){
+            return 0;
+        }
+        if(!tipos.tipo_territorios && tipos.tipo_pontos && !tipos.tipo_arquivo){
+            return 1;
+        }
+        if(tipos.tipo_territorios && tipos.tipo_pontos && !tipos.tipo_arquivo){
+            return 2;
+        }
+        if(!tipos.tipo_territorios && !tipos.tipo_pontos && tipos.tipo_arquivo){
+            return 3;
+        }
+        if(tipos.tipo_territorios && !tipos.tipo_pontos && tipos.tipo_arquivo){
+            return 4;
+        }
+        if(!tipos.tipo_territorios && tipos.tipo_pontos && tipos.tipo_arquivo){
+            return 5;
+        }
+        if(tipos.tipo_territorios && tipos.tipo_pontos && tipos.tipo_arquivo){
+            return 6;
+        }
+
+        return 0;
+    };
 
     $scope.limparImagem = function(){
         delete $scope.picFile;
