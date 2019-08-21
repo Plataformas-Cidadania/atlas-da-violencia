@@ -5,6 +5,12 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     $scope.abrangenciaLimpar = 0;
     $scope.ano_pontos = 0;
 
+    $scope.tipo_territorios = null;
+    $scope.tipo_pontos = null;
+    $scope.tipo_arquivo = null;
+
+    $scope.serie = {};
+
     $scope.series = [];
     $scope.currentPage = 1;
     $scope.lastPage = 0;
@@ -119,13 +125,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
 
         $scope.mensagemInserir = "";
 
-        let tipos = {
-            tipo_territorios: $scope.tipo_territorios,
-            tipo_pontos: $scope.tipo_pontos,
-            tipo_arquivo: $scope.tipo_arquivo,
-        };
 
-        $scope.serie.tipo_dados = $scope.getTipoDados(tipos);
 
         if(file==null){
             $scope.processandoInserir = true;
@@ -171,30 +171,53 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
 
     };
 
-    $scope.getTipoDados = function(tipos){
+    $scope.setTipoDados = function(){
+
+        let tipos = {
+            tipo_territorios: $scope.tipo_territorios,
+            tipo_pontos: $scope.tipo_pontos,
+            tipo_arquivo: $scope.tipo_arquivo,
+        };
+
+        console.log(tipos);
+
         if(tipos.tipo_territorios && !tipos.tipo_pontos && !tipos.tipo_arquivo){
-            return 0;
+            $scope.serie.tipo_dados = "0";
+            console.log($scope.serie.tipo_dados);
+            return;
         }
         if(!tipos.tipo_territorios && tipos.tipo_pontos && !tipos.tipo_arquivo){
-            return 1;
+            $scope.serie.tipo_dados =  "1";
+            console.log($scope.serie.tipo_dados);
+            return;
         }
         if(tipos.tipo_territorios && tipos.tipo_pontos && !tipos.tipo_arquivo){
-            return 2;
+            $scope.serie.tipo_dados =  "2";
+            console.log($scope.serie.tipo_dados);
+            return;
         }
         if(!tipos.tipo_territorios && !tipos.tipo_pontos && tipos.tipo_arquivo){
-            return 3;
+            $scope.serie.tipo_dados =  "3";
+            console.log($scope.serie.tipo_dados);
+            return;
         }
         if(tipos.tipo_territorios && !tipos.tipo_pontos && tipos.tipo_arquivo){
-            return 4;
+            $scope.serie.tipo_dados =  "4";
+            console.log($scope.serie.tipo_dados);
+            return;
         }
         if(!tipos.tipo_territorios && tipos.tipo_pontos && tipos.tipo_arquivo){
-            return 5;
+            $scope.serie.tipo_dados =  "5";
+            console.log($scope.serie.tipo_dados);
+            return;
         }
         if(tipos.tipo_territorios && tipos.tipo_pontos && tipos.tipo_arquivo){
-            return 6;
+            $scope.serie.tipo_dados =  "6";
+            console.log($scope.serie.tipo_dados);
+            return;
         }
 
-        return 0;
+        $scope.serie.tipo_dados =  0;
     };
 
     $scope.limparImagem = function(){

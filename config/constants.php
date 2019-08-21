@@ -10,9 +10,6 @@ return [
         5 => 'Pontos e Arquivo',
         6 => 'Territorios, Pontos e Arquivo',
     ],
-    'CHECK_TIPOS_DADOS_SERIES' => [
-
-    ],
     'indicadores' => [
         ['id' => '1', 'title' => 'Quantidade', 'on' => false, 'enable' => false],
         ['id' => '2', 'title' => 'Taxa por 100 mil Habitantes', 'on' => false, 'enable' => false],
