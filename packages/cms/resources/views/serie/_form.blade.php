@@ -29,12 +29,12 @@ null, ['class'=>"form-control width-medio <% validar(serie.serie_id) %>", 'ng-mo
 {{--OS CHECKBOX DE TIPOS SÃO USADOS PARA DEFINIR A COMBINAÇÃO DE TIPOS DO SELECT *TIPO_DADOS* DE FORMA AUTOMÁTICA--}}
 {!! Form::label('tipo_dados', 'Tipo de Dados *') !!}<br>
 <div class="checkbox-inline">
-    {!! Form::checkbox('tipo_territorios', true, null, ['class'=>"checkbox-inline width-grande", 'ng-model'=>"tipo_territorios", 'init-model'=>"tipo_territorios", 'ng-change'=>'setTipoDados(tipos)', 'style'=>"width: 30px; height: 30px;"]) !!}
-    {!! Form::label('territorios', $tipo_territorios, ['style'=>"padding: 8px 20px 0 20px;"]) !!}
-    {!! Form::checkbox('tipo_pontos', true, null, ['class'=>"checkbox-inline width-grande", 'ng-model'=>"tipo_pontos", 'init-model'=>"tipo_pontos",  'ng-change'=>'setTipoDados(tipos)', 'style'=>"width: 30px; height: 30px;"]) !!}
-    {!! Form::label('tipo_pontos', $tipo_pontos, ['style'=>"padding: 8px 20px 0 20px;"]) !!}
-    {!! Form::checkbox('tipo_arquivo', true, null, ['class'=>"checkbox-inline width-grande", 'ng-model'=>"tipo_arquivo", 'init-model'=>"tipo_arquivo", 'ng-change'=>'setTipoDados(tipos)', 'style'=>"width: 30px; height: 30px;"]) !!}
-    {!! Form::label('tipo_arquivo', $tipo_arquivo, ['style'=>"padding: 8px 20px 0 20px;"]) !!}
+    {!! Form::checkbox('tipo_territorios', true, $tipo_territorios, ['class'=>"checkbox-inline width-grande", 'ng-model'=>"tipo_territorios", 'init-model'=>"tipo_territorios", 'ng-change'=>'setTipoDados(tipos)', 'style'=>"width: 30px; height: 30px;"]) !!}
+    {!! Form::label('tipo_territorios', '', ['style'=>"padding: 8px 20px 0 20px;"]) !!}
+    {!! Form::checkbox('tipo_pontos', true, $tipo_pontos, ['class'=>"checkbox-inline width-grande", 'ng-model'=>"tipo_pontos", 'init-model'=>"tipo_pontos",  'ng-change'=>'setTipoDados(tipos)', 'style'=>"width: 30px; height: 30px;"]) !!}
+    {!! Form::label('tipo_pontos', '', ['style'=>"padding: 8px 20px 0 20px;"]) !!}
+    {!! Form::checkbox('tipo_arquivo', true, $tipo_arquivo, ['class'=>"checkbox-inline width-grande", 'ng-model'=>"tipo_arquivo", 'init-model'=>"tipo_arquivo", 'ng-change'=>'setTipoDados(tipos)', 'style'=>"width: 30px; height: 30px;"]) !!}
+    {!! Form::label('tipo_arquivo', '', ['style'=>"padding: 8px 20px 0 20px;"]) !!}
 </div>
 <br>
 <div style="display:none;">

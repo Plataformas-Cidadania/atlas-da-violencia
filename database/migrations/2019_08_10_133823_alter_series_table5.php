@@ -13,7 +13,7 @@ class AlterSeriesTable5 extends Migration
     public function up()
     {
         Schema::table('series', function (Blueprint $table) {
-            //
+            $table->string('arquivo')->nullable()->after('arquivo');
         });
     }
 
@@ -25,7 +25,7 @@ class AlterSeriesTable5 extends Migration
     public function down()
     {
         Schema::table('series', function (Blueprint $table) {
-            //
+            $table->dropColumn('arquivo');
         });
     }
 }

@@ -25,6 +25,13 @@
 
                     <br><br>
                 </div>
+                <div ng-show="tipo_arquivo">
+                    <span class="btn btn-primary btn-file" ng-show="!fileArquivo">
+                    Escolher Arquivo <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept="application/pdf,.html,.htm" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+                </span>
+                    <a ng-show="fileArquivo"><% fileArquivo.name %></a>
+                    <br><br>
+                </div>
                 @include('cms::serie._form')
                 <input type="hidden" name="id" ng-model="id" ng-init="id='{{$serie->id}}'"/>
                 <div class="row">

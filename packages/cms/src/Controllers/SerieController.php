@@ -34,6 +34,7 @@ class SerieController extends Controller
             'lg' => ['width' => 1170, 'height' => 658]
         ];
         $this->widthOriginal = true;
+        $this->pathArquivo = public_path().'/arquivos/series';
     }
 
     function index()
@@ -123,6 +124,37 @@ class SerieController extends Controller
         }
 
         $file = $request->file('file');
+        $arquivo = $request->file('arquivo');
+
+        $successFile = true;
+        if($file!=null){
+            $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
+            $imagemCms = new ImagemCms();
+            $successFile = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
+            if($successFile){
+                $data['serie']['imagem'] = $filename;
+            }
+        }
+
+        $successArquivo = true;
+        if($arquivo!=null){
+            $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
+            $successArquivo = $arquivo->move($this->pathArquivo, $filenameArquivo);
+            if($successArquivo){
+                $data['serie']['arquivo'] = $filenameArquivo;
+            }
+        }
+
+        if($successFile && $successArquivo){
+            $inserir = $this->serie->create($data['serie']);
+            $data['textos']['serie_id'] = $inserir->id;
+            $inserir2 = \App\TextoSerie::create($data['textos']);
+            return $inserir;
+        }else{
+            return "erro";
+        }
+
+        /*$file = $request->file('file');
 
         if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
@@ -142,7 +174,7 @@ class SerieController extends Controller
         $inserir = $this->serie->create($data['serie']);
         $data['textos'] += ['serie_id' => $inserir->id];
         $textos_serie = \App\TextoSerie::create($data['textos']);
-        return $inserir;
+        return $inserir;*/
 
     }
 
@@ -186,6 +218,10 @@ class SerieController extends Controller
 
         $tipos_dados_series = config("constants.TIPOS_DADOS_SERIES");
 
+        $tiposDados = $this->tipoDados($serie->tipo_dados);
+        $tipo_territorios = $tiposDados['tipo_territorios'];
+        $tipo_pontos = $tiposDados['tipo_pontos'];
+        $tipo_arquivo = $tiposDados['tipo_arquivo'];
 
         return view('cms::serie.detalhar', [
             'serie' => $serie,
@@ -195,7 +231,51 @@ class SerieController extends Controller
             'indicadores' => $indicadores,
             'unidades' => $unidades,
             'tipos_dados_series' => $tipos_dados_series,
+            'tipo_territorios' => $tipo_territorios,
+            'tipo_pontos' => $tipo_pontos,
+            'tipo_arquivo' => $tipo_arquivo,
         ]);
+    }
+
+    private function tipoDados($tipo_dados){
+        switch ($tipo_dados){
+            case 0:
+                $tipo_territorios = 1;
+                $tipo_pontos = 0;
+                $tipo_arquivo = 0;
+                break;
+            case 1:
+                $tipo_territorios = 0;
+                $tipo_pontos = 1;
+                $tipo_arquivo = 0;
+                break;
+            case 2:
+                $tipo_territorios = 1;
+                $tipo_pontos = 1;
+                $tipo_arquivo = 0;
+                break;
+            case 3:
+                $tipo_territorios = 0;
+                $tipo_pontos = 0;
+                $tipo_arquivo = 1;
+                break;
+            case 4:
+                $tipo_territorios = 1;
+                $tipo_pontos = 0;
+                $tipo_arquivo = 1;
+                break;
+            case 5:
+                $tipo_territorios = 0;
+                $tipo_pontos = 1;
+                $tipo_arquivo = 1;
+                break;
+            case 6:
+                $tipo_territorios = 1;
+                $tipo_pontos = 1;
+                $tipo_arquivo = 1;
+        }
+
+        return ['tipo_territorios' => $tipo_territorios, 'tipo_pontos' => $tipo_pontos, 'tipo_arquivo' => $tipo_arquivo];
     }
 
     public function alterar(Request $request, $id)
