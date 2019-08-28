@@ -10,8 +10,8 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
     $scope.mostrarForm = false;
 
-    $scope.removerImagem = false;
-    $scope.removerArquivo = false;
+    $scope.removerImagem = 0;
+    $scope.removerArquivo = 0;
 
     $scope.alterar = function (file, arquivo){
 
@@ -23,8 +23,8 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = data;
-                $scope.removerImagem = false;
-                $scope.removerArquivo = false;
+                $scope.removerImagem = 0;
+                $scope.removerArquivo = 0;
             }).error(function(data){
                 //console.log(data);
                 $scope.mensagemSalvar = "Ocorreu um erro: "+data;
@@ -44,8 +44,8 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
                 });
                 $scope.picFile = null;//limpa o form
                 $scope.mensagemSalvar =  "Gravado com sucesso!";
-                $scope.removerImagem = false;
-                $scope.removerArquivo = false;
+                $scope.removerImagem = 0;
+                $scope.removerArquivo = 0;
                 $scope.imagemBD = 'imagens/series/'+response.data;
                 //console.log($scope.imagemDB);
             }, function (response) {
