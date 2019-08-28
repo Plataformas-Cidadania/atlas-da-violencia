@@ -300,7 +300,51 @@ class SerieController extends Controller
 
         $file = $request->file('file');
 
+        $file = $request->file('file');
+        $arquivo = $request->file('arquivo');
+
+        //remover imagem
+        if($data['removerImagem']){
+            $data['serie']['imagem'] = '';
+            if(file_exists($this->pathImagem."/".$serie->imagem)) {
+                unlink($this->pathImagem . "/" . $serie->imagem);
+            }
+        }
+
+        if($data['removerArquivo']){
+            $data['serie']['arquivo'] = '';
+            if(file_exists($this->pathArquivo."/".$serie->arquivo)) {
+                unlink($this->pathArquivo . "/" . $serie->arquivo);
+            }
+        }
+
+        $successFile = true;
         if($file!=null){
+            $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
+            $imagemCms = new ImagemCms();
+            $successFile = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $serie);
+            if($successFile){
+                $data['serie']['imagem'] = $filename;
+            }
+        }
+        $successArquivo = true;
+        if($arquivo!=null){
+            $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
+            $successArquivo = $arquivo->move($this->pathArquivo, $filenameArquivo);
+            if($successArquivo){
+                $data['serie']['arquivo'] = $filenameArquivo;
+            }
+        }
+
+        if($successFile && $successArquivo){
+
+            $serie->update($data['serie']);
+            return $serie->imagem;
+        }else{
+            return "erro";
+        }
+
+        /*if($file!=null){
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
             $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $serie);
@@ -322,7 +366,7 @@ class SerieController extends Controller
         }
 
         $serie->update($data['serie']);
-        return "Gravado com sucesso";
+        return "Gravado com sucesso";*/
     }
 
     public function excluir($id)

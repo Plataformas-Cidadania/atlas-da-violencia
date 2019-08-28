@@ -11,6 +11,7 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
     $scope.mostrarForm = false;
 
     $scope.removerImagem = false;
+    $scope.removerArquivo = false;
 
     $scope.alterar = function (file, arquivo){
 
@@ -18,11 +19,12 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
             $scope.processandoSalvar = true;
             //console.log($scope.serie);
-            $http.post("cms/alterar-serie/"+$scope.id, {'serie': $scope.serie, 'removerImagem': $scope.removerImagem}).success(function (data){
+            $http.post("cms/alterar-serie/"+$scope.id, {'serie': $scope.serie, 'removerImagem': $scope.removerImagem, 'removerArquivo': $scope.removerArquivo}).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = data;
                 $scope.removerImagem = false;
+                $scope.removerArquivo = false;
             }).error(function(data){
                 //console.log(data);
                 $scope.mensagemSalvar = "Ocorreu um erro: "+data;
@@ -33,7 +35,7 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
             file.upload = Upload.upload({
                 url: 'cms/alterar-serie/'+$scope.id,
-                data: {serie: $scope.serie, file: file, arquivo:arquivo},
+                data: {serie: $scope.serie, file: file, arquivo:arquivo, removerImagem: $scope.removerImagem, removerArquivo: $scope.removerArquivo},
             });
 
             file.upload.then(function (response) {
@@ -43,8 +45,9 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
                 $scope.picFile = null;//limpa o form
                 $scope.mensagemSalvar =  "Gravado com sucesso!";
                 $scope.removerImagem = false;
+                $scope.removerArquivo = false;
                 $scope.imagemBD = 'imagens/series/'+response.data;
-                console.log($scope.imagemDB);
+                //console.log($scope.imagemDB);
             }, function (response) {
                 if (response.status > 0){
                     $scope.errorMsg = response.status + ': ' + response.data;
