@@ -6,7 +6,7 @@
         <div class="box-padrao">
             <h1><a href="cms/series"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Series</h1>
             <?php //print_r($serie);?>
-            <div ng-init="carregaImagem('{{$serie->imagem}}')">
+            <div ng-init="carregaImagem('{{$serie->imagem}}', '{{$serie->arquivo}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>
                 {!! Form::model($serie, ['name' =>'form']) !!}
                 <div style="display:none;">
@@ -26,9 +26,11 @@
                     <br><br>
                 </div>
                 <div ng-show="tipo_arquivo">
-                    <span class="btn btn-primary btn-file" ng-show="!fileArquivo">
+                    <span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
                     Escolher Arquivo <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept="application/pdf,.html,.htm" ngf-max-size="100MB" ngf-model-invalid="errorFile">
-                </span>
+                    </span>
+                    <button class="btn btn-danger" ng-click="limparArquivo()" ng-show="fileArquivo || arquivoBD" type="button">Remover Arquivo</button>
+                    <a href="arquivos/series/<% arquivoBD %>" target="_blank" ng-show="arquivoBD"><% arquivoBD %></a>
                     <a ng-show="fileArquivo"><% fileArquivo.name %></a>
                     <br><br>
                 </div>

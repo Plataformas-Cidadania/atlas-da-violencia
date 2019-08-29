@@ -16,7 +16,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     $scope.lastPage = 0;
     $scope.totalItens = 0;
     $scope.maxSize = 5;
-    $scope.itensPerPage = 10;
+    $scope.itensPerPage = 20;
     $scope.dadoPesquisa = '';
     $scope.campos = "series.id, textos_series.titulo";
     $scope.campoPesquisa = "textos_series.titulo";
@@ -143,12 +143,10 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
                 $scope.processandoInserir = false;
              });
         }else{
-            file.upload = Upload.upload({
+            Upload.upload({
                 url: 'cms/inserir-serie',
                 data: {serie: $scope.serie, textos: $scope.textos, file: file, arquivo: arquivo},
-            });
-
-            file.upload.then(function (response) {
+            }).then(function (response) {
                 $timeout(function () {
                     file.result = response.data;
                 });
@@ -156,6 +154,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
                 delete $scope.textos.titulo;
                 delete $scope.textos.descricao;
                 $scope.picFile = null;//limpa o file
+                $scope.fileArquivo = null;//limpa o file
                 listarSeries();
                 $scope.mensagemInserir =  "Gravado com sucesso!";
             }, function (response) {
@@ -165,7 +164,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
             }, function (evt) {
                 //console.log(evt);
                 // Math.min is to fix IE which reports 200% sometimes
-                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                arquivo.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             });
         }
 

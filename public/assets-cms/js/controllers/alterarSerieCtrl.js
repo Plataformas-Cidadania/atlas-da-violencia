@@ -33,12 +33,10 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
         }else{
 
-            file.upload = Upload.upload({
+            Upload.upload({
                 url: 'cms/alterar-serie/'+$scope.id,
                 data: {serie: $scope.serie, file: file, arquivo:arquivo, removerImagem: $scope.removerImagem, removerArquivo: $scope.removerArquivo},
-            });
-
-            file.upload.then(function (response) {
+            }).then(function (response) {
                 $timeout(function () {
                     file.result = response.data;
                 });
@@ -68,10 +66,20 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
         $scope.removerImagem = true;
     };
 
-    $scope.carregaImagem  = function(img) {
+    $scope.limparArquivo= function(){
+        $scope.fileArquivo = null;
+        $scope.arquivoBD = null;
+        $scope.removerArquivo = 1;
+    };
+
+    $scope.carregaImagem  = function(img, arquivo) {
         if(img!=''){
             $scope.imagemBD = 'imagens/series/xs-'+img;
             //console.log($scope.imagemBD);
+        }
+        if(arquivo!=''){
+            $scope.arquivoBD = arquivo;
+            //console.log($scope.baseBD);
         }
     };
 
