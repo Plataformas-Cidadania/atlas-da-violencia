@@ -141,9 +141,9 @@ class Filter extends React.Component {
 
     render() {
 
-        let random = Math.floor(Math.random() * 999999 + 1);
+        //let random = Math.floor(Math.random() * 999999 + 1);
 
-        let types = this.state.types.map(function (item) {
+        let types = this.state.types.map(function (item, index) {
             let sizeSearch = this.state.search.length;
             let firstPiece = item.title.substr(0, sizeSearch);
             let lastPiece = item.title.substr(sizeSearch);
@@ -156,10 +156,10 @@ class Filter extends React.Component {
                 }
             });
 
-            console.log(random);
+            //console.log(random);
             return React.createElement(
                 'div',
-                { key: random + '_cat_' + item.id, style: { cursor: 'pointer', color: color }, onClick: () => this.addType(item) },
+                { key: 'cat_' + index, style: { cursor: 'pointer', color: color }, onClick: () => this.addType(item) },
                 React.createElement(
                     'u',
                     null,

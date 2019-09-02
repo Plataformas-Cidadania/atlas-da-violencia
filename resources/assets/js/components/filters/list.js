@@ -13,6 +13,7 @@ class List extends React.Component{
         this.select = this.select.bind(this);
         this.getAbrangencia = this.getAbrangencia.bind(this);
         this.setCurrentPage = this.setCurrentPage.bind(this);
+        this.modalDownload = this.modalDownload.bind(this);
     }
 
     componentDidMount(){
@@ -46,12 +47,16 @@ class List extends React.Component{
         return abrangencia;
     }
 
+    modalDownload(id){
+        alert(id+" - Download em Desenvolvimento");
+    }
+
     render(){
 
         let head = null;
         let rows = null;
 
-        let random = Math.floor((Math.random() * 99999) + 1);
+        //let random = Math.floor((Math.random() * 99999) + 1);
 
         //console.log(this.state.items);
 
@@ -65,46 +70,56 @@ class List extends React.Component{
 
                 let columnsNames = Object.getOwnPropertyNames(item);
 
-                //console.log(columnsNames);
-
-                /*let buttons = [
-                    <td key='btn-selecionar-territorios'>
-                        <button className='btn btn-primary' style={{float: 'right'}} onClick={() => this.select(item, false)} title="selecionar territórios"><i className="fa fa-edit" style={{fontSize: '1.5em'}}/></button>
-                    </td>,
-                    <td key='btn-todos-os-territorios'><button className='btn btn-primary' onClick={() => this.select(item, true)} title="todos os territórios"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button></td>
-
-                ];*/
 
                 let buttons = [];
-                /*buttons[0] = (
-                    <td key='btn-selecionar-territorios'>
-                        <button className='btn btn-primary' style={{float: 'right'}} onClick={() => this.select(item, false)} title="selecionar territórios"><i className="fa fa-edit" style={{fontSize: '1.5em'}}/></button>
-                    </td>
-                );
-                buttons[1] = <td>&nbsp;</td>;
-                if(item.tipo_regiao != 4){
-                    buttons[1] = (<td key='btn-todos-os-territorios'><a className='btn btn-success' href="dados-series/serie_id" title="todos os territórios"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></a></td>);
-                }*/
 
-                //buttons[0] = <td>&nbsp;</td>;
-                buttons[0] = (<td key={'btn-pontos'+index} className="text-right"><a className='btn btn-success' href={"pontos/"+item.id} title="Pontos" target="_blank"><i className="fa fa-map-marker" style={{fontSize: '1.5em'}}/></a></td>);
-                buttons[1] = (<td key={'btn-todos-os-territorios'+index} className="text-right"><a className='btn btn-success' href={this.state.urlDetailItem+"/"+item.id} title="Territórios" target="_blank"><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></a></td>);
+                //buttons[0] = (<td key={'btn-graficos'+index} className="text-right"><a className='btn btn-success' href={"consulta/"+item.id} title="Gráficos" target="_blank"><i className="fa fa-bar-chart" style={{fontSize: '1.5em'}}/></a></td>);
+                //buttons[1] = (<td key={'btn-pontos'+index} className="text-right"><a className='btn btn-success' href={"pontos/"+item.id} title="Pontos" target="_blank"><i className="fa fa-map-marker" style={{fontSize: '1.5em'}}/></a></td>);
+                //buttons[2] = (<td key={'btn-todos-os-territorios'+index} className="text-right"><a className='btn btn-success' href={this.state.urlDetailItem+"/"+item.id} title="Territórios" target="_blank"><i className="fa fa-globe" style={{fontSize: '1.5em'}}/></a></td>);
+                //buttons[3] = (<td key={'btn-download'+index} className="text-right"><a className='btn btn-success' onClick={() => this.modalDownload(item.id)} title="Download" target="_blank"><i className="fa fa-cloud-download" style={{fontSize: '1.5em'}}/></a></td>);
+
+                buttons[0] = (<td key={'btn-graficos'+index} className="text-right"><a href={"consulta/"+item.id} title="Gráficos" target="_blank"><i className="fa fa-bar-chart" style={{fontSize: '1.5em'}}/></a></td>);
+                buttons[1] = (<td key={'btn-pontos'+index} className="text-right"><a href={"pontos/"+item.id} title="Pontos no Mapa" target="_blank"><i className="fa fa-map-marker" style={{fontSize: '1.5em'}}/></a></td>);
+                buttons[2] = (<td key={'btn-todos-os-territorios'+index} className="text-right"><a href={this.state.urlDetailItem+"/"+item.id} title="Territórios" target="_blank"><i className="fa fa-map" style={{fontSize: '1.5em'}}/></a></td>);
+                buttons[3] = (<td key={'btn-download'+index} className="text-right"><a style={{cursor: 'pointer'}} onClick={() => this.modalDownload(item.id)} title="Download" target="_blank"><i className="fa fa-cloud-download" style={{fontSize: '1.5em'}}/></a></td>);
+
+
+                //coloca vazio os tds que não satisfazerem a condição
+                //territorios
                 if(item.tipo_dados==0 || !item.tipo_dados){
-                    buttons[0] = (<td>&nbsp;</td>);
+                    buttons[0] = (<td key={'td_btn0_'+index}>&nbsp;</td>);
+                    buttons[1] = (<td key={'td_btn1_'+index}>&nbsp;</td>);
                 }
+                //pontos
                 if(item.tipo_dados==1){
-                    buttons[1] = (<td>&nbsp;</td>);
+                    buttons[0] = (<td key={'td_btn0_'+index}>&nbsp;</td>);
+                    buttons[2] = (<td key={'td_btn1_'+index}>&nbsp;</td>);
+                }
+                //territorios e pontos
+                if(item.tipo_dados==2){
+                    buttons[0] = (<td key={'td_btn0_'+index}>&nbsp;</td>);
+                }
+                //arquivo
+                if(item.tipo_dados==3){
+                    buttons[1] = (<td key={'td_btn0_'+index}>&nbsp;</td>);
+                    buttons[2] = (<td key={'td_btn1_'+index}>&nbsp;</td>);
+                }
+                //territorios e arquivo
+                if(item.tipo_dados==4){
+                    buttons[1] = (<td key={'td_btn1_'+index}>&nbsp;</td>);
+                }
+                //pontos e arquivo
+                if(item.tipo_dados==5){
+                    buttons[2] = (<td key={'td_btn0_'+index}>&nbsp;</td>);
                 }
 
-                /*let buttons = [
-                    <td>
-                        <button className='btn btn-primary' onClick={() => this.select(item, false)}><i className="fa fa-edit" style={{fontSize: '1.5em'}}/></button>&nbsp;&nbsp;
-                        <button className='btn btn-primary' onClick={() => this.select(item, true)}><i className="fa fa-arrow-circle-right" style={{fontSize: '1.5em'}}/></button>
-                    </td>
-                ];*/
 
                 let columns = columnsNames.map(function(col, i){
                     if(this.state.showId==0 && col=='id'){
+                        return;
+                    }
+
+                    if(col=='tipo_dados'){
                         return;
                     }
 
@@ -120,7 +135,7 @@ class List extends React.Component{
 
 
                     return (
-                        <td key={'colum-serie-name'+i+random}>{content}</td>
+                        <td key={'colum-serie-name-'+i+'-'.index}>{content}</td>
                     );
                 }.bind(this));
 
@@ -129,7 +144,7 @@ class List extends React.Component{
                 });
 
                 return(
-                    <tr key={'item-serie'+index+random} >{columns}</tr>
+                    <tr key={'item-serie-'+index} >{columns}</tr>
                 );
             }.bind(this));
 

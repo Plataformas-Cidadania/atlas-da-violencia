@@ -126,7 +126,7 @@ class PageFilters extends React.Component{
 
     loadItems(){
         //console.log(this.state);
-        console.log(this.state.currentPageListItems);
+        //console.log(this.state.currentPageListItems);
         let emptyItems = {data: []};
         this.setState({items: emptyItems, loadingItems: true});
         $.ajax({
@@ -164,8 +164,8 @@ class PageFilters extends React.Component{
             option.on = option.id === item.tipo_regiao;
         });
 
-        console.log('ITEM CLICADO', item);
-        console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
+        //console.log('ITEM CLICADO', item);
+        //console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
 
         this.setState({serieMarked: item.id, abrangencia: item.tipo_regiao}, function(){
             if(all){
@@ -198,7 +198,7 @@ class PageFilters extends React.Component{
             regionsId.push(regions[i].id)
         }
 
-        console.log(regionsId);
+        //console.log(regionsId);
 
         this.setState({regions: regionsId});
     }
@@ -264,12 +264,13 @@ class PageFilters extends React.Component{
             />
         );
 
+
         let btnContinuar = <button type="button" className="btn btn-primary" onClick={() => this.submit()} disabled >Continuar</button>;
         if(this.state.regions.length > 0 && this.state.periodos.length > 0 && this.state.from && this.state.to && this.state.abrangencia && this.state.serieMarked){
             btnContinuar = <button type="button" className="btn btn-primary" onClick={() => this.submit()}  >Continuar</button>
         }
 
-        console.log('ITEMS', this.state.items);
+        //console.log('ITEMS', this.state.items);
         let items = this.state.items;
         if(!this.state.items.data){
             items = {data: []};
