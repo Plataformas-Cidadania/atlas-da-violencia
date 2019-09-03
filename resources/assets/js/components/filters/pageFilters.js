@@ -18,6 +18,7 @@ class PageFilters extends React.Component{
             loadingDefaultValues: false,
             loadingItems: false,
             limitItems: 20,
+            serieIdDownload: 0,
             optionsAbrangencia: [
                 {id: 1, title: 'País', plural: ' os Países', on:false, listAll:1, height: '250px'},
                 {id: 2, title: 'Região', plural: 'as Regiões', on:false, listAll:1, height: '250px'},
@@ -68,6 +69,7 @@ class PageFilters extends React.Component{
         this.loadPeriodos = this.loadPeriodos.bind(this);
         this.loadDefaultValues = this.loadDefaultValues.bind(this);
         this.loadRegions = this.loadRegions.bind(this);
+        this.modalDownload = this.modalDownload.bind(this);
     }
 
     componentDidMount(){
@@ -251,6 +253,11 @@ class PageFilters extends React.Component{
         $('#formFiltros').submit();
     }
 
+    modalDownload(serieId){
+        this.setState({serieIdDownload: serieId}, function(){
+            $("#modalDownloads").modal();
+        });
+    }
 
     render(){
 
@@ -344,10 +351,13 @@ class PageFilters extends React.Component{
                                 select={this.selectSerie}
                                 abrangencias={this.state.optionsAbrangencia}
                                 urlDetailItem={'dados-series'}
+                                modalDownload={this.modalDownload}
                             />
                         </div>
                     </div>
                 </div>
+
+                <Download serieId={this.state.serieIdDownload}/>
 
                 <Modal
                     id="modalAbrangencias"

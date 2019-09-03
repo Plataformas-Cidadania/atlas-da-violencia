@@ -141,7 +141,7 @@ class Filter extends React.Component {
 
     render() {
 
-        //let random = Math.floor(Math.random() * 999999 + 1);
+        //let random = Math.floor((Math.random() * 999999) + 1);
 
         let types = this.state.types.map(function (item, index) {
             let sizeSearch = this.state.search.length;
@@ -156,7 +156,6 @@ class Filter extends React.Component {
                 }
             });
 
-            //console.log(random);
             return React.createElement(
                 'div',
                 { key: 'cat_' + index, style: { cursor: 'pointer', color: color }, onClick: () => this.addType(item) },
@@ -169,10 +168,10 @@ class Filter extends React.Component {
             );
         }.bind(this));
 
-        let typesSelected = this.state.typesSelected.map(function (item) {
+        let typesSelected = this.state.typesSelected.map(function (item, k) {
             return React.createElement(
                 'button',
-                { key: random + "_btn_type_" + item.id, id: item.id, onClick: this.removeType, type: 'button', className: 'btn btn-success btn-xs btn-remove', style: { margin: "0 5px 5px 0" } },
+                { key: "btn_type_" + k, id: item.id, onClick: this.removeType, type: 'button', className: 'btn btn-success btn-xs btn-remove', style: { margin: "0 5px 5px 0" } },
                 item.title,
                 ' ',
                 React.createElement('i', { className: 'fa fa-remove' })

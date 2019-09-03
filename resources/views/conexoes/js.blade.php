@@ -344,6 +344,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 @if($rota=='filtros-series/{id}/{tema}' || $rota=='filtros-series')
     <script src="js/components/pagination.js"></script>
     <script src="js/components/filters/modal.js"></script>
+    <script src="js/components/filters/download.js"></script>
     <script src="js/components/filters/temasSelect.js"></script>
     <script src="js/components/filters/subtemas.js"></script>
     <script src="js/components/filters/filter.js"></script>

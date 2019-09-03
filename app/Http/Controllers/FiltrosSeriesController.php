@@ -195,4 +195,27 @@ class FiltrosSeriesController extends Controller
 
         return $abrangencias;
     }
+
+    public function getOpcoesDownloadSerie($id){
+
+        $lang =  App::getLocale();
+
+        $abrangencias = \App\ValorSerie::select('valores_series.tipo_regiao', 'idiomas_options_abrangencias.title')
+            ->join('options_abrangencias', 'options_abrangencias.id', '=', 'valores_series.tipo_regiao')
+            ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
+            ->where('valores_series.serie_id', $id)
+            ->distinct()
+            ->get();
+
+        $downloadsExtras = \App\Download::where('origem', 1)->where('origem_id', $id)->where('idioma_sigla', $lang)->get();
+
+        $serie = \App\Serie::select('textos_series.titulo')
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+            ->where('idioma_sigla', $lang)
+            ->where('series.id', $id)
+            ->first()->titulo;
+
+        return ['abrangencias' => $abrangencias, 'downloadsExtras' => $downloadsExtras, 'serie' => $serie];
+
+    }
 }

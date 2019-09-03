@@ -48,7 +48,7 @@ class List extends React.Component{
     }
 
     modalDownload(id){
-        alert(id+" - Download em Desenvolvimento");
+        this.props.modalDownload(id);
     }
 
     render(){
@@ -80,7 +80,7 @@ class List extends React.Component{
 
                 buttons[0] = (<td key={'btn-graficos'+index} className="text-right"><a href={"consulta/"+item.id} title="Gráficos" target="_blank"><i className="fa fa-bar-chart" style={{fontSize: '1.5em'}}/></a></td>);
                 buttons[1] = (<td key={'btn-pontos'+index} className="text-right"><a href={"pontos/"+item.id} title="Pontos no Mapa" target="_blank"><i className="fa fa-map-marker" style={{fontSize: '1.5em'}}/></a></td>);
-                buttons[2] = (<td key={'btn-todos-os-territorios'+index} className="text-right"><a href={this.state.urlDetailItem+"/"+item.id} title="Territórios" target="_blank"><i className="fa fa-map" style={{fontSize: '1.5em'}}/></a></td>);
+                buttons[2] = (<td key={'btn-todos-os-territorios'+index} className="text-right"><a href={this.state.urlDetailItem+"/"+item.id} title="Territórios" target="_blank"><i className="fa fa-globe" style={{fontSize: '1.5em'}}/></a></td>);
                 buttons[3] = (<td key={'btn-download'+index} className="text-right"><a style={{cursor: 'pointer'}} onClick={() => this.modalDownload(item.id)} title="Download" target="_blank"><i className="fa fa-cloud-download" style={{fontSize: '1.5em'}}/></a></td>);
 
 
