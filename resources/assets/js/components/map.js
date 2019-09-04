@@ -12,7 +12,8 @@ class Map extends React.Component{
             legend: [],
             indexLegend: 1,
             lastIndexLegend: 0,
-            carregado: false
+            carregado: false,
+            hidePeriodo: this.props.hidePeriodo,
         };
         //this.loadData = this.loadData.bind(this);
         this.loadMap = this.loadMap.bind(this);
@@ -333,7 +334,7 @@ class Map extends React.Component{
 
         return (
             <div>
-                <div style={{textAlign: 'center', clear: 'both'}}>
+                <div style={{display: this.props.hidePeriodo ? 'none' : '', textAlign: 'center', clear: 'both'}}>
                     <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{periodo}</button>
                     <div style={{marginTop:'-19px'}}>
                         <i className="fa fa-sort-down fa-2x ft-pri" />

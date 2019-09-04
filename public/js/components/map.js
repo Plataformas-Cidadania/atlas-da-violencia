@@ -12,7 +12,8 @@ class Map extends React.Component {
             legend: [],
             indexLegend: 1,
             lastIndexLegend: 0,
-            carregado: false
+            carregado: false,
+            hidePeriodo: this.props.hidePeriodo
         };
         //this.loadData = this.loadData.bind(this);
         this.loadMap = this.loadMap.bind(this);
@@ -307,7 +308,7 @@ class Map extends React.Component {
             null,
             React.createElement(
                 'div',
-                { style: { textAlign: 'center', clear: 'both' } },
+                { style: { display: this.props.hidePeriodo ? 'none' : '', textAlign: 'center', clear: 'both' } },
                 React.createElement(
                     'button',
                     { className: 'btn btn-primary btn-lg bg-pri', style: { border: '0' } },

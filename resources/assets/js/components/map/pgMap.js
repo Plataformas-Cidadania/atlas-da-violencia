@@ -15,8 +15,8 @@ class PgMap extends React.Component {
     }
 
     loadDataMaps(){
-        console.log(this.state);
-        console.log(this.props);
+        //console.log(this.state);
+        //console.log(this.props);
         this.setState({loadingMap: true});
         let _this = this;
         $.ajax("regiao/"+_this.props.serie_id+"/"+_this.props.periodo+"/"+_this.props.regions+"/"+_this.props.abrangencia, {
@@ -30,7 +30,7 @@ class PgMap extends React.Component {
                     qtdIntervalos = qtdValores;
                 }
 
-                let intervalos = gerarIntervalos(valoresmap[0], valoresMap[valoresMap.length-1], qtdIntervalos);
+                let intervalos = gerarIntervalos(valoresMap[0], valoresMap[valoresMap.length-1], qtdIntervalos);
 
                 this.setState({dataMap: dataMap, intervalos: intervalos, loadingMap:false});
 
@@ -68,6 +68,7 @@ class PgMap extends React.Component {
                     periodo={this.props.periodo}
                     intervalos={this.state.intervalos}
                     lang_mouse_over_region={this.props.lang_mouse_over_region}
+                    hidePeriodo={true}
                 />
             </div>
         );

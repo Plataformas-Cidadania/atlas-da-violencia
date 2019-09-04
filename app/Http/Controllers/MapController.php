@@ -137,7 +137,7 @@ class MapController extends Controller
                     DB::raw(
                         "
                     ST_AsGeoJSON($tabelas[$abrangencia].edterritorios_geometry) as geometry, 
-                    valores_series.valor as total, 
+                    valores_series.valor as total,
                     $select_sigla as sigla,
                     $tabelas[$abrangencia].edterritorios_nome as nome, 
                     ST_X($tabelas[$abrangencia].edterritorios_centroide) as x, 
