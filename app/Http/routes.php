@@ -85,6 +85,8 @@ Route::get('antigo-filtros-series/', 'FiltrosController@index');
 Route::get('filtros-series2/{id}/{tema}', 'FiltrosController@index');
 Route::get('filtros-series2/', 'FiltrosController@index');
 
+Route::get('map/{id}/{periodo}/{regions}/{abrangencia}', 'MapController@map');
+
 //-------------------------AJAX-----------------------------------------------------------------------------------------
 
 //Component Temas em components/filtros/pgFiltros

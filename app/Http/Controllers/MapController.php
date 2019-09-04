@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -360,7 +361,7 @@ class MapController extends Controller
             $areas['features'][$index]['geometry'] = json_decode($valor->geometry);
         }
 
-        dd($areas);
+        //dd($areas);
 
         return $areas;
     }
@@ -374,6 +375,29 @@ class MapController extends Controller
             ->get();
 
         return $regioes;
+    }
+
+    function map($id, $periodo, $regions, $abrangencia){
+
+        $lang =  App::getLocale();
+
+        $serie = \App\Serie::select('textos_series.id', 'textos_series.titulo as titulo', 'unidades.tipo as tipo_unidade', 'series.periodicidade_id')
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+            ->join('unidades', 'unidades.id', '=', 'series.unidade')
+            ->where('textos_series.idioma_sigla', $lang)
+            ->first();
+
+        Log::info([$serie]);
+
+        return view('serie.map', [
+            'id' => $id,
+            'serie' => $serie->titulo,
+            'tipoUnidade' => $serie->tipo_unidade,
+            'periodicidade' => $serie->periodicidade_id,
+            'periodo' => $periodo,
+            'regions' => $regions,
+            'abrangencia' => $abrangencia,
+        ]);
     }
 
 }

@@ -133,6 +133,13 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="js/components/filters/pageFilters.js"></script>
 @endif
 
+@if($rota=="map/{id}/{periodo}/{regions}/{abrangencia}")
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+    <script src="js/components/map.js"></script>
+    <script src="js/components/map/pgMap.js"></script>
+@endif
+
 @if($rota=='dados-series/{serie_id}')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
