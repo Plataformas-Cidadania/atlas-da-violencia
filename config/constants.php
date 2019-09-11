@@ -68,5 +68,14 @@ return [
         4 => [0],//Código do estado. Desta forma irá pegar todos os munínicios do estado | 0 para todos
         7 => [0],//0 - Todos | Territórios do Piauí
     ],*/
-    'FAVICONS_SIZES' => ['16x16', '32x32', '48x48', '64x64', '72x72', '96x96', '114x114', '114x114', '128x128', '144x144', '512x512']
+    'FAVICONS_SIZES' => ['16x16', '32x32', '48x48', '64x64', '72x72', '96x96', '114x114', '114x114', '128x128', '144x144', '512x512'],
+    'TYPES_PRESENTATION_ELEMENTS' => [
+        '1' => 'Texto',
+        '2' => 'Gráfico',
+        '3' => 'Imagem',
+    ],
+    'CHART_TYPES_PRESENTATION_ELEMENTS' => [
+        '1' => 'Barra',
+        '2' => 'Linha',
+    ],
 ];

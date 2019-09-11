@@ -58,6 +58,14 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/artigoCtrl.js', 'public/assets-cms/js/controllers/artigoCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarArtigoCtrl.js', 'public/assets-cms/js/controllers/alterarArtigoCtrl.js');
 
+    //Presentations
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/presentationCtrl.js', 'public/assets-cms/js/controllers/presentationCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarPresentationCtrl.js', 'public/assets-cms/js/controllers/alterarPresentationCtrl.js');
+
+    //Presentation Elements
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/presentationElementCtrl.js', 'public/assets-cms/js/controllers/presentationElementCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarPresentationElementCtrl.js', 'public/assets-cms/js/controllers/alterarPresentationElementCtrl.js');
+
     //Series
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/serieCtrl.js', 'public/assets-cms/js/controllers/serieCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarSerieCtrl.js', 'public/assets-cms/js/controllers/alterarSerieCtrl.js');

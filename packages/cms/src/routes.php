@@ -76,6 +76,23 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/artigo/{id}', 'Cms\Controllers\ArtigoController@detalhar');
         Route::post('/cms/alterar-artigo/{id}', 'Cms\Controllers\ArtigoController@alterar');
         Route::get('/cms/excluir-artigo/{id}', 'Cms\Controllers\ArtigoController@excluir');
+
+        //PRESENTATION
+        Route::get('/cms/presentations', 'Cms\Controllers\PresentationController@index');
+        Route::get('/cms/listar-presentations', 'Cms\Controllers\PresentationController@listar');
+        Route::post('/cms/inserir-presentation', 'Cms\Controllers\PresentationController@inserir');
+        Route::get('/cms/presentation/{id}', 'Cms\Controllers\PresentationController@detalhar');
+        Route::post('/cms/alterar-presentation/{id}', 'Cms\Controllers\PresentationController@alterar');
+        Route::get('/cms/excluir-presentation/{id}', 'Cms\Controllers\PresentationController@excluir');
+
+        //PRESENTATION ELEMENT
+        Route::get('/cms/presentation-elements/{presentation_id}', 'Cms\Controllers\PresentationElementController@index');
+        Route::get('/cms/listar-presentation-elements', 'Cms\Controllers\PresentationElementController@listar');
+        Route::post('/cms/inserir-presentation-element', 'Cms\Controllers\PresentationElementController@inserir');
+        Route::get('/cms/presentation-element/{id}', 'Cms\Controllers\PresentationElementController@detalhar');
+        Route::post('/cms/alterar-presentation-element/{id}', 'Cms\Controllers\PresentationElementController@alterar');
+        Route::get('/cms/excluir-presentation-element/{id}', 'Cms\Controllers\PresentationElementController@excluir');
+        Route::get('/cms/status-presentation-element/{id}', 'Cms\Controllers\PresentationElementController@status');
         
         //SERIES
         Route::get('/cms/series', 'Cms\Controllers\SerieController@index');
