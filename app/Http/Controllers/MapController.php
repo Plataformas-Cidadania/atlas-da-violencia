@@ -387,7 +387,7 @@ class MapController extends Controller
             ->where('textos_series.idioma_sigla', $lang)
             ->first();
 
-        Log::info([$serie]);
+        $periodo = strlen($periodo) === 10 ? $periodo : (strlen($periodo) === 7 ? $periodo.'-15' : $periodo.'-01-15');
 
         return view('serie.map', [
             'id' => $id,
