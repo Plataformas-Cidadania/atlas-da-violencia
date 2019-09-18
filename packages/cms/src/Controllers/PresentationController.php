@@ -38,12 +38,9 @@ class PresentationController extends Controller
     {
 
         $presentations = \App\Presentation::all();
-        $links = \App\Link::lists('titulo', 'id')->all();
-        //$authors = \App\Author::lists('titulo', 'id')->all();
-        $authors = \App\Author::pluck('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        return view('cms::presentation.listar', ['presentations' => $presentations, 'links' => $links, 'authors' => $authors, 'idiomas' => $idiomas]);
+        return view('cms::presentation.listar', ['presentations' => $presentations, 'idiomas' => $idiomas]);
     }
 
     public function listar(Request $request)
@@ -124,19 +121,9 @@ class PresentationController extends Controller
         $presentation = $this->presentation->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        $links = \App\Link::lists('titulo', 'id')->all();
-        //$authors = \App\Author::lists('titulo', 'id')->all();
-        $authors = \App\Author::pluck('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
-        $autors_presentation = \App\AuthorPresentation::where('presentation_id', $id)->get();
-
-        //transforma os dados da tabela autors presentation em atributos de presentation com o nome do checkbox no form
-        foreach($autors_presentation as $row){
-            $presentation->{"autor".$row->author_id} = true; //Ex.: $presentation->autor1
-        }
-        
-        return view('cms::presentation.detalhar', ['presentation' => $presentation, 'links' => $links, 'authors' => $authors, 'idiomas' => $idiomas]);
+        return view('cms::presentation.detalhar', ['presentation' => $presentation, 'idiomas' => $idiomas]);
     }
 
     public function alterar(Request $request, $id)
@@ -199,19 +186,6 @@ class PresentationController extends Controller
         if($successFile && $successArquivo){
 
             $presentation->update($data['presentation']);
-
-            $authorPresentation = new \App\AuthorPresentation;
-            DB::table('author_presentation')->where('presentation_id', $id)->delete();
-            $dadosAuthorPresentation = Array();
-            $dadosAuthorPresentation['presentation_id'] = $id;
-            foreach($data["author_presentation"] as $autor => $marcado){
-                if($marcado){
-                    $array_autor = explode('_', $autor);
-                    $dadosAuthorPresentation['author_id'] = $array_autor[1];
-                    $authorPresentation->create($dadosAuthorPresentation);
-                }
-            }
-
 
             return $presentation->imagem;
         }else{

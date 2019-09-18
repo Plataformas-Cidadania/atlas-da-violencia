@@ -60,40 +60,28 @@
                         <thead>
                         id, type, chart_type, language, row, position, status
                         <tr>
-                            <th ng-click="ordernarPor('id')" style="cursor:pointer;">
-                                Id
-                                <i ng-if="ordem=='id' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
-                                <i ng-if="ordem=='id' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
-                            </th>
-                            <th ng-click="ordernarPor('type')" style="cursor:pointer;">
-                                Tipo
-                                <i ng-if="ordem=='type' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
-                                <i ng-if="ordem=='type' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
-                            </th>
-                            <th ng-click="ordernarPor('chart_type')" style="cursor:pointer;">
-                                Gráfico
-                                <i ng-if="ordem=='chart_type' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
-                                <i ng-if="ordem=='chart_type' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
-                            </th>
-                            <th ng-click="ordernarPor('language')" style="cursor:pointer;">
-                                Idioma
-                                <i ng-if="ordem=='language' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
-                                <i ng-if="ordem=='language' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
-                            </th>
+                            <th>Id</th>
+                            <th>Linha</th>
+                            <th>Posição</th>
+                            <th>Tipo</th>
+                            <th>Gráfico</th>
+                            <th>Idioma</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="element in elements">
                             <td><% element.id %></td>
+                            <td><% element.row %></td>
+                            <td><% positions[element.position] %></td>
                             <td><% types[element.type] %></td>
                             <td><% chartTypes[element.chart_type] %></td>
                             <td><% element.language %></td>
                             <td class="text-right">
                                 <div>
-                                    <a href="cms/item-versao/<% item.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
-                                    <a  ng-class="<% element.status %> == 1 ? 'color-success' : 'color-success-inactive'"  style="cursor: pointer;"><i class="fa fa-check-circle fa-2x" aria-hidden="true" ng-click="status(item.id);"></i></a>
-                                    <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(item.id, item.titulo, item.imagem)"></i></a>
+                                    <a href="cms/presentation-element/<% element.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
+                                    <a  ng-class="<% element.status %> == 1 ? 'color-success' : 'color-success-inactive'"  style="cursor: pointer;"><i class="fa fa-check-circle fa-2x" aria-hidden="true" ng-click="trocarStatus(element.id);"></i></a>
+                                    <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(element.id, element.titulo, element.imagem)"></i></a>
                                 </div>
                             </td>
                         </tr>

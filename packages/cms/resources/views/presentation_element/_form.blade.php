@@ -4,7 +4,7 @@
 {!! Form::label('language', 'Idioma *') !!}<br>
 {!! Form::select('language',
         $idiomas,
-null, ['class'=>"form-control width-medio <% validar(artigo.language) %>", 'ng-model'=>'artigo.language', 'ng-required'=>'true', 'init-model'=>'artigo.language', 'placeholder' => 'Selecione']) !!}<br>
+null, ['class'=>"form-control width-medio <% validar(element.language) %>", 'ng-model'=>'element.language', 'ng-required'=>'true', 'init-model'=>'element.language', 'placeholder' => 'Selecione']) !!}<br>
 
 {!! Form::label('status', 'Status *') !!}<br>
 {!! Form::select('status',
@@ -64,7 +64,7 @@ null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'n
 
     <div ng-show="element.type==2">
         <span class="btn btn-primary btn-file" ng-show="!fileArquivo" >
-            Escolher Arquivo CSV <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept="application/pdf,.zip,.rar,.doc,.docx,.xlsx,.xls,.csv" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+            Escolher Arquivo CSV <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".csv" ngf-max-size="100MB" ngf-model-invalid="errorFile">
         </span>
         <a ng-show="fileArquivo"><% fileArquivo.name %></a>
         <br><br>
@@ -87,4 +87,37 @@ null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'n
         </i>
         <br><br>
     </div>
+@endif
+
+@if($rota=="cms/presentation-element/{id}")
+
+    <div ng-show="element.type==2">
+        <span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
+                    Escolher Arquivo <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".csv" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+                </span>
+        <button class="btn btn-danger" ng-click="limparArquivo()" ng-show="fileArquivo || arquivoBD" type="button">Remover Arquivo</button>
+        <a href="arquivos/items-versao/<% arquivoBD %>" target="_blank" ng-show="arquivoBD"><% arquivoBD %></a>
+        <a ng-show="fileArquivo"><% fileArquivo.name %></a>
+        <br><br>
+    </div>
+
+
+    <div  ng-show="element.type==3">
+        <div class="container-thumb">
+            <div class="box-thumb" name="fileDrop" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
+                 ng-show="!picFile && !imagemBD" accept="image/*" ngf-max-size="2MB">Solte uma imagem aqui!</div>
+            <img ng-show="picFile" ngf-thumbnail="picFile" class="thumb">
+            <img ng-show="imagemBD" class="thumb" ng-src="<% imagemBD %>">
+        </div>
+        <br>
+        <span class="btn btn-primary btn-file" ng-show="!picFile && !imagemBD">
+                        Escolher imagem <input  type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
+                    </span>
+        <button class="btn btn-danger" ng-click="limparImagem()" ng-show="picFile || imagemBD" type="button">Remover Imagem</button>
+        <i ng-show="form.file.$error.maxSize" style="margin-left: 10px;">Arquivo muito grande <% errorFile.size / 1000000|number:1 %>MB: máximo 2MB</i>
+
+        <br><br>
+    </div>
+
+
 @endif

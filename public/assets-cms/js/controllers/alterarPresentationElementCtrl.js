@@ -19,7 +19,7 @@ cmsApp.controller('alterarPresentationElementCtrl', ['$scope', '$http', 'Upload'
 
             //console.log($scope.item);
             $http.post("cms/alterar-presentation-element/"+$scope.id, {
-                'item': $scope.item,
+                'element': $scope.element,
                 'removerImagem': $scope.removerImagem,
                 'removerArquivo': $scope.removerArquivo
             }).success(function (data){
@@ -36,7 +36,7 @@ cmsApp.controller('alterarPresentationElementCtrl', ['$scope', '$http', 'Upload'
         }else{
 
             var data1 = {
-                item: $scope.item,
+                element: $scope.element,
                 'removerImagem': $scope.removerImagem,
                 'removerArquivo': $scope.removerArquivo
             };

@@ -113,61 +113,17 @@ class PresentationElementController extends Controller
 
     public function detalhar($id)
     {
-        $integrantes = \App\Integrante::orderBy('titulo')->pluck('titulo', 'id')->all();
         $element = $this->element->where([
             ['id', '=', $id],
         ])->firstOrFail();
-        //$idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         $presentation_id = $element->presentation_id;
 
-        return view('cms::element_presentation.detalhar', ['element' => $element, 'presentation_id' => $presentation_id, 'integrantes' => $integrantes]);
-        //return view('cms::element_presentation.detalhar', ['element' => $element, 'presentation_id' => $presentation_id, 'idiomas' => $idiomas]);
+        //return $element;
+
+        return view('cms::presentation_element.detalhar', ['element' => $element, 'presentation_id' => $presentation_id, 'idiomas' => $idiomas]);
     }
-
-    /*public function alterar(Request $request, $id)
-    {
-        $data = $request->all();
-        $data['element'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
-
-        //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
-        foreach($this->campos as $campo){
-            if(!array_key_exists($campo, $data)){
-                if($campo!='imagem'){
-                    $data['element'] += [$campo => ''];
-                }
-            }
-        }
-        $element = $this->element->where([
-            ['id', '=', $id],
-        ])->firstOrFail();
-
-        $file = $request->file('file');
-
-        if($file!=null){
-            $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
-            $imagemCms = new ImagemCms();
-            $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $element);
-            if($success){
-                $data['element']['imagem'] = $filename;
-                $element->update($data['element']);
-                return $element->imagem;
-            }else{
-                return "erro";
-            }
-        }
-
-        //remover imagem
-        if($data['removerImagem']){
-            $data['element']['imagem'] = '';
-            if(file_exists($this->pathImagem."/".$element->imagem)) {
-                unlink($this->pathImagem . "/" . $element->imagem);
-            }
-        }
-
-        $element->update($data['element']);
-        return "Gravado com sucesso";
-    }*/
 
     public function alterar(Request $request, $id)
     {
@@ -195,17 +151,17 @@ class PresentationElementController extends Controller
 
         //remover imagem
         if($data['removerImagem']){
-            $data['element']['imagem'] = '';
-            if(file_exists($this->pathImagem."/".$element->imagem)) {
-                unlink($this->pathImagem . "/" . $element->imagem);
+            $data['element']['content'] = '';
+            if(file_exists($this->pathImagem."/".$element->content)) {
+                unlink($this->pathImagem . "/" . $element->content);
             }
         }
 
 
         if($data['removerArquivo']){
-            $data['element']['arquivo'] = '';
-            if(file_exists($this->pathArquivo."/".$element->arquivo)) {
-                unlink($this->pathArquivo . "/" . $element->arquivo);
+            $data['element']['content'] = '';
+            if(file_exists($this->pathArquivo."/".$element->content)) {
+                unlink($this->pathArquivo . "/" . $element->content);
             }
         }
 
@@ -216,7 +172,7 @@ class PresentationElementController extends Controller
             $imagemCms = new ImagemCms();
             $successFile = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $element);
             if($successFile){
-                $data['element']['imagem'] = $filename;
+                $data['element']['content'] = $filename;
             }
         }
 
@@ -225,7 +181,7 @@ class PresentationElementController extends Controller
             $filenameArquivo = rand(1000,9999)."-".clean($arquivo->getClientOriginalName());
             $successArquivo = $arquivo->move($this->pathArquivo, $filenameArquivo);
             if($successArquivo){
-                $data['element']['arquivo'] = $filenameArquivo;
+                $data['element']['content'] = $filenameArquivo;
             }
         }
 

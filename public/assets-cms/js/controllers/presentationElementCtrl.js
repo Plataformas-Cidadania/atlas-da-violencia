@@ -1,5 +1,5 @@
 cmsApp.controller('presentationElementCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-    
+
     $scope.elements = [];
     $scope.currentPage = 1;
     $scope.lastPage = 0;
@@ -7,7 +7,7 @@ cmsApp.controller('presentationElementCtrl', ['$scope', '$http', 'Upload', '$tim
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, type, chart_type, language, row, position, status";
+    $scope.campos = "id, row, position, type, chart_type, language, row, position, status";
     $scope.campoPesquisa = "type";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -16,9 +16,15 @@ cmsApp.controller('presentationElementCtrl', ['$scope', '$http', 'Upload', '$tim
     $scope.types = [];
     $scope.chartTypes = [];
     $scope.status = [];
+    $scope.positions = {
+        left: 'Esquerda',
+        right: 'Direita',
+        full: 'Tudo',
+    };
     $scope.fileArquivo = null;
     $scope.picFile = null;
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
+
 
     $scope.$watch('currentPage', function(){
         if($listar){
@@ -103,8 +109,8 @@ cmsApp.controller('presentationElementCtrl', ['$scope', '$http', 'Upload', '$tim
 
         $scope.mensagemInserir = "";
 
-        console.log(file);
-        console.log(arquivo);
+        //console.log(file);
+        //console.log(arquivo);
 
         if(file==null && arquivo==null){
             $scope.processandoInserir = true;
@@ -180,7 +186,7 @@ cmsApp.controller('presentationElementCtrl', ['$scope', '$http', 'Upload', '$tim
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: 'cms/excluir-item-versao/'+id,
+            url: 'cms/excluir-presentation-element/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);
@@ -195,13 +201,13 @@ cmsApp.controller('presentationElementCtrl', ['$scope', '$http', 'Upload', '$tim
         });
     };
     //////////////////////////////////
-    $scope.status = function(id){
+    $scope.trocarStatus = function(id){
         //console.log(id);
         $scope.mensagemStatus = '';
         $scope.idStatus = '';
         $scope.processandoStatus = true;
         $http({
-            url: 'cms/status-item-versao/'+id,
+            url: 'cms/status-presentation-element/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             //console.log(data);
