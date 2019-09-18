@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Jenssegers\Date\Date;
 
@@ -35,6 +36,27 @@ class HomeController extends Controller
             $noticias = DB::table('noticias')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->skip(1)->take(3)->get();
         }
 
+        $presentationElements = \App\PresentationElement::select('presentations_elements.*')
+            ->join('presentations', 'presentations.id', '=', 'presentations_elements.presentation_id')
+            ->where('presentations.slug', 'home')
+            ->orderBy('presentations_elements.position')
+            ->get();
+
+        $presentationRows = [];
+
+        foreach ($presentationElements as $element) {
+            if(!array_key_exists($element->row, $presentationRows)){
+                $presentationRows[$element->row] = [];
+            }
+            if($element->type==2){
+                $csv = File::get(public_path().'/arquivos/presentation-elements/'.$element->content);
+                $array = array_map("str_getcsv", explode("\n", $csv));
+                //$json = json_encode($array);
+                $element->content = $this->csvPresentationToArray($element->content);
+            }
+            array_push($presentationRows[$element->row], $element);
+        }
+
         return view('home', [
             'bemvindo' => $bemvindo,
             'ultimaPostagem' => $ultimaPostagem,
@@ -49,7 +71,58 @@ class HomeController extends Controller
             'downloads' => $downloads,
             'tituloLinhaTempo' => $tituloLinhaTempo,
             'parceiros' => $parceiros,
+            'presentationRows' => $presentationRows
         ]);
+    }
+
+    private function csvPresentationToArray($filename){
+        $array = [];
+
+        $file = fopen(public_path()."/arquivos/presentation-elements/$filename", "r");
+
+        $cont = 0;
+        $columns = [];
+        while(!feof($file)){
+            $linha = fgets($file, 4096);
+            $values = explode(';', $linha);
+
+            if($cont==0){
+                foreach($values as $key => $value){
+                    $values[$key] = somenteLetrasNumeros(clean($value, "_"), "_");
+                }
+                $columns = $values;
+                //Log::info($columns);
+            }else{
+                $row = [];
+                foreach($values as $key => $value){
+                    $row[$columns[$key]] = $value;
+                }
+                if(!empty($row)){
+                    array_push($array, $row);
+                }
+
+
+            }
+            $cont++;
+        }
+        return $this->mountDataSetsChartPresentation($array);
+    }
+
+    private function mountDataSetsChartPresentation($array){
+        $datasets = [];
+
+        foreach ($array as $item) {
+            if($item['dataset'] != null){
+                if(!array_key_exists($item['dataset'], $datasets)){
+                    $datasets[$item['dataset']] = [];
+                }
+                if(array_key_exists('x', $item)){
+                    array_push($datasets[$item['dataset']], ['name' => $item['name'], 'x' => $item['x'], 'y' => $item['y']]);
+                }
+            }
+        }
+
+        return $datasets;
     }
 
     public function newsletter(){

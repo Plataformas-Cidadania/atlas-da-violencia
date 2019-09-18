@@ -2,8 +2,48 @@
 @section('title', 'Bem Vindo')
 @section('content')
 
+    <br><br>
+    <div class="container">
+        @foreach($presentationRows as $row)
+            <div class="row">
+                @foreach($row as $element)
+                    @if($element->position == "full")
+                        <div class="col-md-12">
+                            @if($element->type==1)
+                                {!! $element->content !!}
+                            @endif
+                            @if($element->type==2)
+                                @if($element->chart_type==1)
+                                    @include("presentation-charts/chartbar")
+                                @endif
+                            @endif
+                            @if($element->type==3)
+                                <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">
+                            @endif
+                        </div>
+                    @else
+                        <div class="col-md-6">
+                            @if($element->type==1)
+                                { !! $element->content !! }
+                            @endif
+                            @if($element->type==2)
+                                @if($element->chart_type==1)
+                                    @include("presentation-charts/chartbar")
+                                @endif
+                            @endif
+                            @if($element->type==3)
+                                <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">
+                            @endif
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+            <br><br><br>
+        @endforeach
+    </div>
 
     <article>
+
         <br><br>
         @if(!empty($links))
         <div class="container block" data-move-x="500px">

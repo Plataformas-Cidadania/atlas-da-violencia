@@ -151,7 +151,8 @@ if(substr($base_href, 0,9)=='evbsb1052'){
                 }
             }
         </style>
-
+        <script src="lib/apexcharts/prop-types.min.js"></script>
+        <script src="lib/apexcharts/apexcharts.min.js"></script>
     </head>
     <body ng-app="ipeaApp"  ng-controller="appCtrl" ng-class="{'alto-contraste': altoContrasteAtivo}">
         @include('layouts.layout1')
