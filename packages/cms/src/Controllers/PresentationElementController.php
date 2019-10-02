@@ -35,7 +35,7 @@ class PresentationElementController extends Controller
     function index($presentation_id)
     {
         $elements = \App\PresentationElement::all();
-        $idiomas = \App\Idioma::lists('titulo', 'id')->all();
+        $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
 
         return view('cms::presentation_element.listar', ['elements' => $elements, 'presentation_id' => $presentation_id, 'idiomas' => $idiomas]);
     }
