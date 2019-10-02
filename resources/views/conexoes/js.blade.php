@@ -382,3 +382,6 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     {{--<script src="js/components/selectItems.js"></script>--}}
     <script src="js/components/consultas/pageConsultas.js"></script>
 @endif
+@if($rota=='/')
+<script>$('.block').smoove({offset: '5%'});</script>
+@endif

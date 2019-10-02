@@ -8,7 +8,7 @@
             <div class="row">
                 @foreach($row as $element)
                     @if($element->position == "full")
-                        <div class="col-md-12">
+                        <div class="col-md-12 block" data-move-y="300px">
                             @if($element->type==1)
                                 {!! $element->content !!}
                             @endif
@@ -16,13 +16,16 @@
                                 @if($element->chart_type==1)
                                     @include("presentation-charts/chartbar")
                                 @endif
+                                @if($element->chart_type==2)
+                                    @include("presentation-charts/chartline")
+                                @endif
                             @endif
                             @if($element->type==3)
                                 <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">
                             @endif
                         </div>
                     @else
-                        <div class="col-md-6">
+                        <div class="col-md-6 block" @if($element->position=='left')data-move-x="-300px"@endif @if($element->position=='right')data-move-x="300px"@endif>
                             @if($element->type==1)
                                 { !! $element->content !! }
                             @endif

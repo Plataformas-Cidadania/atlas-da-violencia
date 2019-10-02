@@ -3,32 +3,35 @@
 ?>
 
 <style>
-    #chartBar_{{$random}} {
+    #chartLine_{{$random}} {
         width: 100%;
         margin: 35px auto;
     }
 </style>
-<div id="chartBar_{{$random}}"></div>
+<div id="chartLine_{{$random}}"></div>
 <script>
     var options = {
         chart: {
             height: 350,
-            type: 'bar',
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '55%',
-                endingShape: 'rounded'
+            type: 'line',
+            shadow: {
+                enabled: true,
+                color: '#000',
+                top: 18,
+                left: 7,
+                blur: 10,
+                opacity: 1
             },
+            toolbar: {
+                show: false
+            }
         },
+        colors: ['#77B6EA', '#545454'],
         dataLabels: {
-            enabled: false
+            enabled: true,
         },
         stroke: {
-            show: true,
-            width: 2,
-            colors: ['transparent']
+            curve: 'smooth'
         },
         series: [
             @foreach($element->content as $index => $dataset)
@@ -42,6 +45,16 @@
             },
             @endforeach
         ],
+        grid: {
+            borderColor: '#e7e7e7',
+            row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                opacity: 0.5
+            },
+        },
+        markers: {
+            size: 6
+        },
         xaxis: {
             categories: [
                 @foreach($element->content[0] as $index => $dt)
@@ -53,23 +66,21 @@
         yaxis: {
             title: {
                 text: ''
-            }
+            },
+            min: 5,
+            max: 40
         },
-        fill: {
-            opacity: 1
-
-        },
-        tooltip: {
-            y: {
-                formatter: function (val) {
-                    return val;
-                }
-            }
+        legend: {
+            position: 'top',
+            horizontalAlign: 'right',
+            floating: true,
+            offsetY: -25,
+            offsetX: -5
         }
     }
 
     var chart<?php echo $random;?> = new ApexCharts(
-        document.querySelector("#chartBar_{{$random}}" ),
+        document.querySelector("#chartLine_{{$random}}" ),
         options
     );
 
