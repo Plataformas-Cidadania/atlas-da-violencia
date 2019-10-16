@@ -186,6 +186,9 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Conteudo <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse  @if($rota=="cms/noticias" || $rota=="cms/authors" || $rota=="cms/artigos" || $rota=="cms/videos" || $rota=="cms/downloads" || $rota=="cms/webdoors" ) show @endif">
                             <li>
+                                <a href="cms/presentations"><i class="fa fa-fw fa-newspaper-o"></i> Apresentações</a>
+                            </li>
+                            <li>
                                 <a href="cms/noticias"><i class="fa fa-fw fa-newspaper-o"></i> Notícias</a>
                             </li>
                             <li>
