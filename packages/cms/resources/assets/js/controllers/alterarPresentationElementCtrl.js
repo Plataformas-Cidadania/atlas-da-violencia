@@ -26,7 +26,8 @@ cmsApp.controller('alterarPresentationElementCtrl', ['$scope', '$http', 'Upload'
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = "Gravado com Sucesso";
-                $scope.removerImagem = false;
+                $scope.removerArquivo = 0;
+                $scope.removerImagem = 0;
             }).error(function(data){
                 //console.log(data);
                 $scope.mensagemSalvar = "Ocorreu um erro: "+data;

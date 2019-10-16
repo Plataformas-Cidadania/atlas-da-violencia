@@ -68,6 +68,25 @@ null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'n
         </span>
         <a ng-show="fileArquivo"><% fileArquivo.name %></a>
         <br><br>
+        <div>
+            <div><strong>Exemplo: teste.csv</strong></div>
+            <div style="padding: 10px; background-color: #ccc; color:#333; width:400px;">
+                dataset;name;x;y<br>
+                0;ccc;2013;10<br>
+                0;ccc;2014;15<br>
+                0;ccc;2015;18<br>
+                0;ccc;2016;20<br>
+                0;ccc;2017;17<br>
+                0;ccc;2018;21<br>
+                1;ddd;2013;15<br>
+                1;ddd;2014;19<br>
+                1;ddd;2015;16<br>
+                1;ddd;2016;18<br>
+                1;ddd;2017;22<br>
+                1;ddd;2018;26<br>
+            </div>
+            <br>
+        </div>
     </div>
 
     <div  ng-show="element.type==3">
@@ -96,11 +115,29 @@ null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'n
                     Escolher Arquivo <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".csv" ngf-max-size="100MB" ngf-model-invalid="errorFile">
                 </span>
         <button class="btn btn-danger" ng-click="limparArquivo()" ng-show="fileArquivo || arquivoBD" type="button">Remover Arquivo</button>
-        <a href="arquivos/items-versao/<% arquivoBD %>" target="_blank" ng-show="arquivoBD"><% arquivoBD %></a>
+        <a href="arquivos/presentation-elements/<% arquivoBD %>" target="_blank" ng-show="arquivoBD"><% arquivoBD %></a>
         <a ng-show="fileArquivo"><% fileArquivo.name %></a>
         <br><br>
+        <div>
+            <div><strong>Exemplo: teste.csv</strong></div>
+            <div style="padding: 10px; background-color: #ccc; color:#333; width:400px;">
+                dataset;name;x;y<br>
+                0;ccc;2013;10<br>
+                0;ccc;2014;15<br>
+                0;ccc;2015;18<br>
+                0;ccc;2016;20<br>
+                0;ccc;2017;17<br>
+                0;ccc;2018;21<br>
+                1;ddd;2013;15<br>
+                1;ddd;2014;19<br>
+                1;ddd;2015;16<br>
+                1;ddd;2016;18<br>
+                1;ddd;2017;22<br>
+                1;ddd;2018;26<br>
+            </div>
+            <br>
+        </div>
     </div>
-
 
     <div  ng-show="element.type==3">
         <div class="container-thumb">

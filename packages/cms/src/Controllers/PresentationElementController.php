@@ -18,7 +18,7 @@ class PresentationElementController extends Controller
     {
         $this->element = new \App\PresentationElement();
         $this->campos = [
-            'type', 'content', 'row', 'position', 'presentation_id', 'cmsuser_id',
+            'type', 'row', 'position', 'presentation_id', 'cmsuser_id',
         ];
         $this->pathImagem = public_path().'/imagens/presentation-elements';
         $this->sizesImagem = [
@@ -129,7 +129,6 @@ class PresentationElementController extends Controller
     {
         $data = $request->all();
 
-        //return $data;
 
         $data['element'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
@@ -144,7 +143,6 @@ class PresentationElementController extends Controller
         $element = $this->element->where([
             ['id', '=', $id],
         ])->firstOrFail();
-
 
         $file = $request->file('file');
         $arquivo = $request->file('arquivo');
