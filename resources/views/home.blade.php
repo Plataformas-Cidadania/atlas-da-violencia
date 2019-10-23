@@ -78,6 +78,9 @@
                             @if($element->type==3)
                                 <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">
                             @endif
+                            @if($element->type==4)
+                                <iframe src="arquivos/presentation-elements/{{$element->content}}" width="100%" frameborder="0" onload="resizeIframe(this)"></iframe>
+                            @endif
                         </div>
                     @else
                         <div class="col-md-6 block" @if($element->position=='left')data-move-x="-300px"@endif @if($element->position=='right')data-move-x="300px"@endif>
@@ -91,6 +94,9 @@
                             @endif
                             @if($element->type==3)
                                 <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">
+                            @endif
+                            @if($element->type==4)
+                                <iframe src="arquivos/presentation-elements/{{$element->content}}" width="100%" frameborder="0" onload="resizeIframe(this)"></iframe>
                             @endif
                         </div>
                     @endif

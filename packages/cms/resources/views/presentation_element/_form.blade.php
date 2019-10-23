@@ -42,6 +42,7 @@ null, ['class'=>"form-control width-medio <% validar(element.position) %>", 'ng-
             '1' => 'Texto',
             '2' => 'Gráfico',
             '3' => 'Imagem',
+            '4' => 'HTML',
         ),
 null, ['class'=>"form-control width-medio <% validar(element.type) %>", 'ng-model'=>'element.type', 'ng-required'=>'true', 'init-model'=>'element.type', 'placeholder' => 'Selecione']) !!}<br>
 
@@ -106,13 +107,21 @@ null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'n
         </i>
         <br><br>
     </div>
+
+    <div ng-show="element.type==4">
+        <span class="btn btn-primary btn-file" ng-show="!fileArquivo" >
+            Escolher Arquivo HTML <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".html,.htm" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+        </span>
+        <a ng-show="fileArquivo"><% fileArquivo.name %></a>
+        <br><br>
+    </div>
 @endif
 
 @if($rota=="cms/presentation-element/{id}")
 
     <div ng-show="element.type==2">
         <span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
-                    Escolher Arquivo <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".csv" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+                    Escolher Arquivo CSV <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".csv" ngf-max-size="100MB" ngf-model-invalid="errorFile">
                 </span>
         <button class="btn btn-danger" ng-click="limparArquivo()" ng-show="fileArquivo || arquivoBD" type="button">Remover Arquivo</button>
         <a href="arquivos/presentation-elements/<% arquivoBD %>" target="_blank" ng-show="arquivoBD"><% arquivoBD %></a>
@@ -153,6 +162,16 @@ null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'n
         <button class="btn btn-danger" ng-click="limparImagem()" ng-show="picFile || imagemBD" type="button">Remover Imagem</button>
         <i ng-show="form.file.$error.maxSize" style="margin-left: 10px;">Arquivo muito grande <% errorFile.size / 1000000|number:1 %>MB: máximo 2MB</i>
 
+        <br><br>
+    </div>
+
+    <div ng-show="element.type==4">
+        <span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
+                    Escolher Arquivo HTML <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".html,.htm" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+                </span>
+        <button class="btn btn-danger" ng-click="limparArquivo()" ng-show="fileArquivo || arquivoBD" type="button">Remover Arquivo</button>
+        <a href="arquivos/presentation-elements/<% arquivoBD %>" target="_blank" ng-show="arquivoBD"><% arquivoBD %></a>
+        <a ng-show="fileArquivo"><% fileArquivo.name %></a>
         <br><br>
     </div>
 

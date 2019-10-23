@@ -73,6 +73,7 @@ return [
         '1' => 'Texto',
         '2' => 'Gráfico',
         '3' => 'Imagem',
+        '4' => 'HTML',
     ],
     'CHART_TYPES_PRESENTATION_ELEMENTS' => [
         '1' => 'Barra',
