@@ -2,6 +2,7 @@ cmsApp.controller('alterarQuemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout
 
     $scope.processandoSalvar = false;
 
+    $scope.quemsomo = null;
 
     //ALTERAR/////////////////////////////
 
@@ -11,13 +12,21 @@ cmsApp.controller('alterarQuemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout
 
     $scope.removerImagem = false;
 
+    $scope.$watch('quemsomo', function(){
+        $scope.setTipoUrl();
+    });
+
     $scope.alterar = function (file){
 
         if(file==null){
 
             $scope.processandoSalvar = true;
             //console.log($scope.quemsomo);
-            $http.post("cms/alterar-quemsomo/"+$scope.id, {'quemsomo': $scope.quemsomo, 'removerImagem': $scope.removerImagem}).success(function (data){
+            $http.post("cms/alterar-quemsomo/"+$scope.id, {
+                'quemsomo': $scope.quemsomo,
+                tipoUrl: $scope.tipoUrl,
+                'removerImagem': $scope.removerImagem
+            }).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = data;
@@ -32,7 +41,7 @@ cmsApp.controller('alterarQuemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout
 
             file.upload = Upload.upload({
                 url: 'cms/alterar-quemsomo/'+$scope.id,
-                data: {quemsomo: $scope.quemsomo, file: file},
+                data: {quemsomo: $scope.quemsomo, file: file, tipoUrl: $scope.tipoUrl},
             });
 
             file.upload.then(function (response) {
@@ -80,7 +89,17 @@ cmsApp.controller('alterarQuemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout
     /////////////////////////////////
     
     
-
+    $scope.setTipoUrl = function(){
+        console.log($scope.quemsomo);
+        let arrayUrl = $scope.quemsomo['url'].split('|');
+        console.log(arrayUrl);
+        $scope.quemsomo.url = arrayUrl[0];
+        if(arrayUrl.length === 1){
+            $scope.tipoUrl = 0;
+            return;
+        }
+        $scope.tipoUrl = arrayUrl[1];
+    };
     
 
 }]);

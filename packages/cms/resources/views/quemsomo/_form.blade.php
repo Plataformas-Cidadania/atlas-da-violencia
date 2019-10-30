@@ -56,7 +56,16 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>",
 {!! Form::label('posicao', 'Posição *') !!}<br>
 {!! Form::text('posicao', null, ['class'=>"form-control width-grande <% validar(quemsomo.posicao) %>", 'ng-model'=>'quemsomo.posicao', 'ng-required'=>'true', 'init-model'=>'quemsomo.posicao', 'placeholder' => '']) !!}<br>
 
-{!! Form::label('url', 'Url do Iframe ') !!}<br>
-{!! Form::text('url', null, ['class'=>"form-control width-grande <% validar(quemsomo.url) %>", 'ng-model'=>'quemsomo.url', 'init-model'=>'quemsomo.url', 'placeholder' => '']) !!}<br>
-
-
+<div class="row">
+    <div class="col-md-4">
+        {!! Form::label('url', 'Url ') !!}<br>
+        {!! Form::text('url', null, ['class'=>"form-control width-grande <% validar(quemsomo.url) %>", 'ng-model'=>'quemsomo.url', 'init-model'=>'quemsomo.url', 'placeholder' => '']) !!}<br>
+    </div>
+    <div class="col-md-2">
+        <label for="tipoUrl">TipoUrl</label>
+        <select class="form-control" name="tipoUrl" id="tipoUrl" ng-model="tipoUrl" ng-change="changeTipoUrl()">
+            <option value="0">Iframe</option>
+            <option value="1">Link</option>
+        </select>
+    </div>
+</div>

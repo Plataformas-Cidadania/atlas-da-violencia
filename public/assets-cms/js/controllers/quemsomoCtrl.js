@@ -125,7 +125,7 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
             $scope.processandoInserir = true;
 
             //console.log($scope.quemsomo);
-            $http.post("cms/inserir-quemsomo", {quemsomo: $scope.quemsomo}).success(function (data){
+            $http.post("cms/inserir-quemsomo", {quemsomo: $scope.quemsomo, tipoUrl: $scope.tipoUrl}).success(function (data){
                  listarQuemsomos();
                  delete $scope.quemsomo;//limpa o form
                 $scope.mensagemInserir =  "Gravado com sucesso!";
@@ -137,7 +137,7 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
         }else{
             file.upload = Upload.upload({
                 url: 'cms/inserir-quemsomo',
-                data: {quemsomo: $scope.quemsomo, file: file},
+                data: {quemsomo: $scope.quemsomo, tipoUrl: $scope.tipoUrl, file: file},
             });
 
             file.upload.then(function (response) {
@@ -202,6 +202,5 @@ cmsApp.controller('quemsomoCtrl', ['$scope', '$http', 'Upload', '$timeout', func
         });
     };
     //////////////////////////////////
-
 
 }]);
