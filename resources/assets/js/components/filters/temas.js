@@ -42,7 +42,7 @@ class Temas extends React.Component{
             url: 'get-temas/'+this.state.tema_id,
             cache: false,
             success: function(data){
-                console.log('temas', data);
+                //console.log('temas', data);
                 this.setState({temas: data});
             }.bind(this),
             error: function(xhr, status, err){

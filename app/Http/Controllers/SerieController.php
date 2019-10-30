@@ -706,8 +706,11 @@ class SerieController extends Controller
                         ->where('valores_series.serie_id', $conditions['id'])
                         ->where('valores_series.tipo_regiao', $tipo);
                 })
-                ->when($tipo == 4, function($query) use ($ufs){
-                    return $query->whereIn('spat.ed_territorios_municipios.edterritorios_sigla', $ufs);
+                ->when($tipo == 4, function($query) use ($ufs, $filter){
+                    if($ufs[0] > 0){
+                        return $query->whereIn('spat.ed_territorios_municipios.edterritorios_sigla', $ufs);
+                    }
+                    return $query->where('spat.ed_territorios_municipios.edterritorios_sigla', $filter);
                 })
                 ->distinct()
                 ->get();
@@ -1109,7 +1112,7 @@ class SerieController extends Controller
 
         foreach ($series as $key => $serie) {
             ksort($serie);
-            Log::info($serie);
+            //Log::info($serie);
             $series[$key] = $serie;
         }
         

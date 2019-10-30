@@ -83,7 +83,7 @@ class PageFilters extends React.Component{
 
     processingSelectedItems(){
         let ids = "";
-        console.log(this.state.selectedItems);
+        //console.log(this.state.selectedItems);
         this.setState({processingSelectedItems: true});
         this.state.selectedItems.find(function(item){
             ids += item.id+',';
@@ -97,7 +97,7 @@ class PageFilters extends React.Component{
             },
             cache: false,
             success: function(data) {
-                console.log(data);
+                //console.log(data);
                 if(data==1){
                     location.href = "dados-series-comparadas/"+ids;
                     return;
@@ -166,7 +166,7 @@ class PageFilters extends React.Component{
 
     loadItems(){
         //console.log(this.state);
-        console.log(this.state.currentPageListItems);
+        //console.log(this.state.currentPageListItems);
         let emptyItems = {data: []};
         this.setState({items: emptyItems, loadingItems: true});
         $.ajax({
@@ -204,8 +204,8 @@ class PageFilters extends React.Component{
             option.on = option.id === item.tipo_regiao;
         });
 
-        console.log('ITEM CLICADO', item);
-        console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
+        //console.log('ITEM CLICADO', item);
+        //console.log('OPTIONS ABRANGÊNCIAS', optionsAbrangencia);
 
         this.setState({serieMarked: item.id, abrangencia: item.tipo_regiao}, function(){
             if(all){
@@ -238,7 +238,7 @@ class PageFilters extends React.Component{
             regionsId.push(regions[i].id)
         }
 
-        console.log(regionsId);
+        //console.log(regionsId);
 
         this.setState({regions: regionsId});
     }
@@ -309,7 +309,7 @@ class PageFilters extends React.Component{
             btnContinuar = <button type="button" className="btn btn-primary" onClick={() => this.submit()}  >Continuar</button>
         }
 
-        console.log('ITEMS', this.state.items);
+        //console.log('ITEMS', this.state.items);
         let items = this.state.items;
         if(!this.state.items.data){
             items = {data: []};

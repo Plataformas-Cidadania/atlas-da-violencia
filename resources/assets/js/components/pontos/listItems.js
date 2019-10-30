@@ -80,7 +80,7 @@ class ListItems extends React.Component{
             if(this.state.items.data != undefined){
                 items = this.state.items.data.map(function(item){
 
-                    console.log(item);
+                    //console.log(item);
 
                     let tdsFilters = this.state.filters.map(function(filter, index){
                         return (

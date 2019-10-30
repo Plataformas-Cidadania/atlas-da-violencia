@@ -58,7 +58,7 @@ class Subtema extends React.Component {
     loadData() {
         //this.setState({loading: true});
         //console.log(this.state);
-        console.log(this.state.tema_id);
+        //console.log(this.state.tema_id);
         this.setState({ loadingData: true });
         $.ajax({
             method: 'GET',

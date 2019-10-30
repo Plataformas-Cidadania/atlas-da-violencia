@@ -40,6 +40,8 @@ class MapController extends Controller
 
     function valoresRegiaoPorPeriodoGeometry($id, $tipoValores, $min, $max){
 
+        ini_set('max_execution_time', 1800);
+
         //1 - Numérico Incremental / 2 - Numérico Agregado / 3 - Taxa
 
         //ST_X(edterritorios_centroide), ST_Y(edterritorios_centroide)
@@ -297,7 +299,7 @@ class MapController extends Controller
             ->orderBy(DB::raw("$tabelas[$abrangencia].edterritorios_sigla, valores_series.periodo"))
             ->get();
 
-        Log::info(DB::getQueryLog());
+        //Log::info(DB::getQueryLog());
 
         //dd($valores);
 

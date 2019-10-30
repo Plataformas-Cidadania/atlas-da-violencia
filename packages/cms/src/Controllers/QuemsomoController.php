@@ -46,7 +46,7 @@ class QuemsomoController extends Controller
 
         $tipo_id = $request->tipo_id;
 
-        Log::info($tipo_id);
+        //Log::info($tipo_id);
 
         //Auth::loginUsingId(2);
 

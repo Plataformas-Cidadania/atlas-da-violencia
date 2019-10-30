@@ -48,7 +48,7 @@ class Abrangencia extends React.Component {
             url: 'get-abrangencias-series/' + this.props.serie_id,
             cache: false,
             success: function (data) {
-                console.log('abrangencias', data);
+                //console.log('abrangencias', data);
                 this.setState({ options: data });
             }.bind(this),
             error: function (xhr, status, err) {

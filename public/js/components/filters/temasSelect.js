@@ -40,13 +40,13 @@ class Temas extends React.Component {
     loadData() {
         //this.setState({loading: true});
         //console.log(this.state);
-        console.log(this.props.tema_id);
+        //console.log(this.props.tema_id);
         $.ajax({
             method: 'GET',
             url: 'get-temas/' + this.state.tema_id + '/' + this.state.tipo,
             cache: false,
             success: function (data) {
-                console.log('temas', data);
+                //console.log('temas', data);
                 this.setState({ temas: data });
             }.bind(this),
             error: function (xhr, status, err) {

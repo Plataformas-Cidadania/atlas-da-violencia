@@ -695,8 +695,8 @@ class Map extends React.Component {
                 popupAnchor: [-3, -30] // point from which the popup should open relative to the iconAnchor
             });
 
-            console.log(data[i]);
-            console.log(this.props.allFilters);
+            //console.log(data[i]);
+            //console.log(this.props.allFilters);
 
             let allFilters = this.props.allFilters;
             let filterInfo = "";

@@ -65,7 +65,7 @@ class Abrangencia extends React.Component{
 
         let id = event.target.value;
 
-        console.log(id);
+        //console.log(id);
 
         this.setState({ufDefault:null});
         if(id==3){//uf

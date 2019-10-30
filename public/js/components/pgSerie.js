@@ -100,7 +100,7 @@ class PgSerie extends React.Component {
             url: "get-regions/" + abrangencia,
             cache: false,
             success: function (data) {
-                console.log('GET-REGIONS IN PGSERIE', data);
+                //console.log('GET-REGIONS IN PGSERIE', data);
                 this.setState({ regions: data, abrangencia: abrangencia });
             }.bind(this),
             error: function (xhr, status, err) {
@@ -223,7 +223,7 @@ class PgSerie extends React.Component {
 
     menorMaiorValor(valores1, valores2) {
 
-        console.log(valores1[0], valores2[0]);
+        //console.log(valores1[0], valores2[0]);
 
         let menor1 = parseFloat(valores1[0]);
         let menor2 = parseFloat(valores2[0]);
@@ -475,112 +475,119 @@ class PgSerie extends React.Component {
             React.createElement("br", null)
         );
 
-        let grafico = React.createElement(
-            "div",
-            { style: { display: this.state.showCharts ? 'block' : 'none' } },
-            React.createElement(Topico, { icon: "icon-group-chart", text: this.props.lang_graphics }),
-            React.createElement(
+        let grafico = null;
+
+        //console.log('PgSerie - abrangencia', this.state.abrangencia);
+        //console.log('PgSerie - regions', this.state.regions);
+
+        if (this.state.abrangencia != 4 || this.state.regions.length && this.state.regions[0] != 0) {
+            grafico = React.createElement(
                 "div",
-                null,
+                { style: { display: this.state.showCharts ? 'block' : 'none' } },
+                React.createElement(Topico, { icon: "icon-group-chart", text: this.props.lang_graphics }),
                 React.createElement(
                     "div",
-                    { style: { textAlign: 'right' } },
+                    null,
                     React.createElement(
                         "div",
-                        { className: "icons-charts" + (this.state.chartLine ? " icon-chart-line" : " icon-chart-line-disable"),
-                            style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartLine'), title: "" },
-                        "\xA0"
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "icons-charts" + (this.state.chartBar ? " icon-chart-bar" : " icon-chart-bar-disable"),
-                            style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartBar'), title: "" },
-                        "\xA0"
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "icons-charts" + (this.state.chartRadar ? " icon-chart-radar" : " icon-chart-radar-disable"),
-                            style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartRadar'), title: "" },
-                        "\xA0"
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "icons-charts" + (this.state.chartPie ? " icon-chart-pie" : " icon-chart-pie-disable"),
-                            style: { marginLeft: '5px', display: 'none' }, onClick: () => this.changeChart('chartPie'), title: "" },
-                        "\xA0"
-                    )
-                ),
-                React.createElement(
-                    "div",
-                    { style: { clear: 'both' } },
-                    React.createElement("br", null)
-                ),
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.chartLine ? 'block' : 'none' } },
-                    React.createElement(ChartLineApex, {
-                        chartId: "chartLine",
-                        id: this.state.id,
-                        serie: this.state.serie,
-                        periodicidade: this.props.periodicidade,
-                        min: this.state.min,
-                        max: this.state.max,
-                        periodos: this.state.periodos,
-                        regions: this.state.regions,
-                        abrangencia: this.state.abrangencia
-                    })
-                ),
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.chartBar ? 'block' : 'none' } },
-                    React.createElement(
-                        "div",
-                        { className: "row" },
+                        { style: { textAlign: 'right' } },
                         React.createElement(
                             "div",
-                            { className: "col-md-12" },
-                            React.createElement(ChartBar, {
-                                id: this.state.id,
-                                serie: this.state.serie,
-                                periodicidade: this.props.periodicidade
-                                /*intervalos={this.state.intervalos}*/
-                                , min: this.state.min,
-                                max: this.state.max,
-                                regions: this.state.regions,
-                                abrangencia: this.state.abrangencia
-                                /*data={this.state.valoresRegioesPorPeriodo}*/
-                                /*smallLarge={this.state.smallLarge}*/
-                                , idBar: "1"
-                            })
+                            { className: "icons-charts" + (this.state.chartLine ? " icon-chart-line" : " icon-chart-line-disable"),
+                                style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartLine'), title: "" },
+                            "\xA0"
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "icons-charts" + (this.state.chartBar ? " icon-chart-bar" : " icon-chart-bar-disable"),
+                                style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartBar'), title: "" },
+                            "\xA0"
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "icons-charts" + (this.state.chartRadar ? " icon-chart-radar" : " icon-chart-radar-disable"),
+                                style: { marginLeft: '5px' }, onClick: () => this.changeChart('chartRadar'), title: "" },
+                            "\xA0"
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "icons-charts" + (this.state.chartPie ? " icon-chart-pie" : " icon-chart-pie-disable"),
+                                style: { marginLeft: '5px', display: 'none' }, onClick: () => this.changeChart('chartPie'), title: "" },
+                            "\xA0"
                         )
+                    ),
+                    React.createElement(
+                        "div",
+                        { style: { clear: 'both' } },
+                        React.createElement("br", null)
+                    ),
+                    React.createElement(
+                        "div",
+                        { style: { display: this.state.chartLine ? 'block' : 'none' } },
+                        React.createElement(ChartLineApex, {
+                            chartId: "chartLine",
+                            id: this.state.id,
+                            serie: this.state.serie,
+                            periodicidade: this.props.periodicidade,
+                            min: this.state.min,
+                            max: this.state.max,
+                            periodos: this.state.periodos,
+                            regions: this.state.regions,
+                            abrangencia: this.state.abrangencia
+                        })
+                    ),
+                    React.createElement(
+                        "div",
+                        { style: { display: this.state.chartBar ? 'block' : 'none' } },
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "div",
+                                { className: "col-md-12" },
+                                React.createElement(ChartBar, {
+                                    id: this.state.id,
+                                    serie: this.state.serie,
+                                    periodicidade: this.props.periodicidade
+                                    /*intervalos={this.state.intervalos}*/
+                                    , min: this.state.min,
+                                    max: this.state.max,
+                                    regions: this.state.regions,
+                                    abrangencia: this.state.abrangencia
+                                    /*data={this.state.valoresRegioesPorPeriodo}*/
+                                    /*smallLarge={this.state.smallLarge}*/
+                                    , idBar: "1"
+                                })
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { style: { display: this.state.chartRadar ? 'block' : 'none' } },
+                        React.createElement(ChartRadar, {
+                            serie: this.state.serie,
+                            min: this.state.min,
+                            max: this.state.max,
+                            id: this.state.id,
+                            regions: this.state.regions,
+                            periodicidade: this.props.periodicidade,
+                            abrangencia: this.state.abrangencia
+                        })
+                    ),
+                    React.createElement(
+                        "div",
+                        { style: { display: this.state.chartPie ? 'block' : 'none' } },
+                        React.createElement(ChartPie, {
+                            intervalos: this.state.intervalos,
+                            periodicidade: this.props.periodicidade,
+                            data: this.state.valoresRegioesPorPeriodo.max
+                        })
                     )
                 ),
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.chartRadar ? 'block' : 'none' } },
-                    React.createElement(ChartRadar, {
-                        serie: this.state.serie,
-                        min: this.state.min,
-                        max: this.state.max,
-                        id: this.state.id,
-                        regions: this.state.regions,
-                        periodicidade: this.props.periodicidade,
-                        abrangencia: this.state.abrangencia
-                    })
-                ),
-                React.createElement(
-                    "div",
-                    { style: { display: this.state.chartPie ? 'block' : 'none' } },
-                    React.createElement(ChartPie, {
-                        intervalos: this.state.intervalos,
-                        periodicidade: this.props.periodicidade,
-                        data: this.state.valoresRegioesPorPeriodo.max
-                    })
-                )
-            ),
-            React.createElement("br", null),
-            React.createElement("br", null)
-        );
+                React.createElement("br", null),
+                React.createElement("br", null)
+            );
+        }
 
         let taxa = regions;
 

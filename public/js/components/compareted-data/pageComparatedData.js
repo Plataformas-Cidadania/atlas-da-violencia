@@ -19,7 +19,7 @@ class PageComparatedData extends React.Component {
 
     selectRegion(id) {
         this.setState({ region: id });
-        console.log(id);
+        //console.log(id);
     }
 
     setAbrangencia(abrangencia) {
@@ -28,7 +28,7 @@ class PageComparatedData extends React.Component {
             url: "get-regions/" + abrangencia,
             cache: false,
             success: function (data) {
-                console.log('GET-REGIONS IN PGSERIE', data);
+                //console.log('GET-REGIONS IN PGSERIE', data);
                 this.setState({ regions: data, abrangencia: abrangencia });
             }.bind(this),
             error: function (xhr, status, err) {

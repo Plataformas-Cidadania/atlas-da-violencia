@@ -89,9 +89,9 @@ class ChartLineApex extends React.Component {
 
         let dataChart = this.multipleChart(data);
 
-        console.log(dataChart);
+        //console.log(dataChart);
 
-        console.log('qtd values');
+        //console.log('qtd values');
 
         options.colors = dataChart.colors;
         options.xaxis = {
@@ -136,7 +136,7 @@ class ChartLineApex extends React.Component {
         $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.state.regions + "/" + this.state.abrangencia, {
             data: {},
             success: function (data) {
-                console.log('charline', data);
+                //console.log('charline', data);
                 _this.setState({ loading: false }, function () {
                     _this.update(data);
                 });

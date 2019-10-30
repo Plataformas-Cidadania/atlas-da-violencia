@@ -63,7 +63,7 @@ class MensagemController extends Controller
         foreach ($mensagens as $mensagem) {
             $mensagem->created_at =  date_format(date_create($mensagem->created_at), 'd-m-Y H:i:s');
 
-            Log::info($mensagem->created_at);
+            //Log::info($mensagem->created_at);
         }
 
         return $mensagens;
