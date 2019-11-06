@@ -68,7 +68,9 @@ class QuemsomoController extends Controller
 
         $data = $request->all();
 
-        $data['quemsomo']['url'] = $data['quemsomo']['url'].'|'.$data['tipoUrl'];
+        /*if(array_key_exists('url', $data['quemsomo']) && array_key_exists('tipoUrl', $data)){
+            $data['quemsomo']['url'] = $data['quemsomo']['url'].'|'.$data['tipoUrl'];
+        }*/
 
         $data['quemsomo'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
@@ -114,7 +116,9 @@ class QuemsomoController extends Controller
         $data = $request->all();
         $data['quemsomo'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
-        $data['quemsomo']['url'] = $data['quemsomo']['url'].'|'.$data['tipoUrl'];
+        /*if(array_key_exists('url', $data['quemsomo']) && array_key_exists('tipoUrl', $data)){
+            $data['quemsomo']['url'] = $data['quemsomo']['url'].'|'.$data['tipoUrl'];
+        }*/
 
         //verifica se o index do campo existe no array e caso não exista inserir o campo com valor vazio.
         foreach($this->campos as $campo){
