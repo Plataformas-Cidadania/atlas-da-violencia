@@ -22,7 +22,7 @@
             <script>
                 var countIndicadores = {{count($indicadores)}};
                 function selectIndicador(value){
-                    for(let i=0;i<countIndicadores-1;i++){
+                    for(let i=0;i<countIndicadores;i++){
                         $('#aba-'+i).hide();
                     }
                     $('#'+value).show();
@@ -52,33 +52,7 @@
                     </div>
                 @endforeach
             </div>
-            {{--<div class="col-md-12">
-                    <?php $id = 1;?>
-                    <ul class="menu-vertical">
-                        @foreach($indicadores  as $key => $menuIndicador)
-                            <li role="presentation" @if($key==0) active @endif><a href="#aba-{{$key}}"  aria-controls="aba-{{$key}}" role="tab" data-toggle="tab" style="clear: both;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{$menuIndicador->titulo}}</a></li>
-                        @endforeach
-                    </ul>
-            </div>--}}
-            {{--<div class="col-md-12">
 
-                <div id="myTabContent" class="tab-content">
-
-                @foreach($indicadores as $key => $indicador)
-                    <div role="tabpanel" class="tab-pane fade in @if($key==0) active @endif" id="aba-{{$key}}" aria-labelledby="home-tab">
-                        <iframe
-                                @if($indicador->url)
-                                    src="{{$indicador->url}}"
-                                @else
-                                    src="arquivos/rmd/{{$indicador->arquivo}}"
-                                @endif
-                                frameborder="0" width="100%" height="1200">
-
-                        </iframe>
-                    </div>
-                @endforeach
-                </div>
-            </div>--}}
         </div>
     </div>
     @endif
