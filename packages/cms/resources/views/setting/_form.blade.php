@@ -9,6 +9,7 @@
         <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Séries</a></li>
         <li role="presentation"><a href="#pontos" aria-controls="pontos" role="tab" data-toggle="tab">Pontos</a></li>
         <li role="presentation"><a href="#emails" aria-controls="emails" role="tab" data-toggle="tab">E-mail</a></li>
+        <li role="presentation"><a href="#analytics" aria-controls="analytics" role="tab" data-toggle="tab">Analytics</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -214,6 +215,25 @@
 
             <br>
 
+        </div>
+        <div role="tabpanel" class="tab-pane" id="analytics">
+            <br>
+            {!! Form::label('analytics_tipo', 'Analytics tipo') !!}<br>
+            {!! Form::select('analytics_tipo',
+                    array(
+                        '0' => 'Desativar',
+                        '1' => 'Piwik',
+                        '2' => 'Google Analytics',
+                    ),
+            null, ['class'=>"form-control width-medio <% validar(setting.analytics_tipo) %>", 'ng-model'=>'setting.analytics_tipo', 'init-model'=>'setting.analytics_tipo', 'placeholder' => '']) !!}<br>
+
+
+            {!! Form::label('analytics_id', 'Analytics ID') !!}<br>
+            {!! Form::text('analytics_id', null, ['class'=>"form-control width-grande <% validar(setting.analytics_id) %>", 'ng-model'=>'setting.analytics_id', 'init-model'=>'setting.analytics_id']) !!}<br>
+
+            {!! Form::label('analytics_url', 'Analytics Url') !!}<br>
+            {!! Form::text('analytics_url', null, ['class'=>"form-control width-grande <% validar(setting.analytics_url) %>", 'ng-model'=>'setting.analytics_url', 'init-model'=>'setting.analytics_url']) !!}<br>
+            
         </div>
     </div>
 

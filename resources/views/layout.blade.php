@@ -159,6 +159,26 @@ if(substr($base_href, 0,9)=='evbsb1052'){
                 obj.style.height = obj.contentWindow.document.body.scrollHeight + 50 + 'px';
             }
         </script>
+
+        @if($setting->analytics_tipo==1 && $setting->analytics_id!="")
+        <!-- Piwik -->
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+                var u="//webstats.ipea.gov.br/piwik/";
+                _paq.push(['setTrackerUrl', u+'piwik.php']);
+                _paq.push(['setSiteId', {{$setting->analytics_id}}]);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+            })();
+        </script>
+        <noscript><p><img src="{{$setting->analytics_url}}?idsite={{$setting->analytics_id}}" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+        @endif
+
+
     </head>
     <body ng-app="ipeaApp"  ng-controller="appCtrl" ng-class="{'alto-contraste': altoContrasteAtivo}">
         @include('layouts.layout1')
