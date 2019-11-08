@@ -19,20 +19,27 @@
                 <p ng-class="{'alto-contraste': altoContrasteAtivo}">{!!$indicador->descricao!!}</p>
                     <br><br>
             </div>
-            <div class="col-md-4">
-                <?php $id = 1;?>
-                    <ul class="menu-vertical">
-                        @foreach($indicadores  as $key => $menuIndicador)
-                            <li role="presentation" @if($key==0) active @endif><a href="#aba-{{$key}}"  aria-controls="aba-{{$key}}" role="tab" data-toggle="tab" style="clear: both;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> {{$menuIndicador->titulo}}</a></li>
-                        @endforeach
-                    </ul>
+            <script>
+                var countIndicadores = {{count($indicadores)}};
+                function selectIndicador(value){
+                    for(let i=0;i<countIndicadores;i++){
+                        $('#aba-'+i).hide();
+                    }
+                    $('#'+value).show();
+                }
+            </script>
+            <div class="col-md-12">
+                <select class="form-control fa" name="menuIndicador" id="menuIndicador" onchange="selectIndicador(this.value)">
+                    @foreach($indicadores  as $key => $menuIndicador)
+                        <option value="aba-{{$key}}">
+                            &#xf192; {{$menuIndicador->titulo}}
+                        </option>
+                    @endforeach
+                </select>
             </div>
-            <div class="col-md-8">
-
-                <div id="myTabContent" class="tab-content">
-
-                @foreach($indicadores  as $key => $indicador)
-                    <div role="tabpanel" class="tab-pane fade in @if($key==0) active @endif" id="aba-{{$key}}" aria-labelledby="home-tab">
+            <div class="col-md-12">
+                @foreach($indicadores as $key => $indicador)
+                    <div @if($key>0) style="display:none;" @endif id="aba-{{$key}}">
                         <iframe
                                 @if($indicador->url)
                                     src="{{$indicador->url}}"
@@ -44,8 +51,8 @@
                         </iframe>
                     </div>
                 @endforeach
-                </div>
             </div>
+
         </div>
     </div>
     @endif

@@ -61,11 +61,11 @@ null, ['class'=>"form-control width-medio <% validar(quemsomo.idioma_sigla) %>",
         {!! Form::label('url', 'Url ') !!}<br>
         {!! Form::text('url', null, ['class'=>"form-control width-grande <% validar(quemsomo.url) %>", 'ng-model'=>'quemsomo.url', 'init-model'=>'quemsomo.url', 'placeholder' => '']) !!}<br>
     </div>
-    <div class="col-md-2">
+    {{--<div class="col-md-2">
         <label for="tipoUrl">TipoUrl</label>
         <select class="form-control" name="tipoUrl" id="tipoUrl" ng-model="tipoUrl" ng-change="changeTipoUrl()">
             <option value="0">Iframe</option>
             <option value="1">Link</option>
         </select>
-    </div>
+    </div>--}}
 </div>
