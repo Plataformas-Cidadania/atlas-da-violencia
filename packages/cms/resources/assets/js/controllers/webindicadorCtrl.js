@@ -7,7 +7,7 @@ cmsApp.controller('webindicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', 
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo, idioma_sigla, posicao";
+    $scope.campos = "id, titulo, idioma_sigla, posicao, status";
     $scope.campoPesquisa = "titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -192,7 +192,25 @@ cmsApp.controller('webindicadorCtrl', ['$scope', '$http', 'Upload', '$timeout', 
             listarWebindicadores();
         });
     };
+    /////////////////////////////////////
+    $scope.status = function(id){
+        //console.log(id);
+        $scope.mensagemStatus = '';
+        $scope.idStatus = '';
+        $scope.processandoStatus = true;
+        $http({
+            url: 'cms/status-webindicador/'+id,
+            method: 'GET'
+        }).success(function(data, status, headers, config){
+            $scope.processandoStatus = false;
+            $scope.mensagemStatus = 'color-success';
+            $scope.idStatus = id;
+            listarWebindicadores();
+        }).error(function(data){
+            $scope.message = "Ocorreu um erro: "+data;
+            $scope.processandoStatus = false;
+            $scope.mensagemStatus = "Erro ao tentar status!";
+        });
+    };
 
 }]);
-
-

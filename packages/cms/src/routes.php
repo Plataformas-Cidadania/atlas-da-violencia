@@ -379,6 +379,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/excluir-webindicador/{id}', 'Cms\Controllers\WebindicadorController@excluir');
         Route::get('/cms/positionUp-webindicador/{id}', 'Cms\Controllers\WebindicadorController@positionUp');
         Route::get('/cms/positionDown-webindicador/{id}', 'Cms\Controllers\WebindicadorController@positionDown');
+        Route::get('/cms/status-webindicador/{id}', 'Cms\Controllers\WebindicadorController@status');
         
         //CONSULTAS
         Route::get('/cms/consultas', 'Cms\Controllers\ConsultaController@index');

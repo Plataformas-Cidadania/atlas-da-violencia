@@ -17,7 +17,11 @@ class IndicadorController extends Controller
 
         $indicador = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 5)->first();
         //$menuIndicadores = DB::table('webindicadores')->where('idioma_sigla', $lang)->orderBy('posicao')->get();
-        $indicadores = DB::table('webindicadores')->where('idioma_sigla', $lang)->orderBy('posicao')->get();
+        $indicadores = DB::table('webindicadores')
+            ->where('idioma_sigla', $lang)
+            ->where('status', 1)
+            ->orderBy('posicao')
+            ->get();
 
         //return view('indicador.detalhar', ['indicador' => $indicador, 'menuIndicadores' => $menuIndicadores, 'indicadores' => $indicadores]);
         return view('indicador.detalhar', ['indicador' => $indicador, 'indicadores' => $indicadores]);
