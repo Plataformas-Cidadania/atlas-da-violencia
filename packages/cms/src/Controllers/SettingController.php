@@ -22,6 +22,7 @@ class SettingController extends Controller
             'serie_id', 'email_host', 'email_port', 'email_address', 'email_name', 'email_user', 'email_password',
             'consulta_por_temas', 'consulta_filtros_indicadores', 'qtd_temas_home', 'google', 'latitude', 'longitude',
             'posicao_mapa', 'posicao_tabela', 'posicao_grafico', 'posicao_taxa', 'posicao_metadados',
+            'analytics_tipo', 'analytics_id', 'analytics_url',
         ];
         $this->pathImagem = public_path().'/imagens/settings';
         $this->sizesImagem = [

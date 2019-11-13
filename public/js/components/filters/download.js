@@ -51,11 +51,6 @@ class Download extends React.Component {
                     React.createElement(
                         'td',
                         null,
-                        item.title
-                    ),
-                    React.createElement(
-                        'td',
-                        null,
                         React.createElement(
                             'form',
                             { name: 'frmDownloadTotal', action: 'download-dados', target: '_blank', method: 'POST' },
@@ -68,7 +63,13 @@ class Download extends React.Component {
                             React.createElement(
                                 'button',
                                 { className: 'btn-download' },
-                                React.createElement('i', { className: 'fa fa-download', 'aria-hidden': 'true' })
+                                React.createElement(
+                                    'div',
+                                    { style: { float: 'left' } },
+                                    item.title
+                                ),
+                                ' ',
+                                React.createElement('i', { className: 'fa fa-download', 'aria-hidden': 'true', style: { float: 'right', marginTop: '4px' } })
                             )
                         )
                     )
@@ -80,11 +81,16 @@ class Download extends React.Component {
                     'div',
                     null,
                     React.createElement(
-                        'h4',
+                        'p',
                         null,
-                        'Dados por Territ\xF3rios'
+                        ' ',
+                        React.createElement(
+                            'strong',
+                            null,
+                            'Dados por Territ\xF3rios'
+                        )
                     ),
-                    React.createElement('hr', null),
+                    React.createElement('hr', { style: { margin: '5px 0 5px 0' } }),
                     React.createElement(
                         'table',
                         { className: 'table' },
@@ -101,15 +107,20 @@ class Download extends React.Component {
                     React.createElement(
                         'td',
                         null,
-                        item.titulo
-                    ),
-                    React.createElement(
-                        'td',
-                        null,
                         React.createElement(
                             'a',
                             { href: "arquivos/downloads/" + item.arquivo, target: '_blank' },
-                            React.createElement('i', { className: 'fa fa-cloud-download', style: { fontSize: '18px' } })
+                            React.createElement(
+                                'button',
+                                { className: 'btn-download' },
+                                React.createElement(
+                                    'div',
+                                    { style: { float: 'left' } },
+                                    item.titulo
+                                ),
+                                '  ',
+                                React.createElement('i', { className: 'fa fa-cloud-download', style: { fontSize: '18px', float: 'right', marginTop: '4px' } })
+                            )
                         )
                     )
                 );
@@ -120,11 +131,15 @@ class Download extends React.Component {
                     'div',
                     null,
                     React.createElement(
-                        'h4',
+                        'p',
                         null,
-                        'Outros Dados'
+                        React.createElement(
+                            'strong',
+                            null,
+                            'Outros Dados'
+                        )
                     ),
-                    React.createElement('hr', null),
+                    React.createElement('hr', { style: { margin: '5px 0 5px 0' } }),
                     React.createElement(
                         'table',
                         { className: 'table' },
@@ -136,11 +151,6 @@ class Download extends React.Component {
             bodyModal = React.createElement(
                 'div',
                 null,
-                React.createElement(
-                    'h3',
-                    { style: { marginTop: '0', marginBottom: '15px' } },
-                    this.state.serie
-                ),
                 React.createElement(
                     'div',
                     { className: 'row' },
@@ -168,7 +178,7 @@ class Download extends React.Component {
 
         return React.createElement(Modal, {
             id: 'modalDownloads',
-            title: 'Downloads',
+            title: this.state.serie,
             body: bodyModal,
             buttons: React.createElement(
                 'div',
