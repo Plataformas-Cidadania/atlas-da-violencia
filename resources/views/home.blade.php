@@ -79,7 +79,11 @@
                                 <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">
                             @endif
                             @if($element->type==4)
-                                <iframe src="arquivos/presentation-elements/{{$element->content}}" width="100%" frameborder="0" onload="resizeIframe(this)"></iframe>
+                                <iframe src="arquivos/presentation-elements/{{$element->content}}"
+                                        width="100%"
+                                        frameborder="0"
+                                        @if(!empty($element->height)) style="height: {{$element->height}}px" @else onload="resizeIframe(this) @endif"
+                                ></iframe>
                             @endif
                         </div>
                     @else
@@ -96,7 +100,11 @@
                                 <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">
                             @endif
                             @if($element->type==4)
-                                <iframe src="arquivos/presentation-elements/{{$element->content}}" width="100%" frameborder="0" onload="resizeIframe(this)"></iframe>
+                                    <iframe src="arquivos/presentation-elements/{{$element->content}}"
+                                            width="100%"
+                                            frameborder="0"
+                                            @if(!empty($element->height)) style="height: {{$element->height}}px" @else onload="resizeIframe(this) @endif"
+                                    ></iframe>
                             @endif
                         </div>
                     @endif

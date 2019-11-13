@@ -9,6 +9,6 @@ class PresentationElement extends Model
     protected $table = 'presentations_elements';
 
     protected $fillable = [
-        'type', 'chart_type', 'language', 'content', 'row',  'position',  'status', 'presentation_id', 'cmsuser_id',
+        'type', 'chart_type', 'language', 'content', 'row',  'position',  'status', 'height', 'presentation_id', 'cmsuser_id',
     ];
 }

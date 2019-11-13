@@ -7,7 +7,7 @@ cmsApp.controller('presentationElementCtrl', ['$scope', '$http', 'Upload', '$tim
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, row, position, type, chart_type, language, row, position, status";
+    $scope.campos = "id, row, position, type, chart_type, language, content, row, position, status";
     $scope.campoPesquisa = "type";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;

@@ -66,6 +66,7 @@
                             <th>Tipo</th>
                             <th>Gráfico</th>
                             <th>Idioma</th>
+                            <th>Texto/Arquivo</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -77,6 +78,7 @@
                             <td><% types[element.type] %></td>
                             <td><% chartTypes[element.chart_type] %></td>
                             <td><% element.language %></td>
+                            <td><% element.content | removeHTMLTags | limitTo:30 %><span ng-show="element.content.length > 40"> ...</span></td>
                             <td class="text-right">
                                 <div>
                                     <a href="cms/presentation-element/<% element.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;

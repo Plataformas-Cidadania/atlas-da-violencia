@@ -109,12 +109,17 @@ null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'n
     </div>
 
     <div ng-show="element.type==4">
+
+        {!! Form::label('height', 'Altura (px)') !!} <span style="font-size: 11px; color: #6b6b6b;">Ex.: 800</span><br>
+        {!! Form::text('height', null, ['class'=>"form-control width-medio <% validar(element.height) %>", 'ng-model'=>'element.height',  'init-model'=>'element.height', 'placeholder' => '']) !!}<br>
+
         <span class="btn btn-primary btn-file" ng-show="!fileArquivo" >
             Escolher Arquivo HTML <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".html,.htm" ngf-max-size="100MB" ngf-model-invalid="errorFile">
         </span>
         <a ng-show="fileArquivo"><% fileArquivo.name %></a>
         <br><br>
     </div>
+
 @endif
 
 @if($rota=="cms/presentation-element/{id}")
@@ -166,6 +171,10 @@ null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'n
     </div>
 
     <div ng-show="element.type==4">
+
+        {!! Form::label('height', 'Altura (px)') !!} <span style="font-size: 11px; color: #6b6b6b;">Ex.: 800</span><br>
+        {!! Form::text('height', null, ['class'=>"form-control width-medio <% validar(element.height) %>", 'ng-model'=>'element.height',  'init-model'=>'element.height', 'placeholder' => '']) !!}<br>
+
         <span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
                     Escolher Arquivo HTML <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".html,.htm" ngf-max-size="100MB" ngf-model-invalid="errorFile">
                 </span>
