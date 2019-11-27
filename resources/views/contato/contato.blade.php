@@ -16,7 +16,7 @@
         }
     </style>
     <div class="container" ng-controller="contatoCtrl" role="application">
-        <h2>@lang('links.contact')</h2>
+        <h1>@lang('links.contact')</h1>
         <div class="line_title bg-pri"></div>
         <div class="row">
 

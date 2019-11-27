@@ -598,10 +598,10 @@ class PgSerie extends React.Component{
                 </div>
                 <div style={{visibility: this.state.loading ? 'disable' : 'enable'}}>
                     <div className="row">
-                        <div className="h3">
+                        <h1>
                            {/* <img style={{marginLeft: '5px'}} src="imagens/links/8516-01.png" width="52" alt="" title=""/>*/}
                             &nbsp;{this.state.serie}
-                        </div>
+                        </h1>
 
                         <div className="line_title bg-pri"/>
                         <br/>

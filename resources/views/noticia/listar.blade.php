@@ -3,7 +3,7 @@
 @section('content')
     {{--{{ Counter::count('noticia') }}--}}
     <div class="container">
-        <h2>@lang('links.news')</h2>
+        <h1>@lang('links.news')</h1>
         <div class="line_title bg-pri"></div>
 
         @foreach($noticias as $noticia)

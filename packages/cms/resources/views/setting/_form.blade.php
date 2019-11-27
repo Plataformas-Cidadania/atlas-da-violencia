@@ -3,10 +3,11 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#site" aria-controls="site" role="tab" data-toggle="tab">Site</a></li>
+        <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
         <li role="presentation"><a href="#contato" aria-controls="contato" role="tab" data-toggle="tab">Contato</a></li>
         <li role="presentation"><a href="#cor" aria-controls="cor" role="tab" data-toggle="tab">Cores</a></li>
         <li role="presentation"><a href="#redes" aria-controls="redes" role="tab" data-toggle="tab">Redes</a></li>
-        <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Séries</a></li>
+        <li role="presentation"><a href="#series" aria-controls="home" role="tab" data-toggle="tab">Séries</a></li>
         <li role="presentation"><a href="#pontos" aria-controls="pontos" role="tab" data-toggle="tab">Pontos</a></li>
         <li role="presentation"><a href="#emails" aria-controls="emails" role="tab" data-toggle="tab">E-mail</a></li>
         <li role="presentation"><a href="#analytics" aria-controls="analytics" role="tab" data-toggle="tab">Analytics</a></li>
@@ -28,13 +29,55 @@
             {!! Form::label('qtd_temas_home', 'Quantidade itens Home *') !!}<br>
             {!! Form::select('qtd_temas_home',
                     array(
-                        '50' => '2 Itnes por linha',
-                        '33' => '3 Itnes por linha',
-                        '25' => '4 Itnes por linha',
-                        '20' => '5 Itnes por linha',
-                        '16' => '6 Itnes por linha',
+                        '50' => '2 Itens por linha',
+                        '33' => '3 Itens por linha',
+                        '25' => '4 Itens por linha',
+                        '20' => '5 Itens por linha',
+                        '16' => '6 Itens por linha',
                     ),
             null, ['class'=>"form-control width-medio <% validar(setting.qtd_temas_home) %>", 'ng-model'=>'setting.qtd_temas_home', 'ng-required'=>'true', 'init-model'=>'setting.qtd_temas_home', 'placeholder' => '']) !!}<br>
+
+            {!! Form::label('h1', 'H1') !!}<br>
+            {!! Form::text('h1', null, ['class'=>"form-control width-grande <% validar(setting.h1) %>", 'ng-model'=>'setting.h1', 'ng-required'=>'true', 'init-model'=>'setting.h1', 'placeholder'=>'Ex: font-size:24px;']) !!}<br>
+
+            {!! Form::label('h2', 'H2') !!}<br>
+            {!! Form::text('h2', null, ['class'=>"form-control width-grande <% validar(setting.h2) %>", 'ng-model'=>'setting.h2', 'ng-required'=>'true', 'init-model'=>'setting.h2', 'placeholder'=>'Ex: font-size:24px;']) !!}<br>
+
+            {!! Form::label('h3', 'H3') !!}<br>
+            {!! Form::text('h3', null, ['class'=>"form-control width-grande <% validar(setting.h3) %>", 'ng-model'=>'setting.h3', 'ng-required'=>'true', 'init-model'=>'setting.h3', 'placeholder'=>'Ex: font-size:24px;']) !!}<br>
+
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="home">
+            <br>
+            {!! Form::label('serie_id', 'Séries home *') !!}<br>
+            {!! Form::select('serie_id',
+                    $series,
+            null, ['class'=>"form-control width-grande <% validar(setting.serie_id) %>", 'ng-model'=>'setting.serie_id', 'ng-required'=>'true', 'init-model'=>'setting.serie_id', 'placeholder' => 'Selecione']) !!}<br>
+
+            {!! Form::label('video_home', 'Video') !!}<br>
+            {!! Form::select('video_home',
+                    array(
+                        '0' => 'Não',
+                        '1' => 'Sim',
+                    ),
+            null, ['class'=>"form-control width-medio <% validar(setting.video_home) %>", 'ng-model'=>'setting.video_home', 'ng-required'=>'true', 'init-model'=>'setting.video_home', 'placeholder' => '']) !!}<br>
+
+            {!! Form::label('carousel', 'Carousel') !!}<br>
+            {!! Form::select('carousel',
+                    array(
+                        '0' => 'Não',
+                        '1' => 'Sim',
+                    ),
+            null, ['class'=>"form-control width-medio <% validar(setting.carousel) %>", 'ng-model'=>'setting.carousel', 'ng-required'=>'true', 'init-model'=>'setting.carousel', 'placeholder' => '']) !!}<br>
+
+            {!! Form::label('links', 'Links') !!}<br>
+            {!! Form::select('links',
+                    array(
+                        '0' => 'Não',
+                        '1' => 'Sim',
+                    ),
+            null, ['class'=>"form-control width-medio <% validar(setting.links) %>", 'ng-model'=>'setting.links', 'ng-required'=>'true', 'init-model'=>'setting.links', 'placeholder' => '']) !!}<br>
 
         </div>
         <div role="tabpanel" class="tab-pane" id="contato">
@@ -131,14 +174,7 @@
             {!! Form::text('google', null, ['class'=>"form-control width-grande <% validar(setting.google) %>", 'ng-model'=>'setting.google', 'ng-required'=>'true', 'init-model'=>'setting.google']) !!}<br>
 
         </div>
-        <div role="tabpanel" class="tab-pane" id="home">
-            <br>
-            {!! Form::label('serie_id', 'Séries home *') !!}<br>
-            {!! Form::select('serie_id',
-                    $series,
-            null, ['class'=>"form-control width-grande <% validar(setting.serie_id) %>", 'ng-model'=>'setting.serie_id', 'ng-required'=>'true', 'init-model'=>'setting.serie_id', 'placeholder' => 'Selecione']) !!}<br>
-
-
+        <div role="tabpanel" class="tab-pane" id="series">
             <br>
             {!! Form::label('consulta_por_temas', 'Consulta por temas *') !!}<br>
             {!! Form::select('consulta_por_temas',
@@ -177,10 +213,10 @@
             {!! Form::text('posicao_metadados', null, ['class'=>"form-control width-grande <% validar(setting.posicao_metadados) %>", 'ng-model'=>'setting.posicao_metadados', 'ng-required'=>'true', 'init-model'=>'setting.posicao_metadados']) !!}<br>
 
         </div>
-        <div role="tabpanel" class="tab-pane active" id="pontos">
+        <div role="tabpanel" class="tab-pane" id="pontos">
             <br>
             {!! Form::label('pontos_default_regions', 'Regiões') !!}<br>
-            {!! Form::text('pontos_default_regions', null, ['class'=>"form-control width-grande <% validar(setting.pontos_default_regions) %>", 'ng-model'=>'setting.pontos_default_regions', 'ng-required'=>'true', 'init-model'=>'setting.pontos_default_regions']) !!}<br>
+            {!! Form::text('pontos_default_regions', null, ['class'=>"form-control width-grande <% validar(setting.pontos_default_regions) %>", 'ng-model'=>'setting.pontos_default_regions', 'ng-required'=>'true', 'init-model'=>'setting.pontos_default_regions', 'placeholder' => 'Ex: 1,2,3,4,5']) !!}<br>
 
             {!! Form::label('pontos_tipo_default_regions', 'Tipo de Região *') !!}<br>
             {!! Form::select('pontos_tipo_default_regions',

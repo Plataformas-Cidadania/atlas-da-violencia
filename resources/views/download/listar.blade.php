@@ -4,7 +4,7 @@
 
 
     <div class="container">
-        <h2>@lang('links.downloads')</h2>
+        <h1>@lang('links.downloads')</h1>
         <div class="line_title bg-pri"></div>
 
 

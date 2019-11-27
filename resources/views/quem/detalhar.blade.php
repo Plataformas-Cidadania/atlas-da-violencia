@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <h2 id="calendar" aria-label="@lang('links.about')">@lang('links.about')</h2>
+        <h1 id="calendar" aria-label="@lang('links.about')">@lang('links.about')</h1>
         <div class="line_title bg-pri"></div>
         <br>
         <div class="row">

@@ -27,7 +27,7 @@ class WebdoorController extends Controller
             'xs' => ['width' => 300, 'height' => 146],
             'sm' => ['width' => 400, 'height' => 194],
             'md' => ['width' => 535, 'height' => 260],
-            'lg' => ['width' => 535, 'height' => 260]
+            'lg' => ['width' => 1180, 'height' => 570]
         ];
         $this->widthOriginal = true;
     }

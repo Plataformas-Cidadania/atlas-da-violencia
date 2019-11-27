@@ -12,6 +12,6 @@ class Setting extends Model
         'serie_id', 'email_host', 'email_port', 'email_address', 'email_name', 'email_user', 'email_password',
         'consulta_por_temas', 'consulta_filtros_indicadores', 'qtd_temas_home', 'padrao_abrangencia', 'google', 'latitude', 'longitude',
         'posicao_mapa', 'posicao_tabela', 'posicao_grafico', 'posicao_taxa', 'posicao_metadados', 'pontos_default_regions', 'pontos_tipo_default_regions',
-        'analytics_tipo', 'analytics_id', 'analytics_url',
+        'analytics_tipo', 'analytics_id', 'analytics_url', 'h1', 'h2', 'h3', 'video_home', 'carousel', 'links',
     ];
 }

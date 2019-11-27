@@ -145,7 +145,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                         <a href="cms/series"><i class="fa fa-cubes" aria-hidden="true"></i> Séries</a>
                     </li>
 
-                    <li>
+                    {{--<li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo6"><i class="fa fa-fw fa-user"></i> Consultas <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo6" class="collapse @if($rota=="cms/consultas") show @endif">
                             <li>
@@ -155,7 +155,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                                 <a href="cms/consultas"><i class="fa fa-cubes" aria-hidden="true"></i> Consultas</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>--}}
 
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo7"><i class="fa fa-indent" aria-hidden="true"></i> Indicadores Site <i class="fa fa-fw fa-caret-down"></i></a>

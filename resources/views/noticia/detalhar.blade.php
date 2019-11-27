@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <h2 class="h1_title" aria-label="{{$noticia->titulo}}, {{strip_tags($noticia->descricao)}}">{{$noticia->titulo}}</h2>
+        <h1 class="h1_title" aria-label="{{$noticia->titulo}}, {{strip_tags($noticia->descricao)}}">{{$noticia->titulo}}</h1>
         <div class="line_title bg-pri"></div>
         <div>
             @if(!empty($noticia->imagem))

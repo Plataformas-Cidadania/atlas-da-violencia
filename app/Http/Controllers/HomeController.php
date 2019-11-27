@@ -16,6 +16,7 @@ class HomeController extends Controller
     public function index(){
         $lang =  App::getLocale();
 
+        $setting = \App\Setting::first();
         $tags = DB::table('links')->select('tags')->groupBy('tags')->orderBy('tags')->get();
         $links = DB::table('links')->where('idioma_sigla', $lang)->orderBy('posicao')->take(10)->get();
         $bemvindo = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 0)->first();
@@ -59,6 +60,7 @@ class HomeController extends Controller
         }
 
         return view('home', [
+            'setting' => $setting,
             'bemvindo' => $bemvindo,
             'ultimaPostagem' => $ultimaPostagem,
             'rotaUltimaPostagem' => $rotaUltimaPostagem,

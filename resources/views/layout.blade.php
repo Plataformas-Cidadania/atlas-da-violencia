@@ -48,6 +48,17 @@ if(substr($base_href, 0,9)=='evbsb1052'){
         @include('conexoes.css')
 
         <style>
+
+            h1 {
+                {{$setting->h1}}
+            }
+            h2 {
+                {{$setting->h2}}
+            }
+            h3 {
+                {{$setting->h3}}
+            }
+
             /*Bootstrap.less*/
             .nav > li a:hover{
                 background-color: {{$setting->cor1}} !important;

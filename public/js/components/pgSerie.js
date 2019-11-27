@@ -677,8 +677,8 @@ class PgSerie extends React.Component {
                     "div",
                     { className: "row" },
                     React.createElement(
-                        "div",
-                        { className: "h3" },
+                        "h1",
+                        null,
                         "\xA0",
                         this.state.serie
                     ),

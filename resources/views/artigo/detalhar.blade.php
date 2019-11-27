@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <h2 class="h1_title" aria-label="{{$artigo->titulo}}, {{strip_tags($artigo->descricao)}}">{{$artigo->titulo}}</h2>
+        <h1 class="h1_title" aria-label="{{$artigo->titulo}}, {{strip_tags($artigo->descricao)}}">{{$artigo->titulo}}</h1>
         <div class="line_title bg-pri"></div>
         <div class="row">
             <div class="col-md-9">

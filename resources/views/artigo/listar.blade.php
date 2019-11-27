@@ -10,7 +10,7 @@
 
     {{--{{ Counter::count('artigo') }}--}}
     <div class="container">
-        <h2>@lang('links.articles')</h2>
+        <h1>@lang('links.articles')</h1>
         <div class="line_title bg-pri"></div>
         <div class="row">
             <br>

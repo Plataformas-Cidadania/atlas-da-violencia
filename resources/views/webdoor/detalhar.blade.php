@@ -3,7 +3,7 @@
 @section('content')
     {{--{{ Counter::count('webdoor') }}--}}
     <div class="container">
-        <h2 id="calendar" aria-label="{{$webdoor->titulo}}, {{strip_tags($webdoor->descricao)}}">{{$webdoor->titulo}}</h2>
+        <h1 id="calendar" aria-label="{{$webdoor->titulo}}, {{strip_tags($webdoor->descricao)}}">{{$webdoor->titulo}}</h1>
         <div class="line_title bg-pri"></div>
         @if(!empty($webdoor->imagem))
             <picture>
