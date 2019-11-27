@@ -743,7 +743,7 @@ class SerieController extends Controller
         //senão encontrar a abrangência países irá pesquisar na abrangência ufs.
         if(count($rows) == 0){
             $rows = DB::table('valores_series')
-                ->select(DB::raw("spat.ed_territorios_uf.edterritorios_nome, valores_series.valor, valores_series.periodo"))
+                ->select(DB::raw("valores_series.regiao_id, spat.ed_territorios_uf.edterritorios_nome, valores_series.valor, valores_series.periodo"))
                 ->join('spat.ed_territorios_uf', 'valores_series.regiao_id', '=', 'spat.ed_territorios_uf.edterritorios_codigo')
                 ->where([
                     ['valores_series.serie_id', $id],
@@ -758,6 +758,16 @@ class SerieController extends Controller
         foreach($rows as $row){
             $data[$row->periodo] = $row->valor;
         }
+
+        //testando varias abrangencias
+        /*foreach ($rows as $row) {
+            if(!array_key_exists($row->regiao_id, $data)){
+                $data[$row->regiao_id]['territorio'] = $row->edterritorios_nome;
+                $data[$row->regiao_id]['periodos'] = [];
+            }
+            $data[$row->regiao_id]['periodos'][$row->periodo] = $row->valor;
+        }*/
+
 
         return $data;
     }

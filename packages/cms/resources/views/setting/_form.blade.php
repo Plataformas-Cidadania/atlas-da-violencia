@@ -50,10 +50,24 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="home">
             <br>
-            {!! Form::label('serie_id', 'Séries home *') !!}<br>
-            {!! Form::select('serie_id',
-                    $series,
-            null, ['class'=>"form-control width-grande <% validar(setting.serie_id) %>", 'ng-model'=>'setting.serie_id', 'ng-required'=>'true', 'init-model'=>'setting.serie_id', 'placeholder' => 'Selecione']) !!}<br>
+            {!! Form::label('dados_serie_home', 'Dados Série Home') !!}<br>
+            {!! Form::select('dados_serie_home',
+                    array(
+                        '0' => 'Série',
+                        '1' => 'CSV',
+                    ),
+            null, ['class'=>"form-control width-medio <% validar(setting.dados_serie_home) %>", 'ng-model'=>'setting.dados_serie_home', 'ng-required'=>'true', 'init-model'=>'setting.dados_serie_home', 'placeholder' => '']) !!}<br>
+
+            <div ng-show="setting.dados_serie_home==0">
+                {!! Form::label('serie_id', 'Séries home *') !!}<br>
+                {!! Form::select('serie_id',
+                        $series,
+                null, ['class'=>"form-control width-grande <% validar(setting.serie_id) %>", 'ng-model'=>'setting.serie_id', 'ng-required'=>'true', 'init-model'=>'setting.serie_id', 'placeholder' => 'Selecione']) !!}<br>
+            </div>
+
+            <div ng-show="setting.dados_serie_home==1">
+                <h4>###Inserir CSV###</h4>
+            </div>
 
             {!! Form::label('video_home', 'Video') !!}<br>
             {!! Form::select('video_home',
