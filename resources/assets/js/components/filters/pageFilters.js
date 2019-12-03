@@ -289,7 +289,7 @@ class PageFilters extends React.Component{
                 <h1>{this.props.lang_inquiries}</h1>
                 <br/>
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-md-12">
                         <fieldset style={{marginTop: '-15px'}}>
                             <legend>{this.props.lang_themes}</legend>
                             <div style={{margin: '10px'}}>
@@ -332,7 +332,8 @@ class PageFilters extends React.Component{
                             </div>
                         </fieldset>*/}
                     </div>
-                    <div className="col-md-9">
+                    <div className="col-md-12">
+                        <br/>
                         <input className='form-control' onChange={this.handleSearch} type="text" placeholder={this.props.lang_search_name}/>
                         <br/>
                         <div className="text-center" style={{display: this.state.loadingItems ? '' : 'none'}}><i className="fa fa-spin fa-spinner fa-3x"/></div>

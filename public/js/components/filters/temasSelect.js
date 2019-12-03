@@ -85,7 +85,8 @@ class Temas extends React.Component {
 
         let temas = this.state.temas.map(function (item) {
 
-            let tema = item.titulo.substr(0, 25);
+            //let tema = item.titulo.substr(0, 25);
+            let tema = item.titulo;
 
             if (item.id == this.state.id) {
                 temaSelected = React.createElement(

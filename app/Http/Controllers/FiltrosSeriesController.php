@@ -141,7 +141,8 @@ class FiltrosSeriesController extends Controller
                 ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
                 ->where([
                     ['textos_series.idioma_sigla', $lang],
-                    ['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%']
+                    ['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%'],
+                    ['status', 1]
                 ])
                 ->where('idiomas_periodicidades.idioma_sigla', $lang)
                 ->where('idiomas_unidades.idioma_sigla', $lang)

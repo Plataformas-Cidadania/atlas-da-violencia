@@ -18,7 +18,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     $scope.maxSize = 5;
     $scope.itensPerPage = 20;
     $scope.dadoPesquisa = '';
-    $scope.campos = "series.id, textos_series.titulo";
+    $scope.campos = "series.id, textos_series.titulo, series.status";
     $scope.campoPesquisa = "textos_series.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -286,5 +286,24 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
         });
     };
     ////////////////////////////////////////////
+
+    $scope.status = function(id){
+        $scope.mensagemStatus = '';
+        $scope.idStatus = '';
+        $scope.processandoStatus = true;
+        $http({
+            url: 'cms/status-serie/'+id,
+            method: 'GET'
+        }).success(function(data, status, headers, config){
+            $scope.processandoStatus = false;
+            $scope.mensagemStatus = 'color-success';
+            $scope.idStatus = id;
+            listarSeries();
+        }).error(function(data){
+            $scope.message = "Ocorreu um erro: "+data;
+            $scope.processandoStatus = false;
+            $scope.mensagemStatus = "Erro ao tentar status!";
+        });
+    };
 
 }]);

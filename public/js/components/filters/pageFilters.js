@@ -266,7 +266,7 @@ class PageFilters extends React.Component {
                 { className: 'row' },
                 React.createElement(
                     'div',
-                    { className: 'col-md-3' },
+                    { className: 'col-md-12' },
                     React.createElement(
                         'fieldset',
                         { style: { marginTop: '-15px' } },
@@ -311,7 +311,8 @@ class PageFilters extends React.Component {
                 ),
                 React.createElement(
                     'div',
-                    { className: 'col-md-9' },
+                    { className: 'col-md-12' },
+                    React.createElement('br', null),
                     React.createElement('input', { className: 'form-control', onChange: this.handleSearch, type: 'text', placeholder: this.props.lang_search_name }),
                     React.createElement('br', null),
                     React.createElement(

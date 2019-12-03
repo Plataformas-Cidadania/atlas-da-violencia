@@ -104,6 +104,14 @@ null, ['class'=>"form-control width-medio <% validar(serie.abrangencia) %>", 'ng
         $fontes,
 null, ['class'=>"form-control width-medio <% validar(serie.fonte_id) %>", 'ng-model'=>'serie.fonte_id', 'ng-required'=>'true', 'init-model'=>'serie.fonte_id', 'placeholder' => 'Selecione']) !!}<br>
 
+{!! Form::label('status', 'Status *') !!}<br>
+{!! Form::select('status',
+        [
+            0 => 'Inativo',
+            1 => 'Ativo'
+        ],
+null, ['class'=>"form-control width-medio <% validar(serie.status) %>", 'ng-model'=>'serie.status', 'ng-required'=>'true', 'init-model'=>'serie.status', 'placeholder' => 'Selecione']) !!}<br>
+
 
 {{--<input type="hidden" name="serie_id" ng-model="serie.serie_id" ng-init="serie.serie_id=0"/>--}}
 

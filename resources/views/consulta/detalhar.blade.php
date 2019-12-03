@@ -2,9 +2,9 @@
 @section('title', "")
 @section('content')
    <div class="container">
-       <h1>{{$consulta->titulo}}</h1>
+       {{--<h1>{{$consulta->titulo}}</h1>
 
-       <br>
+       <br>--}}
        {{--<a class="btn btn-info" href="downloads/2/{{$consulta->id}}">Downloads</a>
        <br>--}}
 
