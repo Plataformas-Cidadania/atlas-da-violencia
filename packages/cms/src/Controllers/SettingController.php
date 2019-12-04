@@ -19,7 +19,7 @@ class SettingController extends Controller
         $this->campos = [
             'imagem', 'email', 'titulo', 'rodape', 'cep', 'endereco', 'numero', 'complemento', 'bairro', 'cidade', 'estado',
             'descricao_contato', 'telefone', 'telefone2', 'telefone3', 'facebook', 'youtube', 'pinterest', 'twitter', 'cor1', 'cor2', 'cor3', 'cor4', 'cor5',
-            'serie_id', 'email_host', 'email_port', 'email_address', 'email_name', 'email_user', 'email_password',
+            'email_host', 'email_port', 'email_address', 'email_name', 'email_user', 'email_password',
             'consulta_por_temas', 'consulta_filtros_indicadores', 'qtd_temas_home', 'google', 'latitude', 'longitude',
             'posicao_mapa', 'posicao_tabela', 'posicao_grafico', 'posicao_taxa', 'posicao_metadados',
             'analytics_tipo', 'analytics_id', 'analytics_url',
@@ -95,6 +95,10 @@ class SettingController extends Controller
                 $data['setting'] += [$campo => ''];
             }
         }
+    }
+
+    if(!array_key_exists('serie_id', $data)){
+        $data['setting'] += ['serie_id' => 0];
     }
 
     $setting = $this->setting->firstOrFail();
