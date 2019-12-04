@@ -25,6 +25,8 @@ class SettingController extends Controller
             'analytics_tipo', 'analytics_id', 'analytics_url',
         ];
         $this->pathImagem = public_path().'/imagens/settings';
+        $this->pathArquivo = public_path().'/arquivos/settings';
+
         $this->sizesImagem = [
             'xs' => ['width' => 140, 'height' => 35],
             'sm' => ['width' => 380, 'height' => 95],
@@ -101,11 +103,57 @@ class SettingController extends Controller
         $data['setting'] += ['serie_id' => 0];
     }
 
+    if($data['setting']['serie_id'] == ''){
+        $data['setting']['serie_id'] = 0;
+    }
+
     $setting = $this->setting->firstOrFail();
     
     $file = $request->file('file');
-    
+    $csv_serie = $request->file('csv_serie');
+
+    //remover imagem
+    if($data['removerImagem']){
+        $data['setting']['imagem'] = '';
+        if(file_exists($this->pathImagem."/".$setting->imagem)) {
+            unlink($this->pathImagem . "/" . $setting->imagem);
+        }
+    }
+
+    if($data['removerCsvSerie']){
+        $data['setting']['csv_serie_home'] = '';
+        if(file_exists($this->pathArquivo."/".$setting->csv_serie_home)) {
+            unlink($this->pathArquivo . "/" . $setting->csv_serie_home);
+        }
+    }
+
+    $successFile = true;
     if($file!=null){
+        $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
+        $imagemCms = new ImagemCms();
+        $successFile = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $setting);
+        if($successFile){
+            $data['setting']['imagem'] = $filename;
+        }
+    }
+    $successCsvSerie = true;
+    if($csv_serie!=null){
+        $filenameArquivo = rand(1000,9999)."-".clean($csv_serie->getClientOriginalName());
+        $successCsvSerie = $csv_serie->move($this->pathArquivo, $filenameArquivo);
+        if($successCsvSerie){
+            $data['setting']['csv_serie_home'] = $filenameArquivo;
+        }
+    }
+
+    if($successFile && $successCsvSerie){
+
+        $setting->update($data['setting']);
+        return $setting->imagem;
+    }else{
+        return "erro";
+    }
+    
+    /*if($file!=null){
         $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
         $imagemCms = new ImagemCms();
         $success = $imagemCms->alterar($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal, $setting);
@@ -127,6 +175,8 @@ class SettingController extends Controller
     }
     
     $setting->update($data['setting']);
-    return "Gravado com sucesso";
+    return "Gravado com sucesso";*/
+    
+    
     }
 }

@@ -56,7 +56,7 @@
                         '0' => 'Série',
                         '1' => 'CSV',
                     ),
-            null, ['class'=>"form-control width-medio <% validar(setting.dados_serie_home) %>", 'ng-model'=>'setting.dados_serie_home', 'ng-required'=>'true', 'init-model'=>'setting.dados_serie_home', 'placeholder' => '']) !!}<br>
+            null, ['class'=>"form-control width-medio <% validar(setting.dados_serie_home) %>", 'ng-model'=>'setting.dados_serie_home', 'ng-required'=>'true', 'init-model'=>'setting.dados_serie_home', 'placeholder' => 'Selecione']) !!}<br>
 
             <div ng-show="setting.dados_serie_home==0">
                 {!! Form::label('serie_id', 'Séries home *') !!}<br>
@@ -66,7 +66,13 @@
             </div>
 
             <div ng-show="setting.dados_serie_home==1">
-                <h4>###Inserir CSV###</h4>
+                <span class="btn btn-primary btn-file" ng-show="!fileCsvSerie && !csvSerieBD">
+                    Escolher CSV da Série <input  type="file" ngf-select ng-model="fileCsvSerie" name="fileCsvSerie" accept=".csv" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+                    </span>
+                <button class="btn btn-danger" ng-click="limparCsvSerie()" ng-show="fileCsvSerie || csvSerieBD" type="button">Remover Arquivo</button>
+                <a href="arquivos/series/<% csvSerieBD %>" target="_blank" ng-show="csvSerieBD"><% csvSerieBD %></a>
+                <a ng-show="fileCsvSerie"><% fileCsvSerie.name %></a>
+                <br><br>
             </div>
 
             {!! Form::label('video_home', 'Video') !!}<br>

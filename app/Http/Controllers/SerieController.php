@@ -730,6 +730,8 @@ class SerieController extends Controller
     }
 
     function homeChart($id){
+        $lang =  App::getLocale();
+
         $rows = DB::table('valores_series')
             ->select(DB::raw("spat.ed_territorios_paises.edterritorios_nome, valores_series.valor, valores_series.periodo"))
             ->join('spat.ed_territorios_paises', 'valores_series.regiao_id', '=', 'spat.ed_territorios_paises.edterritorios_codigo')
@@ -753,11 +755,33 @@ class SerieController extends Controller
                 ->get();
         }
 
+        $serie = \App\Serie::select('series.id', 'textos_series.titulo')
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+            ->where('series.id', $id)
+            ->where('textos_series.idioma_sigla', $lang)
+            ->first();
+
+        /*$data = [
+            0 => [
+                'titulo' => $serie->titulo,
+                'valores' => []
+            ],
+            1 => [
+                'titulo' => 'teste b',
+                'valores' => []
+            ]
+        ];*/
+
         $data = [];
 
         foreach($rows as $row){
             $data[$row->periodo] = $row->valor;
         }
+
+        /*foreach($rows as $row){
+            $data[0]['valores'][$row->periodo] = $row->valor;
+            $data[1]['valores'][$row->periodo] = $row->valor+5;
+        }*/
 
         //testando varias abrangencias
         /*foreach ($rows as $row) {

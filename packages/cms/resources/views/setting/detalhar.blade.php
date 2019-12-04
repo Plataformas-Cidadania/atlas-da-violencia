@@ -6,7 +6,7 @@
         <div class="box-padrao">
             <h1>{{--<a href="/cms"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;--}}<i class="fa fa-fw fa-cog"></i>&nbsp;Settings</h1>
             <?php //print_r($setting);?>
-            <div ng-init="carregaImagem('{{$setting->imagem}}')">
+            <div ng-init="carregaImagem('{{$setting->imagem}}', '{{$setting->csv_serie_home}}')">
                 <span class="texto-obrigatorio">campos obrigatórios</span><br><br>
                 {!! Form::model($setting, ['name' =>'form']) !!}
                 {{--IMG >>>>>--}}
@@ -35,7 +35,7 @@
 
                 <div class="row">
                     <div class="col-md-1 col-lg-1 col-xs-3">
-                        <button class="btn btn-info" type="button" ng-click="alterar(picFile)" ng-disabled="form.$invalid && form.quemsomo.$dirty">Salvar</button>
+                        <button class="btn btn-info" type="button" ng-click="alterar(picFile, fileCsvSerie)" ng-disabled="form.$invalid && form.quemsomo.$dirty">Salvar</button>
                     </div>
                     <div class="col-md-2 col-lg-2 col-xs-6">
                         <span class="progress" ng-show="picFile.progress >= 0">
