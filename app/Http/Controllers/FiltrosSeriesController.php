@@ -123,7 +123,7 @@ class FiltrosSeriesController extends Controller
         $cacheKey = 'series-'.$parameters['tema_id'].'-'.$str_indicadores.'-'.$str_abrangencias.'-'.$lang;
 
 
-        //exclui o cache. Utilizar apenas para testes.
+        /*//exclui o cache. Utilizar apenas para testes.
         $this->cache->forget($cacheKey);
 
         //DB::connection()->enableQueryLog();
@@ -162,8 +162,37 @@ class FiltrosSeriesController extends Controller
         }
 
 
+        $series = $this->cache->get($cacheKey);*/
 
-        $series = $this->cache->get($cacheKey);
+        $series = DB::table('series')
+            ->select('series.id', 'series.tipo_dados', 'textos_series.titulo as titulo', 'idiomas_unidades.titulo as titulo_unidade', 'idiomas_periodicidades.titulo as periodicidade')
+            ->join('unidades', 'unidades.id', '=', 'series.unidade')
+            ->join('idiomas_unidades', 'idiomas_unidades.unidade_id', '=', 'unidades.id')
+            ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
+            ->join('idiomas_periodicidades', 'idiomas_periodicidades.periodicidade_id', '=', 'periodicidades.id')
+            ->join('temas_series', 'temas_series.serie_id', '=', 'series.id')
+            ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
+            ->where([
+                ['textos_series.idioma_sigla', $lang],
+                ['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%'],
+                ['status', 1]
+            ])
+            ->where('idiomas_periodicidades.idioma_sigla', $lang)
+            ->where('idiomas_unidades.idioma_sigla', $lang)
+            ->when(!empty($parameters['indicadores']), function($query) use ($parameters){
+                return $query->whereIn('series.indicador', $parameters['indicadores']);
+            })
+            ->when(!empty($temas), function($query) use ($temas){
+                return $query->whereIn('tema_id', $temas);
+            })
+            ->when($consulta_por_temas == 1, function($query) use ($parameters){
+                return $query->where('tema_id', $parameters['tema_id']);
+            })
+            ->orderBy('textos_series.titulo')
+            ->groupBy('series.id', 'series.tipo_dados', 'textos_series.titulo', 'idiomas_unidades.titulo', 'idiomas_periodicidades.titulo')
+            ->paginate($parameters['limit']);
+
+        //Log::info(count($series));
 
         //return DB::getQueryLog();
 

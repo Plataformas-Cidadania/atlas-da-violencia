@@ -17,7 +17,7 @@ class PageFilters extends React.Component{
             to: null,
             loadingDefaultValues: false,
             loadingItems: false,
-            limitItems: 20,
+            limitItems: 30,
             serieIdDownload: 0,
             optionsAbrangencia: [
                 {id: 1, title: 'País', plural: ' os Países', on:false, listAll:1, height: '250px'},
@@ -87,7 +87,8 @@ class PageFilters extends React.Component{
             regions: [],
             periodos: [],
             from: null,
-            to:null
+            to:null,
+            currentPageListItems: 1
         }, function(){
             this.loadItems();
         });
@@ -101,7 +102,7 @@ class PageFilters extends React.Component{
 
     handleSearch(e){
         e.preventDefault();
-        this.setState({search: e.target.value}, function(){
+        this.setState({search: e.target.value, currentPageListItems: 1}, function(){
             this.loadItems();
         });
     }
