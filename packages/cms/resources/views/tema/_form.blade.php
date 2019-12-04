@@ -29,3 +29,6 @@ null, ['class'=>"form-control width-medio <% validar(tema.tema_id) %>", 'ng-mode
 {!! Form::label('titulo', 'Tema *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(idioma.titulo) %>", 'ng-model'=>'idioma.titulo', 'ng-required'=>'true', 'init-model'=>'idioma.titulo', 'placeholder' => '']) !!}<br>
 @endif
+
+{!! Form::label('position', 'Posição *') !!}<br>
+{!! Form::text('position', null, ['class'=>"form-control width-grande <% validar(idioma.position) %>", 'ng-model'=>'idioma.position', 'ng-required'=>'true', 'init-model'=>'idioma.position', 'placeholder' => '']) !!}<br>
