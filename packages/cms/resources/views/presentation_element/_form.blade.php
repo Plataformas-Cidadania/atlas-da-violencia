@@ -16,7 +16,7 @@ null, ['class'=>"form-control width-medio <% validar(element.status) %>", 'ng-mo
 
 
 <?php
-$qtdRows = 10;
+$qtdRows = 20;
 $rows = [];
 for($i=1;$i<=$qtdRows;$i++){
     $rows[$i] = $i;

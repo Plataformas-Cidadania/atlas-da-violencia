@@ -92,6 +92,11 @@
                                 <i ng-if="ordem=='idiomas_temas.idioma_sigla' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='idiomas_temas.idioma_sigla' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
+                            <th ng-click="ordernarPor('idiomas_temas.position')" style="temar:pointer;">
+                                Posição
+                                <i ng-if="ordem=='position' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
+                                <i ng-if="ordem=='position' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
+                            </th>
                             <th></th>
                         </tr>
                         </thead>
