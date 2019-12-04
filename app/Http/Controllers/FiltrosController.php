@@ -53,7 +53,7 @@ class FiltrosController extends Controller
                     ->orWhere('temas.tipo', $tipo);
             })
             ->where('temas.status', 1)
-            ->orderBy('idiomas_temas.titulo')
+            ->orderBy('temas.position')
             ->get();
 
         if(count($temasBd)==0){

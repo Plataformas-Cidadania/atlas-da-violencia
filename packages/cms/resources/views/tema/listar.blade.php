@@ -103,6 +103,11 @@
                             <td><a href="cms/idiomas-temas/<% tema.id %>"><% tema.idioma_sigla %></a></td>
                             <td class="text-right">
                                 <div>
+                                    <a><i class="fa fa-arrow-circle-up fa-2x" title="Posição" ng-click="positionUp(tema.id);" style="cursor: pointer;" ng-hide="<% $first %>"></i></a>
+                                    <a><i class="fa fa-minus-circle fa-2x" title="Posição"   ng-show="<% $first %>" style="color: #CCCCCC; margin-right: 5px;"></i></a>&nbsp;&nbsp;
+
+                                    <a><i class="fa fa-arrow-circle-down fa-2x" title="Posição" ng-click="positionDown(tema.id);"  style="cursor: pointer;" ng-hide="<% $last %>"></i></a>
+                                    <a><i class="fa fa-minus-circle fa-2x" title="Posição"   ng-show="<% $last %>" style="color: #CCCCCC; margin-right: 5px;"></i></a>
                                     <a ng-class="<% tema.status %> == 1 ? 'color-success' : 'color-success-inactive'"  style="cursor: pointer;"><i class="fa fa-check-circle fa-2x" aria-hidden="true" ng-click="status(tema.id);"></i></a>
                                     <a href="cms/idiomas-temas/<% tema.id %>"><i class="fa fa-language fa-2x" title="Idiomas"></i></a>&nbsp;&nbsp;
                                     <a href="cms/tema/<% tema.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;

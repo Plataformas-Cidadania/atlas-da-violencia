@@ -231,7 +231,36 @@ class TemaController extends Controller
 
     }
 
-    
+    public function positionUp($id)
+    {
+
+        $posicao_atual = DB::table('temas')->where('id', $id)->first();
+        $upPosicao = $posicao_atual->position-1;
+        $posicao = $posicao_atual->position;
+
+        //Coloca com a posicao do anterior
+        DB::table('temas')->where('position', $upPosicao)->update(['position' => $posicao]);
+
+        //atualiza a posicao para o anterior
+        DB::table('temas')->where('id', $id)->update(['position' => $upPosicao]);
+
+
+    }
+
+    public function positionDown($id)
+    {
+
+        $posicao_atual = DB::table('temas')->where('id', $id)->first();
+        $upPosicao = $posicao_atual->position+1;
+        $posicao = $posicao_atual->position;
+
+        //Coloca com a posicao do anterior
+        DB::table('temas')->where('position', $upPosicao)->update(['position' => $posicao]);
+
+        //atualiza a posicao para o anterior
+        DB::table('temas')->where('id', $id)->update(['position' => $upPosicao]);
+
+    }
 
 
 }

@@ -7,11 +7,11 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "temas.id, idiomas_temas.titulo, idiomas_temas.idioma_sigla, temas.imagem, temas.status";
+    $scope.campos = "temas.id, idiomas_temas.titulo, idiomas_temas.idioma_sigla, temas.imagem, temas.status, temas.position";
     $scope.campoPesquisa = "idiomas_temas.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "idiomas_temas.titulo";
+    $scope.ordem = "temas.position";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 
@@ -205,6 +205,27 @@ cmsApp.controller('temaCtrl', ['$scope', '$http', 'Upload', '$timeout', function
         });
     };
     //////////////////////////////////
+    $scope.positionUp = function(id){
+        $scope.idPositionUp = '';
+        $http({
+            url: 'cms/positionUp-tema/'+id,
+            method: 'GET'
+        }).success(function(data, positionUp, headers, config){
+            $scope.idPositionUp = id;
+            listarTemas();
+        });
+    };
+    $scope.positionDown = function(id){
+        $scope.idPositionDown = '';
+        $http({
+            url: 'cms/positionDown-tema/'+id,
+            method: 'GET'
+        }).success(function(data, positionDown, headers, config){
+            $scope.idPositionDown = id;
+            listarTemas();
+        });
+    };
+    /////////////////////////////////////
     $scope.status = function(id){
         //console.log(id);
         $scope.mensagemStatus = '';
