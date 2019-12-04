@@ -258,7 +258,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                             <li>
                                 <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i
                                             class="fa fa-fw fa-arrows-v"></i> Webservice  <i class="fa fa-fw fa-caret-down"></i></a>
-                                <ul id="demo1" class="collapse @if($rota=="cms/directives" || $rota=="cms/artworks" || $rota=="cms/printings") show @endif">
+                                <ul id="demo1" class="collapse @if($rota=="cms/apis") show @endif">
                                     <li>
                                         <a href="cms/quemsomos/10/api">Descricao</a>
                                     </li>
@@ -290,9 +290,9 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                         </style>
 
                             <li>
-                                <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i
+                                <a href="javascript:;" data-toggle="collapse" data-target="#demo-marca"><i
                                             class="fa fa-fw fa-arrows-v"></i> Marca <i class="fa fa-fw fa-caret-down"></i></a>
-                                <ul id="demo1" class="collapse @if($rota=="cms/directives" || $rota=="cms/artworks" || $rota=="cms/printings") show @endif">
+                                <ul id="demo-marca" class="collapse @if($rota=="cms/directives" || $rota=="cms/artworks" || $rota=="cms/printings") show @endif">
                                     <li>
                                         <a href="cms/quemsomos/8/marca">Descrição</a>
                                     </li>
