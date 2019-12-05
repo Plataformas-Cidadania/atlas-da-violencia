@@ -36,7 +36,11 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
     @if(!empty($series))
     <script>
+        @if($setting->dados_serie_home == 0)
         $.ajax("home-chart/<?php echo $setting->serie_id;?>", {
+        @else
+        $.ajax("home-chart-csv", {
+        @endif
             data: {},
             success: function(data){
                 console.log(data);

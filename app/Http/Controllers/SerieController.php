@@ -730,12 +730,12 @@ class SerieController extends Controller
     }
 
     function homeChart($id){
-        $dados_serie_home = \App\Setting::select('dados_serie_home')->first()->dados_serie_home;
 
-        $data = $dados_serie_home == 0 ? $this->homeChartSeries($id) : $this->homeChartCSV();
+        $data = $this->homeChartSeries($id);
 
         return $data;
     }
+
 
     private function homeChartSeries($id){
         $lang =  App::getLocale();
@@ -783,7 +783,7 @@ class SerieController extends Controller
         return $data;
     }
 
-    private function homeChartCSV(){
+    public function homeChartCSV(){
         $csv = \App\Setting::select('csv_serie_home')->first()->csv_serie_home;
 
         $array = $this->csvToArray($csv);

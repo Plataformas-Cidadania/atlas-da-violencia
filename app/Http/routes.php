@@ -107,6 +107,7 @@ Route::get('get-options-abrangencia/', 'SerieController@getOptionsAbrangencia');
 Route::get('periodos/{id}/{abrangencia}', 'MapController@periodos');
 
 Route::get('home-chart/{id}', 'SerieController@homeChart');
+Route::get('home-chart-csv', 'SerieController@homeChartCsv');
 
 //Component Indicadores na pg filtros
 Route::get('get-indicadores-series/{serie_id}', 'SerieController@getIndicadoresSeries');
