@@ -156,7 +156,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                             {{--GRAFICO--}}
                             <a href="" class="item active" style="margin-top: -30px;">
                                 <div style="width:100%;">
-                                    @if(!empty($series))
+                                    @if(!empty($series) || $setting->dados_serie_home == 1)
                                         <canvas id="canvas" height="160"></canvas>
                                     @endif
                                 </div>
