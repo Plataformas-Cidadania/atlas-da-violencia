@@ -40,7 +40,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 data: {},
                 success: function(data){
                     console.log(data);
-                    homeChart(data, '...');
+                    homeChart(data, ' ');
                     ctx = document.getElementById("canvas").getContext("2d");
                     window.myLine = new Chart(ctx, config);
                     intervalo = window.setInterval('counterTime()', 570);
