@@ -34,35 +34,52 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="js/chart/utils.js"></script>
     <script src="js/chart/chartAnimate.js"></script>
 
-    @if(!empty($series))
-    <script>
-        @if($setting->dados_serie_home == 0)
-        $.ajax("home-chart/<?php echo $setting->serie_id;?>", {
-        @else
-        $.ajax("home-chart-csv", {
+    @if($setting->dados_serie_home == 1)
+        <script>
+            $.ajax("home-chart-csv", {
+                data: {},
+                success: function(data){
+                    console.log(data);
+                    homeChart(data, '<?php echo $series->titulo;?>');
+                    ctx = document.getElementById("canvas").getContext("2d");
+                    window.myLine = new Chart(ctx, config);
+                    intervalo = window.setInterval('counterTime()', 570);
+                },
+                error: function(data){
+                    console.log('erro');
+                }
+            });
+
+            $('.carousel').carousel({
+                interval: 10000
+            })
+
+        </script>
+    @else
+        @if(!empty($series))
+            <script>
+                $.ajax("home-chart/<?php echo $setting->serie_id;?>", {
+                    data: {},
+                    success: function(data){
+                        console.log(data);
+                        homeChart(data, '<?php echo $series->titulo;?>');
+                        ctx = document.getElementById("canvas").getContext("2d");
+                        window.myLine = new Chart(ctx, config);
+                        intervalo = window.setInterval('counterTime()', 570);
+                    },
+                    error: function(data){
+                        console.log('erro');
+                    }
+                });
+
+                $('.carousel').carousel({
+                    interval: 10000
+                })
+
+            </script>
         @endif
-            data: {},
-            success: function(data){
-                console.log(data);
-                homeChart(data, '<?php echo $series->titulo;?>');
-                ctx = document.getElementById("canvas").getContext("2d");
-                window.myLine = new Chart(ctx, config);
-                intervalo = window.setInterval('counterTime()', 570);
-            },
-            error: function(data){
-                console.log('erro');
-            }
-        });
-
-        $('.carousel').carousel({
-            interval: 10000
-        })
-
-    </script>
     @endif
 
-
-    {
 @endif
 @if($rota=='renda')
     <script>
