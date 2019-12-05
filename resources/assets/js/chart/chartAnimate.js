@@ -13,12 +13,12 @@ var values = [];
 function homeChart(data, titulo){
     //var MONTHS = ["1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"];
 
-    let count = 0;
+    /*let count = 0;
     for(let i in data){
         labels[count] = i.substr(0, 4);
         values[count] = data[i];
         count++;
-    }
+    }*/
 
     var colors = [
         '#008ECC',
@@ -33,7 +33,7 @@ function homeChart(data, titulo){
         '#DDD203'
     ];
 
-    /*for(let i in data){
+    for(let i in data){
         values[i] = [];
 
         for(let j in data[i]['valores']){
@@ -65,10 +65,13 @@ function homeChart(data, titulo){
                 display:true,
             }
         }
-    };*/
+    };
 
+    console.log(config);
 
-    config = {
+    console.log(values);
+
+    /*config = {
         type: 'line',
         data: {
             labels: [labels[0], labels[1]],
@@ -86,28 +89,33 @@ function homeChart(data, titulo){
                 display:true,
             }
         }
-    };
-}
+    };*/
 
-/*function counterTime(){
+}
+var indexLabelValue = 2;
+function counterTime(){
     if(config.data.labels.length == labels.length){
         clearInterval(intervalo);
     }
 
     if (config.data.datasets.length > 0 && config.data.labels.length < labels.length) {
-        var label = labels[config.data.labels.length % labels.length];
+        var label = labels[indexLabelValue];
         config.data.labels.push(label);
+        //console.log(label);
 
         config.data.datasets.forEach(function(dataset, index) {
-            var value = values[index][dataset.data.length % values.length];
+            var value = values[index][indexLabelValue];
+            //console.log(index, value, dataset.data.length, indexLabelValue);
             dataset.data.push(value);
         });
 
+        indexLabelValue++;
+
         window.myLine.update();
     }
-}*/
+}
 
-function counterTime(){
+/*function counterTime(){
     if(config.data.labels.length == labels.length){
         clearInterval(intervalo);
     }
@@ -123,7 +131,7 @@ function counterTime(){
 
         window.myLine.update();
     }
-}
+}*/
 
 window.onload = function() {
 

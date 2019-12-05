@@ -73,6 +73,19 @@
                 <a href="arquivos/series/<% csvSerieBD %>" target="_blank" ng-show="csvSerieBD"><% csvSerieBD %></a>
                 <a ng-show="fileCsvSerie"><% fileCsvSerie.name %></a>
                 <br><br>
+                <div><strong>Exemplo: teste.csv</strong></div>
+                <div style="padding: 10px; background-color: #ccc; color:#333; width:400px;">
+                    dataset;name;x;y<br>
+                    0;Série A;2015;10<br>
+                    0;Série A;2016;15<br>
+                    0;Série A;2017;18<br>
+                    0;Série A;2018;20<br>
+                    1;Série B;2015;15<br>
+                    1;Série B;2016;19<br>
+                    1;Série B;2017;16<br>
+                    1;Série B;2018;18<br>
+                </div>
+                <br>
             </div>
 
             {!! Form::label('video_home', 'Video') !!}<br>

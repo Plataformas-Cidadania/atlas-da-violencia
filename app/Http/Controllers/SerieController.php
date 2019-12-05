@@ -730,6 +730,14 @@ class SerieController extends Controller
     }
 
     function homeChart($id){
+        $dados_serie_home = \App\Setting::select('dados_serie_home')->first()->dados_serie_home;
+
+        $data = $dados_serie_home == 0 ? $this->homeChartSeries($id) : $this->homeChartCSV();
+
+        return $data;
+    }
+
+    private function homeChartSeries($id){
         $lang =  App::getLocale();
 
         $rows = DB::table('valores_series')
@@ -761,39 +769,73 @@ class SerieController extends Controller
             ->where('textos_series.idioma_sigla', $lang)
             ->first();
 
-        /*$data = [
+        $data = [
             0 => [
                 'titulo' => $serie->titulo,
                 'valores' => []
-            ],
-            1 => [
-                'titulo' => 'teste b',
-                'valores' => []
             ]
-        ];*/
+        ];
+
+        foreach($rows as $row){
+            $data[0]['valores'][$row->periodo] = $row->valor;
+        }
+
+        return $data;
+    }
+
+    private function homeChartCSV(){
+        $csv = \App\Setting::select('csv_serie_home')->first()->csv_serie_home;
+
+        $array = $this->csvToArray($csv);
 
         $data = [];
 
-        foreach($rows as $row){
-            $data[$row->periodo] = $row->valor;
+        foreach ($array as $item) {
+            if($item['dataset'] != null){
+                if(!array_key_exists($item['dataset'], $data)){
+                    $data[$item['dataset']]['titulo'] = $item['name'];
+                    $data[$item['dataset']]['valores'] = [];
+                }
+                $data[$item['dataset']]['valores'][$item['x']] = preg_replace("/[^0-9]/", "", $item['y']);
+
+            }
         }
 
-        /*foreach($rows as $row){
-            $data[0]['valores'][$row->periodo] = $row->valor;
-            $data[1]['valores'][$row->periodo] = $row->valor+5;
-        }*/
-
-        //testando varias abrangencias
-        /*foreach ($rows as $row) {
-            if(!array_key_exists($row->regiao_id, $data)){
-                $data[$row->regiao_id]['territorio'] = $row->edterritorios_nome;
-                $data[$row->regiao_id]['periodos'] = [];
-            }
-            $data[$row->regiao_id]['periodos'][$row->periodo] = $row->valor;
-        }*/
-
-
         return $data;
+    }
+
+    private function csvToArray($filename){
+        $array = [];
+
+        $file = fopen(public_path()."/arquivos/settings/$filename", "r");
+
+        $cont = 0;
+        $columns = [];
+        while(!feof($file)){
+            $linha = fgets($file, 4096);
+            $values = explode(';', $linha);
+
+            if($cont==0){
+                foreach($values as $key => $value){
+                    $values[$key] = somenteLetrasNumeros(clean($value, "_"), "_");
+                }
+                $columns = $values;
+                //Log::info($columns);
+            }else{
+                $row = [];
+                foreach($values as $key => $value){
+                    $row[$columns[$key]] = $value;
+                }
+                if(!empty($row)){
+                    array_push($array, $row);
+                }
+
+
+            }
+            $cont++;
+        }
+
+        return $array;
     }
 
     public function downloadDados(Request $request){

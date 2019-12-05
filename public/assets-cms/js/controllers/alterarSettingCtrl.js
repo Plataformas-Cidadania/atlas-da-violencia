@@ -9,7 +9,7 @@ cmsApp.controller('alterarSettingCtrl', ['$scope', '$http', 'Upload', '$timeout'
    // $scope.tinymceOptions = tinymceOptions;
 
     $scope.mostrarForm = false;
-    $scope.removerImagem = false;
+    $scope.removerImagem = 0;
     $scope.removerCsvSerie = 0;
 
     $scope.alterar = function (file, csv_serie){
