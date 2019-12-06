@@ -37,14 +37,20 @@
                     @endforeach
                 </select>
             </div>
+
+
+        </div>
+    </div>
+    <br>
+        <div class="container-fluid">
             <div class="col-md-12">
                 @foreach($indicadores as $key => $indicador)
                     <div @if($key>0) style="display:none;" @endif id="aba-{{$key}}">
                         <iframe
                                 @if($indicador->url)
-                                    src="{{$indicador->url}}"
+                                src="{{$indicador->url}}"
                                 @else
-                                    src="arquivos/rmd/{{$indicador->arquivo}}"
+                                src="arquivos/rmd/{{$indicador->arquivo}}"
                                 @endif
                                 frameborder="0" width="100%" height="1200">
 
@@ -52,9 +58,7 @@
                     </div>
                 @endforeach
             </div>
-
         </div>
-    </div>
     @endif
 @endsection
 
