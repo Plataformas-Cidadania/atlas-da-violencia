@@ -62,6 +62,7 @@ Route::get('downloads/{serie_id}/{titulo}', 'DownloadController@listar');
 Route::get('downloads/{origem}/{origem_id}', 'DownloadController@listar');
 Route::get('download/{id}', 'DownloadController@detalhar');
 Route::get('download/{id}/{titulo}', 'DownloadController@detalhar');
+Route::get('download-zip/{id}', 'DownloadController@download');
 
 //VÍDEOS
 Route::post('busca-videos/', 'VideoController@buscar');

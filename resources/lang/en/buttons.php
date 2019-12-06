@@ -6,5 +6,6 @@ return [
     'view-more' => 'View more',
     'more-details' => 'More details',
     'access-file' => 'Access file',
-    'download-pdf' => 'Download pdf',
+    'download-file' => 'Download File',
+    'download-pdf' => 'Download PDF',
 ];

@@ -134,10 +134,25 @@
                 @foreach($downloads as $download)
                 <div class="col-md-4 text-center">
                     <img src="img/marker.png" alt=""><br><br><br><br>
-                    <a href="download/{{$download->id}}/{{clean($download->titulo)}}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="line-temp-font">{{$download->titulo}}</p><br><br><br>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="download/{{$download->id}}/{{clean($download->titulo)}}">
+                                <button class="btn btn-default">@lang('buttons.access-file')</button>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="download-zip/{{$download->id}}">
+                                <button class="btn btn-default">@lang('buttons.download-file')</button>
+                            </a>
+                        </div>
+                    </div>
+                    {{--<a href="download/{{$download->id}}/{{clean($download->titulo)}}">
                         <p class="line-temp-font">{{$download->titulo}}</p><br><br><br>
                         <button class="btn btn-default">@lang('buttons.download-pdf')</button>
-                    </a>
+                    </a>--}}
                 </div>
                 @endforeach
 

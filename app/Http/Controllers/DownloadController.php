@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use Zip;
 
 //use Illuminate\Support\Facades\Storage;
 
@@ -52,6 +53,18 @@ class DownloadController extends Controller
         ])*/->paginate(25);
 
         return view('download.listar', ['downloads' => $downloads]);
+
+    }
+
+    public function download($id){
+
+        $arquivo = \App\Download::select('arquivo')->find($id)->arquivo;
+
+        $zip = Zip::create(public_path().'/arquivos/downloads/'.$arquivo.'.zip');
+        $zip->add(public_path().'/arquivos/downloads/'.$arquivo);
+        $zip->close();
+
+        return response()->download(public_path().'/arquivos/downloads/'.$arquivo.'.zip');
 
     }
 }
