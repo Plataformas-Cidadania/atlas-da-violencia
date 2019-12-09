@@ -20,7 +20,7 @@ class HomeController extends Controller
         $tags = DB::table('links')->select('tags')->groupBy('tags')->orderBy('tags')->get();
         $links = DB::table('links')->where('idioma_sigla', $lang)->orderBy('posicao')->take(10)->get();
         $bemvindo = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 0)->first();
-        $webdoors = DB::table('webdoors')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->take(4)->get();
+        $webdoors = DB::table('webdoors')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->take(10)->get();
         $menu = \App\Menu::where('menu_id', 0)->get();
         $video = \App\Video::orderBy('id', 'desc')->first();
         $indices = \App\Indice::where('idioma_sigla', $lang)->where('status', 1)->orderBy('posicao')->take(4)->get();
