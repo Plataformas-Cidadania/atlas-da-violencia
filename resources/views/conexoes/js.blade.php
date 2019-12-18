@@ -40,7 +40,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 data: {},
                 success: function(data){
                     console.log(data);
-                    homeChart(data, ' ');
+                    homeChart(data, '{{$setting->titulo_serie_home}}', '{{$setting->cores_serie_home}}');
                     ctx = document.getElementById("canvas").getContext("2d");
                     window.myLine = new Chart(ctx, config);
                     intervalo = window.setInterval('counterTime()', 570);
@@ -62,7 +62,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     data: {},
                     success: function(data){
                         console.log(data);
-                        homeChart(data, '<?php echo $series->titulo;?>');
+                        homeChart(data, '<?php echo $series->titulo;?>', '{{$setting->cores_serie_home}}');
                         ctx = document.getElementById("canvas").getContext("2d");
                         window.myLine = new Chart(ctx, config);
                         intervalo = window.setInterval('counterTime()', 570);

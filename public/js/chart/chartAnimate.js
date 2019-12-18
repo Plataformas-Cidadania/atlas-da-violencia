@@ -10,7 +10,7 @@ var config = {};
 var values = [];
 
 
-function homeChart(data, titulo){
+function homeChart(data, titulo, cores){
     //var MONTHS = ["1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"];
 
     /*let count = 0;
@@ -20,7 +20,7 @@ function homeChart(data, titulo){
         count++;
     }*/
 
-    var colors = [
+    /*var colors = [
         '#008ECC',
         '#F29E19',
         '#008239',
@@ -31,7 +31,9 @@ function homeChart(data, titulo){
         '#009839',
         '#502382',
         '#DDD203'
-    ];
+    ];*/
+
+    colors = cores.split(',');
 
     for(let i in data){
         values[i] = [];
@@ -40,8 +42,8 @@ function homeChart(data, titulo){
             if(!labels.includes(j.substr(0, 4))){
                 labels.push(j.substr(0, 4))//ano
             }
-            values[i].push(data[i]['valores'][j])
-
+            values[i].push(data[i]['valores'][j]);
+            console.log(data[i]['valores'][j]);
         }
 
         datasets.push({
@@ -53,6 +55,12 @@ function homeChart(data, titulo){
         });
     }
 
+    let y_label = 'Quantidade';
+    let y_simbolo = "";
+    //let y_simbolo = "<R$ ";
+    //let y_simbolo = ">%";
+    let y_divisor = "1000000 M";
+
     config = {
         type: 'line',
         data: {
@@ -63,13 +71,42 @@ function homeChart(data, titulo){
             responsive: true,
             title:{
                 display:true,
+            },
+            scales:{
+                yAxes: [
+                    {
+                        ticks: {
+                            callback: function(label, index, labels) {
+                                if(y_divisor){
+                                    qtd = y_divisor.replace(/[^0-9]/g, '');
+                                    unidade = y_divisor.replace(/[^a-zA-Z ]/g, '');
+                                    label = label/qtd + unidade;
+                                }
+
+                                if(y_simbolo){
+                                    simbolo = y_simbolo.replace(/[><]/g, '');
+                                    posicao = y_simbolo.replace(/[^><]/g, '');
+                                    label = posicao == '<' ? simbolo + label : label + simbolo;
+                                }
+
+                                return label;
+
+                                //return label/1000000+'M';
+                            }
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: y_label
+                        }
+                    }
+                ]
             }
         }
     };
 
-    console.log(config);
+    //console.log(config);
 
-    console.log(values);
+    //console.log(values);
 
     /*config = {
         type: 'line',

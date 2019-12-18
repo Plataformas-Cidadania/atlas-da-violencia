@@ -175,7 +175,7 @@ class FiltrosSeriesController extends Controller
             ->where([
                 ['textos_series.idioma_sigla', $lang],
                 ['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%'],
-                ['status', 1]
+                ['m.br', 1]
             ])
             ->where('idiomas_periodicidades.idioma_sigla', $lang)
             ->where('idiomas_unidades.idioma_sigla', $lang)

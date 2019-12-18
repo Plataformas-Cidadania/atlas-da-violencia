@@ -58,6 +58,9 @@
                     ),
             null, ['class'=>"form-control width-medio <% validar(setting.dados_serie_home) %>", 'ng-model'=>'setting.dados_serie_home', 'ng-required'=>'true', 'init-model'=>'setting.dados_serie_home', 'placeholder' => 'Selecione']) !!}<br>
 
+            {!! Form::label('cores_serie_home', 'Cores da Série') !!}<br>
+            {!! Form::text('cores_serie_home', null, ['class'=>"form-control width-grande <% validar(setting.cores_serie_home) %>", 'ng-model'=>'setting.cores_serie_home', 'ng-required'=>'true', 'init-model'=>'setting.cores_serie_home']) !!}<br>
+
             <div ng-show="setting.dados_serie_home==0">
                 {!! Form::label('serie_id', 'Séries home *') !!}<br>
                 {!! Form::select('serie_id',
@@ -66,11 +69,14 @@
             </div>
 
             <div ng-show="setting.dados_serie_home==1">
+                {!! Form::label('titulo_serie_home', 'Título da Série') !!}<br>
+                {!! Form::text('titulo_serie_home', null, ['class'=>"form-control width-grande <% validar(setting.titulo_serie_home) %>", 'ng-model'=>'setting.titulo_serie_home', 'ng-required'=>'true', 'init-model'=>'setting.titulo_serie_home']) !!}<br>
+
                 <span class="btn btn-primary btn-file" ng-show="!fileCsvSerie && !csvSerieBD">
                     Escolher CSV da Série <input  type="file" ngf-select ng-model="fileCsvSerie" name="fileCsvSerie" accept=".csv" ngf-max-size="100MB" ngf-model-invalid="errorFile">
                     </span>
                 <button class="btn btn-danger" ng-click="limparCsvSerie()" ng-show="fileCsvSerie || csvSerieBD" type="button">Remover Arquivo</button>
-                <a href="arquivos/series/<% csvSerieBD %>" target="_blank" ng-show="csvSerieBD"><% csvSerieBD %></a>
+                <a href="arquivos/settings/<% csvSerieBD %>" target="_blank" ng-show="csvSerieBD"><% csvSerieBD %></a>
                 <a ng-show="fileCsvSerie"><% fileCsvSerie.name %></a>
                 <br><br>
                 <div><strong>Exemplo: teste.csv</strong></div>
