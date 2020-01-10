@@ -91,7 +91,7 @@ class Temas extends React.Component{
             if(item.id==this.state.id){
                 temaSelected = (
                     <div>
-                        <img src={item.imagem ? "imagens/temas/sm-"+(item.imagem) : "img/default64.png"} className={(this.state.id==item.id ? '' : 'img-disable')} width="16px"  />&nbsp;&nbsp;
+                        <img src={(item.imagem)} className={(this.state.id==item.id ? '' : 'img-disable')} width="16px"  />&nbsp;&nbsp;
                         {tema} <i className="fa fa-sort-down"/>
                     </div>
                 );
@@ -99,7 +99,7 @@ class Temas extends React.Component{
 
             return (
                 <div key={'tema_'+item.id} style={{cursor:'pointer', padding:'5px'}} onClick={() => this.select2(item.id)}>
-                    <img src={item.imagem ? "imagens/temas/sm-"+(item.imagem) : "img/default64.png"} className={(this.state.id==item.id ? '' : 'img-disable')} width="16px" />&nbsp;&nbsp;
+                    <img src={(item.imagem)} className={(this.state.id==item.id ? '' : 'img-disable')} width="16px" />&nbsp;&nbsp;
                     {item.titulo}
                 </div>
             );

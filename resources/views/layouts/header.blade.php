@@ -120,7 +120,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
             <?php
                 $col_video = $setting->carousel==1 ? 6 : 12;
                 $col_carousel = $setting->video_home==1 ? 6 : 12;
-                $height_artigo = $setting->video_home==1 ? '170px' : '480px';
+                $height_artigo = $setting->video_home==1 ? '130px' : '480px';
             ?>
             <div class="row">
                 @if($setting->video_home==1)
@@ -195,12 +195,12 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                                         <img srcset="imagens/webdoors/lg-{{$webdoor->imagem}}"
                                              alt="{{$webdoor->titulo}}" title="{{$webdoor->titulo}}" width="100%"
                                              >
-                                        {{--@if(!empty($webdoor->resumida))
+                                        @if(!empty($webdoor->resumida))
                                             <div class="carousel-caption">
                                                 <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->titulo}}</h3>
                                                 <p ng-class="{'alto-contraste': altoContrasteAtivo}">{{$webdoor->resumida}}</p>
                                             </div>
-                                        @endif--}}
+                                        @endif
                                     </picture>
                                 </a>
 
@@ -234,6 +234,33 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
 
         <style>
+            .carousel-indicators {
+                bottom: -12px!important;;
+            }
+            .carousel-caption{
+                background-color:rgba(0, 0, 0, 0.5);
+                width: 100%;
+                right: 0%;
+                left: 0%;
+                padding-bottom: 0;
+                bottom: 0;
+            }
+            .carousel-caption h3{
+                color: #FFFFFF!important;
+                text-shadow: none;
+                padding:0 0 0 15px;
+                margin: 0;
+                text-align: left;
+                font-size: 18px!important;
+            }
+            .carousel-caption p{
+                color: #FFFFFF!important;
+                text-shadow: none;
+                padding:0 0 15px 15px;
+                margin: 0;
+                text-align: left;
+                font-size: 15px!important;
+            }
             canvas {
                 -moz-user-select: none;
                 -webkit-user-select: none;

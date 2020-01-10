@@ -35,9 +35,11 @@ class FiltrosController extends Controller
 
 
         $consulta_por_temas = DB::table('settings')->orderBy('id', 'desc')->first()->consulta_por_temas;
+        $favicon = DB::table('favicons')->select('imagem')->first();
 
         $todos->id = $tema_id;
         $todos->titulo = trans('react.all');
+        $todos->imagem = !empty($favicon) ? "imagens/favicons/16x16-".$favicon->imagem : 'img/default64.png';
         if($consulta_por_temas == 1){
             $todos->titulo = trans('react.select-themes');
         }
@@ -61,6 +63,7 @@ class FiltrosController extends Controller
         }
 
         foreach ($temasBd as $tema) {
+            $tema->imagem = "imagens/temas/sm-".$tema->imagem;
             array_push($temas, $tema);
         }
 

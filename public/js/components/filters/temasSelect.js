@@ -92,7 +92,7 @@ class Temas extends React.Component {
                 temaSelected = React.createElement(
                     'div',
                     null,
-                    React.createElement('img', { src: item.imagem ? "imagens/temas/sm-" + item.imagem : "img/default64.png", className: this.state.id == item.id ? '' : 'img-disable', width: '16px' }),
+                    React.createElement('img', { src: item.imagem, className: this.state.id == item.id ? '' : 'img-disable', width: '16px' }),
                     '\xA0\xA0',
                     tema,
                     ' ',
@@ -103,7 +103,7 @@ class Temas extends React.Component {
             return React.createElement(
                 'div',
                 { key: 'tema_' + item.id, style: { cursor: 'pointer', padding: '5px' }, onClick: () => this.select2(item.id) },
-                React.createElement('img', { src: item.imagem ? "imagens/temas/sm-" + item.imagem : "img/default64.png", className: this.state.id == item.id ? '' : 'img-disable', width: '16px' }),
+                React.createElement('img', { src: item.imagem, className: this.state.id == item.id ? '' : 'img-disable', width: '16px' }),
                 '\xA0\xA0',
                 item.titulo
             );
