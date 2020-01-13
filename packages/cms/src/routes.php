@@ -153,6 +153,30 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-idioma-option-abrangencia/{id}', 'Cms\Controllers\IdiomaOptionAbrangenciaController@alterar');
         Route::get('/cms/excluir-idioma-option-abrangencia/{id}', 'Cms\Controllers\IdiomaOptionAbrangenciaController@excluir');
 
+        //IDIOMAS TRANSPORTES
+        Route::get('/cms/idiomas-transportes/{transporte_id}', 'Cms\Controllers\IdiomaTransporteController@index');
+        Route::get('/cms/listar-idiomas-transportes', 'Cms\Controllers\IdiomaTransporteController@listar');
+        Route::post('/cms/inserir-idioma-transporte', 'Cms\Controllers\IdiomaTransporteController@inserir');
+        Route::get('/cms/idioma-transporte/{id}', 'Cms\Controllers\IdiomaTransporteController@detalhar');
+        Route::post('/cms/alterar-idioma-transporte/{id}', 'Cms\Controllers\IdiomaTransporteController@alterar');
+        Route::get('/cms/excluir-idioma-transporte/{id}', 'Cms\Controllers\IdiomaTransporteController@excluir');
+
+        //IDIOMAS RADARES
+        Route::get('/cms/idiomas-radares/{radar_id}', 'Cms\Controllers\IdiomaRadarController@index');
+        Route::get('/cms/listar-idiomas-radares', 'Cms\Controllers\IdiomaRadarController@listar');
+        Route::post('/cms/inserir-idioma-radar', 'Cms\Controllers\IdiomaRadarController@inserir');
+        Route::get('/cms/idioma-radar/{id}', 'Cms\Controllers\IdiomaRadarController@detalhar');
+        Route::post('/cms/alterar-idioma-radar/{id}', 'Cms\Controllers\IdiomaRadarController@alterar');
+        Route::get('/cms/excluir-idioma-radar/{id}', 'Cms\Controllers\IdiomaRadarController@excluir');
+
+        //IDIOMAS LINHAS
+        Route::get('/cms/idiomas-linhas/{linha_id}', 'Cms\Controllers\IdiomaLinhaController@index');
+        Route::get('/cms/listar-idiomas-linhas', 'Cms\Controllers\IdiomaLinhaController@listar');
+        Route::post('/cms/inserir-idioma-linha', 'Cms\Controllers\IdiomaLinhaController@inserir');
+        Route::get('/cms/idioma-linha/{id}', 'Cms\Controllers\IdiomaLinhaController@detalhar');
+        Route::post('/cms/alterar-idioma-linha/{id}', 'Cms\Controllers\IdiomaLinhaController@alterar');
+        Route::get('/cms/excluir-idioma-linha/{id}', 'Cms\Controllers\IdiomaLinhaController@excluir');
+
         //FILTERS OPTIOSN ABRANGENCIAS
         Route::get('/cms/filters-options-abrangencias/{option_abrangencia_id}', 'Cms\Controllers\FilterOptionAbrangenciaController@index');
         Route::get('/cms/listar-filters-options-abrangencias', 'Cms\Controllers\FilterOptionAbrangenciaController@listar');
@@ -281,6 +305,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-idioma/{id}', 'Cms\Controllers\IdiomaController@alterar');
         Route::get('/cms/excluir-idioma/{id}', 'Cms\Controllers\IdiomaController@excluir');
         Route::get('/cms/status-idioma/{id}', 'Cms\Controllers\IdiomaController@status');
+
 
         //UNIDADES
         Route::get('/cms/unidades', 'Cms\Controllers\UnidadeController@index');
@@ -476,6 +501,46 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/run-script', 'Cms\Controllers\ScriptController@run');
 
 
+        //TRANSPORTES
+        Route::get('/cms/transportes', 'Cms\Controllers\TransporteController@index');
+        Route::get('/cms/listar-transportes', 'Cms\Controllers\TransporteController@listar');
+        Route::post('/cms/inserir-transporte', 'Cms\Controllers\TransporteController@inserir');
+        Route::get('/cms/transporte/{id}', 'Cms\Controllers\TransporteController@detalhar');
+        Route::post('/cms/alterar-transporte/{id}', 'Cms\Controllers\TransporteController@alterar');
+        Route::get('/cms/excluir-transporte/{id}', 'Cms\Controllers\TransporteController@excluir');
+
+        //RADARES
+        Route::get('/cms/radares', 'Cms\Controllers\RadarController@index');
+        Route::get('/cms/listar-radares', 'Cms\Controllers\RadarController@listar');
+        Route::post('/cms/inserir-radar', 'Cms\Controllers\RadarController@inserir');
+        Route::get('/cms/radar/{id}', 'Cms\Controllers\RadarController@detalhar');
+        Route::post('/cms/alterar-radar/{id}', 'Cms\Controllers\RadarController@alterar');
+        Route::get('/cms/excluir-radar/{id}', 'Cms\Controllers\RadarController@excluir');
+
+        //LINHAS
+        Route::get('/cms/linhas/{transporte_id}', 'Cms\Controllers\LinhaController@index');
+        Route::get('/cms/linhas', 'Cms\Controllers\LinhaController@index');
+        Route::get('/cms/listar-linhas', 'Cms\Controllers\LinhaController@listar');
+        Route::post('/cms/inserir-linha', 'Cms\Controllers\LinhaController@inserir');
+        Route::get('/cms/linha/{id}', 'Cms\Controllers\LinhaController@detalhar');
+        Route::post('/cms/alterar-linha/{id}', 'Cms\Controllers\LinhaController@alterar');
+        Route::get('/cms/excluir-linha/{id}', 'Cms\Controllers\LinhaController@excluir');
+
+        //IMPORTACAO
+        Route::post('/cms/importar', 'Cms\Controllers\ImportarController@importar');
+        Route::get('/cms/importar-series', 'Cms\Controllers\ImportarController@viewImportarVarias');
+
+        //GERAR CSV///////////////////////////////////////////////////////////////
+        Route::get('/cms/csv-metro', 'Cms\Controllers\ImportarController@csvMetro');
+        Route::get('/cms/csv-brt', 'Cms\Controllers\ImportarController@csvBrt');
+        Route::get('/cms/csv-vlt', 'Cms\Controllers\ImportarController@csvVlt');
+        Route::get('/cms/csv-trem', 'Cms\Controllers\ImportarController@csvTrem');
+        Route::get('/cms/csv-barca', 'Cms\Controllers\ImportarController@csvBarca');
+        Route::get('/cms/csv-aeroporto', 'Cms\Controllers\ImportarController@csvAeroporto');
+        Route::get('/cms/csv-bonde', 'Cms\Controllers\ImportarController@csvBonde');
+        Route::get('/cms/csv-teleferico', 'Cms\Controllers\ImportarController@csvTeleferico');
+        Route::get('/cms/csv-bicicletario', 'Cms\Controllers\ImportarController@csvBicicletario');
+        //////////////////////////////////////////////////////////////////////////
 
     });
 

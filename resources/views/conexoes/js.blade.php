@@ -406,3 +406,52 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 @if($rota=='/')
 <script>$('.block').smoove({offset: '5%'});</script>
 @endif
+
+
+@if($rota=='bus')
+    <script src="https://unpkg.com/prop-types@15.6.2/prop-types.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+    <script src="https://unpkg.com/react-apexcharts@1.1.0/dist/react-apexcharts.iife.min.js"></script>
+    <script src="js/components/charts/mixedChart.js"></script>
+    <script src="js/components/charts/barChart.js"></script>
+    <script src="js/components/charts/groupedBarChart.js"></script>
+    <script src="js/components/map.js"></script>
+    <script src="js/components/transport/bus/page.js"></script>
+@endif
+@if($rota=='brt')
+    <script src="https://unpkg.com/prop-types@15.6.2/prop-types.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+    <script src="https://unpkg.com/react-apexcharts@1.1.0/dist/react-apexcharts.iife.min.js"></script>
+    <script src="js/components/charts/mixedChart.js"></script>
+    <script src="js/components/charts/barChart.js"></script>
+    <script src="js/components/charts/groupedBarChart.js"></script>
+    <script src="js/components/mapBrt.js"></script>
+    <script src="js/components/transport/brt/page.js"></script>
+@endif
+@if($rota=='estacoes')
+    <script src="https://unpkg.com/prop-types@15.6.2/prop-types.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+    <script src="https://unpkg.com/react-apexcharts@1.1.0/dist/react-apexcharts.iife.min.js"></script>
+    <script src="js/components/charts/barChart.js"></script>
+    <script src="js/components/charts/mixedChart.js"></script>
+    <script src="js/components/charts/radialChart.js"></script>
+    <script src="js/components/mapStations.js"></script>
+    <script src="js/components/transport/stations/page.js"></script>
+@endif
+@if($rota=='radar')
+    <script src="lib/leaflet/js/leaflet-src.js"></script>
+    <script src="lib/leaflet/js/leaflet.markercluster-src.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6.2/prop-types.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+    <script src="https://unpkg.com/react-apexcharts@1.1.0/dist/react-apexcharts.iife.min.js"></script>
+    <script src="js/components/charts/barChart.js"></script>
+    <script src="js/components/charts/pieChart.js"></script>
+    <script src="js/components/charts/mixedChart.js"></script>
+    <script src="js/components/charts/radialChart.js"></script>
+    <script src="js/components/mapRadar.js"></script>
+    <script src="js/components/transport/radar/page.js"></script>
+@endif
+@if($rota=='metro')
+    <script src="js/components/map.js"></script>
+    <script src="js/components/transport/metro/page.js"></script>
+@endif
