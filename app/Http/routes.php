@@ -10,6 +10,14 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
+/////////////REDE IPEA/////////////
+$proxy_url    = getenv('PROXY_URL');
+if (!empty($proxy_url)) {
+    URL::forceRootUrl($proxy_url);
+}
+/////////////REDE IPEA/////////////
+///
 Route::get('info123', function(){
      //return view('info');
 });
