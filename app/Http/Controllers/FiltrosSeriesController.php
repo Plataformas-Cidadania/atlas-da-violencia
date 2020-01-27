@@ -93,11 +93,7 @@ class FiltrosSeriesController extends Controller
 
         //$idioma = "pt_BR";
 
-
-
         $temas = [];
-
-
 
         if(!array_key_exists('tema_id', $parameters)){
             $parameters['tema_id'] = 0;
@@ -164,6 +160,8 @@ class FiltrosSeriesController extends Controller
 
         $series = $this->cache->get($cacheKey);*/
 
+        $search = $parameters['search'];
+
         $series = DB::table('series')
             ->select('series.id', 'series.tipo_dados', 'textos_series.titulo as titulo', 'idiomas_unidades.titulo as titulo_unidade', 'idiomas_periodicidades.titulo as periodicidade')
             ->join('unidades', 'unidades.id', '=', 'series.unidade')
@@ -174,9 +172,10 @@ class FiltrosSeriesController extends Controller
             ->join('textos_series', 'textos_series.serie_id', '=', 'series.id')
             ->where([
                 ['textos_series.idioma_sigla', $lang],
-                ['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%'],
+                /*['textos_series.titulo', 'ilike', '%'.$parameters['search'].'%'],*/
                 ['status', 1]
             ])
+            ->whereRaw("unaccent(textos_series.titulo) ilike  unaccent('%$search%')")
             ->where('idiomas_periodicidades.idioma_sigla', $lang)
             ->where('idiomas_unidades.idioma_sigla', $lang)
             ->when(!empty($parameters['indicadores']), function($query) use ($parameters){
