@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
          $this->call(IndicesTableSeeder::class);
          $this->call(IdiomaTableSeeder::class);
          $this->call(PeriodoTableSeeder::class);
+         $this->call(TransportesTableSeeder::class);
+         $this->call(LinhasTableSeeder::class);
     }
 }

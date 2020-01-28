@@ -79,6 +79,18 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaTemaCtrl.js', 'public/assets-cms/js/controllers/idiomaTemaCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaTemaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaTemaCtrl.js');
 
+    //Idiomas Transportes
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaTransporteCtrl.js', 'public/assets-cms/js/controllers/idiomaTransporteCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaTransporteCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaTransporteCtrl.js');
+
+    //Idiomas Radares
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaRadarCtrl.js', 'public/assets-cms/js/controllers/idiomaRadarCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaRadarCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaRadarCtrl.js');
+
+    //Idiomas Linhas
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaLinhaCtrl.js', 'public/assets-cms/js/controllers/idiomaLinhaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaLinhaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaLinhaCtrl.js');
+
     //Idiomas Unidades
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaUnidadeCtrl.js', 'public/assets-cms/js/controllers/idiomaUnidadeCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaUnidadeCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaUnidadeCtrl.js');
@@ -233,6 +245,19 @@ elixir(function(mix) {
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/valorFiltroCtrl.js', 'public/assets-cms/js/controllers/valorFiltroCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarValorFiltroCtrl.js', 'public/assets-cms/js/controllers/alterarValorFiltroCtrl.js');
 
+    //Transportes
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/transporteCtrl.js', 'public/assets-cms/js/controllers/transporteCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTransporteCtrl.js', 'public/assets-cms/js/controllers/alterarTransporteCtrl.js');
+
+    //Radares
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/radarCtrl.js', 'public/assets-cms/js/controllers/radarCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarRadarCtrl.js', 'public/assets-cms/js/controllers/alterarRadarCtrl.js');
+
+    //Linhas
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/linhaCtrl.js', 'public/assets-cms/js/controllers/linhaCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarLinhaCtrl.js', 'public/assets-cms/js/controllers/alterarLinhaCtrl.js');
+
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/importarCtrl.js', 'public/assets-cms/js/controllers/importarCtrl.js');
     //FIM CMS///////////////////////////////////////////////////////////////////
     
 

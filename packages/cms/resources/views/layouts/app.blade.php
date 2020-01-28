@@ -375,7 +375,25 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                         </ul>
                     </li>
                     
-                    
+
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demoTransporte"><i
+                                    class="fa fa-fw fa-arrows-v"></i> Transporte <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demoTransporte" class="collapse">
+                            <li>
+                                <a href="cms/transportes"><i class="fa fa-indent" aria-hidden="true"></i> Transportes</a>
+                            </li>
+                            <li>
+                                <a href="cms/radares"><i class="fa fa-indent" aria-hidden="true"></i> Radares</a>
+                            </li>
+                            <li>
+                                <a href="cms/importar-series"><i class="fa fa-indent" aria-hidden="true"></i> Importarções</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
 
                     
 

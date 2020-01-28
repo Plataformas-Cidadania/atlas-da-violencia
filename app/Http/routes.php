@@ -274,3 +274,39 @@ Route::get('api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}
 Route::get('api/v1/valores-series-por-regioes/{serie_id}/{abrangencia}/{regioes}/{inical}/{final}', 'ApiController@valoresPorRegiao');
 
 
+///////////////////////////////////////TRANSPORTE///////////////////////////////////////////////
+
+Route::get('bus/', 'TransporteController@bus');
+Route::get('get-bus/{linha}', 'TransporteController@getBus');
+Route::get('brt/', 'TransporteController@brt');
+Route::get('get-brt/', 'TransporteController@getBrt');
+Route::get('get-brt-estacoes/', 'TransporteController@getBrtEstacoes');
+Route::get('estacoes/', 'TransporteController@stations');
+Route::get('get-stations/', 'TransporteController@getStations');
+Route::get('get-stations-estacoes/', 'TransporteController@getStationsEstacoes');
+Route::get('radar/', 'TransporteController@radar');
+Route::get('get-radar/', 'TransporteController@getRadar');
+Route::get('get-radar-estacoes/', 'TransporteController@getRadarEstacoes');
+Route::get('metro/', 'TransporteController@metro');
+Route::get('get-metro/', 'TransporteController@getMetro');
+Route::get('estacao/', 'TransporteController@estacao');
+Route::get('get-estacao/', 'TransporteController@getEstacao');
+Route::get('get-radar/', 'TransporteController@getRadar');
+
+
+
+//IMPORTACAO//////////////////////////////////////////////////////////////////
+Route::get('/save-bus-route', 'BusController@saveBusRoute');
+Route::get('/bus-route/{line}', 'BusController@busRoute');
+Route::get('/bus-route/{line}/{order}', 'BusController@busRoute');
+
+Route::get('count-bus/', 'BusController@busDateHour');
+Route::get('count-bus2/', 'BusController@busDate');
+///////////////////////////////////////////////////////////////
+//IMPORTACAO//////////////////////////////////////////////////////////////////
+Route::get('/save-brt', 'RealTimeController@saveBrt');
+
+Route::get('count-brt/', 'RealTimeController@brtDateHour');
+Route::get('count-brt2/', 'RealTimeController@brtDate');
+///////////////////////////////////////////////////////////////
+Route::get('/save-radares', 'RadaresController@saveRadares');
