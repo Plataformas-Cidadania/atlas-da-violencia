@@ -43,7 +43,7 @@ function homeChart(data, titulo, cores){
                 labels.push(j.substr(0, 4))//ano
             }
             values[i].push(data[i]['valores'][j]);
-            console.log(data[i]['valores'][j]);
+            //console.log(data[i]['valores'][j]);
         }
 
         datasets.push({

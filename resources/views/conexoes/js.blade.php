@@ -18,7 +18,6 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     });
 </script>
 
-
 @if($rota=='contato')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
@@ -39,7 +38,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
             $.ajax("home-chart-csv", {
                 data: {},
                 success: function(data){
-                    console.log(data);
+                    //console.log(data);
                     homeChart(data, '{{$setting->titulo_serie_home}}', '{{$setting->cores_serie_home}}');
                     ctx = document.getElementById("canvas").getContext("2d");
                     window.myLine = new Chart(ctx, config);
@@ -51,7 +50,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
             });
 
             $('.carousel').carousel({
-                interval: 10000
+                interval: 20000
             })
 
         </script>
@@ -61,7 +60,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 $.ajax("home-chart/<?php echo $setting->serie_id;?>", {
                     data: {},
                     success: function(data){
-                        console.log(data);
+                        //console.log(data);
                         homeChart(data, '<?php echo $series->titulo;?>', '{{$setting->cores_serie_home}}');
                         ctx = document.getElementById("canvas").getContext("2d");
                         window.myLine = new Chart(ctx, config);
@@ -73,7 +72,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 });
 
                 $('.carousel').carousel({
-                    interval: 10000
+                    interval: 20000
                 })
 
             </script>

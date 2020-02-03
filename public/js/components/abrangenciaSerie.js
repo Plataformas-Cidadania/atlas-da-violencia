@@ -50,7 +50,7 @@ class AbrangenciaSerie extends React.Component {
                         {id: 28, title: 'Sergipe'},
                         {id: 17, title: 'Tocantins'},
                     ]
-                  }
+                 }
             ],*/
         };
 
@@ -126,7 +126,7 @@ class AbrangenciaSerie extends React.Component {
                 //this.submit();
                 return;
             }
-              this.loadPeriodos();
+             this.loadPeriodos();
             $("#modalAbrangencias").modal();
         });*/
     }

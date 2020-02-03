@@ -52,13 +52,13 @@ class ListValoresSeries extends React.Component {
             cache: false,
             success: function(data) {
                 console.log('listValoresSeries', data);
-                  let valores = [];
+                 let valores = [];
                 for(let i in data){
                     let region = {};
                     region[i] = data[i];
                     valores.push(region);
                 }
-                  this.setState({valores: valores});
+                 this.setState({valores: valores});
             }.bind(this),
             error: function(xhr, status, err) {
               console.log('erro', err);
@@ -242,10 +242,10 @@ class ListValoresSeries extends React.Component {
         let columnsTd = columns.map(function (column, index) {
 
             /*let show = index == i || index < 3 || index == columns.length-1;
-              if(show && index >= 3 ){
+             if(show && index >= 3 ){
                 i = i + intervalo;
             }
-              if(index >= 2){
+             if(index >= 2){
                 column = formatPeriodicidade(column, this.props.periodicidade);
             }*/
 
