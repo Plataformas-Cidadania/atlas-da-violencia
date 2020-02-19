@@ -223,10 +223,13 @@ class ApiController extends Controller
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 
-        $periodicidade = \App\Serie::select('periodicidades.titulo')
-            ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
-            ->find($serie_id)
-            ->titulo;
+        $periodicidade = null;
+        if(!empty($inicial)) {
+            $periodicidade = \App\Serie::select('periodicidades.titulo')
+                ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')
+                ->find($serie_id)
+                ->titulo;
+        }
 
         if($periodicidade=="Anual"){
             $inicial = $inicial.'-01-15';
