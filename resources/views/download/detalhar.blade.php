@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <h1 class="h1_title" aria-label="{{$download->titulo}}, {{strip_tags($download->descricao)}}">@lang('pages.publication') Atlas {{$download->titulo}}</h1>
+        <h1 class="h1_title" aria-label="{{$download->titulo}}, {{strip_tags($download->descricao)}}">{{$download->titulo}}</h1>
         <div class="line_title bg-pri"></div>
     </div>
     <div class="container-fluid">
