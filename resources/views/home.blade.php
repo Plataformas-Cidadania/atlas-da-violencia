@@ -74,6 +74,15 @@
                                 @if($element->chart_type==2)
                                     @include("presentation-charts/chartline")
                                 @endif
+                                @if($element->chart_type==3)
+                                    @include("presentation-charts/chartstacked")
+                                @endif
+                                @if($element->chart_type==4)
+                                    @include("presentation-charts/chartdashed")
+                                @endif
+                                @if($element->chart_type==5)
+                                    @include("presentation-charts/chartarea")
+                                @endif
                             @endif
                             @if($element->type==3)
                                 <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">

@@ -1,5 +1,7 @@
 <?php
     $random = rand(123456789,987654321);
+    $setting = \App\Setting::first();
+    $colors = explode(',', $setting->cores_serie_home);
 ?>
 
 <style>
@@ -19,7 +21,7 @@
             bar: {
                 horizontal: false,
                 columnWidth: '55%',
-                endingShape: 'rounded'
+                /*endingShape: 'rounded'*/
             },
         },
         dataLabels: {
@@ -40,6 +42,11 @@
                     @endforeach
                 ]
             },
+            @endforeach
+        ],
+        colors: [
+            @foreach($colors as $color)
+                '{{$color}}',
             @endforeach
         ],
         xaxis: {

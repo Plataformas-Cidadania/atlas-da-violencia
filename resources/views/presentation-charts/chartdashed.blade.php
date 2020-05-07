@@ -5,12 +5,12 @@
 ?>
 
 <style>
-    #chartLine_{{$random}} {
+    #chartDashed_{{$random}} {
         width: 100%;
         margin: 35px auto;
     }
 </style>
-<div id="chartLine_{{$random}}"></div>
+<div id="chartDashed_{{$random}}"></div>
 <script>
     var options = {
         chart: {
@@ -21,7 +21,7 @@
                 color: '#000',
                 top: 18,
                 left: 7,
-                blur: 10,
+                blur: 5,
                 opacity: 1
             },
             toolbar: {
@@ -37,7 +37,13 @@
             enabled: true,
         },
         stroke: {
-            curve: 'smooth'
+           /* curve: "straight"*/
+
+             dashArray:[
+                 @foreach($element->content as $index => $dataset)
+                 [0, 8, 5],
+                 @endforeach
+            ]
         },
         series: [
             @foreach($element->content as $index => $dataset)
@@ -86,7 +92,7 @@
     }
 
     var chart<?php echo $random;?> = new ApexCharts(
-        document.querySelector("#chartLine_{{$random}}" ),
+        document.querySelector("#chartDashed_{{$random}}" ),
         options
     );
 
