@@ -40,6 +40,7 @@ class HomeController extends Controller
         $presentationElements = \App\PresentationElement::select('presentations_elements.*')
             ->join('presentations', 'presentations.id', '=', 'presentations_elements.presentation_id')
             ->where('presentations.slug', 'home')
+            ->where('presentations_elements.status', 1)
             ->orderBy('presentations_elements.row')
             ->orderBy('presentations_elements.position')
             ->get();
