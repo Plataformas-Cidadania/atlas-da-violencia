@@ -77,6 +77,9 @@
                                 @if($element->chart_type==5)
                                     @include("presentation-charts/chartarea")
                                 @endif
+                                @if($element->chart_type==6)
+                                    @include("presentation-charts/chartpercent")
+                                @endif
                             @endif
                             @if($element->type==3)
                                 <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">
@@ -109,6 +112,9 @@
                                     @endif
                                     @if($element->chart_type==5)
                                         @include("presentation-charts/chartarea")
+                                    @endif
+                                    @if($element->chart_type==6)
+                                        @include("presentation-charts/chartpercent")
                                     @endif
                             @endif
                             @if($element->type==3)
