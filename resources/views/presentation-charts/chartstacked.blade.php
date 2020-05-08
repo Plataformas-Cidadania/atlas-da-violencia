@@ -39,6 +39,9 @@
             },
             @endforeach
         ],
+        title: {
+            text: 'Título série'
+        },
         chart: {
             type: 'bar',
             height: 350,
@@ -70,6 +73,19 @@
                 '{{$color}}',
             @endforeach
         ],
+        dataLabels: {
+            enabled: false,
+            formatter: function (val) {
+                return val + "%";
+            },
+        },
+        yaxis: {
+            labels: {
+                formatter: function (y) {
+                    return y.toFixed(0) + "M";
+                }
+            }
+        },
         xaxis: {
             type: 'datetime',
             /*categories: ['01/01/2011 GMT', '01/02/2011 GMT', '01/03/2011 GMT', '01/04/2011 GMT',
@@ -82,21 +98,19 @@
             ],
         },
         legend: {
-            position: 'right',
-            offsetY: 40
+            position: 'top',
+            offsetY: 0
         },
         fill: {
             opacity: 1
         }
     };
 
-    //var chart = new ApexCharts(document.querySelector("#chartBarStacked_{{$random}}"), options);
     var chart<?php echo $random;?> = new ApexCharts(
         document.querySelector("#chartBarStacked_{{$random}}"),
         options
     );
 
     chart<?php echo $random;?>.render();
-
 
 </script>

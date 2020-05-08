@@ -26,9 +26,15 @@
             },
             @endforeach
         ],
+        title: {
+            text: 'Título série'
+        },
         chart: {
             height: 350,
             type: 'line',
+            zoom: {
+                enabled: true
+            }
         },
         stroke: {
             curve: 'straight'
@@ -38,11 +44,16 @@
             type:'solid',
             /*opacity: [0.35, 1],*/
         },
-        labels: [
-            @foreach($element->content[0] as $index => $dt)
-                "{{$dt['x']}}" @if($index < count($element->content[0])) , @endif
-            @endforeach
-        ],
+
+        xaxis: {
+            type: 'datetime',
+
+            categories: [
+                @foreach($element->content[0] as $index => $dt)
+                    "{{$dt['x']}}" @if($index < count($element->content[0])) , @endif
+                @endforeach
+            ],
+        },
         markers: {
             size: 0
         },
@@ -51,19 +62,17 @@
                 '{{$color}}',
             @endforeach
         ],
-        yaxis: [
-            {
-                title: {
-                    text: '',
-                },
-            }/*,
-            {
-                opposite: true,
-                title: {
-                    text: 'Series B',
-                },
-            },*/
-        ],
+        legend: {
+            position: 'top',
+            offsetY: 0
+        },
+        yaxis: {
+            labels: {
+                formatter: function (y) {
+                    return y.toFixed(0) + "%";
+                }
+            }
+        },
         tooltip: {
             shared: true,
             intersect: false,

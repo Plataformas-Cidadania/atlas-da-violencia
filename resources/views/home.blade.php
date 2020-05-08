@@ -28,27 +28,21 @@
                                 @else
                                     <a href="em-construcao">
                                 @endif
-                                        <picture>
-                                            {{--<source srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" media="(max-width: 468px)">
-                                            <source srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" media="(max-width: 768px)">
-                                            <source srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" class="img-responsive">--}}
-                                            {{--<img srcset="imagens/links/{{$link->imagem}}" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}">--}}
-                                            <img class="imgLinks" srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}" >
-                                        </picture>
-                                        <script type="text/javascript">
-                                            function setSrc(e){
-                                                //console.log('antes', e);
-                                                e.setAttribute('srcset', 'img/fallback.png');
-                                                e.setAttribute('onerror', '');
-                                                //console.log('depois', e);
-                                            }
-                                        </script>
 
-                                        <div {{--class="bg-sex"--}}>
-                                            <h2 class="titulo-itens" ng-class="{'alto-contraste': altoContrasteAtivo}" href="{{$link->link}}">{{$link->titulo}}</h2>
-                                        </div>
-                                        <div class="box-itens-filete"></div>
-                                    </a>
+                                     <img class="imgLinks" srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}" >
+
+                                    <script type="text/javascript">
+                                        function setSrc(e){
+                                            e.setAttribute('srcset', 'img/fallback.png');
+                                            e.setAttribute('onerror', '');
+                                        }
+                                    </script>
+
+                                    <div>
+                                        <h2 class="titulo-itens" ng-class="{'alto-contraste': altoContrasteAtivo}" href="{{$link->link}}">{{$link->titulo}}</h2>
+                                    </div>
+                                    <div class="box-itens-filete"></div>
+                                </a>
                             </div>
                         </div>
                         <?php $cont_animecao ++;?>
@@ -96,14 +90,26 @@
                             @endif
                         </div>
                     @else
-                        <div class="col-md-6 block" @if($element->position=='left')data-move-x="-300px"@endif @if($element->position=='right')data-move-x="300px"@endif>
+                        <div class="col-md-6 block" @if($element->position=='left') data-move-x="-300px" @endif @if($element->position=='right') data-move-x="300px" @endif>
                             @if($element->type==1)
-                                { !! $element->content !! }
+                                {!! $element->content !!}
                             @endif
                             @if($element->type==2)
                                 @if($element->chart_type==1)
                                     @include("presentation-charts/chartbar")
                                 @endif
+                                    @if($element->chart_type==2)
+                                        @include("presentation-charts/chartline")
+                                    @endif
+                                    @if($element->chart_type==3)
+                                        @include("presentation-charts/chartstacked")
+                                    @endif
+                                    @if($element->chart_type==4)
+                                        @include("presentation-charts/chartdashed")
+                                    @endif
+                                    @if($element->chart_type==5)
+                                        @include("presentation-charts/chartarea")
+                                    @endif
                             @endif
                             @if($element->type==3)
                                 <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">
