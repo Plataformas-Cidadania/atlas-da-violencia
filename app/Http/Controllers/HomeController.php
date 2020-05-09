@@ -45,6 +45,7 @@ class HomeController extends Controller
             ->orderBy('presentations_elements.position')
             ->get();
 
+
         $presentationRows = [];
 
         foreach ($presentationElements as $element) {
@@ -59,6 +60,9 @@ class HomeController extends Controller
             }
             array_push($presentationRows[$element->row], $element);
         }
+
+
+
 
         return view('home', [
             'setting' => $setting,

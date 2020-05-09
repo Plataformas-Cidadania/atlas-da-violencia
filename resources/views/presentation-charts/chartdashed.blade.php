@@ -26,7 +26,13 @@
             },
             toolbar: {
                 show: false
+            },
+            zoom: {
+                enabled: true
             }
+        },
+        title: {
+            text: 'Título série'
         },
         colors: [
             @foreach($colors as $color)
@@ -34,14 +40,21 @@
             @endforeach
         ],
         dataLabels: {
-            enabled: true,
+            enabled: false,
+            formatter: function (val) {
+                return val + "%";
+            },
         },
         stroke: {
            /* curve: "straight"*/
-
+             width: [
+                 @foreach($element->content as $index => $dataset)
+                 3,
+                 @endforeach
+             ],
              dashArray:[
                  @foreach($element->content as $index => $dataset)
-                 [0, 8, 5],
+                 [0, 2, 3],
                  @endforeach
             ]
         },
@@ -65,9 +78,10 @@
             },
         },
         markers: {
-            size: 6
+            size: 0
         },
         xaxis: {
+            type: 'datetime',
             categories: [
                 @foreach($element->content[0] as $index => $dt)
                      "{{$dt['x']}}" @if($index < count($element->content[0])) , @endif
@@ -76,18 +90,20 @@
             /*categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],*/
         },
         yaxis: {
-            title: {
-                text: ''
-            },
-            min: 5,
-            max: 40
+            labels: {
+                formatter: function (y) {
+                    return y.toFixed(0) + "M";
+                }
+            }
         },
         legend: {
-            position: 'top',
+            /*position: 'top',
             horizontalAlign: 'right',
             floating: true,
             offsetY: -25,
-            offsetX: -5
+            offsetX: -5*/
+            position: 'top',
+            offsetY: 0
         }
     }
 

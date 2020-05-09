@@ -1,7 +1,7 @@
 <?php
-    $random = rand(123456789,987654321);
-    $setting = \App\Setting::first();
-    $colors = explode(',', $setting->cores_serie_home);
+$random = rand(123456789,987654321);
+$setting = \App\Setting::first();
+$colors = explode(',', $setting->cores_serie_home);
 ?>
 
 <style>
@@ -10,6 +10,7 @@
         margin: 35px auto;
     }
 </style>
+
 <div id="chartLine_{{$random}}"></div>
 <script>
     var options = {
@@ -21,67 +22,93 @@
                 color: '#000',
                 top: 18,
                 left: 7,
-                blur: 10,
+                blur: 5,
                 opacity: 1
             },
             toolbar: {
                 show: false
+            },
+            zoom: {
+                enabled: true
             }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+            },
         },
         colors: [
             @foreach($colors as $color)
                 '{{$color}}',
             @endforeach
+                '#D50000','#C51162','#AA00FF','#6200EA','#00B8D4','#00BFA5','#00C853',
         ],
         dataLabels: {
-            enabled: true,
+            enabled: false,
+            formatter: function (val) {
+                return val + "%";
+            },
         },
         stroke: {
-            curve: 'smooth'
+            width: [
+                @foreach($element->content as $index => $dataset)
+                    3,
+                @endforeach
+            ],
         },
         series: [
-            @foreach($element->content as $index => $dataset)
+                @foreach($element->content as $index => $dataset)
             {
                 name:'{{$dataset[0]['name']}}',
                 data: [
                     @foreach($dataset as $index => $dt)
-                        {{$dt['y']}} @if($index < count($dataset)) , @endif
+                    {{$dt['y']}} @if($index < count($dataset)) , @endif
                     @endforeach
                 ]
             },
             @endforeach
         ],
+        title: {
+            {{--@foreach($element->content as $dataset)
+            '3',
+            @endforeach--}}
+            text: 'Título série'
+
+        },
         grid: {
-            borderColor: '#e7e7e7',
+            /*borderColor: '#e7e7e7',
             row: {
                 colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
                 opacity: 0.5
-            },
+            },*/
         },
         markers: {
-            size: 6
+            size: 0
         },
         xaxis: {
+            type: 'datetime',
             categories: [
                 @foreach($element->content[0] as $index => $dt)
-                     "{{$dt['x']}}" @if($index < count($element->content[0])) , @endif
+                    "{{$dt['x']}}" @if($index < count($element->content[0])) , @endif
                 @endforeach
             ]
             /*categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],*/
         },
         yaxis: {
-            title: {
-                text: ''
-            },
-            min: 5,
-            max: 40
+            labels: {
+                formatter: function (y) {
+                    return y.toFixed(0) + "M";
+                }
+            }
         },
         legend: {
-            position: 'top',
+            /*position: 'top',
             horizontalAlign: 'right',
             floating: true,
             offsetY: -25,
-            offsetX: -5
+            offsetX: -5*/
+            position: 'top',
+            offsetY: 0
         }
     }
 

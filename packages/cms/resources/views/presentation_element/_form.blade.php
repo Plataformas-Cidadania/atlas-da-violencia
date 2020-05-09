@@ -60,6 +60,7 @@ null, ['class'=>"form-control width-medio <% validar(element.type) %>", 'ng-mode
             '4' => 'Linha Dashed',
             '5' => 'Área',
             '6' => 'Barra Porcentagem',
+            '7' => 'Negativo',
         ),
 null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'ng-model'=>'element.chart_type', 'ng-required'=>'true', 'init-model'=>'element.chart_type', 'placeholder' => 'Selecione']) !!}<br>
 </div>
@@ -68,6 +69,11 @@ null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'n
 @if($rota=="cms/presentation-elements/{presentation_id}")
 
     <div ng-show="element.type==2">
+
+
+        {!! Form::label('title', 'Título *') !!}<br>
+        {!! Form::text('title', null, ['class'=>"form-control width-grande <% validar(element.title) %>", 'ng-model'=>'element.title', 'ng-required'=>'true', 'init-model'=>'element.title', 'placeholder' => '']) !!}<br>
+
         <span class="btn btn-primary btn-file" ng-show="!fileArquivo" >
             Escolher Arquivo CSV <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".csv" ngf-max-size="100MB" ngf-model-invalid="errorFile">
         </span>
@@ -129,6 +135,9 @@ null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'n
 @if($rota=="cms/presentation-element/{id}")
 
     <div ng-show="element.type==2">
+        {!! Form::label('title', 'Título *') !!}<br>
+        {!! Form::text('title', null, ['class'=>"form-control width-grande <% validar(element.title) %>", 'ng-model'=>'element.title', 'ng-required'=>'true', 'init-model'=>'element.title', 'placeholder' => '']) !!}<br>
+
         <span class="btn btn-primary btn-file" ng-show="!fileArquivo && !arquivoBD">
                     Escolher Arquivo CSV <input  type="file" ngf-select ng-model="fileArquivo" name="fileArquivo" accept=".csv" ngf-max-size="100MB" ngf-model-invalid="errorFile">
                 </span>

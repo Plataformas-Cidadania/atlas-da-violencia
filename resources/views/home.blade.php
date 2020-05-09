@@ -59,7 +59,13 @@
                     @if($element->position == "full")
                         <div class="col-md-12 block" data-move-y="300px">
                             @if($element->type==1)
-                                {!! $element->content !!}
+                                <div style="margin: 0 20%; font-weight: bold;" class="text-center">
+                                    <br>
+                                    {!! $element->content !!}
+                                </div>
+                                <hr>
+                                <div class="line_title bg-pri" style="width: 100px; margin: -20px auto"></div>
+
                             @endif
                             @if($element->type==2)
                                 @if($element->chart_type==1)
@@ -79,6 +85,9 @@
                                 @endif
                                 @if($element->chart_type==6)
                                     @include("presentation-charts/chartpercent")
+                                @endif
+                                @if($element->chart_type==7)
+                                    @include("presentation-charts/chartnegative")
                                 @endif
                             @endif
                             @if($element->type==3)
@@ -115,6 +124,9 @@
                                     @endif
                                     @if($element->chart_type==6)
                                         @include("presentation-charts/chartpercent")
+                                    @endif
+                                    @if($element->chart_type==7)
+                                        @include("presentation-charts/chartnegative")
                                     @endif
                             @endif
                             @if($element->type==3)
