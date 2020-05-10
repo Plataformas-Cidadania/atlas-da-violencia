@@ -61,6 +61,7 @@ null, ['class'=>"form-control width-medio <% validar(element.type) %>", 'ng-mode
             '5' => 'Área',
             '6' => 'Barra Porcentagem',
             '7' => 'Negativo',
+            '99' => 'Grupo de Linhas',
         ),
 null, ['class'=>"form-control width-medio <% validar(element.chart_type) %>", 'ng-model'=>'element.chart_type', 'ng-required'=>'true', 'init-model'=>'element.chart_type', 'placeholder' => 'Selecione']) !!}<br>
 </div>

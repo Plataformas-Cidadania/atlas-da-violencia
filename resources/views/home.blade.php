@@ -53,10 +53,19 @@
     </article>
 
     <div class="container">
-        @foreach($presentationRows as $row)
-            <div class="row">
+
+
+
+
+    @foreach($presentationRows as $row)
+
+             <div class="row">
                 @foreach($row as $element)
                     @if($element->position == "full")
+
+
+
+
                         <div class="col-md-12 block" data-move-y="300px">
                             @if($element->type==1)
                                 <div style="margin: 0 20%; font-weight: bold;" class="text-center">
@@ -67,6 +76,8 @@
                                 <div class="line_title bg-pri" style="width: 100px; margin: -20px auto"></div>
 
                             @endif
+
+
                             @if($element->type==2)
                                 @if($element->chart_type==1)
                                     @include("presentation-charts/chartbar")
@@ -90,6 +101,9 @@
                                     @include("presentation-charts/chartnegative")
                                 @endif
                             @endif
+
+
+
                             @if($element->type==3)
                                 <img src="imagens/presentation-elements/{{$element->content}}" width="100%" alt="{{$element->content}}">
                             @endif
@@ -145,6 +159,32 @@
             </div>
             <br><br><br>
         @endforeach
+
+
+
+        @foreach($presentationRows as $key =>  $row)
+            <ul class="nav nav-tabs nav-chart" role="tablist">
+                @foreach($row as $key_aba => $element)
+                    @if($element->position == "full")
+                        @if($element->chart_type==99)
+                            <li role="presentation" @if($key_aba==0) class="active" @endif><a href="#aba{{$key_aba}}" aria-controls="aba{{$key_aba}}" role="tab" data-toggle="tab">{{$element->title}}</a></li>
+                        @endif
+                    @endif
+                @endforeach
+            </ul>
+            <div class="tab-content">
+                @foreach($row as $key_aba_cont => $element)
+                    @if($element->position == "full")
+                        @if($element->chart_type==99)
+                            {{--{{$element->title}}--}}
+                            <div role="tabpanel" class="tab-pane  @if($key_aba_cont==0) active @endif" id="aba{{$key_aba_cont}}">@include("presentation-charts/chartline")</div>
+                        @endif
+                    @endif
+                @endforeach
+            </div>
+        @endforeach
+
+
     </div>
 
     <article>
@@ -283,5 +323,21 @@
         <br><br>
 
     </article>
+
+    <style>
+        .nav-chart {
+            border-bottom: 0;
+        }
+
+        .nav-chart li a{
+            padding: 5px!important;
+            font-size: 14px!important;
+            width: inherit;
+            border-radius: 2px;
+            border: solid 1px #DDDDDD;
+            min-height: inherit;
+        }
+
+    </style>
 
 @endsection
