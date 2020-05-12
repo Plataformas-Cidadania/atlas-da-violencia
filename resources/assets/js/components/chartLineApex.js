@@ -62,6 +62,7 @@ class ChartLineApex extends React.Component {
                     },
                 },
                 xaxis: {
+                    type: 'datetime',
                     categories: ['a', 'b', 'c', 'd', 'e'],
                 }
             },
@@ -104,7 +105,7 @@ class ChartLineApex extends React.Component {
         series  = dataChart.series;
 
         //console.log(options.xaxis.categories);
-        //console.log(options);
+        console.log(options);
 
 
         this.setState({series: series, options: options}, function(){

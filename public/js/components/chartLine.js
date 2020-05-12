@@ -290,9 +290,9 @@ class ChartLine extends React.Component {
                     React.createElement(
                         "button",
                         { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                        min,
+                        convertDate(min),
                         " - ",
-                        max
+                        convertDate(max)
                     ),
                     React.createElement(
                         "div",

@@ -123,7 +123,7 @@ class ChartPie extends React.Component {
                 React.createElement(
                     "button",
                     { className: "btn btn-primary btn-lg bg-pri", style: { border: '0' } },
-                    max
+                    convertDate(max)
                 ),
                 React.createElement(
                     "div",

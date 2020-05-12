@@ -292,7 +292,7 @@ class ChartLine extends React.Component{
                 <div style={{display: this.state.loading ? 'none' : 'block'}}>
                     <div style={{textAlign: 'center', clear: 'both'}}>
                         <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>
-                            {min} - {max}
+                            {convertDate(min)} - {convertDate(max)}
                             </button>
                         <div style={{marginTop:'-19px'}}>
                             <i className="fa fa-sort-down fa-2x ft-pri"  />

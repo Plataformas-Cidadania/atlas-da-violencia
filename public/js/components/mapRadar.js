@@ -111,7 +111,7 @@ class Map extends React.Component {
                     existe = true;
                 }
             }
-             if(!existe){
+              if(!existe){
                 tiposRadares.push({
                     'tipo': data[radar].properties.tipo,
                     'qtd': data[radar].features.length
@@ -267,7 +267,7 @@ class Map extends React.Component {
 
             /*icones = this.state.data[0].map(function(item, index){
                 return (
-                     <div  key={'icones'+index} className={"block col-md-3  "+ (index == 0 ? 'active' : null )}  data-move-y="200px" data-move-x="-200px">
+                      <div  key={'icones'+index} className={"block col-md-3  "+ (index == 0 ? 'active' : null )}  data-move-y="200px" data-move-x="-200px">
                         <div className="text-center img-circle icons-circle">
                             <div className="img-circle icons-circle-int">
                                 <img src={"imagens/radares/"+item.imagem} width='50'/><br/>
@@ -276,7 +276,7 @@ class Map extends React.Component {
                             </div>
                             <br/><br/>
                         </div>
-                     </div>
+                      </div>
                 );
             });*/
         }

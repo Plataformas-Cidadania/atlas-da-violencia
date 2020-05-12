@@ -68,7 +68,7 @@ class RangeYear extends React.Component {
             console.log(values);
             _this.props.checkYear(values);
         });
-         console.log(mySlider);*/
+          console.log(mySlider);*/
 
         this.setState({ mySlider: mySlider }, function () {
             //this.changeYear();

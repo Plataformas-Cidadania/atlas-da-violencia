@@ -120,7 +120,7 @@ class ChartPie extends React.Component{
         return (
             <div>
                 <div style={{textAlign: 'center', clear: 'both'}}>
-                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{max}</button>
+                    <button className="btn btn-primary btn-lg bg-pri" style={{border:'0'}}>{convertDate(max)}</button>
                     <div style={{marginTop:'-19px'}}>
                         <i className="fa fa-sort-down fa-2x" style={{color:'#3498DB'}} />
                     </div>
