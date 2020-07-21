@@ -23,7 +23,7 @@ if($qtr==6){
     $medida = "B";
 }
 
-echo round($valorTeste,2).$medida;
+//echo round($valorTeste,2).$medida;
 
 
 
