@@ -1,5 +1,6 @@
 <?php
 $base_href = config('app.url');
+$protocol = env('APP_PROTOCOL');
 /*$base_href = $_SERVER['HTTP_HOST'];
 if(substr($base_href, 0,9)=='evbsb1052'){
     $base_href .= '/atlasviolencia/';
@@ -31,7 +32,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
     <meta name="author" content="">
 
     <title>CMS - {{$setting->titulo}}</title>
-    <base href="http://{{$base_href}}@if($base_href=='10.0.52.46')/@endif">
+    <base href="{{$protocol}}{{$base_href}}@if($base_href=='10.0.52.46')/@endif">
 
     <!-- Bootstrap Core CSS -->
     <link href="assets-cms/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">

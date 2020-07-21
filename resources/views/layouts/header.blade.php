@@ -7,6 +7,26 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     ->where('series.id', $setting->serie_id)
     ->where('textos_series.idioma_sigla', $lang)
     ->first();
+
+$valorTeste =  "1.5699925";
+
+function convertMedida($valorTeste){
+
+}
+$qtr = strlen($valorTeste);
+if($qtr==6){
+    $medida = "K";
+
+}elseif($qtr==9){
+    $medida = "M";
+}elseif($qtr==12){
+    $medida = "B";
+}
+
+echo round($valorTeste,2).$medida;
+
+
+
 ?>
 <div id="barra-brasil" class="hidden-print" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;"
      aria-hidden="true">
