@@ -11,6 +11,7 @@
     $indicadores = DB::table('webindicadores')->get();
 
     $base_href = config('app.url');
+    $protocol = env('APP_PROTOCOL');
 
 
     $barra = "";
@@ -34,7 +35,7 @@ if(substr($base_href, 0,9)=='evbsb1052'){
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <title>@if(!empty($setting)) {{$setting->titulo}} - @yield('title') @endif</title>
-        <base href="http://{{$base_href}}{{$barra}}">
+        <base href="{{$protocol}}{{$base_href}}{{$barra}}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         @foreach(config('constants.FAVICONS_SIZES') as $size)
