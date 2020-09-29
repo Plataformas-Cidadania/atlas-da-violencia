@@ -7,6 +7,7 @@ return [
     'researches' => 'Investigaciones',
     'indicators' => 'Indicadores',
     'articles' => 'Artículos',
+    'articles2' => 'Publicaciones Ipea',
     'videos' => 'Videos',
     'downloads' => 'Descarregar',
     'contact' => 'Contacto',
