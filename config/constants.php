@@ -79,4 +79,5 @@ return [
         '1' => 'Barra',
         '2' => 'Linha',
     ],
+
 ];

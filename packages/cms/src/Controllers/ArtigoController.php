@@ -42,8 +42,15 @@ class ArtigoController extends Controller
         //$authors = \App\Author::lists('titulo', 'id')->all();
         $authors = \App\Author::pluck('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
+        $fontes = \App\Fonte::lists('titulo', 'id')->all();
 
-        return view('cms::artigo.listar', ['artigos' => $artigos, 'links' => $links, 'authors' => $authors, 'idiomas' => $idiomas]);
+        return view('cms::artigo.listar', [
+            'artigos' => $artigos,
+                'links' => $links,
+                'authors' => $authors,
+                'idiomas' => $idiomas,
+                'fontes' => $fontes
+            ]);
     }
 
     public function listar(Request $request)
@@ -139,6 +146,8 @@ class ArtigoController extends Controller
         //$authors = \App\Author::lists('titulo', 'id')->all();
         $authors = \App\Author::pluck('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
+        $fontes = \App\Fonte::lists('titulo', 'id')->all();
+
 
         $autors_artigo = \App\AuthorArtigo::where('artigo_id', $id)->get();
 
@@ -147,7 +156,13 @@ class ArtigoController extends Controller
             $artigo->{"autor".$row->author_id} = true; //Ex.: $artigo->autor1
         }
         
-        return view('cms::artigo.detalhar', ['artigo' => $artigo, 'links' => $links, 'authors' => $authors, 'idiomas' => $idiomas]);
+        return view('cms::artigo.detalhar', [
+            'artigo' => $artigo,
+            'links' => $links,
+            'authors' => $authors,
+            'idiomas' => $idiomas,
+            'fontes' => $fontes
+        ]);
     }
 
     public function alterar(Request $request, $id)

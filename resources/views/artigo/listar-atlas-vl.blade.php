@@ -1,3 +1,33 @@
+<?php
+
+    $anos = [];
+    $autores = "";
+    $fontesUsadas = [];
+
+    $fontesPermitidas = ["Atlas da Violência", "Outros"];
+    foreach ($fontes as $fonte) {
+        if(in_array($fonte->titulo, $fontesPermitidas)){
+            array_push($fontesUsadas, $fonte);
+        }
+    }
+
+    foreach ($artigos as $artigo) {
+        $ano = date('Y', strtotime($artigo->created_at));
+        if($artigo->data){
+            $ano = date('Y', strtotime($artigo->data));
+        }
+        if(!in_array($ano, $anos)){
+            array_push($anos, $ano);
+        }
+    }
+
+    foreach ($authors as $index => $author) {
+        $autores .= $author->id.'__'.$author->titulo.',';
+    }
+    $autores = substr($autores, 0, -1);
+
+?>
+
 @extends('.layout')
 @section('title', trans('links.articles'))
 @section('content')
@@ -6,12 +36,72 @@
             eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
             if (restore) selObj.selectedIndex=0;
         }
+
+        let strAutores = "{{$autores}}";
+        let arrayAutores = strAutores.split(",");
+        let autores = [];
+        arrayAutores.find((item)=>{
+            autor = item.split("__");
+            id = autor[0];
+            nome = autor[1];
+            if(!autores.some(el => el.id === id)){
+                autores.push({id: id,  nome: nome});
+            }
+        });
+        console.log(autores);
+
+        function searchAutores(search){
+            let lista = autores.filter((item) => item.nome.includes(search));
+            console.log(lista);
+            //return item.indexOf(search) === -1;
+        }
+
     </script>
 
     {{--{{ Counter::count('artigo') }}--}}
     <div class="container">
         <h1>@lang('links.articles2')</h1>
         <div class="line_title bg-pri"></div>
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <form action="">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="ano">Ano</label>
+                            <select name="ano" id="ano" class="form-control">
+                                <option value="0">Todos</option>
+                                @foreach($anos as $ano)
+                                    <option value="{{$ano}}">{{$ano}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="ano">Autor</label>
+                            <input type="text" class="form-control" onkeyup="searchAutores(this.value)">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="ano">Fontes:</label>
+                            <select name="fonte" id="fonte" class="form-control">
+                                <option value="0">Todos</option>
+                                @foreach($fontesUsadas as $fonte)
+                                    <option value="{{$fonte->id}}">{{$fonte->titulo}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            @foreach($fontesUsadas as $fonte)
+                                <button type="text" class="btn btn-info" onClick="searchArticles({{$fonte->id}})" style="float:left; margin: 25px 0 0 5px;">{{$fonte->titulo}}</button>
+                            @endforeach
+                            <div style="clear:both;"></div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
         <div class="row">
             <br>
 
@@ -61,7 +151,8 @@
                 @endif
 
                 <br>
-                {{--<h3><i class="fa fa-users" aria-hidden="true"></i> @lang('pages.authors')</h3>
+                <?php /*
+                <h3><i class="fa fa-users" aria-hidden="true"></i> @lang('pages.authors')</h3>
                 <hr>
                 <ul class="menu-vertical">
                     @foreach($authors as $author)
@@ -89,7 +180,8 @@
                             </a>
                         </li>
                     @endforeach
-                </ul>--}}
+                </ul>
+                */ ?>
 
             </div>
             <div class="col-md-9 col-sm-9">

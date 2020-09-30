@@ -16,6 +16,10 @@ null, ['class'=>"form-control width-medio <% validar(artigo.idioma_sigla) %>", '
 null, ['class'=>"form-control width-medio <% validar(artigo.origem_id) %>", 'ng-model'=>'artigo.origem_id', 'ng-required'=>'true', 'init-model'=>'artigo.origem_id', 'placeholder' => 'Selecione']) !!}<br>
 
 
+{!! Form::label('data', 'Data *') !!}<br>
+{!! Form::date('data', null, ['class'=>"form-control width-medio <% validar(artigo.data) %>", 'ng-model'=>'artigo.data', 'ng-required'=>'true', 'init-model'=>'artigo.data', 'placeholder' => '']) !!}<br>
+
+
 {!! Form::label('titulo', 'Título *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(artigo.titulo) %>", 'ng-model'=>'artigo.titulo', 'ng-required'=>'true', 'init-model'=>'artigo.titulo', 'placeholder' => '']) !!}<br>
 
@@ -37,9 +41,15 @@ null, ['class'=>"form-control width-medio <% validar(artigo.autor) %>", 'ng-mode
 @endforeach
 <br><br>
 
+{!! Form::label('fonte_id', 'Fonte *') !!}<br>
+{!! Form::select('fonte_id',
+        $fontes,
+null, ['class'=>"form-control width-medio <% validar(artigo.fonte_id) %>", 'ng-model'=>'artigo.fonte_id', 'ng-required'=>'true', 'init-model'=>'artigo.fonte_id', 'placeholder' => 'Selecione']) !!}<br>
+
+
 <div class="row">
     <div class="col-md-6">
-        {!! Form::label('fonte', 'Fonte') !!}<br>
+        {!! Form::label('fonte', 'Fonte (Depreciado)') !!}<br>
         {!! Form::text('fonte', null, ['class'=>"form-control width-grande <% validar(artigo.fonte) %>", 'ng-model'=>'artigo.fonte', 'init-model'=>'artigo.fonte', 'placeholder' => '']) !!}<br>
     </div>
     <div class="col-md-6">

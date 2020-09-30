@@ -10,7 +10,7 @@
     <div ng-controller="artigoCtrl">
         <div class="box-padrao">
             <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Artigos</h1>
-            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Nova Artigo</button>
+            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Novo Artigo</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>
             <div ng-show="mostrarForm">
