@@ -112,7 +112,7 @@ class List extends React.Component {
                     React.createElement(
                         'a',
                         { style: { cursor: 'pointer' }, onClick: () => this.modalDownload(item.id), title: 'Download', target: '_blank' },
-                        React.createElement('i', { className: 'fa fa-cloud-download', style: { fontSize: '1.5em' } })
+                        React.createElement('i', { className: 'fa fa-file-excel-o', style: { fontSize: '1.5em' } })
                     )
                 );
 
