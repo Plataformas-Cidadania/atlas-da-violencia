@@ -64,6 +64,7 @@ Route::get('artigo/{id}/{titulo}', 'ArtigoController@detalhar');
 Route::post('busca-artigos/{origem_id}/{titulo}', 'ArtigoController@buscar');
 //ARTIGOS V2
 Route::get('artigos-v2/{origem_id}', 'ArtigoController@listar2');
+//Route::get('artigos-v2/{origem_id}/{titulo}', 'ArtigoController@listar2');
 Route::get('artigos-v2/{origem_id}/{titulo}', 'ArtigoController@listar2');
 Route::get('artigos-v2/{origem_id}/{titulo}/{autor_id}/{autor}', 'ArtigoController@listar2');
 Route::get('artigos-v2/', 'ArtigoController@listar2');
@@ -81,6 +82,7 @@ Route::get('download-zip/{id}', 'DownloadController@download');
 
 //VÍDEOS
 Route::post('busca-videos/', 'VideoController@buscar');
+Route::get('busca-videos/{search}', 'VideoController@buscar2');
 Route::get('videos/', 'VideoController@listar');
 Route::get('videos/{titulo}', 'VideoController@listar');
 

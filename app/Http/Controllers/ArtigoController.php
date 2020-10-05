@@ -36,10 +36,19 @@ class ArtigoController extends Controller
                 ->select('artigos.*')
                 ->orderBy('artigos.id', 'desc')
                 ->distinct()
+                //->paginate(10);
                 ->paginate(10);
         }
 
-
+        $parametros = "";
+        if($origem_id != ""){
+            $parametros .= "/$origem_id";
+        }
+        if(!empty($origem_titulo)){
+            $parametros .= "/$origem_titulo";
+        }
+        $paginateUrl = env('APP_PROTOCOL').config('app.url').'/artigos'.$parametros;
+        $artigos->setPath($paginateUrl);
 
         $menus = DB::table('links')->where('idioma_sigla', $lang)->get();
 
@@ -71,12 +80,12 @@ class ArtigoController extends Controller
         ]);
     }
 
-    public function listar2(Request $request){
+    public function listar2($origem_id, $origem_titulo, $autor_id=0, $autor_titulo=0){
 
-        $origem_id = $request->origin_id;
+        /*$origem_id = $request->origin_id;
         $origem_titulo = $request->origem_titulo;
         $autor_id = $request->autor_id;
-        $autor_titulo = $request->autor_titulo;
+        $autor_titulo = $request->autor_titulo;*/
 
         $lang =  App::getLocale();
 
@@ -100,9 +109,19 @@ class ArtigoController extends Controller
                 ->select('artigos.*')
                 ->orderBy('artigos.id', 'desc')
                 ->distinct()
+                //->paginate(10);
                 ->paginate(10);
         }
 
+        $parametros = "";
+        if($origem_id != ""){
+            $parametros .= "/$origem_id";
+        }
+        if(!empty($origem_titulo)){
+            $parametros .= "/$origem_titulo";
+        }
+        $paginateUrl = env('APP_PROTOCOL').config('app.url').'/artigos'.$parametros;
+        $artigos->setPath($paginateUrl);
 
 
         $menus = DB::table('links')->where('idioma_sigla', $lang)->get();
@@ -171,7 +190,8 @@ class ArtigoController extends Controller
                 ->where([
                 ['titulo', 'ilike', "%$busca->titulo%"]
             ])
-                ->paginate(15);
+                //->paginate(15);
+                ->paginate(10);
         }else{
             $artigos = DB::table('artigos')
                 ->orderBy('titulo')
@@ -179,8 +199,18 @@ class ArtigoController extends Controller
                 ['titulo', 'ilike', "%$busca->titulo%"]
             ])
                 ->where('origem_id', '=', $origem_id )
-                ->paginate(15);
+                //->paginate(15);
+                ->paginate(10);
         }
+
+        $parametros = "";
+        if($origem_id != ""){
+            $parametros .= "/$origem_id";
+        }
+        $paginateUrl = env('APP_PROTOCOL').config('app.url').'/artigos'.$parametros."/lista";
+        $artigos->setPath($paginateUrl);
+
+
         $menus = DB::table('links')->where('idioma_sigla', $lang)->get();
         $authors = DB::table('authors')->orderBy('titulo')->get();
 

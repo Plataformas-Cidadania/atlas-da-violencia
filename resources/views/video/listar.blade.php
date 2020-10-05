@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputAmount">Busca</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="busca" name="busca" placeholder="@lang('forms.search')">
+                            <input type="text" class="form-control" id="busca" name="busca" placeholder="@lang('forms.search')" value="{{$search}}">
                             <div class="input-group-addon">
                                 <button type="submit" value="busca-videos" style="border: 0; background-color: inherit;"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </div>
