@@ -590,6 +590,8 @@ class PgSerie extends React.Component {
         }
 
         let taxa = regions;
+        //RETIRADO POR SOLICITAÇÃO DA COORDENAÇÃO DO PROJETO EM 2020
+        taxa = null;
 
         let metadados = React.createElement(
             "div",
@@ -646,6 +648,8 @@ class PgSerie extends React.Component {
                 this.props.fonte
             )
         );
+        //RETIRADO POR SOLICITAÇÃO DA COORDENAÇÃO DO PROJETO EM 2020
+        metadados = null;
 
         let pos = [];
         pos[this.props.posicao_mapa] = mapa;
@@ -978,20 +982,8 @@ class PgSerie extends React.Component {
                         ),
                         React.createElement(
                             "div",
-                            { className: "icons-groups icon-group-email", "data-toggle": "modal", "data-target": "#myModal",
-                                style: { display: 'block', marginLeft: '5px' }, title: "" },
-                            "\xA0"
-                        ),
-                        React.createElement(
-                            "div",
                             { className: "icons-groups icon-group-print", onClick: () => window.print(),
                                 style: { display: 'block', marginLeft: '5px' }, title: "" },
-                            "\xA0"
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "icons-groups" + (this.state.showInfo ? " icon-group-info" : " icon-group-info-disable"),
-                                style: { marginLeft: '5px' }, onClick: () => this.showHide('Info'), title: "" },
                             "\xA0"
                         ),
                         React.createElement(

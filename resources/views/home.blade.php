@@ -258,6 +258,7 @@
         @endif
         {{--END INDICE--}}
 
+        <?php /*
         {{--STRAT NOTICIAS--}}
         @if(!empty($noticias))
         <div class="container">
@@ -282,6 +283,7 @@
         </div>
         @endif
         {{--END NOTICIAS--}}
+        */ ?>
 
         {{--STRAT BEM VINDO--}}
         @if(!empty($bemvindo))

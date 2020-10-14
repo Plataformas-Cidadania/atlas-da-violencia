@@ -556,6 +556,9 @@ class PgSerie extends React.Component{
 
 
         let taxa = regions;
+        //RETIRADO POR SOLICITAÇÃO DA COORDENAÇÃO DO PROJETO EM 2020
+        taxa = null;
+
 
         let metadados = (
             <div className="hidden-print" style={{display: this.state.showInfo ? 'block' : 'none'}}>
@@ -580,6 +583,8 @@ class PgSerie extends React.Component{
             {/* <p><strong>Periodicidade: </strong>{this.props.periodicidade}</p>*/}
         </div>
         );
+        //RETIRADO POR SOLICITAÇÃO DA COORDENAÇÃO DO PROJETO EM 2020
+        metadados = null;
 
         let pos = [];
         pos[this.props.posicao_mapa] = mapa;
@@ -751,14 +756,14 @@ class PgSerie extends React.Component{
 
                             </div>
 
-                            <div className="icons-groups icon-group-email"  data-toggle="modal" data-target="#myModal"
-                                 style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
+                            {/*<div className="icons-groups icon-group-email"  data-toggle="modal" data-target="#myModal"
+                                 style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>*/}
 
                             <div className="icons-groups icon-group-print" onClick={() => window.print()}
                                  style={{display: 'block', marginLeft: '5px'}} title="">&nbsp;</div>
 
-                            <div className={"icons-groups" + (this.state.showInfo ? " icon-group-info" : " icon-group-info-disable")}
-                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Info')} title="">&nbsp;</div>
+                            {/*<div className={"icons-groups" + (this.state.showInfo ? " icon-group-info" : " icon-group-info-disable")}
+                                 style={{marginLeft: '5px'}} onClick={() => this.showHide('Info')} title="">&nbsp;</div>*/}
 
                             {/*<div className={"icons-groups" + (this.state.showCalcs ? " icon-group-calc" : " icon-group-calc-disable")}
                                  style={{marginLeft: '5px'}} onClick={() => this.showHide('Calcs')} title="">&nbsp;</div>*/}
