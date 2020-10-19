@@ -176,6 +176,7 @@ if(substr($base_href, 0,9)=='evbsb1052'){
         <!-- Piwik -->
         <script type="text/javascript">
             var _paq = _paq || [];
+            _paq.push(["setDomains", ["*.www.ipea.gov.br/atlasviolencia","*.atlasvl.ipea.gov.br/atlasviolencia"]]);
             _paq.push(['trackPageView']);
             _paq.push(['enableLinkTracking']);
             (function() {
@@ -188,6 +189,8 @@ if(substr($base_href, 0,9)=='evbsb1052'){
         </script>
         <noscript><p><img src="{{$setting->analytics_url}}?idsite={{$setting->analytics_id}}" style="border:0;" alt="" /></p></noscript>
         <!-- End Piwik Code -->
+
+
         @endif
 
 
