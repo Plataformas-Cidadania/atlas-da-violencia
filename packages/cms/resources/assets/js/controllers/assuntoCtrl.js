@@ -1,40 +1,40 @@
-cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-    
-    $scope.artigos = [];
+cmsApp.controller('assuntoCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
+
+    $scope.assuntos = [];
     $scope.currentPage = 1;
     $scope.lastPage = 0;
     $scope.totalItens = 0;
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo, imagem, idioma_sigla";
-    $scope.campoPesquisa = "titulo";
+    $scope.campos = "assuntos.id, idiomas_assuntos.titulo, idiomas_assuntos.idioma_sigla, assuntos.imagem, assuntos.status";
+    $scope.campoPesquisa = "idiomas_assuntos.titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "titulo";
+    $scope.ordem = "idiomas_assuntos.id";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 
     $scope.$watch('currentPage', function(){
         if($listar){
-            listarArtigos();
+            listarAssuntos();
         }
     });
     $scope.$watch('itensPerPage', function(){
         if($listar){
-            listarArtigos();
+            listarAssuntos();
         }
     });
     $scope.$watch('dadoPesquisa', function(){
         if($listar){
-            listarArtigos();
+            listarAssuntos();
         }
     });
 
-    var listarArtigos = function(){
+    var listarAssuntos = function(){
         $scope.processandoListagem = true;
         $http({
-            url: 'cms/listar-artigos',
+            url: 'cms/listar-assuntos',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
@@ -46,7 +46,7 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
                 sentido: $scope.sentidoOrdem
             }
         }).success(function(data, status, headers, config){
-            $scope.artigos = data.data;
+            $scope.assuntos = data.data;
             $scope.lastPage = data.last_page;
             $scope.totalItens = data.total;
             $scope.primeiroDaPagina = data.from;
@@ -59,7 +59,28 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
             $scope.processandoListagem = false;
         });
     };
-    
+
+    /*$scope.loadMore = function() {
+     $scope.currentPage +=1;
+     $http({
+     url: '/api/assuntos/'+$scope.itensPerPage,
+     method: 'GET',
+     params: {page:  $scope.currentPage}
+     }).success(function (data, status, headers, config) {
+     $scope.lastPage = data.last_page;
+     $scope.totalItens = data.total;
+
+     console.log("total: "+$scope.totalItens);
+     console.log("lastpage: "+$scope.lastPage);
+     console.log("currentpage: "+$scope.currentPage);
+
+     $scope.assuntos = data.data;
+
+     //$scope.assuntos = $scope.assuntos.concat(data.data);
+
+     });
+     };*/
+
 
     $scope.ordernarPor = function(ordem){
         $scope.ordem = ordem;
@@ -70,7 +91,7 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
             $scope.sentidoOrdem = "asc";
         }
 
-        listarArtigos();
+        listarAssuntos();
     };
 
     $scope.validar = function(){
@@ -78,56 +99,58 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
     };
     
 
-    listarArtigos();
+    listarAssuntos();
 
     //INSERIR/////////////////////////////
 
     $scope.tinymceOptions = tinymceOptions;    
+
     $scope.mostrarForm = false;
+
     $scope.processandoInserir = false;
 
-    $scope.inserir = function (file, arquivo){
+    $scope.inserir = function (file){
 
         $scope.mensagemInserir = "";
 
-        if(file==null && arquivo==null){
+        if(file==null){
             $scope.processandoInserir = true;
 
-            //console.log($scope.artigo);
-            $http.post("cms/inserir-artigo", {artigo: $scope.artigo, author_artigo: $scope.author_artigo, assunto_artigo: $scope.assunto_artigo}).success(function (data){
-                listarArtigos();
-                delete $scope.artigo;//limpa o form
+
+            //console.log($scope.assunto);
+            $http.post("cms/inserir-assunto", {assunto: $scope.assunto, idioma: $scope.idioma}).success(function (data){
+                 listarAssuntos();
+                 //delete $scope.assunto;//limpa o form
+                 delete $scope.assunto.assunto;
                 $scope.mensagemInserir =  "Gravado com sucesso!";
                 $scope.processandoInserir = false;
-            }).error(function(data){
+             }).error(function(data){
                 $scope.mensagemInserir = "Ocorreu um erro!";
                 $scope.processandoInserir = false;
-            });
+             });
         }else{
+            file.upload = Upload.upload({
+                url: 'cms/inserir-assunto',
+                data: {assunto: $scope.assunto, idioma: $scope.idioma, file: file},
+            });
 
-
-            Upload.upload({
-                url: 'cms/inserir-artigo',
-                data: {artigo: $scope.artigo, file: file, arquivo: arquivo, author_artigo: $scope.author_artigo, assunto_artigo: $scope.assunto_artigo},
-            }).then(function (response) {
+            file.upload.then(function (response) {
                 $timeout(function () {
-                    $scope.result = response.data;
+                    file.result = response.data;
                 });
-                console.log(response.data);
-                delete $scope.artigo;//limpa o form
+                //delete $scope.assunto;//limpa o form
+                delete $scope.assunto.assunto;
                 $scope.picFile = null;//limpa o file
-                $scope.fileArquivo = null;//limpa o file
-                listarArtigos();
+                listarAssuntos();
                 $scope.mensagemInserir =  "Gravado com sucesso!";
             }, function (response) {
-                console.log(response.data);
                 if (response.status > 0){
                     $scope.errorMsg = response.status + ': ' + response.data;
                 }
             }, function (evt) {
                 //console.log(evt);
                 // Math.min is to fix IE which reports 200% sometimes
-                $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             });
         }
 
@@ -148,9 +171,9 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
     /////////////////////////////////
 
     //EXCLUIR/////////////////////////
-    $scope.perguntaExcluir = function (id, titulo, imagem){
+    $scope.perguntaExcluir = function (id, assunto, imagem){
         $scope.idExcluir = id;
-        $scope.tituloExcluir = titulo;
+        $scope.assuntoExcluir = assunto;
         $scope.imagemExcluir = imagem;
         $scope.excluido = false;
         $scope.mensagemExcluido = "";
@@ -159,14 +182,14 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: 'cms/excluir-artigo/'+id,
+            url: 'cms/excluir-assunto/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);
             $scope.processandoExcluir = false;
             $scope.excluido = true;
             $scope.mensagemExcluido = "Excluído com sucesso!";
-            listarArtigos();
+            listarAssuntos();
         }).error(function(data){
             $scope.message = "Ocorreu um erro: "+data;
             $scope.processandoExcluir = false;
@@ -174,6 +197,45 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
         });
     };
     //////////////////////////////////
-
+    $scope.positionUp = function(id){
+        $scope.idPositionUp = '';
+        $http({
+            url: 'cms/positionUp-assunto/'+id,
+            method: 'GET'
+        }).success(function(data, positionUp, headers, config){
+            $scope.idPositionUp = id;
+            listarAssuntos();
+        });
+    };
+    $scope.positionDown = function(id){
+        $scope.idPositionDown = '';
+        $http({
+            url: 'cms/positionDown-assunto/'+id,
+            method: 'GET'
+        }).success(function(data, positionDown, headers, config){
+            $scope.idPositionDown = id;
+            listarAssuntos();
+        });
+    };
+    /////////////////////////////////////
+    $scope.status = function(id){
+        //console.log(id);
+        $scope.mensagemStatus = '';
+        $scope.idStatus = '';
+        $scope.processandoStatus = true;
+        $http({
+            url: 'cms/status-assunto/'+id,
+            method: 'GET'
+        }).success(function(data, status, headers, config){
+            $scope.processandoStatus = false;
+            $scope.mensagemStatus = 'color-success';
+            $scope.idStatus = id;
+            listarAssuntos();
+        }).error(function(data){
+            $scope.message = "Ocorreu um erro: "+data;
+            $scope.processandoStatus = false;
+            $scope.mensagemStatus = "Erro ao tentar status!";
+        });
+    };
 
 }]);

@@ -1,13 +1,15 @@
-cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
+cmsApp.controller('idiomaAssuntoCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
     
-    $scope.artigos = [];
+
+    $scope.assuntos = [];
+    $scope.assunto_id = 0;
     $scope.currentPage = 1;
     $scope.lastPage = 0;
     $scope.totalItens = 0;
     $scope.maxSize = 5;
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo, imagem, idioma_sigla";
+    $scope.campos = "id, titulo, idioma_sigla";
     $scope.campoPesquisa = "titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
@@ -17,24 +19,30 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
 
     $scope.$watch('currentPage', function(){
         if($listar){
-            listarArtigos();
+            listarAssuntos();
         }
     });
     $scope.$watch('itensPerPage', function(){
         if($listar){
-            listarArtigos();
+            listarAssuntos();
         }
     });
     $scope.$watch('dadoPesquisa', function(){
         if($listar){
-            listarArtigos();
+            listarAssuntos();
         }
     });
 
-    var listarArtigos = function(){
+    $scope.setAssuntoId = function(assunto_id){
+        $scope.assunto_id = assunto_id;
+        listarAssuntos();
+    };
+
+
+    var listarAssuntos = function(){
         $scope.processandoListagem = true;
         $http({
-            url: 'cms/listar-artigos',
+            url: 'cms/listar-idiomas-assuntos',
             method: 'GET',
             params: {
                 page: $scope.currentPage,
@@ -43,10 +51,11 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
                 campos: $scope.campos,
                 campoPesquisa: $scope.campoPesquisa,
                 ordem: $scope.ordem,
-                sentido: $scope.sentidoOrdem
+                sentido: $scope.sentidoOrdem,
+                assunto_id: $scope.assunto_id
             }
         }).success(function(data, status, headers, config){
-            $scope.artigos = data.data;
+            $scope.assuntos = data.data;
             $scope.lastPage = data.last_page;
             $scope.totalItens = data.total;
             $scope.primeiroDaPagina = data.from;
@@ -59,7 +68,29 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
             $scope.processandoListagem = false;
         });
     };
-    
+
+    /*$scope.loadMore = function() {
+     $scope.currentPage +=1;
+     $http({
+     url: '/api/assuntos/'+$scope.itensPerPage,
+     method: 'GET',
+     params: {page:  $scope.currentPage}
+     }).success(function (data, status, headers, config) {
+     $scope.lastPage = data.last_page;
+     $scope.totalItens = data.total;
+
+     console.log("total: "+$scope.totalItens);
+     console.log("lastpage: "+$scope.lastPage);
+     console.log("currentpage: "+$scope.currentPage);
+
+     $scope.assuntos = data.data;
+
+     //$scope.assuntos = $scope.assuntos.concat(data.data);
+
+     });
+     };*/
+
+
 
     $scope.ordernarPor = function(ordem){
         $scope.ordem = ordem;
@@ -70,7 +101,7 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
             $scope.sentidoOrdem = "asc";
         }
 
-        listarArtigos();
+        listarAssuntos();
     };
 
     $scope.validar = function(){
@@ -78,60 +109,64 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
     };
     
 
-    listarArtigos();
+    //listarAssuntos();
 
     //INSERIR/////////////////////////////
 
     $scope.tinymceOptions = tinymceOptions;    
+
     $scope.mostrarForm = false;
+
     $scope.processandoInserir = false;
 
-    $scope.inserir = function (file, arquivo){
+    $scope.inserir = function (file){
 
         $scope.mensagemInserir = "";
 
-        if(file==null && arquivo==null){
+        if(file==null){
             $scope.processandoInserir = true;
 
-            //console.log($scope.artigo);
-            $http.post("cms/inserir-artigo", {artigo: $scope.artigo, author_artigo: $scope.author_artigo, assunto_artigo: $scope.assunto_artigo}).success(function (data){
-                listarArtigos();
-                delete $scope.artigo;//limpa o form
+            //console.log($scope.assunto);
+            $http.post("cms/inserir-idioma-assunto", {assunto: $scope.assunto, idiomas: $scope.idiomas}).success(function (data){
+                 listarAssuntos();
+                 //delete $scope.assunto;//limpa o form
+                delete $scope.assunto.titulo;
+                delete $scope.assunto.descricao;
                 $scope.mensagemInserir =  "Gravado com sucesso!";
                 $scope.processandoInserir = false;
-            }).error(function(data){
+             }).error(function(data){
                 $scope.mensagemInserir = "Ocorreu um erro!";
                 $scope.processandoInserir = false;
-            });
+             });
         }else{
+            file.upload = Upload.upload({
+                url: 'cms/inserir-idioma-assunto',
+                data: {assunto: $scope.assunto, idiomas: $scope.idiomas, file: file},
+            });
 
-
-            Upload.upload({
-                url: 'cms/inserir-artigo',
-                data: {artigo: $scope.artigo, file: file, arquivo: arquivo, author_artigo: $scope.author_artigo, assunto_artigo: $scope.assunto_artigo},
-            }).then(function (response) {
+            file.upload.then(function (response) {
                 $timeout(function () {
-                    $scope.result = response.data;
+                    file.result = response.data;
                 });
-                console.log(response.data);
-                delete $scope.artigo;//limpa o form
+                //delete $scope.assunto;//limpa o form
+                delete $scope.idiomas.titulo;
+                delete $scope.idiomas.descricao;
                 $scope.picFile = null;//limpa o file
-                $scope.fileArquivo = null;//limpa o file
-                listarArtigos();
+                listarAssuntos();
                 $scope.mensagemInserir =  "Gravado com sucesso!";
             }, function (response) {
-                console.log(response.data);
                 if (response.status > 0){
                     $scope.errorMsg = response.status + ': ' + response.data;
                 }
             }, function (evt) {
                 //console.log(evt);
                 // Math.min is to fix IE which reports 200% sometimes
-                $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             });
         }
 
     };
+
 
     $scope.limparImagem = function(){
         delete $scope.picFile;
@@ -159,14 +194,14 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
     $scope.excluir = function(id){
         $scope.processandoExcluir = true;
         $http({
-            url: 'cms/excluir-artigo/'+id,
+            url: 'cms/excluir-idioma-assunto/'+id,
             method: 'GET'
         }).success(function(data, status, headers, config){
             console.log(data);
             $scope.processandoExcluir = false;
             $scope.excluido = true;
             $scope.mensagemExcluido = "Excluído com sucesso!";
-            listarArtigos();
+            listarAssuntos();
         }).error(function(data){
             $scope.message = "Ocorreu um erro: "+data;
             $scope.processandoExcluir = false;
@@ -174,6 +209,5 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
         });
     };
     //////////////////////////////////
-
 
 }]);

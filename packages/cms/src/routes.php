@@ -383,6 +383,25 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/positionUp-tema/{id}', 'Cms\Controllers\TemaController@positionUp');
         Route::get('/cms/positionDown-tema/{id}', 'Cms\Controllers\TemaController@positionDown');
 
+        //Assuntos
+        Route::get('/cms/assuntos', 'Cms\Controllers\AssuntoController@index');
+        Route::get('/cms/listar-assuntos', 'Cms\Controllers\AssuntoController@listar');
+        Route::post('/cms/inserir-assunto', 'Cms\Controllers\AssuntoController@inserir');
+        Route::get('/cms/assunto/{id}', 'Cms\Controllers\AssuntoController@detalhar');
+        Route::post('/cms/alterar-assunto/{id}', 'Cms\Controllers\AssuntoController@alterar');
+        Route::get('/cms/excluir-assunto/{id}', 'Cms\Controllers\AssuntoController@excluir');
+        Route::get('/cms/status-assunto/{id}', 'Cms\Controllers\AssuntoController@status');
+        //Route::get('/cms/positionUp-assunto/{id}', 'Cms\Controllers\AssuntoController@positionUp');
+        //Route::get('/cms/positionDown-assunto/{id}', 'Cms\Controllers\AssuntoController@positionDown');
+
+        //IDIOMAS ASSUNTOS
+        Route::get('/cms/idiomas-assuntos/{assunto_id}', 'Cms\Controllers\IdiomaAssuntoController@index');
+        Route::get('/cms/listar-idiomas-assuntos', 'Cms\Controllers\IdiomaAssuntoController@listar');
+        Route::post('/cms/inserir-idioma-assunto', 'Cms\Controllers\IdiomaAssuntoController@inserir');
+        Route::get('/cms/idioma-assunto/{id}', 'Cms\Controllers\IdiomaAssuntoController@detalhar');
+        Route::post('/cms/alterar-idioma-assunto/{id}', 'Cms\Controllers\IdiomaAssuntoController@alterar');
+        Route::get('/cms/excluir-idioma-assunto/{id}', 'Cms\Controllers\IdiomaAssuntoController@excluir');
+
 
         //Setting
         Route::get('/cms/setting/', 'Cms\Controllers\SettingController@detalhar');

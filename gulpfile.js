@@ -78,6 +78,10 @@ elixir(function(mix) {
     //Idiomas Temas
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaTemaCtrl.js', 'public/assets-cms/js/controllers/idiomaTemaCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaTemaCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaTemaCtrl.js');
+    
+    //Idiomas Assuntos
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaAssuntoCtrl.js', 'public/assets-cms/js/controllers/idiomaAssuntoCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarIdiomaAssuntoCtrl.js', 'public/assets-cms/js/controllers/alterarIdiomaAssuntoCtrl.js');
 
     //Idiomas Transportes
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/idiomaTransporteCtrl.js', 'public/assets-cms/js/controllers/idiomaTransporteCtrl.js');
@@ -196,6 +200,10 @@ elixir(function(mix) {
     //Temas
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/temaCtrl.js', 'public/assets-cms/js/controllers/temaCtrl.js');
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarTemaCtrl.js', 'public/assets-cms/js/controllers/alterarTemaCtrl.js');
+
+    //Assuntos
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/assuntoCtrl.js', 'public/assets-cms/js/controllers/assuntoCtrl.js');
+    mix.scripts('../../../packages/cms/resources/assets/js/controllers/alterarAssuntoCtrl.js', 'public/assets-cms/js/controllers/alterarAssuntoCtrl.js');
 
     //Downloads
     mix.scripts('../../../packages/cms/resources/assets/js/controllers/downloadCtrl.js', 'public/assets-cms/js/controllers/downloadCtrl.js');

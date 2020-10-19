@@ -43,13 +43,18 @@ class ArtigoController extends Controller
         $authors = \App\Author::pluck('titulo', 'id')->all();
         $idiomas = \App\Idioma::lists('titulo', 'sigla')->all();
         $fontes = \App\Fonte::lists('titulo', 'id')->all();
+        $assuntos = \App\Assunto::select('idiomas_assuntos.titulo', 'assuntos.id')
+            ->join('idiomas_assuntos', 'idiomas_assuntos.assunto_id', '=', 'assuntos.id')
+            ->where('idiomas_assuntos.idioma_sigla', 'pt_BR')
+            ->get();
 
         return view('cms::artigo.listar', [
             'artigos' => $artigos,
                 'links' => $links,
                 'authors' => $authors,
                 'idiomas' => $idiomas,
-                'fontes' => $fontes
+                'fontes' => $fontes,
+                'assuntos' => $assuntos,
             ]);
     }
 
@@ -121,6 +126,18 @@ class ArtigoController extends Controller
                     $array_autor = explode('_', $autor);
                     $dadosAuthorArtigo['author_id'] = $array_autor[1];
                     $authorArtigo->create($dadosAuthorArtigo);
+                }
+            }
+
+            $assuntoArtigo = new \App\AssuntoArtigo;
+            $dadosAssuntoArtigo = Array();
+            $dadosAssuntoArtigo['artigo_id'] = $insert->id;
+
+            foreach($data["assunto_artigo"] as $autor => $marcado){
+                if($marcado){
+                    $array_autor = explode('_', $autor);
+                    $dadosAssuntoArtigo['assunto_id'] = $array_autor[1];
+                    $assuntoArtigo->create($dadosAssuntoArtigo);
                 }
             }
 
