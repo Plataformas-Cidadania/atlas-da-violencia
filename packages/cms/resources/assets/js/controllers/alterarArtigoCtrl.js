@@ -26,7 +26,8 @@ cmsApp.controller('alterarArtigoCtrl', ['$scope', '$http', 'Upload', '$timeout',
                 'artigo': $scope.artigo,
                 'removerImagem': $scope.removerImagem,
                 'removerArquivo': $scope.removerArquivo,
-                'author_artigo': $scope.author_artigo
+                'author_artigo': $scope.author_artigo,
+                'assunto_artigo': $scope.assunto_artigo
             }).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
@@ -44,7 +45,8 @@ cmsApp.controller('alterarArtigoCtrl', ['$scope', '$http', 'Upload', '$timeout',
                 artigo: $scope.artigo,
                 'removerImagem': $scope.removerImagem,
                 'removerArquivo': $scope.removerArquivo,
-                'author_artigo': $scope.author_artigo
+                'author_artigo': $scope.author_artigo,
+                'assunto_artigo': $scope.assunto_artigo
             };
 
             if(file!=null){

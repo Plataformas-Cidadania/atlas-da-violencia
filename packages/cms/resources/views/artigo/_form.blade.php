@@ -6,8 +6,17 @@
 null, ['class'=>"form-control width-medio <% validar(artigo.idioma_sigla) %>", 'ng-model'=>'artigo.idioma_sigla', 'ng-required'=>'true', 'init-model'=>'artigo.idioma_sigla', 'placeholder' => 'Selecione']) !!}<br>
 
 
-{!! Form::label('link', 'Link artigo') !!}<br>
-{!! Form::text('link', null, ['class'=>"form-control width-grande <% validar(artigo.link) %>", 'ng-model'=>'artigo.link',  'init-model'=>'artigo.link', 'placeholder' => '']) !!}<br>
+
+{!! Form::label('titulo', 'Título *') !!}<br>
+{!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(artigo.titulo) %>", 'ng-model'=>'artigo.titulo', 'ng-required'=>'true', 'init-model'=>'artigo.titulo', 'placeholder' => '']) !!}<br>
+
+
+
+
+{!! Form::label('publicacao_atlas', 'Publicação Atlas da Violência') !!}<br>
+{!! Form::select('publicacao_atlas',
+        [0 => "Não", 1 => "Sim"],
+null, ['class'=>"form-control width-medio <% validar(artigo.publicacao_atlas) %>", 'ng-model'=>'artigo.publicacao_atlas', 'ng-required'=>'true', 'init-model'=>'artigo.publicacao_atlas', 'placeholder' => 'Selecione']) !!}<br>
 
 
 <p><strong>Assuntos</strong></p>
@@ -23,25 +32,21 @@ null, ['class'=>"form-control width-medio <% validar(artigo.idioma_sigla) %>", '
 </div>
 <br><br>
 
-    {!! Form::label('origem_id', 'Origem *') !!}<br>
-    {!! Form::select('origem_id',
-            $links,
-    null, ['class'=>"form-control width-medio <% validar(artigo.origem_id) %>", 'ng-model'=>'artigo.origem_id', 'ng-required'=>'false', 'init-model'=>'artigo.origem_id', 'placeholder' => 'Selecione']) !!}<br>
-
+    <div style="display: none;">
+        {!! Form::label('origem_id', 'Origem *') !!}<br>
+        {!! Form::select('origem_id',
+                $links,
+        null, ['class'=>"form-control width-medio <% validar(artigo.origem_id) %>", 'ng-model'=>'artigo.origem_id', 'ng-required'=>'false', 'init-model'=>'artigo.origem_id', 'placeholder' => 'Selecione']) !!}<br>
+    </div>
 
 
 {!! Form::label('data', 'Data *') !!}<br>
 {!! Form::date('data', null, ['class'=>"form-control width-medio <% validar(artigo.data) %>", 'ng-model'=>'artigo.data', 'ng-required'=>'true', 'init-model'=>'artigo.data', 'placeholder' => '']) !!}<br>
 
 
-{!! Form::label('titulo', 'Título *') !!}<br>
-{!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(artigo.titulo) %>", 'ng-model'=>'artigo.titulo', 'ng-required'=>'true', 'init-model'=>'artigo.titulo', 'placeholder' => '']) !!}<br>
+{!! Form::label('link', 'Link artigo') !!}<br>
+{!! Form::text('link', null, ['class'=>"form-control width-grande <% validar(artigo.link) %>", 'ng-model'=>'artigo.link',  'init-model'=>'artigo.link', 'placeholder' => '']) !!}<br>
 
-
-{!! Form::label('publicacao_atlas', 'Publicação Atlas da Violência') !!}<br>
-{!! Form::select('fonte_id',
-        [0 => "Não", 1 => "Sim"],
-null, ['class'=>"form-control width-medio <% validar(artigo.fonte_id) %>", 'ng-model'=>'artigo.fonte_id', 'ng-required'=>'true', 'init-model'=>'artigo.fonte_id', 'placeholder' => 'Selecione']) !!}<br>
 
 
 {!! Form::label('descricao', 'Descrição *') !!}<br>
@@ -64,15 +69,10 @@ null, ['class'=>"form-control width-medio <% validar(artigo.autor) %>", 'ng-mode
 @endforeach
 <br><br>
 
-{!! Form::label('fonte_id', 'Fonte *') !!}<br>
-{!! Form::select('fonte_id',
-        $fontes,
-null, ['class'=>"form-control width-medio <% validar(artigo.fonte_id) %>", 'ng-model'=>'artigo.fonte_id', 'ng-required'=>'true', 'init-model'=>'artigo.fonte_id', 'placeholder' => 'Selecione']) !!}<br>
-
 
 <div class="row">
     <div class="col-md-6">
-        {!! Form::label('fonte', 'Fonte (Depreciado)') !!}<br>
+        {!! Form::label('fonte', 'Fonte') !!}<br>
         {!! Form::text('fonte', null, ['class'=>"form-control width-grande <% validar(artigo.fonte) %>", 'ng-model'=>'artigo.fonte', 'init-model'=>'artigo.fonte', 'placeholder' => '']) !!}<br>
     </div>
     <div class="col-md-6">
