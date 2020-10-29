@@ -124,7 +124,10 @@ class ArtigoController extends Controller
         $artigos->setPath($paginateUrl);
 
 
-        $menus = DB::table('links')->where('idioma_sigla', $lang)->get();
+        $menus = DB::table('assuntos')
+            ->join('idiomas_assuntos', 'idiomas_assuntos.assunto_id', '=', 'assuntos.id')
+            ->where('idiomas_assuntos.idioma_sigla', $lang)
+            ->get();
 
         if($origem_id==0){
             $authors = DB::table('authors')->orderBy('titulo')
@@ -200,6 +203,55 @@ class ArtigoController extends Controller
             ])
                 ->where('origem_id', '=', $origem_id )
                 //->paginate(15);
+                ->paginate(10);
+        }
+
+        $parametros = "";
+        if($origem_id != ""){
+            $parametros .= "/$origem_id";
+        }
+        $paginateUrl = env('APP_PROTOCOL').config('app.url').'/artigos'.$parametros."/lista";
+        $artigos->setPath($paginateUrl);
+
+
+        $menus = DB::table('links')->where('idioma_sigla', $lang)->get();
+        $authors = DB::table('authors')->orderBy('titulo')->get();
+
+        $origem_titulo = "";
+
+
+        return view('artigo.listar', ['artigos' => $artigos, 'tipos' => $busca, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => 0, 'autor_titulo' => 0, 'valorBusca' => $valorBusca]);
+
+    }
+
+    public function buscar2(Request $request, $origem_id){
+
+        $lang =  App::getLocale();
+
+        $dados = $request->all();
+
+        $busca = new \stdClass();
+        $busca->titulo = $dados['busca'];
+        $busca->descricao = '';
+
+        $valorBusca = $dados['busca'];
+
+        if($origem_id==0){
+            $artigos = DB::table('artigos')
+                ->orderBy('titulo')
+                ->where([
+                    ['titulo', 'ilike', "%$busca->titulo%"]
+                ])
+                ->whereYear('data', $dados['ano'])
+                ->paginate(10);
+        }else{
+            $artigos = DB::table('artigos')
+                ->orderBy('titulo')
+                ->where([
+                    ['titulo', 'ilike', "%$busca->titulo%"]
+                ])
+                ->whereYear('data', $dados['ano'])
+                ->where('origem_id', '=', $origem_id )
                 ->paginate(10);
         }
 

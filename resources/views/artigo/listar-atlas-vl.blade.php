@@ -4,13 +4,6 @@
     $autores = "";
     $fontesUsadas = [];
 
-    $fontesPermitidas = ["Atlas da Violência", "Outros"];
-    foreach ($fontes as $fonte) {
-        if(in_array($fonte->titulo, $fontesPermitidas)){
-            array_push($fontesUsadas, $fonte);
-        }
-    }
-
     foreach ($artigos as $artigo) {
         $ano = date('Y', strtotime($artigo->created_at));
         if($artigo->data){
@@ -50,10 +43,38 @@
         });
         console.log(autores);
 
+
         function searchAutores(search){
+            document.getElementById("divAutores").style.display = "block";
             let lista = autores.filter((item) => item.nome.includes(search));
             console.log(lista);
+            listAutores(lista);
             //return item.indexOf(search) === -1;
+        }
+
+        function setAutor(id, nome){
+            document.getElementById("divAutores").style.display = "none";
+            document.getElementById("autorId").value = id;
+            document.getElementById("autorName").value = nome;
+        }
+
+        function listAutores(autores){
+            limparAutores();
+            let divAutores = document.getElementById("divAutores");
+            for(let i in autores){
+                let divAutor = document.createElement('div');
+                let text = document.createTextNode(autores[i].nome);
+                divAutor.appendChild(text);
+                divAutor.setAttribute("onClick", "setAutor("+autores[i].id+",'"+autores[i].nome+"')")
+                divAutores.appendChild(divAutor);
+            }
+        }
+
+        function limparAutores(){
+            let divAutores = document.getElementById("divAutores");
+            while (divAutores.firstChild) {
+                divAutores.removeChild(divAutores.firstChild);
+            }
         }
 
     </script>
@@ -66,7 +87,8 @@
         <br>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <form action="">
+                <form class="form-inline" action="busca-artigos/{{$origem_id}}/lista" method="post">
+                    {!! csrf_field() !!}
                     <div class="row">
                         <div class="col-md-2">
                             <label for="ano">Ano</label>
@@ -77,24 +99,18 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <label for="ano">Autor</label>
-                            <input type="text" class="form-control" onkeyup="searchAutores(this.value)">
-                        </div>
-                        <div class="col-md-2">
-                            <label for="ano">Fontes:</label>
-                            <select name="fonte" id="fonte" class="form-control">
-                                <option value="0">Todos</option>
-                                @foreach($fontesUsadas as $fonte)
-                                    <option value="{{$fonte->id}}">{{$fonte->titulo}}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" name="autorName" id="autorName" onkeyup="searchAutores(this.value)">
+                            <input type="hidden" name="autorId" id="autorId" value="0">
+                            <div class="div-info" id="divAutores" style="display: none;"></div>
                         </div>
                         <div class="col-md-4">
-                            @foreach($fontesUsadas as $fonte)
-                                <button type="text" class="btn btn-info" onClick="searchArticles({{$fonte->id}})" style="float:left; margin: 25px 0 0 5px;">{{$fonte->titulo}}</button>
-                            @endforeach
-                            <div style="clear:both;"></div>
+                            <label for="ano">Título</label>
+                            <input type="text" class="form-control" id="busca" name="busca">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="text" class="btn btn-info" onClick="searchArticles()" style="margin: 25px 0 0 5px;">Pesquisar</button>
                         </div>
                     </div>
 
@@ -102,11 +118,13 @@
             </div>
         </div>
 
+
+
         <div class="row">
             <br>
 
 
-            <div class="col-md-offset-9 col-md-3 text-right">
+            {{--<div class="col-md-offset-9 col-md-3 text-right">
                 <form class="form-inline" action="busca-artigos/{{$origem_id}}/lista" method="post">
                     {!! csrf_field() !!}
                     <div class="form-group">
@@ -119,7 +137,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div>--}}
         </div>
         <div class="row">
             <div class="col-md-3 col-sm-3">
