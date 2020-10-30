@@ -46,7 +46,7 @@
 
         function searchAutores(search){
             document.getElementById("divAutores").style.display = "block";
-            let lista = autores.filter((item) => item.nome.includes(search));
+            let lista = autores.filter((item) => item.nome.toLowerCase().includes(search.toLowerCase()));
             console.log(lista);
             listAutores(lista);
             //return item.indexOf(search) === -1;
@@ -66,6 +66,7 @@
                 let text = document.createTextNode(autores[i].nome);
                 divAutor.appendChild(text);
                 divAutor.setAttribute("onClick", "setAutor("+autores[i].id+",'"+autores[i].nome+"')")
+                divAutor.style.cursor = "pointer";
                 divAutores.appendChild(divAutor);
             }
         }
@@ -87,7 +88,7 @@
         <br>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <form class="form-inline" action="busca-artigos/{{$origem_id}}/lista" method="post">
+                <form class="form" action="busca-artigos-v2/{{$origem_id}}/lista" method="post">
                     {!! csrf_field() !!}
                     <div class="row">
                         <div class="col-md-2">
@@ -95,25 +96,35 @@
                             <select name="ano" id="ano" class="form-control">
                                 <option value="0">Todos</option>
                                 @foreach($anos as $ano)
-                                    <option value="{{$ano}}">{{$ano}}</option>
+                                    <option value="{{$ano}}" @if($ano==$anoBusca)selected="selected"@endif>{{$ano}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-4">
                             <label for="ano">Autor</label>
-                            <input type="text" class="form-control" name="autorName" id="autorName" onkeyup="searchAutores(this.value)">
-                            <input type="hidden" name="autorId" id="autorId" value="0">
+                            <input type="text" class="form-control" name="autorName" id="autorName"  value="{{$autorNomeBusca}}" onkeyup="searchAutores(this.value)">
+                            <input type="hidden" name="autorId" id="autorId" value="{{$autorIdBusca}}">
                             <div class="div-info" id="divAutores" style="display: none;"></div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="ano">Título</label>
+                        <div class="col-md-6">
+                            <br>
+                            <label for="publicacaoAtlas">
+                                <input type="checkbox" id="publicacaoAtlas" name="publicacaoAtlas" value="1" @if($publicacaoAtlasBusca==1) checked @endif
+                                       style="width: 20px; height: 20px; margin: 0 10px 0 0; top: 15px; position: relative; float: left;">
+                                <div style="float: left; padding-top: 15px;">Atlas Violência</div>
+                            </label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label for="busca">Título</label>
                             <input type="text" class="form-control" id="busca" name="busca">
                         </div>
                         <div class="col-md-2">
                             <button type="text" class="btn btn-info" onClick="searchArticles()" style="margin: 25px 0 0 5px;">Pesquisar</button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>

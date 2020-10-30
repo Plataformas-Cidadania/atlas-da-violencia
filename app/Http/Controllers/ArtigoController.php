@@ -155,6 +155,10 @@ class ArtigoController extends Controller
             'origem_titulo' => $origem_titulo,
             'autor_id' => $autor_id,
             'autor_titulo' => $autor_titulo,
+            'anoBusca' => 0,
+            'autorIdBusca' => "",
+            'autorNomeBusca' => "",
+            'publicacaoAtlasBusca' => 0,
             'valorBusca' => 0
         ]);
     }
@@ -230,6 +234,12 @@ class ArtigoController extends Controller
 
         $dados = $request->all();
 
+        if(!array_key_exists('publicacaoAtlas', $dados)){
+            $dados['publicacaoAtlas'] = 0;
+        }
+
+        //return $dados;
+
         $busca = new \stdClass();
         $busca->titulo = $dados['busca'];
         $busca->descricao = '';
@@ -238,19 +248,35 @@ class ArtigoController extends Controller
 
         if($origem_id==0){
             $artigos = DB::table('artigos')
-                ->orderBy('titulo')
+                ->orderBy('artigos.titulo')
                 ->where([
-                    ['titulo', 'ilike', "%$busca->titulo%"]
+                    ['artigos.titulo', 'ilike', "%$busca->titulo%"]
                 ])
-                ->whereYear('data', $dados['ano'])
+                ->where('publicacao_atlas', '=', $dados['publicacaoAtlas'])
+                ->when($dados['ano'] > 0, function($query) use ($dados){
+                    return $query->whereYear('data', '=', $dados['ano']);
+                })
+                ->when($dados['autorId'] > 0, function($query) use ($dados){
+                    $query->join('author_artigo', 'author_artigo.artigo_id', '=', 'artigos.id');
+                    $query->where('author_artigo.author_id', '=', $dados['autorId']);
+                    return $query;
+                })
                 ->paginate(10);
         }else{
             $artigos = DB::table('artigos')
-                ->orderBy('titulo')
+                ->orderBy('artigos.titulo')
                 ->where([
-                    ['titulo', 'ilike', "%$busca->titulo%"]
+                    ['artigos.titulo', 'ilike', "%$busca->titulo%"]
                 ])
-                ->whereYear('data', $dados['ano'])
+                ->where('publicacao_atlas', '=', $dados['publicacaoAtlas'])
+                ->when($dados['ano'] > 0, function($query) use ($dados){
+                    return $query->whereYear('artigos.data', '=', $dados['ano']);
+                })
+                ->when($dados['autorId'] > 0, function($query) use ($dados){
+                    $query->join('author_artigo', 'author_artigo.artigo_id', '=', 'artigos.id');
+                    $query->where('author_artigo.author_id', '=', $dados['autorId']);
+                    return $query;
+                })
                 ->where('origem_id', '=', $origem_id )
                 ->paginate(10);
         }
@@ -269,7 +295,32 @@ class ArtigoController extends Controller
         $origem_titulo = "";
 
 
-        return view('artigo.listar', ['artigos' => $artigos, 'tipos' => $busca, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => 0, 'autor_titulo' => 0, 'valorBusca' => $valorBusca]);
-
+        return view('artigo.listar-atlas-vl', [
+            'artigos' => $artigos,
+            'tipos' => $busca,
+            'menus' => $menus,
+            'origem_id' => $origem_id,
+            'authors' => $authors,
+            'origem_titulo' => $origem_titulo,
+            'autor_id' => 0,
+            'autor_titulo' => 0,
+            'anoBusca' => $dados["ano"],
+            'autorIdBusca' => $dados["autorId"],
+            'autorNomeBusca' => $dados["autorName"],
+            'publicacaoAtlasBusca' => $dados["publicacaoAtlas"],
+            'valorBusca' => $valorBusca
+        ]);
+/*
+        return view('artigo.listar-atlas-vl', [
+            'artigos' => $artigos,
+            'menus' => $menus,
+            'origem_id' => $origem_id,
+            'authors' => $authors,
+            "fontes" => $fontes,
+            'origem_titulo' => $origem_titulo,
+            'autor_id' => $autor_id,
+            'autor_titulo' => $autor_titulo,
+            'valorBusca' => 0
+        ]);*/
     }
 }
