@@ -90,6 +90,9 @@ Route::get('videos/{titulo}', 'VideoController@listar');
 
 Route::get('indices', 'IndiceController@indice');
 
+Route::get('publicacoes/', 'PublicacaoController@listar');
+Route::get('publicacoes/{id}/{titulo}', 'PublicacaoController@listar');
+
 //SERIES//////////////////////////////////////////////////////////////////////////////////////
 
 //Pgs

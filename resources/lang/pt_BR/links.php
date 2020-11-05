@@ -7,6 +7,7 @@ return [
     'indicators' => 'Indicadores',
     'articles' => 'Artigos',
     'articles2' => 'Publicações Ipea',
+    'articles3' => 'Publicações',
     'videos' => 'Vídeos',
     'downloads' => 'Downloads',
     'contact' => 'Contato',
