@@ -62,14 +62,16 @@ Route::get('artigos/{titulo}', 'ArtigoController@listar');
 Route::get('artigo/{id}', 'ArtigoController@detalhar');
 Route::get('artigo/{id}/{titulo}', 'ArtigoController@detalhar');
 Route::post('busca-artigos/{origem_id}/{titulo}', 'ArtigoController@buscar');
+
 //ARTIGOS V2
 Route::get('artigos-v2/{origem_id}', 'ArtigoController@listar2');
-//Route::get('artigos-v2/{origem_id}/{titulo}', 'ArtigoController@listar2');
 Route::get('artigos-v2/{origem_id}/{titulo}', 'ArtigoController@listar2');
 Route::get('artigos-v2/{origem_id}/{titulo}/{autor_id}/{autor}', 'ArtigoController@listar2');
+//Route::get('artigos-v2/{origem_id}/{titulo}/{$anoBusca}/{$autorIdBusca}/{{$autorNomeBusca}/{$publicacaoAtlasBusca}', 'ArtigoController@listar2');
 Route::get('artigos-v2/', 'ArtigoController@listar2');
 Route::get('artigos-v2/{titulo}', 'ArtigoController@listar2');
 Route::post('busca-artigos-v2/{origem_id}/{titulo}', 'ArtigoController@buscar2');
+Route::post('busca-artigos-v2', 'ArtigoController@buscar2');
 
 //DOWNLOADS
 Route::post('busca-downloads/', 'DownloadController@buscar');

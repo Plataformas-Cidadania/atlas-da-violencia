@@ -78,6 +78,11 @@
             }
         }
 
+        function submitFormFromMenu(origem_id){
+            document.getElementById('origem_id').value = origem_id;
+            document.getElementById('frmBusca').onsubmit;
+        }
+
     </script>
 
     {{--{{ Counter::count('artigo') }}--}}
@@ -88,7 +93,8 @@
         <br>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <form class="form" action="busca-artigos-v2/{{$origem_id}}/lista" method="post">
+                <form class="form" name="frmBusca" id="frmBusca" action="busca-artigos-v2" method="post">
+                    <input type="hidden" name="origem_id" id="origem_id" value="{{$origem_id}}">
                     {!! csrf_field() !!}
                     <div class="row">
                         <div class="col-md-2">
@@ -119,7 +125,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <label for="busca">Título</label>
-                            <input type="text" class="form-control" id="busca" name="busca">
+                            <input type="text" class="form-control" id="busca" name="busca" value="{{$tituloBusca}}">
                         </div>
                         <div class="col-md-2">
                             <button type="text" class="btn btn-info" onClick="searchArticles()" style="margin: 25px 0 0 5px;">Pesquisar</button>
@@ -128,7 +134,6 @@
                 </form>
             </div>
         </div>
-
 
 
         <div class="row">
@@ -159,7 +164,8 @@
                 <ul class="menu-vertical ">
                     @foreach($menus as $menu)
                         <li role="presentation">
-                            <a href="artigos/{{$menu->id}}/{{clean($menu->titulo)}}" accesskey="q" @if($menu->id == $origem_id) class="menu-vertical-marcado" @endif  style="clear: both;">
+                            <?php /* ?><a href="artigos-v2/{{$menu->id}}/{{clean($menu->titulo)}}/{{$anoBusca}}/{{$autorIdBusca}}/{{$autorNomeBusca}}/{{$publicacaoAtlasBusca}}/" accesskey="q" @if($menu->id == $origem_id) class="menu-vertical-marcado" @endif  style="clear: both;"><?php */?>
+                            <a onClick="submitFormFromMenu({{$menu->id}})" accesskey="q" @if($menu->id == $origem_id) class="menu-vertical-marcado" @endif  style="clear: both;">
                                 <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                                 {{$menu->titulo}}
 

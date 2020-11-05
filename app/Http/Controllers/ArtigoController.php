@@ -159,73 +159,13 @@ class ArtigoController extends Controller
             'autorIdBusca' => "",
             'autorNomeBusca' => "",
             'publicacaoAtlasBusca' => 0,
-            'valorBusca' => 0
+            'valorBusca' => 0,
+            'tituloBusca' => '',
         ]);
     }
 
-    public function detalhar($id){
-
-        $artigo = new \App\Artigo;
-        $artigo = $artigo->find($id);
-
-
-        $autores = DB::table('authors')
-            ->join('author_artigo', 'authors.id', '=', 'author_artigo.author_id')
-            ->where('author_artigo.artigo_id', $id)
-            ->select('authors.*')
-            ->get();
-
-
-        return view('artigo.detalhar', ['artigo' => $artigo, 'autores' => $autores]);
-        
-    }
-    public function buscar(Request $request, $origem_id){
-
-	$lang =  App::getLocale();
-
-        $dados = $request->all();
-
-        $busca = new \stdClass();
-        $busca->titulo = $dados['busca'];
-        $busca->descricao = '';
-
-       $valorBusca = $dados['busca'];
-
-        if($origem_id==0){
-            $artigos = DB::table('artigos')
-                ->orderBy('titulo')
-                ->where([
-                ['titulo', 'ilike', "%$busca->titulo%"]
-            ])
-                //->paginate(15);
-                ->paginate(10);
-        }else{
-            $artigos = DB::table('artigos')
-                ->orderBy('titulo')
-                ->where([
-                ['titulo', 'ilike', "%$busca->titulo%"]
-            ])
-                ->where('origem_id', '=', $origem_id )
-                //->paginate(15);
-                ->paginate(10);
-        }
-
-        $parametros = "";
-        if($origem_id != ""){
-            $parametros .= "/$origem_id";
-        }
-        $paginateUrl = env('APP_PROTOCOL').config('app.url').'/artigos'.$parametros."/lista";
-        $artigos->setPath($paginateUrl);
-
-
-        $menus = DB::table('links')->where('idioma_sigla', $lang)->get();
-        $authors = DB::table('authors')->orderBy('titulo')->get();
-
-        $origem_titulo = "";
-
-
-        return view('artigo.listar', ['artigos' => $artigos, 'tipos' => $busca, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => 0, 'autor_titulo' => 0, 'valorBusca' => $valorBusca]);
-
+    public function buscarFromMenu(Request $request){
+        return $this->buscar2($request, $request->origin_id);
     }
 
     public function buscar2(Request $request, $origem_id){
@@ -294,7 +234,6 @@ class ArtigoController extends Controller
 
         $origem_titulo = "";
 
-
         return view('artigo.listar-atlas-vl', [
             'artigos' => $artigos,
             'tipos' => $busca,
@@ -308,19 +247,87 @@ class ArtigoController extends Controller
             'autorIdBusca' => $dados["autorId"],
             'autorNomeBusca' => $dados["autorName"],
             'publicacaoAtlasBusca' => $dados["publicacaoAtlas"],
-            'valorBusca' => $valorBusca
+            'valorBusca' => $valorBusca,
+            'tituloBusca' => $busca->titulo
         ]);
-/*
-        return view('artigo.listar-atlas-vl', [
-            'artigos' => $artigos,
-            'menus' => $menus,
-            'origem_id' => $origem_id,
-            'authors' => $authors,
-            "fontes" => $fontes,
-            'origem_titulo' => $origem_titulo,
-            'autor_id' => $autor_id,
-            'autor_titulo' => $autor_titulo,
-            'valorBusca' => 0
-        ]);*/
+        /*
+                return view('artigo.listar-atlas-vl', [
+                    'artigos' => $artigos,
+                    'menus' => $menus,
+                    'origem_id' => $origem_id,
+                    'authors' => $authors,
+                    "fontes" => $fontes,
+                    'origem_titulo' => $origem_titulo,
+                    'autor_id' => $autor_id,
+                    'autor_titulo' => $autor_titulo,
+                    'valorBusca' => 0
+                ]);*/
     }
+
+    public function detalhar($id){
+
+        $artigo = new \App\Artigo;
+        $artigo = $artigo->find($id);
+
+
+        $autores = DB::table('authors')
+            ->join('author_artigo', 'authors.id', '=', 'author_artigo.author_id')
+            ->where('author_artigo.artigo_id', $id)
+            ->select('authors.*')
+            ->get();
+
+
+        return view('artigo.detalhar', ['artigo' => $artigo, 'autores' => $autores]);
+        
+    }
+    public function buscar(Request $request, $origem_id){
+
+	$lang =  App::getLocale();
+
+        $dados = $request->all();
+
+        $busca = new \stdClass();
+        $busca->titulo = $dados['busca'];
+        $busca->descricao = '';
+
+       $valorBusca = $dados['busca'];
+
+        if($origem_id==0){
+            $artigos = DB::table('artigos')
+                ->orderBy('titulo')
+                ->where([
+                ['titulo', 'ilike', "%$busca->titulo%"]
+            ])
+                //->paginate(15);
+                ->paginate(10);
+        }else{
+            $artigos = DB::table('artigos')
+                ->orderBy('titulo')
+                ->where([
+                ['titulo', 'ilike', "%$busca->titulo%"]
+            ])
+                ->where('origem_id', '=', $origem_id )
+                //->paginate(15);
+                ->paginate(10);
+        }
+
+        $parametros = "";
+        if($origem_id != ""){
+            $parametros .= "/$origem_id";
+        }
+        $paginateUrl = env('APP_PROTOCOL').config('app.url').'/artigos'.$parametros."/lista";
+        $artigos->setPath($paginateUrl);
+
+
+        $menus = DB::table('links')->where('idioma_sigla', $lang)->get();
+        $authors = DB::table('authors')->orderBy('titulo')->get();
+
+        $origem_titulo = "";
+
+
+        return view('artigo.listar', ['artigos' => $artigos, 'tipos' => $busca, 'menus' => $menus, 'origem_id' => $origem_id, 'authors' => $authors, 'origem_titulo' => $origem_titulo, 'autor_id' => 0, 'autor_titulo' => 0, 'valorBusca' => $valorBusca]);
+
+    }
+
+
 }
