@@ -8,6 +8,7 @@ return [
     'indicators' => 'Indicators',
     'articles' => 'Publications',
     'articles2' => 'Publications Ipea',
+    'articles3' => 'Publications',
     'videos' => 'Videos',
     'downloads' => 'Downloads',
     'contact' => 'Contact',
@@ -17,7 +18,6 @@ return [
     'go-menu' => 'Go to menu',
     'go-footer' => 'Go to footer',
     'back-top' => 'Go to top',
-    'accessibility' => 'Accessibility',
     'high-contrast' => 'High contrast'
 
 

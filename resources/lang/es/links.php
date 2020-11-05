@@ -8,6 +8,7 @@ return [
     'indicators' => 'Indicadores',
     'articles' => 'Artículos',
     'articles2' => 'Publicaciones Ipea',
+    'articles3' => 'Publicaciones',
     'videos' => 'Videos',
     'downloads' => 'Descarregar',
     'contact' => 'Contacto',

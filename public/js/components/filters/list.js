@@ -103,7 +103,7 @@ class List extends React.Component {
                     React.createElement(
                         'a',
                         { href: this.state.urlDetailItem + "/" + item.id, title: 'Territ\xF3rios', target: '_blank' },
-                        React.createElement('i', { className: 'fa fa-globe', style: { fontSize: '1.5em' } })
+                        React.createElement('i', { className: 'fa fa-line-chart', style: { fontSize: '1.5em' } })
                     )
                 );
                 buttons[3] = React.createElement(
