@@ -164,81 +164,76 @@ class ArtigoController extends Controller
         ]);
     }
 
-    public function buscarFromMenu(Request $request){
-        return $this->buscar2($request, $request->origin_id);
-    }
 
-    public function buscar2(Request $request, $origem_id){
+    public function buscar2(Request $request){
 
         $lang =  App::getLocale();
 
         $dados = $request->all();
 
+
         if(!array_key_exists('publicacaoAtlas', $dados)){
             $dados['publicacaoAtlas'] = 0;
+        }
+        if(!array_key_exists('assunto_id', $dados)){
+            $dados['assunto_id'] = 0;
+        }
+        if(!array_key_exists('ano', $dados)){
+            $dados['ano'] = 0;
+        }
+        if(!array_key_exists('autorId', $dados)){
+            $dados['autorId'] = 0;
+        }
+        if(!array_key_exists('busca', $dados)){
+            $dados['busca'] = "";
         }
 
         //return $dados;
 
-        $busca = new \stdClass();
-        $busca->titulo = $dados['busca'];
-        $busca->descricao = '';
-
-        $valorBusca = $dados['busca'];
-
-        if($origem_id==0){
-            $artigos = DB::table('artigos')
-                ->orderBy('artigos.titulo')
-                ->where([
-                    ['artigos.titulo', 'ilike', "%$busca->titulo%"]
-                ])
-                ->where('publicacao_atlas', '=', $dados['publicacaoAtlas'])
-                ->when($dados['ano'] > 0, function($query) use ($dados){
-                    return $query->whereYear('data', '=', $dados['ano']);
-                })
-                ->when($dados['autorId'] > 0, function($query) use ($dados){
-                    $query->join('author_artigo', 'author_artigo.artigo_id', '=', 'artigos.id');
-                    $query->where('author_artigo.author_id', '=', $dados['autorId']);
-                    return $query;
-                })
-                ->paginate(10);
-        }else{
-            $artigos = DB::table('artigos')
-                ->orderBy('artigos.titulo')
-                ->where([
-                    ['artigos.titulo', 'ilike', "%$busca->titulo%"]
-                ])
-                ->where('publicacao_atlas', '=', $dados['publicacaoAtlas'])
-                ->when($dados['ano'] > 0, function($query) use ($dados){
-                    return $query->whereYear('artigos.data', '=', $dados['ano']);
-                })
-                ->when($dados['autorId'] > 0, function($query) use ($dados){
-                    $query->join('author_artigo', 'author_artigo.artigo_id', '=', 'artigos.id');
-                    $query->where('author_artigo.author_id', '=', $dados['autorId']);
-                    return $query;
-                })
-                ->where('origem_id', '=', $origem_id )
-                ->paginate(10);
-        }
+        $artigos = DB::table('artigos')
+            ->orderBy('artigos.titulo')
+            ->where([
+                ['artigos.titulo', 'ilike', "%".$dados['busca']."%"]
+            ])
+            ->where('artigos.publicacao_atlas', '=', $dados['publicacaoAtlas'])
+            ->when($dados['ano'] > 0, function($query) use ($dados){
+                return $query->whereYear('artigos.data', '=', $dados['ano']);
+            })
+            ->when($dados['autorId'] > 0, function($query) use ($dados){
+                $query->join('author_artigo', 'author_artigo.artigo_id', '=', 'artigos.id');
+                $query->where('author_artigo.author_id', '=', $dados['autorId']);
+                return $query;
+            })
+            ->when($dados['assunto_id'] > 0, function($query) use ($dados){
+                $query->join('assuntos_artigos', 'assuntos_artigos.artigo_id', '=', 'artigos.id' );
+                $query->where('assuntos_artigos.assunto_id', $dados['assunto_id']);
+                return $query;
+            })
+            ->paginate(10);
 
         $parametros = "";
-        if($origem_id != ""){
-            $parametros .= "/$origem_id";
+        if($dados['assunto_id'] != ""){
+            $parametros .= "/".$dados['assunto_id'];
         }
         $paginateUrl = env('APP_PROTOCOL').config('app.url').'/artigos'.$parametros."/lista";
         $artigos->setPath($paginateUrl);
 
 
-        $menus = DB::table('links')->where('idioma_sigla', $lang)->get();
+        $menus = DB::table('assuntos')
+            ->select('assuntos.id', 'idiomas_assuntos.titulo', DB::Raw('count(assuntos_artigos.artigo_id) as qtd'))
+            ->join('idiomas_assuntos', 'idiomas_assuntos.assunto_id', '=', 'assuntos.id')
+            ->join('assuntos_artigos', 'assuntos_artigos.assunto_id', '=', 'assuntos.id')
+            ->where('idiomas_assuntos.idioma_sigla', $lang)
+            ->groupBy('assuntos.id', 'idiomas_assuntos.titulo')
+            ->get();
         $authors = DB::table('authors')->orderBy('titulo')->get();
 
         $origem_titulo = "";
 
         return view('artigo.listar-atlas-vl', [
             'artigos' => $artigos,
-            'tipos' => $busca,
             'menus' => $menus,
-            'origem_id' => $origem_id,
+            'assunto_id' => $dados['assunto_id'],
             'authors' => $authors,
             'origem_titulo' => $origem_titulo,
             'autor_id' => 0,
@@ -247,8 +242,8 @@ class ArtigoController extends Controller
             'autorIdBusca' => $dados["autorId"],
             'autorNomeBusca' => $dados["autorName"],
             'publicacaoAtlasBusca' => $dados["publicacaoAtlas"],
-            'valorBusca' => $valorBusca,
-            'tituloBusca' => $busca->titulo
+            'valorBusca' => $dados['busca'],
+            'tituloBusca' => $dados['busca']
         ]);
         /*
                 return view('artigo.listar-atlas-vl', [

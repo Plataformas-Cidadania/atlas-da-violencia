@@ -78,23 +78,34 @@
             }
         }
 
-        function submitFormFromMenu(origem_id){
-            document.getElementById('origem_id').value = origem_id;
-            document.getElementById('frmBusca').onsubmit;
+        function submitFormFromMenu(assunto_id){
+            console.log(assunto_id);
+            document.getElementById('assunto_id').value = assunto_id;
+            document.getElementById('frmBusca').submit();
+        }
+
+        function submitForm(){
+            if(document.getElementById('autorName').value===""){
+                document.getElementById('autorId').value = 0;
+            }
         }
 
     </script>
 
     {{--{{ Counter::count('artigo') }}--}}
     <div class="container">
-        <h1>@lang('links.articles2')</h1>
-        <div class="line_title bg-pri"></div>
+        <div class="row">
+            <div class="col-md-12">
 
+                <h1>@lang('links.articles2')</h1>
+                <div class="line_title bg-pri"></div>
+            </div>
+        </div>
         <br>
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <form class="form" name="frmBusca" id="frmBusca" action="busca-artigos-v2" method="post">
-                    <input type="hidden" name="origem_id" id="origem_id" value="{{$origem_id}}">
+            <div class="col-md-12">
+                <form class="form" name="frmBusca" id="frmBusca" action="busca-artigos-v2" onsubmit="return submitForm()" method="post">
+                    <input type="hidden" name="assunto_id" id="assunto_id" value="{{$assunto_id}}">
                     {!! csrf_field() !!}
                     <div class="row">
                         <div class="col-md-2">
@@ -106,13 +117,13 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="ano">Autor</label>
                             <input type="text" class="form-control" name="autorName" id="autorName"  value="{{$autorNomeBusca}}" onkeyup="searchAutores(this.value)">
                             <input type="hidden" name="autorId" id="autorId" value="{{$autorIdBusca}}">
                             <div class="div-info" id="divAutores" style="display: none;"></div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                             <br>
                             <label for="publicacaoAtlas">
                                 <input type="checkbox" id="publicacaoAtlas" name="publicacaoAtlas" value="1" @if($publicacaoAtlasBusca==1) checked @endif
@@ -120,21 +131,17 @@
                                 <div style="float: left; padding-top: 15px;">Atlas Violência</div>
                             </label>
                         </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-3">
                             <label for="busca">Título</label>
                             <input type="text" class="form-control" id="busca" name="busca" value="{{$tituloBusca}}">
                         </div>
-                        <div class="col-md-2">
-                            <button type="text" class="btn btn-info" onClick="searchArticles()" style="margin: 25px 0 0 5px;">Pesquisar</button>
+                        <div class="col-md-1">
+                            <button type="text" class="btn btn-info" onClick="searchArticles()" style="margin: 25px 0 0 0;">Pesquisar</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-
 
         <div class="row">
             <br>
@@ -165,23 +172,17 @@
                     @foreach($menus as $menu)
                         <li role="presentation">
                             <?php /* ?><a href="artigos-v2/{{$menu->id}}/{{clean($menu->titulo)}}/{{$anoBusca}}/{{$autorIdBusca}}/{{$autorNomeBusca}}/{{$publicacaoAtlasBusca}}/" accesskey="q" @if($menu->id == $origem_id) class="menu-vertical-marcado" @endif  style="clear: both;"><?php */?>
-                            <a onClick="submitFormFromMenu({{$menu->id}})" accesskey="q" @if($menu->id == $origem_id) class="menu-vertical-marcado" @endif  style="clear: both;">
+                            <a onClick="submitFormFromMenu({{$menu->id}})" accesskey="q" @if($menu->id == $assunto_id) class="menu-vertical-marcado" @endif  style="cursor:pointer; clear: both;">
                                 <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                                 {{$menu->titulo}}
-
-                                <?php
-                                $menuQtd = DB::table('artigos')
-                                    ->where('origem_id', $menu->id)
-                                    ->count();
-                                ;?>
-                                <span style="float: right;">({{$menuQtd}})</span>
+                                <span style="float: right;">({{$menu->qtd}})</span>
                             </a></li>
                     @endforeach
-
                 </ul>
-                @if($origem_id>0)
+                @if($assunto_id>0)
                 <div class="text-right">
-                    <a href="artigos/0/todos @if($autor_id>0)/{{$autor_id}}/{{$autor_titulo}} @endif" class="text-danger" > <i class="fa fa-times" aria-hidden="true"></i> Remover filtro</a>
+                    <a  class="text-danger" onclick="submitFormFromMenu(0)" style="cursor: pointer;"> <i class="fa fa-times" aria-hidden="true"></i> Remover filtro</a>
+                    <?php /* ?><a href="artigos/0/todos @if($autor_id>0)/{{$autor_id}}/{{$autor_titulo}} @endif" class="text-danger" > <i class="fa fa-times" aria-hidden="true"></i> Remover filtro</a><?php */?>
                 </div>
                 @endif
 
