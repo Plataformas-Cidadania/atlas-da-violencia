@@ -80,12 +80,12 @@ class ArtigoController extends Controller
         ]);
     }
 
-    public function listar2($origem_id=0, $origem_titulo='', $autor_id=0, $autor_titulo=0){
+    /*public function listar2($origem_id=0, $origem_titulo='', $autor_id=0, $autor_titulo=0){
 
-        /*$origem_id = $request->origin_id;
-        $origem_titulo = $request->origem_titulo;
-        $autor_id = $request->autor_id;
-        $autor_titulo = $request->autor_titulo;*/
+        //$origem_id = $request->origin_id;
+        //$origem_titulo = $request->origem_titulo;
+        //$autor_id = $request->autor_id;
+        //$autor_titulo = $request->autor_titulo;
 
         $lang =  App::getLocale();
 
@@ -162,8 +162,7 @@ class ArtigoController extends Controller
             'valorBusca' => 0,
             'tituloBusca' => '',
         ]);
-    }
-
+    }*/
 
     public function buscar2(Request $request){
 
@@ -190,8 +189,13 @@ class ArtigoController extends Controller
         if(!array_key_exists('busca', $dados)){
             $dados['busca'] = "";
         }
+        if(!array_key_exists('take', $dados)){
+            $dados['take'] = 1;
+        }
 
         //return $dados;
+
+        $totalArtigos = \App\Artigo::count();
 
         $artigos = DB::table('artigos')
             ->orderBy('artigos.titulo')
@@ -212,14 +216,19 @@ class ArtigoController extends Controller
                 $query->where('assuntos_artigos.assunto_id', $dados['assunto_id']);
                 return $query;
             })
-            ->paginate(10);
+            ->take($dados['take'])
+            ->get();
+            //->paginate(1);
 
-        $parametros = "";
+        $totalArtigos = \App\Artigo::count();
+
+
+        /*$parametros = "";
         if($dados['assunto_id'] != ""){
             $parametros .= "/".$dados['assunto_id'];
         }
         $paginateUrl = env('APP_PROTOCOL').config('app.url').'/artigos'.$parametros."/lista";
-        $artigos->setPath($paginateUrl);
+        $artigos->setPath($paginateUrl);*/
 
 
         $menus = DB::table('assuntos')
@@ -246,7 +255,9 @@ class ArtigoController extends Controller
             'autorNomeBusca' => $dados["autorName"],
             'publicacaoAtlasBusca' => $dados["publicacaoAtlas"],
             'valorBusca' => $dados['busca'],
-            'tituloBusca' => $dados['busca']
+            'tituloBusca' => $dados['busca'],
+            'take' => $dados['take'],
+            'totalArtigos' => $totalArtigos,
         ]);
         /*
                 return view('artigo.listar-atlas-vl', [

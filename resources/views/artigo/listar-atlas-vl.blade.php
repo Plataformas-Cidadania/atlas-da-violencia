@@ -90,6 +90,13 @@
             }
         }
 
+        function loadMore(take){
+            console.log(take-1);
+            document.getElementById('take').value = take;
+            document.getElementById('frmBusca').action = "busca-artigos-v2#artigo_"+(take-1);
+            document.getElementById('frmBusca').submit();
+        }
+
     </script>
 
     {{--{{ Counter::count('artigo') }}--}}
@@ -106,6 +113,7 @@
             <div class="col-md-12">
                 <form class="form" name="frmBusca" id="frmBusca" action="busca-artigos-v2" onsubmit="return submitForm()" method="post">
                     <input type="hidden" name="assunto_id" id="assunto_id" value="{{$assunto_id}}">
+                    <input type="hidden" name="take" id="take" value="{{$take}}">
                     {!! csrf_field() !!}
                     <div class="row">
                         <div class="col-md-2">
@@ -167,7 +175,6 @@
 
                 <br>
 
-
                 <ul class="menu-vertical ">
                     @foreach($menus as $menu)
                         <li role="presentation">
@@ -221,8 +228,8 @@
 
             </div>
             <div class="col-md-9 col-sm-9">
-        @foreach($artigos as $artigo)
-            <div class="row">
+        @foreach($artigos as $index => $artigo)
+            <div class="row" id="artigo_{{$index}}">
                 <a href="artigo/{{$artigo->id}}/{{clean($artigo->titulo)}}">
                         @if(!empty($artigo->imagem))
                             <div class="col-md-3 col-sm-3">
@@ -235,7 +242,7 @@
                             </div>
                         @endif
 
-                        @if(!empty($artigo->imagem))<div class="col-md-9 col-sm-9">@else<div class="col-md-12 col-sm-12">@endif
+                            <div  @if(!empty($artigo->imagem))class="col-md-9 col-sm-9" @else class="col-md-12 col-sm-12" @endif >
                                 <h2>{{$artigo->titulo}}</h2>
                                 <p>{{str_limit(strip_tags($artigo->descricao), 450)}}</p>
                                 <button class="btn btn-none">@lang('buttons.keep-reading')  </button>
@@ -245,7 +252,14 @@
             <hr>
         @endforeach
 
-        <div>{{ $artigos->links() }}</div>
+        {{--<div>{{ $artigos->links() }}</div>--}}
+        @if(count($artigos) < $totalArtigos-1)
+        <div class="text-center">
+            <button class="btn btn-info" onclick="loadMore({{$take+1}})">
+                Veja Mais Publicações
+            </button>
+        </div>
+        @endif
 
         </div>
         </div>
