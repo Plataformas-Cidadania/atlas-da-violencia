@@ -80,7 +80,7 @@ class ArtigoController extends Controller
         ]);
     }
 
-    public function listar2($origem_id, $origem_titulo, $autor_id=0, $autor_titulo=0){
+    public function listar2($origem_id=0, $origem_titulo='', $autor_id=0, $autor_titulo=0){
 
         /*$origem_id = $request->origin_id;
         $origem_titulo = $request->origem_titulo;
@@ -183,6 +183,9 @@ class ArtigoController extends Controller
         }
         if(!array_key_exists('autorId', $dados)){
             $dados['autorId'] = 0;
+        }
+        if(!array_key_exists('autorName', $dados)){
+            $dados['autorName'] = "";
         }
         if(!array_key_exists('busca', $dados)){
             $dados['busca'] = "";

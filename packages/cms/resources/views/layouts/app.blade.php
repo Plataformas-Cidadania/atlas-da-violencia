@@ -196,6 +196,9 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                                 <a href="cms/authors"><i class="fa fa-user" aria-hidden="true"></i> Autores</a>
                             </li>
                             <li>
+                                <a href="cms/assuntos"><i class="fa fa-file-text-o" aria-hidden="true"></i> Assuntos (Artigos)</a>
+                            </li>
+                            <li>
                                 <a href="cms/artigos"><i class="fa fa-file-text-o" aria-hidden="true"></i> Artigos</a>
                             </li>
                             <li>

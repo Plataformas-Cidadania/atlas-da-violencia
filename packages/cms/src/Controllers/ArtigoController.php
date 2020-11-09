@@ -84,6 +84,11 @@ class ArtigoController extends Controller
 
         $data['artigo'] += ['cmsuser_id' => auth()->guard('cms')->user()->id];//adiciona id do usuario
 
+
+        if(!array_key_exists('origem_id', $data['artigo'])){
+            $data['artigo']['origem_id'] = 0;
+        }
+
         if($data['artigo']['origem_id']==''){
             $data['artigo']['origem_id'] = 0;
         }
@@ -93,6 +98,10 @@ class ArtigoController extends Controller
             if(!array_key_exists($campo, $data)){
                 $data['artigo'] += [$campo => ''];
             }
+        }
+
+        if(!array_key_exists('origem_id', $data['artigo'])){
+            $dada['artigo']['origem_id'] = 0;
         }
 
 
