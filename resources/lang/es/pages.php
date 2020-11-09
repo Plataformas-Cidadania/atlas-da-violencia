@@ -11,7 +11,7 @@ return [
 
     'construction' => 'Em construcción',
 
-    'rp-collections' => 'Cuestiones',
+    'rp-collections' => 'Temas',
     'rp-services' => 'Mantenimiento',
     'rp-networks' => 'Redes sociales',
     'rp-about' => 'Acerca del sitio',
