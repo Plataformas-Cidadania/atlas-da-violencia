@@ -18,7 +18,11 @@ class HomeController extends Controller
 
         $setting = \App\Setting::first();
         $tags = DB::table('links')->select('tags')->groupBy('tags')->orderBy('tags')->get();
-        $links = DB::table('links')->where('idioma_sigla', $lang)->orderBy('posicao')->take(10)->get();
+        $links = DB::table('links')
+            ->where('links.idioma_sigla', $lang)
+            ->orderBy('links.posicao')
+            ->take(10)
+            ->get();
         $bemvindo = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 0)->first();
         $webdoors = DB::table('webdoors')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->take(10)->get();
         $menu = \App\Menu::where('menu_id', 0)->get();

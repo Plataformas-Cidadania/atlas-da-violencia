@@ -18,7 +18,19 @@
                                 break;
                             default:
                                 $valor_anime = "300px";
-                        }?>
+                        }
+
+                        if(is_numeric($link->link)){
+                            $tema_id = $link->link;
+
+                            $tema = \App\Tema::select('idiomas_temas.resumida')
+                                ->where('temas.id', $tema_id)
+                                ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
+                                ->first();
+                        }
+
+
+                        ?>
                         <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" >
                             <div>
                                 @if($link->tipo==0)
@@ -29,7 +41,16 @@
                                     <a href="em-construcao">
                                 @endif
 
-                                     <img class="imgLinks" srcset="imagens/links/{{$link->imagem}}" onerror="setSrc(this);" alt="Imagem sobre {{$link->titulo}}" title="Imagem sobre {{$link->titulo}}" >
+                                     <img class="imgLinks" srcset="imagens/links/{{$link->imagem}}"
+                                          onerror="setSrc(this);"
+                                          @if(is_numeric($link->link))
+                                          alt="{{$tema->resumida}}"
+                                          title="{{$tema->resumida}}"
+                                          @else
+                                          alt="Imagem sobre {{$link->titulo}}"
+                                          title="Imagem sobre {{$link->titulo}}"
+                                          @endif
+                                     >
 
                                     <script type="text/javascript">
                                         function setSrc(e){

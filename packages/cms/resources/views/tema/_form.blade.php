@@ -28,6 +28,14 @@ null, ['class'=>"form-control width-medio <% validar(tema.tema_id) %>", 'ng-mode
 @if($rota == 'cms/temas' || $rota == 'cms/temas/{tema_id}')
 {!! Form::label('titulo', 'Tema *') !!}<br>
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(idioma.titulo) %>", 'ng-model'=>'idioma.titulo', 'ng-required'=>'true', 'init-model'=>'idioma.titulo', 'placeholder' => '']) !!}<br>
+
+{!! Form::label('resumida', 'Descrição Resumida *') !!}<br>
+{!! Form::text('resumida', null, ['class'=>"form-control width-grande <% validar(idioma.resumida) %>", 'ng-model'=>'idioma.resumida', 'ng-required'=>'true', 'init-model'=>'idioma.resumida', 'placeholder' => '']) !!}<br>
+
+
+{!! Form::label('descricao', 'Descrição Completa *') !!}<br>
+{!! Form::textarea('descricao', null, ['class'=>"form-control width-grande <% validar(idioma.descricao) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'idioma.descricao', 'init-model'=>'idioma.descricao']) !!}<br>
+
 @endif
 
 {!! Form::label('position', 'Posição *') !!}<br>

@@ -9,6 +9,6 @@ class IdiomaTema extends Model
     protected $table = "idiomas_temas";
 
     protected $fillable = [
-        'titulo', 'idioma_sigla', 'tema_id', 'cmsuser_id',
+        'titulo', 'resumida', 'descricao', 'idioma_sigla', 'tema_id', 'cmsuser_id',
     ];
 }
