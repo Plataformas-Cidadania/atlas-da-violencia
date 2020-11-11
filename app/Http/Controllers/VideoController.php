@@ -9,13 +9,17 @@ use Illuminate\Support\Facades\DB;
 
 class VideoController extends Controller
 {
-    public function listar(){
-        $videos = DB::table('videos')->orderBy('posicao', 'desc')->paginate(10);
+    public function listar($outros = 0){
+
+        $videos = DB::table('videos')
+            ->where('outros', $outros)
+            ->orderBy('posicao', 'desc')
+            ->paginate(10);
 
         $paginateUrl = env('APP_PROTOCOL').config('app.url').'/videos';
         $videos->setPath($paginateUrl);
        
-        return view('video.listar', ['videos' => $videos, 'search' => ""]);
+        return view('video.listar', ['videos' => $videos, 'search' => "", 'outros' => $outros]);
     }
 
     public function buscar(Request $request){
@@ -31,15 +35,22 @@ class VideoController extends Controller
 
 
         $videos = DB::table('videos')->where([
-            ['titulo', 'ilike', "%$busca->titulo%"]
+            ['titulo', 'ilike', "%$busca->titulo%"],
+            ['outros', $dados['outros']]
         ])->orWhere([
-            ['tags', 'ilike', "%$busca->tags%"]
+            ['tags', 'ilike', "%$busca->tags%"],
+            ['outros', $dados['outros']]
         ])->paginate(10);
 
         $paginateUrl = env('APP_PROTOCOL').config('app.url').'/busca-videos/'.$dados['busca'];
         $videos->setPath($paginateUrl);
 
-        return view('video.listar', ['videos' => $videos, 'tipos' => $busca, 'search' => $dados['busca']]);
+        return view('video.listar', [
+            'videos' => $videos,
+            //'tipos' => $busca,
+            'search' => $dados['busca'],
+            'outros' => $dados['outros']
+        ]);
 
     }
 

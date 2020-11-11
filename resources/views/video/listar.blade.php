@@ -9,6 +9,7 @@
             <br>
             <div class="col-md-12 text-right">
                 <form class="form-inline" action="busca-videos" method="post">
+                    <input type="hidden" name="outros" id="outros" value="{{$outros}}">
                     {!! csrf_field() !!}
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputAmount">Busca</label>

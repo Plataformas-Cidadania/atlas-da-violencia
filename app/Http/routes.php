@@ -86,9 +86,10 @@ Route::get('download-zip/{id}', 'DownloadController@download');
 
 //VÍDEOS
 Route::post('busca-videos/', 'VideoController@buscar');
-Route::get('busca-videos/{search}', 'VideoController@buscar2');
+//Route::get('busca-videos/{search}', 'VideoController@buscar2');
 Route::get('videos/', 'VideoController@listar');
-Route::get('videos/{titulo}', 'VideoController@listar');
+Route::get('videos/{outros}', 'VideoController@listar');
+//Route::get('videos/{titulo}/{outros}', 'VideoController@listar');
 
 Route::get('indices', 'IndiceController@indice');
 
