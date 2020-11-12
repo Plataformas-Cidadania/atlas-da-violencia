@@ -190,7 +190,7 @@ class ArtigoController extends Controller
             $dados['busca'] = "";
         }
         if(!array_key_exists('take', $dados)){
-            $dados['take'] = 1;
+            $dados['take'] = 10;
         }
 
         //return $dados;
@@ -198,6 +198,7 @@ class ArtigoController extends Controller
         $totalArtigos = \App\Artigo::count();
 
         $artigos = DB::table('artigos')
+            ->select('artigos.*')
             ->orderBy('artigos.titulo')
             ->where([
                 ['artigos.titulo', 'ilike', "%".$dados['busca']."%"]
