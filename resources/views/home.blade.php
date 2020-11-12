@@ -23,7 +23,10 @@
                         if(is_numeric($link->link)){
                             $tema_id = $link->link;
 
+                            $lang =  \App::getLocale();
+
                             $tema = \App\Tema::select('idiomas_temas.resumida')
+                                ->where('idiomas_temas.idioma_sigla', $lang)
                                 ->where('temas.id', $tema_id)
                                 ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
                                 ->first();
