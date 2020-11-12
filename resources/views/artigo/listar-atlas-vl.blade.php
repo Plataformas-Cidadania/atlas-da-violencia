@@ -91,9 +91,9 @@
         }
 
         function loadMore(take){
-            console.log(take-1);
+            //console.log(take-10);
             document.getElementById('take').value = take;
-            document.getElementById('frmBusca').action = "busca-artigos-v2#artigo_"+(take-1);
+            document.getElementById('frmBusca').action = "busca-artigos-v2#artigo_"+(take-10);
             document.getElementById('frmBusca').submit();
         }
 
