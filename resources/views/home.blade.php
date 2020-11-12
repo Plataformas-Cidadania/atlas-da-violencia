@@ -46,7 +46,7 @@
 
                                      <img class="imgLinks" srcset="imagens/links/{{$link->imagem}}"
                                           onerror="setSrc(this);"
-                                          @if(is_numeric($link->link))
+                                          @if(is_numeric($link->link) && !empty($tema))
                                           alt="{{$tema->resumida}}"
                                           title="{{$tema->resumida}}"
                                           @else
