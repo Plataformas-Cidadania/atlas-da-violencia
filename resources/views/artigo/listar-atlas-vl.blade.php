@@ -126,6 +126,10 @@
                             </select>
                         </div>
                         <div class="col-md-3">
+                            <label for="busca">Título</label>
+                            <input type="text" class="form-control" id="busca" name="busca" value="{{$tituloBusca}}">
+                        </div>
+                        <div class="col-md-3">
                             <label for="ano">Autor</label>
                             <input type="text" class="form-control" name="autorName" id="autorName"  value="{{$autorNomeBusca}}" onkeyup="searchAutores(this.value)">
                             <input type="hidden" name="autorId" id="autorId" value="{{$autorIdBusca}}">
@@ -139,10 +143,7 @@
                                 <div style="float: left; padding-top: 15px;">Atlas Violência</div>
                             </label>
                         </div>
-                        <div class="col-md-3">
-                            <label for="busca">Título</label>
-                            <input type="text" class="form-control" id="busca" name="busca" value="{{$tituloBusca}}">
-                        </div>
+
                         <div class="col-md-1">
                             <button type="text" class="btn btn-info" onClick="searchArticles()" style="margin: 25px 0 0 0;">Pesquisar</button>
                         </div>

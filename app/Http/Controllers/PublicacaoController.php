@@ -20,14 +20,14 @@ class PublicacaoController extends Controller
             ->when($id > 0, function ($query) use ($id){
                 return $query->where('id', $id);
             })
-            ->orderBy('id', 'desc')
+            ->orderBy('data', 'desc')
             ->first();
 
         $publicacoes = DB::table('artigos')
             ->where('idioma_sigla', $lang)
             ->where('publicacao_atlas', 1)
             ->where('artigos.id', '!=', $publicacao->id)
-            ->orderBy('id', 'desc')
+            ->orderBy('data', 'desc')
             ->paginate(20);
 
         $authors = DB::table('authors')
