@@ -72,7 +72,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 });
 
                 $('.carousel').carousel({
-                    interval: 20000
+                    //interval: 10000
                 })
 
             </script>
