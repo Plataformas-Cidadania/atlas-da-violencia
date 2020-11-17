@@ -94,6 +94,32 @@ if($qtr==6){
                     @endforeach
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-8">
+                    <nav class="menu-position" id="bs-example-navbar-collapse-1" role="navigation" style="float: right">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quem Somos <span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="quem-somos" >
+                                    <li><a href="quem/3/sobre">História</a></li>
+                                    <li><a href="quem/4/equipe">Equipe</a></li>
+                                    <li><a href="parceiros">Parceiros</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajuda <span class="caret"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="ajuda">
+                                    <li><a href="mapa-site">Mapa do Site</a></li>
+                                    <li><a href="perguntas">Perguntas Frequentes</a></li>
+                                    <li><a href="quem/5/glossario">Glossário</a></li>
+                                    <li><a href="acessibilidade">Acessibilidade</a></li>
+                                    <li><a href="api">API</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 
