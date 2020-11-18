@@ -116,15 +116,6 @@
                     <input type="hidden" name="take" id="take" value="{{$take}}">
                     {!! csrf_field() !!}
                     <div class="row">
-                        <div class="col-md-2">
-                            <label for="ano">Ano</label>
-                            <select name="ano" id="ano" class="form-control">
-                                <option value="0">Todos</option>
-                                @foreach($anos as $ano)
-                                    <option value="{{$ano}}" @if($ano==$anoBusca)selected="selected"@endif>{{$ano}}</option>
-                                @endforeach
-                            </select>
-                        </div>
                         <div class="col-md-3">
                             <label for="busca">Título</label>
                             <input type="text" class="form-control" id="busca" name="busca" value="{{$tituloBusca}}">
@@ -136,13 +127,23 @@
                             <div class="div-info" id="divAutores" style="display: none;"></div>
                         </div>
                         <div class="col-md-2">
+                            <label for="ano">Ano</label>
+                            <select name="ano" id="ano" class="form-control">
+                                <option value="0">Todos</option>
+                                @foreach($anos as $ano)
+                                    <option value="{{$ano}}" @if($ano==$anoBusca)selected="selected"@endif>{{$ano}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <input type="hidden" id="publicacaoAtlas" name="publicacaoAtlas" value="{{$publicacaoAtlasBusca}}">
+                        {{--<div class="col-md-2">
                             <br>
                             <label for="publicacaoAtlas">
                                 <input type="checkbox" id="publicacaoAtlas" name="publicacaoAtlas" value="1" @if($publicacaoAtlasBusca==1) checked @endif
                                        style="width: 20px; height: 20px; margin: 0 10px 0 0; top: 15px; position: relative; float: left;">
                                 <div style="float: left; padding-top: 15px;">Atlas Violência</div>
                             </label>
-                        </div>
+                        </div>--}}
 
                         <div class="col-md-1">
                             <button type="text" class="btn btn-info" onClick="searchArticles()" style="margin: 25px 0 0 0;">Pesquisar</button>
@@ -173,9 +174,8 @@
         </div>
         <div class="row">
             <div class="col-md-3 col-sm-3">
-
                 <br>
-
+                <h4 style="margin-left: 4px;">Assuntos</h4>
                 <ul class="menu-vertical ">
                     @foreach($menus as $menu)
                         <li role="presentation">
