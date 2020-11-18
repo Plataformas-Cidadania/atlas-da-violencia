@@ -94,10 +94,28 @@ if($qtr==6){
                     @endforeach
                 </div>
             </div>
-            <div class="row">
+            <style>
+                .menu-header a{
+                    margin: 10px 5px !important;
+                    padding: 0 !important;
+                }
+                .menu-header li a:hover{
+                    background-color: inherit !important;
+                    color: inherit !important;
+                }
+                .menu-header li a:focus{
+                    background-color: {{$setting->cor5}} !important;
+                    color: inherit !important;
+                }
+                .menu-header li a:active{
+                    background-color: inherit !important;
+                    color: inherit !important;
+                }
+            </style>
+            <div class="row" style="position:relative; z-index: 99999999;">
                 <div class="col-md-4 col-md-offset-8">
                     <nav class="menu-position" id="bs-example-navbar-collapse-1" role="navigation" style="float: right">
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav menu-header">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quem Somos <span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="quem-somos" >
@@ -107,7 +125,7 @@ if($qtr==6){
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajuda <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajuda <span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="ajuda">
                                     <li><a href="mapa-site">Mapa do Site</a></li>
                                     <li><a href="perguntas">Perguntas Frequentes</a></li>
