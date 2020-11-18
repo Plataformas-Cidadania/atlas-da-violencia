@@ -127,8 +127,8 @@ if($qtr==6){
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ajuda <span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="ajuda">
-                                    <li><a href="mapa-site">Mapa do Site</a></li>
-                                    <li><a href="perguntas">Perguntas Frequentes</a></li>
+                                    <li><a href="pg/25/mapa-do-site">Mapa do Site</a></li>
+                                    <li><a href="pg/26/perguntas-frequentes">Perguntas Frequentes</a></li>
                                     <li><a href="quem/5/glossario">Glossário</a></li>
                                     <li><a href="acessibilidade">Acessibilidade</a></li>
                                     <li><a href="api">API</a></li>
