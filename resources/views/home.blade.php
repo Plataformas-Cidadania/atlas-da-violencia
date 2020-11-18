@@ -215,7 +215,7 @@
 
         <br><br>
 
-
+        <?php /* ?>
         @if(!empty($downloads))
         <div class="container">
             <div class="row text-center">
@@ -258,8 +258,10 @@
 
         <br><br><br><br>
         @endif
+        <?php */ ?>
 
-        {{--STRAT INDICE--}}
+        {{--START INDICE--}}
+        <?php /* ?>
         @if(count($indices) > 0)
         <br><br>
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
@@ -280,6 +282,7 @@
         </div>
         <br><br>
         @endif
+        <?php */ ?>
         {{--END INDICE--}}
 
         <?php /*
