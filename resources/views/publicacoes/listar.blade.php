@@ -28,7 +28,7 @@
                         <p>{!! $publicacao->descricao !!}</p>
                         <br><br>
                         <a href="arquivos/artigos/{{$publicacao->arquivo}}" target="_blank">
-                            <button class="btn btn-primary">Continue lendo o relatório</button>
+                            <button class="btn btn-primary">Leia relatório completo</button>
                         </a>
                                 <br><br>
 
