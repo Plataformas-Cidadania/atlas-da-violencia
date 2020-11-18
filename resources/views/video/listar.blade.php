@@ -3,7 +3,16 @@
 @section('content')
     {{--{{ Counter::count('video') }}--}}
     <div class="container">
-        <h2>@lang('links.videos')</h2>
+        <h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="videos" style="color: #333;">@lang('links.videos')</a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="videos/1" style="color: #333;">@lang('links.outros-videos')</a>
+                </div>
+            </div>
+        </h2>
         <div class="line_title bg-pri"></div>
         <div class="row">
             <br>
