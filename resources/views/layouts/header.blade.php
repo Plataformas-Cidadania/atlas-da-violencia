@@ -200,6 +200,7 @@ if($qtr==6){
                         <div class="carousel-inner">
 
                             {{--GRAFICO--}}
+                            <?php /* ?>
                             <a href="" class="item active" style="margin-top: -30px;">
                                 <div style="width:100%;">
                                     @if(!empty($series) || $setting->dados_serie_home == 1)
@@ -209,7 +210,8 @@ if($qtr==6){
                                 </div>
                             </a>
                             {{----}}
-
+                            <?php */ ?>
+                            <?php /* ?>
                             @if(!empty($ultimaPostagem))
                                 {{--TEXTO--}}
                                 <a href="{{$rotaUltimaPostagem}}/{{$ultimaPostagem->id}}/{{clean($ultimaPostagem->titulo)}}"
@@ -221,6 +223,7 @@ if($qtr==6){
                                 </a>
                                 {{----}}
                             @endif
+                            <?php */ ?>
                             {{--IMAGEM--}}
                             <?php $cont = 2;?>
                             @foreach($webdoors as $webdoor)
