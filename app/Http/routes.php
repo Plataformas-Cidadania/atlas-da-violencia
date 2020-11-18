@@ -35,6 +35,10 @@ Route::get('acessibilidade/', 'AcessibilidadeController@detalhar');
 
 Route::get('pg/{id}/{titulo}', 'PgController@detalhar');
 
+Route::get('parceiros/', 'ParceiroController@index');
+
+Route::get('pg/{id}/{titulo}', 'PgController@detalhar');
+
 Route::get('indicadores/', 'IndicadorController@detalhar');
 
 Route::get('webdoor/{id}', 'WebdoorController@detalhar');

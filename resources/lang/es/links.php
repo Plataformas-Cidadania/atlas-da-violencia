@@ -14,6 +14,7 @@ return [
     'downloads' => 'Descarregar',
     'contact' => 'Contacto',
     'news' => 'Novedades',
+    'partners' => 'Compañeros',
 
     'skip-content' => 'Skip to the content',
     'go-menu' => 'Ir al menú',

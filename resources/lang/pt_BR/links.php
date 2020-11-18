@@ -13,6 +13,7 @@ return [
     'downloads' => 'Downloads',
     'contact' => 'Contato',
     'news' => 'Notícias',
+    'partners' => 'Parceiros',
 
     'skip-content' => 'Ir para o conteúdo',
     'go-menu' => 'Ir para o menu',

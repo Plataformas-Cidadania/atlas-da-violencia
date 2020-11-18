@@ -14,6 +14,7 @@ return [
     'downloads' => 'Downloads',
     'contact' => 'Contact',
     'news' => 'News',
+    'partners' => 'Partners',
 
     'skip-content' => 'Go to content',
     'go-menu' => 'Go to menu',
