@@ -10,8 +10,14 @@
         [0 => "Não", 1 => "Sim"],
 null, ['class'=>"form-control width-medio <% validar(video.outros) %>", 'ng-model'=>'video.outros', 'ng-required'=>'true', 'init-model'=>'video.outros', 'placeholder' => 'Selecione']) !!}<br>
 
+{{--
 {!! Form::label('data', 'Data* 00/00/0000') !!} <br>
 {!! Form::text('data', null, ['class'=>"form-control width-medio <% validar(video.data) %>", 'ng-model'=>'video.data', 'ng-required'=>'true', 'init-model'=>'video.data', 'placeholder' => '']) !!}<br>
+--}}
+
+{!! Form::label('data', 'Data *') !!}<br>
+{!! Form::date('data', null, ['class'=>"form-control width-medio <% validar(video.data) %>", 'ng-model'=>'video.data', 'ng-required'=>'true', 'init-model'=>'video.data', 'placeholder' => '']) !!}<br>
+
 
 {!! Form::label('link_video', 'Video (link do youtube)') !!}<br>
 {!! Form::text('link_video', null, ['class'=>"form-control width-grande <% validar(video.link_video) %>", 'ng-model'=>'video.link_video', 'init-model'=>'video.link_video', 'placeholder' => '']) !!}<br>
