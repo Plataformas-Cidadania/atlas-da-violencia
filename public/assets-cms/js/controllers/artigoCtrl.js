@@ -114,7 +114,18 @@ cmsApp.controller('artigoCtrl', ['$scope', '$http', 'Upload', '$timeout', functi
                     $scope.result = response.data;
                 });
                 console.log(response.data);
-                delete $scope.artigo;//limpa o form
+                //delete $scope.artigo;//limpa o form
+                $scope.artigo = {
+                    idioma_sigla: '',
+                    titulo: '',
+                    publicacao_atlas: '',
+                    data: '',
+                    link: '',
+                    descricao: '',
+                    fonte: '',
+                    link_font: '',
+                    legenda: '',
+                }
                 $scope.picFile = null;//limpa o file
                 $scope.fileArquivo = null;//limpa o file
                 listarArtigos();

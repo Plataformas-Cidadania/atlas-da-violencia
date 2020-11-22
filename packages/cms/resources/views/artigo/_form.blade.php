@@ -76,7 +76,7 @@ null, ['class'=>"form-control width-medio <% validar(artigo.autor) %>", 'ng-mode
         {!! Form::text('fonte', null, ['class'=>"form-control width-grande <% validar(artigo.fonte) %>", 'ng-model'=>'artigo.fonte', 'init-model'=>'artigo.fonte', 'placeholder' => '']) !!}<br>
     </div>
     <div class="col-md-6">
-        {!! Form::label('link_font', 'Link') !!}<br>
+        {!! Form::label('link_font', 'Link Fonte') !!}<br>
         {!! Form::text('link_font', null, ['class'=>"form-control width-grande <% validar(artigo.link_font) %>", 'ng-model'=>'artigo.link_font', 'init-model'=>'artigo.link_font', 'placeholder' => '']) !!}<br>
     </div>
 </div>
