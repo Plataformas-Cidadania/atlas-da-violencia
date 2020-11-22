@@ -137,7 +137,7 @@ class ArtigoController extends Controller
             $dadosAuthorArtigo['artigo_id'] = $insert->id;
 
             foreach($data["author_artigo"] as $autor => $marcado){
-                if($marcado){
+                if($marcado=='true'){
                     $array_autor = explode('_', $autor);
                     $dadosAuthorArtigo['author_id'] = $array_autor[1];
                     $authorArtigo->create($dadosAuthorArtigo);
@@ -149,7 +149,7 @@ class ArtigoController extends Controller
             $dadosAssuntoArtigo['artigo_id'] = $insert->id;
 
             foreach($data["assunto_artigo"] as $assunto => $marcado){
-                if($marcado){
+                if($marcado=='true'){
                     $array_assunto = explode('_', $assunto);
                     $dadosAssuntoArtigo['assunto_id'] = $array_assunto[1];
                     $assuntoArtigo->create($dadosAssuntoArtigo);
@@ -279,7 +279,7 @@ class ArtigoController extends Controller
             $dadosAuthorArtigo = Array();
             $dadosAuthorArtigo['artigo_id'] = $id;
             foreach($data["author_artigo"] as $autor => $marcado){
-                if($marcado){
+                if($marcado=='true'){
                     $array_autor = explode('_', $autor);
                     $dadosAuthorArtigo['author_id'] = $array_autor[1];
                     $authorArtigo->create($dadosAuthorArtigo);
@@ -291,7 +291,7 @@ class ArtigoController extends Controller
             $dadosAssuntoArtigo = Array();
             $dadosAssuntoArtigo['artigo_id'] = $id;
             foreach($data["assunto_artigo"] as $assunto => $marcado){
-                if($marcado){
+                if($marcado=='true'){
                     $array_assunto = explode('_', $assunto);
                     $dadosAssuntoArtigo['assunto_id'] = $array_assunto[1];
                     $assuntoArtigo->create($dadosAssuntoArtigo);
