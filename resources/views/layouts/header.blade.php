@@ -201,9 +201,9 @@ if($qtr==6){
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
-                            <?php $cont_itens_wd = 2;?>
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <?php $cont_itens_wd = 0;?>
+                            {{--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>--}}
                             @foreach($webdoors as $webdoor)
                                 <li data-target="#carousel-example-generic" data-slide-to="<?php echo $cont_itens_wd;?>"
                                     @if($cont_itens_wd==0) class="active" @endif></li>
@@ -243,7 +243,7 @@ if($qtr==6){
                             @endif
                             <?php */ ?>
                             {{--IMAGEM--}}
-                            <?php $cont = 2;?>
+                            <?php $cont = 0;?>
                             @foreach($webdoors as $webdoor)
 
                                 <a @if($webdoor->link!="")
