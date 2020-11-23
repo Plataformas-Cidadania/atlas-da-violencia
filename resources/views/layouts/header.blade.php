@@ -251,8 +251,7 @@ if($qtr==6){
                                    @elseif($webdoor->descricao!="")
                                    href="webdoor/{{$webdoor->id}}"
                                    @endif
-                                   class="item">
-                                    <?php /*?>class="item @if($cont==0) active @endif"><?php */?>
+                                   class="item @if($cont==0) active @endif">
                                     <picture>
                                         <source srcset="imagens/webdoors/sm-{{$webdoor->imagem}}"
                                                 media="(max-width: 468px)">
