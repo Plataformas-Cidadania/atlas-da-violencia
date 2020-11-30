@@ -32,6 +32,7 @@
                         </a>
                                 <br><br>
 
+                        <?php /* ?>
                         <div class="bg-qui" style="padding: 20px;">
                             <p><strong>Autores</strong></p>
                             <ul class="li-tx">
@@ -40,6 +41,7 @@
                                 @endforeach
                             </ul>
                         </div>
+                        <?php */ ?>
                     </div>
 
             </div>

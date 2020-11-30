@@ -136,11 +136,13 @@ class ArtigoController extends Controller
             $dadosAuthorArtigo = Array();
             $dadosAuthorArtigo['artigo_id'] = $insert->id;
 
-            foreach($data["author_artigo"] as $autor => $marcado){
-                if($marcado=='true'){
-                    $array_autor = explode('_', $autor);
-                    $dadosAuthorArtigo['author_id'] = $array_autor[1];
-                    $authorArtigo->create($dadosAuthorArtigo);
+            if($data['artigo']['publicacao_atlas']!=1){
+                foreach($data["author_artigo"] as $autor => $marcado){
+                    if($marcado=='true'){
+                        $array_autor = explode('_', $autor);
+                        $dadosAuthorArtigo['author_id'] = $array_autor[1];
+                        $authorArtigo->create($dadosAuthorArtigo);
+                    }
                 }
             }
 
@@ -278,11 +280,13 @@ class ArtigoController extends Controller
             DB::table('author_artigo')->where('artigo_id', $id)->delete();
             $dadosAuthorArtigo = Array();
             $dadosAuthorArtigo['artigo_id'] = $id;
-            foreach($data["author_artigo"] as $autor => $marcado){
-                if($marcado=='true'){
-                    $array_autor = explode('_', $autor);
-                    $dadosAuthorArtigo['author_id'] = $array_autor[1];
-                    $authorArtigo->create($dadosAuthorArtigo);
+            if($data['artigo']['publicacao_atlas']!=1) {
+                foreach ($data["author_artigo"] as $autor => $marcado) {
+                    if ($marcado == 'true') {
+                        $array_autor = explode('_', $autor);
+                        $dadosAuthorArtigo['author_id'] = $array_autor[1];
+                        $authorArtigo->create($dadosAuthorArtigo);
+                    }
                 }
             }
 
