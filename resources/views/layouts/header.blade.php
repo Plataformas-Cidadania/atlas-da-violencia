@@ -113,15 +113,16 @@ if($qtr==6){
                 }
             </style>
             <div class="row" style="position:relative; z-index: 99999999;">
-                <div class="col-md-4 col-md-offset-8">
-                    <nav class="menu-position" id="bs-example-navbar-collapse-1" role="navigation" style="float: right">
+                <div class="col-md-4">
+                    <nav class="menu-position" id="bs-example-navbar-collapse-1" role="navigation">
                         <ul class="nav navbar-nav menu-header">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quem Somos <span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="quem-somos" >
-                                    <li><a href="quem/3/sobre">História</a></li>
+                                    <li><a href="quem/3/sobre">Sobre</a></li>
                                     <li><a href="quem/4/equipe">Equipe</a></li>
                                     <li><a href="parceiros">Parceiros</a></li>
+                                    <li><a href="contato">Contato</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
