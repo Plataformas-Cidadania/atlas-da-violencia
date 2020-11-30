@@ -49,9 +49,9 @@ $menus_sobre = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo
                     <div class=" menu-box-rp">
                         <h3>@lang('pages.rp-services')</h3>
                         <ul class="menu-rp">
-                            <li><a href="contato">@lang('links.contact')</a></li>
-                            <li><a href="noticias">@lang('links.news')</a></li>
-                            <li><a href="artigos/0/todos">@lang('links.articles')</a></li>
+                            {{--<li><a href="contato">@lang('links.contact')</a></li>--}}
+                            {{--<li><a href="noticias">@lang('links.news')</a></li>--}}
+                            <li><a href="artigos/0/todos">@lang('links.publications')</a></li>
                             <li><a href="videos">@lang('links.videos')</a></li>
                         </ul>
                     </div>
