@@ -14,7 +14,7 @@ return [
     'rp-collections' => 'Temas',
     'rp-services' => 'Serviços',
     'rp-networks' => 'Redes sociais',
-    'rp-about' => 'Sobre o site',
+    'rp-about' => 'O site',
 
     'publications' => 'Publicações',
     'publication' => 'Publicação',

@@ -74,10 +74,18 @@ $menus_sobre = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo
                     <div class=" menu-box-rp">
                         <h3>@lang('pages.rp-about')</h3>
                         <ul class="menu-rp">
+                            <li><a href="quem/3/sobre">Sobre</a></li>
+                            <li><a href="quem/4/equipe">Equipe</a></li>
+                            <li><a href="parceiros">Parceiros</a></li>
+                            <li><a href="contato">Contato</a></li>
+                            <li><a href="pg/25/mapa-do-site">Mapa do Site</a></li>
+                            <li><a href="pg/26/perguntas-frequentes">Perguntas Frequentes</a></li>
+                            <li><a href="quem/5/glossario">Glossário</a></li>
                             <li><a href="acessibilidade">@lang('links.accessibility')</a></li>
-                            @foreach($menus_sobre as $menu)
+                            <li><a href="api">API</a></li>
+                            {{--@foreach($menus_sobre as $menu)
                                 <li role="presentation"><a href="quem/{{$menu->id}}/{{clean($menu->titulo)}}" style="clear: both;">{{$menu->titulo}}</a></li>
-                            @endforeach
+                            @endforeach--}}
                         </ul>
                     </div>
                 </div>
