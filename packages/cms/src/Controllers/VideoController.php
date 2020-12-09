@@ -20,7 +20,7 @@ class VideoController extends Controller
     {
         $this->video = new \App\Video;
         $this->campos = [
-            'imagem', 'titulo', 'descricao',  'link_video', 'tags', 'posicao', 'cmsuser_id', 'idioma_sigla', 'data',
+            'imagem', 'titulo', 'descricao',  'link_video', 'tags', 'posicao', 'cmsuser_id', 'idioma_sigla',
         ];
         $this->pathImagem = public_path().'/imagens/videos';
         $this->sizesImagem = [

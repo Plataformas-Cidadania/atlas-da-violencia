@@ -16,7 +16,9 @@ class VideoController extends Controller
             ->orderBy('posicao', 'desc')
             ->paginate(10);
 
-        $paginateUrl = env('APP_PROTOCOL').config('app.url').'/videos';
+        $parametro_outros = $outros ? '/1' : '';
+
+        $paginateUrl = env('APP_PROTOCOL').config('app.url').'/videos'.$parametro_outros;
         $videos->setPath($paginateUrl);
        
         return view('video.listar', ['videos' => $videos, 'search' => "", 'outros' => $outros]);
@@ -41,6 +43,8 @@ class VideoController extends Controller
             ['tags', 'ilike', "%$busca->tags%"],
             ['outros', $dados['outros']]
         ])->paginate(10);
+
+        $parametro_outros = $dados['outros'] ? '/1' : '';
 
         $paginateUrl = env('APP_PROTOCOL').config('app.url').'/busca-videos/'.$dados['busca'];
         $videos->setPath($paginateUrl);
