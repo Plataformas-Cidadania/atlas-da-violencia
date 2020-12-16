@@ -70,7 +70,9 @@ cmsApp.controller('alterarArtigoCtrl', ['$scope', '$http', 'Upload', '$timeout',
                 $scope.mensagemSalvar =  "Gravado com sucesso!";
                 $scope.removerImagem = 0;
                 $scope.removerArquivo = 0;
-                $scope.imagemBD = 'imagens/artigos/'+response.data;
+                if(response.data){
+                    $scope.imagemBD = 'imagens/artigos/'+response.data;
+                }
                 $scope.processandoSalvar = false;
 
             }, function (response) {
