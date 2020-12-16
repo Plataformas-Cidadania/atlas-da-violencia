@@ -236,7 +236,7 @@ class ArtigoController extends Controller
         $arquivo = $request->file('arquivo');
 
         //remover imagem
-        if($data['removerImagem']){
+        if($data['removerImagem']==1){
             $data['artigo']['imagem'] = '';
             if(file_exists($this->pathImagem."/".$artigo->imagem)) {
                 unlink($this->pathImagem . "/" . $artigo->imagem);
@@ -244,7 +244,7 @@ class ArtigoController extends Controller
         }
 
 
-        if($data['removerArquivo']){
+        if($data['removerArquivo']==1){
             $data['artigo']['arquivo'] = '';
             if(file_exists($this->pathArquivo."/".$artigo->arquivo)) {
                 unlink($this->pathArquivo . "/" . $artigo->arquivo);
