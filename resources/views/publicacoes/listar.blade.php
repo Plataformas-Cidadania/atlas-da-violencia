@@ -56,7 +56,7 @@
             </div>
             <br>
             @foreach($publicacoes as $publicacao)
-                <div class="col-md-3 col-sm-3">
+                <div class="col-md-3 col-sm-3" style="height: 400px;">
                     <a href="publicacoes/{{$publicacao->id}}/{{clean($publicacao->titulo)}}">
                     @if(!empty($publicacao->imagem))
                         <picture>
