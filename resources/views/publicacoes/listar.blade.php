@@ -32,6 +32,7 @@
                         </a>
                                 <br><br>
 
+                        <?php /* ?>
                         <div class="bg-qui" style="padding: 20px;">
                             <p><strong>Autores</strong></p>
                             <ul class="li-tx">
@@ -40,6 +41,7 @@
                                 @endforeach
                             </ul>
                         </div>
+                        <?php */ ?>
                     </div>
 
             </div>
@@ -54,7 +56,7 @@
             </div>
             <br>
             @foreach($publicacoes as $publicacao)
-                <div class="col-md-3 col-sm-3">
+                <div class="col-md-3 col-sm-3" style="height: 450px;">
                     <a href="publicacoes/{{$publicacao->id}}/{{clean($publicacao->titulo)}}">
                     @if(!empty($publicacao->imagem))
                         <picture>

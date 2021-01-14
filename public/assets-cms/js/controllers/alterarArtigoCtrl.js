@@ -32,7 +32,8 @@ cmsApp.controller('alterarArtigoCtrl', ['$scope', '$http', 'Upload', '$timeout',
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = "Gravado com Sucesso";
-                $scope.removerImagem = false;
+                $scope.removerImagem = 0;
+                $scope.removerArquivo = 0;
             }).error(function(data){
                 //console.log(data);
                 $scope.mensagemSalvar = "Ocorreu um erro: "+data;
@@ -56,6 +57,7 @@ cmsApp.controller('alterarArtigoCtrl', ['$scope', '$http', 'Upload', '$timeout',
                 data1.arquivo = arquivo;
             }
 
+
             Upload.upload({
                 url: 'cms/alterar-artigo/'+$scope.id,
                 data: data1
@@ -66,8 +68,11 @@ cmsApp.controller('alterarArtigoCtrl', ['$scope', '$http', 'Upload', '$timeout',
                 $scope.picFile = null;//limpa o file
                 //$scope.fileArquivo = null;//limpa o file
                 $scope.mensagemSalvar =  "Gravado com sucesso!";
-                $scope.removerImagem = false;
-                $scope.imagemBD = '/imagens/artigos/'+response.data;
+                $scope.removerImagem = 0;
+                $scope.removerArquivo = 0;
+                if(response.data){
+                    $scope.imagemBD = 'imagens/artigos/'+response.data;
+                }
                 $scope.processandoSalvar = false;
 
             }, function (response) {

@@ -113,15 +113,16 @@ if($qtr==6){
                 }
             </style>
             <div class="row" style="position:relative; z-index: 99999999;">
-                <div class="col-md-4 col-md-offset-8">
-                    <nav class="menu-position" id="bs-example-navbar-collapse-1" role="navigation" style="float: right">
+                <div class="col-md-4">
+                    <nav class="menu-position" id="bs-example-navbar-collapse-1" role="navigation">
                         <ul class="nav navbar-nav menu-header">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quem Somos <span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="quem-somos" >
-                                    <li><a href="quem/3/sobre">História</a></li>
+                                    <li><a href="quem/3/sobre">Sobre</a></li>
                                     <li><a href="quem/4/equipe">Equipe</a></li>
                                     <li><a href="parceiros">Parceiros</a></li>
+                                    <li><a href="contato">Contato</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -201,9 +202,9 @@ if($qtr==6){
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
-                            <?php $cont_itens_wd = 2;?>
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <?php $cont_itens_wd = 0;?>
+                            {{--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>--}}
                             @foreach($webdoors as $webdoor)
                                 <li data-target="#carousel-example-generic" data-slide-to="<?php echo $cont_itens_wd;?>"
                                     @if($cont_itens_wd==0) class="active" @endif></li>
@@ -243,7 +244,7 @@ if($qtr==6){
                             @endif
                             <?php */ ?>
                             {{--IMAGEM--}}
-                            <?php $cont = 2;?>
+                            <?php $cont = 0;?>
                             @foreach($webdoors as $webdoor)
 
                                 <a @if($webdoor->link!="")
@@ -251,8 +252,7 @@ if($qtr==6){
                                    @elseif($webdoor->descricao!="")
                                    href="webdoor/{{$webdoor->id}}"
                                    @endif
-                                   class="item">
-                                    <?php /*?>class="item @if($cont==0) active @endif"><?php */?>
+                                   class="item @if($cont==0) active @endif">
                                     <picture>
                                         <source srcset="imagens/webdoors/sm-{{$webdoor->imagem}}"
                                                 media="(max-width: 468px)">

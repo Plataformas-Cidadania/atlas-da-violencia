@@ -59,16 +59,16 @@ null, ['class'=>"form-control width-medio <% validar(artigo.publicacao_atlas) %>
 null, ['class'=>"form-control width-medio <% validar(artigo.autor) %>", 'ng-model'=>'artigo.autor', 'ng-required'=>'true', 'init-model'=>'artigo.autor', 'placeholder' => 'Selecione']) !!}<br>
 --}}
 
-
-<p><strong>Autores</strong></p>
-@foreach($authors as $id => $autor)
-    <div class="checkbox-inline">
-        {!! Form::checkbox('autor'.$id, true, null, ['class'=>"checkbox-inline width-grande <% validar(author_artigo.autor_$id) %>", 'ng-model'=>"author_artigo.autor_$id", 'init-model'=>"author_artigo.autor_$id", 'style'=>"width: 30px; height: 30px;"]) !!}
-        {!! Form::label('autor'.$id, $autor, ['style'=>"padding: 8px 20px 0 20px;"]) !!}
-    </div>
-@endforeach
-<br><br>
-
+<div ng-hide="artigo.publicacao_atlas==1">
+    <p><strong>Autores</strong></p>
+    @foreach($authors as $id => $autor)
+        <div class="checkbox-inline">
+            {!! Form::checkbox('autor'.$id, true, null, ['class'=>"checkbox-inline width-grande <% validar(author_artigo.autor_$id) %>", 'ng-model'=>"author_artigo.autor_$id", 'init-model'=>"author_artigo.autor_$id", 'style'=>"width: 30px; height: 30px;"]) !!}
+            {!! Form::label('autor'.$id, $autor, ['style'=>"padding: 8px 20px 0 20px;"]) !!}
+        </div>
+    @endforeach
+    <br><br>
+</div>
 
 <div class="row">
     <div class="col-md-6">

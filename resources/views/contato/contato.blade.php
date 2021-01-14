@@ -19,7 +19,7 @@
         <h1>@lang('links.contact')</h1>
         <div class="line_title bg-pri"></div>
         <div class="row">
-
+            <?php /* ?>
             <div class="col-md-12">
                     <br>
                 <div id="mapid" style="width: 100%; height: 400px;"></div>
@@ -59,7 +59,8 @@
                 </script>
                 <br><br><br>
             </div>
-            <address class="col-md-4">
+            <?php */ ?>
+            <address class="col-md-12">
                 <h3><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp;@lang('adresses.address')</h3>
                 <p>{{$setting->endereco}}, {{$setting->numero}} {{$setting->complemento}} - {{$setting->bairro}}</p>
                 <p>{{$setting->cidade}} - {{$setting->estado}}</p>
@@ -73,7 +74,7 @@
                 <h3><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;@lang('forms.email')</h3>
                 <p><a href="mailto:{{$setting->email}}">{{$setting->email}}</a></p>
             </address>
-
+            <?php /* ?>
             <div class="col-md-8">
                 {{-- <h3>{{$setting->titulo_contato}}</h3> --}}
                 <br>
@@ -113,6 +114,7 @@
                     </div>
                 </form>
             </div>
+            <?php */ ?>
 
         </div>
     </div>

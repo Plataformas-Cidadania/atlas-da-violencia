@@ -3,10 +3,11 @@
 @section('content')
 
     <div class="container">
-        <h1 id="calendar" aria-label="@lang('links.about')">@lang('links.about')</h1>
+        <h1 id="calendar" aria-label="{{$quem->titulo}}">{{$quem->titulo}}</h1>
         <div class="line_title bg-pri"></div>
         <br>
         <div class="row">
+            <?php /* ?>
             <div class="col-md-3">
                 <ul class="menu-vertical">
                 @foreach($menus as $menu)
@@ -22,7 +23,8 @@
                 @endforeach
                 </ul>
             </div>
-            <div class="col-md-9">
+            <?php */ ?>
+            <div class="col-md-12">
                 @if($quem->tipo=='7')
                     @include('quem.equipe')
                 @elseif($quem->tipo=='8')

@@ -5,15 +5,23 @@
     <div class="container">
         <h2>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <a href="videos" style="color: #333;">@lang('links.videos')</a>
-                </div>
-                <div class="col-md-6 text-right">
-                    <a href="videos/1" style="color: #333;">@lang('links.outros-videos')</a>
                 </div>
             </div>
         </h2>
         <div class="line_title bg-pri"></div>
+        <div class="row">
+            <h3>
+                <div class="col-md-6">
+                    <a href="videos" style="color: #333;">@lang('links.videos-ipea')</a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="videos/1" style="color: #333;">@lang('links.outros-videos')</a>
+                </div>
+            </h3>
+        </div>
+        <br>
         <div class="row">
             <br>
             <div class="col-md-12 text-right">
@@ -46,9 +54,9 @@
                         <?php }else{?>
                         <h6>&nbsp;</h6>
                          <?php }?>
-                        <?php if($video->descricao){?>
-                            <div>
-                                {!! cutText($video->descricao, 140, '...') !!}
+                        <?php /*if($video->descricao){*/?>
+                            <div style="height: 50px;">
+                                @if($video->descricao){!! cutText($video->descricao, 140, '...') !!}@else &nbsp; @endif
                             </div>
                             <hr>
 
@@ -75,9 +83,12 @@
                             </div>
                         </div>
 
-                        <?php }else{?>
-                        <div><br>&nbsp;<br><br>&nbsp;</div>
-                        <?php }?>
+                        <?php /*}else{*/?><!--
+                        <div style="height: 50px;">
+                            &nbsp;&nbsp;
+                        </div>
+                        <hr>
+                        --><?php /*}*/?>
                     <br>
                     <br>
                     </div>

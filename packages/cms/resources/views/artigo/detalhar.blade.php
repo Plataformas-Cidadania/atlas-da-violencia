@@ -1,5 +1,9 @@
 @extends('cms::layouts.app')
+<?php
 
+$base_href = config('app.url');
+$protocol = env('APP_PROTOCOL');
+?>
 @section('content')
     {!! Html::script('assets-cms/js/controllers/alterarArtigoCtrl.js') !!}
     <div ng-controller="alterarArtigoCtrl">
@@ -13,7 +17,7 @@
                     <div class="box-thumb" name="fileDrop" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
                          ng-show="!picFile && !imagemBD" accept="image/*" ngf-max-size="2MB">Solte uma imagem aqui!</div>
                     <img ng-show="picFile" ngf-thumbnail="picFile" class="thumb">
-                    <img ng-show="imagemBD" class="thumb" ng-src="<% imagemBD %>">
+                    <img ng-show="imagemBD" class="thumb" ng-src="{{$protocol}}{{$base_href}}/<% imagemBD %>">
                 </div>
                 <br>
                 <span class="btn btn-primary btn-file" ng-show="!picFile && !imagemBD">
