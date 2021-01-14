@@ -29,8 +29,8 @@ class Map extends React.Component{
             let tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 18,
                 attribution: '<div class="print-off" style="float:right;">&nbsp;Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © </div>',
+                    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © </div>',
                 /*id: 'mapbox.streets'*/
                 id: 'mapbox.streets'
             }).addTo(this.state.mymap);
@@ -62,7 +62,7 @@ class Map extends React.Component{
 
                 this._div.innerHTML =
                     '<h6 style="margin: 3px 0; font-weight: bold">'+_this.state.serie+'</h6>' +  (props ? '<b>' + sigla + props.nome + '</b><br />' + formatNumber(props.total, _this.props.decimais, ',', '.')
-                        : _this.props.lang_mouse_over_region);
+                    : _this.props.lang_mouse_over_region);
             };
             this.state.info.addTo(this.state.mymap);
         });
@@ -161,7 +161,7 @@ class Map extends React.Component{
                     onEachFeature: this.onEachFeature //listeners
                 }).addTo(this.state.mymap),
                 area: data.bounding_box_total
-        });
+            });
 
         /*let geojson = L.geoJson(data, {
             style: style,
@@ -185,7 +185,7 @@ class Map extends React.Component{
 
 
         legend[indexLegend].onAdd = function (mymap) {
-           //console.log('map - intervalos:', this.state.intervalos);
+            //console.log('map - intervalos:', this.state.intervalos);
             let div = L.DomUtil.create('div', 'info legend'),
                 //grades = [0, 100, 300, 600, 1000, 1500, 3000, 5000, 7000, 9000],
                 //grades = intervalos,

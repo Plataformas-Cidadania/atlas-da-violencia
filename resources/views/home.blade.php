@@ -213,7 +213,7 @@
 
     <article>
 
-        <br><br>
+        {{--<br><br>--}}
 
         <?php /* ?>
         @if(!empty($downloads))
@@ -326,7 +326,7 @@
         {{--END BEM VINDO--}}
 
         {{--STRAT PARCEIROS--}}
-        @if(!empty($parceiros))
+        {{--@if(!empty($parceiros))
             <br><br>
         <div class="container">
             <div class="row">
@@ -344,9 +344,9 @@
                 @endforeach
             </div>
         </div>
-        @endif
-        {{--END PARCEIROS--}}
         <br><br>
+        @endif--}}
+        {{--END PARCEIROS--}}
         <br><br>
         <div id="newsletter"></div>
         <br><br>

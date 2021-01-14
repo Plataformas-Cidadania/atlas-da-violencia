@@ -43,7 +43,7 @@ class ListItems extends React.Component {
             method:'POST',
             url: "arrays-transito",
             data:{
-              },
+             },
             cache: false,
             success: function(data) {
                 //console.log('values-for-types', data);
