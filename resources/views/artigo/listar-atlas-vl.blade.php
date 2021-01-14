@@ -98,6 +98,23 @@
         }
 
     </script>
+    <style>
+        fieldset.border {
+            border: solid 1px #ddd !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 0 0 1.5em 0 !important;
+        }
+
+        legend.border {
+            color: #505050;
+            font-size: 1.2em !important;
+            font-weight: bold !important;
+            text-align: left !important;
+            width:auto;
+            padding:0 10px;
+            border-bottom:none;
+        }
+    </style>
 
     {{--{{ Counter::count('artigo') }}--}}
     <div class="container">
@@ -111,45 +128,48 @@
         <br>
         <div class="row">
             <div class="col-md-12">
-                <form class="form" name="frmBusca" id="frmBusca" action="busca-artigos-v2" onsubmit="return submitForm()" method="post">
-                    <input type="hidden" name="assunto_id" id="assunto_id" value="{{$assunto_id}}">
-                    <input type="hidden" name="take" id="take" value="{{$take}}">
-                    {!! csrf_field() !!}
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="busca">Título</label>
-                            <input type="text" class="form-control" id="busca" name="busca" value="{{$tituloBusca}}">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="ano">Autor</label>
-                            <input type="text" class="form-control" name="autorName" id="autorName"  value="{{$autorNomeBusca}}" onkeyup="searchAutores(this.value)">
-                            <input type="hidden" name="autorId" id="autorId" value="{{$autorIdBusca}}">
-                            <div class="div-info" id="divAutores" style="display: none;"></div>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="ano">Ano</label>
-                            <select name="ano" id="ano" class="form-control">
-                                <option value="0">Todos</option>
-                                @foreach($anos as $ano)
-                                    <option value="{{$ano}}" @if($ano==$anoBusca)selected="selected"@endif>{{$ano}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <input type="hidden" id="publicacaoAtlas" name="publicacaoAtlas" value="{{$publicacaoAtlasBusca}}">
-                        {{--<div class="col-md-2">
-                            <br>
-                            <label for="publicacaoAtlas">
-                                <input type="checkbox" id="publicacaoAtlas" name="publicacaoAtlas" value="1" @if($publicacaoAtlasBusca==1) checked @endif
-                                       style="width: 20px; height: 20px; margin: 0 10px 0 0; top: 15px; position: relative; float: left;">
-                                <div style="float: left; padding-top: 15px;">Atlas Violência</div>
-                            </label>
-                        </div>--}}
+                <fieldset class="border">
+                    <legend class="border">Busca</legend>
+                    <form class="form" name="frmBusca" id="frmBusca" action="busca-artigos-v2" onsubmit="return submitForm()" method="post">
+                        <input type="hidden" name="assunto_id" id="assunto_id" value="{{$assunto_id}}">
+                        <input type="hidden" name="take" id="take" value="{{$take}}">
+                        {!! csrf_field() !!}
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="busca">Título</label>
+                                <input type="text" class="form-control" id="busca" name="busca" value="{{$tituloBusca}}" placeholder="Digite uma palavra do título">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="ano">Autor</label>
+                                <input type="text" class="form-control" name="autorName" id="autorName"  value="{{$autorNomeBusca}}" onkeyup="searchAutores(this.value)">
+                                <input type="hidden" name="autorId" id="autorId" value="{{$autorIdBusca}}">
+                                <div class="div-info" id="divAutores" style="display: none;"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="ano">Ano</label>
+                                <select name="ano" id="ano" class="form-control">
+                                    <option value="0">Todos</option>
+                                    @foreach($anos as $ano)
+                                        <option value="{{$ano}}" @if($ano==$anoBusca)selected="selected"@endif>{{$ano}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <input type="hidden" id="publicacaoAtlas" name="publicacaoAtlas" value="{{$publicacaoAtlasBusca}}">
+                            {{--<div class="col-md-2">
+                                <br>
+                                <label for="publicacaoAtlas">
+                                    <input type="checkbox" id="publicacaoAtlas" name="publicacaoAtlas" value="1" @if($publicacaoAtlasBusca==1) checked @endif
+                                           style="width: 20px; height: 20px; margin: 0 10px 0 0; top: 15px; position: relative; float: left;">
+                                    <div style="float: left; padding-top: 15px;">Atlas Violência</div>
+                                </label>
+                            </div>--}}
 
-                        <div class="col-md-1">
-                            <button type="text" class="btn btn-info" onClick="searchArticles()" style="margin: 25px 0 0 0;">Pesquisar</button>
+                            <div class="col-md-1">
+                                <button type="text" class="btn btn-info" onClick="searchArticles()" style="margin: 25px 0 0 0;">Pesquisar</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </fieldset>
             </div>
         </div>
 
