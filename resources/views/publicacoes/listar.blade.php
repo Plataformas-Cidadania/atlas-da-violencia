@@ -2,6 +2,11 @@
 @section('title', $publicacao->titulo)
 @section('content')
 
+    <style>
+        .descricao-publicaco p{
+            text-align: justify !important;
+        }
+    </style>
     <div class="container">
         <h1>{{$publicacao->titulo}}</h1>
         <div class="line_title bg-pri"></div>
@@ -24,8 +29,7 @@
                     @endif
 
                     @if(!empty($publicacao->imagem))<div class="col-md-7 col-sm-7">@else<div class="col-md-12 col-sm-12">@endif
-                        <h2></h2>
-                        <p>{!! $publicacao->descricao !!}</p>
+                        <div class="descricao-publicaco">{!! $publicacao->descricao !!}</div>
                         <br><br>
                         <a href="arquivos/artigos/{{$publicacao->arquivo}}" target="_blank">
                             <button class="btn btn-primary">Leia relatório completo</button>
