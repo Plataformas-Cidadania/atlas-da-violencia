@@ -270,7 +270,7 @@
                             </div>
                         @endif
 
-                            <div  @if(!empty($artigo->imagem))class="col-md-9 col-sm-9" @else class="col-md-12 col-sm-12" @endif >
+                            <div  @if(!empty($artigo->imagem))class="col-md-9 col-sm-9 descricao-publicaco" @else class="col-md-12 col-sm-12 descricao-publicaco" @endif >
                                 <h2>{{$artigo->titulo}}</h2>
                                 <p>{{str_limit(strip_tags($artigo->descricao), 450)}}</p>
                                 <button class="btn btn-none">@lang('buttons.keep-reading')  </button>

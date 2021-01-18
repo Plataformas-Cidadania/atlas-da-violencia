@@ -2,11 +2,6 @@
 @section('title', $publicacao->titulo)
 @section('content')
 
-    <style>
-        .descricao-publicaco p{
-            text-align: justify !important;
-        }
-    </style>
     <div class="container">
         <h1>{{$publicacao->titulo}}</h1>
         <div class="line_title bg-pri"></div>

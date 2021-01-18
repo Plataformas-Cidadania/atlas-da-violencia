@@ -16,7 +16,8 @@
                     </picture>
                     <h6>{!! $artigo->legenda !!}</h6>
                 @endif
-                <p>{!!$artigo->descricao!!}</p>
+                    <br>
+                <div class="descricao-publicaco">{!!$artigo->descricao!!}</div>
                 @if(!empty($artigo->fonte))
                     <p>
                         <a href="{{$artigo->link_font}}" target="_blank">
@@ -48,7 +49,7 @@
                     @endforeach
                 </h5>
                 <hr>
-                <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{Carbon\Carbon::parse($artigo->created_at)->format('d/m/Y - H:i:s')}}</p>
+                <p><i class="fa fa-clock-o" aria-hidden="true"></i> {{Carbon\Carbon::parse($artigo->data)->format('d/m/Y')}}</p>
                 <br>
                 @if(!empty($artigo->link))
                     <a href="{{$artigo->link}}" target="_blank" class="btn btn-danger text-right" style="width: 100%;">
