@@ -29,8 +29,7 @@
             eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
             if (restore) selObj.selectedIndex=0;
         }
-
-        let strAutores = "{{$autores}}";
+        let strAutores = "<?php echo $autores;?>";
         let arrayAutores = strAutores.split(",");
         let autores = [];
         arrayAutores.find((item)=>{
@@ -50,6 +49,14 @@
             console.log(lista);
             listAutores(lista);
             //return item.indexOf(search) === -1;
+        }
+
+        function encode_utf8(s) {
+            return unescape(encodeURIComponent(s));
+        }
+
+        function decode_utf8(s) {
+            return decodeURIComponent(escape(s));
         }
 
         function setAutor(id, nome){
