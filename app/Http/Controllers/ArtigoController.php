@@ -200,9 +200,10 @@ class ArtigoController extends Controller
         $artigos = DB::table('artigos')
             ->select('artigos.*')
             ->orderBy('artigos.titulo')
-            ->where([
+            /*->where([
                 ['artigos.titulo', 'ilike', "%".$dados['busca']."%"]
-            ])
+            ])*/
+            ->whereRaw("unaccent(artigos.titulo) ilike  unaccent('%".$dados['busca']."%')")
             ->where('artigos.publicacao_atlas', '=', $dados['publicacaoAtlas'])
             ->when($dados['ano'] > 0, function($query) use ($dados){
                 return $query->whereYear('artigos.data', '=', $dados['ano']);

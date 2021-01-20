@@ -6,7 +6,8 @@ cmsApp.controller('alterarSettingCtrl', ['$scope', '$http', 'Upload', '$timeout'
 
     //ALTERAR/////////////////////////////
 
-   // $scope.tinymceOptions = tinymceOptions;
+
+    $scope.tinymceOptions = tinymceOptions;
 
     $scope.mostrarForm = false;
     $scope.removerImagem = 0;

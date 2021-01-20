@@ -60,7 +60,9 @@
                 <br><br><br>
             </div>
             <?php */ ?>
-            <address class="col-md-12">
+                <br>
+            <div style="margin-left: 15px;">{!!$setting->dados_contato!!}</div>
+            {{--<address class="col-md-12">
                 <h3><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp;@lang('adresses.address')</h3>
                 <p>{{$setting->endereco}}, {{$setting->numero}} {{$setting->complemento}} - {{$setting->bairro}}</p>
                 <p>{{$setting->cidade}} - {{$setting->estado}}</p>
@@ -73,7 +75,7 @@
                 <br>
                 <h3><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;@lang('forms.email')</h3>
                 <p><a href="mailto:{{$setting->email}}">{{$setting->email}}</a></p>
-            </address>
+            </address>--}}
             <?php /* ?>
             <div class="col-md-8">
                 {{-- <h3>{{$setting->titulo_contato}}</h3> --}}

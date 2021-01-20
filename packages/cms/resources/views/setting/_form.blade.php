@@ -121,53 +121,60 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="contato">
             <br>
-            {!! Form::label('email', 'E-mail') !!}<br>
-            {!! Form::text('email', null, ['class'=>"form-control width-grande <% validar(setting.email) %>", 'ng-model'=>'setting.email', 'ng-required'=>'true', 'init-model'=>'setting.email']) !!}<br>
 
-            <div class="row">
-                <div class="col-md-2">
-                    {!! Form::label('telefone', 'Telefone') !!}<br>
-                    {!! Form::text('telefone', null, ['class'=>"form-control width-grande <% validar(setting.telefone) %>", 'ng-model'=>'setting.telefone', 'ng-required'=>'true', 'init-model'=>'setting.telefone']) !!}<br>
+            {!! Form::label('dados_contato', 'Dados') !!}<br>
+            {!! Form::textarea('dados_contato', null, ['class'=>"form-control width-grande <% validar(setting.dados_contato) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'setting.dados_contato', 'init-model'=>'setting.dados_contato']) !!}<br>
+
+            <div style="display:none;">
+                {!! Form::label('email', 'E-mail') !!}<br>
+                {!! Form::text('email', null, ['class'=>"form-control width-grande <% validar(setting.email) %>", 'ng-model'=>'setting.email', 'ng-required'=>'true', 'init-model'=>'setting.email']) !!}<br>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        {!! Form::label('telefone', 'Telefone') !!}<br>
+                        {!! Form::text('telefone', null, ['class'=>"form-control width-grande <% validar(setting.telefone) %>", 'ng-model'=>'setting.telefone', 'ng-required'=>'true', 'init-model'=>'setting.telefone']) !!}<br>
+                    </div>
+                    <div class="col-md-2">
+                        {!! Form::label('telefone2', 'Telefone 2 ') !!}<br>
+                        {!! Form::text('telefone2', null, ['class'=>"form-control width-grande <% validar(setting.telefone2) %>", 'ng-model'=>'setting.telefone2', 'ng-required'=>'true', 'init-model'=>'setting.telefone2']) !!}<br>
+                    </div>
+                    <div class="col-md-2">
+                        {!! Form::label('telefone3', 'Telefone 3') !!}<br>
+                        {!! Form::text('telefone3', null, ['class'=>"form-control width-grande <% validar(setting.telefone3) %>", 'ng-model'=>'setting.telefone3', 'ng-required'=>'true', 'init-model'=>'setting.telefone3']) !!}<br>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    {!! Form::label('telefone2', 'Telefone 2 ') !!}<br>
-                    {!! Form::text('telefone2', null, ['class'=>"form-control width-grande <% validar(setting.telefone2) %>", 'ng-model'=>'setting.telefone2', 'ng-required'=>'true', 'init-model'=>'setting.telefone2']) !!}<br>
+                <div class="row">
+                    <div class="col-md-5">
+                        {!! Form::label('endereco', 'Endereço') !!}<br>
+                        {!! Form::text('endereco', null, ['class'=>"form-control width-grande <% validar(setting.endereco) %>", 'ng-model'=>'setting.endereco', 'ng-required'=>'true', 'init-model'=>'setting.endereco']) !!}<br>
+                    </div>
+                    <div class="col-md-2">
+                        {!! Form::label('numero', 'Numero') !!}<br>
+                        {!! Form::text('numero', null, ['class'=>"form-control width-grande <% validar(setting.numero) %>", 'ng-model'=>'setting.numero', 'ng-required'=>'true', 'init-model'=>'setting.numero']) !!}<br>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    {!! Form::label('telefone3', 'Telefone 3') !!}<br>
-                    {!! Form::text('telefone3', null, ['class'=>"form-control width-grande <% validar(setting.telefone3) %>", 'ng-model'=>'setting.telefone3', 'ng-required'=>'true', 'init-model'=>'setting.telefone3']) !!}<br>
-                </div>
+                {!! Form::label('complemento', 'Complemento') !!}<br>
+                {!! Form::text('complemento', null, ['class'=>"form-control width-grande <% validar(setting.complemento) %>", 'ng-model'=>'setting.complemento', 'ng-required'=>'true', 'init-model'=>'setting.complemento']) !!}<br>
+
+                {!! Form::label('bairro', 'Bairro') !!}<br>
+                {!! Form::text('bairro', null, ['class'=>"form-control width-grande <% validar(setting.bairro) %>", 'ng-model'=>'setting.bairro', 'ng-required'=>'true', 'init-model'=>'setting.bairro']) !!}<br>
+
+                {!! Form::label('cidade', 'Cidade') !!}<br>
+                {!! Form::text('cidade', null, ['class'=>"form-control width-grande <% validar(setting.cidade) %>", 'ng-model'=>'setting.cidade', 'ng-required'=>'true', 'init-model'=>'setting.cidade']) !!}<br>
+
+                {!! Form::label('estado', 'Estado') !!}<br>
+                {!! Form::text('estado', null, ['class'=>"form-control width-grande <% validar(setting.estado) %>", 'ng-model'=>'setting.estado', 'ng-required'=>'true', 'init-model'=>'setting.estado']) !!}<br>
+
+                {!! Form::label('cep', 'CEP.') !!}<br>
+                {!! Form::text('cep', null, ['class'=>"form-control width-grande <% validar(setting.cep) %>", 'ng-model'=>'setting.cep', 'ng-required'=>'true', 'init-model'=>'setting.cep']) !!}<br>
+
+                {!! Form::label('latitude', 'Latitude') !!}<br>
+                {!! Form::text('latitude', null, ['class'=>"form-control width-grande <% validar(setting.latitude) %>", 'ng-model'=>'setting.latitude', 'ng-required'=>'true', 'init-model'=>'setting.latitude']) !!}<br>
+
+                {!! Form::label('longitude', 'Longitude') !!}<br>
+                {!! Form::text('longitude', null, ['class'=>"form-control width-grande <% validar(setting.longitude) %>", 'ng-model'=>'setting.longitude', 'ng-required'=>'true', 'init-model'=>'setting.longitude']) !!}<br>
+
             </div>
-            <div class="row">
-                <div class="col-md-5">
-                    {!! Form::label('endereco', 'Endereço') !!}<br>
-                    {!! Form::text('endereco', null, ['class'=>"form-control width-grande <% validar(setting.endereco) %>", 'ng-model'=>'setting.endereco', 'ng-required'=>'true', 'init-model'=>'setting.endereco']) !!}<br>
-                </div>
-                <div class="col-md-2">
-                    {!! Form::label('numero', 'Numero') !!}<br>
-                    {!! Form::text('numero', null, ['class'=>"form-control width-grande <% validar(setting.numero) %>", 'ng-model'=>'setting.numero', 'ng-required'=>'true', 'init-model'=>'setting.numero']) !!}<br>
-                </div>
-            </div>
-            {!! Form::label('complemento', 'Complemento') !!}<br>
-            {!! Form::text('complemento', null, ['class'=>"form-control width-grande <% validar(setting.complemento) %>", 'ng-model'=>'setting.complemento', 'ng-required'=>'true', 'init-model'=>'setting.complemento']) !!}<br>
-
-            {!! Form::label('bairro', 'Bairro') !!}<br>
-            {!! Form::text('bairro', null, ['class'=>"form-control width-grande <% validar(setting.bairro) %>", 'ng-model'=>'setting.bairro', 'ng-required'=>'true', 'init-model'=>'setting.bairro']) !!}<br>
-
-            {!! Form::label('cidade', 'Cidade') !!}<br>
-            {!! Form::text('cidade', null, ['class'=>"form-control width-grande <% validar(setting.cidade) %>", 'ng-model'=>'setting.cidade', 'ng-required'=>'true', 'init-model'=>'setting.cidade']) !!}<br>
-
-            {!! Form::label('estado', 'Estado') !!}<br>
-            {!! Form::text('estado', null, ['class'=>"form-control width-grande <% validar(setting.estado) %>", 'ng-model'=>'setting.estado', 'ng-required'=>'true', 'init-model'=>'setting.estado']) !!}<br>
-
-            {!! Form::label('cep', 'CEP.') !!}<br>
-            {!! Form::text('cep', null, ['class'=>"form-control width-grande <% validar(setting.cep) %>", 'ng-model'=>'setting.cep', 'ng-required'=>'true', 'init-model'=>'setting.cep']) !!}<br>
-
-            {!! Form::label('latitude', 'Latitude') !!}<br>
-            {!! Form::text('latitude', null, ['class'=>"form-control width-grande <% validar(setting.latitude) %>", 'ng-model'=>'setting.latitude', 'ng-required'=>'true', 'init-model'=>'setting.latitude']) !!}<br>
-
-            {!! Form::label('longitude', 'Longitude') !!}<br>
-            {!! Form::text('longitude', null, ['class'=>"form-control width-grande <% validar(setting.longitude) %>", 'ng-model'=>'setting.longitude', 'ng-required'=>'true', 'init-model'=>'setting.longitude']) !!}<br>
 
         </div>
         <div role="tabpanel" class="tab-pane" id="cor">
