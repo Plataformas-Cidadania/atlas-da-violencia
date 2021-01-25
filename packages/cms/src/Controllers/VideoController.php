@@ -167,6 +167,12 @@ class VideoController extends Controller
 
     }
 
+    public function destaqueHome(Request $request){
+        DB::table('videos')->update(['destaque' => 0]);
+        $video = $this->video->find($request->id);
+        $video->update(['destaque' => 1]);
+    }
+
     
 
 

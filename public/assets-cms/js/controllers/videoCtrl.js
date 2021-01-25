@@ -6,14 +6,14 @@ cmsApp.controller('videoCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     $scope.lastPage = 0;
     $scope.totalItens = 0;
     $scope.maxSize = 5;
-    $scope.itensPerPage = 10;
+    $scope.itensPerPage = 25;
     $scope.dadoPesquisa = '';
-    $scope.campos = "id, titulo";
+    $scope.campos = "id, titulo, destaque";
     $scope.campoPesquisa = "titulo";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
-    $scope.ordem = "titulo";
-    $scope.sentidoOrdem = "asc";
+    $scope.ordem = "id";
+    $scope.sentidoOrdem = "desc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
 
     $scope.$watch('currentPage', function(){
@@ -197,5 +197,16 @@ cmsApp.controller('videoCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     };
     //////////////////////////////////
 
+    $scope.processandoDestaque = false;
+    $scope.destaqueHome = function(id){
+        $scope.processandoDestaque = true;
+        $http.post("cms/destaque-video-home", {id: id}).success(function (data){
+            listarVideos();
+            $scope.processandoDestaque = false;
+        }).error(function(data){
+            console.log(data)
+            $scope.processandoDestaque = false;
+        });
+    }
 
 }]);

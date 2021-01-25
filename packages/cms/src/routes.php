@@ -248,6 +248,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/video/{id}', 'Cms\Controllers\VideoController@detalhar');
         Route::post('/cms/alterar-video/{id}', 'Cms\Controllers\VideoController@alterar');
         Route::get('/cms/excluir-video/{id}', 'Cms\Controllers\VideoController@excluir');
+        Route::post('/cms/destaque-video-home', 'Cms\Controllers\VideoController@destaqueHome');
 
         //LINKS
         Route::get('/cms/links', 'Cms\Controllers\LinkController@index');

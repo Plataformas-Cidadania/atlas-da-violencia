@@ -26,7 +26,8 @@ class HomeController extends Controller
         $bemvindo = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 0)->first();
         $webdoors = DB::table('webdoors')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->take(10)->get();
         $menu = \App\Menu::where('menu_id', 0)->get();
-        $video = \App\Video::orderBy('id', 'desc')->first();
+        //$video = \App\Video::orderBy('id', 'desc')->first();
+        $video = \App\Video::where('destaque', 1)->first();
         $indices = \App\Indice::where('idioma_sigla', $lang)->where('status', 1)->orderBy('posicao')->take(4)->get();
         $downloads = DB::table('downloads')->where('idioma_sigla', $lang)->where('origem_id', 0)->orderBy('id', 'desc')->take(3)->get();
         $tituloLinhaTempo = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 4)->orderBy('id', 'desc')->take(1)->get();

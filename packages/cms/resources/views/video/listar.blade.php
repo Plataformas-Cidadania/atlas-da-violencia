@@ -99,6 +99,14 @@
                             <td><a href="cms/video/<% video.id %>"><% video.titulo %></a></td>
                             <td class="text-right">
                                 <div>
+                                    <a ng-click="destaqueHome(video.id)">
+                                        <i
+                                                class="fa fa-2x"
+                                                ng-class="{'fa-star': video.destaque==1, 'fa-star-o': video.destaque==0}"
+                                                title="Destaque Home"
+                                                style="cursor:pointer;"
+                                        ></i>
+                                    </a>&nbsp;&nbsp;
                                     <a href="cms/video/<% video.id %>"><i class="fa fa-edit fa-2x" title="Editar"></i></a>&nbsp;&nbsp;
                                     <a><i data-toggle="modal" data-target="#modalExcluir" class="fa fa-remove fa-2x" ng-click="perguntaExcluir(video.id, video.titulo, video.imagem)"></i></a>
                                 </div>
@@ -119,8 +127,8 @@
                     </div>
                     <div class="item-paginacao">
                         <select class="form-control itens-por-pagina item-paginacao"  ng-model="itensPerPage">
-                            <option ng-selected="true">10</option>
-                            <option>25</option>
+                            <option>10</option>
+                            <option ng-selected="true">25</option>
                             <option>50</option>
                             <option>100</option>
                         </select>
