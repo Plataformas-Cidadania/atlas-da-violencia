@@ -18,6 +18,87 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     });
 </script>
 
+
+
+@if($rota=='busca-artigos-v3')
+    <script>
+        ipeaApp.controller('artigosCtrl', ['$scope', '$http', function($scope, $http){
+
+
+            $scope.loading = false;
+            $scope.loading2 = false;
+
+            $scope.assuntos = [];
+            $scope.autores = [];
+            $scope.anos = [];
+            $scope.showDivAutores = false;
+
+            $scope.busca = null;
+            $scope.autor = {
+                id: 0,
+                titulo: null
+            };
+            $scope.ano = null;
+            $scope.publicacaoAtlas = 0;
+            $scope.assuntoId = 0;
+
+            $scope.artigos = [];
+
+            $scope.search = function (){
+                $scope.loading = true;
+                $http.get("artigos", {
+                    busca: $scope.busca,
+                    autor: $scope.autor,
+                    ano: $scope.ano,
+                    publicacaoAtlas: $scope.publicacaoAtlas,
+                    assuntoId: $scope.assuntoId,
+                }).success(function (data){
+                    $scope.loading = false;
+                    console.log(data);
+                }).error(function(data){
+                    $scope.erroContato = true;
+                    $scope.enviandoContato = false;
+                    console.log(data);
+                    //$scope.messageInserir = "Ocorreu um erro: "+data;
+                });
+            };
+
+            $scope.dadosParametrosBusca = function (){
+                console.log('DADOS PARAMETROS BUSCA');
+                $scope.loading = true;
+                $http.get("dados-parametros-busca-artigos", {}).success(function (data){
+                    $scope.loading = false;
+                    console.log(data);
+                    $scope.anos = data.anos;
+                    $scope.autores = data.authors;
+                    $scope.search();
+                }).error(function(data){
+                    $scope.erroContato = true;
+                    $scope.enviandoContato = false;
+                    console.log(data);
+                    //$scope.messageInserir = "Ocorreu um erro: "+data;
+                });
+            };
+
+            $scope.searchAutores = function(){
+                $scope.showDivAutores = true;
+                $scope.listaAutores = $scope.autores.filter((item) => item.nome.toLowerCase().includes(search.toLowerCase()));
+            }
+
+            $scope.selectAutor = function(autor){
+                $scope.showDivAutores = false;
+                $scope.autor = autor;
+            }
+
+            $scope.searchByAssunto = function(assuntoId){
+                $scope.assuntoId = assuntoId;
+                $scope.search();
+            }
+            /////////////////////////////////
+        }]);
+    </script>
+@endif
+
 @if($rota=='contato')
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>

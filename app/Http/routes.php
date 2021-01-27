@@ -79,6 +79,9 @@ Route::get('artigos-v2', 'ArtigoController@buscar2');
 Route::post('busca-artigos-v2', 'ArtigoController@buscar2');
 Route::get('busca-artigos-v2', 'ArtigoController@buscar2');
 
+Route::get('busca-artigos-v3', 'ArtigoController@index');
+Route::get('dados-parametros-busca-artigos', 'ArtigoController@dadosPesquisa');
+
 //DOWNLOADS
 Route::post('busca-downloads/', 'DownloadController@buscar');
 Route::get('downloads/', 'DownloadController@listar');

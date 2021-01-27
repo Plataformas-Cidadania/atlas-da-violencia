@@ -275,6 +275,140 @@ class ArtigoController extends Controller
                 ]);*/
     }
 
+    public function index(){
+
+        return view('artigo.listar-atlas-vl-angularjs');
+    }
+
+    public function dadosPesquisa(){
+        $authors = DB::table('authors')->orderBy('titulo')->get();
+        $artigos = DB::table('artigos')->get();
+        $anos = ['Todos'];
+        foreach ($artigos as $artigo) {
+            $ano = date('Y', strtotime($artigo->created_at));
+            if($artigo->data){
+                $ano = date('Y', strtotime($artigo->data));
+            }
+            if(!in_array($ano, $anos)){
+                array_push($anos, $ano);
+            }
+        }
+
+        $lang =  App::getLocale();
+        $assuntos = DB::table('assuntos')
+            ->select('assuntos.id', 'idiomas_assuntos.titulo', DB::Raw('count(assuntos_artigos.artigo_id) as qtd'))
+            ->join('idiomas_assuntos', 'idiomas_assuntos.assunto_id', '=', 'assuntos.id')
+            ->join('assuntos_artigos', 'assuntos_artigos.assunto_id', '=', 'assuntos.id')
+            ->where('idiomas_assuntos.idioma_sigla', $lang)
+            ->groupBy('assuntos.id', 'idiomas_assuntos.titulo')
+            ->get();
+
+        return [
+            'assuntos' => $assuntos,
+            'authors' => $authors,
+            'anos' => $anos
+        ];
+    }
+
+    public function buscarAjax(Request $request){
+
+        $lang =  App::getLocale();
+
+        $dados = $request->all();
+
+
+        if(!array_key_exists('publicacaoAtlas', $dados)){
+            $dados['publicacaoAtlas'] = 0;
+        }
+        if(!array_key_exists('assunto_id', $dados)){
+            $dados['assunto_id'] = 0;
+        }
+        if(!array_key_exists('ano', $dados)){
+            $dados['ano'] = 0;
+        }
+        if(!array_key_exists('autorId', $dados)){
+            $dados['autorId'] = 0;
+        }
+        if(!array_key_exists('autorName', $dados)){
+            $dados['autorName'] = "";
+        }
+        if(!array_key_exists('busca', $dados)){
+            $dados['busca'] = "";
+        }
+        if(!array_key_exists('take', $dados)){
+            $dados['take'] = 10;
+        }
+
+        //return $dados;
+
+        $totalArtigos = \App\Artigo::count();
+
+        $artigos = DB::table('artigos')
+            ->select('artigos.*')
+            ->orderBy('artigos.titulo')
+            /*->where([
+                ['artigos.titulo', 'ilike', "%".$dados['busca']."%"]
+            ])*/
+            ->whereRaw("unaccent(artigos.titulo) ilike  unaccent('%".$dados['busca']."%')")
+            ->where('artigos.publicacao_atlas', '=', $dados['publicacaoAtlas'])
+            ->when($dados['ano'] > 0, function($query) use ($dados){
+                return $query->whereYear('artigos.data', '=', $dados['ano']);
+            })
+            ->when($dados['autorId'] > 0, function($query) use ($dados){
+                $query->join('author_artigo', 'author_artigo.artigo_id', '=', 'artigos.id');
+                $query->where('author_artigo.author_id', '=', $dados['autorId']);
+                return $query;
+            })
+            ->when($dados['assunto_id'] > 0, function($query) use ($dados){
+                $query->join('assuntos_artigos', 'assuntos_artigos.artigo_id', '=', 'artigos.id' );
+                $query->where('assuntos_artigos.assunto_id', $dados['assunto_id']);
+                return $query;
+            })
+            ->take($dados['take'])
+            ->get();
+        //->paginate(1);
+
+        $totalArtigos = \App\Artigo::count();
+
+
+        /*$parametros = "";
+        if($dados['assunto_id'] != ""){
+            $parametros .= "/".$dados['assunto_id'];
+        }
+        $paginateUrl = env('APP_PROTOCOL').config('app.url').'/artigos'.$parametros."/lista";
+        $artigos->setPath($paginateUrl);*/
+
+
+        $menus = DB::table('assuntos')
+            ->select('assuntos.id', 'idiomas_assuntos.titulo', DB::Raw('count(assuntos_artigos.artigo_id) as qtd'))
+            ->join('idiomas_assuntos', 'idiomas_assuntos.assunto_id', '=', 'assuntos.id')
+            ->join('assuntos_artigos', 'assuntos_artigos.assunto_id', '=', 'assuntos.id')
+            ->where('idiomas_assuntos.idioma_sigla', $lang)
+            ->groupBy('assuntos.id', 'idiomas_assuntos.titulo')
+            ->get();
+        $authors = DB::table('authors')->orderBy('titulo')->get();
+
+        $origem_titulo = "";
+
+        return [
+            'artigos' => $artigos,
+            'menus' => $menus,
+            'assunto_id' => $dados['assunto_id'],
+            'authors' => $authors,
+            'origem_titulo' => $origem_titulo,
+            'autor_id' => 0,
+            'autor_titulo' => 0,
+            'anoBusca' => $dados["ano"],
+            'autorIdBusca' => $dados["autorId"],
+            'autorNomeBusca' => $dados["autorName"],
+            'publicacaoAtlasBusca' => $dados["publicacaoAtlas"],
+            'valorBusca' => $dados['busca'],
+            'tituloBusca' => $dados['busca'],
+            'take' => $dados['take'],
+            'totalArtigos' => $totalArtigos,
+        ];
+    }
+
     public function detalhar($id){
 
         $artigo = new \App\Artigo;
