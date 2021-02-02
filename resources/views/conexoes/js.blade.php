@@ -20,7 +20,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
 
 
-@if($rota=='busca-artigos-v3')
+@if($rota=='artigos')
     {!! Html::script('assets-cms/lib/angular/pagination.js') !!}
     {!! Html::script('assets-cms/lib/angular/ui-bootstrap-tpls-1.1.2.min.js') !!}
     <script>
