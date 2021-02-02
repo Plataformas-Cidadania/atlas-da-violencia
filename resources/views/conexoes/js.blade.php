@@ -51,7 +51,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
             $scope.lastPage = 0;
             $scope.totalItens = 0;
             $scope.maxSize = 5;
-            $scope.itensPerPage = 2;
+            $scope.itensPerPage = 10;
 
             $scope.$watch('currentPage', function(){
                 //if($listar){
