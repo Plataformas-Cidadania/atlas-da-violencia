@@ -61,14 +61,14 @@ Route::get('noticia/{id}/{titulo}', 'NoticiaController@detalhar');
 Route::get('artigos/{origem_id}', 'ArtigoController@listar');
 Route::get('artigos/{origem_id}/{titulo}', 'ArtigoController@listar');
 Route::get('artigos/{origem_id}/{titulo}/{autor_id}/{autor}', 'ArtigoController@listar');
-Route::get('artigos/', 'ArtigoController@listar');
+//Route::get('artigos/', 'ArtigoController@listar');
 Route::get('artigos/{titulo}', 'ArtigoController@listar');
 Route::get('artigo/{id}', 'ArtigoController@detalhar');
 Route::get('artigo/{id}/{titulo}', 'ArtigoController@detalhar');
 Route::post('busca-artigos/{origem_id}/{titulo}', 'ArtigoController@buscar');
 
 //ARTIGOS V2
-Route::get('artigos-v2', 'ArtigoController@buscar2');
+//Route::get('artigos-v2', 'ArtigoController@buscar2');
 //Route::get('artigos-v2/{origem_id}', 'ArtigoController@listar2');
 //Route::get('artigos-v2/{origem_id}/{titulo}', 'ArtigoController@listar2');
 //Route::get('artigos-v2/{origem_id}/{titulo}/{autor_id}/{autor}', 'ArtigoController@listar2');
@@ -76,10 +76,11 @@ Route::get('artigos-v2', 'ArtigoController@buscar2');
 //Route::get('artigos-v2/', 'ArtigoController@listar2');
 //Route::get('artigos-v2/{titulo}', 'ArtigoController@listar2');
 //Route::post('busca-artigos-v2/{origem_id}/{titulo}', 'ArtigoController@buscar2');
-Route::post('busca-artigos-v2', 'ArtigoController@buscar2');
-Route::get('busca-artigos-v2', 'ArtigoController@buscar2');
+//Route::post('busca-artigos-v2', 'ArtigoController@buscar2');
+//Route::get('busca-artigos-v2', 'ArtigoController@buscar2');
 
-Route::get('busca-artigos-v3', 'ArtigoController@index');
+Route::get('artigos', 'ArtigoController@index');
+//Route::get('busca-artigos-v3', 'ArtigoController@index');
 Route::get('dados-parametros-busca-artigos', 'ArtigoController@dadosPesquisa');
 Route::get('busca-artigos-ajax', 'ArtigoController@buscarAjax');
 
