@@ -320,8 +320,8 @@ class ArtigoController extends Controller
         if(!array_key_exists('publicacaoAtlas', $dados)){
             $dados['publicacaoAtlas'] = 0;
         }
-        if(!array_key_exists('assunto_id', $dados)){
-            $dados['assunto_id'] = 0;
+        if(!array_key_exists('assuntoId', $dados)){
+            $dados['assuntoId'] = 0;
         }
         if(!array_key_exists('ano', $dados)){
             $dados['ano'] = 0;
@@ -339,10 +339,6 @@ class ArtigoController extends Controller
             $dados['take'] = 10;
         }
 
-        //return $dados;
-
-        $totalArtigos = \App\Artigo::count();
-
         $artigos = DB::table('artigos')
             ->select('artigos.*')
             ->orderBy('artigos.titulo')
@@ -359,38 +355,16 @@ class ArtigoController extends Controller
                 $query->where('author_artigo.author_id', '=', $dados['autorId']);
                 return $query;
             })
-            ->when($dados['assunto_id'] > 0, function($query) use ($dados){
+            ->when($dados['assuntoId'] > 0, function($query) use ($dados){
                 $query->join('assuntos_artigos', 'assuntos_artigos.artigo_id', '=', 'artigos.id' );
-                $query->where('assuntos_artigos.assunto_id', $dados['assunto_id']);
+                $query->where('assuntos_artigos.assunto_id', $dados['assuntoId']);
                 return $query;
             })
-            ->take($dados['take'])
-            ->get();
-        //->paginate(1);
+            ->paginate($dados['itensPorPagina']);
 
-        $totalArtigos = \App\Artigo::count();
+            return $artigos;
 
-
-        /*$parametros = "";
-        if($dados['assunto_id'] != ""){
-            $parametros .= "/".$dados['assunto_id'];
-        }
-        $paginateUrl = env('APP_PROTOCOL').config('app.url').'/artigos'.$parametros."/lista";
-        $artigos->setPath($paginateUrl);*/
-
-
-        $menus = DB::table('assuntos')
-            ->select('assuntos.id', 'idiomas_assuntos.titulo', DB::Raw('count(assuntos_artigos.artigo_id) as qtd'))
-            ->join('idiomas_assuntos', 'idiomas_assuntos.assunto_id', '=', 'assuntos.id')
-            ->join('assuntos_artigos', 'assuntos_artigos.assunto_id', '=', 'assuntos.id')
-            ->where('idiomas_assuntos.idioma_sigla', $lang)
-            ->groupBy('assuntos.id', 'idiomas_assuntos.titulo')
-            ->get();
-        $authors = DB::table('authors')->orderBy('titulo')->get();
-
-        $origem_titulo = "";
-
-        return [
+        /*return [
             'artigos' => $artigos,
             'menus' => $menus,
             'assunto_id' => $dados['assunto_id'],
@@ -406,7 +380,7 @@ class ArtigoController extends Controller
             'tituloBusca' => $dados['busca'],
             'take' => $dados['take'],
             'totalArtigos' => $totalArtigos,
-        ];
+        ];*/
     }
 
     public function detalhar($id){

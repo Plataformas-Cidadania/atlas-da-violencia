@@ -21,6 +21,8 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
 
 @if($rota=='busca-artigos-v3')
+    {!! Html::script('assets-cms/lib/angular/pagination.js') !!}
+    {!! Html::script('assets-cms/lib/angular/ui-bootstrap-tpls-1.1.2.min.js') !!}
     <script>
         ipeaApp.controller('artigosCtrl', ['$scope', '$http', function($scope, $http){
 
@@ -30,6 +32,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
             $scope.assuntos = [];
             $scope.autores = [];
+            $scope.autorName = null;
             $scope.anos = [];
             $scope.showDivAutores = false;
 
@@ -44,17 +47,41 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
             $scope.artigos = [];
 
+            $scope.currentPage = 1;
+            $scope.lastPage = 0;
+            $scope.totalItens = 0;
+            $scope.maxSize = 5;
+            $scope.itensPerPage = 2;
+
+            $scope.$watch('currentPage', function(){
+                //if($listar){
+                    $scope.search();
+                //}
+            });
+
             $scope.search = function (){
                 $scope.loading = true;
-                $http.get("artigos", {
-                    busca: $scope.busca,
-                    autor: $scope.autor,
-                    ano: $scope.ano,
-                    publicacaoAtlas: $scope.publicacaoAtlas,
-                    assuntoId: $scope.assuntoId,
+                if(!$scope.autorName){
+                    $scope.autor.id = 0;
+                }
+                $http.get("busca-artigos-ajax", {
+                    params:{
+                        page: $scope.currentPage,
+                        itensPorPagina: $scope.itensPerPage,
+                        busca: $scope.busca,
+                        autorId: $scope.autor.id,
+                        ano: $scope.ano,
+                        publicacaoAtlas: $scope.publicacaoAtlas,
+                        assuntoId: $scope.assuntoId,
+                    }
                 }).success(function (data){
                     $scope.loading = false;
-                    console.log(data);
+                    //console.log(data);
+                    $scope.artigos = data.data;
+                    $scope.lastPage = data.last_page;
+                    $scope.totalItens = data.total;
+                    $scope.primeiroDaPagina = data.from;
+                    $scope.ultimoDaPagina = data.to;
                 }).error(function(data){
                     $scope.erroContato = true;
                     $scope.enviandoContato = false;
@@ -71,6 +98,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     console.log(data);
                     $scope.anos = data.anos;
                     $scope.autores = data.authors;
+                    $scope.assuntos = data.assuntos;
                     $scope.search();
                 }).error(function(data){
                     $scope.erroContato = true;
@@ -82,17 +110,23 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
             $scope.searchAutores = function(){
                 $scope.showDivAutores = true;
-                $scope.listaAutores = $scope.autores.filter((item) => item.nome.toLowerCase().includes(search.toLowerCase()));
+                $scope.listaAutores = $scope.autores.filter((item) => item.titulo.toLowerCase().includes($scope.autorName.toLowerCase()));
             }
 
-            $scope.selectAutor = function(autor){
+            $scope.setAutor = function(autor){
                 $scope.showDivAutores = false;
                 $scope.autor = autor;
+                $scope.autorName = autor.titulo;
             }
 
             $scope.searchByAssunto = function(assuntoId){
                 $scope.assuntoId = assuntoId;
                 $scope.search();
+            }
+
+            $scope.stripTags = function(str) {
+                str = str.toString();
+                return str.replace(/<\/?[^>]+>/gi, '');
             }
             /////////////////////////////////
         }]);

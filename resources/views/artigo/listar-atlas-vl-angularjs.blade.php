@@ -34,7 +34,7 @@
             <div class="col-md-12">
                 <fieldset class="border">
                     <legend class="border">Busca</legend>
-                    <form class="form" name="frmBusca" id="frmBusca" action="busca-artigos-v2" onsubmit="return submitForm()" method="post">
+                    <form class="form" name="frmBusca" id="frmBusca" action="busca-artigos-v2" method="post">
                         <input type="hidden" name="assunto_id" id="assunto_id" ng-model="assunto_id">
 
                         {!! csrf_field() !!}
@@ -45,9 +45,9 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="ano">Autor</label>
-                                <input type="text" class="form-control" name="autorName" id="autorName"  onkeyup="searchAutores()">
-                                <div class="div-info" id="divAutores" style="display: none;">
-                                    <div ng-repeat="autor in autores">{autor.titulo}</div>
+                                <input type="text" class="form-control" name="autorName" ng-model="autorName" id="autorName"  ng-keyup="searchAutores()">
+                                <div class="div-info" id="divAutores" ng-show="showDivAutores && autorName">
+                                    <div ng-repeat="autor in listaAutores" style="cursor:pointer" ng-click="setAutor(autor)"><% autor.titulo %></div>
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -66,7 +66,7 @@
                             </div>--}}
 
                             <div class="col-md-1">
-                                <button type="text" class="btn btn-info" onClick="searchArticles()" style="margin: 25px 0 0 0;">Pesquisar</button>
+                                <button type="button" class="btn btn-info" ng-click="search()" style="margin: 25px 0 0 0;">Pesquisar</button>
                             </div>
                         </div>
                     </form>
@@ -102,13 +102,13 @@
                         <a ng-click="searchByAssunto(assunto.id)" accesskey="q" ng-class="{'menu-vertical-marcado': (assunto.id==assuntoId)}" style="cursor:pointer; clear: both;">
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             <% assunto.titulo %>
-                            <span style="float: right;">(<% assunto.qtd %>>)</span>
+                            <span style="float: right;">(<% assunto.qtd %>)</span>
                         </a>
                     </li>
                 </ul>
 
                 <div class="text-right" ng-show="assuntoId > 0">
-                    <a  class="text-danger" onclick="searchByAssunto(0)" style="cursor: pointer;"> <i class="fa fa-times" aria-hidden="true"></i> Remover filtro</a>
+                    <a  class="text-danger" ng-click="searchByAssunto(0)" style="cursor: pointer;"> <i class="fa fa-times" aria-hidden="true"></i> Remover filtro</a>
                 </div>
 
                 <br>
@@ -116,37 +116,50 @@
             </div>
             <div class="col-md-9 col-sm-9">
         
-            <div class="row" id="artigo_<% index %>" ng-repeat="(index, artigo) in artigos">
-                <a href="artigo/<% artigo.id %>/<% artigo.titulo %>">
-                    <div class="col-md-3 col-sm-3" ng-show="artigo.imagem!=''">
-                        <picture>
-                            <source srcset="imagens/artigos/sm-<% artigo.imagem %>" media="(max-width: 468px)">
-                            <source srcset="imagens/artigos/md-<% artigo.imagem %>" media="(max-width: 768px)">
-                            <source srcset="imagens/artigos/sm-<% artigo.imagem %>" class="img-responsive">
-                            <img srcset="imagens/artigos/sm-<% artigo.imagem %>" alt="Imagem sobre <% artigo.titulo %>," title="Imagem sobre <% artigo.titulo %>," class="align-img" width="100%">
-                        </picture>
+                <div class="row" id="artigo_<% index %>" ng-repeat="(index, artigo) in artigos">
+                    <a href="artigo/<% artigo.id %>/<% artigo.titulo %>">
+                        <div class="col-md-3 col-sm-3" ng-show="artigo.imagem!=''">
+                            <picture>
+                                <source srcset="imagens/artigos/sm-<% artigo.imagem %>" media="(max-width: 468px)">
+                                <source srcset="imagens/artigos/md-<% artigo.imagem %>" media="(max-width: 768px)">
+                                <source srcset="imagens/artigos/sm-<% artigo.imagem %>" class="img-responsive">
+                                <img srcset="imagens/artigos/sm-<% artigo.imagem %>" alt="Imagem sobre <% artigo.titulo %>," title="Imagem sobre <% artigo.titulo %>," class="align-img" width="100%">
+                            </picture>
+                        </div>
+                        <div  class="descricao-publicaco" ng-class="{'col-md-9': artigo.imagem!='','col-sm-9': artigo.imagem!='', 'col-md-12': artigo.imagem=='','col-sm-12': artigo.imagem==''}">
+                            <h2><% artigo.titulo %></h2>
+                            <p><% stripTags(artigo.descricao).substr(0, 450)+' ...' %></p>
+                            <button class="btn btn-none">@lang('buttons.keep-reading')  </button>
+                        </div>
+                    </a>
+                    <hr style="clear:both;">
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--<button class="btn btn-primary btn-block" ng-click="loadMore()" ng-hide="currentPage==lastPage">Load More</button>-->
+                        <div ng-show="totalItens > 0" class="clan-paginacao">
+                            <div class="item-paginacao">
+                                <uib-pagination
+                                        total-items="totalItens"
+                                        ng-model="currentPage"
+                                        max-size="maxSize"
+                                        class="pagination-sm"
+                                        boundary-links="false"
+                                        force-ellipses="true"
+                                        items-per-page="itensPerPage"
+                                        num-pages="numPages"
+                                        direction-links="false"
+                                >
+                                </uib-pagination>
+                            </div>
+                        </div>
                     </div>
-                    <div  class="descricao-publicaco" ng-class="{'col-md-9': artigo.imagem=='','col-sm-9': artigo.imagem=='', 'col-md-12': artigo.imagem!='','col-sm-12': artigo.imagem!=''}">
-                        <h2><% artigo.titulo %></h2>
-                        <p><% artigo.descricao %></p>
-                        <button class="btn btn-none">@lang('buttons.keep-reading')  </button>
-                    </div>
-                </a>
-                <hr>
+                </div>
+
             </div>
-            
-        
-
-        {{--<div>{{ $artigos->links() }}</div>--}}
-        {{--@if(count($artigos) < $totalArtigos-1)
-        <div class="text-center">
-            <button class="btn btn-info" onclick="loadMore({{$take+1}})">
-                Veja Mais Publicações
-            </button>
-        </div>
-        @endif--}}
-
-        </div>
         </div>
 
     </div>

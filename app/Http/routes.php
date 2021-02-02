@@ -81,6 +81,7 @@ Route::get('busca-artigos-v2', 'ArtigoController@buscar2');
 
 Route::get('busca-artigos-v3', 'ArtigoController@index');
 Route::get('dados-parametros-busca-artigos', 'ArtigoController@dadosPesquisa');
+Route::get('busca-artigos-ajax', 'ArtigoController@buscarAjax');
 
 //DOWNLOADS
 Route::post('busca-downloads/', 'DownloadController@buscar');
