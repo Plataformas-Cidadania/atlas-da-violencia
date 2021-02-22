@@ -141,7 +141,7 @@ class SelectItems extends React.Component {
             },
             cache: false,
             success: function (data) {
-                console.log('selectItems', data);
+                //console.log('selectItems', data);
                 let _return = this.setFalse(data);
                 this.setState({ items: _return.items, all: _return.all }, function () {
                     this.setState({ loading: false });

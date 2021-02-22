@@ -133,6 +133,10 @@ class Map extends React.Component {
         //console.log('map - intervalos', intervalos);
         //this.props.setIntervalos(intervalos, this.props.tipoPeriodo);
 
+        //for (let i in feature){
+        //feature[i].geometry = JSON.parse(feature[i].geometry);
+        //}
+
         this.setState({
             geojson: L.geoJson(data, {
                 style: function (feature) {

@@ -39,7 +39,8 @@ class RangePeriodo extends React.Component{
         $.ajax("periodos/"+this.state.id+"/"+this.state.abrangencia, {
             data: {},
             success: function(data){
-                //console.log('range', data);
+                console.log("periodos/"+this.state.id+"/"+this.state.abrangencia);
+                console.log('range', data);
                 this.setState({periodos: data}, function(){
                     this.loadRange();
                     if(!this.state.firstLoad){

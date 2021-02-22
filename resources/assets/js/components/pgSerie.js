@@ -70,16 +70,21 @@ class PgSerie extends React.Component{
     }
 
     changePeriodo(min, max){
-        this.setState({min: min, max: max}, function(){
-            //console.log(min, max);
-            this.loadData();
-            this.loadDataPeriodo();
-            this.loadDataMaps();
-        });
+        if(min && max){
+            this.setState({min: min, max: max}, function(){
+                //console.log(min, max);
+                this.loadData();
+                this.loadDataPeriodo();
+                this.loadDataMaps();
+            });
+        }
     }
 
     setPeriodos(periodos){
-        this.setState({periodos: periodos});
+        //console.log('setPeriodos', periodos);
+        if(periodos.length > 0){
+            this.setState({periodos: periodos});
+        }
     }
 
     setAbrangencia(abrangencia){
@@ -160,15 +165,20 @@ class PgSerie extends React.Component{
 
     loadDataMaps(){
         this.setState({loadingMap: true});
-        if(this.state.min && this.state.min){
+        if(this.state.min && this.state.max){
+            let min = this.state.min;
+            let max = this.state.max;
             let _this = this;
-            $.ajax("regiao/"+_this.state.id+"/"+_this.state.min+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
+            //console.log('pgSerie - min e max', this.state.min, this.state.max);
+
+            $.ajax("regiao/0"+_this.state.id+"/"+min+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
                 data: {},
                 success: function(dataMapFrom){
 
                     let valoresMapFrom = this.getValoresMap(dataMapFrom);
 
-                    $.ajax("regiao/"+_this.state.id+"/"+_this.state.max+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
+                    //console.log('max2', this.state.max)
+                    $.ajax("regiao/00"+_this.state.id+"/"+max+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
                         data: {},
                         success: function(dataMapTo){
 
@@ -192,12 +202,12 @@ class PgSerie extends React.Component{
                             this.setState({dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos, loadingMap:false});
                         }.bind(this),
                         error: function(data){
-                            //console.log('map', 'erro');
+                            console.log('pgSerie - max', 'erro');
                         }
                     })
                 }.bind(this),
                 error: function(data){
-                    //console.log('map', 'erro');
+                    console.log('pgSerie - min', 'erro');
                 }
             });
         }
