@@ -145,9 +145,13 @@ class Map extends React.Component{
         //console.log('map - intervalos', intervalos);
         //this.props.setIntervalos(intervalos, this.props.tipoPeriodo);
 
-        //for (let i in feature){
-            //feature[i].geometry = JSON.parse(feature[i].geometry);
-        //}
+        console.log('loadMap', data);
+
+        for (let i in data['features']){
+            data['features'][i].geometry = JSON.parse(data['features'][i].geometry);
+        }
+
+        //console.log(data['features']);
 
         this.setState(
             {
