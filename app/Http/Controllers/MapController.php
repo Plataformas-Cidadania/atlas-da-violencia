@@ -210,6 +210,8 @@ class MapController extends Controller
             $areas['features'][$index]['properties']['total'] = $valor->total;
             $areas['features'][$index]['properties']['x'] = $valor->x;
             $areas['features'][$index]['properties']['y'] = $valor->y;
+            //ADV-90 - Não está carregando o mapa de munícipios
+            //erro de memória no log "Allowed memory size of 536870912 bytes exhausted" com a linh abaixo.
             $areas['features'][$index]['geometry'] = json_decode($valor->geometry);
 
 
