@@ -2,8 +2,8 @@ class Map extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            id: this.props.id,
-            serie: this.props.serie,
+            id: this.props ? this.props.id : 0,
+            serie: this.props ? this.props.serie : '',
             data: {},
             intervalos: [],
             min: 0,
@@ -13,7 +13,7 @@ class Map extends React.Component{
             indexLegend: 1,
             lastIndexLegend: 0,
             carregado: false,
-            hidePeriodo: this.props.hidePeriodo,
+            hidePeriodo: this.props ? this.props.hidePeriodo : false
         };
         //this.loadData = this.loadData.bind(this);
         this.loadMap = this.loadMap.bind(this);
@@ -145,11 +145,17 @@ class Map extends React.Component{
         //console.log('map - intervalos', intervalos);
         //this.props.setIntervalos(intervalos, this.props.tipoPeriodo);
 
-        console.log('loadMap', data);
-
-        for (let i in data['features']){
-            data['features'][i].geometry = JSON.parse(data['features'][i].geometry);
+        //console.log('loadMap', data);
+        if(data['features'].length > 0){
+            for (let i in data['features']){
+                try{
+                    data['features'][i].geometry = JSON.parse(data['features'][i].geometry);
+                }catch (e){
+                    //console.log(e);
+                }
+            }
         }
+
 
         //console.log(data['features']);
 

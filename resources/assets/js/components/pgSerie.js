@@ -164,53 +164,55 @@ class PgSerie extends React.Component{
     }
 
     loadDataMaps(){
-        this.setState({loadingMap: true});
-        if(this.state.min && this.state.max){
-            let min = this.state.min;
-            let max = this.state.max;
-            let _this = this;
-            //console.log('pgSerie - min e max', this.state.min, this.state.max);
+        //this.setState({loadingMap: true, dataMapFrom: [], dataMapTo: []}, function(){
+        this.setState({loadingMap: true}, function(){
+            if(this.state.min && this.state.max){
+                let min = this.state.min;
+                let max = this.state.max;
+                let _this = this;
+                //console.log('pgSerie - min e max', this.state.min, this.state.max);
 
-            $.ajax("regiao/0"+_this.state.id+"/"+min+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
-                data: {},
-                success: function(dataMapFrom){
+                $.ajax("regiao/0"+_this.state.id+"/"+min+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
+                    data: {},
+                    success: function(dataMapFrom){
 
-                    let valoresMapFrom = this.getValoresMap(dataMapFrom);
+                        let valoresMapFrom = this.getValoresMap(dataMapFrom);
 
-                    //console.log('max2', this.state.max)
-                    $.ajax("regiao/00"+_this.state.id+"/"+max+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
-                        data: {},
-                        success: function(dataMapTo){
+                        //console.log('max2', this.state.max)
+                        $.ajax("regiao/00"+_this.state.id+"/"+max+"/"+_this.state.regions+"/"+_this.state.abrangencia, {
+                            data: {},
+                            success: function(dataMapTo){
 
 
-                            let valoresMapTo = this.getValoresMap(dataMapTo);
+                                let valoresMapTo = this.getValoresMap(dataMapTo);
 
-                            let menorMaiorValor = this.menorMaiorValor(valoresMapFrom, valoresMapTo);
+                                let menorMaiorValor = this.menorMaiorValor(valoresMapFrom, valoresMapTo);
 
-                            let qtdValores = valoresMapFrom.length + valoresMapTo.length;
-                            let qtdIntervalos = 10;
-                            if(qtdValores < 10){
-                                qtdIntervalos = qtdValores;
+                                let qtdValores = valoresMapFrom.length + valoresMapTo.length;
+                                let qtdIntervalos = 10;
+                                if(qtdValores < 10){
+                                    qtdIntervalos = qtdValores;
+                                }
+
+                                let intervalos = gerarIntervalos(menorMaiorValor[0], menorMaiorValor[1], qtdIntervalos);
+
+                                //let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
+                                //console.log(dataMapFrom);
+                                //console.log(dataMapTo);
+                                //console.log(intervalos);
+                                this.setState({dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos, loadingMap:false});
+                            }.bind(this),
+                            error: function(data){
+                                console.log('pgSerie - max', 'erro');
                             }
-
-                            let intervalos = gerarIntervalos(menorMaiorValor[0], menorMaiorValor[1], qtdIntervalos);
-
-                            //let intervalos = this.setIntervalos(gerarIntervalos(valoresMapFrom), gerarIntervalos(valoresMapTo));
-                            //console.log(dataMapFrom);
-                            //console.log(dataMapTo);
-                            //console.log(intervalos);
-                            this.setState({dataMapFrom: dataMapFrom, dataMapTo: dataMapTo, intervalos: intervalos, loadingMap:false});
-                        }.bind(this),
-                        error: function(data){
-                            console.log('pgSerie - max', 'erro');
-                        }
-                    })
-                }.bind(this),
-                error: function(data){
-                    console.log('pgSerie - min', 'erro');
-                }
-            });
-        }
+                        })
+                    }.bind(this),
+                    error: function(data){
+                        console.log('pgSerie - min', 'erro');
+                    }
+                });
+            }
+        });
 
 
     }
