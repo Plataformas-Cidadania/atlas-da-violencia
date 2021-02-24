@@ -340,12 +340,23 @@ class SerieController extends Controller
         $padraoTerritorios = $this->getPadraoTerritorios();
 
         $regions = $padraoTerritorios[$abrangencia];
+        /*Log::info("====================================================");
+        Log::info("****************************************************");
+        Log::info("====================================================");
+        Log::info($abrangencia);
+        Log::info($padraoTerritorios);
+        Log::info($regions);
+        Log::info("====================================================");
+        Log::info("****************************************************");
+        Log::info("====================================================");*/
 
         //se a abrangência for de municipio então irá pegar os municipios de um determinado estado se o codigo nao for 0
         if($abrangencia==4){
             if($regions[0]==0){//pegar todos os municipios
+                //Log::info($this->getAllRegions($abrangencia));
                 return $this->getAllRegions($abrangencia);
             }
+            //Log::info($this->getMunicipios($regions[0]));
             return $this->getMunicipios($regions[0]);
         }
 
