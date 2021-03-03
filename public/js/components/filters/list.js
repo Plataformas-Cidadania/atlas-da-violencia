@@ -69,6 +69,7 @@ class List extends React.Component {
             //this.state.items.data
             rows = this.state.items.data.map(function (item, index) {
                 //this.state.items.data
+                //console.log(item);
 
                 let columnsNames = Object.getOwnPropertyNames(item);
 
@@ -106,12 +107,13 @@ class List extends React.Component {
                         React.createElement('i', { className: 'fa fa-line-chart', style: { fontSize: '1.5em' } })
                     )
                 );
+                //buttons[3] = (<td key={'btn-download'+index} className="text-right"><a style={{cursor: 'pointer'}} onClick={() => this.modalDownload(item.id)} title="Download" target="_blank"><i className="fa fa-file-excel-o" style={{fontSize: '1.5em'}}/></a></td>);
                 buttons[3] = React.createElement(
                     'td',
                     { key: 'btn-download' + index, className: 'text-right' },
                     React.createElement(
                         'a',
-                        { style: { cursor: 'pointer' }, onClick: () => this.modalDownload(item.id), title: 'Download', target: '_blank' },
+                        { style: { cursor: 'pointer', display: item.downloads ? '' : 'none' }, onClick: () => this.modalDownload(item.id), title: 'Download', target: '_blank' },
                         React.createElement('i', { className: 'fa fa-file-excel-o', style: { fontSize: '1.5em' } })
                     )
                 );

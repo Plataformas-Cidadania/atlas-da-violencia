@@ -161,7 +161,7 @@ class Filter extends React.Component {
         return React.createElement(
             'div',
             null,
-            React.createElement('input', { type: 'text', name: 'titleType', className: 'form-control input-sm', onClick: this.clickSearch, onChange: this.handleSearch, placeholder: 'Pesquise pelo tipo de Sexo' }),
+            React.createElement('input', { type: 'text', name: 'titleType', className: 'form-control input-sm', onClick: this.clickSearch, onChange: this.handleSearch, placeholder: "Pesquise por " + this.props.title }),
             React.createElement(
                 'div',
                 { className: 'div-info', style: { border: "solid 1px #CCC", display: this.state.showtypes ? 'block' : 'none' } },

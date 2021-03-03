@@ -162,7 +162,7 @@ class Filters extends React.Component {
                     React.createElement(
                         'div',
                         { style: { margin: '10px' } },
-                        React.createElement(Filter, { filter_id: item.id, checkFilter: this.checkFilter })
+                        React.createElement(Filter, { title: item.titulo, filter_id: item.id, checkFilter: this.checkFilter })
                     )
                 )
             );

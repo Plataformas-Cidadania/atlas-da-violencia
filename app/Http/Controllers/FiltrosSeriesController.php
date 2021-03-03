@@ -195,6 +195,13 @@ class FiltrosSeriesController extends Controller
 
         //return DB::getQueryLog();
 
+        foreach ($series as $serie) {
+            $serie->downloads = false;
+            if(DB::table('valores_series')->where('serie_id', $serie->id)->count() > 0){
+                $serie->downloads = true;
+            }
+        }
+
         return $series;
     }
 

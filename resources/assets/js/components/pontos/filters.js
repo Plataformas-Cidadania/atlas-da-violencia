@@ -160,7 +160,7 @@ class Filters extends React.Component{
                     <fieldset>
                         <legend>{item.titulo}</legend>
                         <div style={{margin: '10px'}}>
-                            <Filter filter_id={item.id}  checkFilter={this.checkFilter}/>
+                            <Filter title={item.titulo} filter_id={item.id}  checkFilter={this.checkFilter}/>
                         </div>
                     </fieldset>
                 </div>

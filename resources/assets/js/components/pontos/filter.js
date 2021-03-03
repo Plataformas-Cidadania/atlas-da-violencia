@@ -155,7 +155,7 @@ class Filter extends React.Component{
         return(
             <div>
 
-                <input type="text" name="titleType" className="form-control input-sm" onClick={this.clickSearch} onChange={this.handleSearch} placeholder="Pesquise pelo tipo de Sexo"/>
+                <input type="text" name="titleType" className="form-control input-sm" onClick={this.clickSearch} onChange={this.handleSearch} placeholder={"Pesquise por "+this.props.title}/>
                 <div className="div-info" style={{border: "solid 1px #CCC", display: this.state.showtypes ? 'block' : 'none'}}>
                     {types}
                 </div>

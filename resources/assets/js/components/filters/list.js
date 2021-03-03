@@ -67,6 +67,7 @@ class List extends React.Component{
         });
         if(this.state.items.data){//this.state.items.data
             rows = this.state.items.data.map(function(item, index){//this.state.items.data
+                //console.log(item);
 
                 let columnsNames = Object.getOwnPropertyNames(item);
 
@@ -81,7 +82,8 @@ class List extends React.Component{
                 buttons[0] = (<td key={'btn-graficos'+index} className="text-right"><a href={"consulta/"+item.id} title="Gráficos" target="_blank"><i className="fa fa-bar-chart" style={{fontSize: '1.5em'}}/></a></td>);
                 buttons[1] = (<td key={'btn-pontos'+index} className="text-right"><a href={"pontos/"+item.id} title="Pontos no Mapa" target="_blank"><i className="fa fa-map-marker" style={{fontSize: '1.5em'}}/></a></td>);
                 buttons[2] = (<td key={'btn-todos-os-territorios'+index} className="text-right"><a href={this.state.urlDetailItem+"/"+item.id} title="Territórios" target="_blank"><i className="fa fa-line-chart" style={{fontSize: '1.5em'}}/></a></td>);
-                buttons[3] = (<td key={'btn-download'+index} className="text-right"><a style={{cursor: 'pointer'}} onClick={() => this.modalDownload(item.id)} title="Download" target="_blank"><i className="fa fa-file-excel-o" style={{fontSize: '1.5em'}}/></a></td>);
+                //buttons[3] = (<td key={'btn-download'+index} className="text-right"><a style={{cursor: 'pointer'}} onClick={() => this.modalDownload(item.id)} title="Download" target="_blank"><i className="fa fa-file-excel-o" style={{fontSize: '1.5em'}}/></a></td>);
+                buttons[3] = (<td key={'btn-download'+index} className="text-right"><a style={{cursor: 'pointer', display: item.downloads ? '' : 'none'}} onClick={() => this.modalDownload(item.id)} title="Download" target="_blank"><i className="fa fa-file-excel-o" style={{fontSize: '1.5em'}}/></a></td>);
 
 
                 //coloca vazio os tds que não satisfazerem a condição
