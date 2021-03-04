@@ -75,7 +75,7 @@ class Region extends React.Component {
             },
             cache: false,
             success: function (data) {
-                //console.log(data);
+                console.log(data);
 
                 //importar categorias passadas pela url//////////////
                 let typesUrl = this.props.typesUrl;
@@ -222,7 +222,7 @@ class Region extends React.Component {
         return React.createElement(
             'div',
             null,
-            React.createElement('input', { type: 'text', name: 'titleType', className: 'form-control input-sm', onClick: this.clickSearch, onChange: this.handleSearch, placeholder: 'Pesquise por regi\xF5es' }),
+            React.createElement('input', { type: 'text', name: 'titleType', className: 'form-control input-sm', onClick: this.clickSearch, onChange: this.handleSearch, placeholder: 'Pesquise por Regi\xE3o' }),
             React.createElement(
                 'div',
                 { className: 'div-info', style: { border: "solid 1px #CCC", display: this.state.showtypes ? 'block' : 'none' } },

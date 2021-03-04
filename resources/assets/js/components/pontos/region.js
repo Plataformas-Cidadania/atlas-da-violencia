@@ -78,7 +78,7 @@ class Region extends React.Component{
             },
             cache: false,
             success: function(data) {
-                //console.log(data);
+                console.log(data);
 
                 //importar categorias passadas pela url//////////////
                 let typesUrl = this.props.typesUrl;
@@ -216,7 +216,7 @@ class Region extends React.Component{
             <div>
 
 
-                <input type="text" name="titleType" className="form-control input-sm" onClick={this.clickSearch} onChange={this.handleSearch} placeholder="Pesquise por regiões"/>
+                <input type="text" name="titleType" className="form-control input-sm" onClick={this.clickSearch} onChange={this.handleSearch} placeholder="Pesquise por Região"/>
                 <div className="div-info" style={{border: "solid 1px #CCC", display: this.state.showtypes ? 'block' : 'none'}}>
                     {aviso_territorios_pesquisa}
                     {types}
