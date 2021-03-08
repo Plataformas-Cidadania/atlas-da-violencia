@@ -8,7 +8,8 @@ class Region extends React.Component{
             typesSelected: [],
             tipoTerritorioSelecionado: props.tipoTerritorioSelecionado,
             codigoTerritorioSelecionado: props.codigoTerritorioSelecionado,
-            tiposTerritorios: ['', 'Países', 'Regiões', 'Estados', 'Municípios']
+            tiposTerritorios: ['', 'Países', 'Regiões', 'Estados', 'Municípios'],
+            loading: false,
         };
 
         this.load = this.load.bind(this);
@@ -40,7 +41,8 @@ class Region extends React.Component{
             url: 'default-regions',
             data:{
                 ids: this.state.codigoTerritorioSelecionado,
-                tipo_territorio: this.props.tipoTerritorioSelecionado,
+                tipo_territorio: 2,
+                //tipo_territorio: this.props.tipoTerritorioSelecionado,
             },
             cache: false,
             success: function(data) {
@@ -66,20 +68,21 @@ class Region extends React.Component{
     }
 
     load(){
-        if(this.state.search.length === 0){
+        /*if(this.state.search.length === 0){
             return;
-        }
+        }*/
+        this.setState({loading: true});
         $.ajax({
             method:'POST',
             url: 'regions',
             data:{
-                search:this.state.search,
-                tipo_territorio: this.state.tipoTerritorioSelecionado,
+                //search:this.state.search,
+                tipo_territorio: 2,
+                //tipo_territorio: this.state.tipoTerritorioSelecionado,
             },
             cache: false,
             success: function(data) {
-                console.log(data);
-
+                //console.log(data);
                 //importar categorias passadas pela url//////////////
                 let typesUrl = this.props.typesUrl;
                 let typesSelected = this.state.typesSelected;

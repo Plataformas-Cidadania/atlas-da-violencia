@@ -63,14 +63,14 @@ class Region extends React.Component {
     }
 
     load() {
-        if (this.state.search.length === 0) {
+        /*if(this.state.search.length === 0){
             return;
-        }
+        }*/
         $.ajax({
             method: 'POST',
             url: 'regions',
             data: {
-                search: this.state.search,
+                //search:this.state.search,
                 tipo_territorio: this.state.tipoTerritorioSelecionado
             },
             cache: false,

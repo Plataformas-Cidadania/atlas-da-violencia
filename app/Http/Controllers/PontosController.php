@@ -679,11 +679,12 @@ class PontosController extends Controller
 
     public function regions(Request $request){
 
-        $tipo_territorio = $request->tipo_territorio;
+        $tipo_territorio = !empty($request->tipo_territorio) ? $request->tipo_territorio : 2;//2 - Regiao
+
 
         $regions = DB::table('todos_territorios')
             ->select('edterritorios_codigo as id', 'edterritorios_nome as title', 'sigla', 'tipo_territorio')
-            ->where('edterritorios_nome', 'ilike', "$request->search%")
+            //->where('edterritorios_nome', 'ilike', "$request->search%")
             ->when(!empty($tipo_territorio), function($query) use ($tipo_territorio){
                 return $query->where('tipo_territorio', $tipo_territorio);
             })
