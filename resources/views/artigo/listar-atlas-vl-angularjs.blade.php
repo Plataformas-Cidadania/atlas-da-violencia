@@ -128,7 +128,7 @@
                         </div>
                         <div  class="descricao-publicaco" ng-class="{'col-md-9': artigo.imagem!='','col-sm-9': artigo.imagem!='', 'col-md-12': artigo.imagem=='','col-sm-12': artigo.imagem==''}">
                             <h2><% artigo.titulo %></h2>
-                            <p><% stripTags(artigo.descricao).substr(0, 450)+' ...' %></p>
+                            <p><% stripTags(codificarHtml(artigo.descricao)).substr(0, 450)+' ...' %></p>
                             <button class="btn btn-none">@lang('buttons.keep-reading')  </button>
                         </div>
                     </a>

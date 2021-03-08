@@ -128,6 +128,44 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 str = str.toString();
                 return str.replace(/<\/?[^>]+>/gi, '');
             }
+
+            $scope.codificarHtml = function(texto){
+                var htmlCodigo = {
+                    'á' : {'code' : '&aacute;'},
+                    'Á' : {'code' : '&Aacute;'},
+                    'ã' : {'code' : '&atilde;'},
+                    'Ã' : {'code' : '&Atilde;'},
+                    'à' : {'code' : '&agrave;'},
+                    'À' : {'code' : '&Agrave;'},
+                    'é' : {'code' : '&eacute;'},
+                    'É' : {'code' : '&Eacute;'},
+                    'ê' : {'code' : '&ecirc;'},
+                    'Ê' : {'code' : '&Ecirc;'},
+                    'í' : {'code' : '&iacute;'},
+                    'Í' : {'code' : '&Iacute;'},
+                    'ó' : {'code' : '&oacute;'},
+                    'Ó' : {'code ': '&Oacute;'},
+                    'õ' : {'code' : '&otilde;'},
+                    'Õ' : {'code' : '&Otilde;'},
+                    'ô' : {'code' : '&ocirc;'},
+                    'Ô' : {'code' : '&Ocirc;'},
+                    'ú' : {'code' : '&uacute;'},
+                    'Ú' : {'code' : '&Uacute;'},
+                    'ç' : {'code' : '&ccedil;'},
+                    'Ç' : {'code' : '&Ccedil;'},
+                    ' ' : {'code' : '&nbsp;'}
+                };
+                var acentos = ['á', 'Á', 'ã', 'Ã', 'à', 'À', 'é', 'É', 'ê', 'Ê', 'í', 'Í', 'ó', 'Ó', 'õ', 'Õ', 'ô', 'Ô', 'ú', 'Ú', 'ç', 'Ç', ' '];
+
+                for(var i=0; i<acentos.length; i++){
+                    if(htmlCodigo [acentos[i]] != undefined){
+                        texto = texto.replaceAll(htmlCodigo[acentos[i]].code, acentos[i]);
+                    }
+                }
+
+                console.log(texto);
+                return texto;
+            }
             /////////////////////////////////
         }]);
     </script>
