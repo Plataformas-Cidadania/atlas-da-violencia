@@ -341,7 +341,7 @@ class ArtigoController extends Controller
 
         $artigos = DB::table('artigos')
             ->select('artigos.*')
-            ->orderBy('artigos.titulo')
+            ->orderBy('artigos.data', 'desc')
             /*->where([
                 ['artigos.titulo', 'ilike', "%".$dados['busca']."%"]
             ])*/
