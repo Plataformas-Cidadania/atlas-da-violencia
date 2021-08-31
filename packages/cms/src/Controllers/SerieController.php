@@ -773,9 +773,9 @@ class SerieController extends Controller
         //echo substr($peso,0,1);
         $soma = 0;
         for($i = 0; $i < 7; $i++){
-
-            $valor = (int)substr($codigo_municipio,$i,1) * (int)substr($peso,$i,1); if($valor>9)
-            $soma = (int)$soma + (int)substr($valor,0,1) + (int)substr($valor,1,1);
+            $valor = (int)substr($codigo_municipio,$i,1) * (int)substr($peso,$i,1);
+            if($valor>9)
+                $soma = (int)$soma + (int)substr($valor,0,1) + (int)substr($valor,1,1);
         else
             $soma = $soma + $valor;
         }
