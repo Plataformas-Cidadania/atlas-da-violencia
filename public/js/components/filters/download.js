@@ -184,6 +184,12 @@ class Download extends React.Component {
                 'div',
                 null,
                 React.createElement(
+                    'div',
+                    { style: { color: '#004085', backgroundColor: '#cce5ff', borderColor: '#b8daff', padding: '7px', textAlign: 'center', borderRadius: '4px' } },
+                    'Download dos dados em csv, em UTF-8 e separados por ;'
+                ),
+                React.createElement('br', null),
+                React.createElement(
                     'button',
                     { type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
                     'Fechar'

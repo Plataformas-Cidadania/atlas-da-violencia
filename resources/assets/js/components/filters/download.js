@@ -133,6 +133,8 @@ class Download extends React.Component{
                 body={bodyModal}
                 buttons={(
                     <div>
+                        <div style={{color: '#004085', backgroundColor: '#cce5ff', borderColor: '#b8daff', padding: '7px', textAlign: 'center', borderRadius: '4px'}}>Download dos dados em csv, em UTF-8 e separados por ;</div>
+                        <br/>
                         <button type="button" className="btn btn-default" data-dismiss="modal">Fechar</button>
                     </div>
                 )}

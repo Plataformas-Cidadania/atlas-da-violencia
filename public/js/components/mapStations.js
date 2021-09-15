@@ -122,7 +122,7 @@ class Map extends React.Component {
 
         /*console.log('tiposTransportes', tiposTransportes);
         console.log('matrizTransportes', matrizTransportes);
-         console.log(data.brt.features.length);*/
+          console.log(data.brt.features.length);*/
 
         /*matrizTransportes = {
             titles: ['Rodoviário', 'Ferroviário', 'Aério', 'Aquaviário', 'Outros'],
