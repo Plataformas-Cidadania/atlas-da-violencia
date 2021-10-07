@@ -115,7 +115,7 @@ class MapController extends Controller
             5 => 'spat.ed_territorios_microrregioes',
             6 => 'spat.ed_territorios_mesoregioes',
             7 => 'spat.ed_territorios_piaui_tds',
-            8 => 'sapt.ed_territorios_municipios'//capitais
+            8 => 'spat.ed_territorios_municipios'//capitais
         ];
 
         $where = [
