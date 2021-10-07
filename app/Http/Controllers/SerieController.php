@@ -57,7 +57,8 @@ class SerieController extends Controller
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
             6 => 'spat.ed_territorios_mesoregioes',
-            7 => 'spat.ed_territorios_piaui_tds'
+            7 => 'spat.ed_territorios_piaui_tds',
+            8 => 'spat.ed_territorios_municipios',//capitais
         ];
     }
 
@@ -414,7 +415,8 @@ class SerieController extends Controller
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
             6 => 'spat.ed_territorios_mesoregioes',
-            7 => 'spat.ed_territorios_piaui_tds'
+            7 => 'spat.ed_territorios_piaui_tds',
+            8 => 'spat.ed_territorios_municipios',//capitais
         ];
 
 
@@ -553,7 +555,8 @@ class SerieController extends Controller
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
             6 => 'spat.ed_territorios_mesoregioes',
-            7 => 'spat.ed_territorios_piaui_tds'
+            7 => 'spat.ed_territorios_piaui_tds',
+            8 => 'spat.ed_territorios_municipios',//capitais
         ];
 
         $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
@@ -690,7 +693,8 @@ class SerieController extends Controller
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
             6 => 'spat.ed_territorios_mesoregioes',
-            7 => 'spat.ed_territorios_piaui_tds'
+            7 => 'spat.ed_territorios_piaui_tds',
+            8 => 'spat.ed_territorios_municipios',//capitais
         ];
 
         $where = [['edterritorios_nome', 'ilike', "$search%"]];
@@ -870,7 +874,8 @@ class SerieController extends Controller
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
             6 => 'spat.ed_territorios_mesoregioes',
-            7 => 'spat.ed_territorios_piaui_tds'
+            7 => 'spat.ed_territorios_piaui_tds',
+            8 => 'spat.ed_territorios_municipios',//capitais
         ];
 
         $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
@@ -1120,7 +1125,8 @@ class SerieController extends Controller
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
             6 => 'spat.ed_territorios_mesoregioes',
-            7 => 'spat.ed_territorios_piaui_tds'
+            7 => 'spat.ed_territorios_piaui_tds',
+            8 => 'spat.ed_territorios_municipios',//capitais
         ];
 
         $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";

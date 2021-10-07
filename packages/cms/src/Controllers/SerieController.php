@@ -646,7 +646,7 @@ class SerieController extends Controller
             $tipo_regiao = $abrangencia;
 
             $regiao_id = $row['cod'];
-            if($abrangencia==4){
+            if($abrangencia==4 || $abrangencia==5 ){
                 $regiao_id = $row['cod'].$this->calcula_dv_municipio($row['cod']);
             }
 
@@ -793,7 +793,8 @@ class SerieController extends Controller
             4 => 'spat.ed_territorios_municipios',
             5 => 'spat.ed_territorios_microrregioes',
             6 => 'spat.ed_territorios_mesoregioes',
-            7 => 'spat.ed_territorios_piaui_tds'
+            7 => 'spat.ed_territorios_piaui_tds',
+            8 => 'spat.ed_territorios_municipios',
         ];
 
         return $tabelas;
