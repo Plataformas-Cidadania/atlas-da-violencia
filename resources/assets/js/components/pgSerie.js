@@ -571,7 +571,7 @@ class PgSerie extends React.Component{
         //RETIRADO POR SOLICITAÇÃO DA COORDENAÇÃO DO PROJETO EM 2020
         taxa = null;
 
-
+        //RECOLOCADO POR SOLICITAÇÃO DA COORDERNAÇÃO DO PROJETO EM 2022
         let metadados = (
             <div className="hidden-print" style={{display: this.state.showInfo ? 'block' : 'none'}}>
             <div className="row">
@@ -596,7 +596,9 @@ class PgSerie extends React.Component{
         </div>
         );
         //RETIRADO POR SOLICITAÇÃO DA COORDENAÇÃO DO PROJETO EM 2020
-        metadados = null;
+        //metadados = null;
+
+
 
         let pos = [];
         pos[this.props.posicao_mapa] = mapa;
