@@ -16,8 +16,8 @@ use Phaza\LaravelPostgis\Geometries\Point;
 
 class SerieController extends Controller
 {
-    
-    
+
+
 
     public function __construct()
     {
@@ -46,7 +46,7 @@ class SerieController extends Controller
         //$periodicidades = \App\Periodicidade::lists('titulo', 'id')->all();
         //$indicadores = \App\Indicador::lists('titulo', 'id')->all();
         //$unidades = \App\Unidade::lists('titulo', 'id')->all();
-        
+
         $periodicidades = \App\Periodicidade::
             select('idiomas_periodicidades.titulo', 'periodicidades.id')
             ->join('idiomas_periodicidades', 'idiomas_periodicidades.periodicidade_id', '=', 'periodicidades.id')
@@ -58,7 +58,7 @@ class SerieController extends Controller
             ->join('idiomas_indicadores', 'idiomas_indicadores.indicador_id', '=', 'indicadores.id')
             ->where('idiomas_indicadores.idioma_sigla', $lang)
             ->lists('idiomas_indicadores.titulo', 'indicadores.id');
-        
+
         $unidades = \App\Unidade::
             select('idiomas_unidades.titulo', 'unidades.id')
             ->join('idiomas_unidades', 'idiomas_unidades.unidade_id', '=', 'unidades.id')
@@ -67,7 +67,10 @@ class SerieController extends Controller
 
         $tipos_dados_series = config("constants.TIPOS_DADOS_SERIES");
 
-
+        $optionsAbrangencias = \App\OptionAbrangencia::select('options_abrangencias.id', 'idiomas_options_abrangencias.title')
+            ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
+            ->orderBy('options_abrangencias.id')
+            ->get();
 
         return view('cms::serie.listar', [
             'fontes' => $fontes,
@@ -79,6 +82,7 @@ class SerieController extends Controller
             'tipo_territorios' => 0,
             'tipo_pontos' => 0,
             'tipo_arquivo' => 0,
+            'optionsAbrangencias' => $optionsAbrangencias
         ]);
     }
 
@@ -160,7 +164,7 @@ class SerieController extends Controller
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
             $success = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
-            
+
             if($success){
                 $inserir = $data['serie']['imagem'] = $filename;
                 $data['textos'] += ['serie_id' => $inserir->id];
@@ -377,13 +381,13 @@ class SerieController extends Controller
             ['id', '=', $id],
         ])->firstOrFail();
 
-        //remover imagens        
+        //remover imagens
         if(!empty($serie->imagem)){
             //remover imagens
             $imagemCms = new ImagemCms();
             $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $serie);
         }
-                
+
 
         $serie->delete();
 
@@ -822,8 +826,8 @@ class SerieController extends Controller
         set_time_limit(1800); // 30 minutos
 
         DB::statement("REFRESH MATERIALIZED VIEW mvw_series_points_by_region;");
-        DB::statement("REFRESH MATERIALIZED VIEW mvw_series_points_by_uf;");        
-        
+        DB::statement("REFRESH MATERIALIZED VIEW mvw_series_points_by_uf;");
+
 
         return view('cms::serie.views-materializadas-pontos');
 

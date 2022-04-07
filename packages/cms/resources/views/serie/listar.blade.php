@@ -213,11 +213,14 @@
                                         <?php
                                         $abrangencias = [
                                             '0' => 'Todas',
-                                            '1' => 'País',
+                                            /*'1' => 'País',
                                             '2' => 'Região',
                                             '3' => 'UF',
-                                            '4' => 'Município',
+                                            '4' => 'Município',*/
                                         ];
+                                        foreach ($optionsAbrangencias as $abrangencia){
+                                            $abrangencias[$abrangencia->id] = $abrangencia->title;
+                                        }
                                         ?>
                                         {!! Form::label('abrangencia', 'Abrangência') !!}<br>
                                         {!! Form::select('abrangencia',
