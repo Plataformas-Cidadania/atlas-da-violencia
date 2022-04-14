@@ -102,7 +102,7 @@ class SerieController extends Controller
 
     public function listar(){
         //$pages = DB::table('pages')->paginate(10);
-       
+
         return view('serie.listar');
         //return view('page.listar', ['pages' => $pages]);
     }
@@ -167,7 +167,7 @@ class SerieController extends Controller
                 $query->where('series.id', $parameters['id'])
                       ->orWhere('series.serie_id', $parameters['id']);
             })
-            ->where([                
+            ->where([
                 ['series.indicador', $parameters['indicador']],
                 ['series.abrangencia', $parameters['abrangencia']]
             ])
@@ -318,8 +318,8 @@ class SerieController extends Controller
             }
             $abrangencia = $abrangencias[$indiceAbrangencia];
             return $this->fromToPeriodo($abrangencias, $indiceAbrangencia, $abrangencia, $serie_id);
-        }   
-             
+        }
+
 
     }
 
@@ -352,7 +352,7 @@ class SerieController extends Controller
         Log::info("====================================================");*/
 
         //se a abrangência for de municipio então irá pegar os municipios de um determinado estado se o codigo nao for 0
-        if($abrangencia==4){
+        if($abrangencia==4 || $abrangencia==8){
             if($regions[0]==0){//pegar todos os municipios
                 //Log::info($this->getAllRegions($abrangencia));
                 return $this->getAllRegions($abrangencia);
@@ -1182,7 +1182,7 @@ class SerieController extends Controller
             if(count($rows) > 0){
                 $series[$rows[0]->titulo] = $data;
             }
-            
+
 
         }
 
@@ -1192,10 +1192,10 @@ class SerieController extends Controller
                 if(!array_key_exists($periodo, $periodos)){
                     array_push($periodos, $periodo);
                 }
-            }            
+            }
         }
 
-        foreach ($periodos as $periodo) {        
+        foreach ($periodos as $periodo) {
             foreach ($series as $key => $serie) {
                 if(!array_key_exists($periodo, $series[$key])){
                     $series[$key][$periodo] = null;
@@ -1208,7 +1208,7 @@ class SerieController extends Controller
             //Log::info($serie);
             $series[$key] = $serie;
         }
-        
+
 
         return $series;
     }
