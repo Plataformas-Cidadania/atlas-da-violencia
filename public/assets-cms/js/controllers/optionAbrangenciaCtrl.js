@@ -1,5 +1,5 @@
 cmsApp.controller('optionAbrangenciaCtrl', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-    
+
 
     $scope.optionAbrangencias = [];
     $scope.currentPage = 1;
@@ -9,13 +9,16 @@ cmsApp.controller('optionAbrangenciaCtrl', ['$scope', '$http', 'Upload', '$timeo
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
     //$scope.campos = "optionAbrangencias.id, optionAbrangencias.title";
-    $scope.campos = "options_abrangencias.id, idiomas_options_abrangencias.title, idiomas_options_abrangencias.idioma_sigla";
+    //$scope.campos = "options_abrangencias.id, idiomas_options_abrangencias.title, idiomas_options_abrangencias.idioma_sigla";
+    $scope.campos = "options_abrangencias.id";
     $scope.campoPesquisa = "idiomas_options_abrangencias.title";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
     $scope.ordem = "idiomas_options_abrangencias.title";
     $scope.sentidoOrdem = "asc";
     var $listar = false;//para impedir de carregar o conteúdo dos watchs no carregamento da página.
+
+
 
     $scope.$watch('currentPage', function(){
         if($listar){
@@ -100,13 +103,13 @@ cmsApp.controller('optionAbrangenciaCtrl', ['$scope', '$http', 'Upload', '$timeo
     $scope.validar = function(){
 
     };
-    
+
 
     listarOptionAbrangencias();
 
     //INSERIR/////////////////////////////
 
-    $scope.tinymceOptions = tinymceOptions;    
+    $scope.tinymceOptions = tinymceOptions;
 
     $scope.mostrarForm = false;
 
