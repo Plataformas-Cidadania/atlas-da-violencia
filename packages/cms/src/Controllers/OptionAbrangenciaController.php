@@ -61,12 +61,12 @@ class OptionAbrangenciaController extends Controller
 
         $optionAbrangencias = DB::table('options_abrangencias')
         ->select($campos)
-        //->leftJoin('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
-        /*->where([
+        ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
+        ->where([
             [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
             ['idiomas_options_abrangencias.idioma_sigla', 'pt_BR'],
-        ])*/
-        //->orderBy($request->ordem, $request->sentido)
+        ])
+        ->orderBy($request->ordem, $request->sentido)
         ->paginate($request->itensPorPagina);
 
 
