@@ -22,6 +22,8 @@
         }
     }
 
+
+
     //echo $base_href;
 
 /*$base_href = $_SERVER['HTTP_HOST'];
@@ -192,6 +194,16 @@ if(substr($base_href, 0,9)=='evbsb1052'){
 
 
         @endif
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-KT0DZ9C4RG"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-KT0DZ9C4RG');
+        </script>
 
 
     </head>
