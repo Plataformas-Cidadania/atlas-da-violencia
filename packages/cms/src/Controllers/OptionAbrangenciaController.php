@@ -13,8 +13,8 @@ use Intervention\Image\Facades\Image;
 
 class OptionAbrangenciaController extends Controller
 {
-    
-    
+
+
 
     public function __construct()
     {
@@ -61,7 +61,7 @@ class OptionAbrangenciaController extends Controller
 
         $optionAbrangencias = DB::table('options_abrangencias')
         ->select($campos)
-        ->join('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
+        ->leftJoin('idiomas_options_abrangencias', 'idiomas_options_abrangencias.option_abrangencia_id', '=', 'options_abrangencias.id')
         ->where([
             [$request->campoPesquisa, 'like', "%$request->dadoPesquisa%"],
             ['idiomas_options_abrangencias.idioma_sigla', 'pt_BR'],
@@ -99,7 +99,7 @@ class OptionAbrangenciaController extends Controller
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
             $success = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
-            
+
             if($success){
                 $data['optionAbrangencia']['imagem'] = $filename;
                 $inserir = $this->optionAbrangencia->create($data['optionAbrangencia']);
@@ -181,19 +181,19 @@ class OptionAbrangenciaController extends Controller
             ['id', '=', $id],
         ])->firstOrFail();
 
-        //remover imagens        
+        //remover imagens
         if(!empty($optionAbrangencia->imagem)){
             //remover imagens
             $imagemCms = new ImagemCms();
             $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $optionAbrangencia);
         }
-                
+
 
         $optionAbrangencia->delete();
 
     }
 
-    
+
 
 
 }
