@@ -9,8 +9,8 @@ cmsApp.controller('optionAbrangenciaCtrl', ['$scope', '$http', 'Upload', '$timeo
     $scope.itensPerPage = 10;
     $scope.dadoPesquisa = '';
     //$scope.campos = "optionAbrangencias.id, optionAbrangencias.title";
-    //$scope.campos = "options_abrangencias.id, idiomas_options_abrangencias.title, idiomas_options_abrangencias.idioma_sigla";
-    $scope.campos = "options_abrangencias.id";
+    $scope.campos = "options_abrangencias.id, idiomas_options_abrangencias.title, idiomas_options_abrangencias.idioma_sigla";
+    //$scope.campos = "options_abrangencias.id";
     $scope.campoPesquisa = "idiomas_options_abrangencias.title";
     $scope.processandoListagem = false;
     $scope.processandoExcluir = false;
