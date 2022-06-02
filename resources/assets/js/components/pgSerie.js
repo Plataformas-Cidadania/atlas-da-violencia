@@ -832,6 +832,7 @@ class PgSerie extends React.Component{
                     {pos[2]}
                     {pos[3]}
                     {pos[4]}
+                    {pos[5]}
 
                     {/*<div className="hidden-print" style={{display: this.state.showCalcs ? 'block' : 'none'}}>
 
