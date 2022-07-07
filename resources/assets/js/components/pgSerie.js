@@ -574,26 +574,31 @@ class PgSerie extends React.Component{
         //RECOLOCADO POR SOLICITAÇÃO DA COORDERNAÇÃO DO PROJETO EM 2022
         let metadados = (
             <div className="hidden-print" style={{display: this.state.showInfo ? 'block' : 'none'}}>
-            <div className="row">
-                <div className="col-md-12">
-                    <div className="icons-groups icon-group-info" style={{float: 'left'}}>&nbsp;</div>
-                    <h4 className="icon-text">&nbsp;&nbsp;{this.props.lang_metadata}</h4>
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="icons-groups icon-group-info" style={{float: 'left'}}>&nbsp;</div>
+                        <h4 className="icon-text">&nbsp;&nbsp;{this.props.lang_metadata}</h4>
+                    </div>
                 </div>
-            </div>
-            <hr style={{borderColor: '#3498DB'}}/>
-            <div className="bs-callout" style={{borderLeftColor: '#3498DB'}}>
-                <div dangerouslySetInnerHTML={{__html: this.props.metadados}} />
-                <br/>
-                <div className="text-right">
-                    <a href={"downloads/1/"+this.props.id} className="text-info h5">
-                        <strong>+ {this.props.lang_information}</strong>
-                    </a>
+                <hr style={{borderColor: '#3498DB'}}/>
+                <div className="bs-callout" style={{borderLeftColor: '#3498DB'}}>
+                    <div dangerouslySetInnerHTML={{__html: this.props.metadados}} />
+                    <br/>
+                    <div className="text-right" style={{display: 'none'}}>
+                        <a href={"downloads/1/"+this.props.id} className="text-info h5">
+                            <strong>+ {this.props.lang_information}</strong>
+                        </a>
+                    </div>
                 </div>
-            </div>
+                <a href={"arquivos/metadados/"+this.props.arquivo_metadados} className="btn btn-info btn-sm" download={this.props.arquivo_metadados}>Download Metadados</a>
+                <button className="btn btn-info btn-small" style={{display:'none'}} onClick={() => downloadTextToFile('metadados-serie-'+this.props.id, removeHTML(this.props.metadados))}>Download Metadados</button>
+                <br/><br/>
 
-            <p><strong>{this.props.lang_source}: </strong>{this.props.fonte}</p>
-            {/* <p><strong>Periodicidade: </strong>{this.props.periodicidade}</p>*/}
-        </div>
+                <p><strong>{this.props.lang_source}: </strong>{this.props.fonte}</p>
+                {/* <p><strong>Periodicidade: </strong>{this.props.periodicidade}</p>*/}
+
+
+            </div>
         );
         //RETIRADO POR SOLICITAÇÃO DA COORDENAÇÃO DO PROJETO EM 2020
         //metadados = null;
@@ -860,6 +865,7 @@ ReactDOM.render(
         serie={serie}
         periodicidade={periodicidade}
         metadados={metadados}
+        arquivo_metadados={arquivo_metadados}
         fonte={fonte}
         tipoValores={tipoValores}
         unidade={unidade}

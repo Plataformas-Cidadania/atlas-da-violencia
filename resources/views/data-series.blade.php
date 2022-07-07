@@ -362,6 +362,7 @@
 
             <script>
                 metadados="{!! str_replace('"', '\"', preg_replace( "/\r|\n/", "", $series->descricao)) !!}";
+                arquivo_metadados = "{{$series->arquivo_metadados}}";
             </script>
 
             <div id="pgSerie"></div>

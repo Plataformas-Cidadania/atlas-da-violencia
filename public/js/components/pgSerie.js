@@ -636,7 +636,7 @@ class PgSerie extends React.Component {
                 React.createElement("br", null),
                 React.createElement(
                     "div",
-                    { className: "text-right" },
+                    { className: "text-right", style: { display: 'none' } },
                     React.createElement(
                         "a",
                         { href: "downloads/1/" + this.props.id, className: "text-info h5" },
@@ -649,6 +649,18 @@ class PgSerie extends React.Component {
                     )
                 )
             ),
+            React.createElement(
+                "a",
+                { href: "arquivos/metadados/" + this.props.arquivo_metadados, className: "btn btn-info btn-sm", download: this.props.arquivo_metadados },
+                "Download Metadados"
+            ),
+            React.createElement(
+                "button",
+                { className: "btn btn-info btn-small", style: { display: 'none' }, onClick: () => downloadTextToFile('metadados-serie-' + this.props.id, removeHTML(this.props.metadados)) },
+                "Download Metadados"
+            ),
+            React.createElement("br", null),
+            React.createElement("br", null),
             React.createElement(
                 "p",
                 null,
@@ -1059,6 +1071,7 @@ ReactDOM.render(React.createElement(PgSerie, {
     serie: serie,
     periodicidade: periodicidade,
     metadados: metadados,
+    arquivo_metadados: arquivo_metadados,
     fonte: fonte,
     tipoValores: tipoValores,
     unidade: unidade,

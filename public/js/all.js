@@ -664,6 +664,25 @@ function getColor(d, intervalos) {
 
 }
 
+function downloadTextToFile(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+function removeHTML(str){
+    var tmp = document.createElement("DIV");
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || "";
+}
+
 // Ion.RangeSlider
 // version 2.1.4 Build: 355
 // © Denis Ineshin, 2016

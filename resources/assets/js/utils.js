@@ -189,3 +189,22 @@ function getColor(d, intervalos) {
     return colors[0];
 
 }
+
+function downloadTextToFile(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+function removeHTML(str){
+    var tmp = document.createElement("DIV");
+    tmp.innerHTML = str;
+    return tmp.textContent || tmp.innerText || "";
+}
