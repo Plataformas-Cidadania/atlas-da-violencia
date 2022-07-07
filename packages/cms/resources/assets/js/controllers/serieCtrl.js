@@ -109,25 +109,25 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     $scope.validar = function(){
 
     };
-    
+
 
     listarSeries();
 
     //INSERIR/////////////////////////////
 
-    $scope.tinymceOptions = tinymceOptions;    
+    $scope.tinymceOptions = tinymceOptions;
 
     $scope.mostrarForm = false;
 
     $scope.processandoInserir = false;
 
-    $scope.inserir = function (file, arquivo){
+    $scope.inserir = function (file, arquivo, arquivoMetadados){
 
         $scope.mensagemInserir = "";
 
 
 
-        if(file==null && arquivo==null){
+        if(file==null && arquivo==null && arquivoMetadados==null){
             $scope.processandoInserir = true;
 
             //console.log($scope.serie);
@@ -145,7 +145,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
         }else{
             Upload.upload({
                 url: 'cms/inserir-serie',
-                data: {serie: $scope.serie, textos: $scope.textos, file: file, arquivo: arquivo},
+                data: {serie: $scope.serie, textos: $scope.textos, file: file, arquivo: arquivo, arquivoMetadados: arquivoMetadados},
             }).then(function (response) {
                 $timeout(function () {
                     file.result = response.data;

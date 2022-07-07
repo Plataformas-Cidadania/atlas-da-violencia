@@ -35,6 +35,7 @@ class SerieController extends Controller
         ];
         $this->widthOriginal = true;
         $this->pathArquivo = public_path().'/arquivos/series';
+        $this->pathArquivoMetadados = public_path().'/arquivos/metadados';
     }
 
     function index()
@@ -129,6 +130,7 @@ class SerieController extends Controller
 
         $file = $request->file('file');
         $arquivo = $request->file('arquivo');
+        $arquivoMetadados = $request->file('arquivoMetadados');
 
         $successFile = true;
         if($file!=null){
@@ -149,7 +151,16 @@ class SerieController extends Controller
             }
         }
 
-        if($successFile && $successArquivo){
+        $successArquivoMetadados = true;
+        if($arquivoMetadados!=null){
+            $filenameArquivoMetadados = rand(1000,9999)."-".clean($arquivoMetadados->getClientOriginalName());
+            $successArquivoMetadados = $arquivoMetadados->move($this->pathArquivoMetadados, $filenameArquivoMetadados);
+            if($successArquivoMetadados){
+                $data['serie']['arquivo_metadados'] = $filenameArquivoMetadados;
+            }
+        }
+
+        if($successFile && $successArquivo&& $successArquivoMetadados){
             $inserir = $this->serie->create($data['serie']);
             $data['textos']['serie_id'] = $inserir->id;
             $inserir2 = \App\TextoSerie::create($data['textos']);
