@@ -163,7 +163,7 @@ class FiltrosSeriesController extends Controller
         $search = $parameters['search'];
 
         $series = DB::table('series')
-            ->select('series.id', 'series.tipo_dados', 'textos_series.titulo as titulo', 'idiomas_unidades.titulo as titulo_unidade', 'idiomas_periodicidades.titulo as periodicidade')
+            ->select('series.id', 'series.tipo_dados', 'textos_series.titulo as titulo', 'idiomas_unidades.titulo as titulo_unidade', 'idiomas_periodicidades.titulo as periodicidade', 'series.arquivo_metadados')
             ->join('unidades', 'unidades.id', '=', 'series.unidade')
             ->join('idiomas_unidades', 'idiomas_unidades.unidade_id', '=', 'unidades.id')
             ->join('periodicidades', 'periodicidades.id', '=', 'series.periodicidade_id')

@@ -117,6 +117,22 @@ class List extends React.Component {
                         React.createElement('i', { className: 'fa fa-file-excel-o', style: { fontSize: '1.5em' } })
                     )
                 );
+                buttons[4] = React.createElement(
+                    'td',
+                    { key: 'btn-metadados' + index, className: 'text-right' },
+                    React.createElement(
+                        'a',
+                        { href: "arquivos/metadados/" + item.arquivo_metadados, style: { cursor: 'pointer', display: item.downloads ? '' : 'none' }, title: 'Download Metadados', target: '_blank' },
+                        React.createElement('i', { className: 'fa fa-file-text-o', style: { fontSize: '1.5em' } })
+                    )
+                );
+                if (!item.arquivo_metadados) {
+                    buttons[4] = React.createElement(
+                        'td',
+                        null,
+                        '\xA0'
+                    );
+                }
 
                 //coloca vazio os tds que não satisfazerem a condição
                 //territorios
