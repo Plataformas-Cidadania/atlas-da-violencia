@@ -44,7 +44,7 @@
                 </div>
 
                 <span class="btn btn-primary btn-file" ng-show="!fileArquivoMetadados">
-                    Escolher Arquivo Metadados <input  type="file" ngf-select ng-model="fileArquivoMetadados" name="fileArquivoMetadados" accept="application/pdf,.txt" ngf-max-size="10MB" ngf-model-invalid="errorFile">
+                    Escolher Arquivo Metadados <input  type="file" ngf-select ng-model="fileArquivoMetadados" name="fileArquivoMetadados" accept="application/pdf,.txt,.doc,.docx" ngf-max-size="10MB" ngf-model-invalid="errorFile">
                 </span>
                 <a ng-show="fileArquivoMetadados"><% fileArquivoMetadados.name %></a>
                 <br><br>

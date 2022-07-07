@@ -122,11 +122,12 @@ class List extends React.Component {
                     { key: 'btn-metadados' + index, className: 'text-right' },
                     React.createElement(
                         'a',
-                        { href: "arquivos/metadados/" + item.arquivo_metadados, style: { cursor: 'pointer', display: item.downloads ? '' : 'none' }, title: 'Download Metadados', target: '_blank' },
+                        { href: "arquivos/metadados/" + item.arquivo_metadados, download: item.arquivo_metadados, style: { cursor: 'pointer', display: item.downloads ? '' : 'none' }, title: 'Download Metadados', target: '_blank' },
                         React.createElement('i', { className: 'fa fa-file-text-o', style: { fontSize: '1.5em' } })
                     )
                 );
-                if (!item.arquivo_metadados) {
+
+                if (item.arquivo_metadados === null) {
                     buttons[4] = React.createElement(
                         'td',
                         null,
@@ -200,6 +201,10 @@ class List extends React.Component {
                 }
 
                 let columns = columnsNames.map(function (col, i) {
+                    if (col === 'arquivo_metadados') {
+                        return;
+                    }
+
                     if (this.state.showId == 0 && col == 'id') {
                         return;
                     }

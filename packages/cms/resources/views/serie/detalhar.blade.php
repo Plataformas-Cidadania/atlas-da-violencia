@@ -35,7 +35,7 @@
                     <br><br>
                 </div>
                 <span class="btn btn-primary btn-file" ng-show="!fileArquivoMetadados && !arquivoMetadadosBD">
-                    Escolher Arquivo Metadados<input  type="file" ngf-select ng-model="fileArquivoMetadados" name="fileArquivoMetadados" accept="application/pdf,.txt" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+                    Escolher Arquivo Metadados<input  type="file" ngf-select ng-model="fileArquivoMetadados" name="fileArquivoMetadados" accept="application/pdf,.txt,.doc,.docx" ngf-max-size="100MB" ngf-model-invalid="errorFile">
                     </span>
                 <button class="btn btn-danger" ng-click="limparArquivoMetadados()" ng-show="fileArquivoMetadados || arquivoMetadadosBD" type="button">Remover Arquivo Metadados</button>
                 <a href="arquivos/metadados/<% arquivoMetadadosBD %>" target="_blank" ng-show="arquivoMetadadosBD"><% arquivoMetadadosBD %></a>
