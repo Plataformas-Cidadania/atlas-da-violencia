@@ -317,6 +317,7 @@ class SerieController extends Controller
 
         $file = $request->file('file');
         $arquivo = $request->file('arquivo');
+        $arquivoMetadados = $request->file('arquivoMetadados');
 
         //remover imagem
         if($data['removerImagem']){
@@ -330,6 +331,13 @@ class SerieController extends Controller
             $data['serie']['arquivo'] = '';
             if(file_exists($this->pathArquivo."/".$serie->arquivo)) {
                 unlink($this->pathArquivo . "/" . $serie->arquivo);
+            }
+        }
+
+        if($data['removerArquivoMetadados']){
+            $data['serie']['arquivo_metadados'] = '';
+            if(file_exists($this->pathArquivoMetadados."/".$serie->arquivo_metadados)) {
+                unlink($this->pathArquivoMetadados . "/" . $serie->arquivo_metadados);
             }
         }
 
@@ -350,8 +358,16 @@ class SerieController extends Controller
                 $data['serie']['arquivo'] = $filenameArquivo;
             }
         }
+        $successArquivoMetadados = true;
+        if($arquivoMetadados!=null){
+            $filenameArquivoMetadados = rand(1000,9999)."-".clean($arquivoMetadados->getClientOriginalName());
+            $successArquivoMetadados = $arquivoMetadados->move($this->pathArquivoMetadados, $filenameArquivoMetadados);
+            if($successArquivoMetadados){
+                $data['serie']['arquivo_metadados'] = $filenameArquivoMetadados;
+            }
+        }
 
-        if($successFile && $successArquivo){
+        if($successFile && $successArquivo && $successArquivoMetadados){
 
             $serie->update($data['serie']);
             return $serie->imagem;

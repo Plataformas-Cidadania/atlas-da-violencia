@@ -6,7 +6,7 @@
         <div class="box-padrao">
             <h1><a href="cms/series"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Series</h1>
             <?php //print_r($serie);?>
-            <div ng-init="carregaImagem('{{$serie->imagem}}', '{{$serie->arquivo}}')">
+            <div ng-init="carregaImagem('{{$serie->imagem}}', '{{$serie->arquivo}}', '{{$serie->arquivo_metadados}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>
                 {!! Form::model($serie, ['name' =>'form']) !!}
                 <div style="display:none;">
@@ -34,11 +34,20 @@
                     <a ng-show="fileArquivo"><% fileArquivo.name %></a>
                     <br><br>
                 </div>
+                <span class="btn btn-primary btn-file" ng-show="!fileArquivoMetadados && !arquivoMetadadosBD">
+                    Escolher Arquivo Metadados<input  type="file" ngf-select ng-model="fileArquivoMetadados" name="fileArquivoMetadados" accept="application/pdf,.txt" ngf-max-size="100MB" ngf-model-invalid="errorFile">
+                    </span>
+                <button class="btn btn-danger" ng-click="limparArquivoMetadados()" ng-show="fileArquivoMetadados || arquivoMetadadosBD" type="button">Remover Arquivo Metadados</button>
+                <a href="arquivos/metadados/<% arquivoMetadadosBD %>" target="_blank" ng-show="arquivoMetadadosBD"><% arquivoMetadadosBD %></a>
+                <a ng-show="fileArquivoMetadados"><% fileArquivoMetadados.name %></a>
+                <br><br>
+
+
                 @include('cms::serie._form')
                 <input type="hidden" name="id" ng-model="id" ng-init="id='{{$serie->id}}'"/>
                 <div class="row">
                     <div class="col-md-1 col-lg-1 col-xs-3">
-                        <button class="btn btn-info" type="button" ng-click="alterar(picFile, fileArquivo)" ng-disabled="form.$invalid && form.serie.$dirty">Salvar</button>
+                        <button class="btn btn-info" type="button" ng-click="alterar(picFile, fileArquivo, fileArquivoMetadados)" ng-disabled="form.$invalid && form.serie.$dirty">Salvar</button>
                     </div>
                     <div class="col-md-2 col-lg-2 col-xs-6">
                         <span class="progress" ng-show="picFile.progress >= 0">

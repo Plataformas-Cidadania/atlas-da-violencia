@@ -12,14 +12,15 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
     $scope.removerImagem = 0;
     $scope.removerArquivo = 0;
+    $scope.removerArquivoMetadados = 0;
 
-    $scope.alterar = function (file, arquivo){
+    $scope.alterar = function (file, arquivo, arquivoMetadados){
 
-        if(file==null && arquivo==null){
+        if(file==null && arquivo==null && arquivoMetadados==null){
 
             $scope.processandoSalvar = true;
             //console.log($scope.serie);
-            $http.post("cms/alterar-serie/"+$scope.id, {'serie': $scope.serie, 'removerImagem': $scope.removerImagem, 'removerArquivo': $scope.removerArquivo}).success(function (data){
+            $http.post("cms/alterar-serie/"+$scope.id, {'serie': $scope.serie, 'removerImagem': $scope.removerImagem, 'removerArquivo': $scope.removerArquivo, 'removerArquivoMetadados': $scope.removerArquivoMetadados}).success(function (data){
                 //console.log(data);
                 $scope.processandoSalvar = false;
                 $scope.mensagemSalvar = data;
@@ -35,7 +36,7 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
             Upload.upload({
                 url: 'cms/alterar-serie/'+$scope.id,
-                data: {serie: $scope.serie, file: file, arquivo:arquivo, removerImagem: $scope.removerImagem, removerArquivo: $scope.removerArquivo},
+                data: {serie: $scope.serie, file: file, arquivo:arquivo, arquivoMetadados:arquivoMetadados, removerImagem: $scope.removerImagem, removerArquivo: $scope.removerArquivo, removerArquivoMetadados: $scope.removerArquivoMetadados},
             }).then(function (response) {
                 $timeout(function () {
                     file.result = response.data;
@@ -44,6 +45,7 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
                 $scope.mensagemSalvar =  "Gravado com sucesso!";
                 $scope.removerImagem = 0;
                 $scope.removerArquivo = 0;
+                $scope.removerArquivoMetadados = 0;
                 $scope.imagemBD = 'imagens/series/'+response.data;
                 //console.log($scope.imagemDB);
             }, function (response) {
@@ -72,13 +74,23 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
         $scope.removerArquivo = 1;
     };
 
-    $scope.carregaImagem  = function(img, arquivo) {
+    $scope.limparArquivoMetadados= function(){
+        $scope.fileArquivoMetadados = null;
+        $scope.arquivoMetadadosBD = null;
+        $scope.removerArquivoMetadados = 1;
+    };
+
+    $scope.carregaImagem  = function(img, arquivo, arquivoMetadados) {
         if(img!=''){
             $scope.imagemBD = 'imagens/series/xs-'+img;
             //console.log($scope.imagemBD);
         }
         if(arquivo!=''){
             $scope.arquivoBD = arquivo;
+            //console.log($scope.baseBD);
+        }
+        if(arquivoMetadados!=''){
+            $scope.arquivoMetadadosBD = arquivoMetadados;
             //console.log($scope.baseBD);
         }
     };
@@ -139,9 +151,9 @@ cmsApp.controller('alterarSerieCtrl', ['$scope', '$http', 'Upload', '$timeout', 
 
         $scope.serie.tipo_dados =  0;
     };
-    
-    
 
-    
+
+
+
 
 }]);
