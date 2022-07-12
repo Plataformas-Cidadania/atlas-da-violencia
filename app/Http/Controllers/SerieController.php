@@ -560,7 +560,7 @@ class SerieController extends Controller
         ];
 
         $select_sigla = "$tabelas[$abrangencia].edterritorios_sigla";
-        if($abrangencia == 4){
+        if($abrangencia == 4 || $abrangencia == 8){
             $select_sigla = "$tabelas[$abrangencia].edterritorios_nome";
         }
 

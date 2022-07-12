@@ -164,6 +164,7 @@ class PgSerie extends React.Component {
             $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.state.regions + "/" + this.state.abrangencia, {
                 data: {},
                 success: function (data) {
+                    console.log('loadDataPeriodo', data);
                     this.setState({ valoresPeriodo: data });
                 }.bind(this),
                 error: function (data) {
