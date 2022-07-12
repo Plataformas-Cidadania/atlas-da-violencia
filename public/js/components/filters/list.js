@@ -127,12 +127,29 @@ class List extends React.Component {
                     )
                 );
 
-                if (item.arquivo_metadados === null) {
+                console.log(item.arquivo_metadados);
+                if (item.arquivo_metadados === '') {
                     buttons[4] = React.createElement(
                         'td',
                         null,
                         '\xA0'
                     );
+                    console.log(item.descricao);
+                    if (item.descricao !== '') {
+                        buttons[4] = React.createElement(
+                            'td',
+                            { className: 'text-right' },
+                            React.createElement(
+                                'a',
+                                {
+                                    style: { cursor: 'pointer' },
+                                    title: 'Download Metadados',
+                                    onClick: () => downloadTextToFile('metadados-serie-' + item.id, removeHTML(item.descricao))
+                                },
+                                React.createElement('i', { className: 'fa fa-file-text-o', style: { fontSize: '1.5em' } })
+                            )
+                        );
+                    }
                 }
 
                 //coloca vazio os tds que não satisfazerem a condição
@@ -201,7 +218,7 @@ class List extends React.Component {
                 }
 
                 let columns = columnsNames.map(function (col, i) {
-                    if (col === 'arquivo_metadados') {
+                    if (col === 'arquivo_metadados' || col === 'descricao') {
                         return;
                     }
 

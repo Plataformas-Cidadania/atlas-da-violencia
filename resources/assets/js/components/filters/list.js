@@ -86,9 +86,23 @@ class List extends React.Component{
                 buttons[3] = (<td key={'btn-download'+index} className="text-right"><a style={{cursor: 'pointer', display: item.downloads ? '' : 'none'}} onClick={() => this.modalDownload(item.id)} title="Download" target="_blank"><i className="fa fa-file-excel-o" style={{fontSize: '1.5em'}}/></a></td>);
                 buttons[4] = (<td key={'btn-metadados'+index} className="text-right"><a href={"arquivos/metadados/"+item.arquivo_metadados} download={item.arquivo_metadados} style={{cursor: 'pointer', display: item.downloads ? '' : 'none'}} title="Download Metadados" target="_blank"><i className="fa fa-file-text-o" style={{fontSize: '1.5em'}}/></a></td>);
 
-
-                if(item.arquivo_metadados === null){
-                    buttons[4] = (<td>&nbsp;</td>)
+                console.log(item.arquivo_metadados);
+                if(item.arquivo_metadados === ''){
+                    buttons[4] = (<td>&nbsp;</td>);
+                    console.log(item.descricao);
+                    if(item.descricao !== ''){
+                        buttons[4] = (
+                            <td className="text-right">
+                                <a
+                                    style={{cursor: 'pointer'}}
+                                    title="Download Metadados"
+                                    onClick={() => downloadTextToFile('metadados-serie-'+item.id, removeHTML(item.descricao))}
+                                >
+                                    <i className="fa fa-file-text-o" style={{fontSize: '1.5em'}}/>
+                                </a>
+                            </td>
+                        )
+                    }
                 }
 
                 //coloca vazio os tds que não satisfazerem a condição
@@ -122,7 +136,7 @@ class List extends React.Component{
 
 
                 let columns = columnsNames.map(function(col, i){
-                    if(col === 'arquivo_metadados'){
+                    if(col === 'arquivo_metadados' || col === 'descricao'){
                         return;
                     }
 

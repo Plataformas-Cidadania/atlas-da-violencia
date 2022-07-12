@@ -154,7 +154,7 @@ class PgSerie extends React.Component{
             $.ajax("periodo/" + this.state.id + "/" + this.state.min + "/" + this.state.max + "/" + this.state.regions + "/" + this.state.abrangencia, {
                 data: {},
                 success: function (data) {
-                    console.log('loadDataPeriodo', data);
+                    //console.log('loadDataPeriodo', data);
                     this.setState({valoresPeriodo: data});
                 }.bind(this),
                 error: function (data) {
@@ -591,8 +591,21 @@ class PgSerie extends React.Component{
                         </a>
                     </div>
                 </div>
-                <a href={"arquivos/metadados/"+this.props.arquivo_metadados} className="btn btn-info btn-sm" download={this.props.arquivo_metadados}>Download Metadados</a>
-                <button className="btn btn-info btn-small" style={{display:'none'}} onClick={() => downloadTextToFile('metadados-serie-'+this.props.id, removeHTML(this.props.metadados))}>Download Metadados</button>
+                <a
+                    href={"arquivos/metadados/"+this.props.arquivo_metadados}
+                    className="btn btn-info btn-sm"
+                    download={this.props.arquivo_metadados}
+                    style={{display:(this.props.arquivo_metadados ? '' : 'none')}}
+                >
+                    Download Metadados
+                </a>
+                <button
+                    className="btn btn-info btn-sm"
+                    style={{display:(this.props.arquivo_metadados ? 'none' : '')}}
+                    onClick={() => downloadTextToFile('metadados-serie-'+this.props.id, removeHTML(this.props.metadados))}
+                >
+                    Download Metadados
+                </button>
                 <br/><br/>
 
                 <p><strong>{this.props.lang_source}: </strong>{this.props.fonte}</p>

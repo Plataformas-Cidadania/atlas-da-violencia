@@ -678,10 +678,14 @@ function downloadTextToFile(filename, text) {
 }
 
 function removeHTML(str){
+    str = str.replaceAll('</p>', '\n\n');
     var tmp = document.createElement("DIV");
     tmp.innerHTML = str;
     return tmp.textContent || tmp.innerText || "";
 }
+
+
+
 
 // Ion.RangeSlider
 // version 2.1.4 Build: 355
