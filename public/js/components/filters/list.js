@@ -128,14 +128,14 @@ class List extends React.Component {
                 );
 
                 console.log(item.arquivo_metadados);
-                if (item.arquivo_metadados === '') {
+                if (item.arquivo_metadados === '' || item.arquivo_metadados === null) {
                     buttons[4] = React.createElement(
                         'td',
                         null,
                         '\xA0'
                     );
                     console.log(item.descricao);
-                    if (item.descricao !== '') {
+                    if (item.descricao !== '' && item.descricao !== null) {
                         buttons[4] = React.createElement(
                             'td',
                             { className: 'text-right' },

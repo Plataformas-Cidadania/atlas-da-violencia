@@ -87,10 +87,10 @@ class List extends React.Component{
                 buttons[4] = (<td key={'btn-metadados'+index} className="text-right"><a href={"arquivos/metadados/"+item.arquivo_metadados} download={item.arquivo_metadados} style={{cursor: 'pointer', display: item.downloads ? '' : 'none'}} title="Download Metadados" target="_blank"><i className="fa fa-file-text-o" style={{fontSize: '1.5em'}}/></a></td>);
 
                 console.log(item.arquivo_metadados);
-                if(item.arquivo_metadados === ''){
+                if(item.arquivo_metadados === '' || item.arquivo_metadados === null){
                     buttons[4] = (<td>&nbsp;</td>);
                     console.log(item.descricao);
-                    if(item.descricao !== ''){
+                    if(item.descricao !== '' && item.descricao !== null){
                         buttons[4] = (
                             <td className="text-right">
                                 <a
