@@ -115,3 +115,7 @@
     <link rel="stylesheet" href="lib/leaflet/css/MarkerCluster.css" />
     <link rel="stylesheet" href="lib/leaflet/css/MarkerCluster.Default.css" />
 @endif
+
+@if($rota=='dados-series/{serie_id}')
+    <link rel="stylesheet" href="lib/leaflet/css/Leaflet.BigImage.min.css"/>
+@endif

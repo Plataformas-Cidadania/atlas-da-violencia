@@ -161,6 +161,15 @@ class Map extends React.Component {
                 onEachFeature: this.onEachFeature //listeners
             }).addTo(this.state.mymap),
             area: data.bounding_box_total
+        }, function () {
+            //exportar mapa para imagem
+            //L.control.bigImage({position: 'topright'}).addTo(this.state.mymap);
+
+            /*L.easyPrint({
+                title: 'My awesome print button',
+                position: 'bottomright',
+                sizeModes: ['A4Portrait', 'A4Landscape']
+            }).addTo(this.state.mymap);*/
         });
 
         /*let geojson = L.geoJson(data, {

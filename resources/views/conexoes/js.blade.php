@@ -322,6 +322,9 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
 
     <script src="lib/apexcharts/react-apexcharts.iife.min.js"></script>
+    <script src="lib/leaflet/js/Leaflet.BigImage.min.js"></script>
+    <script src="lib/leaflet/js/bundle.js"></script>
+
 
     {{--<script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>--}}
 
@@ -370,6 +373,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="lib/jquery/jquery.mask.min.js"></script>
     <script src="js/directives/maskPhoneDir.js"></script>
     <script src="js/controllers/contatoSerieCtrl.js"></script>
+
 
 
 @endif

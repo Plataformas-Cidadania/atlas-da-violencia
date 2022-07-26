@@ -37,6 +37,7 @@ class Map extends React.Component{
 
             this.makeInfo();
 
+
         });
     }
 
@@ -175,6 +176,15 @@ class Map extends React.Component{
                     onEachFeature: this.onEachFeature //listeners
                 }).addTo(this.state.mymap),
                 area: data.bounding_box_total
+            }, function(){
+                //exportar mapa para imagem
+                //L.control.bigImage({position: 'topright'}).addTo(this.state.mymap);
+
+                /*L.easyPrint({
+                    title: 'My awesome print button',
+                    position: 'bottomright',
+                    sizeModes: ['A4Portrait', 'A4Landscape']
+                }).addTo(this.state.mymap);*/
             });
 
         /*let geojson = L.geoJson(data, {
@@ -272,6 +282,7 @@ class Map extends React.Component{
         this.state.mymap.fitBounds(new_area);
 
 
+
         /*area.find(function(item){
             item.find(function(it){
                 it.find(function(point){
@@ -345,7 +356,6 @@ class Map extends React.Component{
     render(){
 
         let periodo = formatPeriodicidade(this.state.periodo, this.props.periodicidade);
-
 
         return (
             <div>

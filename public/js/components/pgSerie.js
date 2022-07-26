@@ -307,6 +307,8 @@ class PgSerie extends React.Component {
         return arrayYears;
     }
 
+    exportImage() {}
+
     render() {
 
         //utilizado para função de formatação
@@ -394,7 +396,7 @@ class PgSerie extends React.Component {
                 { className: "row", style: { display: !this.state.loadingMap ? 'block' : 'none' } },
                 React.createElement(
                     "div",
-                    { className: "col-md-6 col-sm-12" },
+                    { className: "col-md-6 col-sm-12", id: "mapa1" },
                     React.createElement(Map, {
                         mapId: "map1",
                         id: this.state.id,
@@ -419,7 +421,7 @@ class PgSerie extends React.Component {
                 ),
                 React.createElement(
                     "div",
-                    { className: "col-md-6 col-sm-12 print-map" },
+                    { className: "col-md-6 col-sm-12 print-map", id: "mapa2" },
                     React.createElement(Map, {
                         mapId: "map2",
                         id: this.state.id,

@@ -303,6 +303,10 @@ class PgSerie extends React.Component{
         return arrayYears;
     }
 
+    exportImage(){
+
+    }
+
 
     render(){
 
@@ -372,9 +376,9 @@ class PgSerie extends React.Component{
             <div className="row col-md-12 text-center" style={{display: this.state.loadingMap ? 'block' : 'none'}}>
                 <i className="fa fa-spin fa-spinner fa-4x"/>
             </div>
-
+            {/*<button onClick={() => this.exportImage()}>Teste image</button>*/}
             <div className="row" style={{display: !this.state.loadingMap ? 'block' : 'none'}}>
-                <div className="col-md-6 col-sm-12">
+                <div className="col-md-6 col-sm-12" id="mapa1">
                     <Map
                         mapId="map1"
                         id={this.state.id}
@@ -397,7 +401,7 @@ class PgSerie extends React.Component{
                         lang_mouse_over_region={this.props.lang_mouse_over_region}
                     />
                 </div>
-                <div className="col-md-6 col-sm-12 print-map">
+                <div className="col-md-6 col-sm-12 print-map" id="mapa2">
                     <Map
                         mapId="map2"
                         id={this.state.id}
