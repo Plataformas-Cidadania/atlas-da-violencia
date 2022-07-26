@@ -1,38 +1,37 @@
 @extends('cms::layouts.app')
 
 @section('content')
-    {!! Html::script('assets-cms/js/controllers/alterarWebdoorCtrl.js') !!}
-    <div ng-controller="alterarWebdoorCtrl">
+    {!! Html::script(config('app.url').'assets-cms/js/controllers/alterarTextCtrl.js') !!}
+    <div ng-controller="alterarTextCtrl">
         <div class="box-padrao">
-            <h1><a href="cms/webdoors"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Webdoors</h1>
-            <?php //print_r($webdoor);?>
-            <div ng-init="carregaImagem('{{$webdoor->imagem}}')">
+            <h1><a href="../texts"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Texto</h1>
+            <?php //print_r($text);?>
+            <div ng-init="carregaImagem('{{$text->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>
-                {!! Form::model($webdoor, ['name' =>'form']) !!}
+                {!! Form::model($text, ['name' =>'form']) !!}
                 <div class="container-thumb">
-                    <div>Tamanho imagem: 1180 x 300 px</div>
-                    <div class="box-thumb" name="fileDrop" ngf-dimensions="$width == 1180 && $height == 300" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
+                    <div class="box-thumb" name="fileDrop"  ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
                          ng-show="!picFile && !imagemBD" accept="image/*" ngf-max-size="2MB">Solte uma imagem aqui!</div>
                     <img ng-show="picFile" ngf-thumbnail="picFile" class="thumb">
                     <img ng-show="imagemBD" class="thumb" ng-src="<% imagemBD %>">
                 </div>
                 <br>
                 <span class="btn btn-primary btn-file" ng-show="!picFile && !imagemBD">
-                    Escolher imagem <input  type="file" ngf-dimensions="$width == 535 && $height == 260" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
+                    Escolher imagem <input  type="file"  ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
                 </span>
                 <button class="btn btn-danger" ng-click="limparImagem()" ng-show="picFile || imagemBD" type="button">Remover Imagem</button>
                 <i ng-show="form.file.$error.maxSize" style="margin-left: 10px;">Arquivo muito grande <% errorFile.size / 1000000|number:1 %>MB: máximo 2MB</i>
                 <i ng-show="form.file.$error.dimensions || form.fileDrop.$error.dimensions" style="margin-left: 10px;">
-                    Tamanho inválido! O tamanho deve ser de 1180x570
+                    Tamanho inválido! O tamanho deve ser de 1170x450
                     <div class="btn btn-danger" ng-click="limparImagem()">Cancelar</div>
                 </i>
 
                 <br><br>
-                @include('cms::webdoor._form')
-                <input type="hidden" name="id" ng-model="id" ng-init="id='{{$webdoor->id}}'"/>
+                @include('cms::text._form')
+                <input type="hidden" name="id" ng-model="id" ng-init="id='{{$text->id}}'"/>
                 <div class="row">
                     <div class="col-md-1 col-lg-1 col-xs-3">
-                        <button class="btn btn-info" type="button" ng-click="alterar(picFile)" ng-disabled="form.$invalid && form.webdoor.$dirty">Salvar</button>
+                        <button class="btn btn-info" type="button" ng-click="alterar(picFile)" ng-disabled="form.$invalid && form.text.$dirty">Salvar</button>
                     </div>
                     <div class="col-md-2 col-lg-2 col-xs-6">
                         <span class="progress" ng-show="picFile.progress >= 0">

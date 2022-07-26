@@ -13,8 +13,8 @@ use Intervention\Image\Facades\Image;
 
 class WebdoorController extends Controller
 {
-    
-    
+
+
 
     public function __construct()
     {
@@ -24,10 +24,10 @@ class WebdoorController extends Controller
         ];
         $this->pathImagem = public_path().'/imagens/webdoors';
         $this->sizesImagem = [
-            'xs' => ['width' => 300, 'height' => 146],
-            'sm' => ['width' => 400, 'height' => 194],
-            'md' => ['width' => 535, 'height' => 260],
-            'lg' => ['width' => 535, 'height' => 260]
+            'xs' => ['width' => 200, 'height' => 51],
+            'sm' => ['width' => 480, 'height' => 122],
+            'md' => ['width' => 780, 'height' => 198],
+            'lg' => ['width' => 1180, 'height' => 300]
         ];
         $this->widthOriginal = true;
     }
@@ -80,7 +80,7 @@ class WebdoorController extends Controller
             $filename = rand(1000,9999)."-".clean($file->getClientOriginalName());
             $imagemCms = new ImagemCms();
             $success = $imagemCms->inserir($file, $this->pathImagem, $filename, $this->sizesImagem, $this->widthOriginal);
-            
+
             if($success){
                 $data['webdoor']['imagem'] = $filename;
                 return $this->webdoor->create($data['webdoor']);
@@ -161,13 +161,13 @@ class WebdoorController extends Controller
             $imagemCms = new ImagemCms();
             $imagemCms->excluir($this->pathImagem, $this->sizesImagem, $webdoor);
         }
-                
+
 
         $webdoor->delete();
 
     }
 
-    
+
 
 
 }
