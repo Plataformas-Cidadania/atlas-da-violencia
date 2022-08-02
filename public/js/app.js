@@ -1,4 +1,5 @@
-var ipeaApp = angular.module('ipeaApp', ['ui.bootstrap'] ,['$interpolateProvider', function($interpolateProvider) {
+//var ipeaApp = angular.module('ipeaApp', ['ui.bootstrap'] ,['$interpolateProvider', function($interpolateProvider) {
+var ipeaApp = angular.module('ipeaApp', [] ,['$interpolateProvider', function($interpolateProvider) {
     $interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');
 }]);
@@ -13,7 +14,7 @@ ipeaApp.factory('altoContraste', function() {
 ipeaApp.controller('appCtrl', ['$scope', 'altoContraste', function($scope, altoContraste){
     $scope.altoContrasteAtivo = altoContraste;
 
-    
+
     $scope.setAltoContraste = function(){
         $scope.altoContrasteAtivo = !$scope.altoContrasteAtivo;
         //console.log("scopo: "+$scope.altoContrasteAtivo);

@@ -261,7 +261,7 @@
         <?php */ ?>
 
         {{--START INDICE--}}
-        <?php /* ?>
+        <?php  ?>
         @if(count($indices) > 0)
         <br><br>
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
@@ -282,7 +282,7 @@
         </div>
         <br><br>
         @endif
-        <?php */ ?>
+        <?php  ?>
         {{--END INDICE--}}
 
         <?php /*

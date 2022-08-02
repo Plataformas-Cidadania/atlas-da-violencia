@@ -412,6 +412,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 @if($rota=="/")
     <script>
         $( document ).ready(function() {
+            console.log('indices');
             getIndices();
         });
 
@@ -460,7 +461,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
         }
 
         function nomeIndices(id, text) {
-            console.log(id, text);
+            //console.log(id, text);
             $(id).html(text);
         }
 
