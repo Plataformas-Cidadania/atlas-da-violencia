@@ -21,7 +21,7 @@ class HomeController extends Controller
         $links = DB::table('links')
             ->where('links.idioma_sigla', $lang)
             ->orderBy('links.posicao')
-            ->take(10)
+            ->take(12)
             ->get();
         $bemvindo = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 0)->first();
         $webdoors = DB::table('webdoors')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->take(10)->get();
