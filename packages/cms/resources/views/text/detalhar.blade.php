@@ -1,10 +1,10 @@
 @extends('cms::layouts.app')
 
 @section('content')
-    {!! Html::script(config('app.url').'assets-cms/js/controllers/alterarTextCtrl.js') !!}
+    {!! Html::script('/assets-cms/js/controllers/alterarTextCtrl.js') !!}
     <div ng-controller="alterarTextCtrl">
         <div class="box-padrao">
-            <h1><a href="../texts"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Texto</h1>
+            <h1><a href="cms/texts"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Texto</h1>
             <?php //print_r($text);?>
             <div ng-init="carregaImagem('{{$text->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>

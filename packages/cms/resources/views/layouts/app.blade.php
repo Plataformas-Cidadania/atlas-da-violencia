@@ -98,7 +98,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
 
             </ul>
 <style>
-    
+
 
 
     .icon-cms-user{
@@ -124,7 +124,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                     <li class="active">
                         <a href="cms"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    
+
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo8"><i class="fa fa-envelope" aria-hidden="true"></i> Mensagens <div class="qtd_emails">{{$mensagensContato+$mensagensSerie}}</div><i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo8" class="collapse @if($rota=="cms/mensagens/{origem}") show @endif">
@@ -140,7 +140,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                     <li>
                         <a href="cms/temas"><i class="fa fa-folder-open" aria-hidden="true"></i> Temas</a>
                     </li>
-                    
+
 
                     <li>
                         <a href="cms/series"><i class="fa fa-cubes" aria-hidden="true"></i> Séries</a>
@@ -210,10 +210,13 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                             <li>
                                 <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoors</a>
                             </li>
+                            <li>
+                                <a href="cms/texts"><i class="fa fa-fw fa-file-text"></i> Textos</a>
+                            </li>
                         </ul>
                     </li>
 
-                    
+
 
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo0"><i
@@ -240,7 +243,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                             <li>
                                 <a href="cms/padrao-territorios"><i class="fa fa-indent" aria-hidden="true"></i> Padrão Territorio</a>
                             </li>
-                            
+
 
                             <li>
                                 <a href="javascript:;" data-toggle="collapse" data-target="#demo5"><i class="fa fa-fw fa-user"></i> Equipe <i class="fa fa-fw fa-caret-down"></i></a>
@@ -276,13 +279,13 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
 
                             .side-nav>li>ul>li>ul {
                                 margin:0;
-                                padding: 0;                     
+                                padding: 0;
                             }
 
-                            .side-nav>li>ul>li>ul>li {   
+                            .side-nav>li>ul>li>ul>li {
                                 text-decoration: none;
-                                list-style-type:none; 
-                            
+                                list-style-type:none;
+
                             }
 
                             .side-nav>li>ul>li>ul>li>a {
@@ -329,7 +332,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                         <ul id="demo2" class="collapse  @if($rota=="cms/menus" || $rota=="cms/apoios" || $rota=="cms/parceiros" || $rota=="cms/links" || $rota=="cms/indices" || $rota=="cms/setting" || $rota=="cms/favicons" ) show @endif">
                             <li>
                                 <a href="cms/menus"><i class="fa fa-fw fa-bars"></i> Menu</a>
-                            </li> 
+                            </li>
                             <li>
                                 <a href="cms/apoios"><i class="fa fa-fw fa-anchor"></i> Apoio</a>
                             </li>
@@ -341,7 +344,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                             </li>
                             <li>
                                 <a href="cms/indices"><i class="fa fa-indent" aria-hidden="true"></i> Índices</a>
-                            </li>            
+                            </li>
                             <li>
                                 <a href="cms/setting"><i class="fa fa-fw fa-cog"></i> Configurações</a>
                             </li>
@@ -378,7 +381,7 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
 
                         </ul>
                     </li>
-                    
+
 
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demoTransporte"><i
@@ -399,9 +402,9 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
 
 
 
-                    
 
-                    
+
+
 
 
                     <!--<li>

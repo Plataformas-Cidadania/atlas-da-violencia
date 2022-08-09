@@ -3,15 +3,15 @@
 
 
 Route::group(['middleware' => 'cms'], function () {
-    
+
     Route::get('/cms/login', 'Cms\Controllers\HomeController@telaLogin');
     Route::get('/cms/logout', 'Cms\Controllers\HomeController@logout');
     Route::post('/cms/login', 'Cms\Controllers\HomeController@login');
 
     Route::group(['middleware' => 'authcms:cms'], function () {
-        
+
         Route::get('/cms', 'Cms\Controllers\HomeController@index');
-        
+
         //INSTITUCIONAL
         Route::get('/cms/quemsomos', 'Cms\Controllers\QuemsomoController@index');
         Route::get('/cms/quemsomos/{tipo_id}', 'Cms\Controllers\QuemsomoController@index');
@@ -93,7 +93,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-presentation-element/{id}', 'Cms\Controllers\PresentationElementController@alterar');
         Route::get('/cms/excluir-presentation-element/{id}', 'Cms\Controllers\PresentationElementController@excluir');
         Route::get('/cms/status-presentation-element/{id}', 'Cms\Controllers\PresentationElementController@status');
-        
+
         //SERIES
         Route::get('/cms/series', 'Cms\Controllers\SerieController@index');
         Route::get('/cms/listar-series', 'Cms\Controllers\SerieController@listar');
@@ -265,7 +265,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/author/{id}', 'Cms\Controllers\AuthorController@detalhar');
         Route::post('/cms/alterar-author/{id}', 'Cms\Controllers\AuthorController@alterar');
         Route::get('/cms/excluir-author/{id}', 'Cms\Controllers\AuthorController@excluir');
-        
+
         //INDICES
         Route::get('/cms/indices', 'Cms\Controllers\IndiceController@index');
         Route::get('/cms/listar-indices', 'Cms\Controllers\IndiceController@listar');
@@ -273,7 +273,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/indice/{id}', 'Cms\Controllers\IndiceController@detalhar');
         Route::post('/cms/alterar-indice/{id}', 'Cms\Controllers\IndiceController@alterar');
         Route::get('/cms/excluir-indice/{id}', 'Cms\Controllers\IndiceController@excluir');
- 
+
         //ARTWORKS
         Route::get('/cms/artworks', 'Cms\Controllers\ArtworkController@index');
         Route::get('/cms/listar-artworks', 'Cms\Controllers\ArtworkController@listar');
@@ -412,7 +412,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/usuarios', 'Cms\Controllers\CmsUserController@index');
         Route::get('/cms/listar-cmsusers', 'Cms\Controllers\CmsUserController@listar');
         Route::post('/cms/inserir-cmsuser', 'Cms\Controllers\CmsUserController@inserir');
-        Route::get('/cms/usuario/{id}', 'Cms\Controllers\CmsUserController@detalhar');        
+        Route::get('/cms/usuario/{id}', 'Cms\Controllers\CmsUserController@detalhar');
         Route::post('/cms/alterar-cmsuser/{id}', 'Cms\Controllers\CmsUserController@alterar');
         Route::get('/cms/perfil', 'Cms\Controllers\CmsUserController@perfil');
         Route::post('/cms/alterar-perfil', 'Cms\Controllers\CmsUserController@alterarPerfil');
@@ -429,7 +429,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/positionUp-webindicador/{id}', 'Cms\Controllers\WebindicadorController@positionUp');
         Route::get('/cms/positionDown-webindicador/{id}', 'Cms\Controllers\WebindicadorController@positionDown');
         Route::get('/cms/status-webindicador/{id}', 'Cms\Controllers\WebindicadorController@status');
-        
+
         //CONSULTAS
         Route::get('/cms/consultas', 'Cms\Controllers\ConsultaController@index');
         Route::get('/cms/listar-consultas', 'Cms\Controllers\ConsultaController@listar');
@@ -440,7 +440,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/status-consulta/{id}', 'Cms\Controllers\ConsultaController@status');
         Route::get('/cms/positionUp-consulta/{id}', 'Cms\Controllers\ConsultaController@positionUp');
         Route::get('/cms/positionDown-consulta/{id}', 'Cms\Controllers\ConsultaController@positionDown');
-        
+
 
         //APOIOS
         Route::get('/cms/apoios', 'Cms\Controllers\ApoioController@index');
@@ -452,7 +452,7 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/status-apoio/{id}', 'Cms\Controllers\ApoioController@status');
         Route::get('/cms/positionUp-apoio/{id}', 'Cms\Controllers\ApoioController@positionUp');
         Route::get('/cms/positionDown-apoio/{id}', 'Cms\Controllers\ApoioController@positionDown');
- 
+
 
         //PARCEIROS
         Route::get('/cms/parceiros', 'Cms\Controllers\ParceiroController@index');
@@ -561,6 +561,15 @@ Route::group(['middleware' => 'cms'], function () {
         Route::get('/cms/csv-teleferico', 'Cms\Controllers\ImportarController@csvTeleferico');
         Route::get('/cms/csv-bicicletario', 'Cms\Controllers\ImportarController@csvBicicletario');
         //////////////////////////////////////////////////////////////////////////
+
+
+        //TEXTS
+        Route::get('/cms/texts', 'Cms\Controllers\TextController@index');
+        Route::get('/cms/listar-texts', 'Cms\Controllers\TextController@listar');
+        Route::post('/cms/inserir-text', 'Cms\Controllers\TextController@inserir');
+        Route::get('/cms/text/{id}', 'Cms\Controllers\TextController@detalhar');
+        Route::post('/cms/alterar-text/{id}', 'Cms\Controllers\TextController@alterar');
+        Route::get('/cms/excluir-text/{id}', 'Cms\Controllers\TextController@excluir');
 
     });
 
