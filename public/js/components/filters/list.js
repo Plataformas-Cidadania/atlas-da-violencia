@@ -103,7 +103,7 @@ class List extends React.Component {
                     { key: 'btn-todos-os-territorios' + index, className: 'text-right' },
                     React.createElement(
                         'a',
-                        { href: this.state.urlDetailItem + "/" + item.id, title: 'Territ\xF3rios', target: '_blank' },
+                        { href: this.state.urlDetailItem + "/" + item.id, title: 'Dados', target: '_blank' },
                         React.createElement('i', { className: 'fa fa-line-chart', style: { fontSize: '1.5em' } })
                     )
                 );
