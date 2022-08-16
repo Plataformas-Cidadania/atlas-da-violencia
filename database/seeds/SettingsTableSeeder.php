@@ -33,6 +33,7 @@ class SettingsTableSeeder extends Seeder
             'pinterest' => '#',
             'twitter' => '#',
             'cmsuser_id' => '1',
+            'padrao_abrangencia' => '3,2,1,4'
         ]);
     }
 }
