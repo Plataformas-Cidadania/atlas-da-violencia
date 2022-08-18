@@ -93,47 +93,49 @@
                 </div>
 
 
-                <div class="col-xs-12 col-sm-{{$col_carousel}} col-md-{{$col_carousel}} col-lg-{{$col_carousel}} box-destaque"
+                <div class="col-xs-12 col-sm-{{$col_carousel}} col-md-{{$col_carousel}} col-lg-{{$col_carousel}} "
                      ng-class="{'alto-contraste': altoContrasteAtivo}">
+                    <div class="box-destaque">
+                        <div id="carousel2" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                    <?php $cont_itens_wd2 = 0;?>
+                                @foreach($destaques as $destaque)
+                                    <li data-target="#carousel2" data-slide-to="<?php echo $cont_itens_wd2;?>"
+                                        @if($cont_itens_wd2==0) class="active" @endif></li>
+                                        <?php $cont_itens_wd2++;?>
+                                @endforeach
 
-                    <div id="carousel2" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                                <?php $cont_itens_wd2 = 0;?>
-                            @foreach($webdoors as $webdoor)
-                                <li data-target="#carousel2" data-slide-to="<?php echo $cont_itens_wd2;?>"
-                                    @if($cont_itens_wd2==0) class="active" @endif></li>
-                                    <?php $cont_itens_wd2++;?>
-                            @endforeach
 
-
-                        </ol>
-                        {{--DESTAQUE--}}
-                        <?php $cont = 0;?>
-                        @foreach($destaques as $destaque)
-                            <a href="{{$destaque->link}}" class="item @if($cont==0) active @endif">
-                                <div>
-                                    <h1 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$destaque->titulo}}</h1>
-                                    <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$destaque->chamada}}</h3>
-                                </div>
+                            </ol>
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                {{--DESTAQUE--}}
+                                    <?php $cont = 0;?>
+                                @foreach($destaques as $destaque)
+                                    <a href="{{$destaque->link}}" class="item @if($cont==0) active @endif">
+                                        <div>
+                                            <h1 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$destaque->titulo}}</h1>
+                                            <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$destaque->chamada}}</h3>
+                                        </div>
+                                    </a>
+                                        <?php $cont++;?>
+                                @endforeach
+                                {{----}}
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control hidden-xs" href="#carousel2" role="button"
+                               data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
                             </a>
-                            <?php $cont++;?>
-                        @endforeach
-                        {{----}}
+                            <a class="right carousel-control hidden-xs" href="#carousel2" role="button"
+                               data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </div>
-                        <!-- Controls -->
-                        <a class="left carousel-control hidden-xs" href="#carousel2" role="button"
-                           data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control hidden-xs" href="#carousel2" role="button"
-                           data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
                     </div>
-
                 </div>
 
         </div>

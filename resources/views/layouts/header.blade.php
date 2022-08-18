@@ -196,7 +196,7 @@ if($qtr==6){
                     </div>
                 @endif
                 @if($setting->carousel==1)
-                    <div class="col-xs-12 col-sm-{{$col_carousel}} col-md-{{$col_carousel}} col-lg-{{$col_carousel}} box-destaque"
+                    <div class="col-xs-12 col-sm-{{$col_carousel}} col-md-{{$col_carousel}} col-lg-{{$col_carousel}}"
                      ng-class="{'alto-contraste': altoContrasteAtivo}">
 
                     <div id="carousel1" class="carousel slide" data-ride="carousel">
