@@ -211,6 +211,9 @@ $mensagensSerie = DB::table('mensagens')->where('status', 0)->where('origem', 's
                                 <a href="cms/webdoors"><i class="fa fa-fw fa-desktop"></i> Webdoors</a>
                             </li>
                             <li>
+                                <a href="cms/destaques"><i class="fa fa-fw fa-bullhorn"></i> Destaques</a>
+                            </li>
+                            <li>
                                 <a href="cms/texts"><i class="fa fa-fw fa-file-text"></i> Textos</a>
                             </li>
                         </ul>

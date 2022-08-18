@@ -40,6 +40,14 @@ Route::group(['middleware' => 'cms'], function () {
         Route::post('/cms/alterar-webdoor/{id}', 'Cms\Controllers\WebdoorController@alterar');
         Route::get('/cms/excluir-webdoor/{id}', 'Cms\Controllers\WebdoorController@excluir');
 
+        //DESTAQUES
+        Route::get('/cms/destaques', 'Cms\Controllers\DestaqueController@index');
+        Route::get('/cms/listar-destaques', 'Cms\Controllers\DestaqueController@listar');
+        Route::post('/cms/inserir-destaque', 'Cms\Controllers\DestaqueController@inserir');
+        Route::get('/cms/destaque/{id}', 'Cms\Controllers\DestaqueController@detalhar');
+        Route::post('/cms/alterar-destaque/{id}', 'Cms\Controllers\DestaqueController@alterar');
+        Route::get('/cms/excluir-destaque/{id}', 'Cms\Controllers\DestaqueController@excluir');
+
         //DOWNLOADS
         Route::get('/cms/downloads', 'Cms\Controllers\DownloadController@index');
         Route::get('/cms/downloads/{origem}/{origem_id}', 'Cms\Controllers\DownloadController@index');

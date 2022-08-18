@@ -10,11 +10,11 @@ null, ['class'=>"form-control width-medio <% validar(destaque.idioma_sigla) %>",
 {!! Form::text('titulo', null, ['class'=>"form-control width-grande <% validar(destaque.titulo) %>", 'ng-model'=>'destaque.titulo', 'ng-required'=>'true', 'init-model'=>'destaque.titulo', 'placeholder' => '']) !!}<br>
 
 {!! Form::label('link', 'Link ') !!}<br>
+{!! Form::text('link', null, ['class'=>"form-control width-grande <% validar(destaque.link) %>", 'ng-model'=>'destaque.link', 'init-model'=>'destaque.link', 'placeholder' => '']) !!}<br>
 
 {!! Form::label('chamada', 'Chamada') !!}<br>
 {!! Form::textarea('chamada', null, ['class'=>"form-control width-grande <% validar(destaque.chamada) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'destaque.chamada', 'init-model'=>'destaque.chamada']) !!}<br>
 
-{!! Form::text('link', null, ['class'=>"form-control width-grande <% validar(destaque.link) %>", 'ng-model'=>'destaque.link', 'init-model'=>'destaque.link', 'placeholder' => '']) !!}<br>
 
 
 
