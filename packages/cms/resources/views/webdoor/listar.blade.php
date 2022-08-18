@@ -85,7 +85,7 @@
                                 <i ng-if="ordem=='id' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
                             <th>Imagem</th>
-                            <th ng-click="ordernarPor('webdoor')" style="webdoorr:pointer;">
+                            <th ng-click="ordernarPor('webdoor')" style="cursor:pointer;">
                                 Webdoor
                                 <i ng-if="ordem=='webdoor' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='webdoor' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>

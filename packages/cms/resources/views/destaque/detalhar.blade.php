@@ -1,15 +1,15 @@
 @extends('cms::layouts.app')
 
 @section('content')
-    {!! Html::script('assets-cms/js/controllers/alterardestaqueCtrl.js') !!}
-    <div ng-controller="alterardestaqueCtrl">
+    {!! Html::script('assets-cms/js/controllers/alterarDestaqueCtrl.js') !!}
+    <div ng-controller="alterarDestaqueCtrl">
         <div class="box-padrao">
-            <h1><a href="cms/destaques"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;destaques</h1>
+            <h1><a href="cms/destaques"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Destaques</h1>
             <?php //print_r($destaque);?>
             <div ng-init="carregaImagem('{{$destaque->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>
                 {!! Form::model($destaque, ['name' =>'form']) !!}
-                <div style="display: none;">
+                <div style="display:none;">
                     <div class="container-thumb">
                         <div>Tamanho imagem: 1180 x 300 px</div>
                         <div class="box-thumb" name="fileDrop" ngf-dimensions="$width == 1180 && $height == 300" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
@@ -19,14 +19,15 @@
                     </div>
                     <br>
                     <span class="btn btn-primary btn-file" ng-show="!picFile && !imagemBD">
-                        Escolher imagem <input  type="file" ngf-dimensions="$width == 535 && $height == 260" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
-                    </span>
+                    Escolher imagem <input  type="file" ngf-dimensions="$width == 535 && $height == 260" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
+                </span>
                     <button class="btn btn-danger" ng-click="limparImagem()" ng-show="picFile || imagemBD" type="button">Remover Imagem</button>
                     <i ng-show="form.file.$error.maxSize" style="margin-left: 10px;">Arquivo muito grande <% errorFile.size / 1000000|number:1 %>MB: máximo 2MB</i>
                     <i ng-show="form.file.$error.dimensions || form.fileDrop.$error.dimensions" style="margin-left: 10px;">
                         Tamanho inválido! O tamanho deve ser de 1180x570
                         <div class="btn btn-danger" ng-click="limparImagem()">Cancelar</div>
                     </i>
+
                     <br><br>
                 </div>
 

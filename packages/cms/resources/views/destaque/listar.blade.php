@@ -9,14 +9,14 @@
 </script>
     <div ng-controller="destaqueCtrl">
         <div class="box-padrao">
-            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;destaques</h1>
-            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Nova destaque</button>
+            <h1><i class="fa fa-fw fa-newspaper-o"></i>&nbsp;Destaques</h1>
+            <button class="btn btn-primary" ng-click="mostrarForm=!mostrarForm" ng-show="!mostrarForm">Nova Destaque</button>
             <button class="btn btn-warning" ng-click="mostrarForm=!mostrarForm" ng-show="mostrarForm">Cancelar</button>
             <br><br>
             <div ng-show="mostrarForm">
                 <span class="texto-obrigatorio" ng-show="form.$invalid">* campos obrigatórios</span><br><br>
                 {!! Form::open(['name' =>'form']) !!}
-                <div style="display: none;">
+                <div style="display:none;">
                     <div>Tamanho imagem: 1180 x 300 px</div>
                     <div class="container-thumb">
                         <div class="box-thumb" name="fileDrop" ngf-dimensions="$width == 1180 && $height == 300" ngf-drag-over-class="'box-thumb-hover'" ngf-drop ngf-select ng-model="picFile"
@@ -25,8 +25,8 @@
                     </div>
                     <br>
                     <span class="btn btn-primary btn-file" ng-show="!picFile">
-                        Escolher imagem <input  type="file" ngf-dimensions="$width == 535 && $height == 260" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
-                    </span>
+                    Escolher imagem <input  type="file" ngf-dimensions="$width == 535 && $height == 260" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
+                </span>
                     <button class="btn btn-danger" ng-click="picFile = null" ng-show="picFile" type="button">Remover Imagem</button>
                     <i ng-show="form.file.$error.maxSize || form.fileDrop.$error.maxSize" style="margin-left: 10px;">
                         Arquivo muito grande <% errorFile.size / 1000000|number:1 %>MB: máximo 2MB
@@ -36,6 +36,7 @@
                         Tamanho inválido! O tamanho deve ser de 1180x570
                         <div class="btn btn-danger" ng-click="limparImagem()">Cancelar</div>
                     </i>
+
                     <br><br>
                 </div>
 
@@ -75,20 +76,20 @@
                         <input class="form-control" type="text" ng-model="dadoPesquisa" placeholder="Faça sua busca"/>
                     </div>
                     <br>
-                    <div><% mensagemdestaquer %></div>
+                    <div><% mensagemDestaquer %></div>
                     <div ng-show="processandoListagem"><i class="fa fa-spinner fa-spin"></i> Processando...</div>
                     <h2 class="tabela_vazia" ng-show="!processandoListagem && totalItens==0">Nenhum registro encontrado!</h2>
                     <table ng-show="totalItens>0" class="table table-striped">
                         <thead>
                         <tr>
-                            <th ng-click="ordernarPor('id')" style="destaquer:pointer;">
+                            <th ng-click="ordernarPor('id')" style="cursor:pointer;">
                                 Id
                                 <i ng-if="ordem=='id' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='id' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
                             <th>Imagem</th>
-                            <th ng-click="ordernarPor('destaque')" style="destaquer:pointer;">
-                                destaque
+                            <th ng-click="ordernarPor('destaque')" style="cursor:pointer;">
+                                Destaque
                                 <i ng-if="ordem=='destaque' && sentidoOrdem=='asc'" class="fa fa-angle-double-down"></i>
                                 <i ng-if="ordem=='destaque' && sentidoOrdem=='desc'" class="fa fa-angle-double-up"></i>
                             </th>
