@@ -76,10 +76,116 @@
         @endif
     </article>
 
+    {{--VIDEOS E DESTAQUES DE TEXTO--}}
+    @if(true)
     <div class="container">
+            <?php
+            $col_video = 6;
+            $col_carousel = 6;
+            $height_artigo = '130px';
+            ?>
+        <div class="row">
+
+                <div class="col-xs-12 col-sm-{{$col_video}} col-md-{{$col_video}} col-lg-{{$col_video}}" ng-init="showVideo=false">
+                    <iframe width="100%" height="315"
+                            src="https://www.youtube.com/embed/@if(!empty($video)){{codigoYoutube($video->link_video)}}@endif"
+                            frameborder="0" allowfullscreen></iframe>
+                </div>
 
 
+                <div class="col-xs-12 col-sm-{{$col_carousel}} col-md-{{$col_carousel}} col-lg-{{$col_carousel}} box-destaque"
+                     ng-class="{'alto-contraste': altoContrasteAtivo}">
 
+                    <div id="carousel2" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                                <?php $cont_itens_wd2 = 0;?>
+                            @foreach($webdoors as $webdoor)
+                                <li data-target="#carousel2" data-slide-to="<?php echo $cont_itens_wd2;?>"
+                                    @if($cont_itens_wd2==0) class="active" @endif></li>
+                                    <?php $cont_itens_wd2++;?>
+                            @endforeach
+
+
+                        </ol>
+                        {{--DESTAQUE--}}
+                        <?php $cont = 0;?>
+                        @foreach($destaques as $destaque)
+                            <a href="{{$destaque->link}}" class="item @if($cont==0) active @endif">
+                                <div>
+                                    <h1 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$destaque->titulo}}</h1>
+                                    <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$destaque->chamada}}</h3>
+                                </div>
+                            </a>
+                            <?php $cont++;?>
+                        @endforeach
+                        {{----}}
+                        </div>
+                        <!-- Controls -->
+                        <a class="left carousel-control hidden-xs" href="#carousel2" role="button"
+                           data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control hidden-xs" href="#carousel2" role="button"
+                           data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+
+        </div>
+
+        <div class="marking bg-qua"></div>
+    </div>
+
+    <style>
+        .carousel-indicators {
+            bottom: -12px!important;;
+        }
+        .carousel-caption{
+            background-color:rgba(0, 0, 0, 0.5);
+            width: 100%;
+            right: 0%;
+            left: 0%;
+            padding-bottom: 0;
+            bottom: 0;
+        }
+        .carousel-caption h3{
+            color: #FFFFFF!important;
+            text-shadow: none;
+            padding:0 0 0 15px;
+            margin: 0;
+            text-align: left;
+            font-size: 18px!important;
+        }
+        .carousel-caption p{
+            color: #FFFFFF!important;
+            text-shadow: none;
+            padding:0 0 15px 15px;
+            margin: 0;
+            text-align: left;
+            font-size: 15px!important;
+        }
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+        .canvas-titulo{
+            font-size: 16px;
+            margin: 30px 0 -30px 0;
+            padding: 0;
+            position: relative;
+            text-align: center;
+        }
+    </style>
+    @endif
+    {{--FIM VIDEOS E DESTAQUES DE TEXTO--}}
+
+    <div class="container">
 
     @foreach($presentationRows as $row)
 

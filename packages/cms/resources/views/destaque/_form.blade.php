@@ -12,8 +12,13 @@ null, ['class'=>"form-control width-medio <% validar(destaque.idioma_sigla) %>",
 {!! Form::label('link', 'Link ') !!}<br>
 {!! Form::text('link', null, ['class'=>"form-control width-grande <% validar(destaque.link) %>", 'ng-model'=>'destaque.link', 'init-model'=>'destaque.link', 'placeholder' => '']) !!}<br>
 
+{!! Form::label('chamada', 'Chamada *') !!}<br>
+{!! Form::text('chamada', null, ['class'=>"form-control <% validar(destaque.chamada) %>", 'style' => 'width: 100%', 'maxlength' => '200', 'ng-model'=>'destaque.chamada', 'ng-required'=>'true', 'init-model'=>'destaque.chamada', 'placeholder' => '']) !!}<br>
+{{--
+
 {!! Form::label('chamada', 'Chamada') !!}<br>
 {!! Form::textarea('chamada', null, ['class'=>"form-control width-grande <% validar(destaque.chamada) %>", 'ui-tinymce'=>'tinymceOptions', 'ng-model'=>'destaque.chamada', 'init-model'=>'destaque.chamada']) !!}<br>
+--}}
 
 
 

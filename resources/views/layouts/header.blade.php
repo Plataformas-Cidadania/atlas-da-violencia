@@ -199,14 +199,14 @@ if($qtr==6){
                     <div class="col-xs-12 col-sm-{{$col_carousel}} col-md-{{$col_carousel}} col-lg-{{$col_carousel}} box-destaque"
                      ng-class="{'alto-contraste': altoContrasteAtivo}">
 
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <div id="carousel1" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
                             <?php $cont_itens_wd = 0;?>
                             {{--<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="1"></li>--}}
                             @foreach($webdoors as $webdoor)
-                                <li data-target="#carousel-example-generic" data-slide-to="<?php echo $cont_itens_wd;?>"
+                                <li data-target="#carousel1" data-slide-to="<?php echo $cont_itens_wd;?>"
                                     @if($cont_itens_wd==0) class="active" @endif></li>
                                 <?php /*?><li data-target="#carousel-example-generic" data-slide-to="<?php echo $cont_itens_wd;?>" @if($cont_itens_wd==0) class="active" @endif></li><?php */?>
                                 <?php $cont_itens_wd++;?>
@@ -280,12 +280,12 @@ if($qtr==6){
                         </div>
 
                         <!-- Controls -->
-                        <a class="left carousel-control hidden-xs" href="#carousel-example-generic" role="button"
+                        <a class="left carousel-control hidden-xs" href="#carousel1" role="button"
                            data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="right carousel-control hidden-xs" href="#carousel-example-generic" role="button"
+                        <a class="right carousel-control hidden-xs" href="#carousel1" role="button"
                            data-slide="next">
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>

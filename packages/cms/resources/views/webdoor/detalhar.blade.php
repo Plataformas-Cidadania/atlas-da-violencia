@@ -18,12 +18,12 @@
                 </div>
                 <br>
                 <span class="btn btn-primary btn-file" ng-show="!picFile && !imagemBD">
-                    Escolher imagem <input  type="file" ngf-dimensions="$width == 535 && $height == 260" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
+                    Escolher imagem <input  type="file" ngf-dimensions="$width == 1180 && $height == 300" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
                 </span>
                 <button class="btn btn-danger" ng-click="limparImagem()" ng-show="picFile || imagemBD" type="button">Remover Imagem</button>
                 <i ng-show="form.file.$error.maxSize" style="margin-left: 10px;">Arquivo muito grande <% errorFile.size / 1000000|number:1 %>MB: máximo 2MB</i>
                 <i ng-show="form.file.$error.dimensions || form.fileDrop.$error.dimensions" style="margin-left: 10px;">
-                    Tamanho inválido! O tamanho deve ser de 1180x570
+                    Tamanho inválido! O tamanho deve ser de 1180x300
                     <div class="btn btn-danger" ng-click="limparImagem()">Cancelar</div>
                 </i>
 

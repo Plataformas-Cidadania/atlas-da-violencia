@@ -202,7 +202,8 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 }
             });
 
-            $('.carousel').carousel({
+            //$('.carousel').carousel({
+            $('#carousel-example-generic #carousel2').carousel({
                 //interval: 10000
             })
 
@@ -224,7 +225,8 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     }
                 });
 
-                $('.carousel').carousel({
+                //$('.carousel').carousel({
+                $('#carousel-example-generic #carousel-example-generic2').carousel({
                     //interval: 10000
                 })
 

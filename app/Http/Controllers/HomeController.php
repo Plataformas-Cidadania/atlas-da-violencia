@@ -25,6 +25,7 @@ class HomeController extends Controller
             ->get();
         $bemvindo = DB::table('quemsomos')->where('idioma_sigla', $lang)->where('tipo', 0)->first();
         $webdoors = DB::table('webdoors')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->take(10)->get();
+        $destaques = DB::table('destaques')->where('idioma_sigla', $lang)->orderBy('id', 'desc')->take(10)->get();
         $menu = \App\Menu::where('menu_id', 0)->get();
         //$video = \App\Video::orderBy('id', 'desc')->first();
         $video = \App\Video::where('destaque', 1)->first();
@@ -78,6 +79,7 @@ class HomeController extends Controller
             'links' => $links,
             'tags' => $tags,
             'webdoors' => $webdoors,
+            'destaques' => $destaques,
             'menu' => $menu,
             'video' => $video,
             'indices' => $indices,
