@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Text;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -263,6 +264,8 @@ class SerieController extends Controller
 
         $abrangenciasOk = $this->verifyExistsRegions($abrangencias, $serie_id);
 
+        $textoGrafico = Text::where('slug', 'texto-grafico-serie')->first();
+
         return view('data-series', [
             'id' => $serie_id,
             'series' => $serie,
@@ -273,6 +276,7 @@ class SerieController extends Controller
             'abrangenciasOk' => $abrangenciasOk,
             'abrangencias' => $this->abrangencias,
             'setting' => $setting,
+            'textoGrafico' => $textoGrafico,
         ]);
     }
 

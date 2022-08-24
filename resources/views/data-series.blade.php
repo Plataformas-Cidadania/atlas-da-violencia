@@ -358,6 +358,8 @@
                 lang_all = "@lang('react.all')";
                 lang_remove_all = "@lang('react.remove-all')";
 
+                textoGrafico = @if($textoGrafico)"{!! str_replace('"', '\"', preg_replace( "/\r|\n/", "", $textoGrafico->descricao)) !!}"@else" "@endif;
+
             </script>
 
             <script>

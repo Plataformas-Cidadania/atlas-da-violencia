@@ -500,6 +500,7 @@ class PgSerie extends React.Component {
                 "div",
                 { style: { display: this.state.showCharts ? 'block' : 'none' } },
                 React.createElement(Topico, { icon: "icon-group-chart", text: this.props.lang_graphics }),
+                React.createElement("div", { dangerouslySetInnerHTML: { __html: this.props.textoGrafico } }),
                 React.createElement(
                     "div",
                     null,
@@ -1145,6 +1146,8 @@ ReactDOM.render(React.createElement(PgSerie, {
     lang_cancel: lang_cancel,
     lang_continue: lang_continue,
     lang_all: lang_all,
-    lang_remove_all: lang_remove_all
+    lang_remove_all: lang_remove_all,
+
+    textoGrafico: textoGrafico
 
 }), document.getElementById('pgSerie'));

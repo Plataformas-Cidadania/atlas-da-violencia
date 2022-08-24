@@ -477,6 +477,8 @@ class PgSerie extends React.Component{
 
                     <Topico icon="icon-group-chart" text={this.props.lang_graphics}/>
 
+                    <div dangerouslySetInnerHTML={{__html: this.props.textoGrafico}} />
+
                     <div>
                         <div style={{textAlign: 'right'}}>
                             <div className={"icons-charts" + (this.state.chartLine ? " icon-chart-line" : " icon-chart-line-disable")}
@@ -947,6 +949,7 @@ ReactDOM.render(
         lang_all={lang_all}
         lang_remove_all={lang_remove_all}
 
+        textoGrafico={textoGrafico}
 
     />,
     document.getElementById('pgSerie')
