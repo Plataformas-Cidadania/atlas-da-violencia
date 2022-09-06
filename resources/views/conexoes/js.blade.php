@@ -534,7 +534,8 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     <script src="js/components/pagination.js"></script>
     <script src="js/components/filters/modal.js"></script>
     <script src="js/components/filters/download.js"></script>
-    <script src="js/components/filters/temasSelect.js"></script>
+    <script src="js/components/filters/temasIcones.js"></script>
+    {{--<script src="js/components/filters/temasSelect.js"></script>--}}
     <script src="js/components/filters/subtemas.js"></script>
     <script src="js/components/filters/filter.js"></script>
     <script src="js/components/filters/list.js"></script>
