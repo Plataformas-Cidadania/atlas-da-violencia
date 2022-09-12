@@ -336,3 +336,7 @@ Route::get('count-brt/', 'RealTimeController@brtDateHour');
 Route::get('count-brt2/', 'RealTimeController@brtDate');
 ///////////////////////////////////////////////////////////////
 Route::get('/save-radares', 'RadaresController@saveRadares');
+
+/////////////////////////////////////////////////////////////////////
+
+Route::get('get-text/', 'TextController@getText');

@@ -2,6 +2,7 @@ class PageFilters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            text: '',
             items: { data: [] },
             tema: props.tema_id,
             tipo: props.tipo,
@@ -36,10 +37,29 @@ class PageFilters extends React.Component {
         this.loadDefaultValues = this.loadDefaultValues.bind(this);
         this.loadRegions = this.loadRegions.bind(this);
         this.modalDownload = this.modalDownload.bind(this);
+        this.loadText = this.loadText.bind(this);
     }
 
     componentDidMount() {
         this.loadItems();
+        this.loadText();
+    }
+
+    loadText() {
+        $.ajax({
+            method: 'GET',
+            url: "get-text/",
+            data: {
+                slug: 'filtros-series'
+            },
+            cache: false,
+            success: function (data) {
+                this.setState({ text: data.descricao });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
     }
 
     setTema(tema) {
@@ -261,6 +281,9 @@ class PageFilters extends React.Component {
                 null,
                 this.props.lang_inquiries
             ),
+            React.createElement('div', {
+                dangerouslySetInnerHTML: { __html: this.state.text }
+            }),
             React.createElement('br', null),
             React.createElement(
                 'div',
