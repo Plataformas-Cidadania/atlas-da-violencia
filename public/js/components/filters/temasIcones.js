@@ -67,45 +67,72 @@ class Temas extends React.Component {
             subtema = React.createElement(Subtema, { setTema: this.props.setTema, tema_id: this.state.id, tipo: this.state.tipo });
         }
 
-        /*let temas = this.state.temas.map(function(item){
-            return (
-                <div key={"tema2_"+item.id}
-                     style={{float: 'left', padding: '3px', cursor: 'pointer', width: '120px'}}
-                     className="" title={item.tema}
-                     onClick={() => this.select2(item.id)}
-                >
-                        <img src={item.imagem ? "imagens/temas/sm-"+(item.imagem) : "img/default64.png"} className={(this.state.id==item.id ? '' : 'img-disable')}  />
-                        <p style={{textTransform: 'capitalize', marginTop: '5px', height: '25px'}}>{item.tema.substr(0, 35).toLowerCase()}</p>
-                </div>
-            );
-        }.bind(this));*/
-
         //let temaSelected = "Selecione um Tema";
         let temaSelected = this.props.lang_select_themes;
 
         let temas = this.state.temas.map(function (item) {
 
-            //let tema = item.titulo.substr(0, 25);
-            let tema = item.titulo;
-
             if (item.id == this.state.id) {
+                /*temaSelected = (
+                    <div className="col-md-2" style={{height: '200px', textAlign: 'center'}}>
+                        <img src={(item.imagem)} className={"imgLinks" + (this.state.id==item.id ? '' : 'img-disable')} width="127px" style={{marginBottom: '5px'}}  />
+                        <div>
+                            <h2 className="titulo-itens">{item.titulo}</h2>
+                        </div>
+                    </div>
+                );*/
                 temaSelected = React.createElement(
                     'div',
                     null,
-                    React.createElement('img', { src: item.imagem, className: this.state.id == item.id ? '' : 'img-disable', width: '16px' }),
-                    '\xA0\xA0',
-                    tema,
-                    ' ',
-                    React.createElement('i', { className: 'fa fa-sort-down' })
+                    React.createElement(
+                        'h1',
+                        null,
+                        React.createElement('img', { className: 'imgLinks', src: item.imagem }),
+                        ' ',
+                        item.titulo
+                    ),
+                    React.createElement('br', null),
+                    React.createElement(
+                        'h4',
+                        null,
+                        item.resumida
+                    ),
+                    React.createElement('br', null),
+                    React.createElement(
+                        'a',
+                        { style: { cursor: 'pointer', fontWeight: 'bold', fontSize: '18px' }, onClick: () => this.select2(0) },
+                        React.createElement('i', { className: 'fa fa-arrow-circle-left' }),
+                        ' Trocar tema'
+                    )
                 );
             }
 
+            /*return (
+                <div className="col-md-2" key={'tema_'+item.id} style={{cursor:'pointer', height: '200px', textAlign: 'center'}} onClick={() => this.select2(item.id)}>
+                    <img src={(item.imagem)} className={(this.state.id==item.id ? '' : 'img-disable')} width="127px" style={{marginBottom: '20px'}} />
+                    <div>
+                        <h2 className="titulo-itens">{item.titulo}</h2>
+                    </div>
+                </div>
+            );*/
             return React.createElement(
                 'div',
-                { key: 'tema_' + item.id, style: { cursor: 'pointer', padding: '5px' }, onClick: () => this.select2(item.id) },
-                React.createElement('img', { src: item.imagem, className: this.state.id == item.id ? '' : 'img-disable', width: '16px' }),
-                '\xA0\xA0',
-                item.titulo
+                { className: 'filtros box-itens block', key: 'tema_' + item.id, style: { cursor: 'pointer' }, onClick: () => this.select2(item.id) },
+                React.createElement(
+                    'div',
+                    null,
+                    React.createElement('img', { className: 'imgLinks', src: item.imagem, alt: item.resumida, title: item.resumida }),
+                    React.createElement(
+                        'div',
+                        null,
+                        React.createElement(
+                            'h2',
+                            { className: 'titulo-itens', onClick: () => this.select2(item.id) },
+                            item.titulo
+                        )
+                    ),
+                    React.createElement('div', { className: 'box-itens-filete' })
+                )
             );
         }.bind(this));
 
@@ -114,8 +141,8 @@ class Temas extends React.Component {
             null,
             React.createElement(
                 'div',
-                { style: { clear: 'left' } },
-                temas
+                null,
+                this.state.id > 0 ? temaSelected : temas
             ),
             subtema
         );

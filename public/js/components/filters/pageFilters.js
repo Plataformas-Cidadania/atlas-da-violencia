@@ -116,6 +116,9 @@ class PageFilters extends React.Component {
     loadItems() {
         //console.log(this.state);
         //console.log(this.state.currentPageListItems);
+        if (!this.state.tema > 0) {
+            return;
+        }
         let emptyItems = { data: [] };
         this.setState({ items: emptyItems, loadingItems: true });
         $.ajax({
@@ -292,24 +295,15 @@ class PageFilters extends React.Component {
                     'div',
                     { className: 'col-md-12' },
                     React.createElement(
-                        'fieldset',
-                        { style: { marginTop: '-15px' } },
-                        React.createElement(
-                            'legend',
-                            null,
-                            this.props.lang_themes
-                        ),
-                        React.createElement(
-                            'div',
-                            { style: { margin: '10px' } },
-                            React.createElement(Temas, {
-                                tipo: this.state.tipo,
-                                tema_id: this.state.tema,
-                                consulta_por_temas: this.props.consulta_por_temas,
-                                setTema: this.setTema,
-                                lang_select_themes: this.props.lang_select_themes
-                            })
-                        )
+                        'div',
+                        null,
+                        React.createElement(Temas, {
+                            tipo: this.state.tipo,
+                            tema_id: this.state.tema,
+                            consulta_por_temas: this.props.consulta_por_temas,
+                            setTema: this.setTema,
+                            lang_select_themes: this.props.lang_select_themes
+                        })
                     ),
                     React.createElement(
                         'fieldset',
@@ -350,7 +344,7 @@ class PageFilters extends React.Component {
                         React.createElement(
                             'h4',
                             null,
-                            this.props.lang_no_results_title
+                            this.state.tema > 0 ? this.props.lang_no_results_title : 'Selecione um Tema'
                         ),
                         React.createElement(
                             'h5',

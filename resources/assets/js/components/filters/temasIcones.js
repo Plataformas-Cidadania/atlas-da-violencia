@@ -67,48 +67,60 @@ class Temas extends React.Component{
             subtema = <Subtema setTema={this.props.setTema} tema_id={this.state.id} tipo={this.state.tipo}/>
         }
 
-        /*let temas = this.state.temas.map(function(item){
-            return (
-                <div key={"tema2_"+item.id}
-                     style={{float: 'left', padding: '3px', cursor: 'pointer', width: '120px'}}
-                     className="" title={item.tema}
-                     onClick={() => this.select2(item.id)}
-                >
-                        <img src={item.imagem ? "imagens/temas/sm-"+(item.imagem) : "img/default64.png"} className={(this.state.id==item.id ? '' : 'img-disable')}  />
-                        <p style={{textTransform: 'capitalize', marginTop: '5px', height: '25px'}}>{item.tema.substr(0, 35).toLowerCase()}</p>
-                </div>
-            );
-        }.bind(this));*/
-
         //let temaSelected = "Selecione um Tema";
         let temaSelected = this.props.lang_select_themes;
 
         let temas = this.state.temas.map(function(item){
 
-            //let tema = item.titulo.substr(0, 25);
-            let tema = item.titulo;
 
             if(item.id==this.state.id){
+                /*temaSelected = (
+                    <div className="col-md-2" style={{height: '200px', textAlign: 'center'}}>
+                        <img src={(item.imagem)} className={"imgLinks" + (this.state.id==item.id ? '' : 'img-disable')} width="127px" style={{marginBottom: '5px'}}  />
+                        <div>
+                            <h2 className="titulo-itens">{item.titulo}</h2>
+                        </div>
+                    </div>
+                );*/
                 temaSelected = (
                     <div>
-                        <img src={(item.imagem)} className={(this.state.id==item.id ? '' : 'img-disable')} width="16px"  />&nbsp;&nbsp;
-                        {tema} <i className="fa fa-sort-down"/>
+                        <h1>
+                            <img className="imgLinks" src={(item.imagem)}/> {item.titulo}
+                        </h1>
+                        <br/>
+                        <h4>{item.resumida}</h4>
+                        <br/>
+                        <a style={{cursor: 'pointer', fontWeight: 'bold', fontSize: '18px'}} onClick={() => this.select2(0)}><i className="fa fa-arrow-circle-left"/> Trocar tema</a>
                     </div>
                 );
             }
 
+
+            /*return (
+                <div className="col-md-2" key={'tema_'+item.id} style={{cursor:'pointer', height: '200px', textAlign: 'center'}} onClick={() => this.select2(item.id)}>
+                    <img src={(item.imagem)} className={(this.state.id==item.id ? '' : 'img-disable')} width="127px" style={{marginBottom: '20px'}} />
+                    <div>
+                        <h2 className="titulo-itens">{item.titulo}</h2>
+                    </div>
+                </div>
+            );*/
             return (
-                <div key={'tema_'+item.id} style={{cursor:'pointer', padding:'5px'}} onClick={() => this.select2(item.id)}>
-                    <img src={(item.imagem)} className={(this.state.id==item.id ? '' : 'img-disable')} width="16px" />&nbsp;&nbsp;
-                    {item.titulo}
+                <div className="filtros box-itens block" key={'tema_'+item.id} style={{cursor:'pointer'}} onClick={() => this.select2(item.id)}>
+                    <div>
+                        <img className="imgLinks" src={(item.imagem)} alt={item.resumida} title={item.resumida}/>
+                        <div>
+                            <h2 className="titulo-itens" onClick={() => this.select2(item.id)}>{item.titulo}</h2>
+                        </div>
+                        <div className="box-itens-filete"/>
+                    </div>
                 </div>
             );
         }.bind(this));
 
         return(
             <div>
-                <div style={{clear:'left'}}>
-                    {temas}
+                <div>
+                    {(this.state.id > 0 ? temaSelected : temas)}
                 </div>
                 {subtema}
             </div>

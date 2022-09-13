@@ -33,8 +33,8 @@ class FiltrosController extends Controller
         //$lang =  "es";
 
 
-
-        $consulta_por_temas = DB::table('settings')->orderBy('id', 'desc')->first()->consulta_por_temas;
+        //Removido por conta da tarefa ADV-106
+        /*$consulta_por_temas = DB::table('settings')->orderBy('id', 'desc')->first()->consulta_por_temas;
         $favicon = DB::table('favicons')->select('imagem')->first();
 
         $todos->id = $tema_id;
@@ -44,9 +44,11 @@ class FiltrosController extends Controller
             $todos->titulo = trans('react.select-themes');
         }
         $todos->position = 0;
-        array_push($temas, $todos);
 
-        $temasBd = \App\Tema::select('temas.id', 'idiomas_temas.titulo', 'temas.imagem')
+        array_push($temas, $todos);
+        */
+
+        $temasBd = \App\Tema::select('temas.id', 'idiomas_temas.titulo', 'temas.imagem', 'idiomas_temas.resumida')
             ->where('temas.tema_id', $tema_id)
             ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
             ->where('idiomas_temas.idioma_sigla', $lang)
@@ -63,7 +65,7 @@ class FiltrosController extends Controller
         }
 
         foreach ($temasBd as $tema) {
-            $tema->imagem = "imagens/temas/sm-".$tema->imagem;
+            $tema->imagem = "imagens/temas/".$tema->imagem;
             array_push($temas, $tema);
         }
 

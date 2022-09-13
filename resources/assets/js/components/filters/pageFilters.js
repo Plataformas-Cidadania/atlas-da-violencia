@@ -150,6 +150,9 @@ class PageFilters extends React.Component{
     loadItems(){
         //console.log(this.state);
         //console.log(this.state.currentPageListItems);
+        if(!this.state.tema > 0){
+            return;
+        }
         let emptyItems = {data: []};
         this.setState({items: emptyItems, loadingItems: true});
         $.ajax({
@@ -314,7 +317,7 @@ class PageFilters extends React.Component{
                 <br/>
                 <div className="row">
                     <div className="col-md-12">
-                        <fieldset style={{marginTop: '-15px'}}>
+                        {/*<fieldset style={{marginTop: '-15px'}}>
                             <legend>{this.props.lang_themes}</legend>
                             <div style={{margin: '10px'}}>
                                 <Temas
@@ -325,7 +328,16 @@ class PageFilters extends React.Component{
                                     lang_select_themes={this.props.lang_select_themes}
                                 />
                             </div>
-                        </fieldset>
+                        </fieldset>*/}
+                        <div>
+                            <Temas
+                                tipo={this.state.tipo}
+                                tema_id={this.state.tema}
+                                consulta_por_temas={this.props.consulta_por_temas}
+                                setTema={this.setTema}
+                                lang_select_themes={this.props.lang_select_themes}
+                            />
+                        </div>
 
                             <fieldset style={{display: this.props.filtroIndicadores == 0 ? 'none' : ''}}>
                                 <legend>{this.props.lang_documents}</legend>
@@ -362,7 +374,7 @@ class PageFilters extends React.Component{
                         <br/>
                         <div className="text-center" style={{display: this.state.loadingItems ? '' : 'none'}}><i className="fa fa-spin fa-spinner fa-3x"/></div>
                         <div style={{display: items.data.length > 0 || this.state.loadingItems ? 'none' : ''}} className="no-results">
-                            <h4>{this.props.lang_no_results_title}</h4>
+                            <h4>{this.state.tema > 0 ? this.props.lang_no_results_title : 'Selecione um Tema'}</h4>
                             <h5 style={{display: this.props.consulta_por_temas == 1 ? '' : 'none'}}>{this.props.lang_no_results_subtitle}</h5>
                         </div>
                         <div style={{display: items.data.length > 0 ? '' : 'none'}}>
