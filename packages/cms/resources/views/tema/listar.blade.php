@@ -103,7 +103,7 @@
                         <tbody>
                         <tr ng-repeat="tema in temas">
                             <td><% tema.id %></td>
-                            <td><img ng-show="tema.imagem" ng-src="imagens/temas/xs-<% tema.imagem %>"  width="60"></td>
+                            <td><img ng-show="tema.imagem" ng-src="imagens/temas/sm-<% tema.imagem %>"  width="60"></td>
                             <td><a href="cms/idiomas-temas/<% tema.id %>"><% tema.titulo %></a></td>
                             <td><a href="cms/idiomas-temas/<% tema.id %>"><% tema.idioma_sigla %></a></td>
                             <td><a href="cms/idiomas-temas/<% tema.id %>"><% tema.position %></a></td>
