@@ -7,7 +7,7 @@ return [
     'researches' => 'Research',
     'indicators' => 'Indicators',
     'articles' => 'Publications',
-    'articles2' => 'Publications Ipea',
+    'articles2' => 'Library Ipea',
     'articles3' => 'Publications',
     'videos' => 'Videos',
     'videos-ipea' => 'Videos Ipea',
@@ -16,7 +16,7 @@ return [
     'contact' => 'Contact',
     'news' => 'News',
     'partners' => 'Partners',
-    'publications' => 'Publications',
+    'publications' => 'Library',
 
     'skip-content' => 'Go to content',
     'go-menu' => 'Go to menu',

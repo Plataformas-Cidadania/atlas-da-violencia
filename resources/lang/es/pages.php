@@ -12,12 +12,12 @@ return [
     'construction' => 'Em construcción',
 
     'rp-collections' => 'Temas',
-    'rp-services' => 'Mantenimiento',
+    'rp-services' => 'Contenido',
     'rp-networks' => 'Redes sociales',
     'rp-about' => 'El sitio',
 
     'publications' => 'Publicaciones',
-    'publication' => 'Publicación',
+    'publication' => 'Biblioteca',
 
     'show-more' => 'MOSTRAR MÁS',
 
