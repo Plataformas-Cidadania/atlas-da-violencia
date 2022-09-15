@@ -4,7 +4,7 @@
     {!! Html::script('assets-cms/js/controllers/alterarLinkCtrl.js') !!}
     <div ng-controller="alterarLinkCtrl">
         <div class="box-padrao">
-            <h1><a href="../links"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Links</h1>
+            <h1><a href="cms/links"><i class="fa fa-arrow-circle-left"></i></a>&nbsp;&nbsp;Links</h1>
             <?php //print_r($link);?>
             <div ng-init="carregaImagem('{{$link->imagem}}')">
                 <span class="texto-obrigatorio">* campos obrigatórios</span><br><br>

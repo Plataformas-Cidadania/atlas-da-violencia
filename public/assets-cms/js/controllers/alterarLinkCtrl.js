@@ -42,7 +42,7 @@ cmsApp.controller('alterarLinkCtrl', ['$scope', '$http', 'Upload', '$timeout', f
                 $scope.picFile = null;//limpa o form
                 $scope.mensagemSalvar =  "Gravado com sucesso!";
                 $scope.removerImagem = false;
-                $scope.imagemBD = '/imagens/links/'+response.data;
+                $scope.imagemBD = 'imagens/links/'+response.data;
                 console.log($scope.imagemDB);
             }, function (response) {
                 if (response.status > 0){
