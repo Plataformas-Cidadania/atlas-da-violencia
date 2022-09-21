@@ -375,7 +375,7 @@
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
                 <div class="row box-hoje">
-                    <h3>@lang('pages.indexes')</h3>
+                    <h2 style="color: #EF921A;"><strong>@lang('pages.indexes')</strong></h2>
                     <?php $cont_indice = 1;?>
                     @foreach($indices as $indice)
                     <div class="col-md-3">
