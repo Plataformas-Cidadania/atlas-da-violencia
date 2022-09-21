@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'indexes' => 'Indexes',
+    'indexes' => 'Contador de homicidios en Brasil (datos de 2019)',
     'rights' => 'Todos los derechos reservados',
     'author' => 'Author',
     'authors' => 'Authors',

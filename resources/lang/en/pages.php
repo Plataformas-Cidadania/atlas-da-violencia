@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'indexes' => 'Indexes',
+    'indexes' => 'Homicide counter in Brazil (2019 data)',
     'rights' => 'All rights reserved',
     'author' => 'Author',
     'authors' => 'Authors',
