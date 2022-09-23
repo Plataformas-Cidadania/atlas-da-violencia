@@ -75,7 +75,7 @@ class PageFilters extends React.Component{
     }
 
     componentDidMount(){
-        this.loadItems();
+        //this.loadItems();
         this.loadText();
     }
 
