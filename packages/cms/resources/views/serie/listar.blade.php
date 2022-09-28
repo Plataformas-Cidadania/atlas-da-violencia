@@ -214,7 +214,7 @@
                                 </div>
 
 
-                                <div class="col-md-12" ng-if="tipoDados==0">
+                                <div class="col-md-12" ng-show="tipoDados==0">
                                     <p>
                                         <?php
                                         $abrangencias = [
@@ -240,11 +240,12 @@
                                     </p>
                                 </div>
 
-                                <div class="col-md-12" ng-if="tipoDados==1">
+                                <div class="col-md-12" ng-show="tipoDados==1">
 
                                     <label for="ano_pontos">Ano</label>
                                     <input class="form-control" type="text" id="ano_pontos" name="ano_pontos" ng-model="ano_pontos"> 0 para todos
                                 </div>
+
                             </div>
                             <div ng-show="processandoLimparValores"><i class="fa fa-spinner fa-spin"></i> Processando...</div>
                             <div class="mensagem-ok text-center text-danger"><% mensagemExcluidoValores %></div>

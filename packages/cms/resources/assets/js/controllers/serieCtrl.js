@@ -2,7 +2,7 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
 
 
     $scope.tipoDados = 0;
-    $scope.abrangenciaLimpar = 0;
+    $scope.abrangenciaLimpar = null;
     $scope.ano_pontos = 0;
 
     $scope.tipo_territorios = null;
@@ -261,7 +261,6 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
     };
     //////////////////////////////////
 
-
     //LIMPAR VALORES///////////////////////////
     $scope.perguntaLimparValores = function (id, titulo, imagem){
         $scope.idLimparValores = id;
@@ -269,8 +268,14 @@ cmsApp.controller('serieCtrl', ['$scope', '$http', 'Upload', '$timeout', functio
         $scope.mensagemExcluidoValores = "";
     };
 
+
     $scope.limpar = function(id){
         $scope.processandoLimparValores = true;
+        if($scope.abrangenciaLimpar === null || $scope.abrangenciaLimpar === undefined){
+            $scope.processandoLimparValores = false;
+            $scope.mensagemExcluidoValores = "Selecione uma abrangência!";
+            return;
+        }
         $http({
             url: 'cms/limpar-valores-serie/'+id+'/'+$scope.abrangenciaLimpar+'/'+$scope.tipoDados+'/'+$scope.ano_pontos,
             method: 'GET'
