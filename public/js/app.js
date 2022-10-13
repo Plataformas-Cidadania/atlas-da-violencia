@@ -1,5 +1,5 @@
 //var ipeaApp = angular.module('ipeaApp', ['ui.bootstrap'] ,['$interpolateProvider', function($interpolateProvider) {
-var ipeaApp = angular.module('ipeaApp', [] ,['$interpolateProvider', function($interpolateProvider) {
+var ipeaApp = angular.module('ipeaApp', ['ui.bootstrap'] ,['$interpolateProvider', function($interpolateProvider) {
     $interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');
 }]);
