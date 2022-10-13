@@ -459,7 +459,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     i=total;
                 }
                 $(id).html(i);
-            }, 5)
+            }, 30)
         }
 
         function nomeIndices(id, text) {
