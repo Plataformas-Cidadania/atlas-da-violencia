@@ -23,7 +23,7 @@ $protocol = env('APP_PROTOCOL');
                 <span class="btn btn-primary btn-file" ng-show="!picFile && !imagemBD">
                     Escolher imagem <input  type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile">
                 </span>
-                <button class="btn btn-danger" ng-click="limparImagem()" ng-show="picFile || imagemBD" type="button">Remover Imagem</button>
+                <button class="btn btn-danger" ng-click="limparImagem()" ng-show="picFile || imagemBD" type="button" style="margin-top: 30px;">Remover Imagem</button>
                 <i ng-show="form.file.$error.maxSize" style="margin-left: 10px;">Arquivo muito grande <% errorFile.size / 1000000|number:1 %>MB: máximo 2MB</i>
 
                 <br><br>
