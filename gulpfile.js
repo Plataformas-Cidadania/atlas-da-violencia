@@ -309,6 +309,7 @@ elixir(function(mix) {
         'lib/angular/angular.min.js',
         'lib/angular/angular-locale_pt-br.js',
         'lib/jquery/jquery.smoove.min.js',
+        'lib/angular/ui-bootstrap-tpls-1.1.2.min.js',
         'app.js',
         'utils.js',
         'lib/range/ion.rangeSlider.js',

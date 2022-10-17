@@ -6,7 +6,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
     ->where('textos_series.idioma_sigla', $lang)
     ->first();
 ?>
-
+{{--{!! Html::script('assets-cms/lib/angular/ui-bootstrap-tpls-1.1.2.min.js') !!}--}}
 <script src="js/all.js"></script>
 {{--<script src="lib/apexcharts/apexcharts.min.js"></script>--}}
 {{--<script src="lib/apexcharts/prop-types.min.js"></script>--}}
@@ -22,7 +22,6 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
 
 @if($rota=='artigos')
     {!! Html::script('assets-cms/lib/angular/pagination.js') !!}
-    {!! Html::script('assets-cms/lib/angular/ui-bootstrap-tpls-1.1.2.min.js') !!}
     <script>
         ipeaApp.controller('artigosCtrl', ['$scope', '$http', function($scope, $http){
 
@@ -85,17 +84,17 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 }).error(function(data){
                     $scope.erroContato = true;
                     $scope.enviandoContato = false;
-                    console.log(data);
+                    //console.log(data);
                     //$scope.messageInserir = "Ocorreu um erro: "+data;
                 });
             };
 
             $scope.dadosParametrosBusca = function (){
-                console.log('DADOS PARAMETROS BUSCA');
+                //console.log('DADOS PARAMETROS BUSCA');
                 $scope.loading = true;
                 $http.get("dados-parametros-busca-artigos", {}).success(function (data){
                     $scope.loading = false;
-                    console.log(data);
+                    //console.log(data);
                     $scope.anos = data.anos;
                     $scope.autores = data.authors;
                     $scope.assuntos = data.assuntos;
@@ -103,7 +102,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 }).error(function(data){
                     $scope.erroContato = true;
                     $scope.enviandoContato = false;
-                    console.log(data);
+                    //console.log(data);
                     //$scope.messageInserir = "Ocorreu um erro: "+data;
                 });
             };
@@ -163,7 +162,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                     }
                 }
 
-                console.log(texto);
+                //console.log(texto);
                 return texto;
             }
             /////////////////////////////////
