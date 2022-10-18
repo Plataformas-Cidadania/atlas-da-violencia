@@ -4,6 +4,16 @@
 
     <br><br>
 
+    @if($textoLinks)
+    <div class="container">
+        <div class="row">
+            <div class="cos-md-12">
+                {!! $textoLinks->descricao !!}
+            </div>
+        </div>
+    </div>
+    @endif
+
     <article>
         @if(!empty($links) && $setting->links==1)
             <div class="container block" data-move-x="500px">

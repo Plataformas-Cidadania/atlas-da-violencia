@@ -277,7 +277,9 @@ class ArtigoController extends Controller
 
     public function index(){
 
-        return view('artigo.listar-atlas-vl-angularjs');
+        $textArtigo = \App\Text::where('slug', 'artigos')->first();
+
+        return view('artigo.listar-atlas-vl-angularjs', ["textArtigo" => $textArtigo]);
     }
 
     public function dadosPesquisa(){

@@ -27,6 +27,11 @@
 
                 <h1>@lang('links.articles2')</h1>
                 <div class="line_title bg-pri"></div>
+                @if($textArtigo)
+                <br>
+                <p>{!! $textArtigo->descricao !!}</p>
+                <br>
+                @endif
             </div>
         </div>
         <br>

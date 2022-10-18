@@ -3,6 +3,7 @@ class PageFilters extends React.Component {
         super(props);
         this.state = {
             text: '',
+            textPesquisa: '',
             items: { data: [] },
             tema: props.tema_id,
             tipo: props.tipo,
@@ -43,18 +44,36 @@ class PageFilters extends React.Component {
     componentDidMount() {
         //this.loadItems();
         this.loadText();
+        this.loadTextPesquisa();
     }
 
     loadText() {
         $.ajax({
             method: 'GET',
-            url: "get-text/",
+            url: "get-text",
             data: {
                 slug: 'filtros-series'
             },
             cache: false,
             success: function (data) {
                 this.setState({ text: data.descricao });
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.log('erro');
+            }.bind(this)
+        });
+    }
+
+    loadTextPesquisa() {
+        $.ajax({
+            method: 'GET',
+            url: "get-text",
+            data: {
+                slug: 'filtros-series-pesquisa'
+            },
+            cache: false,
+            success: function (data) {
+                this.setState({ textPesquisa: data.descricao });
             }.bind(this),
             error: function (xhr, status, err) {
                 console.log('erro');
@@ -329,7 +348,11 @@ class PageFilters extends React.Component {
                 ),
                 React.createElement(
                     'div',
-                    { className: 'col-md-12' },
+                    { className: 'col-md-12', style: { display: this.state.tema > 0 ? '' : 'none' } },
+                    React.createElement('br', null),
+                    React.createElement('div', {
+                        dangerouslySetInnerHTML: { __html: this.state.textPesquisa }
+                    }),
                     React.createElement('br', null),
                     React.createElement('input', { className: 'form-control', onChange: this.handleSearch, type: 'text', placeholder: this.props.lang_search_name }),
                     React.createElement('br', null),

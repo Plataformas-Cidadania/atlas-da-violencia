@@ -18,6 +18,7 @@ class HomeController extends Controller
 
         $setting = \App\Setting::first();
         $tags = DB::table('links')->select('tags')->groupBy('tags')->orderBy('tags')->get();
+        $textoLinks = DB::table('texts')->where('slug', 'home-links')->first();
         $links = DB::table('links')
             ->where('links.idioma_sigla', $lang)
             ->orderBy('links.posicao')
@@ -76,6 +77,7 @@ class HomeController extends Controller
             'ultimaPostagem' => $ultimaPostagem,
             'rotaUltimaPostagem' => $rotaUltimaPostagem,
             'noticias' => $noticias,
+            'textoLinks' => $textoLinks,
             'links' => $links,
             'tags' => $tags,
             'webdoors' => $webdoors,
