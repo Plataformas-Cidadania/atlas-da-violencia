@@ -20,8 +20,10 @@ class VideoController extends Controller
 
         $paginateUrl = env('APP_PROTOCOL').config('app.url').'/videos'.$parametro_outros;
         $videos->setPath($paginateUrl);
+
+        $textVideos = \App\Text::where('slug', 'videos')->first();
        
-        return view('video.listar', ['videos' => $videos, 'search' => "", 'outros' => $outros]);
+        return view('video.listar', ['videos' => $videos, 'search' => "", 'outros' => $outros, 'textVideos' => $textVideos]);
     }
 
     public function buscar(Request $request){

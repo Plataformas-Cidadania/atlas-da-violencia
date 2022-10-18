@@ -11,6 +11,13 @@
             </div>
         </h2>
         <div class="line_title bg-pri"></div>
+
+        @if($textVideos)
+            <br>
+            <p>{!! $textVideos->descricao !!}</p>
+            <br>
+        @endif
+
         <div class="row">
             <h3>
                 <div class="col-md-6">
