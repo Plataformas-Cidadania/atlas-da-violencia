@@ -24,10 +24,10 @@ class DestaqueController extends Controller
         ];
         $this->pathImagem = public_path().'/imagens/destaques';
         $this->sizesImagem = [
-            'xs' => ['width' => 200, 'height' => 51],
-            'sm' => ['width' => 480, 'height' => 122],
-            'md' => ['width' => 780, 'height' => 198],
-            'lg' => ['width' => 1180, 'height' => 300]
+            'xs' => ['width' => 200, 'height' => 114],
+            'sm' => ['width' => 350, 'height' => 200],
+            'md' => ['width' => 555, 'height' => 315],
+            'lg' => ['width' => 1200, 'height' => 680]
         ];
         $this->widthOriginal = true;
     }

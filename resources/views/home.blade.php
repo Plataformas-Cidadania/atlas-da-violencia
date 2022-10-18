@@ -105,7 +105,7 @@
 
                 <div class="col-xs-12 col-sm-{{$col_carousel}} col-md-{{$col_carousel}} col-lg-{{$col_carousel}} "
                      ng-class="{'alto-contraste': altoContrasteAtivo}">
-                    <div class="box-destaque">
+                    <div class="box-destaque" style="padding: 0;">
                         <div id="carousel2" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
@@ -125,8 +125,18 @@
                                 @foreach($destaques as $destaque)
                                     <a href="{{$destaque->link}}" class="item @if($cont==0) active @endif">
                                         <div>
-                                            <h1 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$destaque->titulo}}</h1>
-                                            <h3 ng-class="{'alto-contraste': altoContrasteAtivo}">{{$destaque->chamada}}</h3>
+                                            @if($destaque->imagem)
+                                                <img src="imagens/destaques/md-{{$destaque->imagem}}" style="width: 100%;">
+                                                @if($destaque->chamada)
+                                                    <div class="carousel-caption">
+                                                        <h4 ng-class="{'alto-contraste': altoContrasteAtivo}" class="text-left" style="margin-left: 15px">{{$destaque->chamada}}</h4>
+                                                        <br>
+                                                    </div>
+                                                @endif
+                                            @else
+                                                <h1 ng-class="{'alto-contraste': altoContrasteAtivo}" style="padding: 0 10px 0 10px">{{$destaque->titulo}}</h1>
+                                                <h3 ng-class="{'alto-contraste': altoContrasteAtivo}" style="padding: 0 10px 0 10px">{{$destaque->chamada}}</h3>
+                                            @endif
                                         </div>
                                     </a>
                                         <?php $cont++;?>
