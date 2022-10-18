@@ -39,6 +39,8 @@ class PublicacaoController extends Controller
             ->distinct()
             ->get();
 
-        return view('publicacoes.listar', ['publicacao' => $publicacao, 'publicacoes' => $publicacoes, 'authors' => $authors]);
+        $textPublicacoes = \App\Text::where('slug', 'publicacoes')->first();
+
+        return view('publicacoes.listar', ['publicacao' => $publicacao, 'publicacoes' => $publicacoes, 'authors' => $authors, 'textPublicacoes' => $textPublicacoes]);
     }
 }

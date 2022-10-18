@@ -6,8 +6,13 @@
         <h1>{{$publicacao->titulo}}</h1>
         <div class="line_title bg-pri"></div>
 
-
             <br>
+
+            @if($textPublicacoes)
+                <p>{!! $textPublicacoes->descricao !!}</p>
+                <br>
+            @endif
+
             <div class="row">
 
                     @if(!empty($publicacao->imagem))
