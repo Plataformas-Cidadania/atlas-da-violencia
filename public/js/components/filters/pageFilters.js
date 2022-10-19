@@ -303,7 +303,7 @@ class PageFilters extends React.Component {
                 null,
                 this.props.lang_inquiries
             ),
-            React.createElement('div', {
+            React.createElement('div', { style: { display: this.state.tema == 0 ? '' : 'none' },
                 dangerouslySetInnerHTML: { __html: this.state.text }
             }),
             React.createElement('br', null),

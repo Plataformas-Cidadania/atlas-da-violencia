@@ -330,7 +330,7 @@ class PageFilters extends React.Component{
 
             <div className="container">
                 <h1>{this.props.lang_inquiries}</h1>
-                <div
+                <div style={{display: (this.state.tema == 0 ? '' : 'none')}}
                     dangerouslySetInnerHTML={{__html: this.state.text}}
                 />
                 <br/>
