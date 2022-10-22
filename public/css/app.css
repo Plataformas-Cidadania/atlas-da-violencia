@@ -407,6 +407,7 @@ footer {
   margin: 0 15px;
   display: flex;
   align-items: center;
+  transition: 2s;
 }
 .titulo-itens-new h2 {
   font-size: 18px;
@@ -414,6 +415,7 @@ footer {
 .titulo-itens-new:hover {
   background-color: #3498DB;
   color: #fff;
+  transform: scale(0.9) !important;
 }
 .titulo-itens-new:hover img {
   filter: brightness(0) invert(1);
