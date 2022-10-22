@@ -399,6 +399,26 @@ footer {
   text-align: center;
   margin: 0 15px;
 }
+.titulo-itens-new {
+  font-size: 18px;
+  border-radius: 8px;
+  border: 3px solid #3498DB;
+  padding: 15px;
+  margin: 0 15px;
+  display: flex;
+  align-items: center;
+}
+.titulo-itens-new h2 {
+  font-size: 18px;
+}
+.titulo-itens-new:hover {
+  background-color: #3498DB;
+  color: #fff;
+}
+.titulo-itens-new:hover img {
+  filter: brightness(0) invert(1);
+  transform: scale(0.8) !important;
+}
 #piechart {
   height: 400px;
   margin-top: -50px;

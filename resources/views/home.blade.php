@@ -44,7 +44,43 @@
 
 
                         ?>
-                        <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" >
+                        <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" style="height: inherit; margin-bottom: 15px;">
+                            <div>
+                                @if($link->tipo==0)
+                                    <a href="filtros-series/{{$link->link}}/{{clean($link->titulo)}}">
+                                @elseif($link->tipo==1)
+                                    <a href="redirecionamento/{{$link->id}}/{{clean($link->titulo)}}">
+                                @else
+                                    <a href="em-construcao">
+                                @endif
+
+                                    <div>
+                                        <div class="titulo-itens-new" ng-class="{'alto-contraste': altoContrasteAtivo}" href="{{$link->link}}">
+                                            <img class="imgLinks" srcset="imagens/links/{{$link->imagem}}" width="100"
+                                                 onerror="setSrc(this);"
+                                                 @if(is_numeric($link->link) && !empty($tema))
+                                                     alt="{{$tema->resumida}}"
+                                                 title="{{$tema->resumida}}"
+                                                 @else
+                                                     alt="Imagem sobre {{$link->titulo}}"
+                                                 title="Imagem sobre {{$link->titulo}}"
+                                                    @endif
+                                            >
+                                            <h2>{{$link->titulo}}</h2>
+                                        </div>
+                                        <script type="text/javascript">
+                                            function setSrc(e){
+                                                e.setAttribute('srcset', 'img/fallback.png');
+                                                e.setAttribute('onerror', '');
+                                            }
+                                        </script>
+                                    </div>
+                                    <div class="box-itens-filete"></div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <?php /*?><div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" >
                             <div>
                                 @if($link->tipo==0)
                                     <a href="filtros-series/{{$link->link}}/{{clean($link->titulo)}}">
@@ -78,10 +114,11 @@
                                     <div class="box-itens-filete"></div>
                                 </a>
                             </div>
-                        </div>
+                        </div><?php */?>
                         <?php $cont_animecao ++;?>
                     @endforeach
                 </div>
+                <br><br><br><br>
             </div>
         @endif
     </article>
@@ -395,7 +432,7 @@
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
                 <div class="row box-hoje">
-                    <h3 style="color: #EF921A; font-size: 36px; background-color: #fff; padding: 20px 0 20px 0; margin-bottom: 20px;" ><strong>@lang('pages.indexes')</strong></h3>
+                    <h3 style="color: #EF921A; font-size: 36px; background-color: #fff; padding: 20px 0 20px 0; margin-bottom: 20px; border-radius: 5px; margin-bottom: 30px;" ><strong>@lang('pages.indexes')</strong></h3>
                     {{--<h2 style="color: #EF921A; background-color: #fff; padding: 20px 0 20px 0;" ><strong>@lang('pages.indexes')</strong></h2>--}}
                     <?php $cont_indice = 1;?>
                     @foreach($indices as $indice)
