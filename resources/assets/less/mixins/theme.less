@@ -95,6 +95,33 @@
   text-align: center;
   margin: 0 15px;
 }
+.titulo-itens-new{
+  font-size: 18px;
+  border-radius: 8px;
+  border: 3px solid @color-pri;
+  padding: 15px;
+  margin: 0 15px;
+  display: flex;
+  align-items: center;
+  transition: 2s;
+
+  h2 {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background-color: @color-pri;
+    color: #fff;
+    transform: scale(0.9) !important;
+
+
+    img {
+      filter: brightness(0) invert(1);
+      transform: scale(0.8) !important;
+    }
+  }
+
+}
 
 #piechart{
   height: 400px;

@@ -11,7 +11,9 @@
     "babel-install": "^2.1.0",
     "bootstrap-sass": "^3.0.0",
     "gulp-sass": "3.0.0",
-    "laravel-elixir": "^5.0.0",
-    "leaflet.fullscreen": "^1.6.0"
+    "laravel-elixir": "^6.0.0-18",
+    "leaflet.fullscreen": "^1.6.0",
+    "node-sass": "^7.0.3",
+    "session": "^0.1.0"
   }
 }
