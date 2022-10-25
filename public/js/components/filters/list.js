@@ -122,7 +122,7 @@ class List extends React.Component {
                     { key: 'btn-metadados' + index, className: 'text-right' },
                     React.createElement(
                         'a',
-                        { href: "arquivos/metadados/" + item.arquivo_metadados, download: item.arquivo_metadados, style: { cursor: 'pointer', display: item.downloads ? '' : 'none' }, title: 'Download Metadados', target: '_blank' },
+                        { href: "arquivos/metadados/" + item.arquivo_metadados, download: item.arquivo_metadados, style: { cursor: 'pointer', display: item.downloads ? '' : 'none' }, title: 'Metadados', target: '_blank' },
                         React.createElement('i', { className: 'fa fa-file-text-o', style: { fontSize: '1.5em' } })
                     )
                 );
@@ -143,7 +143,7 @@ class List extends React.Component {
                                 'a',
                                 {
                                     style: { cursor: 'pointer' },
-                                    title: 'Download Metadados',
+                                    title: 'Metadados',
                                     onClick: () => downloadTextToFile('metadados-serie-' + item.id, removeHTML(item.descricao))
                                 },
                                 React.createElement('i', { className: 'fa fa-file-text-o', style: { fontSize: '1.5em' } })

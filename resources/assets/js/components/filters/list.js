@@ -84,7 +84,7 @@ class List extends React.Component{
                 buttons[2] = (<td key={'btn-todos-os-territorios'+index} className="text-right"><a href={this.state.urlDetailItem+"/"+item.id} title="Dados" target="_blank"><i className="fa fa-line-chart" style={{fontSize: '1.5em'}}/></a></td>);
                 //buttons[3] = (<td key={'btn-download'+index} className="text-right"><a style={{cursor: 'pointer'}} onClick={() => this.modalDownload(item.id)} title="Download" target="_blank"><i className="fa fa-file-excel-o" style={{fontSize: '1.5em'}}/></a></td>);
                 buttons[3] = (<td key={'btn-download'+index} className="text-right"><a style={{cursor: 'pointer', display: item.downloads ? '' : 'none'}} onClick={() => this.modalDownload(item.id)} title="Download" target="_blank"><i className="fa fa-file-excel-o" style={{fontSize: '1.5em'}}/></a></td>);
-                buttons[4] = (<td key={'btn-metadados'+index} className="text-right"><a href={"arquivos/metadados/"+item.arquivo_metadados} download={item.arquivo_metadados} style={{cursor: 'pointer', display: item.downloads ? '' : 'none'}} title="Download Metadados" target="_blank"><i className="fa fa-file-text-o" style={{fontSize: '1.5em'}}/></a></td>);
+                buttons[4] = (<td key={'btn-metadados'+index} className="text-right"><a href={"arquivos/metadados/"+item.arquivo_metadados} download={item.arquivo_metadados} style={{cursor: 'pointer', display: item.downloads ? '' : 'none'}} title="Metadados" target="_blank"><i className="fa fa-file-text-o" style={{fontSize: '1.5em'}}/></a></td>);
 
                 console.log(item.arquivo_metadados);
                 if(item.arquivo_metadados === '' || item.arquivo_metadados === null){
@@ -95,7 +95,7 @@ class List extends React.Component{
                             <td className="text-right">
                                 <a
                                     style={{cursor: 'pointer'}}
-                                    title="Download Metadados"
+                                    title="Metadados"
                                     onClick={() => downloadTextToFile('metadados-serie-'+item.id, removeHTML(item.descricao))}
                                 >
                                     <i className="fa fa-file-text-o" style={{fontSize: '1.5em'}}/>

@@ -42,7 +42,9 @@ class PageFilters extends React.Component {
     }
 
     componentDidMount() {
-        //this.loadItems();
+        if (this.props.tema_id > 0) {
+            this.loadItems();
+        }
         this.loadText();
         this.loadTextPesquisa();
     }
