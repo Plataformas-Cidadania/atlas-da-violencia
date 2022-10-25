@@ -96,23 +96,30 @@
   margin: 0 15px;
 }
 .titulo-itens-new{
+  display: flex;
   font-size: 18px;
   border-radius: 8px;
   border: 3px solid @color-pri;
   padding: 15px;
   margin: 0 15px;
-  display: flex;
-  align-items: center;
   transition: 2s;
+  align-items: center;
+  justify-content: flex-start;
+  background-image: url("img/icones.png");
+
 
   h2 {
+    display: flex;
     font-size: 18px;
+    min-height: 90px;
+    align-items: center;
+    justify-content: center;
   }
 
   &:hover {
     background-color: @color-pri;
     color: #fff;
-    transform: scale(0.9) !important;
+    transform: scale(1.1) !important;
 
 
     img {

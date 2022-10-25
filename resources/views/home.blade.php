@@ -44,7 +44,7 @@
 
 
                         ?>
-                        <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" style="height: inherit; margin-bottom: 15px;">
+                        <div class="filtros " data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" style="height: inherit; margin-bottom: 15px;">
                             <div>
                                 @if($link->tipo==0)
                                     <a href="filtros-series/{{$link->link}}/{{clean($link->titulo)}}">
@@ -75,7 +75,7 @@
                                             }
                                         </script>
                                     </div>
-                                    <div class="box-itens-filete"></div>
+                                    {{--<div class="box-itens-filete"></div>--}}
                                 </a>
                             </div>
                         </div>
