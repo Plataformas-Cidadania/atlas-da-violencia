@@ -3,7 +3,6 @@
 @section('content')
 
     <br><br>
-
     @if($textoLinks)
     <div class="container">
         <div class="row">
@@ -41,10 +40,8 @@
                                 ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
                                 ->first();
                         }
-
-
                         ?>
-                        <div class="filtros box-itens block" data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" style="height: inherit; margin-bottom: 15px;">
+                        <div class="filtros " data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" style="height: inherit; margin-bottom: 15px;">
                             <div>
                                 @if($link->tipo==0)
                                     <a href="filtros-series/{{$link->link}}/{{clean($link->titulo)}}">
@@ -75,7 +72,7 @@
                                             }
                                         </script>
                                     </div>
-                                    <div class="box-itens-filete"></div>
+                                    {{--<div class="box-itens-filete"></div>--}}
                                 </a>
                             </div>
                         </div>
@@ -432,17 +429,21 @@
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
                 <div class="row box-hoje">
-                    <h3 style="color: #EF921A; font-size: 32px; background-color: #fff; padding: 20px 0 20px 0; margin-bottom: 20px; border-radius: 5px; margin-bottom: 30px;" ><strong>@lang('pages.indexes')</strong></h3>
-                    {{--<h2 style="color: #EF921A; background-color: #fff; padding: 20px 0 20px 0;" ><strong>@lang('pages.indexes')</strong></h2>--}}
-                    <?php $cont_indice = 1;?>
-                    @foreach($indices as $indice)
-                    <div class="col-md-3">
-                        <img id="imagemIndice<?php echo $cont_indice;?>" src="imagens/indices/xs-<?php echo $indice->imagem; ?>" />
-                        <h2 id="contadorIndice<?php echo $cont_indice;?>"></h2>
-                        <p id="nomeIndice<?php echo $cont_indice;?>"></p>
+
+                    <div class="col-md-12">
+                        <h3 style="color: #EF921A; font-size: 32px; background-color: #fff; padding: 20px 0 20px 0; border-radius: 5px; margin-bottom: 60px;" ><strong>@lang('pages.indexes')</strong></h3>
+                        {{--<h2 style="color: #EF921A; background-color: #fff; padding: 20px 0 20px 0;" ><strong>@lang('pages.indexes')</strong></h2>--}}
+                            <?php $cont_indice = 1;?>
+                        @foreach($indices as $indice)
+                            <div class="col-md-3">
+                                <img id="imagemIndice<?php echo $cont_indice;?>" src="imagens/indices/xs-<?php echo $indice->imagem; ?>" />
+                                <h2 id="contadorIndice<?php echo $cont_indice;?>"></h2>
+                                <p id="nomeIndice<?php echo $cont_indice;?>"></p>
+                            </div>
+                                <?php $cont_indice ++;?>
+                        @endforeach
+
                     </div>
-                    <?php $cont_indice ++;?>
-                    @endforeach
                 </div>
                 <br>
             </div>
@@ -533,7 +534,6 @@
             border: solid 1px #DDDDDD;
             min-height: inherit;
         }
-
     </style>
 
 @endsection
