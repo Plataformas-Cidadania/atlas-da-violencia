@@ -3,7 +3,6 @@
 @section('content')
 
     <br><br>
-
     @if($textoLinks)
     <div class="container">
         <div class="row">
@@ -41,8 +40,6 @@
                                 ->join('idiomas_temas', 'idiomas_temas.tema_id', '=', 'temas.id')
                                 ->first();
                         }
-
-
                         ?>
                         <div class="filtros " data-move-x="<?php echo $valor_anime;?>" ng-class="{'alto-contraste': altoContrasteAtivo}" style="height: inherit; margin-bottom: 15px;">
                             <div>
@@ -533,7 +530,6 @@
             border: solid 1px #DDDDDD;
             min-height: inherit;
         }
-
     </style>
 
 @endsection

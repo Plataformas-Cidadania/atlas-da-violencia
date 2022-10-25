@@ -410,6 +410,7 @@ footer {
   align-items: center;
   justify-content: flex-start;
   background-image: url("img/icones.png");
+  background-position: bottom;
 }
 .titulo-itens-new h2 {
   display: flex;
@@ -422,6 +423,7 @@ footer {
   background-color: #3498DB;
   color: #fff;
   transform: scale(1.1) !important;
+  background-position: top;
 }
 .titulo-itens-new:hover img {
   filter: brightness(0) invert(1);
