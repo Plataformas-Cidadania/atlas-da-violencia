@@ -457,7 +457,7 @@ $series = \App\Serie::join('textos_series', 'series.id', '=', 'textos_series.ser
                 if(i>total){
                     i=total;
                 }
-                $(id).html(i);
+                $(id).html(String(i).replace(/(.)(?=(\d{3})+$)/g,'$1.'));
             }, 30)
         }
 

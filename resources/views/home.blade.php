@@ -432,7 +432,7 @@
         <div class="bg-pri" ng-class="{'alto-contraste': altoContrasteAtivo}">
             <div class="container">
                 <div class="row box-hoje">
-                    <h3 style="color: #EF921A; font-size: 36px; background-color: #fff; padding: 20px 0 20px 0; margin-bottom: 20px; border-radius: 5px; margin-bottom: 30px;" ><strong>@lang('pages.indexes')</strong></h3>
+                    <h3 style="color: #EF921A; font-size: 32px; background-color: #fff; padding: 20px 0 20px 0; margin-bottom: 20px; border-radius: 5px; margin-bottom: 30px;" ><strong>@lang('pages.indexes')</strong></h3>
                     {{--<h2 style="color: #EF921A; background-color: #fff; padding: 20px 0 20px 0;" ><strong>@lang('pages.indexes')</strong></h2>--}}
                     <?php $cont_indice = 1;?>
                     @foreach($indices as $indice)
